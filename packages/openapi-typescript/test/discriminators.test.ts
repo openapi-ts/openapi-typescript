@@ -45,10 +45,7 @@ describe("3.1 discriminators", () => {
                 allOf: [{ $ref: "#/components/schemas/Pet" }],
               },
               LizardDog: {
-                allOf: [
-                  { $ref: "#/components/schemas/Dog" },
-                  { $ref: "#/components/schemas/Lizard" },
-                ],
+                allOf: [{ $ref: "#/components/schemas/Dog" }, { $ref: "#/components/schemas/Lizard" }],
               },
               AnimalSighting: {
                 oneOf: [
@@ -640,7 +637,7 @@ export type operations = Record<string, never>;`,
         if (want instanceof URL) {
           expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {
-          expect(result).toBe(want + "\n");
+          expect(result).toBe(`${want}\n`);
         }
       },
       ci?.timeout,

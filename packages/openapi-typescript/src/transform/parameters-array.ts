@@ -1,18 +1,7 @@
 import ts from "typescript";
-import {
-  NEVER,
-  QUESTION_TOKEN,
-  addJSDocComment,
-  oapiRef,
-  tsModifiers,
-  tsPropertyIndex,
-} from "../lib/ts.js";
+import { NEVER, QUESTION_TOKEN, addJSDocComment, oapiRef, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
 import { createRef } from "../lib/utils.js";
-import type {
-  ParameterObject,
-  ReferenceObject,
-  TransformNodeOptions,
-} from "../types.js";
+import type { ParameterObject, ReferenceObject, TransformNodeOptions } from "../types.js";
 import transformParameterObject from "./parameter-object.js";
 
 /**
@@ -26,30 +15,19 @@ export function transformParametersArray(
 
   // parameters
   const paramType: ts.TypeElement[] = [];
-  for (const paramIn of [
-    "query",
-    "header",
-    "path",
-    "cookie",
-  ] as ParameterObject["in"][]) {
+  for (const paramIn of ["query", "header", "path", "cookie"] as ParameterObject["in"][]) {
     const paramLocType: ts.TypeElement[] = [];
     let operationParameters = parametersArray.map((param) => ({
       original: param,
-      resolved:
-        "$ref" in param
-          ? options.ctx.resolve<ParameterObject>(param.$ref)
-          : param,
+      resolved: "$ref" in param ? options.ctx.resolve<ParameterObject>(param.$ref) : param,
     }));
     // this is the only array type in the spec, so we have to one-off sort here
     if (options.ctx.alphabetize) {
-      operationParameters.sort((a, b) =>
-        (a.resolved?.name ?? "").localeCompare(b.resolved?.name ?? ""),
-      );
+      operationParameters.sort((a, b) => (a.resolved?.name ?? "").localeCompare(b.resolved?.name ?? ""));
     }
     if (options.ctx.excludeDeprecated) {
       operationParameters = operationParameters.filter(
-        ({ resolved }) =>
-          !resolved?.deprecated && !resolved?.schema?.deprecated,
+        ({ resolved }) => !resolved?.deprecated && !resolved?.schema?.deprecated,
       );
     }
     for (const { original, resolved } of operationParameters) {
@@ -65,12 +43,7 @@ export function transformParametersArray(
           ? oapiRef(original.$ref)
           : transformParameterObject(resolved as ParameterObject, {
               ...options,
-              path: createRef([
-                options.path ?? "",
-                "parameters",
-                resolved.in,
-                resolved.name,
-              ]),
+              path: createRef([options.path, "parameters", resolved.in, resolved.name]),
             });
       const property = ts.factory.createPropertySignature(
         /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
@@ -86,12 +59,8 @@ export function transformParametersArray(
       ts.factory.createPropertySignature(
         /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
         /* name          */ tsPropertyIndex(paramIn),
-        /* questionToken */ allOptional || !paramLocType.length
-          ? QUESTION_TOKEN
-          : undefined,
-        /* type          */ paramLocType.length
-          ? ts.factory.createTypeLiteralNode(paramLocType)
-          : NEVER,
+        /* questionToken */ allOptional || !paramLocType.length ? QUESTION_TOKEN : undefined,
+        /* type          */ paramLocType.length ? ts.factory.createTypeLiteralNode(paramLocType) : NEVER,
       ),
     );
   }
@@ -100,9 +69,7 @@ export function transformParametersArray(
       /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
       /* name          */ tsPropertyIndex("parameters"),
       /* questionToken */ !paramType.length ? QUESTION_TOKEN : undefined,
-      /* type          */ paramType.length
-        ? ts.factory.createTypeLiteralNode(paramType)
-        : NEVER,
+      /* type          */ paramType.length ? ts.factory.createTypeLiteralNode(paramType) : NEVER,
     ),
   );
 

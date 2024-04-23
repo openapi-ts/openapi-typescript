@@ -16,27 +16,16 @@ import {
 
 describe("addJSDocComment", () => {
   test("single-line comment", () => {
-    const property = ts.factory.createPropertySignature(
-      undefined,
-      "comment",
-      undefined,
-      BOOLEAN,
-    );
+    const property = ts.factory.createPropertySignature(undefined, "comment", undefined, BOOLEAN);
     addJSDocComment({ description: "Single-line comment" }, property);
-    expect(astToString(ts.factory.createTypeLiteralNode([property])).trim())
-      .toBe(`{
+    expect(astToString(ts.factory.createTypeLiteralNode([property])).trim()).toBe(`{
     /** @description Single-line comment */
     comment: boolean;
 }`);
   });
 
   test("multi-line comment", () => {
-    const property = ts.factory.createPropertySignature(
-      undefined,
-      "comment",
-      undefined,
-      BOOLEAN,
-    );
+    const property = ts.factory.createPropertySignature(undefined, "comment", undefined, BOOLEAN);
     addJSDocComment(
       {
         summary: "This is the summary",
@@ -45,8 +34,7 @@ describe("addJSDocComment", () => {
       },
       property,
     );
-    expect(astToString(ts.factory.createTypeLiteralNode([property])).trim())
-      .toBe(`{
+    expect(astToString(ts.factory.createTypeLiteralNode([property])).trim()).toBe(`{
     /**
      * This is the summary
      * @deprecated
@@ -58,18 +46,9 @@ describe("addJSDocComment", () => {
   });
 
   test("escapes internal comments", () => {
-    const property = ts.factory.createPropertySignature(
-      undefined,
-      "comment",
-      undefined,
-      BOOLEAN,
-    );
-    addJSDocComment(
-      { title: "This is a comment with `/* an example comment */` within" },
-      property,
-    );
-    expect(astToString(ts.factory.createTypeLiteralNode([property])).trim())
-      .toBe(`{
+    const property = ts.factory.createPropertySignature(undefined, "comment", undefined, BOOLEAN);
+    addJSDocComment({ title: "This is a comment with `/* an example comment */` within" }, property);
+    expect(astToString(ts.factory.createTypeLiteralNode([property])).trim()).toBe(`{
     /** This is a comment with \`/* an example comment *\\/\` within */
     comment: boolean;
 }`);
@@ -78,20 +57,17 @@ describe("addJSDocComment", () => {
 
 describe("oapiRef", () => {
   test("single part", () => {
-    expect(astToString(oapiRef("#/components")).trim()).toBe(`components`);
+    expect(astToString(oapiRef("#/components")).trim()).toBe("components");
   });
 
   test("multiple parts", () => {
-    expect(astToString(oapiRef("#/components/schemas/User")).trim()).toBe(
-      `components["schemas"]["User"]`,
-    );
+    expect(astToString(oapiRef("#/components/schemas/User")).trim()).toBe(`components["schemas"]["User"]`);
   });
 });
 
 describe("tsEnum", () => {
   test("string members", () => {
-    expect(astToString(tsEnum("-my-color-", ["green", "red", "blue"])).trim())
-      .toBe(`enum MyColor {
+    expect(astToString(tsEnum("-my-color-", ["green", "red", "blue"])).trim()).toBe(`enum MyColor {
     green = "green",
     red = "red",
     blue = "blue"
@@ -113,22 +89,14 @@ describe("tsEnum", () => {
   });
 
   test("name from path", () => {
-    expect(
-      astToString(
-        tsEnum("#/paths/url/get/parameters/query/status", [
-          "active",
-          "inactive",
-        ]),
-      ).trim(),
-    ).toBe(`enum PathsUrlGetParametersQueryStatus {
+    expect(astToString(tsEnum("#/paths/url/get/parameters/query/status", ["active", "inactive"])).trim()).toBe(`enum PathsUrlGetParametersQueryStatus {
     active = "active",
     inactive = "inactive"
 }`);
   });
 
   test("string members with numeric prefix", () => {
-    expect(astToString(tsEnum("/my/enum/", ["0a", "1b", "2c"])).trim())
-      .toBe(`enum MyEnum {
+    expect(astToString(tsEnum("/my/enum/", ["0a", "1b", "2c"])).trim()).toBe(`enum MyEnum {
     Value0a = "0a",
     Value1b = "1b",
     Value2c = "2c"
@@ -136,8 +104,7 @@ describe("tsEnum", () => {
   });
 
   test("number members", () => {
-    expect(astToString(tsEnum(".Error.code.", [100, 101, 102, -100])).trim())
-      .toBe(`enum ErrorCode {
+    expect(astToString(tsEnum(".Error.code.", [100, 101, 102, -100])).trim()).toBe(`enum ErrorCode {
     Value100 = 100,
     Value101 = 101,
     Value102 = 102,
@@ -151,11 +118,7 @@ describe("tsEnum", () => {
         tsEnum(
           ".Error.code.",
           [100, 101, 102],
-          [
-            { description: "Code 100" },
-            { description: "Code 101" },
-            { description: "Code 102" },
-          ],
+          [{ description: "Code 100" }, { description: "Code 101" }, { description: "Code 102" }],
         ),
       ).trim(),
     ).toBe(`enum ErrorCode {
@@ -174,11 +137,7 @@ describe("tsEnum", () => {
         tsEnum(
           ".Error.code.",
           [100, 101, 102],
-          [
-            { name: "Unauthorized" },
-            { name: "NotFound" },
-            { name: "PermissionDenied" },
-          ],
+          [{ name: "Unauthorized" }, { name: "NotFound" }, { name: "PermissionDenied" }],
         ),
       ).trim(),
     ).toBe(`enum ErrorCode {
@@ -190,13 +149,7 @@ describe("tsEnum", () => {
 
   test("x-enum-varnames with numeric prefix", () => {
     expect(
-      astToString(
-        tsEnum(
-          ".Error.code.",
-          [100, 101, 102],
-          [{ name: "0a" }, { name: "1b" }, { name: "2c" }],
-        ),
-      ).trim(),
+      astToString(tsEnum(".Error.code.", [100, 101, 102], [{ name: "0a" }, { name: "1b" }, { name: "2c" }])).trim(),
     ).toBe(`enum ErrorCode {
     Value0a = 100,
     Value1b = 101,
@@ -210,10 +163,7 @@ describe("tsEnum", () => {
         tsEnum(
           ".Error.code.",
           [100, 101, 102],
-          [
-            { name: "Unauthorized", description: "User is unauthorized" },
-            { name: "NotFound" },
-          ],
+          [{ name: "Unauthorized", description: "User is unauthorized" }, { name: "NotFound" }],
         ),
       ).trim(),
     ).toBe(`enum ErrorCode {
@@ -253,32 +203,24 @@ describe("tsEnum", () => {
 
 describe("tsPropertyIndex", () => {
   test("numbers -> number literals", () => {
-    expect(astToString(tsPropertyIndex(200)).trim()).toBe(`200`);
-    expect(astToString(tsPropertyIndex(200.5)).trim()).toBe(`200.5`);
-    expect(astToString(tsPropertyIndex(Infinity)).trim()).toBe(`Infinity`);
-    expect(astToString(tsPropertyIndex(NaN)).trim()).toBe(`NaN`);
-    expect(astToString(tsPropertyIndex(10e3)).trim()).toBe(`10000`);
+    expect(astToString(tsPropertyIndex(200)).trim()).toBe("200");
+    expect(astToString(tsPropertyIndex(200.5)).trim()).toBe("200.5");
+    expect(astToString(tsPropertyIndex(Number.POSITIVE_INFINITY)).trim()).toBe("Infinity");
+    expect(astToString(tsPropertyIndex(Number.NaN)).trim()).toBe("NaN");
+    expect(astToString(tsPropertyIndex(10e3)).trim()).toBe("10000");
   });
 
   test("valid strings -> identifiers", () => {
-    expect(astToString(tsPropertyIndex("identifier")).trim()).toBe(
-      `identifier`,
-    );
-    expect(astToString(tsPropertyIndex("snake_case")).trim()).toBe(
-      `snake_case`,
-    );
-    expect(astToString(tsPropertyIndex(200)).trim()).toBe(`200`);
-    expect(astToString(tsPropertyIndex("$id")).trim()).toBe(`$id`);
+    expect(astToString(tsPropertyIndex("identifier")).trim()).toBe("identifier");
+    expect(astToString(tsPropertyIndex("snake_case")).trim()).toBe("snake_case");
+    expect(astToString(tsPropertyIndex(200)).trim()).toBe("200");
+    expect(astToString(tsPropertyIndex("$id")).trim()).toBe("$id");
     expect(astToString(tsPropertyIndex("10e3")).trim()).toBe(`"10e3"`);
   });
 
   test("invalid strings -> string literals", () => {
-    expect(astToString(tsPropertyIndex("kebab-case")).trim()).toBe(
-      `"kebab-case"`,
-    );
-    expect(astToString(tsPropertyIndex("application/json")).trim()).toBe(
-      `"application/json"`,
-    );
+    expect(astToString(tsPropertyIndex("kebab-case")).trim()).toBe(`"kebab-case"`);
+    expect(astToString(tsPropertyIndex("application/json")).trim()).toBe(`"application/json"`);
     expect(astToString(tsPropertyIndex("0invalid")).trim()).toBe(`"0invalid"`);
     expect(astToString(tsPropertyIndex("inv@lid")).trim()).toBe(`"inv@lid"`);
     expect(astToString(tsPropertyIndex("in.valid")).trim()).toBe(`"in.valid"`);
@@ -311,14 +253,7 @@ describe("tsIsPrimitive", () => {
   test("object", () => {
     expect(
       tsIsPrimitive(
-        ts.factory.createTypeLiteralNode([
-          ts.factory.createPropertySignature(
-            undefined,
-            "foo",
-            undefined,
-            STRING,
-          ),
-        ]),
+        ts.factory.createTypeLiteralNode([ts.factory.createPropertySignature(undefined, "foo", undefined, STRING)]),
       ),
     ).toBe(false);
   });
@@ -326,25 +261,21 @@ describe("tsIsPrimitive", () => {
 
 describe("tsUnion", () => {
   test("none", () => {
-    expect(astToString(tsUnion([])).trim()).toBe(`never`);
+    expect(astToString(tsUnion([])).trim()).toBe("never");
   });
 
   test("one", () => {
-    expect(astToString(tsUnion([STRING])).trim()).toBe(`string`);
+    expect(astToString(tsUnion([STRING])).trim()).toBe("string");
   });
 
   test("multiple (primitive)", () => {
-    expect(
-      astToString(tsUnion([STRING, STRING, NUMBER, NULL, NUMBER, NULL])).trim(),
-    ).toBe(`string | number | null`);
+    expect(astToString(tsUnion([STRING, STRING, NUMBER, NULL, NUMBER, NULL])).trim()).toBe("string | number | null");
   });
 
   test("multiple (const)", () => {
-    expect(
-      astToString(
-        tsUnion([NULL, tsLiteral("red"), tsLiteral(42), tsLiteral(false)]),
-      ).trim(),
-    ).toBe(`null | "red" | 42 | false`);
+    expect(astToString(tsUnion([NULL, tsLiteral("red"), tsLiteral(42), tsLiteral(false)])).trim()).toBe(
+      `null | "red" | 42 | false`,
+    );
   });
 
   test("multiple (object types)", () => {

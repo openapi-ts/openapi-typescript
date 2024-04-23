@@ -11,7 +11,5 @@ export default function transformParameterObject(
   parameterObject: ParameterObject,
   options: TransformNodeOptions,
 ): ts.TypeNode {
-  return parameterObject.schema
-    ? transformSchemaObject(parameterObject.schema, options)
-    : STRING; // assume a parameter is a string by default rather than "unknown"
+  return parameterObject.schema ? transformSchemaObject(parameterObject.schema, options) : STRING; // assume a parameter is a string by default rather than "unknown"
 }

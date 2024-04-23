@@ -14,7 +14,7 @@ describe("transformSchemaObject > number", () => {
       "basic",
       {
         given: { type: "number" },
-        want: `number`,
+        want: "number",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -22,7 +22,7 @@ describe("transformSchemaObject > number", () => {
       "enum",
       {
         given: { type: "number", enum: [50, 100, 200] },
-        want: `50 | 100 | 200`,
+        want: "50 | 100 | 200",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -30,7 +30,7 @@ describe("transformSchemaObject > number", () => {
       "integer",
       {
         given: { type: "integer" },
-        want: `number`,
+        want: "number",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -38,7 +38,7 @@ describe("transformSchemaObject > number", () => {
       "nullable",
       {
         given: { type: ["number", "null"] },
-        want: `number | null`,
+        want: "number | null",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -46,16 +46,13 @@ describe("transformSchemaObject > number", () => {
       "nullable (deprecated syntax)",
       {
         given: { type: "number", nullable: true },
-        want: `number | null`,
+        want: "number | null",
         // options: DEFAULT_OPTIONS,
       },
     ],
   ];
 
-  for (const [
-    testName,
-    { given, want, options = DEFAULT_OPTIONS, ci },
-  ] of tests) {
+  for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
     test.skipIf(ci?.skipIf)(
       testName,
       async () => {
@@ -63,7 +60,7 @@ describe("transformSchemaObject > number", () => {
         if (want instanceof URL) {
           expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {
-          expect(result).toBe(want + "\n");
+          expect(result).toBe(`${want}\n`);
         }
       },
       ci?.timeout,

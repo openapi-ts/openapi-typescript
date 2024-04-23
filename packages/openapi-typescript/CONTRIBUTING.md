@@ -119,7 +119,7 @@ npx vitest
 
 ### Running linting
 
-To run ESLint on the project:
+Linting is handled via [Biome](https://biomejs.dev), a faster ESLint replacement. It was installed with `pnpm i` and can be run with:
 
 ```bash
 pnpm run lint

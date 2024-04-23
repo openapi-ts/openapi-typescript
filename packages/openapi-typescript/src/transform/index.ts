@@ -1,7 +1,4 @@
-import ts, {
-  type InterfaceDeclaration,
-  type TypeLiteralNode,
-} from "typescript";
+import ts, { type InterfaceDeclaration, type TypeLiteralNode } from "typescript";
 import { NEVER, STRING, tsModifiers, tsRecord } from "../lib/ts.js";
 import { createRef, debug } from "../lib/utils.js";
 import type { GlobalContext, OpenAPI3 } from "../types.js";
@@ -10,20 +7,13 @@ import transformPathsObject from "./paths-object.js";
 import transformSchemaObject from "./schema-object.js";
 import transformWebhooksObject from "./webhooks-object.js";
 
-type SchemaTransforms = keyof Pick<
-  OpenAPI3,
-  "paths" | "webhooks" | "components" | "$defs"
->;
+type SchemaTransforms = keyof Pick<OpenAPI3, "paths" | "webhooks" | "components" | "$defs">;
 
-const transformers: Record<
-  SchemaTransforms,
-  (node: any, options: GlobalContext) => ts.TypeNode // eslint-disable-line @typescript-eslint/no-explicit-any
-> = {
+const transformers: Record<SchemaTransforms, (node: any, options: GlobalContext) => ts.TypeNode> = {
   paths: transformPathsObject,
   webhooks: transformWebhooksObject,
   components: transformComponentsObject,
-  $defs: (node, options) =>
-    transformSchemaObject(node, { path: createRef(["$defs"]), ctx: options }),
+  $defs: (node, options) => transformSchemaObject(node, { path: createRef(["$defs"]), ctx: options }),
 };
 
 export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
@@ -71,10 +61,7 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
   // inject
   let hasOperations = false;
   for (const injectedType of ctx.injectFooter) {
-    if (
-      !hasOperations &&
-      (injectedType as InterfaceDeclaration)?.name?.escapedText === "operations"
-    ) {
+    if (!hasOperations && (injectedType as InterfaceDeclaration)?.name?.escapedText === "operations") {
       hasOperations = true;
     }
     type.push(injectedType);

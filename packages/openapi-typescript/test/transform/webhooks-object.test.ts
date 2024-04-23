@@ -39,8 +39,7 @@ describe("transformWebhooksObject", () => {
               },
               responses: {
                 200: {
-                  description:
-                    "Return a 200 status to indicate that the data was received successfully",
+                  description: "Return a 200 status to indicate that the data was received successfully",
                 },
               },
             },
@@ -180,10 +179,7 @@ describe("transformWebhooksObject", () => {
     ],
   ];
 
-  for (const [
-    testName,
-    { given, want, options = DEFAULT_OPTIONS, ci },
-  ] of tests) {
+  for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
     test.skipIf(ci?.skipIf)(
       testName,
       async () => {
@@ -191,7 +187,7 @@ describe("transformWebhooksObject", () => {
         if (want instanceof URL) {
           expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {
-          expect(result).toBe(want + "\n");
+          expect(result).toBe(`${want}\n`);
         }
       },
       ci?.timeout,

@@ -3,7 +3,6 @@ import type { PathLike } from "node:fs";
 import type ts from "typescript";
 
 // Many types allow for true “any” for inheritance to work
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 export interface Extensable {
   [key: `x-${string}`]: any;
@@ -453,18 +452,8 @@ export type SchemaObject = {
   | NullSubtype
   | ObjectSubtype
   | {
-      type: (
-        | "string"
-        | "number"
-        | "integer"
-        | "array"
-        | "boolean"
-        | "null"
-        | "object"
-      )[];
+      type: ("string" | "number" | "integer" | "array" | "boolean" | "null" | "object")[];
     }
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  | {}
 );
 
 export interface TransformObject {
@@ -512,11 +501,7 @@ export interface NullSubtype {
 export interface ObjectSubtype {
   type: "object" | ["object", "null"];
   properties?: { [name: string]: SchemaObject | ReferenceObject };
-  additionalProperties?:
-    | boolean
-    | Record<string, never>
-    | SchemaObject
-    | ReferenceObject;
+  additionalProperties?: boolean | Record<string, never> | SchemaObject | ReferenceObject;
   required?: string[];
   allOf?: (SchemaObject | ReferenceObject)[];
   anyOf?: (SchemaObject | ReferenceObject)[];
@@ -631,10 +616,7 @@ export interface OAuthFlowObject extends Extensable {
  * [4.8.30] Security Requirements Object
  * Lists the required security schemes to execute this operation. The name used for each property MUST correspond to a security scheme declared in the Security Schemes under the Components Object.
  */
-export type SecurityRequirementObject = Record<
-  keyof ComponentsObject["securitySchemes"],
-  string[]
->;
+export type SecurityRequirementObject = Record<keyof ComponentsObject["securitySchemes"], string[]>;
 
 export interface OpenAPITSOptions {
   /** Treat all objects as if they have `additionalProperties: true` by default (default: false) */
@@ -652,15 +634,9 @@ export interface OpenAPITSOptions {
   /** Exclude deprecated fields from types? (default: false) */
   excludeDeprecated?: boolean;
   /** Manually transform certain Schema Objects with a custom TypeScript type */
-  transform?: (
-    schemaObject: SchemaObject,
-    options: TransformNodeOptions,
-  ) => ts.TypeNode | TransformObject | undefined;
+  transform?: (schemaObject: SchemaObject, options: TransformNodeOptions) => ts.TypeNode | TransformObject | undefined;
   /** Modify TypeScript types built from Schema Objects */
-  postTransform?: (
-    type: ts.TypeNode,
-    options: TransformNodeOptions,
-  ) => ts.TypeNode | undefined;
+  postTransform?: (type: ts.TypeNode, options: TransformNodeOptions) => ts.TypeNode | undefined;
   /** Add readonly properties and readonly arrays? (default: false) */
   immutable?: boolean;
   /** (optional) Should logging be suppressed? (necessary for STDOUT) */

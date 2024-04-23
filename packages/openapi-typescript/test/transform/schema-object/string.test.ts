@@ -14,7 +14,7 @@ describe("transformSchemaObject > string", () => {
       "basic",
       {
         given: { type: "string" },
-        want: `string`,
+        want: "string",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -57,8 +57,7 @@ describe("transformSchemaObject > string", () => {
       "enum (quotes)",
       {
         // prettier-ignore
-        // eslint-disable-next-line no-useless-escape
-        given: { type: "string", enum: ['"', "'", '\"', "`"] },
+        given: { type: "string", enum: ['"', "'", '"', "`"] },
         want: `"\\"" | "'" | "\\"" | "\`"`,
       },
     ],
@@ -66,7 +65,7 @@ describe("transformSchemaObject > string", () => {
       "nullable",
       {
         given: { type: ["string", "null"] },
-        want: `string | null`,
+        want: "string | null",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -74,16 +73,13 @@ describe("transformSchemaObject > string", () => {
       "nullable (deprecated syntax)",
       {
         given: { type: "string", nullable: true },
-        want: `string | null`,
+        want: "string | null",
         // options: DEFAULT_OPTIONS,
       },
     ],
   ];
 
-  for (const [
-    testName,
-    { given, want, options = DEFAULT_OPTIONS, ci },
-  ] of tests) {
+  for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
     test.skipIf(ci?.skipIf)(
       testName,
       async () => {
@@ -91,7 +87,7 @@ describe("transformSchemaObject > string", () => {
         if (want instanceof URL) {
           expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {
-          expect(result).toBe(want + "\n");
+          expect(result).toBe(`${want}\n`);
         }
       },
       ci?.timeout,

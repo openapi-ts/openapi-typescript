@@ -1,23 +1,12 @@
 import { HttpResponse, type StrictResponse } from "msw";
-import createClient, {
-  type Middleware,
-  type MiddlewareRequest,
-  type QuerySerializerOptions,
-} from "../src/index.js";
+import createClient, { type Middleware, type MiddlewareRequest, type QuerySerializerOptions } from "../src/index.js";
 import type { paths } from "./fixtures/api.js";
-import {
-  server,
-  baseUrl,
-  useMockRequestHandler,
-  toAbsoluteURL,
-} from "./fixtures/mock-server.js";
+import { server, baseUrl, useMockRequestHandler, toAbsoluteURL } from "./fixtures/mock-server.js";
 
 beforeAll(() => {
   server.listen({
     onUnhandledRequest: (request) => {
-      throw new Error(
-        `No request handler found for ${request.method} ${request.url}`,
-      );
+      throw new Error(`No request handler found for ${request.method} ${request.url}`);
     },
   });
 });
@@ -142,7 +131,7 @@ describe("client", () => {
           useMockRequestHandler<{ post_id: string }>({
             baseUrl,
             method: "get",
-            path: `/blogposts/:post_id`,
+            path: "/blogposts/:post_id",
             handler: ({ params }) => {
               calledPostId = params.post_id;
               return HttpResponse.json({ message: "OK" }, { status: 200 });
@@ -165,7 +154,7 @@ describe("client", () => {
           const { getRequestUrl } = useMockRequestHandler({
             baseUrl,
             method: "get",
-            path: `/path-params/*`,
+            path: "/path-params/*",
           });
 
           await client.GET(
@@ -232,9 +221,7 @@ describe("client", () => {
           // expect post_id to be encoded properly
           const url = getRequestUrl();
           expect(url.searchParams.get("id ")).toBe(" 🥴");
-          expect(url.pathname + url.search).toBe(
-            `/blogposts/post?id%20=%20%F0%9F%A5%B4`,
-          );
+          expect(url.pathname + url.search).toBe("/blogposts/post?id%20=%20%F0%9F%A5%B4");
         });
       });
 
@@ -253,10 +240,7 @@ describe("client", () => {
                 { status: 500 },
               ) as StrictResponse<any>;
             }
-            return HttpResponse.json(
-              { status: header },
-              { status: 200, headers: request.headers },
-            );
+            return HttpResponse.json({ status: header }, { status: 200, headers: request.headers });
           },
         });
 
@@ -282,9 +266,7 @@ describe("client", () => {
         });
 
         // expect param passed correctly
-        expect(response.response.headers.get("x-required-header")).toBe(
-          "correct",
-        );
+        expect(response.response.headers.get("x-required-header")).toBe("correct");
       });
 
       describe("query", () => {
@@ -304,9 +286,7 @@ describe("client", () => {
               },
             });
 
-            expect(getRequestUrl().search).toBe(
-              "?string=string&number=0&boolean=false",
-            );
+            expect(getRequestUrl().search).toBe("?string=string&number=0&boolean=false");
           });
 
           it("array params (empty)", async () => {
@@ -500,12 +480,8 @@ describe("client", () => {
               },
             });
 
-            expect(getRequestUrl().search).toBe(
-              "?string=bad/character%F0%9F%90%B6",
-            );
-            expect(getRequestUrl().searchParams.get("string")).toBe(
-              "bad/character🐶",
-            );
+            expect(getRequestUrl().search).toBe("?string=bad/character%F0%9F%90%B6");
+            expect(getRequestUrl().searchParams.get("string")).toBe("bad/character🐶");
 
             await client.GET("/query-params", {
               params: {
@@ -518,12 +494,8 @@ describe("client", () => {
               },
             });
 
-            expect(getRequestUrl().search).toBe(
-              "?string=bad%2Fcharacter%F0%9F%90%B6",
-            );
-            expect(getRequestUrl().searchParams.get("string")).toBe(
-              "bad/character🐶",
-            );
+            expect(getRequestUrl().search).toBe("?string=bad%2Fcharacter%F0%9F%90%B6");
+            expect(getRequestUrl().searchParams.get("string")).toBe("bad/character🐶");
           });
 
           describe("function", () => {
@@ -547,9 +519,7 @@ describe("client", () => {
               });
 
               const url = getRequestUrl();
-              expect(url.pathname + url.search).toBe(
-                "/blogposts/my-post?alpha=2&beta=json",
-              );
+              expect(url.pathname + url.search).toBe("/blogposts/my-post?alpha=2&beta=json");
             });
 
             it("per-request", async () => {
@@ -573,9 +543,7 @@ describe("client", () => {
               });
 
               const url = getRequestUrl();
-              expect(url.pathname + url.search).toBe(
-                "/blogposts/my-post?alpha=2&beta=json",
-              );
+              expect(url.pathname + url.search).toBe("/blogposts/my-post?alpha=2&beta=json");
             });
           });
 
@@ -604,7 +572,6 @@ describe("client", () => {
 
     describe("body", () => {
       // these are pure type tests; no runtime assertions needed
-      /* eslint-disable vitest/expect-expect */
       it("requires necessary requestBodies", async () => {
         const client = createClient<paths>({ baseUrl });
 
@@ -686,7 +653,6 @@ describe("client", () => {
         });
       });
     });
-    /* eslint-enable vitest/expect-expect */
   });
 
   describe("options", () => {
@@ -875,7 +841,7 @@ describe("client", () => {
         const { getRequest } = useMockRequestHandler({
           baseUrl,
           method: "options",
-          path: `https://foo.bar/api/v1`,
+          path: "https://foo.bar/api/v1",
           status: 200,
           body: {},
         });
@@ -1027,7 +993,7 @@ describe("client", () => {
       it("receives OpenAPI options passed in from parent", async () => {
         useMockRequestHandler({
           method: "put",
-          path: `https://api.foo.bar/v1/tag*`,
+          path: "https://api.foo.bar/v1/tag*",
           status: 200,
           body: {},
         });
@@ -1055,8 +1021,8 @@ describe("client", () => {
         });
         client.use({
           onRequest(req) {
-            receivedPath = req!.schemaPath;
-            receivedParams = req!.params;
+            receivedPath = req.schemaPath;
+            receivedParams = req.params;
             return undefined;
           },
         });
@@ -1214,9 +1180,7 @@ describe("client", () => {
 
       // discard `data` object
       if (!error) {
-        throw new Error(
-          "treats `default` as an error: error response should be present",
-        );
+        throw new Error("treats `default` as an error: error response should be present");
       }
 
       // assert `error.message` doesn’t throw TS error
@@ -1236,7 +1200,7 @@ describe("client", () => {
           parseAs: "text",
         })) satisfies { data?: string };
         if (error) {
-          throw new Error(`parseAs text: error`);
+          throw new Error("parseAs text: error");
         }
         expect(data).toBe("{}");
       });
@@ -1253,7 +1217,7 @@ describe("client", () => {
           parseAs: "arrayBuffer",
         })) satisfies { data?: ArrayBuffer };
         if (error) {
-          throw new Error(`parseAs arrayBuffer: error`);
+          throw new Error("parseAs arrayBuffer: error");
         }
         expect(data.byteLength).toBe(2);
       });
@@ -1270,7 +1234,7 @@ describe("client", () => {
           parseAs: "blob",
         })) satisfies { data?: Blob };
         if (error) {
-          throw new Error(`parseAs blob: error`);
+          throw new Error("parseAs blob: error");
         }
 
         expect(data.constructor.name).toBe("Blob");
@@ -1288,13 +1252,13 @@ describe("client", () => {
           parseAs: "stream",
         })) satisfies { data?: ReadableStream<Uint8Array> | null };
         if (!data) {
-          throw new Error(`parseAs stream: error`);
+          throw new Error("parseAs stream: error");
         }
 
         expect(data).toBeInstanceOf(ReadableStream);
         const reader = data.getReader();
         const result = await reader.read();
-        expect(result.value!.length).toBe(2);
+        expect(result.value?.length).toBe(2);
       });
 
       it("use the selected content", async () => {
@@ -1328,7 +1292,7 @@ describe("client", () => {
           | undefined;
 
         if (!data) {
-          throw new Error(`Missing response`);
+          throw new Error("Missing response");
         }
 
         expect(data).toEqual({
@@ -1367,12 +1331,9 @@ describe("client", () => {
         status: 200,
         body: mockData,
       });
-      const { data, error, response } = await client.GET(
-        "/blogposts/{post_id}",
-        {
-          params: { path: { post_id: "my-post" } },
-        },
-      );
+      const { data, error, response } = await client.GET("/blogposts/{post_id}", {
+        params: { path: { post_id: "my-post" } },
+      });
 
       // assert correct URL was called
       expect(getRequestUrl().pathname).toBe("/blogposts/my-post");
@@ -1397,15 +1358,12 @@ describe("client", () => {
         body: mockError,
       });
 
-      const { data, error, response } = await client.GET(
-        "/blogposts/{post_id}",
-        {
-          params: { path: { post_id: "my-post" } },
-        },
-      );
+      const { data, error, response } = await client.GET("/blogposts/{post_id}", {
+        params: { path: { post_id: "my-post" } },
+      });
 
       // assert correct URL was called
-      expect(getRequest().url).toBe(baseUrl + "/blogposts/my-post");
+      expect(getRequest().url).toBe(`${baseUrl}/blogposts/my-post`);
 
       // assert correct method was called
       expect(getRequest().method).toBe("GET");
@@ -1591,7 +1549,7 @@ describe("client", () => {
       useMockRequestHandler({
         baseUrl,
         method: "delete",
-        path: `/blogposts/:post_id`,
+        path: "/blogposts/:post_id",
         handler: () =>
           new HttpResponse(null, {
             status: 200,
@@ -1621,7 +1579,7 @@ describe("client", () => {
       const { getRequest } = useMockRequestHandler({
         baseUrl,
         method: "options",
-        path: `/anyMethod`,
+        path: "/anyMethod",
       });
       await client.OPTIONS("/anyMethod");
       expect(getRequest().method).toBe("OPTIONS");
@@ -1665,9 +1623,9 @@ describe("client", () => {
         path: "/anyMethod",
       });
 
-      await expect(
-        async () => await client.TRACE("/anyMethod"),
-      ).rejects.toThrowError("'TRACE' HTTP method is unsupported");
+      await expect(async () => await client.TRACE("/anyMethod")).rejects.toThrowError(
+        "'TRACE' HTTP method is unsupported",
+      );
     });
   });
 });
@@ -1705,8 +1663,6 @@ describe("examples", () => {
     await client.GET("/blogposts/{post_id}", {
       params: { path: { post_id: "1234" } },
     });
-    expect(getRequest().headers.get("authorization")).toBe(
-      `Bearer ${accessToken}`,
-    );
+    expect(getRequest().headers.get("authorization")).toBe(`Bearer ${accessToken}`);
   });
 });

@@ -23,16 +23,8 @@ import {
   tsUnion,
   tsWithRequired,
 } from "../lib/ts.js";
-import {
-  createDiscriminatorProperty,
-  createRef,
-  getEntries,
-} from "../lib/utils.js";
-import type {
-  ReferenceObject,
-  SchemaObject,
-  TransformNodeOptions,
-} from "../types.js";
+import { createDiscriminatorProperty, createRef, getEntries } from "../lib/utils.js";
+import type { ReferenceObject, SchemaObject, TransformNodeOptions } from "../types.js";
 
 /**
  * Transform SchemaObject nodes (4.8.24)
@@ -73,11 +65,7 @@ export function transformSchemaObjectWithComposition(
   }
   // for any other unexpected type, throw error
   if (Array.isArray(schemaObject) || typeof schemaObject !== "object") {
-    throw new Error(
-      `Expected SchemaObject, received ${
-        Array.isArray(schemaObject) ? "Array" : typeof schemaObject
-      }`,
-    );
+    throw new Error(`Expected SchemaObject, received ${Array.isArray(schemaObject) ? "Array" : typeof schemaObject}`);
   }
 
   /**
@@ -105,22 +93,13 @@ export function transformSchemaObjectWithComposition(
     !("additionalProperties" in schemaObject)
   ) {
     // hoist enum to top level if string/number enum and option is enabled
-    if (
-      options.ctx.enum &&
-      schemaObject.enum.every(
-        (v) => typeof v === "string" || typeof v === "number",
-      )
-    ) {
+    if (options.ctx.enum && schemaObject.enum.every((v) => typeof v === "string" || typeof v === "number")) {
       let enumName = parseRef(options.path ?? "").pointer.join("/");
       // allow #/components/schemas to have simpler names
       enumName = enumName.replace("components/schemas", "");
       const metadata = schemaObject.enum.map((_, i) => ({
-        name:
-          schemaObject["x-enum-varnames"]?.[i] ??
-          schemaObject["x-enumNames"]?.[i],
-        description:
-          schemaObject["x-enum-descriptions"]?.[i] ??
-          schemaObject["x-enumDescriptions"]?.[i],
+        name: schemaObject["x-enum-varnames"]?.[i] ?? schemaObject["x-enumNames"]?.[i],
+        description: schemaObject["x-enum-descriptions"]?.[i] ?? schemaObject["x-enumDescriptions"]?.[i],
       }));
       const enumType = tsEnum(
         enumName,
@@ -153,10 +132,7 @@ export function transformSchemaObjectWithComposition(
   }
 
   /** Collect allOf with Omit<> for discriminators */
-  function collectAllOfCompositions(
-    items: (SchemaObject | ReferenceObject)[],
-    required?: string[],
-  ): ts.TypeNode[] {
+  function collectAllOfCompositions(items: (SchemaObject | ReferenceObject)[], required?: string[]): ts.TypeNode[] {
     const output: ts.TypeNode[] = [];
     for (const item of items) {
       let itemType: ts.TypeNode;
@@ -176,15 +152,9 @@ export function transformSchemaObjectWithComposition(
           !options.ctx.discriminators.refsHandled.includes(item.$ref)
         ) {
           // add WithRequired<X, Y> if necessary
-          const validRequired = (required ?? []).filter(
-            (key) => !!resolved.properties![key],
-          );
+          const validRequired = (required ?? []).filter((key) => !!resolved.properties?.[key]);
           if (validRequired.length) {
-            itemType = tsWithRequired(
-              itemType,
-              validRequired,
-              options.ctx.injectFooter,
-            );
+            itemType = tsWithRequired(itemType, validRequired, options.ctx.injectFooter);
           }
         }
       }
@@ -194,15 +164,11 @@ export function transformSchemaObjectWithComposition(
         if (typeof item === "object" && Array.isArray(item.required)) {
           itemRequired.push(...item.required);
         }
-        itemType = transformSchemaObject(
-          { ...item, required: itemRequired },
-          options,
-        );
+        itemType = transformSchemaObject({ ...item, required: itemRequired }, options);
       }
 
       const discriminator =
-        ("$ref" in item && options.ctx.discriminators.objects[item.$ref]) ||
-        (item as any).discriminator; // eslint-disable-line @typescript-eslint/no-explicit-any
+        ("$ref" in item && options.ctx.discriminators.objects[item.$ref]) || (item as any).discriminator;
       if (discriminator) {
         output.push(tsOmit(itemType, [discriminator.propertyName]));
       } else {
@@ -217,18 +183,10 @@ export function transformSchemaObjectWithComposition(
 
   // core + allOf: intersect
   const coreObjectType = transformSchemaObjectCore(schemaObject, options);
-  const allOfType = collectAllOfCompositions(
-    schemaObject.allOf ?? [],
-    schemaObject.required,
-  );
+  const allOfType = collectAllOfCompositions(schemaObject.allOf ?? [], schemaObject.required);
   if (coreObjectType || allOfType.length) {
-    const allOf: ts.TypeNode | undefined = allOfType.length
-      ? tsIntersection(allOfType)
-      : undefined;
-    finalType = tsIntersection([
-      ...(coreObjectType ? [coreObjectType] : []),
-      ...(allOf ? [allOf] : []),
-    ]);
+    const allOf: ts.TypeNode | undefined = allOfType.length ? tsIntersection(allOfType) : undefined;
+    finalType = tsIntersection([...(coreObjectType ? [coreObjectType] : []), ...(allOf ? [allOf] : [])]);
   }
   // anyOf: union
   // (note: this may seem counterintuitive, but as TypeScript’s unions are not true XORs, they mimic behavior closer to anyOf than oneOf)
@@ -249,10 +207,7 @@ export function transformSchemaObjectWithComposition(
     if (oneOfType.every(tsIsPrimitive)) {
       finalType = tsUnion([...(finalType ? [finalType] : []), ...oneOfType]);
     } else {
-      finalType = tsIntersection([
-        ...(finalType ? [finalType] : []),
-        tsUnion(oneOfType),
-      ]);
+      finalType = tsIntersection([...(finalType ? [finalType] : []), tsUnion(oneOfType)]);
     }
   }
 
@@ -279,10 +234,7 @@ export function transformSchemaObjectWithComposition(
 /**
  * Handle SchemaObject minus composition (anyOf/allOf/oneOf)
  */
-function transformSchemaObjectCore(
-  schemaObject: SchemaObject,
-  options: TransformNodeOptions,
-): ts.TypeNode | undefined {
+function transformSchemaObjectCore(schemaObject: SchemaObject, options: TransformNodeOptions): ts.TypeNode | undefined {
   if ("type" in schemaObject && schemaObject.type) {
     // primitives
     // type: null
@@ -308,39 +260,25 @@ function transformSchemaObjectCore(
       let itemType: ts.TypeNode = UNKNOWN;
       // tuple type
       if (schemaObject.prefixItems || Array.isArray(schemaObject.items)) {
-        const prefixItems =
-          schemaObject.prefixItems ??
-          (schemaObject.items as (SchemaObject | ReferenceObject)[]);
-        itemType = ts.factory.createTupleTypeNode(
-          prefixItems.map((item) => transformSchemaObject(item, options)),
-        );
+        const prefixItems = schemaObject.prefixItems ?? (schemaObject.items as (SchemaObject | ReferenceObject)[]);
+        itemType = ts.factory.createTupleTypeNode(prefixItems.map((item) => transformSchemaObject(item, options)));
       }
       // standard array type
       else if (schemaObject.items) {
-        if (
-          "type" in schemaObject.items &&
-          schemaObject.items.type === "array"
-        ) {
-          itemType = ts.factory.createArrayTypeNode(
-            transformSchemaObject(schemaObject.items, options),
-          );
+        if ("type" in schemaObject.items && schemaObject.items.type === "array") {
+          itemType = ts.factory.createArrayTypeNode(transformSchemaObject(schemaObject.items, options));
         } else {
           itemType = transformSchemaObject(schemaObject.items, options);
         }
       }
 
       const min: number =
-        typeof schemaObject.minItems === "number" && schemaObject.minItems >= 0
-          ? schemaObject.minItems
-          : 0;
+        typeof schemaObject.minItems === "number" && schemaObject.minItems >= 0 ? schemaObject.minItems : 0;
       const max: number | undefined =
-        typeof schemaObject.maxItems === "number" &&
-        schemaObject.maxItems >= 0 &&
-        min <= schemaObject.maxItems
+        typeof schemaObject.maxItems === "number" && schemaObject.maxItems >= 0 && min <= schemaObject.maxItems
           ? schemaObject.maxItems
           : undefined;
-      const estimateCodeSize =
-        typeof max !== "number" ? min : (max * (max + 1) - min * (min - 1)) / 2;
+      const estimateCodeSize = typeof max !== "number" ? min : (max * (max + 1) - min * (min - 1)) / 2;
       if (
         options.ctx.arrayLength &&
         (min !== 0 || max !== undefined) &&
@@ -365,11 +303,7 @@ function transformSchemaObjectCore(
           for (let i = 0; i < min; i++) {
             elements.push(itemType);
           }
-          elements.push(
-            ts.factory.createRestTypeNode(
-              ts.factory.createArrayTypeNode(itemType),
-            ),
-          );
+          elements.push(ts.factory.createRestTypeNode(ts.factory.createArrayTypeNode(itemType)));
           return ts.factory.createTupleTypeNode(elements);
         }
       }
@@ -386,14 +320,8 @@ function transformSchemaObjectCore(
       if (Array.isArray(schemaObject.oneOf)) {
         for (const t of schemaObject.type) {
           if (
-            (t === "boolean" ||
-              t === "string" ||
-              t === "number" ||
-              t === "integer" ||
-              t === "null") &&
-            schemaObject.oneOf.find(
-              (o) => typeof o === "object" && "type" in o && o.type === t,
-            )
+            (t === "boolean" || t === "string" || t === "number" || t === "integer" || t === "null") &&
+            schemaObject.oneOf.find((o) => typeof o === "object" && "type" in o && o.type === t)
           ) {
             continue;
           }
@@ -401,7 +329,7 @@ function transformSchemaObjectCore(
             t === "null" || t === null
               ? NULL
               : transformSchemaObject(
-                  { ...schemaObject, type: t, oneOf: undefined }, // don’t stack oneOf transforms
+                  { ...schemaObject, type: t, oneOf: undefined } as SchemaObject, // don’t stack oneOf transforms
                   options,
                 ),
           );
@@ -410,7 +338,7 @@ function transformSchemaObjectCore(
         uniqueTypes = schemaObject.type.map((t) =>
           t === "null" || t === null
             ? NULL
-            : transformSchemaObject({ ...schemaObject, type: t }, options),
+            : transformSchemaObject({ ...schemaObject, type: t } as SchemaObject, options),
         );
       }
       return tsUnion(uniqueTypes);
@@ -432,12 +360,12 @@ function transformSchemaObjectCore(
     // them (options.ctx.discriminators.refsHandled.includes(options.path!).
     const discriminator =
       !schemaObject.discriminator &&
-      !options.ctx.discriminators.refsHandled.includes(options.path!) &&
-      options.ctx.discriminators.objects[options.path!];
+      !options.ctx.discriminators.refsHandled.includes(options.path ?? "") &&
+      options.ctx.discriminators.objects[options.path ?? ""];
     if (discriminator) {
       coreObjectType.unshift(
         createDiscriminatorProperty(discriminator, {
-          path: options.path!,
+          path: options.path ?? "",
           readonly: options.ctx.immutable,
         }),
       );
@@ -446,24 +374,16 @@ function transformSchemaObjectCore(
   }
 
   if (
-    ("properties" in schemaObject &&
-      schemaObject.properties &&
-      Object.keys(schemaObject.properties).length) ||
-    ("additionalProperties" in schemaObject &&
-      schemaObject.additionalProperties) ||
+    ("properties" in schemaObject && schemaObject.properties && Object.keys(schemaObject.properties).length) ||
+    ("additionalProperties" in schemaObject && schemaObject.additionalProperties) ||
     ("$defs" in schemaObject && schemaObject.$defs)
   ) {
     // properties
     if (Object.keys(schemaObject.properties ?? {}).length) {
-      for (const [k, v] of getEntries(
-        schemaObject.properties ?? {},
-        options.ctx,
-      )) {
+      for (const [k, v] of getEntries(schemaObject.properties ?? {}, options.ctx)) {
         if (typeof v !== "object" || Array.isArray(v)) {
           throw new Error(
-            `${
-              options.path
-            }: invalid property ${k}. Expected Schema Object, got ${
+            `${options.path}: invalid property ${k}. Expected Schema Object, got ${
               Array.isArray(v) ? "Array" : typeof v
             }`,
           );
@@ -471,19 +391,15 @@ function transformSchemaObjectCore(
 
         // handle excludeDeprecated option
         if (options.ctx.excludeDeprecated) {
-          const resolved =
-            "$ref" in v ? options.ctx.resolve<SchemaObject>(v.$ref) : v;
+          const resolved = "$ref" in v ? options.ctx.resolve<SchemaObject>(v.$ref) : v;
           if (resolved?.deprecated) {
             continue;
           }
         }
         let optional =
           schemaObject.required?.includes(k) ||
-          (schemaObject.required === undefined &&
-            options.ctx.propertiesRequiredByDefault) ||
-          ("default" in v &&
-            options.ctx.defaultNonNullable &&
-            !options.path?.includes("parameters")) // parameters can’t be required, even with defaults
+          (schemaObject.required === undefined && options.ctx.propertiesRequiredByDefault) ||
+          ("default" in v && options.ctx.defaultNonNullable && !options.path?.includes("parameters")) // parameters can’t be required, even with defaults
             ? undefined
             : QUESTION_TOKEN;
         let type =
@@ -491,11 +407,11 @@ function transformSchemaObjectCore(
             ? oapiRef(v.$ref)
             : transformSchemaObject(v, {
                 ...options,
-                path: createRef([options.path ?? "", k]),
+                path: createRef([options.path, k]),
               });
 
         if (typeof options.ctx.transform === "function") {
-          const result = options.ctx.transform(v, options);
+          const result = options.ctx.transform(v as SchemaObject, options);
           if (result) {
             if ("schema" in result) {
               type = result.schema;
@@ -508,8 +424,7 @@ function transformSchemaObjectCore(
 
         const property = ts.factory.createPropertySignature(
           /* modifiers     */ tsModifiers({
-            readonly:
-              options.ctx.immutable || ("readOnly" in v && !!v.readOnly),
+            readonly: options.ctx.immutable || ("readOnly" in v && !!v.readOnly),
           }),
           /* name          */ tsPropertyIndex(k),
           /* questionToken */ optional,
@@ -521,23 +436,18 @@ function transformSchemaObjectCore(
     }
 
     // $defs
-    if (
-      schemaObject.$defs &&
-      typeof schemaObject.$defs === "object" &&
-      Object.keys(schemaObject.$defs).length
-    ) {
+    if (schemaObject.$defs && typeof schemaObject.$defs === "object" && Object.keys(schemaObject.$defs).length) {
       const defKeys: ts.TypeElement[] = [];
       for (const [k, v] of Object.entries(schemaObject.$defs)) {
         const property = ts.factory.createPropertySignature(
           /* modifiers    */ tsModifiers({
-            readonly:
-              options.ctx.immutable || ("readonly" in v && !!v.readOnly),
+            readonly: options.ctx.immutable || ("readonly" in v && !!v.readOnly),
           }),
           /* name          */ tsPropertyIndex(k),
           /* questionToken */ undefined,
           /* type          */ transformSchemaObject(v, {
             ...options,
-            path: createRef([options.path ?? "", "$defs", k]),
+            path: createRef([options.path, "$defs", k]),
           }),
         );
         addJSDocComment(v, property);
@@ -556,13 +466,9 @@ function transformSchemaObjectCore(
     // additionalProperties
     if (schemaObject.additionalProperties || options.ctx.additionalProperties) {
       const hasExplicitAdditionalProperties =
-        typeof schemaObject.additionalProperties === "object" &&
-        Object.keys(schemaObject.additionalProperties).length;
+        typeof schemaObject.additionalProperties === "object" && Object.keys(schemaObject.additionalProperties).length;
       let addlType = hasExplicitAdditionalProperties
-        ? transformSchemaObject(
-            schemaObject.additionalProperties as SchemaObject,
-            options,
-          )
+        ? transformSchemaObject(schemaObject.additionalProperties as SchemaObject, options)
         : UNKNOWN;
       // allow for `| undefined`, at least until https://github.com/microsoft/TypeScript/issues/4196 is resolved
       if (addlType.kind !== ts.SyntaxKind.UnknownKeyword) {
@@ -588,7 +494,5 @@ function transformSchemaObjectCore(
     }
   }
 
-  return coreObjectType.length
-    ? ts.factory.createTypeLiteralNode(coreObjectType)
-    : undefined;
+  return coreObjectType.length ? ts.factory.createTypeLiteralNode(coreObjectType) : undefined;
 }

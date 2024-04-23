@@ -2,8 +2,6 @@ import { createConfig } from "@redocly/openapi-core";
 import { resolveRef } from "../src/lib/utils.js";
 import type { GlobalContext, TransformNodeOptions } from "../src/types.js";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 /** Default options for all transform* functions */
 export const DEFAULT_CTX: GlobalContext = {
   additionalProperties: false,

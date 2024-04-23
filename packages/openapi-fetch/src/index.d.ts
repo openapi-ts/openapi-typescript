@@ -11,10 +11,6 @@ import type {
   SuccessResponse,
 } from "openapi-typescript-helpers";
 
-// Note: though "any" is considered bad practice in general, this library relies
-// on "any" for type inference only it can give. Same goes for the "{}" type.
-/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types */
-
 /** Options for each client instance */
 export interface ClientOptions extends Omit<RequestInit, "headers"> {
   /** set the common root URL for all API requests */
@@ -30,20 +26,10 @@ export interface ClientOptions extends Omit<RequestInit, "headers"> {
 
 export type HeadersOptions =
   | HeadersInit
-  | Record<
-      string,
-      | string
-      | number
-      | boolean
-      | (string | number | boolean)[]
-      | null
-      | undefined
-    >;
+  | Record<string, string | number | boolean | (string | number | boolean)[] | null | undefined>;
 
 export type QuerySerializer<T> = (
-  query: T extends { parameters: any }
-    ? NonNullable<T["parameters"]["query"]>
-    : Record<string, unknown>,
+  query: T extends { parameters: any } ? NonNullable<T["parameters"]["query"]> : Record<string, unknown>,
 ) => string;
 
 /** @see https://swagger.io/docs/specification/serialization/#query */
@@ -102,24 +88,18 @@ export type ParamsOption<T> = T extends {
     : { params: T["parameters"] }
   : DefaultParamsOption;
 
-export type RequestBodyOption<T> =
-  OperationRequestBodyContent<T> extends never
-    ? { body?: never }
-    : undefined extends OperationRequestBodyContent<T>
-      ? { body?: OperationRequestBodyContent<T> }
-      : { body: OperationRequestBodyContent<T> };
+export type RequestBodyOption<T> = OperationRequestBodyContent<T> extends never
+  ? { body?: never }
+  : undefined extends OperationRequestBodyContent<T>
+    ? { body?: OperationRequestBodyContent<T> }
+    : { body: OperationRequestBodyContent<T> };
 
-export type FetchOptions<T> = RequestOptions<T> &
-  Omit<RequestInit, "body" | "headers">;
+export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body" | "headers">;
 
 export type FetchResponse<T, O, Media extends MediaType> =
   | {
       data: ParseAsResponse<
-        GetValueWithDefault<
-          SuccessResponse<ResponseObjectMap<T>>,
-          Media,
-          Record<string, never>
-        >,
+        GetValueWithDefault<SuccessResponse<ResponseObjectMap<T>>, Media, Record<string, never>>,
         O
       >;
       error?: never;
@@ -127,11 +107,7 @@ export type FetchResponse<T, O, Media extends MediaType> =
     }
   | {
       data?: never;
-      error: GetValueWithDefault<
-        ErrorResponse<ResponseObjectMap<T>>,
-        Media,
-        Record<string, never>
-      >;
+      error: GetValueWithDefault<ErrorResponse<ResponseObjectMap<T>>, Media, Record<string, never>>;
       response: Response;
     };
 
@@ -168,29 +144,24 @@ export function onRequest(
   req: MiddlewareRequest,
   options: MergedOptions,
 ): Request | undefined | Promise<Request | undefined>;
-export function onResponse(
-  res: Response,
-  options: MergedOptions,
-): Response | undefined | Promise<Response | undefined>;
+export function onResponse(res: Response, options: MergedOptions): Response | undefined | Promise<Response | undefined>;
 
 export interface Middleware {
   onRequest?: typeof onRequest;
   onResponse?: typeof onResponse;
 }
 
+// biome-ignore lint/complexity/noBannedTypes: though extending "{}" is a bad practice in general, this library relies on complex layers of inference, and extending off generic objects is necessary
 type PathMethods = Partial<Record<HttpMethod, {}>>;
 
 /** This type helper makes the 2nd function param required if params/requestBody are required; otherwise, optional */
-export type MaybeOptionalInit<P extends PathMethods, M extends keyof P> =
-  HasRequiredKeys<FetchOptions<FilterKeys<P, M>>> extends never
-    ? [(FetchOptions<FilterKeys<P, M>> | undefined)?]
-    : [FetchOptions<FilterKeys<P, M>>];
+export type MaybeOptionalInit<P extends PathMethods, M extends keyof P> = HasRequiredKeys<
+  FetchOptions<FilterKeys<P, M>>
+> extends never
+  ? [(FetchOptions<FilterKeys<P, M>> | undefined)?]
+  : [FetchOptions<FilterKeys<P, M>>];
 
-export type ClientMethod<
-  Paths extends Record<string, PathMethods>,
-  M extends HttpMethod,
-  Media extends MediaType,
-> = <
+export type ClientMethod<Paths extends Record<string, PathMethods>, M extends HttpMethod, Media extends MediaType> = <
   P extends PathsWithMethod<Paths, M>,
   I extends MaybeOptionalInit<Paths[P], M>,
 >(
@@ -198,10 +169,7 @@ export type ClientMethod<
   ...init: I
 ) => Promise<FetchResponse<Paths[P][M], I[0], Media>>;
 
-export default function createClient<
-  Paths extends {},
-  Media extends MediaType = MediaType,
->(
+export default function createClient<Paths extends {}, Media extends MediaType = MediaType>(
   clientOptions?: ClientOptions,
 ): {
   /** Call a GET endpoint */
@@ -249,13 +217,7 @@ export declare function serializeArrayParam(
   name: string,
   value: unknown[],
   options: {
-    style:
-      | "simple"
-      | "label"
-      | "matrix"
-      | "form"
-      | "spaceDelimited"
-      | "pipeDelimited";
+    style: "simple" | "label" | "matrix" | "form" | "spaceDelimited" | "pipeDelimited";
     explode: boolean;
     allowReserved?: boolean;
   },
@@ -271,10 +233,7 @@ export declare function createQuerySerializer<T = unknown>(
  * @type {import("./index.js").defaultPathSerializer}
  * @see https://swagger.io/docs/specification/serialization/#path
  */
-export declare function defaultPathSerializer(
-  pathname: string,
-  pathParams: Record<string, unknown>,
-): string;
+export declare function defaultPathSerializer(pathname: string, pathParams: Record<string, unknown>): string;
 
 /** Serialize body object to string */
 export declare function defaultBodySerializer<T>(body: T): string;
@@ -293,8 +252,4 @@ export declare function createFinalURL<O>(
 ): string;
 
 /** Merge headers a and b, with b taking priority */
-export declare function mergeHeaders(
-  ...allHeaders: (HeadersOptions | undefined)[]
-): Headers;
-
-export {};
+export declare function mergeHeaders(...allHeaders: (HeadersOptions | undefined)[]): Headers;

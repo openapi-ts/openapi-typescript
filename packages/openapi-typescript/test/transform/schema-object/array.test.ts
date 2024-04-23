@@ -14,7 +14,7 @@ describe("transformSchemaObject > array", () => {
       "basic",
       {
         given: { type: "array", items: { type: "string" } },
-        want: `string[]`,
+        want: "string[]",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -40,11 +40,7 @@ describe("transformSchemaObject > array", () => {
         given: {
           type: "array",
           items: { type: "number" },
-          prefixItems: [
-            { type: "number" },
-            { type: "number" },
-            { type: "number" },
-          ],
+          prefixItems: [{ type: "number" }, { type: "number" }, { type: "number" }],
         },
         want: `[
     number,
@@ -69,7 +65,7 @@ describe("transformSchemaObject > array", () => {
       "nullable",
       {
         given: { type: ["array", "null"], items: { type: "string" } },
-        want: `string[] | null`,
+        want: "string[] | null",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -77,7 +73,7 @@ describe("transformSchemaObject > array", () => {
       "nullable (deprecated syntax)",
       {
         given: { type: "array", items: { type: "string" }, nullable: true },
-        want: `string[] | null`,
+        want: "string[] | null",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -85,7 +81,7 @@ describe("transformSchemaObject > array", () => {
       "nullable items",
       {
         given: { type: "array", items: { type: ["string", "null"] } },
-        want: `(string | null)[]`,
+        want: "(string | null)[]",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -93,7 +89,7 @@ describe("transformSchemaObject > array", () => {
       "nullable items (deprecated syntax)",
       {
         given: { type: "array", items: { type: "string", nullable: true } },
-        want: `(string | null)[]`,
+        want: "(string | null)[]",
         // options: DEFAULT_OPTIONS,
       },
     ],
@@ -101,7 +97,7 @@ describe("transformSchemaObject > array", () => {
       "options > arrayLength: true > default",
       {
         given: { type: "array", items: { type: "string" } },
-        want: `string[]`,
+        want: "string[]",
         options: {
           ...DEFAULT_OPTIONS,
           ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
@@ -143,7 +139,7 @@ describe("transformSchemaObject > array", () => {
       "options > arrayLength: true > maxItems: 20",
       {
         given: { type: "array", items: { type: "string" }, maxItems: 20 },
-        want: `string[]`,
+        want: "string[]",
         options: {
           ...DEFAULT_OPTIONS,
           ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
@@ -157,7 +153,7 @@ describe("transformSchemaObject > array", () => {
           type: "array",
           items: { type: "array", items: { type: "string" } },
         },
-        want: `string[][]`,
+        want: "string[][]",
         options: {
           ...DEFAULT_OPTIONS,
           ctx: { ...DEFAULT_OPTIONS.ctx, immutable: true },
@@ -166,10 +162,7 @@ describe("transformSchemaObject > array", () => {
     ],
   ];
 
-  for (const [
-    testName,
-    { given, want, options = DEFAULT_OPTIONS, ci },
-  ] of tests) {
+  for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
     test.skipIf(ci?.skipIf)(
       testName,
       async () => {
@@ -177,7 +170,7 @@ describe("transformSchemaObject > array", () => {
         if (want instanceof URL) {
           expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {
-          expect(result).toBe(want + "\n");
+          expect(result).toBe(`${want}\n`);
         }
       },
       ci?.timeout,

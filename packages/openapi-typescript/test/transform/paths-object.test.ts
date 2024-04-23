@@ -22,9 +22,7 @@ describe("transformPathsObject", () => {
               },
             ],
             get: {
-              parameters: [
-                { name: "user_id", in: "path", description: "User ID." },
-              ],
+              parameters: [{ name: "user_id", in: "path", description: "User ID." }],
               responses: {
                 200: {
                   description: "OK",
@@ -370,10 +368,7 @@ describe("transformPathsObject", () => {
     ],
   ];
 
-  for (const [
-    testName,
-    { given, want, options = DEFAULT_OPTIONS, ci },
-  ] of tests) {
+  for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
     test.skipIf(ci?.skipIf)(
       testName,
       async () => {
@@ -381,7 +376,7 @@ describe("transformPathsObject", () => {
         if (want instanceof URL) {
           expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {
-          expect(result).toBe(want + "\n");
+          expect(result).toBe(`${want}\n`);
         }
       },
       ci?.timeout,

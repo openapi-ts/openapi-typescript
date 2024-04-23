@@ -27,9 +27,7 @@ const server = setupServer(
 // Ensure we are listening early enough so all the requests are intercepted
 server.listen({
   onUnhandledRequest: (request) => {
-    throw new Error(
-      `No request handler found for ${request.method} ${request.url}`,
-    );
+    throw new Error(`No request handler found for ${request.method} ${request.url}`);
   },
 });
 
@@ -60,14 +58,14 @@ describe("setup", () => {
 });
 
 describe("get (only URL)", () => {
-  let openapiFetch = createClient({ baseUrl: BASE_URL });
-  let openapiTSFetch = Fetcher.for();
+  const openapiFetch = createClient({ baseUrl: BASE_URL });
+  const openapiTSFetch = Fetcher.for();
   openapiTSFetch.configure({
     baseUrl: BASE_URL,
   });
-  let openapiTSFetchGET = openapiTSFetch.path("/url").method("get").create();
+  const openapiTSFetchGET = openapiTSFetch.path("/url").method("get").create();
 
-  let axiosInstance = axios.create({
+  const axiosInstance = axios.create({
     baseURL: BASE_URL,
   });
 
@@ -93,18 +91,18 @@ describe("get (only URL)", () => {
 });
 
 describe("get (headers)", () => {
-  let openapiFetch = createClient({
+  const openapiFetch = createClient({
     baseUrl: BASE_URL,
     headers: { "x-base-header": 123 },
   });
-  let openapiTSFetch = Fetcher.for();
+  const openapiTSFetch = Fetcher.for();
   openapiTSFetch.configure({
     baseUrl: BASE_URL,
     init: { headers: { "x-base-header": 123 } },
   });
-  let openapiTSFetchGET = openapiTSFetch.path("/url").method("get").create();
+  const openapiTSFetchGET = openapiTSFetch.path("/url").method("get").create();
 
-  let axiosInstance = axios.create({
+  const axiosInstance = axios.create({
     baseURL: BASE_URL,
   });
 
@@ -131,9 +129,6 @@ describe("get (headers)", () => {
   });
 
   bench("superagent", async () => {
-    await superagent
-      .get(`${BASE_URL}/url`)
-      .set("x-header-1", 123)
-      .set("x-header-2", 456);
+    await superagent.get(`${BASE_URL}/url`).set("x-header-1", 123).set("x-header-2", 456);
   });
 });

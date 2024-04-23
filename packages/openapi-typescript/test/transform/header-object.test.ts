@@ -19,22 +19,19 @@ describe("transformHeaderObject", () => {
             type: "string",
           },
         },
-        want: `string`,
+        want: "string",
         // options: DEFAULT_OPTIONS,
       },
     ],
   ];
 
-  for (const [
-    testName,
-    { given, want, options = DEFAULT_OPTIONS, ci },
-  ] of tests) {
+  for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
     test.skipIf(ci?.skipIf)(testName, async () => {
       const result = astToString(transformHeaderObject(given, options));
       if (want instanceof URL) {
         expect(result).toMatchFileSnapshot(fileURLToPath(want));
       } else {
-        expect(result).toBe(want + "\n");
+        expect(result).toBe(`${want}\n`);
       }
     });
   }

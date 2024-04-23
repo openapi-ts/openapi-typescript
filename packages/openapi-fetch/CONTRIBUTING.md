@@ -54,6 +54,14 @@ npx vitest
 
 As this is just a minimal fetch wrapper meant to provide deep type inference for API schemas, **testing TS types** is arguably more important than testing the runtime. So please make liberal use of `// @ts-expect-error`, and as a general rule of thumb, write more **unwanted** output tests than _wanted_ output tests.
 
+### Running linting
+
+Linting is handled via [Biome](https://biomejs.dev), a faster ESLint replacement. It was installed with `pnpm i` and can be run with:
+
+```bash
+pnpm run lint
+```
+
 ### Changelogs
 
 The changelog is generated via [changesets](https://github.com/changesets/changesets), and is separate from Git commit messages and pull request titles. To write a human-readable changelog for your changes, run:
