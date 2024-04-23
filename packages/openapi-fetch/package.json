@@ -62,7 +62,7 @@
     "version": "pnpm run prepare && pnpm run build"
   },
   "dependencies": {
-    "openapi-typescript-helpers": "^0.0.8"
+    "openapi-typescript-helpers": "workspace:^"
   },
   "devDependencies": {
     "axios": "^1.6.8",
