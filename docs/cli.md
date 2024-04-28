@@ -29,7 +29,9 @@ npx openapi-typescript https://petstore3.swagger.io/api/v3/openapi.yaml -o petst
 
 To transform multiple schemas, create a `redocly.yaml` file in the root of your project with [APIs defined](https://redocly.com/docs/cli/configuration/). Under `apis`, give each schema a unique name and optionally a version (the name doesn’t matter, so long as it’s unique). Set the `root` value to your schema’s entry point—this will act as the main input. For the output, set it with `x-openapi-ts.output`:
 
-```yaml
+::: code-group
+
+```yaml [redocly.yaml]
 apis:
   core@v2:
     root: ./openapi/openapi.yaml
@@ -40,6 +42,8 @@ apis:
     x-openapi-ts:
       output: ./openapi/external.ts
 ```
+
+:::
 
 ::: tip
 
@@ -73,7 +77,9 @@ You can read more about the Redoc’s configuration options [in their docs](http
 
 Authentication for non-public schemas is handled in your [Redocly config](https://redocly.com/docs/cli/configuration/#resolve-non-public-or-non-remote-urls). You can add headers and basic authentication like so:
 
-```yaml
+::: code-group
+
+```yaml [redocly.yaml]
 resolve:
   http:
     headers:
@@ -84,6 +90,8 @@ resolve:
         name: Authorization
         envVariable: SECRET_AUTH
 ```
+
+:::
 
 Refer to the [Redocly docs](https://redocly.com/docs/cli/configuration/#resolve-non-public-or-non-remote-urls) for additional options.
 
@@ -113,29 +121,41 @@ The following flags are supported in the CLI:
 
 By default, your URLs are preserved exactly as-written in your schema:
 
-```ts
+::: code-group
+
+```ts [my-openapi-3-schema.d.ts]
 export interface paths {
   "/user/{user_id}": components["schemas"]["User"];
 }
 ```
 
+:::
+
 Which means your type lookups also have to match the exact URL:
 
-```ts
-import type { paths } from "./api/v1";
+::: code-group
+
+```ts [src/my-project.ts]
+import type { paths } from "./my-openapi-3-schema";
 
 const url = `/user/${id}`;
 type UserResponses = paths["/user/{user_id}"]["responses"];
 ```
 
+:::
+
 But when `--path-params-as-types` is enabled, you can take advantage of dynamic lookups like so:
 
-```ts
-import type { paths } from "./api/v1";
+::: code-group
+
+```ts [src/my-project.ts]
+import type { paths } from "./my-openapi-3-schema";
 
 const url = `/user/${id}`;
 type UserResponses = paths[url]["responses"]; // automatically matches `paths['/user/{user_id}']`
 ```
+
+:::
 
 Though this is a contrived example, you could use this feature to automatically infer typing based on the URL in a fetch client or in some other useful place in your application.
 
@@ -147,7 +167,9 @@ This option is useful for generating tuples if an array type specifies `minItems
 
 For example, given the following schema:
 
-```yaml
+::: code-group
+
+```yaml [my-openapi-3-schema.yaml]
 components:
   schemas:
     TupleType
@@ -158,16 +180,22 @@ components:
       maxItems: 2
 ```
 
+:::
+
 Enabling `--array-length` would change the typing like so:
 
-```diff
-  export interface components {
-    schemas: {
--     TupleType: string[];
-+     TupleType: [string] | [string, string];
-    };
-  }
+::: code-group
+
+```ts [my-openapi-3-schema.d.ts]
+export interface components {
+  schemas: {
+    TupleType: string[]; // [!code --]
+    TupleType: [string] | [string, string]; // [!code ++]
+  };
+}
 ```
+
+:::
 
 This results in more explicit typechecking of array lengths.
 

@@ -58,8 +58,10 @@ npx openapi-typescript https://myapi.dev/api/v1/openapi.yaml -o ./path/to/my/sch
 
 然后在您的 TypeScript 项目中，根据需要导入类型：
 
-```ts
-import type { paths, components } from "./api/v1"; // 由 openapi-typescript 生成
+::: code-group
+
+```ts [src/my-project.ts]
+import type { paths, components } from "./my-openapi-3-schema"; // 由openapi-typescript生成
 
 // 模式对象
 type MyType = components["schemas"]["MyType"];
@@ -73,6 +75,8 @@ type SuccessResponse =
 type ErrorResponse =
   paths["/my/endpoint"]["get"]["responses"][500]["content"]["application/json"]["schema"];
 ```
+
+:::
 
 从这里开始，您可以将这些类型用于以下任何操作（但不限于）：
 

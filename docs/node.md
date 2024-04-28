@@ -35,7 +35,9 @@ The Node API returns a `Promise` with a TypeScript AST. You can then traverse / 
 
 To convert the TypeScript AST into a string, you can use `astToString()` helper which is a thin wrapper around [TypeScript’s printer](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API#re-printing-sections-of-a-typescript-file):
 
-```ts
+::: code-group
+
+```ts [src/my-project.ts]
 import fs from "node:fs";
 import openapiTS, { astToString } from "openapi-typescript";
 
@@ -46,11 +48,15 @@ const contents = astToString(ast);
 fs.writeFileSync("./my-schema.ts", contents);
 ```
 
+:::
+
 ### Redoc config
 
 A Redoc config isn’t required to use openapi-typescript. By default it extends the `"minimal"` built-in config. But if you want to modify the default settings, you’ll need to provide a fully-initialized Redoc config to the Node API. You can do this with the helpers in `@redocly/openapi-core`:
 
-```ts
+::: code-group
+
+```ts [src/my-project.ts]
 import { createConfig, loadConfig } from "@redocly/openapi-core";
 import openapiTS from "openapi-typescript";
 
@@ -70,6 +76,8 @@ const redoc = await loadConfig({ configPath: "redocly.yaml" });
 
 const ast = await openapiTS(mySchema, { redoc });
 ```
+
+:::
 
 ## Options
 
@@ -102,7 +110,9 @@ properties:
 
 By default, openapiTS will generate `updated_at?: string;` because it’s not sure which format you want by `"date-time"` (formats are nonstandard and can be whatever you’d like). But we can enhance this by providing our own custom formatter, like so:
 
-```ts
+::: code-group
+
+```ts [src/my-project.ts]
 import openapiTS from "openapi-typescript";
 import ts from "typescript";
 
@@ -120,18 +130,26 @@ const ast = await openapiTS(mySchema, {
 });
 ```
 
+:::
+
 That would result in the following change:
 
-```diff
-- updated_at?: string;
-+ updated_at: Date | null;
+::: code-group
+
+```yaml [my-openapi-3-schema.yaml]
+updated_at?: string; // [!code --]
+updated_at: Date | null; // [!code ++]
 ```
+
+:::
 
 #### Example: `Blob` types
 
 Another common transformation is for file uploads, where the `body` of a request is a `multipart/form-data` with some `Blob` fields. Here's an example schema:
 
-```yaml
+::: code-group
+
+```yaml [my-openapi-3-schema.yaml]
 Body_file_upload:
   type: object;
   properties:
@@ -140,9 +158,13 @@ Body_file_upload:
       format: binary;
 ```
 
+:::
+
 Use the same pattern to transform the types:
 
-```ts
+::: code-group
+
+```ts [src/my-project.ts]
 import openapiTS from "openapi-typescript";
 import ts from "typescript";
 
@@ -160,18 +182,26 @@ const ast = await openapiTS(mySchema, {
 });
 ```
 
+:::
+
 Resultant diff with correctly-typed `file` property:
 
-```diff
-- file?: string;
-+ file: Blob | null;
+::: code-group
+
+```ts [my-openapi-3-schema.d.ts]
+file?: string; // [!code --]
+file: Blob | null; // [!code ++]
 ```
+
+:::
 
 #### Example: Add "?" token to property
 
 It is not possible to create a property with the optional "?" token with the above `transform` functions. The transform function also accepts a different return object, which allows you to add a "?" token to the property. Here's an example schema:
 
-```yaml
+::: code-group
+
+```yaml [my-openapi-3-schema.yaml]
 Body_file_upload:
   type: object;
   properties:
@@ -181,9 +211,13 @@ Body_file_upload:
       required: true;
 ```
 
+:::
+
 Here we return an object with a schema property, which is the same as the above example, but we also add a `questionToken` property, which will add the "?" token to the property.
 
-```ts
+::: code-group
+
+```ts [src/my-project.ts]
 import openapiTS from "openapi-typescript";
 import ts from "typescript";
 
@@ -204,12 +238,18 @@ const ast = await openapiTS(mySchema, {
 });
 ```
 
+:::
+
 Resultant diff with correctly-typed `file` property and "?" token:
 
-```diff
-- file: Blob;
-+ file?: Blob | null;
+::: code-group
+
+```ts [my-openapi-3-schema.d.ts]
+file: Blob; // [!code --]
+file?: Blob | null; // [!code ++]
 ```
+
+:::
 
 Any [Schema Object](https://spec.openapis.org/oas/latest.html#schema-object) present in your schema will be run through this formatter (even remote ones!). Also be sure to check the `metadata` parameter for additional context that may be helpful.
 

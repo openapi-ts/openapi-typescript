@@ -16,9 +16,11 @@ title: openapi-fetch
 
 语法灵感来自流行的库，如`react-query`或`Apollo client`，但没有所有这些功能，并且包大小仅为5 kb。
 
-```ts
+::: code-group
+
+```ts [src/my-project.ts]
 import createClient from "openapi-fetch";
-import type { paths } from "./api/v1"; // 由openapi-typescript生成
+import type { paths } from "./my-openapi-3-schema"; // 由openapi-typescript生成
 
 const client = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 
@@ -37,6 +39,8 @@ await client.PUT("/blogposts", {
   }),
 });
 ```
+
+:::
 
 `data`和`error`经过类型检查，并将其类型暴露给VS Code（以及任何其他支持TypeScript的IDE）的智能感知。同样，请求`body`也将检查其字段，如果缺少任何必需的参数或存在类型不匹配，则会出错。
 
@@ -100,9 +104,11 @@ npx openapi-typescript ./path/to/api/v1.yaml -o ./src/lib/api/v1.d.ts
 
 ![OpenAPI 模式示例](/assets/openapi-schema.png)
 
-```ts
+::: code-group
+
+```ts [src/my-project.ts]
 import createClient from "openapi-fetch";
-import type { paths } from "./api/v1";
+import type { paths } from "./my-openapi-3-schema"; // 由openapi-typescript生成
 
 const client = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 
@@ -121,6 +127,8 @@ const { data, error } = await client.PUT("/blogposts", {
   }),
 });
 ```
+
+:::
 
 1. HTTP 方法直接从 `createClient()` 中提取
 2. 将所需的 `path` 传递给 `GET()`、`PUT()` 等
