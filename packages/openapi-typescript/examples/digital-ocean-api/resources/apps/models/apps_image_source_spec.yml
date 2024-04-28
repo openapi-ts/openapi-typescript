@@ -10,10 +10,20 @@ properties:
     enum:
     - DOCKER_HUB
     - DOCR
+    - GHCR
     description: |2-
       - DOCKER_HUB: The DockerHub container registry type.
       - DOCR: The DigitalOcean container registry type.
+      - GHCR: The Github container registry type.
     example: DOCR
+  
+  registry_credentials:
+    type: string
+    description: |2-
+      The credentials to be able to pull the image. The value will be encrypted on first submission. On following submissions, the encrypted value should be used.
+      - "$username:$access_token" for registries of type `DOCKER_HUB`.
+      - "$username:$access_token" for registries of type `GHCR`.
+    example: my-dockerhub-username:dckr_pat_the_access_token
 
   repository:
     type: string

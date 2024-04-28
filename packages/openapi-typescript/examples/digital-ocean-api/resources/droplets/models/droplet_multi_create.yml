@@ -7,6 +7,8 @@ allOf:
         type: array
         items:
           type: string
+          maxLength: 255
+          pattern: ^[a-zA-Z0-9]?[a-z0-9A-Z.\-]*[a-z0-9A-Z]$
         example:
         - sub-01.example.com
         - sub-02.example.com

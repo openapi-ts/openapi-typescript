@@ -39,5 +39,4 @@ responses:
 
 security:
   - bearer_auth:
-    - 'read'
-
+    - 'firewall:read'

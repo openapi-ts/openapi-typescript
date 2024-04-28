@@ -61,4 +61,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'write'
+    - 'block_storage_snapshot:create'

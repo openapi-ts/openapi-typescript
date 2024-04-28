@@ -6,6 +6,11 @@ properties:
     description: UUID of the invoice
     example: 22737513-0ea7-4206-8ceb-98a575af7681
 
+  invoice_id:
+    type: string
+    description: ID of the invoice
+    example: '123456789'
+
   billing_period:
     type: string
     description: >- 

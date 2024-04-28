@@ -5,6 +5,8 @@ allOf:
     properties:
       name:
         type: string
+        maxLength: 255
+        pattern: ^[a-zA-Z0-9]?[a-z0-9A-Z.\-]*[a-z0-9A-Z]$
         example: example.com
         description: The human-readable string you wish to use when displaying
           the Droplet name. The name, if set to a domain name managed in the

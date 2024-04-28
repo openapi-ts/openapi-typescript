@@ -20,6 +20,9 @@ responses:
   '204':
     $ref: '../../shared/responses/no_content.yml'
 
+  '400':
+    $ref: 'responses/not_a_snapshot.yml'
+
   '401':
     $ref: '../../shared/responses/unauthorized.yml'
 
@@ -43,4 +46,5 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'write'
+    - 'image:delete'
+    - 'snapshot:delete'

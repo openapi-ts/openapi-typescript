@@ -20,10 +20,11 @@ properties:
       - redis
       - mongodb
       - kafka
+      - opensearch
     description: >-
       A slug representing the database engine used for the cluster. The possible values
       are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, "mongodb" for MongoDB,
-      and "kafka" for Kafka.
+      "kafka" for Kafka and "opensearch" for Opensearch.
   version:
     type: string
     example: '8'
@@ -92,11 +93,25 @@ properties:
     description: >-
       An array of strings containing the names of databases created in the
       database cluster.
+  ui_connection:
+    allOf:
+    - $ref: './opensearch_connection.yml'
+    - readOnly: true
+    description: >-
+     The connection details for OpenSearch dashboard. 
   connection:
     allOf:
     - $ref: './database_connection.yml'
     - readOnly: true
   private_connection:
+    allOf:
+    - $ref: './database_connection.yml'
+    - readOnly: true
+  standby_connection:
+    allOf:
+    - $ref: './database_connection.yml'
+    - readOnly: true
+  standby_private_connection:
     allOf:
     - $ref: './database_connection.yml'
     - readOnly: true
@@ -139,6 +154,15 @@ properties:
     description: >-
       Additional storage added to the cluster, in MiB. If null, no additional storage is added to the cluster, beyond
       what is provided as a base amount from the 'size' and any previously added additional storage.
+  metrics_endpoints:
+    type: array
+    items:
+      $ref: './database_service_endpoint.yml'
+    description: >-
+      Public hostname and port of the cluster's metrics endpoint(s). Includes one record for the cluster's primary node and
+      a second entry for the cluster's standby node(s).
+    readOnly: true
+
 
 
 required:

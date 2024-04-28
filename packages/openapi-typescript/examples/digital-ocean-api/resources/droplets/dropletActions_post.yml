@@ -22,7 +22,7 @@ description: |
     | <nobr>`rebuild`</nobr>                   | Rebuilds a Droplet from a new base image. Set the `image` attribute to an image ID or slug. |
     | <nobr>`rename`</nobr>                    | Renames a Droplet. |
     | <nobr>`change_kernel`</nobr>             | Changes a Droplet's kernel. Only applies to Droplets with externally managed kernels. All Droplets created after March 2017 use internal kernels by default. |
-    | <nobr>`enable_ipv6`</nobr>               | Enables IPv6 for a Droplet. |
+    | <nobr>`enable_ipv6`</nobr>               | Enables IPv6 for a Droplet. Once enabled for a Droplet, IPv6 can not be disabled. When enabling IPv6 on an existing Droplet, [additional OS-level configuration](https://docs.digitalocean.com/products/networking/ipv6/how-to/enable/#on-existing-droplets) is required. |
     | <nobr>`snapshot`</nobr>                  | Takes a snapshot of a Droplet. |
 
 tags:
@@ -94,4 +94,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'write'
+    - 'droplet:update'

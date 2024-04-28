@@ -38,7 +38,8 @@ requestBody:
               example: true
               description: |
                 For MongoDB clusters, set to `true` to create a read-only user.
-                This option is not currently supported for other database engines.
+                This option is not currently supported for other database engines.             
+
       examples:
         Add New User:
           value:
@@ -54,6 +55,12 @@ requestBody:
           value:
             name: my-readonly
             readonly: true
+        
+        Add New User for Postgres with replication rights:
+          value:
+            name: app-02
+            settings:
+              pg_allow_replication: true
 
         Add New User with Kafka ACLs:
           value:
@@ -93,4 +100,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'write'
+    - 'database:create'

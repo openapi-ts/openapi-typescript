@@ -4,7 +4,7 @@ summary: Delete a Volume Snapshot
 
 description: |
   To delete a volume snapshot, send a DELETE request to
-  `/v2/snapshots/$SNAPSHOT_ID`.
+  `/v2/volumes/snapshots/$VOLUME_SNAPSHOT_ID`.
 
   A status of 204 will be given. This indicates that the request was processed
   successfully, but that no response body is needed.
@@ -13,7 +13,7 @@ tags:
   - Block Storage
 
 parameters:
-  - $ref: '../snapshots/parameters.yml#/snapshot_id'
+  - $ref: 'parameters.yml#/volume_snapshot_id'
 
 responses:
   '204':
@@ -42,4 +42,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'write'
+    - 'block_storage_snapshot:delete'

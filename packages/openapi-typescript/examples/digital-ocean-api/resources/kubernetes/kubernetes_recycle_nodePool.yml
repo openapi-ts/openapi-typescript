@@ -50,4 +50,4 @@ responses:
     $ref: '../../shared/responses/unexpected_error.yml'
 security:
   - bearer_auth:
-    - 'write'
+    - 'kubernetes:delete'

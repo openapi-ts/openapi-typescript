@@ -20,10 +20,7 @@ function Fact() {
           <code>{JSON.stringify(fact.data, undefined, 2)}</code>
         </pre>
       )}
-      <button
-        type="button"
-        onClick={() => fact.refetch()}
-      >
+      <button type="button" onClick={() => fact.refetch()}>
         Another fact!
       </button>
     </div>
@@ -39,7 +36,7 @@ function App() {
           refetchOnWindowFocus: false, // don’t refetch on window focus
         },
       },
-    }),
+    })
   );
   return (
     <QueryClientProvider client={reactQueryClient}>
@@ -48,6 +45,8 @@ function App() {
   );
 }
 
-const domNode = document.getElementById("app")!;
-const root = createRoot(domNode);
-root.render(<App />);
+const domNode = document.getElementById("app");
+if (domNode) {
+  const root = createRoot(domNode);
+  root.render(<App />);
+}

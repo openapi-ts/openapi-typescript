@@ -39,4 +39,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'write'
+    - 'kubernetes:delete'

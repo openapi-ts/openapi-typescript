@@ -34,5 +34,5 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'read'
+    - 'billing:read'
 

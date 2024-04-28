@@ -1,0 +1,75 @@
+operationId: databases_update_user
+
+summary: Update a Database User
+
+description: |
+  To update an existing database user, send a PUT request to `/v2/databases/$DATABASE_ID/users/$USERNAME`
+  with the desired settings.
+
+  **Note**: only `settings` can be updated via this type of request. If you wish to change the name of a user,
+  you must recreate a new user.
+
+  The response will be a JSON object with a key called `user`. The value of this will be an
+  object that contains the name of the update database user, along with the `settings` object that
+  has been updated.
+
+tags:
+  - Databases
+
+parameters:
+  - $ref: 'parameters.yml#/database_cluster_uuid'
+  - $ref: 'parameters.yml#/username'
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        allOf:
+        - type: object
+          properties:
+            settings:
+              $ref: './models/user_settings.yml'
+        required:
+          - settings
+      examples:
+        Update User Kafka ACLs:
+          value:
+            settings:
+              acl:
+              - id: acl128aaaa99239
+                permission: produceconsume
+                topic: customer-events
+              - id: acl293098flskdf
+                permission: produce
+                topic: customer-events.*
+              - id: acl128ajei20123
+                permission: consume
+                topic: customer-events
+
+responses:
+  '201':
+    $ref: 'responses/user.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/databases_update_user.yml'
+  - $ref: 'examples/go/databases_update_user.yml'
+
+security:
+  - bearer_auth:
+    - 'database:update'

@@ -39,5 +39,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'read'
-
+    - 'droplet:read'

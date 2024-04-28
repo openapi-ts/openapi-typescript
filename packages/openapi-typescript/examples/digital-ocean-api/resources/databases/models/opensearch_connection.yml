@@ -1,0 +1,34 @@
+type: object
+
+properties:
+  uri:
+    type: string
+    description: >-
+     This is provided as a convenience and should be able to be constructed by the other attributes.
+    example: opensearch://doadmin:wv78n3zpz42xezdk@backend-do-user-19081923-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require
+    readOnly: true
+  host:
+    type: string
+    description: The FQDN pointing to the opensearch cluster's current primary node.
+    example: backend-do-user-19081923-0.db.ondigitalocean.com
+    readOnly: true
+  port:
+    type: integer
+    description: The port on which the opensearch dashboard is listening.
+    example: 25060
+    readOnly: true
+  user:
+    type: string
+    description: The default user for the opensearch dashboard.
+    example: doadmin
+    readOnly: true
+  password:
+    type: string
+    description: The randomly generated password for the default user.
+    example: wv78n3zpz42xezdk
+    readOnly: true
+  ssl:
+    type: boolean
+    description: A boolean value indicating if the connection should be made over SSL.
+    example: true
+    readOnly: true

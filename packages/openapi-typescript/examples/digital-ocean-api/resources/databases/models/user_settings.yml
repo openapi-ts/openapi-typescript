@@ -1,6 +1,12 @@
 type: object
 
 properties:
+  pg_allow_replication:
+        type: boolean
+        example: true
+        description: |
+          For Postgres clusters, set to `true` for a user with replication rights.
+          This option is not currently supported for other database engines.
   acl:
     type: array
     items:
@@ -8,7 +14,7 @@ properties:
       properties:
         id:
           type: string
-          description: An identifier for the ACL.
+          description: An identifier for the ACL. Will be computed after the ACL is created/updated.
           example: "aaa"
         topic:
           type: string

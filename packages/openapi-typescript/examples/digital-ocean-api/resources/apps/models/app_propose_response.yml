@@ -44,3 +44,4 @@ properties:
       monthly cost of the app if it were to use the Basic tier. If the proposed
       app already uses the lest expensive tier, the field is empty.
     example: 17
+    deprecated: true

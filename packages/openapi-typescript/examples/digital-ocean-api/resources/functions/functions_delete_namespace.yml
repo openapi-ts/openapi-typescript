@@ -42,4 +42,5 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'write'
+    - 'function:delete'
+    - 'function:admin'

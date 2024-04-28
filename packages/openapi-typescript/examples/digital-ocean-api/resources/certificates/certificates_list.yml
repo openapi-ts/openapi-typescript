@@ -9,6 +9,7 @@ description: >-
 parameters:
   - $ref: '../../shared/parameters.yml#/per_page'
   - $ref: '../../shared/parameters.yml#/page'
+  - $ref: "parameters.yml#/certificate_name"
 
 tags:
   - Certificates
@@ -37,5 +38,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'read'
-
+    - 'cdn:read'

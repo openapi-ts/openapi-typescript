@@ -8,6 +8,8 @@ description: >-
   to specify if the results should be for the `private` or `public` interface.
   Use the `direction` query parameter to specify if the results should be for
   `inbound` or `outbound` traffic.
+
+  The metrics in the response body are in megabits per second (Mbps).
 tags:
   - Monitoring
 
@@ -41,5 +43,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'read'
-
+    - 'monitoring:read'

@@ -40,6 +40,22 @@ content:
           user: doadmin
           password: wv78n3zpz42xezdk
           ssl: true
+        standby_connection:
+          uri: postgres://doadmin:wv78n3zpz42xezdk@replica-backend-do-user-19081923-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require
+          database: ''
+          host: replica-backend-do-user-19081923-0.db.ondigitalocean.com
+          port: 25060
+          user: doadmin
+          password: wv78n3zpz42xezdk
+          ssl: true
+        standby_private_connection:
+          uri: postgres://doadmin:wv78n3zpz42xezdk@private-replica-backend-do-user-19081923-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require
+          database: ''
+          host: private-replica-backend-do-user-19081923-0.db.ondigitalocean.com
+          port: 25060
+          user: doadmin
+          password: wv78n3zpz42xezdk
+          ssl: true
         users:
         - name: doadmin
           role: primary

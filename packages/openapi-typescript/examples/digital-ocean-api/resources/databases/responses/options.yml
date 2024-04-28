@@ -365,6 +365,45 @@ content:
                 - m-16vcpu-128gb
                 - m-24vcpu-192gb
                 - m-32vcpu-256gb
+        opensearch:
+          regions:
+            - ams3
+            - blr1
+            - fra1
+            - lon1
+            - nyc1
+            - nyc3
+            - sfo2
+            - sfo3
+            - sgp1
+            - syd1
+            - tor1
+          versions:
+            - '1'
+            - '2'
+          layouts:
+            - num_nodes: 1
+              sizes:
+                - db-s-2vcpu-4gb
+                - db-s-4vcpu-8gb
+            - num_nodes: 3
+              sizes:
+                - db-s-2vcpu-4gb
+                - db-s-4vcpu-8gb
+                - m3-2vcpu-16gb
+                - m3-4vcpu-32gb
+            - num_nodes: 6
+              sizes:
+                - m3-2vcpu-16gb
+                - m3-4vcpu-32gb
+            - num_nodes: 9
+              sizes:
+                - m3-2vcpu-16gb
+                - m3-4vcpu-32gb
+            - num_nodes: 15
+              sizes:
+                - m3-2vcpu-16gb
+                - m3-4vcpu-32gb
       version_availability:
         kafka:
           - end_of_life: '2024-05-13T00:00:00Z'
@@ -387,6 +426,13 @@ content:
           - end_of_life: null
             end_of_availability: null
             version: '8'
+        opensearch:
+          - end_of_life: null
+            end_of_availability: null
+            version: '1'
+          - end_of_life: null
+            end_of_availability: null
+            version: '2' 
         pg:
           - end_of_life: '2024-11-14T00:00:00Z'
             end_of_availability: '2024-05-14T00:00:00Z'
