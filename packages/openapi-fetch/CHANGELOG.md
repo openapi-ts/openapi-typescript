@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.9.5
+
+### Patch Changes
+
+- [#1639](https://github.com/drwpow/openapi-typescript/pull/1639) [`645f436`](https://github.com/drwpow/openapi-typescript/commit/645f4366d2907b05eee1e6ec33d13edab8614fa1) Thanks [@FreeAoi](https://github.com/FreeAoi)! - fix request option types don't showing optional props correctly
+
 ## 0.9.4
 
 ### Patch Changes
