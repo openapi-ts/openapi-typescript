@@ -158,16 +158,16 @@ type PathMethods = Partial<Record<HttpMethod, {}>>;
 export type MaybeOptionalInit<P extends PathMethods, M extends keyof P> = HasRequiredKeys<
   FetchOptions<FilterKeys<P, M>>
 > extends never
-  ? [(FetchOptions<FilterKeys<P, M>> | undefined)?]
-  : [FetchOptions<FilterKeys<P, M>>];
+  ? FetchOptions<FilterKeys<P, M>> | undefined
+  : FetchOptions<FilterKeys<P, M>>;
 
 export type ClientMethod<Paths extends Record<string, PathMethods>, M extends HttpMethod, Media extends MediaType> = <
   P extends PathsWithMethod<Paths, M>,
   I extends MaybeOptionalInit<Paths[P], M>,
 >(
   url: P,
-  ...init: I
-) => Promise<FetchResponse<Paths[P][M], I[0], Media>>;
+  ...init: HasRequiredKeys<I> extends never ? [I?] : [I]
+) => Promise<FetchResponse<Paths[P][M], I, Media>>;
 
 export default function createClient<Paths extends {}, Media extends MediaType = MediaType>(
   clientOptions?: ClientOptions,
