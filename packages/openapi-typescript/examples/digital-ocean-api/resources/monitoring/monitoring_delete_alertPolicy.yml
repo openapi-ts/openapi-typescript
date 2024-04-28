@@ -34,4 +34,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'write'
+    - 'monitoring:delete'

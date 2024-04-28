@@ -33,6 +33,15 @@ content:
             password: wv78n3zpz42xezdk
             mysql_settings:
               auth_plugin: mysql_native_password
+      
+      New User for Postgres with replication rights:
+        value:
+          user:
+            name: app-02
+            role: normal
+            password: wv78n3zpz42xezdk
+            settings:
+              pg_allow_replication: true 
 
       Kafka User:
         value:

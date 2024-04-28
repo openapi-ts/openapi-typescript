@@ -70,4 +70,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-      - 'write'
+      - 'droplet:create'

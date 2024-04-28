@@ -38,5 +38,5 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'read'
+    - '1click:read'
 

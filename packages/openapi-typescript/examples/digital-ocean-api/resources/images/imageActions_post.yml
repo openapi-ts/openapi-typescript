@@ -63,4 +63,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'write'
+    - 'image:create'

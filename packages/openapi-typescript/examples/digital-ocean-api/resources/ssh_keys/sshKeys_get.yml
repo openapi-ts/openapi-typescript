@@ -42,5 +42,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'read'
-
+    - 'ssh_key:read'

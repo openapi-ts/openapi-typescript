@@ -50,7 +50,7 @@ network_direction:
 metric_timestamp_start:
   in: query
   name: start
-  description: Timestamp to start metric window.
+  description: UNIX timestamp to start metric window.
   example: "1620683817"
   required: true
   schema:
@@ -59,7 +59,7 @@ metric_timestamp_start:
 metric_timestamp_end:
   in: query
   name: end
-  description: Timestamp to end metric window.
+  description: UNIX timestamp to end metric window.
   example: "1620705417"
   required: true
   schema:

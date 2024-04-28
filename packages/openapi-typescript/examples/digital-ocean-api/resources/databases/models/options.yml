@@ -6,39 +6,46 @@ properties:
     properties:
       kafka:
         allOf:
-        - $ref: './database_region_options.yml'
-        - $ref: './database_version_options.yml'
-        - $ref: './database_layout_options.yml'
+          - $ref: "./database_region_options.yml"
+          - $ref: "./database_version_options.yml"
+          - $ref: "./database_layout_options.yml"
       mongodb:
         allOf:
-        - $ref: './database_region_options.yml'
-        - $ref: './database_version_options.yml'
-        - $ref: './database_layout_options.yml'
+          - $ref: "./database_region_options.yml"
+          - $ref: "./database_version_options.yml"
+          - $ref: "./database_layout_options.yml"
       pg:
         allOf:
-          - $ref: './database_region_options.yml'
-          - $ref: './database_version_options.yml'
-          - $ref: './database_layout_options.yml'
+          - $ref: "./database_region_options.yml"
+          - $ref: "./database_version_options.yml"
+          - $ref: "./database_layout_options.yml"
       mysql:
         allOf:
-          - $ref: './database_region_options.yml'
-          - $ref: './database_version_options.yml'
-          - $ref: './database_layout_options.yml'
+          - $ref: "./database_region_options.yml"
+          - $ref: "./database_version_options.yml"
+          - $ref: "./database_layout_options.yml"
       redis:
         allOf:
-          - $ref: './database_region_options.yml'
-          - $ref: './database_version_options.yml'
-          - $ref: './database_layout_options.yml'
+          - $ref: "./database_region_options.yml"
+          - $ref: "./database_version_options.yml"
+          - $ref: "./database_layout_options.yml"
+      opensearch:
+        allOf:
+          - $ref: "./database_region_options.yml"
+          - $ref: "./database_version_options.yml"
+          - $ref: "./database_layout_options.yml"
   version_availability:
     type: object
     properties:
       kafka:
-        $ref: './database_version_availabilities.yml'
+        $ref: "./database_version_availabilities.yml"
       pg:
-        $ref: './database_version_availabilities.yml'
+        $ref: "./database_version_availabilities.yml"
       mysql:
-        $ref: './database_version_availabilities.yml'
+        $ref: "./database_version_availabilities.yml"
       redis:
-        $ref: './database_version_availabilities.yml'
+        $ref: "./database_version_availabilities.yml"
       mongodb:
-        $ref: './database_version_availabilities.yml'
+        $ref: "./database_version_availabilities.yml"
+      opensearch:
+        $ref: "./database_version_availabilities.yml"

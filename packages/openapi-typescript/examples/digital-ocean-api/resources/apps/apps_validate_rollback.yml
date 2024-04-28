@@ -46,4 +46,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'write'
+    - 'app:update'

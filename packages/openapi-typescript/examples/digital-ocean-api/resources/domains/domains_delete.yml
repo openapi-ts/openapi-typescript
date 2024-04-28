@@ -38,4 +38,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'write'
+    - 'domain:delete'

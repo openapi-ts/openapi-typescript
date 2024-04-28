@@ -11,8 +11,12 @@ description: >-
   `creating`. When the cluster is ready to receive traffic, this will transition to
   `online`.
 
+
   The embedded `connection` and `private_connection` objects will contain the
-  information needed to access the database cluster.
+  information needed to access the database cluster. For multi-node clusters, the
+  `standby_connection` and `standby_private_connection` objects will contain the information
+  needed to connect to the cluster's standby node(s).
+
 
   DigitalOcean managed PostgreSQL and MySQL database clusters take automated daily backups.
   To create a new database cluster based on a backup of an existing cluster, send a POST
@@ -109,4 +113,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-      - "write"
+      - "database:create"

@@ -16,6 +16,7 @@ content:
       $ref: '../models/invoice_summary.yml'
     example:
       invoice_uuid: 22737513-0ea7-4206-8ceb-98a575af7681
+      invoice_id: '123456789'
       billing_period: 2020-01
       amount: '27.13'
       user_name: Sammy Shark

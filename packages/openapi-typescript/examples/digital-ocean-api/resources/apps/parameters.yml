@@ -98,6 +98,7 @@ log_type:
     - BUILD: Build-time logs
     - DEPLOY: Deploy-time logs
     - RUN: Live run-time logs
+    - RUN_RESTARTED: Logs of crashed/restarted instances during runtime
   in: query
   name: type
   required: true
@@ -108,6 +109,7 @@ log_type:
     - BUILD
     - DEPLOY
     - RUN
+    - RUN_RESTARTED
     type: string
   example: BUILD
 

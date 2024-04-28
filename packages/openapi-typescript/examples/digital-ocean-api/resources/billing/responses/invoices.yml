@@ -34,13 +34,16 @@ content:
       example:
         invoices:
           - invoice_uuid: 22737513-0ea7-4206-8ceb-98a575af7681
+            invoice_id: '12345678'
             amount: '12.34'
             invoice_period: 2019-12
           - invoice_uuid: fdabb512-6faf-443c-ba2e-665452332a9e
+            invoice_id: '23456789'
             amount: '23.45'
             invoice_period: 2019-11
         invoice_preview:
           invoice_uuid: 1afe95e6-0958-4eb0-8d9a-9c5060d3ef03
+          invoice_id: '34567890'
           amount: '34.56'
           invoice_period: 2020-02
           updated_at: '2020-02-23T06:31:50Z'

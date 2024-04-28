@@ -982,8 +982,11 @@ export interface paths {
         /**
          * List All Database Clusters
          * @description To list all of the database clusters available on your account, send a GET request to `/v2/databases`. To limit the results to database clusters with a specific tag, include the `tag_name` query parameter set to the name of the tag. For example, `/v2/databases?tag_name=$TAG_NAME`.
+         *
          *     The result will be a JSON object with a `databases` key. This will be set to an array of database objects, each of which will contain the standard database attributes.
-         *     The embedded `connection` and `private_connection` objects will contain the information needed to access the database cluster:
+         *
+         *     The embedded `connection` and `private_connection` objects will contain the information needed to access the database cluster. For multi-node clusters, the `standby_connection` and `standby_private_connection` objects will contain the information needed to connect to the cluster's standby node(s).
+         *
          *     The embedded `maintenance_window` object will contain information about any scheduled maintenance for the database cluster.
          */
         get: operations["databases_list_clusters"];
@@ -992,7 +995,9 @@ export interface paths {
          * Create a New Database Cluster
          * @description To create a database cluster, send a POST request to `/v2/databases`.
          *     The response will be a JSON object with a key called `database`. The value of this will be an object that contains the standard attributes associated with a database cluster. The initial value of the database cluster's `status` attribute will be `creating`. When the cluster is ready to receive traffic, this will transition to `online`.
-         *     The embedded `connection` and `private_connection` objects will contain the information needed to access the database cluster.
+         *
+         *     The embedded `connection` and `private_connection` objects will contain the information needed to access the database cluster. For multi-node clusters, the `standby_connection` and `standby_private_connection` objects will contain the information needed to connect to the cluster's standby node(s).
+         *
          *     DigitalOcean managed PostgreSQL and MySQL database clusters take automated daily backups. To create a new database cluster based on a backup of an existing cluster, send a POST request to `/v2/databases`. In addition to the standard database cluster attributes, the JSON body must include a key named `backup_restore` with the name of the original database cluster and the timestamp of the backup to be restored. Creating a database from a backup is the same as forking a database in the control panel.
          *     Note: Backups are not supported for Redis clusters.
          */
@@ -1013,8 +1018,11 @@ export interface paths {
         /**
          * Retrieve an Existing Database Cluster
          * @description To show information about an existing database cluster, send a GET request to `/v2/databases/$DATABASE_ID`.
+         *
          *     The response will be a JSON object with a database key. This will be set to an object containing the standard database cluster attributes.
-         *     The embedded connection and private_connection objects will contain the information needed to access the database cluster.
+         *
+         *     The embedded `connection` and `private_connection` objects will contain the information needed to access the database cluster. For multi-node clusters, the `standby_connection` and `standby_private_connection` objects contain the information needed to connect to the cluster's standby node(s).
+         *
          *     The embedded maintenance_window object will contain information about any scheduled maintenance for the database cluster.
          */
         get: operations["databases_get_cluster"];
@@ -1283,6 +1291,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/databases/{database_cluster_uuid}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List all Events Logs
+         * @description To list all of the cluster events, send a GET request to
+         *     `/v2/databases/$DATABASE_ID/events`.
+         *
+         *     The result will be a JSON object with a `events` key.
+         *
+         */
+        get: operations["databases_list_events_logs"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v2/databases/{database_cluster_uuid}/replicas/{replica_name}": {
         parameters: {
             query?: never;
@@ -1410,7 +1442,20 @@ export interface paths {
          *
          */
         get: operations["databases_get_user"];
-        put?: never;
+        /**
+         * Update a Database User
+         * @description To update an existing database user, send a PUT request to `/v2/databases/$DATABASE_ID/users/$USERNAME`
+         *     with the desired settings.
+         *
+         *     **Note**: only `settings` can be updated via this type of request. If you wish to change the name of a user,
+         *     you must recreate a new user.
+         *
+         *     The response will be a JSON object with a key called `user`. The value of this will be an
+         *     object that contains the name of the update database user, along with the `settings` object that
+         *     has been updated.
+         *
+         */
+        put: operations["databases_update_user"];
         post?: never;
         /**
          * Remove a Database User
@@ -1748,6 +1793,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/databases/metrics/credentials": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve Database Clusters' Metrics Endpoint Credentials
+         * @description To show the credentials for all database clusters' metrics endpoints, send a GET request to `/v2/databases/metrics/credentials`. The result will be a JSON object with a `credentials` key.
+         */
+        get: operations["databases_get_cluster_metrics_credentials"];
+        /**
+         * Update Database Clusters' Metrics Endpoint Credentials
+         * @description To update the credentials for all database clusters' metrics endpoints, send a PUT request to `/v2/databases/metrics/credentials`. A successful request will receive a 204 No Content status code  with no body in response.
+         */
+        put: operations["databases_update_cluster_metrics_credentials"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v2/domains": {
         parameters: {
             query?: never;
@@ -2078,7 +2147,7 @@ export interface paths {
          *     | <nobr>`rebuild`</nobr>                   | Rebuilds a Droplet from a new base image. Set the `image` attribute to an image ID or slug. |
          *     | <nobr>`rename`</nobr>                    | Renames a Droplet. |
          *     | <nobr>`change_kernel`</nobr>             | Changes a Droplet's kernel. Only applies to Droplets with externally managed kernels. All Droplets created after March 2017 use internal kernels by default. |
-         *     | <nobr>`enable_ipv6`</nobr>               | Enables IPv6 for a Droplet. |
+         *     | <nobr>`enable_ipv6`</nobr>               | Enables IPv6 for a Droplet. Once enabled for a Droplet, IPv6 can not be disabled. When enabling IPv6 on an existing Droplet, [additional OS-level configuration](https://docs.digitalocean.com/products/networking/ipv6/how-to/enable/#on-existing-droplets) is required. |
          *     | <nobr>`snapshot`</nobr>                  | Takes a snapshot of a Droplet. |
          *
          */
@@ -3628,6 +3697,7 @@ export interface paths {
         /**
          * Get Droplet Bandwidth Metrics
          * @description To retrieve bandwidth metrics for a given Droplet, send a GET request to `/v2/monitoring/metrics/droplet/bandwidth`. Use the `interface` query parameter to specify if the results should be for the `private` or `public` interface. Use the `direction` query parameter to specify if the results should be for `inbound` or `outbound` traffic.
+         *     The metrics in the response body are in megabits per second (Mbps).
          */
         get: operations["monitoring_get_dropletBandwidthMetrics"];
         put?: never;
@@ -4858,7 +4928,7 @@ export interface paths {
         };
         /**
          * Retrieve an Existing Volume Snapshot
-         * @description To retrieve the details of a snapshot that has been created from a volume, send a GET request to `/v2/volumes/snapshots/$SNAPSHOT_ID`.
+         * @description To retrieve the details of a snapshot that has been created from a volume, send a GET request to `/v2/volumes/snapshots/$VOLUME_SNAPSHOT_ID`.
          *
          *
          */
@@ -4868,7 +4938,7 @@ export interface paths {
         /**
          * Delete a Volume Snapshot
          * @description To delete a volume snapshot, send a DELETE request to
-         *     `/v2/snapshots/$SNAPSHOT_ID`.
+         *     `/v2/volumes/snapshots/$VOLUME_SNAPSHOT_ID`.
          *
          *     A status of 204 will be given. This indicates that the request was processed
          *     successfully, but that no response body is needed.
@@ -5772,10 +5842,18 @@ export interface components {
             /**
              * @description - DOCKER_HUB: The DockerHub container registry type.
              *     - DOCR: The DigitalOcean container registry type.
+             *     - GHCR: The Github container registry type.
              * @example DOCR
              * @enum {string}
              */
-            registry_type?: "DOCKER_HUB" | "DOCR";
+            registry_type?: "DOCKER_HUB" | "DOCR" | "GHCR";
+            /**
+             * @description The credentials to be able to pull the image. The value will be encrypted on first submission. On following submissions, the encrypted value should be used.
+             *     - "$username:$access_token" for registries of type `DOCKER_HUB`.
+             *     - "$username:$access_token" for registries of type `GHCR`.
+             * @example my-dockerhub-username:dckr_pat_the_access_token
+             */
+            registry_credentials?: string;
             /**
              * @description The repository name.
              * @example origin/master
@@ -5908,7 +5986,7 @@ export interface components {
         app_component_instance_base: {
             /**
              * Format: int64
-             * @description The amount of instances that this component should be scaled to. Default: 1
+             * @description The amount of instances that this component should be scaled to. Default: 1. Must not be set if autoscaling is used.
              * @default 1
              * @example 2
              */
@@ -5920,6 +5998,34 @@ export interface components {
              * @enum {string}
              */
             instance_size_slug: "basic-xxs" | "basic-xs" | "basic-s" | "basic-m" | "professional-xs" | "professional-s" | "professional-m" | "professional-1l" | "professional-l" | "professional-xl";
+            /** @description Configuration for automatically scaling this component based on metrics. */
+            autoscaling?: {
+                /**
+                 * Format: uint32
+                 * @description The minimum amount of instances for this component. Must be less than max_instance_count.
+                 * @example 2
+                 */
+                min_instance_count?: number;
+                /**
+                 * Format: uint32
+                 * @description The maximum amount of instances for this component. Must be more than min_instance_count.
+                 * @example 3
+                 */
+                max_instance_count?: number;
+                /** @description The metrics that the component is scaled on. */
+                metrics?: {
+                    /** @description Settings for scaling the component based on CPU utilization. */
+                    cpu?: {
+                        /**
+                         * Format: uint32
+                         * @description The average target CPU utilization for the component.
+                         * @default 80
+                         * @example 75
+                         */
+                        percent: number;
+                    };
+                };
+            };
         };
         apps_string_match: {
             /**
@@ -6666,6 +6772,7 @@ export interface components {
             slug?: string;
             /**
              * The slug of the corresponding downgradable instance size on the lower tier
+             * @deprecated
              * @example basic
              */
             tier_downgrade_to?: string;
@@ -6676,6 +6783,7 @@ export interface components {
             tier_slug?: string;
             /**
              * The slug of the corresponding upgradable instance size on the higher tier
+             * @deprecated
              * @example basic
              */
             tier_upgrade_to?: string;
@@ -6742,6 +6850,7 @@ export interface components {
             app_cost?: number;
             /**
              * Format: int32
+             * @deprecated
              * @description The monthly cost of the proposed app in USD using the previous pricing plan tier. For example, if you propose an app that uses the Professional tier, the `app_tier_downgrade_cost` field displays the monthly cost of the app if it were to use the Basic tier. If the proposed app already uses the lest expensive tier, the field is empty.
              * @example 17
              */
@@ -7280,6 +7389,11 @@ export interface components {
              */
             invoice_uuid?: string;
             /**
+             * @description ID of the invoice. Listed on the face of the invoice PDF as the "Invoice number".
+             * @example 123456789
+             */
+            invoice_id?: string;
+            /**
              * @description Total amount of the invoice, in USD.  This will reflect month-to-date usage in the invoice preview.
              * @example 23.45
              */
@@ -7458,6 +7572,11 @@ export interface components {
              */
             invoice_uuid?: string;
             /**
+             * @description ID of the invoice
+             * @example 123456789
+             */
+            invoice_id?: string;
+            /**
              * @description Billing period of usage for which the invoice is issued, in `YYYY-MM`  format.
              * @example 2020-01
              */
@@ -7550,6 +7669,7 @@ export interface components {
                 pg?: components["schemas"]["database_region_options"] & components["schemas"]["database_version_options"] & components["schemas"]["database_layout_options"];
                 mysql?: components["schemas"]["database_region_options"] & components["schemas"]["database_version_options"] & components["schemas"]["database_layout_options"];
                 redis?: components["schemas"]["database_region_options"] & components["schemas"]["database_version_options"] & components["schemas"]["database_layout_options"];
+                opensearch?: components["schemas"]["database_region_options"] & components["schemas"]["database_version_options"] & components["schemas"]["database_layout_options"];
             };
             version_availability?: {
                 kafka?: components["schemas"]["database_version_availabilities"];
@@ -7557,7 +7677,40 @@ export interface components {
                 mysql?: components["schemas"]["database_version_availabilities"];
                 redis?: components["schemas"]["database_version_availabilities"];
                 mongodb?: components["schemas"]["database_version_availabilities"];
+                opensearch?: components["schemas"]["database_version_availabilities"];
             };
+        };
+        opensearch_connection: {
+            /**
+             * @description This is provided as a convenience and should be able to be constructed by the other attributes.
+             * @example opensearch://doadmin:wv78n3zpz42xezdk@backend-do-user-19081923-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require
+             */
+            readonly uri?: string;
+            /**
+             * @description The FQDN pointing to the opensearch cluster's current primary node.
+             * @example backend-do-user-19081923-0.db.ondigitalocean.com
+             */
+            readonly host?: string;
+            /**
+             * @description The port on which the opensearch dashboard is listening.
+             * @example 25060
+             */
+            readonly port?: number;
+            /**
+             * @description The default user for the opensearch dashboard.
+             * @example doadmin
+             */
+            readonly user?: string;
+            /**
+             * @description The randomly generated password for the default user.
+             * @example wv78n3zpz42xezdk
+             */
+            readonly password?: string;
+            /**
+             * @description A boolean value indicating if the connection should be made over SSL.
+             * @example true
+             */
+            readonly ssl?: boolean;
         };
         database_connection: {
             /**
@@ -7610,10 +7763,17 @@ export interface components {
             auth_plugin: "mysql_native_password" | "caching_sha2_password";
         };
         user_settings: {
+            /**
+             * @description For Postgres clusters, set to `true` for a user with replication rights.
+             *     This option is not currently supported for other database engines.
+             *
+             * @example true
+             */
+            pg_allow_replication?: boolean;
             /** @description ACLs (Access Control Lists) specifying permissions on topics within a Kafka cluster. */
             acl?: {
                 /**
-                 * @description An identifier for the ACL.
+                 * @description An identifier for the ACL. Will be computed after the ACL is created/updated.
                  * @example aaa
                  */
                 id?: string;
@@ -7772,6 +7932,18 @@ export interface components {
              */
             readonly created_at?: string;
         };
+        database_service_endpoint: {
+            /**
+             * @description A FQDN pointing to the database cluster's node(s).
+             * @example backend-do-user-19081923-0.db.ondigitalocean.com
+             */
+            readonly host?: string;
+            /**
+             * @description The port on which a service is listening.
+             * @example 9273
+             */
+            readonly port?: number;
+        };
         database_cluster: {
             /**
              * Format: uuid
@@ -7785,11 +7957,11 @@ export interface components {
              */
             name: string;
             /**
-             * @description A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, "mongodb" for MongoDB, and "kafka" for Kafka.
+             * @description A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, "mongodb" for MongoDB, "kafka" for Kafka and "opensearch" for Opensearch.
              * @example mysql
              * @enum {string}
              */
-            engine: "pg" | "mysql" | "redis" | "mongodb" | "kafka";
+            engine: "pg" | "mysql" | "redis" | "mongodb" | "kafka" | "opensearch";
             /**
              * @description A string representing the version of the database engine in use for the cluster.
              * @example 8
@@ -7846,8 +8018,12 @@ export interface components {
              *     ]
              */
             readonly db_names?: string[] | null;
+            /** @description The connection details for OpenSearch dashboard.  */
+            ui_connection?: components["schemas"]["opensearch_connection"] & unknown;
             connection?: components["schemas"]["database_connection"] & unknown;
             private_connection?: components["schemas"]["database_connection"] & unknown;
+            standby_connection?: components["schemas"]["database_connection"] & unknown;
+            standby_private_connection?: components["schemas"]["database_connection"] & unknown;
             readonly users?: components["schemas"]["database_user"][] | null;
             maintenance_window?: components["schemas"]["database_maintenance_window"] & unknown;
             /**
@@ -7872,6 +8048,8 @@ export interface components {
              * @example 61440
              */
             storage_size_mib?: number;
+            /** @description Public hostname and port of the cluster's metrics endpoint(s). Includes one record for the cluster's primary node and a second entry for the cluster's standby node(s). */
+            readonly metrics_endpoints?: components["schemas"]["database_service_endpoint"][];
         };
         database_backup: {
             /**
@@ -8473,8 +8651,241 @@ export interface components {
              */
             redis_acl_channels_default?: "allchannels" | "resetchannels";
         };
+        mongo: {
+            /**
+             * @description Specifies the default consistency behavior of reads from the database. Data that is returned from the query with may or may not have been acknowledged by all nodes in the replicaset depending on this value.  Learn more [here](https://www.mongodb.com/docs/manual/reference/read-concern/).
+             * @default local
+             * @example local
+             * @enum {string}
+             */
+            default_read_concern: "local" | "available" | "majority";
+            /**
+             * @description Describes the level of acknowledgment requested from MongoDB for write operations clusters. This field can set to either `majority` or a number `0...n` which will describe the number of nodes that must acknowledge the write operation before it is fully accepted. Setting to `0` will request no acknowledgement of the write operation.  Learn more [here](https://www.mongodb.com/docs/manual/reference/write-concern/).
+             * @default majority
+             * @example majority
+             */
+            default_write_concern: string;
+            /**
+             * @description Specifies the lifetime of multi-document transactions. Transactions that exceed this limit are considered expired and will be  aborted by a periodic cleanup process. The cleanup process runs every `transactionLifetimeLimitSeconds/2 seconds` or at least  once every 60 seconds. *Changing this parameter will lead to a restart of the MongoDB service.* Learn more [here](https://www.mongodb.com/docs/manual/reference/parameters/#mongodb-parameter-param.transactionLifetimeLimitSeconds).
+             * @default 60
+             * @example 100
+             */
+            transaction_lifetime_limit_seconds: number;
+            /**
+             * @description Operations that run for longer than this threshold are considered slow which are then recorded to the diagnostic logs.  Higher log levels (verbosity) will record all operations regardless of this threshold on the primary node.  *Changing this parameter will lead to a restart of the MongoDB service.* Learn more [here](https://www.mongodb.com/docs/manual/reference/configuration-options/#mongodb-setting-operationProfiling.slowOpThresholdMs).
+             * @default 100
+             * @example 200
+             */
+            slow_op_threshold_ms: number;
+            /**
+             * @description The log message verbosity level. The verbosity level determines the amount of Informational and Debug messages MongoDB outputs. 0 includes informational messages while 1...5 increases the level to include debug messages. *Changing this parameter will lead to a restart of the MongoDB service.* Learn more [here](https://www.mongodb.com/docs/manual/reference/configuration-options/#mongodb-setting-systemLog.verbosity).
+             * @default 0
+             * @example 3
+             */
+            verbosity: number;
+        };
+        kafka: {
+            /**
+             * @description Specify the final compression type for a given topic. This configuration accepts the standard compression codecs ('gzip', 'snappy', 'lz4', 'zstd'). It additionally accepts 'uncompressed' which is equivalent to no compression; and 'producer' which means retain the original compression codec set by the producer.
+             * @example gzip
+             * @enum {string}
+             */
+            compression_type?: "gzip" | "snappy" | "lz4" | "zstd" | "uncompressed" | "producer";
+            /**
+             * @description The amount of time, in milliseconds, the group coordinator will wait for more consumers to join a new group before performing the first rebalance. A longer delay means potentially fewer rebalances, but increases the time until processing begins. The default value for this is 3 seconds. During development and testing it might be desirable to set this to 0 in order to not delay test execution time.
+             * @example 3000
+             */
+            group_initial_rebalance_delay_ms?: number;
+            /**
+             * @description The minimum allowed session timeout for registered consumers. Longer timeouts give consumers more time to process messages in between heartbeats at the cost of a longer time to detect failures.
+             * @example 6000
+             */
+            group_min_session_timeout_ms?: number;
+            /**
+             * @description The maximum allowed session timeout for registered consumers. Longer timeouts give consumers more time to process messages in between heartbeats at the cost of a longer time to detect failures.
+             * @example 1800000
+             */
+            group_max_session_timeout_ms?: number;
+            /**
+             * @description Idle connections timeout: the server socket processor threads close the connections that idle for longer than this.
+             * @example 540000
+             */
+            connections_max_idle_ms?: number;
+            /**
+             * @description The maximum number of incremental fetch sessions that the broker will maintain.
+             * @example 1000
+             */
+            max_incremental_fetch_session_cache_slots?: number;
+            /**
+             * @description The maximum size of message that the server can receive.
+             * @example 1048588
+             */
+            message_max_bytes?: number;
+            /**
+             * @description Log retention window in minutes for offsets topic
+             * @example 10080
+             */
+            offsets_retention_minutes?: number;
+            /**
+             * @description How long are delete records retained?
+             * @example 86400000
+             */
+            log_cleaner_delete_retention_ms?: number;
+            /**
+             * @description Controls log compactor frequency. Larger value means more frequent compactions but also more space wasted for logs. Consider setting log_cleaner_max_compaction_lag_ms to enforce compactions sooner, instead of setting a very high value for this option.
+             * @example 0.5
+             */
+            log_cleaner_min_cleanable_ratio?: number;
+            /**
+             * @description The maximum amount of time message will remain uncompacted. Only applicable for logs that are being compacted
+             * @example 60000
+             */
+            log_cleaner_max_compaction_lag_ms?: number;
+            /**
+             * @description The minimum time a message will remain uncompacted in the log. Only applicable for logs that are being compacted.
+             * @example 100000
+             */
+            log_cleaner_min_compaction_lag_ms?: number;
+            /**
+             * @description The default cleanup policy for segments beyond the retention window
+             * @example delete
+             * @enum {string}
+             */
+            log_cleanup_policy?: "delete" | "compact" | "compact,delete";
+            /**
+             * @description The number of messages accumulated on a log partition before messages are flushed to disk
+             * @example 9223372036854776000
+             */
+            log_flush_interval_messages?: number;
+            /**
+             * @description The maximum time in ms that a message in any topic is kept in memory before flushed to disk. If not set, the value in log.flush.scheduler.interval.ms is used
+             * @example 1000000
+             */
+            log_flush_interval_ms?: number;
+            /**
+             * @description The interval with which Kafka adds an entry to the offset index
+             * @example 4096
+             */
+            log_index_interval_bytes?: number;
+            /**
+             * @description The maximum size in bytes of the offset index
+             * @example 10485760
+             */
+            log_index_size_max_bytes?: number;
+            /**
+             * @description This configuration controls whether down-conversion of message formats is enabled to satisfy consume requests.
+             * @example true
+             */
+            log_message_downconversion_enable?: boolean;
+            /**
+             * @description Define whether the timestamp in the message is message create time or log append time.
+             * @example CreateTime
+             * @enum {string}
+             */
+            log_message_timestamp_type?: "CreateTime" | "LogAppendTime";
+            /**
+             * @description The maximum difference allowed between the timestamp when a broker receives a message and the timestamp specified in the message
+             * @example 1000000
+             */
+            log_message_timestamp_difference_max_ms?: number;
+            /**
+             * @description Controls whether to preallocate a file when creating a new segment
+             * @example false
+             */
+            log_preallocate?: boolean;
+            /**
+             * @description The maximum size of the log before deleting messages
+             * @example 1000000
+             */
+            log_retention_bytes?: number;
+            /**
+             * @description The number of hours to keep a log file before deleting it
+             * @example 1000000
+             */
+            log_retention_hours?: number;
+            /**
+             * @description The number of milliseconds to keep a log file before deleting it (in milliseconds), If not set, the value in log.retention.minutes is used. If set to -1, no time limit is applied.
+             * @example 100000000
+             */
+            log_retention_ms?: number;
+            /**
+             * @description The maximum jitter to subtract from logRollTimeMillis (in milliseconds). If not set, the value in log.roll.jitter.hours is used
+             * @example 10000000
+             */
+            log_roll_jitter_ms?: number;
+            /**
+             * @description The maximum time before a new log segment is rolled out (in milliseconds).
+             * @example 1000000
+             */
+            log_roll_ms?: number;
+            /**
+             * @description The maximum size of a single log file
+             * @example 100000000
+             */
+            log_segment_bytes?: number;
+            /**
+             * @description The amount of time to wait before deleting a file from the filesystem
+             * @example 60000
+             */
+            log_segment_delete_delay_ms?: number;
+            /**
+             * @description Enable auto creation of topics
+             * @example true
+             */
+            auto_create_topics_enable?: boolean;
+            /**
+             * @description When a producer sets acks to 'all' (or '-1'), min_insync_replicas specifies the minimum number of replicas that must acknowledge a write for the write to be considered successful.
+             * @example 1
+             */
+            min_insync_replicas?: number;
+            /**
+             * @description Number of partitions for autocreated topics
+             * @example 10
+             */
+            num_partitions?: number;
+            /**
+             * @description Replication factor for autocreated topics
+             * @example 2
+             */
+            default_replication_factor?: number;
+            /**
+             * @description The number of bytes of messages to attempt to fetch for each partition (defaults to 1048576). This is not an absolute maximum, if the first record batch in the first non-empty partition of the fetch is larger than this value, the record batch will still be returned to ensure that progress can be made.
+             * @example 2097152
+             */
+            replica_fetch_max_bytes?: number;
+            /**
+             * @description Maximum bytes expected for the entire fetch response (defaults to 10485760). Records are fetched in batches, and if the first record batch in the first non-empty partition of the fetch is larger than this value, the record batch will still be returned to ensure that progress can be made. As such, this is not an absolute maximum.
+             * @example 20971520
+             */
+            replica_fetch_response_max_bytes?: number;
+            /**
+             * @description The maximum number of connections allowed from each ip address (defaults to 2147483647).
+             * @example 512
+             */
+            max_connections_per_ip?: number;
+            /**
+             * @description The purge interval (in number of requests) of the producer request purgatory (defaults to 1000).
+             * @example 100
+             */
+            producer_purgatory_purge_interval_requests?: number;
+            /**
+             * @description The maximum number of bytes in a socket request (defaults to 104857600).
+             * @example 20971520
+             */
+            socket_request_max_bytes?: number;
+            /**
+             * @description The transaction topic segment bytes should be kept relatively small in order to facilitate faster log compaction and cache loads (defaults to 104857600 (100 mebibytes)).
+             * @example 104857600
+             */
+            transaction_state_log_segment_bytes?: number;
+            /**
+             * @description The interval at which to remove transactions that have expired due to transactional.id.expiration.ms passing (defaults to 3600000 (1 hour)).
+             * @example 3600000
+             */
+            transaction_remove_expired_transaction_cleanup_interval_ms?: number;
+        };
         database_config: {
-            config?: components["schemas"]["mysql"] | components["schemas"]["postgres"] | components["schemas"]["redis"];
+            config?: components["schemas"]["mysql"] | components["schemas"]["postgres"] | components["schemas"]["redis"] | components["schemas"]["mongo"] | components["schemas"]["kafka"];
         };
         ca: {
             /**
@@ -8629,6 +9040,29 @@ export interface components {
              */
             storage_size_mib?: number;
         };
+        events_logs: {
+            /**
+             * @description ID of the particular event.
+             * @example pe8u2huh
+             */
+            id?: string;
+            /**
+             * @description The name of cluster.
+             * @example sample_cluster
+             */
+            cluster_name?: string;
+            /**
+             * @description Type of the event.
+             * @example cluster_create
+             * @enum {string}
+             */
+            event_type?: "cluster_maintenance_perform" | "cluster_master_promotion" | "cluster_create" | "cluster_update" | "cluster_delete" | "cluster_poweron" | "cluster_poweroff";
+            /**
+             * @description The time of the generation of a event.
+             * @example 2020-10-29T15:57:38Z
+             */
+            create_time?: string;
+        };
         database: {
             /**
              * @description The name of the database.
@@ -8665,6 +9099,8 @@ export interface components {
             user?: string;
             connection?: components["schemas"]["database_connection"] & unknown;
             private_connection?: components["schemas"]["database_connection"] & unknown;
+            standby_connection?: components["schemas"]["database_connection"] & unknown;
+            standby_private_connection?: components["schemas"]["database_connection"] & unknown;
         };
         connection_pools: {
             /** @description An array of connection pool objects. */
@@ -8935,6 +9371,21 @@ export interface components {
              */
             partition_count?: number;
             config?: components["schemas"]["kafka_topic_config"];
+        };
+        databases_basic_auth_credentials: {
+            /**
+             * @description basic authentication username for metrics HTTP endpoint
+             * @example username
+             */
+            basic_auth_username?: string;
+            /**
+             * @description basic authentication password for metrics HTTP endpoint
+             * @example password
+             */
+            basic_auth_password?: string;
+        };
+        database_metrics_credentials: {
+            credentials?: components["schemas"]["databases_basic_auth_credentials"];
         };
         domain: {
             /**
@@ -12815,6 +13266,20 @@ export interface components {
                 };
             };
         };
+        /** @description A JSON object with a key of `events`. */
+        events_logs: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    events?: components["schemas"]["events_logs"][];
+                };
+            };
+        };
         /** @description A JSON object with a key of `users`. */
         users: {
             headers: {
@@ -12948,6 +13413,20 @@ export interface components {
             content: {
                 "application/json": {
                     topic?: components["schemas"]["kafka_topic_verbose"];
+                };
+            };
+        };
+        /** @description A JSON object with a key of `credentials`. */
+        database_metrics_auth: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    credentials?: components["schemas"]["database_metrics_credentials"];
                 };
             };
         };
@@ -14422,6 +14901,18 @@ export interface components {
                 };
             };
         };
+        /** @description Bad Request */
+        not_a_snapshot: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["error"];
+            };
+        };
         /** @description To list all of your tags, you can send a `GET` request to `/v2/tags`. */
         tags_all: {
             headers: {
@@ -14746,9 +15237,10 @@ export interface components {
          *     - BUILD: Build-time logs
          *     - DEPLOY: Deploy-time logs
          *     - RUN: Live run-time logs
+         *     - RUN_RESTARTED: Logs of crashed/restarted instances during runtime
          * @example BUILD
          */
-        log_type: "UNSPECIFIED" | "BUILD" | "DEPLOY" | "RUN";
+        log_type: "UNSPECIFIED" | "BUILD" | "DEPLOY" | "RUN" | "RUN_RESTARTED";
         /**
          * @description An optional time duration to wait if the underlying component instance is not immediately available. Default: `3m`.
          * @example 3m
@@ -14779,6 +15271,11 @@ export interface components {
          * @example 19f06b6a-3ace-4315-b086-499a0e521b76
          */
         cdn_endpoint_id: string;
+        /**
+         * @description Name of expected certificate
+         * @example certificate-name
+         */
+        certificate_name: string;
         /**
          * @description A unique identifier for a certificate.
          * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
@@ -14975,12 +15472,12 @@ export interface components {
          */
         network_direction: "inbound" | "outbound";
         /**
-         * @description Timestamp to start metric window.
+         * @description UNIX timestamp to start metric window.
          * @example 1620683817
          */
         metric_timestamp_start: string;
         /**
-         * @description Timestamp to end metric window.
+         * @description UNIX timestamp to end metric window.
          * @example 1620705417
          */
         metric_timestamp_end: string;
@@ -15074,6 +15571,11 @@ export interface components {
          * @example nyc3
          */
         region: components["schemas"]["region_slug"];
+        /**
+         * @description The unique identifier for the snapshot.
+         * @example fbe805e8-866b-11e6-96bf-000f53315a41
+         */
+        volume_snapshot_id: string;
         /**
          * @description The ID of the block storage volume.
          * @example 7724db7c-e098-11e5-b522-000f53304e51
@@ -15548,6 +16050,7 @@ export interface operations {
                  *     - BUILD: Build-time logs
                  *     - DEPLOY: Deploy-time logs
                  *     - RUN: Live run-time logs
+                 *     - RUN_RESTARTED: Logs of crashed/restarted instances during runtime
                  * @example BUILD
                  */
                 type: components["parameters"]["log_type"];
@@ -15712,6 +16215,7 @@ export interface operations {
                  *     - BUILD: Build-time logs
                  *     - DEPLOY: Deploy-time logs
                  *     - RUN: Live run-time logs
+                 *     - RUN_RESTARTED: Logs of crashed/restarted instances during runtime
                  * @example BUILD
                  */
                 type: components["parameters"]["log_type"];
@@ -15764,6 +16268,7 @@ export interface operations {
                  *     - BUILD: Build-time logs
                  *     - DEPLOY: Deploy-time logs
                  *     - RUN: Live run-time logs
+                 *     - RUN_RESTARTED: Logs of crashed/restarted instances during runtime
                  * @example BUILD
                  */
                 type: components["parameters"]["log_type"];
@@ -15811,6 +16316,7 @@ export interface operations {
                  *     - BUILD: Build-time logs
                  *     - DEPLOY: Deploy-time logs
                  *     - RUN: Live run-time logs
+                 *     - RUN_RESTARTED: Logs of crashed/restarted instances during runtime
                  * @example BUILD
                  */
                 type: components["parameters"]["log_type"];
@@ -16352,6 +16858,11 @@ export interface operations {
                  * @example 1
                  */
                 page?: components["parameters"]["page"];
+                /**
+                 * @description Name of expected certificate
+                 * @example certificate-name
+                 */
+                name?: components["parameters"]["certificate_name"];
             };
             header?: never;
             path?: never;
@@ -17112,6 +17623,29 @@ export interface operations {
             default: components["responses"]["unexpected_error"];
         };
     };
+    databases_list_events_logs: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["events_logs"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
     databases_get_replica: {
         parameters: {
             query?: never;
@@ -17275,6 +17809,40 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: components["responses"]["user"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_update_user: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+                /**
+                 * @description The name of the database user.
+                 * @example app-01
+                 */
+                username: components["parameters"]["username"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    settings: components["schemas"]["user_settings"];
+                };
+            };
+        };
+        responses: {
+            201: components["responses"]["user"];
             401: components["responses"]["unauthorized"];
             404: components["responses"]["not_found"];
             429: components["responses"]["too_many_requests"];
@@ -17897,6 +18465,49 @@ export interface operations {
             204: components["responses"]["no_content"];
             401: components["responses"]["unauthorized"];
             404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_get_cluster_metrics_credentials: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["database_metrics_auth"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_update_cluster_metrics_credentials: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                /** @example {
+                 *       "credentials": {
+                 *         "basic_auth_username": "new_username",
+                 *         "basic_auth_password": "new_password"
+                 *       }
+                 *     } */
+                "application/json": components["schemas"]["database_metrics_credentials"];
+            };
+        };
+        responses: {
+            204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
             429: components["responses"]["too_many_requests"];
             500: components["responses"]["server_error"];
             default: components["responses"]["unexpected_error"];
@@ -20949,12 +21560,12 @@ export interface operations {
                  */
                 direction: components["parameters"]["network_direction"];
                 /**
-                 * @description Timestamp to start metric window.
+                 * @description UNIX timestamp to start metric window.
                  * @example 1620683817
                  */
                 start: components["parameters"]["metric_timestamp_start"];
                 /**
-                 * @description Timestamp to end metric window.
+                 * @description UNIX timestamp to end metric window.
                  * @example 1620705417
                  */
                 end: components["parameters"]["metric_timestamp_end"];
@@ -20981,12 +21592,12 @@ export interface operations {
                  */
                 host_id: components["parameters"]["parameters_droplet_id"];
                 /**
-                 * @description Timestamp to start metric window.
+                 * @description UNIX timestamp to start metric window.
                  * @example 1620683817
                  */
                 start: components["parameters"]["metric_timestamp_start"];
                 /**
-                 * @description Timestamp to end metric window.
+                 * @description UNIX timestamp to end metric window.
                  * @example 1620705417
                  */
                 end: components["parameters"]["metric_timestamp_end"];
@@ -21013,12 +21624,12 @@ export interface operations {
                  */
                 host_id: components["parameters"]["parameters_droplet_id"];
                 /**
-                 * @description Timestamp to start metric window.
+                 * @description UNIX timestamp to start metric window.
                  * @example 1620683817
                  */
                 start: components["parameters"]["metric_timestamp_start"];
                 /**
-                 * @description Timestamp to end metric window.
+                 * @description UNIX timestamp to end metric window.
                  * @example 1620705417
                  */
                 end: components["parameters"]["metric_timestamp_end"];
@@ -21045,12 +21656,12 @@ export interface operations {
                  */
                 host_id: components["parameters"]["parameters_droplet_id"];
                 /**
-                 * @description Timestamp to start metric window.
+                 * @description UNIX timestamp to start metric window.
                  * @example 1620683817
                  */
                 start: components["parameters"]["metric_timestamp_start"];
                 /**
-                 * @description Timestamp to end metric window.
+                 * @description UNIX timestamp to end metric window.
                  * @example 1620705417
                  */
                 end: components["parameters"]["metric_timestamp_end"];
@@ -21077,12 +21688,12 @@ export interface operations {
                  */
                 host_id: components["parameters"]["parameters_droplet_id"];
                 /**
-                 * @description Timestamp to start metric window.
+                 * @description UNIX timestamp to start metric window.
                  * @example 1620683817
                  */
                 start: components["parameters"]["metric_timestamp_start"];
                 /**
-                 * @description Timestamp to end metric window.
+                 * @description UNIX timestamp to end metric window.
                  * @example 1620705417
                  */
                 end: components["parameters"]["metric_timestamp_end"];
@@ -21109,12 +21720,12 @@ export interface operations {
                  */
                 host_id: components["parameters"]["parameters_droplet_id"];
                 /**
-                 * @description Timestamp to start metric window.
+                 * @description UNIX timestamp to start metric window.
                  * @example 1620683817
                  */
                 start: components["parameters"]["metric_timestamp_start"];
                 /**
-                 * @description Timestamp to end metric window.
+                 * @description UNIX timestamp to end metric window.
                  * @example 1620705417
                  */
                 end: components["parameters"]["metric_timestamp_end"];
@@ -21141,12 +21752,12 @@ export interface operations {
                  */
                 host_id: components["parameters"]["parameters_droplet_id"];
                 /**
-                 * @description Timestamp to start metric window.
+                 * @description UNIX timestamp to start metric window.
                  * @example 1620683817
                  */
                 start: components["parameters"]["metric_timestamp_start"];
                 /**
-                 * @description Timestamp to end metric window.
+                 * @description UNIX timestamp to end metric window.
                  * @example 1620705417
                  */
                 end: components["parameters"]["metric_timestamp_end"];
@@ -21173,12 +21784,12 @@ export interface operations {
                  */
                 host_id: components["parameters"]["parameters_droplet_id"];
                 /**
-                 * @description Timestamp to start metric window.
+                 * @description UNIX timestamp to start metric window.
                  * @example 1620683817
                  */
                 start: components["parameters"]["metric_timestamp_start"];
                 /**
-                 * @description Timestamp to end metric window.
+                 * @description UNIX timestamp to end metric window.
                  * @example 1620705417
                  */
                 end: components["parameters"]["metric_timestamp_end"];
@@ -21205,12 +21816,12 @@ export interface operations {
                  */
                 host_id: components["parameters"]["parameters_droplet_id"];
                 /**
-                 * @description Timestamp to start metric window.
+                 * @description UNIX timestamp to start metric window.
                  * @example 1620683817
                  */
                 start: components["parameters"]["metric_timestamp_start"];
                 /**
-                 * @description Timestamp to end metric window.
+                 * @description UNIX timestamp to end metric window.
                  * @example 1620705417
                  */
                 end: components["parameters"]["metric_timestamp_end"];
@@ -21237,12 +21848,12 @@ export interface operations {
                  */
                 host_id: components["parameters"]["parameters_droplet_id"];
                 /**
-                 * @description Timestamp to start metric window.
+                 * @description UNIX timestamp to start metric window.
                  * @example 1620683817
                  */
                 start: components["parameters"]["metric_timestamp_start"];
                 /**
-                 * @description Timestamp to end metric window.
+                 * @description UNIX timestamp to end metric window.
                  * @example 1620705417
                  */
                 end: components["parameters"]["metric_timestamp_end"];
@@ -21269,12 +21880,12 @@ export interface operations {
                  */
                 host_id: components["parameters"]["parameters_droplet_id"];
                 /**
-                 * @description Timestamp to start metric window.
+                 * @description UNIX timestamp to start metric window.
                  * @example 1620683817
                  */
                 start: components["parameters"]["metric_timestamp_start"];
                 /**
-                 * @description Timestamp to end metric window.
+                 * @description UNIX timestamp to end metric window.
                  * @example 1620705417
                  */
                 end: components["parameters"]["metric_timestamp_end"];
@@ -21306,12 +21917,12 @@ export interface operations {
                  */
                 app_component?: components["parameters"]["app_component"];
                 /**
-                 * @description Timestamp to start metric window.
+                 * @description UNIX timestamp to start metric window.
                  * @example 1620683817
                  */
                 start: components["parameters"]["metric_timestamp_start"];
                 /**
-                 * @description Timestamp to end metric window.
+                 * @description UNIX timestamp to end metric window.
                  * @example 1620705417
                  */
                 end: components["parameters"]["metric_timestamp_end"];
@@ -21343,12 +21954,12 @@ export interface operations {
                  */
                 app_component?: components["parameters"]["app_component"];
                 /**
-                 * @description Timestamp to start metric window.
+                 * @description UNIX timestamp to start metric window.
                  * @example 1620683817
                  */
                 start: components["parameters"]["metric_timestamp_start"];
                 /**
-                 * @description Timestamp to end metric window.
+                 * @description UNIX timestamp to end metric window.
                  * @example 1620705417
                  */
                 end: components["parameters"]["metric_timestamp_end"];
@@ -21380,12 +21991,12 @@ export interface operations {
                  */
                 app_component?: components["parameters"]["app_component"];
                 /**
-                 * @description Timestamp to start metric window.
+                 * @description UNIX timestamp to start metric window.
                  * @example 1620683817
                  */
                 start: components["parameters"]["metric_timestamp_start"];
                 /**
-                 * @description Timestamp to end metric window.
+                 * @description UNIX timestamp to end metric window.
                  * @example 1620705417
                  */
                 end: components["parameters"]["metric_timestamp_end"];
@@ -22498,6 +23109,7 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: components["responses"]["snapshots_existing"];
+            400: components["responses"]["not_a_snapshot"];
             401: components["responses"]["unauthorized"];
             404: components["responses"]["not_found"];
             429: components["responses"]["too_many_requests"];
@@ -22521,6 +23133,7 @@ export interface operations {
         requestBody?: never;
         responses: {
             204: components["responses"]["no_content"];
+            400: components["responses"]["not_a_snapshot"];
             401: components["responses"]["unauthorized"];
             404: components["responses"]["not_found"];
             429: components["responses"]["too_many_requests"];
@@ -22801,10 +23414,10 @@ export interface operations {
             header?: never;
             path: {
                 /**
-                 * @description Either the ID of an existing snapshot. This will be an integer for a Droplet snapshot or a string for a volume snapshot.
-                 * @example 6372321
+                 * @description The unique identifier for the snapshot.
+                 * @example fbe805e8-866b-11e6-96bf-000f53315a41
                  */
-                snapshot_id: components["parameters"]["snapshot_id"];
+                snapshot_id: components["parameters"]["volume_snapshot_id"];
             };
             cookie?: never;
         };
@@ -22824,10 +23437,10 @@ export interface operations {
             header?: never;
             path: {
                 /**
-                 * @description Either the ID of an existing snapshot. This will be an integer for a Droplet snapshot or a string for a volume snapshot.
-                 * @example 6372321
+                 * @description The unique identifier for the snapshot.
+                 * @example fbe805e8-866b-11e6-96bf-000f53315a41
                  */
-                snapshot_id: components["parameters"]["snapshot_id"];
+                snapshot_id: components["parameters"]["volume_snapshot_id"];
             };
             cookie?: never;
         };

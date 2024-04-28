@@ -8,6 +8,11 @@ properties:
     description: >- 
       The UUID of the invoice. The canonical reference for the invoice.
     example: fdabb512-6faf-443c-ba2e-665452332a9e
+  invoice_id:
+    type: string
+    description: >-
+      ID of the invoice. Listed on the face of the invoice PDF as the "Invoice number".
+    example: "123456789"
   amount:
     type: string
     description: >- 
