@@ -10,9 +10,11 @@ title: 中间件 & 身份认证
 
 每个中间件都可以提供 `onRequest()` 和 `onResponse()` 回调，用于观察/变更请求和响应。
 
-```ts
+::: code-group
+
+```ts [src/my-project.ts]
 import createClient from "openapi-fetch";
-import type { paths } from "./api/v1";
+import type { paths } from "./my-openapi-3-schema"; // 由openapi-typescript生成
 
 const myMiddleware: Middleware = {
   async onRequest(req, options) {
@@ -32,6 +34,8 @@ const client = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 // 注册中间件
 client.use(myMiddleware);
 ```
+
+:::
 
 ::: tip
 
@@ -92,7 +96,6 @@ client.eject(myMiddleware);
 默认情况下，`openapi-fetch` **不会**为了性能而任意克隆请求/响应；由您负责创建干净的副本。
 
 <!-- prettier-ignore -->
-
 ```ts
 const myMiddleware: Middleware = {
   onResponse(res) {
@@ -115,7 +118,7 @@ const myMiddleware: Middleware = {
 
 ```ts
 import createClient, { type Middleware } from "openapi-fetch";
-import type { paths } from "./api/v1";
+import type { paths } from "./my-openapi-3-schema"; // 由openapi-typescript生成
 
 let accessToken: string | undefined = undefined;
 

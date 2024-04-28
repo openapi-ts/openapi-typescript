@@ -162,7 +162,7 @@ openapi-fetch 支持根据你的 OpenAPI 架构中的具体格式自动进行[�
 
 ```ts
 import createClient from "openapi-fetch";
-import type { paths } from "./api/v1";
+import type { paths } from "./my-openapi-3-schema"; // 由openapi-typescript生成
 
 const myMiddleware: Middleware = {
   async onRequest(req, options) {

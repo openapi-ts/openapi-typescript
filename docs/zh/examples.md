@@ -88,8 +88,6 @@ export default app;
 import { mockResponses } from "../test/utils";
 
 describe("My API test", () => {
-
-
   it("mocks correctly", async () => {
     mockResponses({
       "/users/{user_id}": {
@@ -131,11 +129,10 @@ _注意：此示例使用原始的 `fetch()` 函数，但可以将任何 fetch �
 <details>
 <summary>📄 <strong>test/utils.ts</strong></summary>
 
-
 ::: code-group [test/utils.ts]
 
 ```ts
-import type { paths } from "./api/v1"; // 由 openapi-typescript 生成
+import type { paths } from "./my-openapi-3-schema"; // 由openapi-typescript生成
 // 设置
 // ⚠️ 重要：请更改这个！这是所有 URL 的前缀
 const BASE_URL = "https://myapi.com/v1";
@@ -167,7 +164,7 @@ export function mockResponses(responses: {
   fetchMock.mockResponse((req) => {
     const mockedPath = findPath(
       req.url.replace(BASE_URL, ""),
-      Object.keys(responses),
+      Object.keys(responses)
     )!;
     // 注意：这里的类型我们使用了懒惰的方式，因为推断是不好的，而且这有一个 `void` 返回签名。重要的是参数签名。
     if (!mockedPath || !(responses as any)[mockedPath])
@@ -185,11 +182,11 @@ export function mockResponses(responses: {
 // 匹配实际 URL（/users/123）与 OpenAPI 路径（/users/{user_id} 的辅助函数）
 export function findPath(
   actual: string,
-  testPaths: string[],
+  testPaths: string[]
 ): string | undefined {
   const url = new URL(
     actual,
-    actual.startsWith("http") ? undefined : "http://testapi.com",
+    actual.startsWith("http") ? undefined : "http://testapi.com"
   );
   const actualParts = url.pathname.split("/");
   for (const p of testPaths) {

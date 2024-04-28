@@ -29,7 +29,9 @@ Note that debug messages will be suppressed if the output is `stdout`.
 
 Example:
 
-```yaml
+::: code-group
+
+```yaml [my-openapi-3-schema.yaml]
 ErrorCode:
   type: integer
   format: int32
@@ -47,9 +49,13 @@ ErrorCode:
     - "Something went wrong"
 ```
 
+:::
+
 Will result in:
 
-```ts
+::: code-group
+
+```ts [my-openapi-3-schema.d.ts]
 enum ErrorCode {
   // User is not authorized
   Unauthorized = 100
@@ -59,6 +65,8 @@ enum ErrorCode {
   Unknown = 300
 }
 ```
+
+:::
 
 Alternatively you can use `x-enumNames` and `x-enumDescriptions` ([NSwag/NJsonSchema](https://github.com/RicoSuter/NJsonSchema/wiki/Enums#enum-names-and-descriptions)).
 
@@ -274,7 +282,9 @@ OpenAPI’s composition tools (`oneOf`/`anyOf`/`allOf`) are powerful tools for r
 
 #### ❌ Bad
 
-```yaml
+::: code-group
+
+```yaml [my-openapi-3-schema.yaml]
 Pet:
   type: object
   properties:
@@ -296,9 +306,13 @@ Pet:
     - $ref: "#/components/schemas/Turtle"
 ```
 
+:::
+
 This generates the following type which mixes both TypeScript unions and intersections. While this is valid TypeScript, it’s complex, and inference may not work as you intended. But the biggest offense is TypeScript can’t discriminate via the `type` property:
 
-```ts
+::: code-group
+
+```ts [my-openapi-3-schema.d.ts]
   Pet: ({
     /** @enum {string} */
     type?: "cat" | "dog" | "rabbit" | "snake" | "turtle";
@@ -306,9 +320,13 @@ This generates the following type which mixes both TypeScript unions and interse
   }) & (components["schemas"]["Cat"] | components["schemas"]["Dog"] | components["schemas"]["Rabbit"] | components["schemas"]["Snake"] | components["schemas"]["Turtle"]);
 ```
 
+:::
+
 #### ✅ Better
 
-```yaml
+::: code-group
+
+```yaml [my-openapi-3-schema.yaml]
 Pet:
   oneOf:
     - $ref: "#/components/schemas/Cat"
@@ -330,12 +348,18 @@ Cat:
       - cat
 ```
 
+:::
+
 The resulting generated types are not only simpler; TypeScript can now discriminate using `type` (notice `Cat` has `type` with a single enum value of `"cat"`).
 
-```ts
+::: code-group
+
+```ts [my-openapi-3-schema.d.ts]
 Pet: components["schemas"]["Cat"] | components["schemas"]["Dog"] | components["schemas"]["Rabbit"] | components["schemas"]["Snake"] | components["schemas"]["Turtle"];
 Cat: { type?: "cat"; } & components["schemas"]["PetCommonProperties"];
 ```
+
+:::
 
 _Note: you optionally could provide `discriminator.propertyName: "type"` on `Pet` ([docs](https://spec.openapis.org/oas/v3.1.0#discriminator-object)) to automatically generate the `type` key, but is less explicit._
 
@@ -345,7 +369,9 @@ While the schema permits you to use composition in any way you like, it’s good
 
 [JSONSchema $defs](https://json-schema.org/understanding-json-schema/structuring.html#defs) can be used to provide sub-schema definitions anywhere. However, these won’t always convert cleanly to TypeScript. For example, this works:
 
-```yaml
+::: code-group
+
+```yaml [my-openapi-3-schema.yaml]
 components:
   schemas:
     DefType:
@@ -360,9 +386,13 @@ components:
           $ref: "#/components/schemas/DefType/$defs/myDefType"
 ```
 
+:::
+
 This will transform into the following TypeScript:
 
-```ts
+::: code-group
+
+```ts [my-openapi-3-schema.d.ts]
 export interface components {
   schemas: {
     DefType: {
@@ -377,9 +407,13 @@ export interface components {
 }
 ```
 
+:::
+
 However, this won’t:
 
-```yaml
+::: code-group
+
+```yaml [my-openapi-3-schema.yaml]
 components:
   schemas:
     DefType:
@@ -393,9 +427,13 @@ components:
           $ref: "#/components/schemas/DefType/$defs/myDefType"
 ```
 
+:::
+
 Because it will transform into:
 
-```ts
+::: code-group
+
+```ts [my-openapi-3-schema.d.ts]
 export interface components {
   schemas: {
     DefType: string;
@@ -405,6 +443,8 @@ export interface components {
   };
 }
 ```
+
+:::
 
 So be wary about where you define `$defs` as they may go missing in your final generated types.
 
