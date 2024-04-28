@@ -71,3 +71,5 @@ export type JSONLike<T> = FilterKeys<T, `${string}/json`>;
 export type FindRequiredKeys<T, K extends keyof T> = K extends unknown ? (undefined extends T[K] ? never : K) : K;
 /** Does this object contain required keys? */
 export type HasRequiredKeys<T> = FindRequiredKeys<T, keyof T>;
+/**Extract a type from an array  */
+export type Unpacked<T> = T extends (infer U)[] ? U : T;

@@ -9,6 +9,7 @@ import type {
   PathsWithMethod,
   ResponseObjectMap,
   SuccessResponse,
+  Unpacked,
 } from "openapi-typescript-helpers";
 
 /** Options for each client instance */
@@ -166,7 +167,7 @@ export type ClientMethod<Paths extends Record<string, PathMethods>, M extends Ht
   I extends MaybeOptionalInit<Paths[P], M>,
 >(
   url: P,
-  ...init: I
+  init: Unpacked<I>,
 ) => Promise<FetchResponse<Paths[P][M], I[0], Media>>;
 
 export default function createClient<Paths extends {}, Media extends MediaType = MediaType>(
