@@ -73,8 +73,6 @@
 
 - [#1545](https://github.com/drwpow/openapi-typescript/pull/1545) [`9158b81`](https://github.com/drwpow/openapi-typescript/commit/9158b81e8fdd45491afde8e291a786d7b2abc154) Thanks [@jaredLunde](https://github.com/drwpow/openapi-typescript/commits?author=jaredLunde)! - Replace # characters in operation IDs with a slash
 
-- [#1645](https://github.com/drwpow/openapi-typescript/pull/1645) [`fcb3e6f`](https://github.com/drwpow/openapi-typescript/commit/fcb3e6fe9ef9160cd519ae22b217330589714669) Thanks [@drwpow](https://github.com/drwpow/openapi-typescript/commits?author=drwpow)! Support JSON5
-
 ### Patch Changes
 
 - [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - Refactor internals to use TypeScript AST rather than string mashing
