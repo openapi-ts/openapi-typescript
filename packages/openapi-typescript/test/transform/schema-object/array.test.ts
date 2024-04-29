@@ -151,9 +151,28 @@ describe("transformSchemaObject > array", () => {
       {
         given: {
           type: "array",
-          items: { type: "array", items: { type: "string" } },
+          items: { type: "string" },
         },
-        want: "string[][]",
+        want: "readonly string[]",
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, immutable: true },
+        },
+      },
+    ],
+    [
+      "options > immutable: true (tuple)",
+      {
+        given: {
+          type: "array",
+          items: { type: "number" },
+          prefixItems: [{ type: "number" }, { type: "number" }, { type: "number" }],
+        },
+        want: `readonly [
+    number,
+    number,
+    number
+]`,
         options: {
           ...DEFAULT_OPTIONS,
           ctx: { ...DEFAULT_OPTIONS.ctx, immutable: true },

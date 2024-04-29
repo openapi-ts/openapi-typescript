@@ -323,9 +323,14 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
         }
       }
 
-      return ts.isTupleTypeNode(itemType) || ts.isArrayTypeNode(itemType)
-        ? itemType
-        : ts.factory.createArrayTypeNode(itemType); // wrap itemType in array type, but only if not a tuple or array already
+      const finalType =
+        ts.isTupleTypeNode(itemType) || ts.isArrayTypeNode(itemType)
+          ? itemType
+          : ts.factory.createArrayTypeNode(itemType); // wrap itemType in array type, but only if not a tuple or array already
+
+      return options.ctx.immutable
+        ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, finalType)
+        : finalType;
     }
 
     // polymorphic, or 3.1 nullable
