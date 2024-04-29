@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 21.x]
+        node-version: [18, 20, 21]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -52,8 +52,6 @@ jobs:
       - run: pnpm i
       - run: pnpm run build
       - run: pnpm test
-        env:
-          CI_ENV: macos
   test-windows:
     runs-on: windows-latest
     steps:
@@ -67,5 +65,3 @@ jobs:
       - run: pnpm i
       - run: pnpm run build
       - run: pnpm test
-        env:
-          CI_ENV: windows

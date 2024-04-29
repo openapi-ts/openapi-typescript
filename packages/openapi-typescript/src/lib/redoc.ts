@@ -9,6 +9,7 @@ import {
 } from "@redocly/openapi-core";
 import { Readable } from "node:stream";
 import { fileURLToPath } from "node:url";
+import parseJson from "parse-json";
 import type { OpenAPI3 } from "../types.js";
 import { debug, error, warn } from "./utils.js";
 
@@ -64,7 +65,7 @@ export async function parseSchema(schema: unknown, { absoluteRef, resolver }: Pa
     if (schema[0] === "{") {
       return {
         source: new Source(absoluteRef, schema, "application/json"),
-        parsed: JSON.parse(schema),
+        parsed: parseJson(schema),
       };
     }
     // YAML
