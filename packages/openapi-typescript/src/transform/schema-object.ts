@@ -114,7 +114,11 @@ export function transformSchemaObjectWithComposition(
       options.ctx.injectFooter.push(enumType);
       return ts.factory.createTypeReferenceNode(enumType.name);
     }
-    return tsUnion(schemaObject.enum.map(tsLiteral));
+    const enumType = schemaObject.enum.map(tsLiteral);
+    if ((Array.isArray(schemaObject.type) && schemaObject.type.includes("null")) || schemaObject.nullable) {
+      enumType.push(NULL);
+    }
+    return tsUnion(enumType);
   }
 
   /**
