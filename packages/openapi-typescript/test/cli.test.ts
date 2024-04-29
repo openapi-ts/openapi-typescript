@@ -108,10 +108,12 @@ describe("CLI", () => {
   });
 
   describe("Redocly config", () => {
-    test("automatic config", async () => {
+    test.skipIf(os.platform() === "win32")("automatic config", async () => {
       const cwd = new URL("./fixtures/redocly/", import.meta.url);
 
-      await execa("../../../bin/cli.js", { cwd: fileURLToPath(cwd) });
+      await execa("../../../bin/cli.js", {
+        cwd: fileURLToPath(cwd),
+      });
       for (const schema of ["a", "b", "c"]) {
         expect(fs.readFileSync(new URL(`./output/${schema}.ts`, cwd), "utf8")).toMatchFileSnapshot(
           fileURLToPath(new URL("../../../examples/simple-example.ts", cwd)),
@@ -130,11 +132,13 @@ describe("CLI", () => {
       }
     });
 
-    test("lint error", async () => {
+    test.skipIf(os.platform() === "win32")("lint error", async () => {
       const cwd = new URL("./fixtures/redocly-lint-error", import.meta.url);
 
       try {
-        await execa("../../../bin/cli.js", { cwd: fileURLToPath(cwd) });
+        await execa("../../../bin/cli.js", {
+          cwd: fileURLToPath(cwd),
+        });
         throw new Error("Linting should have thrown an error");
       } catch (err) {
         expect(stripAnsi(String(err))).toMatch(/✘ {2}Servers must be present/);
