@@ -71,7 +71,7 @@
     "msw": "^2.2.14",
     "openapi-typescript": "^6.7.5",
     "openapi-typescript-codegen": "^0.25.0",
-    "openapi-typescript-fetch": "^1.1.3",
+    "openapi-typescript-fetch": "^2.0.0",
     "superagent": "^9.0.0",
     "typescript": "^5.4.5",
     "vitest": "^1.5.2"
