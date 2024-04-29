@@ -135,6 +135,7 @@ describe("CLI", () => {
 
       try {
         await execa("../../../bin/cli.js", { cwd: fileURLToPath(cwd) });
+        throw new Error("Linting should have thrown an error");
       } catch (err) {
         expect(stripAnsi(String(err))).toMatch(/✘ {2}Servers must be present/);
       }
