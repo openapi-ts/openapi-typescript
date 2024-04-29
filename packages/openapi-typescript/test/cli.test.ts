@@ -8,7 +8,7 @@ import type { TestCase } from "./test-helpers.js";
 const root = new URL("../", import.meta.url);
 const cwd = os.platform() === "win32" ? fileURLToPath(root) : root; // execa bug: fileURLToPath required on Windows
 const cmd = "./bin/cli.js";
-const TIMEOUT = 90000;
+const TIMEOUT = 90_000;
 
 describe("CLI", () => {
   const tests: TestCase<any, any>[] = [

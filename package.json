@@ -8,10 +8,10 @@
     "email": "drew@pow.rs"
   },
   "scripts": {
-    "build": "pnpm run -r --parallel --filter \"!*docs\" build",
-    "lint": "pnpm run -r --parallel lint",
-    "format": "pnpm run -r --parallel format",
-    "test": "pnpm run -r --parallel test",
+    "build": "pnpm run -r --parallel --filter \"!*docs\" --aggregate-output build",
+    "lint": "pnpm run -r --parallel --aggregate-output lint",
+    "format": "pnpm run -r --parallel --aggregate-output format",
+    "test": "pnpm run -r --parallel --aggregate-output test",
     "version": "pnpm run build && changeset version && pnpm i"
   },
   "devDependencies": {
