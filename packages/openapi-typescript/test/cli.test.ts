@@ -2,6 +2,7 @@ import { execa } from "execa";
 import fs from "node:fs";
 import os from "node:os";
 import { fileURLToPath } from "node:url";
+import stripAnsi from "strip-ansi";
 import type { TestCase } from "./test-helpers.js";
 
 const root = new URL("../", import.meta.url);
@@ -107,28 +108,35 @@ describe("CLI", () => {
   });
 
   describe("Redocly config", () => {
-    // TODO: why won’t this run on Windows?
-    test.skipIf(os.platform() === "win32")("automatic config", async () => {
-      // note: we have to change the cwd here for the automatic config to pick up properly
-      const root = new URL("./fixtures/redocly/", import.meta.url);
-      const cwd = os.platform() === "win32" ? fileURLToPath(root) : root;
+    test("automatic config", async () => {
+      const cwd = new URL("./fixtures/redocly/", import.meta.url);
 
-      await execa("../../../bin/cli.js", { cwd });
+      await execa("../../../bin/cli.js", { cwd: fileURLToPath(cwd) });
       for (const schema of ["a", "b", "c"]) {
-        expect(fs.readFileSync(new URL(`./output/${schema}.ts`, root), "utf8")).toMatchFileSnapshot(
-          fileURLToPath(new URL("../../../examples/simple-example.ts", root)),
+        expect(fs.readFileSync(new URL(`./output/${schema}.ts`, cwd), "utf8")).toMatchFileSnapshot(
+          fileURLToPath(new URL("../../../examples/simple-example.ts", cwd)),
         );
       }
     });
 
-    test("--redoc config", async () => {
-      await execa(cmd, ["--redoc", "test/fixtures/redocly-flag/redocly.yaml"], {
+    test("--redocly config", async () => {
+      await execa(cmd, ["--redocly", "test/fixtures/redocly-flag/redocly.yaml"], {
         cwd,
       });
       for (const schema of ["a", "b", "c"]) {
         expect(
           fs.readFileSync(new URL(`./test/fixtures/redocly-flag/output/${schema}.ts`, root), "utf8"),
         ).toMatchFileSnapshot(fileURLToPath(new URL("./examples/simple-example.ts", root)));
+      }
+    });
+
+    test("lint error", async () => {
+      const cwd = new URL("./fixtures/redocly-lint-error", import.meta.url);
+
+      try {
+        await execa("../../../bin/cli.js", { cwd: fileURLToPath(cwd) });
+      } catch (err) {
+        expect(stripAnsi(String(err))).toMatch(/✘ {2}Servers must be present/);
       }
     });
   });
