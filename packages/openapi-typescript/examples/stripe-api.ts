@@ -6796,7 +6796,7 @@ export interface components {
              * @description The business type. After you create an [Account Link](/api/account_links) or [Account Session](/api/account_sessions), this property is only returned for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
              * @enum {string|null}
              */
-            business_type?: "company" | "government_entity" | "individual" | "non_profit";
+            business_type?: "company" | "government_entity" | "individual" | "non_profit" | null;
             capabilities?: components["schemas"]["account_capabilities"];
             /** @description Whether the account can create live charges. */
             charges_enabled?: boolean;
@@ -7607,7 +7607,7 @@ export interface components {
              * @description The status of the most recent automated tax calculation for this invoice.
              * @enum {string|null}
              */
-            status?: "complete" | "failed" | "requires_location_inputs";
+            status?: "complete" | "failed" | "requires_location_inputs" | null;
         };
         /**
          * Balance
@@ -7931,7 +7931,7 @@ export interface components {
              * @description The time window to pre-aggregate meter events for, if any.
              * @enum {string|null}
              */
-            event_time_window?: "day" | "hour";
+            event_time_window?: "day" | "hour" | null;
             /** @description Unique identifier for the object. */
             id: string;
             /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -8167,7 +8167,7 @@ export interface components {
              * @description The IETF language tag of the locale Customer Portal is displayed in. If blank or auto, the customer’s `preferred_locales` or browser’s locale is used.
              * @enum {string|null}
              */
-            locale?: "auto" | "bg" | "cs" | "da" | "de" | "el" | "en" | "en-AU" | "en-CA" | "en-GB" | "en-IE" | "en-IN" | "en-NZ" | "en-SG" | "es" | "es-419" | "et" | "fi" | "fil" | "fr" | "fr-CA" | "hr" | "hu" | "id" | "it" | "ja" | "ko" | "lt" | "lv" | "ms" | "mt" | "nb" | "nl" | "pl" | "pt" | "pt-BR" | "ro" | "ru" | "sk" | "sl" | "sv" | "th" | "tr" | "vi" | "zh" | "zh-HK" | "zh-TW";
+            locale?: "auto" | "bg" | "cs" | "da" | "de" | "el" | "en" | "en-AU" | "en-CA" | "en-GB" | "en-IE" | "en-IN" | "en-NZ" | "en-SG" | "es" | "es-419" | "et" | "fi" | "fil" | "fr" | "fr-CA" | "hr" | "hu" | "id" | "it" | "ja" | "ko" | "lt" | "lv" | "ms" | "mt" | "nb" | "nl" | "pl" | "pt" | "pt-BR" | "ro" | "ru" | "sk" | "sl" | "sv" | "th" | "tr" | "vi" | "zh" | "zh-HK" | "zh-TW" | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
              * @enum {string}
@@ -8188,12 +8188,12 @@ export interface components {
              * @description The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
              * @enum {string|null}
              */
-            feedback?: "customer_service" | "low_quality" | "missing_features" | "other" | "switched_service" | "too_complex" | "too_expensive" | "unused";
+            feedback?: "customer_service" | "low_quality" | "missing_features" | "other" | "switched_service" | "too_complex" | "too_expensive" | "unused" | null;
             /**
              * @description Why this subscription was canceled.
              * @enum {string|null}
              */
-            reason?: "cancellation_requested" | "payment_disputed" | "payment_failed";
+            reason?: "cancellation_requested" | "payment_disputed" | "payment_failed" | null;
         };
         /**
          * AccountCapability
@@ -8522,7 +8522,7 @@ export interface components {
              * @description Describes whether Checkout should collect the customer's billing address. Defaults to `auto`.
              * @enum {string|null}
              */
-            billing_address_collection?: "auto" | "required";
+            billing_address_collection?: "auto" | "required" | null;
             /** @description If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. */
             cancel_url?: string | null;
             /** @description A unique string to reference the Checkout Session. This can be a
@@ -8557,7 +8557,7 @@ export interface components {
              * @description Configure whether a Checkout Session creates a Customer when the Checkout Session completes.
              * @enum {string|null}
              */
-            customer_creation?: "always" | "if_required";
+            customer_creation?: "always" | "if_required" | null;
             /** @description The customer details including the customer's tax exempt status and the customer's tax IDs. Customer's address details are not present on Sessions in `setup` mode. */
             customer_details?: components["schemas"]["payment_pages_checkout_session_customer_details"] | null;
             /** @description If provided, this value will be used when the Customer object is created.
@@ -8600,7 +8600,7 @@ export interface components {
              * @description The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
              * @enum {string|null}
              */
-            locale?: "auto" | "bg" | "cs" | "da" | "de" | "el" | "en" | "en-GB" | "es" | "es-419" | "et" | "fi" | "fil" | "fr" | "fr-CA" | "hr" | "hu" | "id" | "it" | "ja" | "ko" | "lt" | "lv" | "ms" | "mt" | "nb" | "nl" | "pl" | "pt" | "pt-BR" | "ro" | "ru" | "sk" | "sl" | "sv" | "th" | "tr" | "vi" | "zh" | "zh-HK" | "zh-TW";
+            locale?: "auto" | "bg" | "cs" | "da" | "de" | "el" | "en" | "en-GB" | "es" | "es-419" | "et" | "fi" | "fil" | "fr" | "fr-CA" | "hr" | "hu" | "id" | "it" | "ja" | "ko" | "lt" | "lv" | "ms" | "mt" | "nb" | "nl" | "pl" | "pt" | "pt-BR" | "ro" | "ru" | "sk" | "sl" | "sv" | "th" | "tr" | "vi" | "zh" | "zh-HK" | "zh-TW" | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
                 [key: string]: string | undefined;
@@ -8623,7 +8623,7 @@ export interface components {
              * @description Configure whether a Checkout Session should collect a payment method. Defaults to `always`.
              * @enum {string|null}
              */
-            payment_method_collection?: "always" | "if_required";
+            payment_method_collection?: "always" | "if_required" | null;
             /** @description Information about the payment method configuration used for this Checkout session if using dynamic payment methods. */
             payment_method_configuration_details?: components["schemas"]["payment_method_config_biz_payment_method_configuration_details"] | null;
             /** @description Payment-method-specific configuration for the PaymentIntent or SetupIntent of this CheckoutSession. */
@@ -8663,14 +8663,14 @@ export interface components {
              * @description The status of the Checkout Session, one of `open`, `complete`, or `expired`.
              * @enum {string|null}
              */
-            status?: "complete" | "expired" | "open";
+            status?: "complete" | "expired" | "open" | null;
             /**
              * @description Describes the type of transaction being performed by Checkout in order to customize
              *     relevant text on the page, such as the submit button. `submit_type` can only be
              *     specified on Checkout Sessions in `payment` mode. If blank or `auto`, `pay` is used.
              * @enum {string|null}
              */
-            submit_type?: "auto" | "book" | "donate" | "pay";
+            submit_type?: "auto" | "book" | "donate" | "pay" | null;
             /** @description The ID of the subscription for Checkout Sessions in `subscription` mode. */
             subscription?: (string | components["schemas"]["subscription"]) | null;
             /** @description The URL the customer will be directed to after the payment or
@@ -8683,7 +8683,7 @@ export interface components {
              * @description The UI mode of the Session. Defaults to `hosted`.
              * @enum {string|null}
              */
-            ui_mode?: "embedded" | "hosted";
+            ui_mode?: "embedded" | "hosted" | null;
             /** @description The URL to the Checkout Session. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
              *     This value is only present when the session is active. */
             url?: string | null;
@@ -8700,12 +8700,12 @@ export interface components {
              * @description Payment schedule for the mandate.
              * @enum {string|null}
              */
-            payment_schedule?: "combined" | "interval" | "sporadic";
+            payment_schedule?: "combined" | "interval" | "sporadic" | null;
             /**
              * @description Transaction type of the mandate.
              * @enum {string|null}
              */
-            transaction_type?: "business" | "personal";
+            transaction_type?: "business" | "personal" | null;
         };
         /** CheckoutAcssDebitPaymentMethodOptions */
         checkout_acss_debit_payment_method_options: {
@@ -8878,7 +8878,7 @@ export interface components {
              * @description The bank transfer type that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
              * @enum {string|null}
              */
-            type?: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | "us_bank_transfer";
+            type?: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | "us_bank_transfer" | null;
         };
         /** CheckoutCustomerBalancePaymentMethodOptions */
         checkout_customer_balance_payment_method_options: {
@@ -8887,7 +8887,7 @@ export interface components {
              * @description The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
              * @enum {string|null}
              */
-            funding_type?: "bank_transfer";
+            funding_type?: "bank_transfer" | null;
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
@@ -9187,7 +9187,7 @@ export interface components {
              * @description Reason for the cancellation of this order.
              * @enum {string|null}
              */
-            cancellation_reason?: "expired" | "product_unavailable" | "requested";
+            cancellation_reason?: "expired" | "product_unavailable" | "requested" | null;
             /** @description For delivered orders, a URL to a delivery certificate for the order. */
             certificate?: string | null;
             /**
@@ -9400,7 +9400,7 @@ export interface components {
              *     The presence of this property will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete.
              * @enum {string|null}
              */
-            setup_future_usage?: "off_session" | "on_session";
+            setup_future_usage?: "off_session" | "on_session" | null;
             /** @description ID of the SetupIntent that this ConfirmationToken was used to confirm, or null if this ConfirmationToken has not yet been used. */
             setup_intent?: string | null;
             /** @description Shipping information collected on this ConfirmationToken. */
@@ -9768,7 +9768,7 @@ export interface components {
              * @description Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
              * @enum {string|null}
              */
-            reason?: "duplicate" | "fraudulent" | "order_change" | "product_unsatisfactory";
+            reason?: "duplicate" | "fraudulent" | "order_change" | "product_unsatisfactory" | null;
             /** @description Refund related to this credit note. */
             refund?: (string | components["schemas"]["refund"]) | null;
             /** @description The details of the cost of shipping, including the ShippingRate applied to the invoice. */
@@ -9861,7 +9861,7 @@ export interface components {
              * @description The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
              * @enum {string|null}
              */
-            taxability_reason?: "customer_exempt" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "zero_rated";
+            taxability_reason?: "customer_exempt" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "zero_rated" | null;
             /** @description The amount on which tax is calculated, in cents (or local equivalent). */
             taxable_amount?: number | null;
         };
@@ -9873,7 +9873,7 @@ export interface components {
              * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
              * @enum {string|null}
              */
-            tax_behavior?: "exclusive" | "inclusive" | "unspecified";
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified" | null;
             /** @description Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`. */
             tiers?: components["schemas"]["price_tier"][];
             /** @description The unit amount in cents (or local equivalent) to be charged, represented as a whole integer if possible. Only set if `billing_scheme=per_unit`. */
@@ -9998,7 +9998,7 @@ export interface components {
              * @description Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to `reverse`, invoice and receipt PDFs include the following text: **"Reverse charge"**.
              * @enum {string|null}
              */
-            tax_exempt?: "exempt" | "none" | "reverse";
+            tax_exempt?: "exempt" | "none" | "reverse" | null;
             /**
              * TaxIDsList
              * @description The customer's tax IDs.
@@ -11794,7 +11794,7 @@ export interface components {
              * @description Type of the document.
              * @enum {string|null}
              */
-            type?: "driving_license" | "id_card" | "passport";
+            type?: "driving_license" | "id_card" | "passport" | null;
         };
         /** GelatoDocumentReportError */
         gelato_document_report_error: {
@@ -11802,7 +11802,7 @@ export interface components {
              * @description A short machine-readable string giving the reason for the verification failure.
              * @enum {string|null}
              */
-            code?: "document_expired" | "document_type_not_supported" | "document_unverified_other";
+            code?: "document_expired" | "document_type_not_supported" | "document_unverified_other" | null;
             /** @description A human-readable message giving the reason for the failure. These messages can be shown to your users. */
             reason?: string | null;
         };
@@ -11827,7 +11827,7 @@ export interface components {
              * @description A short machine-readable string giving the reason for the verification failure.
              * @enum {string|null}
              */
-            code?: "email_unverified_other" | "email_verification_declined";
+            code?: "email_unverified_other" | "email_verification_declined" | null;
             /** @description A human-readable message giving the reason for the failure. These messages can be shown to your users. */
             reason?: string | null;
         };
@@ -11848,7 +11848,7 @@ export interface components {
              * @description Type of ID number.
              * @enum {string|null}
              */
-            id_number_type?: "br_cpf" | "sg_nric" | "us_ssn";
+            id_number_type?: "br_cpf" | "sg_nric" | "us_ssn" | null;
             /** @description Last name. */
             last_name?: string | null;
             /**
@@ -11863,7 +11863,7 @@ export interface components {
              * @description A short machine-readable string giving the reason for the verification failure.
              * @enum {string|null}
              */
-            code?: "id_number_insufficient_document_data" | "id_number_mismatch" | "id_number_unverified_other";
+            code?: "id_number_insufficient_document_data" | "id_number_mismatch" | "id_number_unverified_other" | null;
             /** @description A human-readable message giving the reason for the failure. These messages can be shown to your users. */
             reason?: string | null;
         };
@@ -11888,7 +11888,7 @@ export interface components {
              * @description A short machine-readable string giving the reason for the verification failure.
              * @enum {string|null}
              */
-            code?: "phone_unverified_other" | "phone_verification_declined";
+            code?: "phone_unverified_other" | "phone_verification_declined" | null;
             /** @description A human-readable message giving the reason for the failure. These messages can be shown to your users. */
             reason?: string | null;
         };
@@ -11935,7 +11935,7 @@ export interface components {
              * @description A short machine-readable string giving the reason for the verification failure.
              * @enum {string|null}
              */
-            code?: "selfie_document_missing_photo" | "selfie_face_mismatch" | "selfie_manipulated" | "selfie_unverified_other";
+            code?: "selfie_document_missing_photo" | "selfie_face_mismatch" | "selfie_manipulated" | "selfie_unverified_other" | null;
             /** @description A human-readable message giving the reason for the failure. These messages can be shown to your users. */
             reason?: string | null;
         };
@@ -11966,7 +11966,7 @@ export interface components {
              * @description A short machine-readable string giving the reason for the verification or user-session failure.
              * @enum {string|null}
              */
-            code?: "abandoned" | "consent_declined" | "country_not_supported" | "device_not_supported" | "document_expired" | "document_type_not_supported" | "document_unverified_other" | "email_unverified_other" | "email_verification_declined" | "id_number_insufficient_document_data" | "id_number_mismatch" | "id_number_unverified_other" | "phone_unverified_other" | "phone_verification_declined" | "selfie_document_missing_photo" | "selfie_face_mismatch" | "selfie_manipulated" | "selfie_unverified_other" | "under_supported_age";
+            code?: "abandoned" | "consent_declined" | "country_not_supported" | "device_not_supported" | "document_expired" | "document_type_not_supported" | "document_unverified_other" | "email_unverified_other" | "email_verification_declined" | "id_number_insufficient_document_data" | "id_number_mismatch" | "id_number_unverified_other" | "phone_unverified_other" | "phone_verification_declined" | "selfie_document_missing_photo" | "selfie_face_mismatch" | "selfie_manipulated" | "selfie_unverified_other" | "under_supported_age" | null;
             /** @description A message that explains the reason for verification or user-session failure. */
             reason?: string | null;
         };
@@ -12003,7 +12003,7 @@ export interface components {
              * @description The user's verified id number type.
              * @enum {string|null}
              */
-            id_number_type?: "br_cpf" | "sg_nric" | "us_ssn";
+            id_number_type?: "br_cpf" | "sg_nric" | "us_ssn" | null;
             /** @description The user's verified last name. */
             last_name?: string | null;
             /** @description The user's verified phone number */
@@ -12136,12 +12136,12 @@ export interface components {
              * @description Account holder type: individual or company.
              * @enum {string|null}
              */
-            account_holder_type?: "company" | "individual";
+            account_holder_type?: "company" | "individual" | null;
             /**
              * @description Account type: checkings or savings. Defaults to checking if omitted.
              * @enum {string|null}
              */
-            account_type?: "checking" | "savings";
+            account_type?: "checking" | "savings" | null;
             /** @description Name of the bank associated with the bank account. */
             bank_name?: string | null;
             /** @description Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same. */
@@ -12244,7 +12244,7 @@ export interface components {
              *     * `upcoming`: Reserved for simulated invoices, per the upcoming invoice endpoint.
              * @enum {string|null}
              */
-            billing_reason?: "automatic_pending_invoice_item_invoice" | "manual" | "quote_accept" | "subscription" | "subscription_create" | "subscription_cycle" | "subscription_threshold" | "subscription_update" | "upcoming";
+            billing_reason?: "automatic_pending_invoice_item_invoice" | "manual" | "quote_accept" | "subscription" | "subscription_create" | "subscription_cycle" | "subscription_threshold" | "subscription_update" | "upcoming" | null;
             /** @description ID of the latest charge generated for this invoice, if any. */
             charge?: (string | components["schemas"]["charge"]) | null;
             /**
@@ -12277,7 +12277,7 @@ export interface components {
              * @description The customer's tax exempt status. Until the invoice is finalized, this field will equal `customer.tax_exempt`. Once the invoice is finalized, this field will no longer be updated.
              * @enum {string|null}
              */
-            customer_tax_exempt?: "exempt" | "none" | "reverse";
+            customer_tax_exempt?: "exempt" | "none" | "reverse" | null;
             /** @description The customer's tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as `customer.tax_ids`. Once the invoice is finalized, this field will no longer be updated. */
             customer_tax_ids?: components["schemas"]["invoices_resource_invoice_tax_id"][] | null;
             /** @description ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings. */
@@ -12395,7 +12395,7 @@ export interface components {
              * @description The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview)
              * @enum {string|null}
              */
-            status?: "draft" | "open" | "paid" | "uncollectible" | "void";
+            status?: "draft" | "open" | "paid" | "uncollectible" | "void" | null;
             status_transitions: components["schemas"]["invoices_resource_status_transitions"];
             /** @description The subscription that this invoice was prepared for, if any. */
             subscription?: (string | components["schemas"]["subscription"]) | null;
@@ -12461,7 +12461,7 @@ export interface components {
              * @description One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
              * @enum {string|null}
              */
-            amount_type?: "fixed" | "maximum";
+            amount_type?: "fixed" | "maximum" | null;
             /** @description A description of the mandate or subscription that is meant to be displayed to the customer. */
             description?: string | null;
         };
@@ -12480,7 +12480,7 @@ export interface components {
              * @description Transaction type of the mandate.
              * @enum {string|null}
              */
-            transaction_type?: "business" | "personal";
+            transaction_type?: "business" | "personal" | null;
         };
         /** invoice_payment_method_options_bancontact */
         invoice_payment_method_options_bancontact: {
@@ -12497,7 +12497,7 @@ export interface components {
              * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
              * @enum {string|null}
              */
-            request_three_d_secure?: "any" | "automatic" | "challenge";
+            request_three_d_secure?: "any" | "automatic" | "challenge" | null;
         };
         /** invoice_payment_method_options_customer_balance */
         invoice_payment_method_options_customer_balance: {
@@ -12506,7 +12506,7 @@ export interface components {
              * @description The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
              * @enum {string|null}
              */
-            funding_type?: "bank_transfer";
+            funding_type?: "bank_transfer" | null;
         };
         /** invoice_payment_method_options_customer_balance_bank_transfer */
         invoice_payment_method_options_customer_balance_bank_transfer: {
@@ -12548,7 +12548,7 @@ export interface components {
              * @description Page size of invoice pdf. Options include a4, letter, and auto. If set to auto, page size will be switched to a4 or letter based on customer locale.
              * @enum {string|null}
              */
-            page_size?: "a4" | "auto" | "letter";
+            page_size?: "a4" | "auto" | "letter" | null;
         };
         /** InvoiceSettingCustomField */
         invoice_setting_custom_field: {
@@ -12613,7 +12613,7 @@ export interface components {
              * @description The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
              * @enum {string|null}
              */
-            taxability_reason?: "customer_exempt" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "zero_rated";
+            taxability_reason?: "customer_exempt" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "zero_rated" | null;
             /** @description The amount on which tax is calculated, in cents (or local equivalent). */
             taxable_amount?: number | null;
         };
@@ -12881,7 +12881,7 @@ export interface components {
              * @description The reason why the card was canceled.
              * @enum {string|null}
              */
-            cancellation_reason?: "design_rejected" | "lost" | "stolen";
+            cancellation_reason?: "design_rejected" | "lost" | "stolen" | null;
             cardholder: components["schemas"]["issuing.cardholder"];
             /**
              * Format: unix-time
@@ -12925,7 +12925,7 @@ export interface components {
              * @description The reason why the previous card needed to be replaced.
              * @enum {string|null}
              */
-            replacement_reason?: "damaged" | "expired" | "lost" | "stolen";
+            replacement_reason?: "damaged" | "expired" | "lost" | "stolen" | null;
             /** @description Where and how the card will be shipped. */
             shipping?: components["schemas"]["issuing_card_shipping"] | null;
             spending_controls: components["schemas"]["issuing_card_authorization_controls"];
@@ -13267,7 +13267,7 @@ export interface components {
              * @description The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`.
              * @enum {string|null}
              */
-            wallet?: "apple_pay" | "google_pay" | "samsung_pay";
+            wallet?: "apple_pay" | "google_pay" | "samsung_pay" | null;
         };
         /** IssuingAuthorizationAmountDetails */
         issuing_authorization_amount_details: {
@@ -13428,7 +13428,7 @@ export interface components {
              * @description Reason the card is ineligible for Apple Pay
              * @enum {string|null}
              */
-            ineligible_reason?: "missing_agreement" | "missing_cardholder_contact" | "unsupported_region";
+            ineligible_reason?: "missing_agreement" | "missing_cardholder_contact" | "unsupported_region" | null;
         };
         /** IssuingCardAuthorizationControls */
         issuing_card_authorization_controls: {
@@ -13453,7 +13453,7 @@ export interface components {
              * @description Reason the card is ineligible for Google Pay
              * @enum {string|null}
              */
-            ineligible_reason?: "missing_agreement" | "missing_cardholder_contact" | "unsupported_region";
+            ineligible_reason?: "missing_agreement" | "missing_cardholder_contact" | "unsupported_region" | null;
         };
         /** IssuingCardShipping */
         issuing_card_shipping: {
@@ -13462,7 +13462,7 @@ export interface components {
              * @description The delivery company that shipped a card.
              * @enum {string|null}
              */
-            carrier?: "dhl" | "fedex" | "royal_mail" | "usps";
+            carrier?: "dhl" | "fedex" | "royal_mail" | "usps" | null;
             /** @description Additional information that may be required for clearing customs. */
             customs?: components["schemas"]["issuing_card_shipping_customs"] | null;
             /**
@@ -13485,7 +13485,7 @@ export interface components {
              * @description The delivery status of the card.
              * @enum {string|null}
              */
-            status?: "canceled" | "delivered" | "failure" | "pending" | "returned" | "shipped";
+            status?: "canceled" | "delivered" | "failure" | "pending" | "returned" | "shipped" | null;
             /** @description A tracking number for a card shipment. */
             tracking_number?: string | null;
             /** @description A link to the shipping carrier's site where you can view detailed information about a card shipment. */
@@ -13584,7 +13584,7 @@ export interface components {
              * @description If `disabled_reason` is present, all cards will decline authorizations with `cardholder_verification_required` reason.
              * @enum {string|null}
              */
-            disabled_reason?: "listed" | "rejected.listed" | "requirements.past_due" | "under_review";
+            disabled_reason?: "listed" | "rejected.listed" | "requirements.past_due" | "under_review" | null;
             /** @description Array of fields that need to be collected in order to verify and re-enable the cardholder. */
             past_due?: ("company.tax_id" | "individual.card_issuing.user_terms_acceptance.date" | "individual.card_issuing.user_terms_acceptance.ip" | "individual.dob.day" | "individual.dob.month" | "individual.dob.year" | "individual.first_name" | "individual.last_name" | "individual.verification.document")[] | null;
         };
@@ -13643,12 +13643,12 @@ export interface components {
              * @description Whether the product was a merchandise or service.
              * @enum {string|null}
              */
-            product_type?: "merchandise" | "service";
+            product_type?: "merchandise" | "service" | null;
             /**
              * @description Result of cardholder's attempt to return the product.
              * @enum {string|null}
              */
-            return_status?: "merchant_rejected" | "successful";
+            return_status?: "merchant_rejected" | "successful" | null;
             /**
              * Format: unix-time
              * @description Date when the product was returned or attempted to be returned.
@@ -13709,7 +13709,7 @@ export interface components {
              * @description Result of cardholder's attempt to return the product.
              * @enum {string|null}
              */
-            return_status?: "merchant_rejected" | "successful";
+            return_status?: "merchant_rejected" | "successful" | null;
             /**
              * Format: unix-time
              * @description Date when the product was returned or attempted to be returned.
@@ -13733,7 +13733,7 @@ export interface components {
              * @description Whether the product was a merchandise or service.
              * @enum {string|null}
              */
-            product_type?: "merchandise" | "service";
+            product_type?: "merchandise" | "service" | null;
         };
         /** IssuingDisputeOtherEvidence */
         issuing_dispute_other_evidence: {
@@ -13747,7 +13747,7 @@ export interface components {
              * @description Whether the product was a merchandise or service.
              * @enum {string|null}
              */
-            product_type?: "merchandise" | "service";
+            product_type?: "merchandise" | "service" | null;
         };
         /** IssuingDisputeServiceNotAsDescribedEvidence */
         issuing_dispute_service_not_as_described_evidence: {
@@ -14230,7 +14230,7 @@ export interface components {
              * @description The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
              * @enum {string|null}
              */
-            taxability_reason?: "customer_exempt" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "zero_rated";
+            taxability_reason?: "customer_exempt" | "not_collecting" | "not_subject_to_tax" | "not_supported" | "portion_product_exempt" | "portion_reduced_rated" | "portion_standard_rated" | "product_exempt" | "product_exempt_holiday" | "proportionally_rated" | "reduced_rated" | "reverse_charge" | "standard_rated" | "taxable_basis_reduced" | "zero_rated" | null;
             /** @description The amount on which tax is calculated, in cents (or local equivalent). */
             taxable_amount?: number | null;
         };
@@ -14331,7 +14331,7 @@ export interface components {
              * @description When the mandate is revoked on the Bacs network this field displays the reason for the revocation.
              * @enum {string|null}
              */
-            revocation_reason?: "account_closed" | "bank_account_restricted" | "bank_ownership_changed" | "could_not_process" | "debit_not_authorized";
+            revocation_reason?: "account_closed" | "bank_account_restricted" | "bank_ownership_changed" | "could_not_process" | "debit_not_authorized" | null;
             /** @description The URL that will contain the mandate that the customer has signed. */
             url: string;
         };
@@ -14445,12 +14445,12 @@ export interface components {
              * @description Account holder type: individual or company.
              * @enum {string|null}
              */
-            account_holder_type?: "company" | "individual";
+            account_holder_type?: "company" | "individual" | null;
             /**
              * @description Account type: checkings or savings. Defaults to checking if omitted.
              * @enum {string|null}
              */
-            account_type?: "checking" | "savings";
+            account_type?: "checking" | "savings" | null;
             /** @description Name of the bank associated with the bank account. */
             bank_name?: string | null;
             /** @description Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same. */
@@ -14483,12 +14483,12 @@ export interface components {
              * @description Account holder type: individual or company.
              * @enum {string|null}
              */
-            account_holder_type?: "company" | "individual";
+            account_holder_type?: "company" | "individual" | null;
             /**
              * @description Account type: checkings or savings. Defaults to checking if omitted.
              * @enum {string|null}
              */
-            account_type?: "checking" | "savings";
+            account_type?: "checking" | "savings" | null;
             /** @description Name of the bank associated with the bank account. */
             bank_name?: string | null;
             /** @description Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same. */
@@ -14645,7 +14645,7 @@ export interface components {
              * @description Reason for cancellation of this PaymentIntent, either user-provided (`duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`) or generated by Stripe internally (`failed_invoice`, `void_invoice`, or `automatic`).
              * @enum {string|null}
              */
-            cancellation_reason?: "abandoned" | "automatic" | "duplicate" | "failed_invoice" | "fraudulent" | "requested_by_customer" | "void_invoice";
+            cancellation_reason?: "abandoned" | "automatic" | "duplicate" | "failed_invoice" | "fraudulent" | "requested_by_customer" | "void_invoice" | null;
             /**
              * @description Controls when the funds will be captured from the customer's account.
              * @enum {string}
@@ -14722,7 +14722,7 @@ export interface components {
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string|null}
              */
-            setup_future_usage?: "off_session" | "on_session";
+            setup_future_usage?: "off_session" | "on_session" | null;
             /** @description Shipping information for this PaymentIntent. */
             shipping?: components["schemas"]["shipping"] | null;
             /** @description For card charges, use [statement_descriptor_suffix](https://stripe.com/docs/payments/account/statement-descriptors#dynamic). Otherwise, you can use this value as the complete description of a charge on your customers' statements. It must contain at least one letter and be 1–22 characters long. */
@@ -14971,7 +14971,7 @@ export interface components {
              * @description The type of the microdeposit sent to the customer. Used to distinguish between different verification methods.
              * @enum {string|null}
              */
-            microdeposit_type?: "amounts" | "descriptor_code";
+            microdeposit_type?: "amounts" | "descriptor_code" | null;
         };
         /** PaymentIntentNextActionWechatPayDisplayQrCode */
         payment_intent_next_action_wechat_pay_display_qr_code: {
@@ -15107,7 +15107,7 @@ export interface components {
              * @description Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time.
              * @enum {string|null}
              */
-            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
             /**
              * @description Request ability to [capture beyond the standard authorization validity window](https://stripe.com/docs/payments/extended-authorization) for this PaymentIntent.
              * @enum {string}
@@ -15132,7 +15132,7 @@ export interface components {
              * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
              * @enum {string|null}
              */
-            request_three_d_secure?: "any" | "automatic" | "challenge";
+            request_three_d_secure?: "any" | "automatic" | "challenge" | null;
             /** @description When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter). */
             require_cvc_recollection?: boolean;
             /**
@@ -15188,12 +15188,12 @@ export interface components {
              * @description Payment schedule for the mandate.
              * @enum {string|null}
              */
-            payment_schedule?: "combined" | "interval" | "sporadic";
+            payment_schedule?: "combined" | "interval" | "sporadic" | null;
             /**
              * @description Transaction type of the mandate.
              * @enum {string|null}
              */
-            transaction_type?: "business" | "personal";
+            transaction_type?: "business" | "personal" | null;
         };
         /** payment_intent_payment_method_options_mandate_options_sepa_debit */
         payment_intent_payment_method_options_mandate_options_sepa_debit: Record<string, never>;
@@ -15454,12 +15454,12 @@ export interface components {
              * @description If set to `auto`, enables the collection of customer consent for promotional communications.
              * @enum {string|null}
              */
-            promotions?: "auto" | "none";
+            promotions?: "auto" | "none" | null;
             /**
              * @description If set to `required`, it requires cutomers to accept the terms of service before being able to pay. If set to `none`, customers won't be shown a checkbox to accept the terms of service.
              * @enum {string|null}
              */
-            terms_of_service?: "none" | "required";
+            terms_of_service?: "none" | "required" | null;
         };
         /** PaymentLinksResourceCustomFields */
         payment_links_resource_custom_fields: {
@@ -15561,7 +15561,7 @@ export interface components {
              * @description Indicates when the funds will be captured from the customer's account.
              * @enum {string|null}
              */
-            capture_method?: "automatic" | "automatic_async" | "manual";
+            capture_method?: "automatic" | "automatic_async" | "manual" | null;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link. */
@@ -15572,7 +15572,7 @@ export interface components {
              * @description Indicates that you intend to make future payments with the payment method collected during checkout.
              * @enum {string|null}
              */
-            setup_future_usage?: "off_session" | "on_session";
+            setup_future_usage?: "off_session" | "on_session" | null;
             /** @description Extra information about the payment. This will appear on your customer's statement when this payment succeeds in creating a charge. */
             statement_descriptor?: string | null;
             /** @description Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
@@ -15836,7 +15836,7 @@ export interface components {
              * @description How card details were read in this transaction.
              * @enum {string|null}
              */
-            read_method?: "contact_emv" | "contactless_emv" | "contactless_magstripe_mode" | "magnetic_stripe_fallback" | "magnetic_stripe_track2";
+            read_method?: "contact_emv" | "contactless_emv" | "contactless_magstripe_mode" | "magnetic_stripe_fallback" | "magnetic_stripe_track2" | null;
         };
         /** payment_method_card_present_networks */
         payment_method_card_present_networks: {
@@ -16075,7 +16075,7 @@ export interface components {
              * @description Type of entity that holds the account. This can be either `individual` or `company`.
              * @enum {string|null}
              */
-            account_holder_type?: "company" | "individual";
+            account_holder_type?: "company" | "individual" | null;
             /** @description Name of the bank associated with the bank account. */
             bank_name?: string | null;
             /** @description Two-letter ISO code representing the country the bank account is located in. */
@@ -16154,7 +16154,7 @@ export interface components {
              *     Can be one of `en`, `de`, `fr`, or `nl`
              * @enum {string|null}
              */
-            preferred_language?: "de" | "en" | "fr" | "nl";
+            preferred_language?: "de" | "en" | "fr" | "nl" | null;
             /** @description Owner's verified full name. Values are verified or provided by Bancontact directly
              *     (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
             verified_name?: string | null;
@@ -16235,7 +16235,7 @@ export interface components {
              *     One of `month`.
              * @enum {string|null}
              */
-            interval?: "month";
+            interval?: "month" | null;
             /**
              * @description Type of installment plan, one of `fixed_count`.
              * @enum {string}
@@ -16290,7 +16290,7 @@ export interface components {
              * @description How card details were read in this transaction.
              * @enum {string|null}
              */
-            read_method?: "contact_emv" | "contactless_emv" | "contactless_magstripe_mode" | "magnetic_stripe_fallback" | "magnetic_stripe_track2";
+            read_method?: "contact_emv" | "contactless_emv" | "contactless_magstripe_mode" | "magnetic_stripe_fallback" | "magnetic_stripe_track2" | null;
             /** @description A collection of fields required to be displayed on receipts. Only required for EMV transactions. */
             receipt?: components["schemas"]["payment_method_details_card_present_receipt"] | null;
         };
@@ -16390,7 +16390,7 @@ export interface components {
              * @description The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`.
              * @enum {string|null}
              */
-            bank?: "arzte_und_apotheker_bank" | "austrian_anadi_bank_ag" | "bank_austria" | "bankhaus_carl_spangler" | "bankhaus_schelhammer_und_schattera_ag" | "bawag_psk_ag" | "bks_bank_ag" | "brull_kallmus_bank_ag" | "btv_vier_lander_bank" | "capital_bank_grawe_gruppe_ag" | "deutsche_bank_ag" | "dolomitenbank" | "easybank_ag" | "erste_bank_und_sparkassen" | "hypo_alpeadriabank_international_ag" | "hypo_bank_burgenland_aktiengesellschaft" | "hypo_noe_lb_fur_niederosterreich_u_wien" | "hypo_oberosterreich_salzburg_steiermark" | "hypo_tirol_bank_ag" | "hypo_vorarlberg_bank_ag" | "marchfelder_bank" | "oberbank_ag" | "raiffeisen_bankengruppe_osterreich" | "schoellerbank_ag" | "sparda_bank_wien" | "volksbank_gruppe" | "volkskreditbank_ag" | "vr_bank_braunau";
+            bank?: "arzte_und_apotheker_bank" | "austrian_anadi_bank_ag" | "bank_austria" | "bankhaus_carl_spangler" | "bankhaus_schelhammer_und_schattera_ag" | "bawag_psk_ag" | "bks_bank_ag" | "brull_kallmus_bank_ag" | "btv_vier_lander_bank" | "capital_bank_grawe_gruppe_ag" | "deutsche_bank_ag" | "dolomitenbank" | "easybank_ag" | "erste_bank_und_sparkassen" | "hypo_alpeadriabank_international_ag" | "hypo_bank_burgenland_aktiengesellschaft" | "hypo_noe_lb_fur_niederosterreich_u_wien" | "hypo_oberosterreich_salzburg_steiermark" | "hypo_tirol_bank_ag" | "hypo_vorarlberg_bank_ag" | "marchfelder_bank" | "oberbank_ag" | "raiffeisen_bankengruppe_osterreich" | "schoellerbank_ag" | "sparda_bank_wien" | "volksbank_gruppe" | "volkskreditbank_ag" | "vr_bank_braunau" | null;
             /** @description Owner's verified full name. Values are verified or provided by EPS directly
              *     (if supported) at the time of authorization or settlement. They cannot be set or mutated.
              *     EPS rarely provides this information so the attribute is usually empty. */
@@ -16430,12 +16430,12 @@ export interface components {
              * @description The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
              * @enum {string|null}
              */
-            bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "n26" | "nn" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe";
+            bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "n26" | "nn" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe" | null;
             /**
              * @description The Bank Identifier Code of the customer's bank.
              * @enum {string|null}
              */
-            bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "NNBANL2G" | "NTSBDEB1" | "RABONL2U" | "RBRBNL21" | "REVOIE23" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U";
+            bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "NNBANL2G" | "NTSBDEB1" | "RABONL2U" | "RBRBNL21" | "REVOIE23" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U" | null;
             /** @description The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge. */
             generated_sepa_debit?: (string | components["schemas"]["payment_method"]) | null;
             /** @description The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge. */
@@ -16478,7 +16478,7 @@ export interface components {
              * @description How card details were read in this transaction.
              * @enum {string|null}
              */
-            read_method?: "contact_emv" | "contactless_emv" | "contactless_magstripe_mode" | "magnetic_stripe_fallback" | "magnetic_stripe_track2";
+            read_method?: "contact_emv" | "contactless_emv" | "contactless_magstripe_mode" | "magnetic_stripe_fallback" | "magnetic_stripe_track2" | null;
             /** @description A collection of fields required to be displayed on receipts. Only required for EMV transactions. */
             receipt?: components["schemas"]["payment_method_details_interac_present_receipt"] | null;
         };
@@ -16526,7 +16526,7 @@ export interface components {
              * @description The name of the convenience store chain where the payment was completed.
              * @enum {string|null}
              */
-            chain?: "familymart" | "lawson" | "ministop" | "seicomart";
+            chain?: "familymart" | "lawson" | "ministop" | "seicomart" | null;
         };
         /** payment_method_details_link */
         payment_method_details_link: {
@@ -16556,7 +16556,7 @@ export interface components {
              * @description The customer's bank. Can be one of `ing`, `citi_handlowy`, `tmobile_usbugi_bankowe`, `plus_bank`, `etransfer_pocztowy24`, `banki_spbdzielcze`, `bank_nowy_bfg_sa`, `getin_bank`, `velobank`, `blik`, `noble_pay`, `ideabank`, `envelobank`, `santander_przelew24`, `nest_przelew`, `mbank_mtransfer`, `inteligo`, `pbac_z_ipko`, `bnp_paribas`, `credit_agricole`, `toyota_bank`, `bank_pekao_sa`, `volkswagen_bank`, `bank_millennium`, `alior_bank`, or `boz`.
              * @enum {string|null}
              */
-            bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank";
+            bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank" | null;
             /** @description Unique reference for this Przelewy24 payment. */
             reference?: string | null;
             /** @description Owner's verified full name. Values are verified or provided by Przelewy24 directly
@@ -16632,7 +16632,7 @@ export interface components {
              *     Can be one of `de`, `en`, `es`, `fr`, `it`, `nl`, or `pl`
              * @enum {string|null}
              */
-            preferred_language?: "de" | "en" | "es" | "fr" | "it" | "nl" | "pl";
+            preferred_language?: "de" | "en" | "es" | "fr" | "it" | "nl" | "pl" | null;
             /** @description Owner's verified full name. Values are verified or provided by SOFORT directly
              *     (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
             verified_name?: string | null;
@@ -16654,12 +16654,12 @@ export interface components {
              * @description Account holder type: individual or company.
              * @enum {string|null}
              */
-            account_holder_type?: "company" | "individual";
+            account_holder_type?: "company" | "individual" | null;
             /**
              * @description Account type: checkings or savings. Defaults to checking if omitted.
              * @enum {string|null}
              */
-            account_type?: "checking" | "savings";
+            account_type?: "checking" | "savings" | null;
             /** @description Name of the bank associated with the bank account. */
             bank_name?: string | null;
             /** @description Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same. */
@@ -16741,7 +16741,7 @@ export interface components {
              * @description The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`.
              * @enum {string|null}
              */
-            bank?: "arzte_und_apotheker_bank" | "austrian_anadi_bank_ag" | "bank_austria" | "bankhaus_carl_spangler" | "bankhaus_schelhammer_und_schattera_ag" | "bawag_psk_ag" | "bks_bank_ag" | "brull_kallmus_bank_ag" | "btv_vier_lander_bank" | "capital_bank_grawe_gruppe_ag" | "deutsche_bank_ag" | "dolomitenbank" | "easybank_ag" | "erste_bank_und_sparkassen" | "hypo_alpeadriabank_international_ag" | "hypo_bank_burgenland_aktiengesellschaft" | "hypo_noe_lb_fur_niederosterreich_u_wien" | "hypo_oberosterreich_salzburg_steiermark" | "hypo_tirol_bank_ag" | "hypo_vorarlberg_bank_ag" | "marchfelder_bank" | "oberbank_ag" | "raiffeisen_bankengruppe_osterreich" | "schoellerbank_ag" | "sparda_bank_wien" | "volksbank_gruppe" | "volkskreditbank_ag" | "vr_bank_braunau";
+            bank?: "arzte_und_apotheker_bank" | "austrian_anadi_bank_ag" | "bank_austria" | "bankhaus_carl_spangler" | "bankhaus_schelhammer_und_schattera_ag" | "bawag_psk_ag" | "bks_bank_ag" | "brull_kallmus_bank_ag" | "btv_vier_lander_bank" | "capital_bank_grawe_gruppe_ag" | "deutsche_bank_ag" | "dolomitenbank" | "easybank_ag" | "erste_bank_und_sparkassen" | "hypo_alpeadriabank_international_ag" | "hypo_bank_burgenland_aktiengesellschaft" | "hypo_noe_lb_fur_niederosterreich_u_wien" | "hypo_oberosterreich_salzburg_steiermark" | "hypo_tirol_bank_ag" | "hypo_vorarlberg_bank_ag" | "marchfelder_bank" | "oberbank_ag" | "raiffeisen_bankengruppe_osterreich" | "schoellerbank_ag" | "sparda_bank_wien" | "volksbank_gruppe" | "volkskreditbank_ag" | "vr_bank_braunau" | null;
         };
         /** payment_method_fpx */
         payment_method_fpx: {
@@ -16761,12 +16761,12 @@ export interface components {
              * @description The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
              * @enum {string|null}
              */
-            bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "n26" | "nn" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe";
+            bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "n26" | "nn" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe" | null;
             /**
              * @description The Bank Identifier Code of the customer's bank, if the bank was provided.
              * @enum {string|null}
              */
-            bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "NNBANL2G" | "NTSBDEB1" | "RABONL2U" | "RBRBNL21" | "REVOIE23" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U";
+            bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "NNBANL2G" | "NTSBDEB1" | "RABONL2U" | "RBRBNL21" | "REVOIE23" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U" | null;
         };
         /** payment_method_interac_present */
         payment_method_interac_present: {
@@ -16796,7 +16796,7 @@ export interface components {
              * @description How card details were read in this transaction.
              * @enum {string|null}
              */
-            read_method?: "contact_emv" | "contactless_emv" | "contactless_magstripe_mode" | "magnetic_stripe_fallback" | "magnetic_stripe_track2";
+            read_method?: "contact_emv" | "contactless_emv" | "contactless_magstripe_mode" | "magnetic_stripe_fallback" | "magnetic_stripe_track2" | null;
         };
         /** payment_method_klarna */
         payment_method_klarna: {
@@ -16996,7 +16996,7 @@ export interface components {
              * @description The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
              * @enum {string|null}
              */
-            funding_type?: "bank_transfer";
+            funding_type?: "bank_transfer" | null;
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
@@ -17018,7 +17018,7 @@ export interface components {
              * @description The bank transfer type that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
              * @enum {string|null}
              */
-            type?: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | "us_bank_transfer";
+            type?: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | "us_bank_transfer" | null;
         };
         /** payment_method_options_customer_balance_eu_bank_account */
         payment_method_options_customer_balance_eu_bank_account: {
@@ -17230,7 +17230,7 @@ export interface components {
              * @description Preferred language of the SOFORT authorization page that the customer is redirected to.
              * @enum {string|null}
              */
-            preferred_language?: "de" | "en" | "es" | "fr" | "it" | "nl" | "pl";
+            preferred_language?: "de" | "en" | "es" | "fr" | "it" | "nl" | "pl" | null;
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
@@ -17257,7 +17257,7 @@ export interface components {
              * @description The client type that the end customer will pay from
              * @enum {string|null}
              */
-            client?: "android" | "ios" | "web";
+            client?: "android" | "ios" | "web" | null;
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
@@ -17288,7 +17288,7 @@ export interface components {
              * @description The customer's bank, if provided.
              * @enum {string|null}
              */
-            bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank";
+            bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank" | null;
         };
         /** payment_method_paynow */
         payment_method_paynow: Record<string, never>;
@@ -17334,12 +17334,12 @@ export interface components {
              * @description Account holder type: individual or company.
              * @enum {string|null}
              */
-            account_holder_type?: "company" | "individual";
+            account_holder_type?: "company" | "individual" | null;
             /**
              * @description Account type: checkings or savings. Defaults to checking if omitted.
              * @enum {string|null}
              */
-            account_type?: "checking" | "savings";
+            account_type?: "checking" | "savings" | null;
             /** @description The name of the bank. */
             bank_name?: string | null;
             /** @description The ID of the Financial Connections Account used to create the payment method. */
@@ -17361,12 +17361,12 @@ export interface components {
              * @description The ACH network code that resulted in this block.
              * @enum {string|null}
              */
-            network_code?: "R02" | "R03" | "R04" | "R05" | "R07" | "R08" | "R10" | "R11" | "R16" | "R20" | "R29" | "R31";
+            network_code?: "R02" | "R03" | "R04" | "R05" | "R07" | "R08" | "R10" | "R11" | "R16" | "R20" | "R29" | "R31" | null;
             /**
              * @description The reason why this PaymentMethod's fingerprint has been blocked
              * @enum {string|null}
              */
-            reason?: "bank_account_closed" | "bank_account_frozen" | "bank_account_invalid_details" | "bank_account_restricted" | "bank_account_unusable" | "debit_not_authorized";
+            reason?: "bank_account_closed" | "bank_account_frozen" | "bank_account_invalid_details" | "bank_account_restricted" | "bank_account_unusable" | "debit_not_authorized" | null;
         };
         /** payment_method_us_bank_account_status_details */
         payment_method_us_bank_account_status_details: {
@@ -17407,7 +17407,7 @@ export interface components {
              * @description The status of the most recent automated tax calculation for this session.
              * @enum {string|null}
              */
-            status?: "complete" | "failed" | "requires_location_inputs";
+            status?: "complete" | "failed" | "requires_location_inputs" | null;
         };
         /** PaymentPagesCheckoutSessionConsent */
         payment_pages_checkout_session_consent: {
@@ -17416,12 +17416,12 @@ export interface components {
              *     from the merchant about this Checkout Session.
              * @enum {string|null}
              */
-            promotions?: "opt_in" | "opt_out";
+            promotions?: "opt_in" | "opt_out" | null;
             /**
              * @description If `accepted`, the customer in this Checkout Session has agreed to the merchant's terms of service.
              * @enum {string|null}
              */
-            terms_of_service?: "accepted";
+            terms_of_service?: "accepted" | null;
         };
         /** PaymentPagesCheckoutSessionConsentCollection */
         payment_pages_checkout_session_consent_collection: {
@@ -17433,12 +17433,12 @@ export interface components {
              *     from the merchant depending on the customer's locale. Only available to US merchants.
              * @enum {string|null}
              */
-            promotions?: "auto" | "none";
+            promotions?: "auto" | "none" | null;
             /**
              * @description If set to `required`, it requires customers to accept the terms of service before being able to pay.
              * @enum {string|null}
              */
-            terms_of_service?: "none" | "required";
+            terms_of_service?: "none" | "required" | null;
         };
         /** PaymentPagesCheckoutSessionCurrencyConversion */
         payment_pages_checkout_session_currency_conversion: {
@@ -17543,7 +17543,7 @@ export interface components {
              * @description The customer’s tax exempt status after a completed Checkout Session.
              * @enum {string|null}
              */
-            tax_exempt?: "exempt" | "none" | "reverse";
+            tax_exempt?: "exempt" | "none" | "reverse" | null;
             /** @description The customer’s tax IDs after a completed Checkout Session. */
             tax_ids?: components["schemas"]["payment_pages_checkout_session_tax_id"][] | null;
         };
@@ -17595,7 +17595,7 @@ export interface components {
              * @description Enable customers to choose if they wish to save their payment method for future use.
              * @enum {string|null}
              */
-            payment_method_save?: "disabled" | "enabled";
+            payment_method_save?: "disabled" | "enabled" | null;
         };
         /** PaymentPagesCheckoutSessionShippingAddressCollection */
         payment_pages_checkout_session_shipping_address_collection: {
@@ -17910,7 +17910,7 @@ export interface components {
              * @description Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
              * @enum {string|null}
              */
-            aggregate_usage?: "last_during_period" | "last_ever" | "max" | "sum";
+            aggregate_usage?: "last_during_period" | "last_ever" | "max" | "sum" | null;
             /** @description The unit amount in cents (or local equivalent) to be charged, represented as a whole integer if possible. Only set if `billing_scheme=per_unit`. */
             amount?: number | null;
             /**
@@ -17962,7 +17962,7 @@ export interface components {
              * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows.
              * @enum {string|null}
              */
-            tiers_mode?: "graduated" | "volume";
+            tiers_mode?: "graduated" | "volume" | null;
             /** @description Apply a transformation to the reported usage or set quantity before computing the amount billed. Cannot be combined with `tiers`. */
             transform_usage?: components["schemas"]["transform_usage"] | null;
             /** @description Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan). */
@@ -18239,14 +18239,14 @@ export interface components {
              * @description Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
              * @enum {string|null}
              */
-            tax_behavior?: "exclusive" | "inclusive" | "unspecified";
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified" | null;
             /** @description Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`. */
             tiers?: components["schemas"]["price_tier"][];
             /**
              * @description Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows.
              * @enum {string|null}
              */
-            tiers_mode?: "graduated" | "volume";
+            tiers_mode?: "graduated" | "volume" | null;
             /** @description Apply a transformation to the reported usage or set quantity before computing the amount billed. Cannot be combined with `tiers`. */
             transform_quantity?: components["schemas"]["transform_quantity"] | null;
             /**
@@ -18536,7 +18536,7 @@ export interface components {
              * @description The status of the most recent automated tax calculation for this quote.
              * @enum {string|null}
              */
-            status?: "complete" | "failed" | "requires_location_inputs";
+            status?: "complete" | "failed" | "requires_location_inputs" | null;
         };
         /** QuotesResourceComputed */
         quotes_resource_computed: {
@@ -18812,7 +18812,7 @@ export interface components {
              * @description Specifies a usage aggregation strategy for prices of `usage_type=metered`. Defaults to `sum`.
              * @enum {string|null}
              */
-            aggregate_usage?: "last_during_period" | "last_ever" | "max" | "sum";
+            aggregate_usage?: "last_during_period" | "last_ever" | "max" | "sum" | null;
             /**
              * @description The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
              * @enum {string}
@@ -18877,7 +18877,7 @@ export interface components {
              * @description Reason for the refund, which is either user-provided (`duplicate`, `fraudulent`, or `requested_by_customer`) or generated by Stripe internally (`expired_uncaptured_charge`).
              * @enum {string|null}
              */
-            reason?: "duplicate" | "expired_uncaptured_charge" | "fraudulent" | "requested_by_customer";
+            reason?: "duplicate" | "expired_uncaptured_charge" | "fraudulent" | "requested_by_customer" | null;
             /** @description This is the transaction number that appears on email receipts sent for this refund. */
             receipt_number?: string | null;
             /** @description The transfer reversal that's associated with the refund. Only present if the charge came from another Stripe account. */
@@ -19078,7 +19078,7 @@ export interface components {
              * @description The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, `disputed`, or `redacted`.
              * @enum {string|null}
              */
-            closed_reason?: "approved" | "disputed" | "redacted" | "refunded" | "refunded_as_fraud";
+            closed_reason?: "approved" | "disputed" | "redacted" | "refunded" | "refunded_as_fraud" | null;
             /**
              * Format: unix-time
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -19283,7 +19283,7 @@ export interface components {
              *     Can be one of `en`, `de`, `fr`, or `nl`
              * @enum {string|null}
              */
-            preferred_language?: "de" | "en" | "fr" | "nl";
+            preferred_language?: "de" | "en" | "fr" | "nl" | null;
             /** @description Owner's verified full name. Values are verified or provided by Bancontact directly
              *     (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
             verified_name?: string | null;
@@ -19351,12 +19351,12 @@ export interface components {
              * @description The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
              * @enum {string|null}
              */
-            bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "n26" | "nn" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe";
+            bank?: "abn_amro" | "asn_bank" | "bunq" | "handelsbanken" | "ing" | "knab" | "moneyou" | "n26" | "nn" | "rabobank" | "regiobank" | "revolut" | "sns_bank" | "triodos_bank" | "van_lanschot" | "yoursafe" | null;
             /**
              * @description The Bank Identifier Code of the customer's bank.
              * @enum {string|null}
              */
-            bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "NNBANL2G" | "NTSBDEB1" | "RABONL2U" | "RBRBNL21" | "REVOIE23" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U";
+            bic?: "ABNANL2A" | "ASNBNL21" | "BITSNL2A" | "BUNQNL2A" | "FVLBNL22" | "HANDNL2A" | "INGBNL2A" | "KNABNL2H" | "MOYONL21" | "NNBANL2G" | "NTSBDEB1" | "RABONL2U" | "RBRBNL21" | "REVOIE23" | "REVOLT21" | "SNSBNL2A" | "TRIONL2U" | null;
             /** @description The ID of the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt. */
             generated_sepa_debit?: (string | components["schemas"]["payment_method"]) | null;
             /** @description The mandate for the SEPA Direct Debit PaymentMethod which was generated by this SetupAttempt. */
@@ -19396,7 +19396,7 @@ export interface components {
              *     Can be one of `en`, `de`, `fr`, or `nl`
              * @enum {string|null}
              */
-            preferred_language?: "de" | "en" | "fr" | "nl";
+            preferred_language?: "de" | "en" | "fr" | "nl" | null;
             /** @description Owner's verified full name. Values are verified or provided by Sofort directly
              *     (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
             verified_name?: string | null;
@@ -19440,7 +19440,7 @@ export interface components {
              * @description Reason for cancellation of this SetupIntent, one of `abandoned`, `requested_by_customer`, or `duplicate`.
              * @enum {string|null}
              */
-            cancellation_reason?: "abandoned" | "duplicate" | "requested_by_customer";
+            cancellation_reason?: "abandoned" | "duplicate" | "requested_by_customer" | null;
             /** @description The client secret of this SetupIntent. Used for client-side retrieval using a publishable key.
              *
              *     The client secret can be used to complete payment setup from your frontend. It should not be stored, logged, or exposed to anyone other than the customer. Make sure that you have TLS enabled on any page that includes the client secret. */
@@ -19533,7 +19533,7 @@ export interface components {
              * @description The type of the microdeposit sent to the customer. Used to distinguish between different verification methods.
              * @enum {string|null}
              */
-            microdeposit_type?: "amounts" | "descriptor_code";
+            microdeposit_type?: "amounts" | "descriptor_code" | null;
         };
         /** SetupIntentPaymentMethodOptions */
         setup_intent_payment_method_options: {
@@ -19552,7 +19552,7 @@ export interface components {
              * @description Currency supported by the bank account
              * @enum {string|null}
              */
-            currency?: "cad" | "usd";
+            currency?: "cad" | "usd" | null;
             mandate_options?: components["schemas"]["setup_intent_payment_method_options_mandate_options_acss_debit"];
             /**
              * @description Bank account verification method.
@@ -19570,12 +19570,12 @@ export interface components {
              * @description Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the setup intent. Can be only set confirm-time.
              * @enum {string|null}
              */
-            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
             /**
              * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
              * @enum {string|null}
              */
-            request_three_d_secure?: "any" | "automatic" | "challenge";
+            request_three_d_secure?: "any" | "automatic" | "challenge" | null;
         };
         /** setup_intent_payment_method_options_card_mandate_options */
         setup_intent_payment_method_options_card_mandate_options: {
@@ -19628,12 +19628,12 @@ export interface components {
              * @description Payment schedule for the mandate.
              * @enum {string|null}
              */
-            payment_schedule?: "combined" | "interval" | "sporadic";
+            payment_schedule?: "combined" | "interval" | "sporadic" | null;
             /**
              * @description Transaction type of the mandate.
              * @enum {string|null}
              */
-            transaction_type?: "business" | "personal";
+            transaction_type?: "business" | "personal" | null;
         };
         /** setup_intent_payment_method_options_mandate_options_sepa_debit */
         setup_intent_payment_method_options_mandate_options_sepa_debit: Record<string, never>;
@@ -19711,7 +19711,7 @@ export interface components {
              * @description Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
              * @enum {string|null}
              */
-            tax_behavior?: "exclusive" | "inclusive" | "unspecified";
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified" | null;
             /** @description A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`. */
             tax_code?: (string | components["schemas"]["tax_code"]) | null;
             /**
@@ -20492,12 +20492,12 @@ export interface components {
              * @description Selected network to process this Subscription on. Depends on the available networks of the card attached to the Subscription. Can be only set confirm-time.
              * @enum {string|null}
              */
-            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
             /**
              * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
              * @enum {string|null}
              */
-            request_three_d_secure?: "any" | "automatic" | "challenge";
+            request_three_d_secure?: "any" | "automatic" | "challenge" | null;
         };
         /** SubscriptionPendingInvoiceItemInterval */
         subscription_pending_invoice_item_interval: {
@@ -20636,14 +20636,14 @@ export interface components {
              * @description Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
              * @enum {string|null}
              */
-            billing_cycle_anchor?: "automatic" | "phase_start";
+            billing_cycle_anchor?: "automatic" | "phase_start" | null;
             /** @description Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period */
             billing_thresholds?: components["schemas"]["subscription_billing_thresholds"] | null;
             /**
              * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
              * @enum {string|null}
              */
-            collection_method?: "charge_automatically" | "send_invoice";
+            collection_method?: "charge_automatically" | "send_invoice" | null;
             /** @description ID of the coupon to use during this phase of the subscription schedule. */
             coupon?: (string | components["schemas"]["coupon"] | components["schemas"]["deleted_coupon"]) | null;
             /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
@@ -20705,7 +20705,7 @@ export interface components {
              * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
              * @enum {string|null}
              */
-            collection_method?: "charge_automatically" | "send_invoice";
+            collection_method?: "charge_automatically" | "send_invoice" | null;
             /** @description ID of the default payment method for the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings. */
             default_payment_method?: (string | components["schemas"]["payment_method"]) | null;
             /** @description Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs. */
@@ -20787,7 +20787,7 @@ export interface components {
              * @description Either `off`, or `on_subscription`. With `on_subscription` Stripe updates `subscription.default_payment_method` when a subscription payment succeeds.
              * @enum {string|null}
              */
-            save_default_payment_method?: "off" | "on_subscription";
+            save_default_payment_method?: "off" | "on_subscription" | null;
         };
         /**
          * SubscriptionsResourcePendingUpdate
@@ -21329,7 +21329,7 @@ export interface components {
              * @description The type of customer address provided.
              * @enum {string|null}
              */
-            address_source?: "billing" | "shipping";
+            address_source?: "billing" | "shipping" | null;
             /** @description The customer's IP address (IPv4 or IPv6). */
             ip_address?: string | null;
             /** @description The customer's tax IDs (for example, EU VAT numbers). */
@@ -21460,7 +21460,7 @@ export interface components {
              * @description The tax type, such as `vat` or `sales_tax`.
              * @enum {string|null}
              */
-            tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
+            tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat" | null;
         };
         /** TaxProductResourceTaxSettingsDefaults */
         tax_product_resource_tax_settings_defaults: {
@@ -21468,7 +21468,7 @@ export interface components {
              * @description Default [tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#tax-behavior) used to specify whether the price is considered inclusive of taxes or exclusive of taxes. If the item's price has a tax behavior set, it will take precedence over the default tax behavior.
              * @enum {string|null}
              */
-            tax_behavior?: "exclusive" | "inclusive" | "inferred_by_currency";
+            tax_behavior?: "exclusive" | "inclusive" | "inferred_by_currency" | null;
             /** @description Default [tax code](https://stripe.com/docs/tax/tax-categories) used to classify your products and prices. */
             tax_code?: string | null;
         };
@@ -21548,7 +21548,7 @@ export interface components {
              * @description The level of the jurisdiction that imposes this tax rate. Will be `null` for manually defined tax rates.
              * @enum {string|null}
              */
-            jurisdiction_level?: "city" | "country" | "county" | "district" | "multiple" | "state";
+            jurisdiction_level?: "city" | "country" | "county" | "district" | "multiple" | "state" | null;
             /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -21568,7 +21568,7 @@ export interface components {
              * @description The high-level tax type, such as `vat` or `sales_tax`.
              * @enum {string|null}
              */
-            tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
+            tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat" | null;
         };
         /**
          * TerminalConfigurationConfiguration
@@ -21677,7 +21677,7 @@ export interface components {
              * @description The networking status of the reader.
              * @enum {string|null}
              */
-            status?: "offline" | "online";
+            status?: "offline" | "online" | null;
         };
         /** TerminalConfigurationConfigurationResourceCurrencySpecificConfig */
         terminal_configuration_configuration_resource_currency_specific_config: {
@@ -21907,24 +21907,24 @@ export interface components {
              *     the issuing bank.
              * @enum {string|null}
              */
-            authentication_flow?: "challenge" | "frictionless";
+            authentication_flow?: "challenge" | "frictionless" | null;
             /**
              * @description The Electronic Commerce Indicator (ECI). A protocol-level field
              *     indicating what degree of authentication was performed.
              * @enum {string|null}
              */
-            electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07";
+            electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07" | null;
             /**
              * @description Indicates the outcome of 3D Secure authentication.
              * @enum {string|null}
              */
-            result?: "attempt_acknowledged" | "authenticated" | "exempted" | "failed" | "not_supported" | "processing_error";
+            result?: "attempt_acknowledged" | "authenticated" | "exempted" | "failed" | "not_supported" | "processing_error" | null;
             /**
              * @description Additional information about why 3D Secure succeeded or failed based
              *     on the `result`.
              * @enum {string|null}
              */
-            result_reason?: "abandoned" | "bypassed" | "canceled" | "card_not_enrolled" | "network_not_supported" | "protocol_error" | "rejected";
+            result_reason?: "abandoned" | "bypassed" | "canceled" | "card_not_enrolled" | "network_not_supported" | "protocol_error" | "rejected" | null;
             /** @description The 3D Secure 1 XID or 3D Secure 2 Directory Server Transaction ID
              *     (dsTransId) for this payment. */
             transaction_id?: string | null;
@@ -21932,7 +21932,7 @@ export interface components {
              * @description The version of 3D Secure that was used.
              * @enum {string|null}
              */
-            version?: "1.0.2" | "2.1.0" | "2.2.0";
+            version?: "1.0.2" | "2.1.0" | "2.2.0" | null;
         };
         /** three_d_secure_details_charge */
         three_d_secure_details_charge: {
@@ -21941,18 +21941,18 @@ export interface components {
              *     the issuing bank.
              * @enum {string|null}
              */
-            authentication_flow?: "challenge" | "frictionless";
+            authentication_flow?: "challenge" | "frictionless" | null;
             /**
              * @description The Electronic Commerce Indicator (ECI). A protocol-level field
              *     indicating what degree of authentication was performed.
              * @enum {string|null}
              */
-            electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07";
+            electronic_commerce_indicator?: "01" | "02" | "05" | "06" | "07" | null;
             /**
              * @description The exemption requested via 3DS and accepted by the issuer at authentication time.
              * @enum {string|null}
              */
-            exemption_indicator?: "low_risk" | "none";
+            exemption_indicator?: "low_risk" | "none" | null;
             /** @description Whether Stripe requested the value of `exemption_indicator` in the transaction. This will depend on
              *     the outcome of Stripe's internal risk assessment. */
             exemption_indicator_applied?: boolean;
@@ -21960,13 +21960,13 @@ export interface components {
              * @description Indicates the outcome of 3D Secure authentication.
              * @enum {string|null}
              */
-            result?: "attempt_acknowledged" | "authenticated" | "exempted" | "failed" | "not_supported" | "processing_error";
+            result?: "attempt_acknowledged" | "authenticated" | "exempted" | "failed" | "not_supported" | "processing_error" | null;
             /**
              * @description Additional information about why 3D Secure succeeded or failed based
              *     on the `result`.
              * @enum {string|null}
              */
-            result_reason?: "abandoned" | "bypassed" | "canceled" | "card_not_enrolled" | "network_not_supported" | "protocol_error" | "rejected";
+            result_reason?: "abandoned" | "bypassed" | "canceled" | "card_not_enrolled" | "network_not_supported" | "protocol_error" | "rejected" | null;
             /** @description The 3D Secure 1 XID or 3D Secure 2 Directory Server Transaction ID
              *     (dsTransId) for this payment. */
             transaction_id?: string | null;
@@ -21974,7 +21974,7 @@ export interface components {
              * @description The version of 3D Secure that was used.
              * @enum {string|null}
              */
-            version?: "1.0.2" | "2.1.0" | "2.2.0";
+            version?: "1.0.2" | "2.1.0" | "2.2.0" | null;
         };
         /** three_d_secure_usage */
         three_d_secure_usage: {
@@ -22602,7 +22602,7 @@ export interface components {
              * @description Reason for the failure. A ReceivedCredit might fail because the receiving FinancialAccount is closed or frozen.
              * @enum {string|null}
              */
-            failure_code?: "account_closed" | "account_frozen" | "other";
+            failure_code?: "account_closed" | "account_frozen" | "other" | null;
             /** @description The FinancialAccount that received the funds. */
             financial_account?: string | null;
             /** @description A [hosted transaction receipt](https://stripe.com/docs/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses. */
@@ -22653,7 +22653,7 @@ export interface components {
              * @description Reason for the failure. A ReceivedDebit might fail because the FinancialAccount doesn't have sufficient funds, is closed, or is frozen.
              * @enum {string|null}
              */
-            failure_code?: "account_closed" | "account_frozen" | "insufficient_funds" | "other";
+            failure_code?: "account_closed" | "account_frozen" | "insufficient_funds" | "other" | null;
             /** @description The FinancialAccount that funds were pulled from. */
             financial_account?: string | null;
             /** @description A [hosted transaction receipt](https://stripe.com/docs/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses. */
@@ -22913,12 +22913,12 @@ export interface components {
              * @description Restricts all inbound money movement.
              * @enum {string|null}
              */
-            inbound_flows?: "restricted" | "unrestricted";
+            inbound_flows?: "restricted" | "unrestricted" | null;
             /**
              * @description Restricts all outbound money movement.
              * @enum {string|null}
              */
-            outbound_flows?: "restricted" | "unrestricted";
+            outbound_flows?: "restricted" | "unrestricted" | null;
         };
         /** TreasuryFinancialAccountsResourceStatusDetails */
         treasury_financial_accounts_resource_status_details: {
@@ -22954,7 +22954,7 @@ export interface components {
              * @description Represents what the user should do, if anything, to activate the Feature.
              * @enum {string|null}
              */
-            resolution?: "contact_stripe" | "provide_information" | "remove_restriction";
+            resolution?: "contact_stripe" | "provide_information" | "remove_restriction" | null;
             /**
              * @description The `platform_restrictions` that are restricting this Feature.
              * @enum {string}
@@ -23091,7 +23091,7 @@ export interface components {
              * @description Set if a ReceivedCredit cannot be reversed.
              * @enum {string|null}
              */
-            restricted_reason?: "already_reversed" | "deadline_passed" | "network_restricted" | "other" | "source_flow_restricted";
+            restricted_reason?: "already_reversed" | "deadline_passed" | "network_restricted" | "other" | "source_flow_restricted" | null;
         };
         /** TreasuryReceivedCreditsResourceSourceFlowsDetails */
         treasury_received_credits_resource_source_flows_details: {
@@ -23141,7 +23141,7 @@ export interface components {
              * @description Set if a ReceivedDebit can't be reversed.
              * @enum {string|null}
              */
-            restricted_reason?: "already_reversed" | "deadline_passed" | "network_restricted" | "other" | "source_flow_restricted";
+            restricted_reason?: "already_reversed" | "deadline_passed" | "network_restricted" | "other" | "source_flow_restricted" | null;
         };
         /** TreasuryReceivedDebitsResourceStatusTransitions */
         treasury_received_debits_resource_status_transitions: {

@@ -77,6 +77,20 @@ describe("transformSchemaObject > string", () => {
         // options: DEFAULT_OPTIONS,
       },
     ],
+    [
+      "enum + nullable",
+      {
+        given: { type: ["string", "null"], enum: ["A", "B", "C"] },
+        want: '"A" | "B" | "C" | null',
+      },
+    ],
+    [
+      "enum + nullable (deprecated syntax)",
+      {
+        given: { type: "string", enum: ["A", "B", "C"], nullable: true },
+        want: '"A" | "B" | "C" | null',
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
