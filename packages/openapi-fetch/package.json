@@ -48,7 +48,7 @@
   ],
   "scripts": {
     "build": "pnpm run build:clean && pnpm run build:js && pnpm run build:js-min && pnpm run build:cjs",
-    "build:clean": "del dist",
+    "build:clean": "del-cli dist",
     "build:js": "mkdir -p dist && cp src/* dist",
     "build:js-min": "esbuild --bundle src/index.js --format=esm --minify --outfile=dist/index.min.js && cp dist/index.d.ts dist/index.min.d.ts",
     "build:cjs": "esbuild --bundle src/index.js --format=cjs --outfile=dist/cjs/index.cjs && cp dist/index.d.ts dist/cjs/index.d.cts",
