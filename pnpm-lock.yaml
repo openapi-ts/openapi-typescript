@@ -48,6 +48,9 @@ importers:
       esbuild:
         specifier: ^0.20.2
         version: 0.20.2
+      execa:
+        specifier: ^8.0.1
+        version: 8.0.1
       msw:
         specifier: ^2.2.14
         version: 2.2.14(typescript@5.4.5)
