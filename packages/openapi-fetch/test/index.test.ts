@@ -1,10 +1,5 @@
-import { HttpResponse, type StrictRequest, type StrictResponse } from "msw";
-import createClient, {
-  type BodyType,
-  type Middleware,
-  type MiddlewareRequest,
-  type QuerySerializerOptions,
-} from "../src/index.js";
+import { HttpResponse, type StrictResponse } from "msw";
+import createClient, { type Middleware, type MiddlewareRequest, type QuerySerializerOptions } from "../src/index.js";
 import type { paths } from "./fixtures/api.js";
 import { server, baseUrl, useMockRequestHandler, toAbsoluteURL } from "./fixtures/mock-server.js";
 
