@@ -166,7 +166,7 @@ export type ClientMethod<Paths extends Record<string, PathMethods>, M extends Ht
   I extends MaybeOptionalInit<Paths[P], M>,
 >(
   url: P,
-  ...init: HasRequiredKeys<I> extends never ? [I?] : [I]
+  ...init: HasRequiredKeys<I> extends never ? [(I & { [key: string]: unknown })?] : [I]
 ) => Promise<FetchResponse<Paths[P][M], I, Media>>;
 
 export default function createClient<Paths extends {}, Media extends MediaType = MediaType>(
