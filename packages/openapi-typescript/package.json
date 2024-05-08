@@ -69,7 +69,7 @@
   "devDependencies": {
     "@types/degit": "^2.8.6",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^20.12.7",
+    "@types/node": "^20.12.11",
     "degit": "^2.8.4",
     "del-cli": "^5.1.0",
     "esbuild": "^0.20.2",

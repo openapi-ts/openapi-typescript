@@ -15,11 +15,10 @@ export const shared = defineConfig({
       {
         defer: "",
         src: "https://static.cloudflareinsights.com/beacon.min.js",
-        "data-cf-beacon": '{"token": "f5713e86f9aa43278151f2763d6b59ae"}',
+        "data-cf-beacon": '{"token": "ea4189cb68024071a5aff8663b3b63f1"}',
       },
     ],
   ],
-
   sitemap: {
     hostname: HOSTNAME,
   },
@@ -35,8 +34,6 @@ export const shared = defineConfig({
         locales: { ...zhSearch },
       },
     },
-    socialLinks: [
-      { icon: "github", link: "https://github.com/drwpow/openapi-typescript" },
-    ],
+    socialLinks: [{ icon: "github", link: "https://github.com/drwpow/openapi-typescript" }],
   },
 });
