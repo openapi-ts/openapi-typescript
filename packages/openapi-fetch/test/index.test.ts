@@ -854,6 +854,29 @@ describe("client", () => {
         expect(req.headers.get("foo")).toBe("bar");
       });
 
+      it("can attach custom properties to request", async () => {
+        function createCustomFetch(data: any) {
+          const response = {
+            clone: () => ({ ...response }),
+            headers: new Headers(),
+            json: async () => data,
+            status: 200,
+            ok: true,
+          } as Response;
+          return async (input: Request) => {
+            expect(input).toHaveProperty("customProperty", "value");
+            return Promise.resolve(response);
+          };
+        }
+
+        const customFetch = createCustomFetch({});
+        const client = createClient<paths>({ fetch: customFetch, baseUrl });
+
+        client.GET("/self", {
+          customProperty: "value",
+        });
+      });
+
       it("can modify response", async () => {
         const toUnix = (date: string) => new Date(date).getTime();
 
