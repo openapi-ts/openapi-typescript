@@ -5,25 +5,23 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
     "generate": "openapi-typescript src/schema/catfact.json -o src/generated/catfact.d.ts"
   },
   "dependencies": {
-    "npm-run-all": "^4.1.5",
     "openapi-fetch": "workspace:^",
-    "vue": "^3.4.21"
+    "vue": "^3.4.27"
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
-    "@types/node": "^20.12.5",
+    "@types/node": "^20.12.11",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vue/tsconfig": "^0.5.1",
     "openapi-typescript": "workspace:^",
     "typescript": "~5.4.0",
-    "vite": "^5.2.8",
+    "vite": "^5.2.11",
     "vue-tsc": "^2.0.11"
   }
 }

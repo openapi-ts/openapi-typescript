@@ -65,7 +65,7 @@ const OPENAPI_TS_CONTRIBUTORS = [
     "bokub",
     "antonk52",
     "tshelburne",
-    "mmiszy",
+    "typeofweb",
     "skh-",
     "BlooJeans",
     "selbekk",
@@ -202,7 +202,7 @@ async function main() {
           upsert(contributors[repo], userData);
           console.log(`Updated old contributor data for ${username}`); // biome-disable-line no-console
           fs.writeFileSync(new URL("../data/contributors.json", import.meta.url), JSON.stringify(contributors)); // update file while fetching (sync happens safely in between fetches)
-          await new Promise((resolve) => setTimeout(resolve, 500)); // sleep to prevent 429
+          await new Promise((resolve) => setTimeout(resolve, 750)); // sleep to prevent 429
         } catch (err) {
           throw new Error(err);
         }
