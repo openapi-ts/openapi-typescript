@@ -6,6 +6,22 @@ const DEFAULT_HEADERS = {
 const PATH_PARAM_RE = /\{[^{}]+\}/g;
 
 /**
+ * Add custom parameters to Request object
+ */
+class CustomRequest extends Request {
+  constructor(input, init) {
+    super(input, init);
+
+    // add custom parameters
+    for (const key in init) {
+      if (!this[key]) {
+        this[key] = init[key];
+      }
+    }
+  }
+}
+
+/**
  * Create an openapi-fetch client.
  * @type {import("./index.js").default}
  */
@@ -67,7 +83,7 @@ export default function createClient(clientOptions) {
     if (requestInit.body instanceof FormData) {
       requestInit.headers.delete("Content-Type");
     }
-    let request = new Request(createFinalURL(url, { baseUrl, params, querySerializer }), requestInit);
+    let request = new CustomRequest(createFinalURL(url, { baseUrl, params, querySerializer }), requestInit);
     // middleware (request)
     const mergedOptions = {
       baseUrl,
