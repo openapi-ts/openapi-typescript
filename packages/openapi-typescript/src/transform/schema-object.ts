@@ -11,6 +11,7 @@ import {
   UNKNOWN,
   addJSDocComment,
   oapiRef,
+  tsArrayLiteralExpression,
   tsEnum,
   tsIntersection,
   tsIsPrimitive,
@@ -118,7 +119,30 @@ export function transformSchemaObjectWithComposition(
     if ((Array.isArray(schemaObject.type) && schemaObject.type.includes("null")) || schemaObject.nullable) {
       enumType.push(NULL);
     }
-    return tsUnion(enumType);
+
+    const unionType = tsUnion(enumType);
+
+    // hoist array with valid enum values to top level if string/number enum and option is enabled
+    if (options.ctx.enumValues && schemaObject.enum.every((v) => typeof v === "string" || typeof v === "number")) {
+      let enumValuesVariableName = parseRef(options.path ?? "").pointer.join("/");
+      // allow #/components/schemas to have simpler names
+      enumValuesVariableName = enumValuesVariableName.replace("components/schemas", "");
+      enumValuesVariableName = `${enumValuesVariableName}Values`;
+
+      const enumValuesArray = tsArrayLiteralExpression(
+        enumValuesVariableName,
+        oapiRef(options.path ?? ""),
+        schemaObject.enum as (string | number)[],
+        {
+          export: true,
+          readonly: true,
+        },
+      );
+
+      options.ctx.injectFooter.push(enumValuesArray);
+    }
+
+    return unionType;
   }
 
   /**

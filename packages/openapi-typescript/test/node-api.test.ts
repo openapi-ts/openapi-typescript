@@ -705,6 +705,92 @@ export type operations = Record<string, never>;`,
       },
     ],
     [
+      "options > enumValues",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
+          paths: {
+            "/url": {
+              get: {
+                parameters: [
+                  {
+                    name: "status",
+                    in: "query",
+                    schema: {
+                      type: "string",
+                      enum: ["active", "inactive"],
+                    },
+                  },
+                ],
+              },
+            },
+          },
+          components: {
+            schemas: {
+              Status: {
+                type: "string",
+                enum: ["active", "inactive"],
+              },
+              ErrorCode: {
+                type: "number",
+                enum: [100, 101, 102, 103, 104, 105],
+              },
+            },
+          },
+        },
+        want: `export interface paths {
+    "/url": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    status?: "active" | "inactive";
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: never;
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        /** @enum {string} */
+        Status: "active" | "inactive";
+        /** @enum {number} */
+        ErrorCode: 100 | 101 | 102 | 103 | 104 | 105;
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export const pathsUrlGetParametersQueryStatusValues: ReadonlyArray<paths["/url"]["get"]["parameters"]["query"]["status"]> = ["active", "inactive"];
+export const statusValues: ReadonlyArray<components["schemas"]["Status"]> = ["active", "inactive"];
+export const errorCodeValues: ReadonlyArray<components["schemas"]["ErrorCode"]> = [100, 101, 102, 103, 104, 105];
+export type operations = Record<string, never>;`,
+        options: { enumValues: true },
+      },
+    ],
+    [
       "snapshot > GitHub",
       {
         given: new URL("./github-api.yaml", EXAMPLES_DIR),

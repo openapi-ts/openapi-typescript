@@ -7,6 +7,7 @@ import {
   STRING,
   astToString,
   oapiRef,
+  tsArrayLiteralExpression,
   tsEnum,
   tsIsPrimitive,
   tsLiteral,
@@ -198,6 +199,60 @@ describe("tsEnum", () => {
     // User doesn't have permissions
     PermissionDenied = 102
 }`);
+  });
+});
+
+describe("tsArrayLiteralExpression", () => {
+  test("string members", () => {
+    expect(
+      astToString(
+        tsArrayLiteralExpression("-my-color-Values", oapiRef("#/components/schemas/Color"), ["green", "red", "blue"]),
+      ).trim(),
+    ).toBe(`const myColorValues: components["schemas"]["Color"][] = ["green", "red", "blue"];`);
+  });
+
+  test("with setting: export", () => {
+    expect(
+      astToString(
+        tsArrayLiteralExpression("-my-color-Values", oapiRef("#/components/schemas/Color"), ["green", "red", "blue"], {
+          export: true,
+        }),
+      ).trim(),
+    ).toBe(`export const myColorValues: components["schemas"]["Color"][] = ["green", "red", "blue"];`);
+  });
+
+  test("with setting: readonly", () => {
+    expect(
+      astToString(
+        tsArrayLiteralExpression("-my-color-Values", oapiRef("#/components/schemas/Color"), ["green", "red", "blue"], {
+          readonly: true,
+        }),
+      ).trim(),
+    ).toBe(`const myColorValues: ReadonlyArray<components["schemas"]["Color"]> = ["green", "red", "blue"];`);
+  });
+
+  test("name from path", () => {
+    expect(
+      astToString(
+        tsArrayLiteralExpression(
+          "#/paths/url/get/parameters/query/status/Values",
+          oapiRef("#/components/schemas/Status"),
+          ["active", "inactive"],
+        ),
+      ).trim(),
+    ).toBe(`const pathsUrlGetParametersQueryStatusValues: components["schemas"]["Status"][] = ["active", "inactive"];`);
+  });
+
+  test("number members", () => {
+    expect(
+      astToString(
+        tsArrayLiteralExpression(
+          ".Error.code.Values",
+          oapiRef("#/components/schemas/ErrorCode"),
+          [100, 101, 102, -100],
+        ),
+      ).trim(),
+    ).toBe(`const errorCodeValues: components["schemas"]["ErrorCode"][] = [100, 101, 102, -100];`);
   });
 });
 

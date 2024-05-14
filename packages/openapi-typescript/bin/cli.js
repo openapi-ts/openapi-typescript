@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import { loadConfig, findConfig, createConfig } from "@redocly/openapi-core";
+import { createConfig, findConfig, loadConfig } from "@redocly/openapi-core";
 import fs from "node:fs";
 import path from "node:path";
 import parser from "yargs-parser";
-import openapiTS, { astToString, c, COMMENT_HEADER, error, formatTime, warn } from "../dist/index.js";
+import openapiTS, { COMMENT_HEADER, astToString, c, error, formatTime, warn } from "../dist/index.js";
 
 const HELP = `Usage
   $ openapi-typescript [input] [options]
@@ -15,6 +15,7 @@ Options
   --redocly [path], -c       Specify path to Redocly config (default: redocly.yaml)
   --output, -o               Specify output file (if not specified in redocly.yaml)
   --enum                     Export true TS enums instead of unions
+  --enum-values              Export enum values as arrays
   --export-type, -t          Export top-level \`type\` instead of \`interface\`
   --immutable                Generate readonly types
   --additional-properties    Treat schema objects as if \`additionalProperties: true\` is set
@@ -62,6 +63,7 @@ const flags = parser(args, {
     "propertiesRequiredByDefault",
     "emptyObjectsUnknown",
     "enum",
+    "enumValues",
     "excludeDeprecated",
     "exportType",
     "help",
@@ -91,6 +93,7 @@ async function generateSchema(schema, { redocly, silent = false }) {
       defaultNonNullable: flags.defaultNonNullable,
       emptyObjectsUnknown: flags.emptyObjectsUnknown,
       enum: flags.enum,
+      enumValues: flags.enumValues,
       excludeDeprecated: flags.excludeDeprecated,
       exportType: flags.exportType,
       immutable: flags.immutable,

@@ -649,6 +649,8 @@ export interface OpenAPITSOptions {
   exportType?: boolean;
   /** Export true TypeScript enums instead of unions */
   enum?: boolean;
+  /** Export union values as arrays */
+  enumValues?: boolean;
   /** (optional) Substitute path parameter names with their respective types */
   pathParamsAsTypes?: boolean;
   /** Treat all objects as if they have \`required\` set to all properties by default (default: false) */
@@ -673,6 +675,7 @@ export interface GlobalContext {
   };
   emptyObjectsUnknown: boolean;
   enum: boolean;
+  enumValues: boolean;
   excludeDeprecated: boolean;
   exportType: boolean;
   immutable: boolean;
