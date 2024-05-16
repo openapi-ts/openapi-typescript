@@ -294,7 +294,14 @@ export function tsLiteral(value: unknown): ts.TypeNode {
     return ts.factory.createIdentifier(JSON.stringify(value)) as unknown as ts.TypeNode;
   }
   if (typeof value === "number") {
-    return ts.factory.createLiteralTypeNode(ts.factory.createNumericLiteral(value));
+    const literal =
+      value < 0
+        ? ts.factory.createPrefixUnaryExpression(
+            ts.SyntaxKind.MinusToken,
+            ts.factory.createNumericLiteral(Math.abs(value)),
+          )
+        : ts.factory.createNumericLiteral(value);
+    return ts.factory.createLiteralTypeNode(literal);
   }
   if (typeof value === "boolean") {
     return value === true ? TRUE : FALSE;
