@@ -21,8 +21,8 @@ describe("transformSchemaObject > number", () => {
     [
       "enum",
       {
-        given: { type: "number", enum: [50, 100, 200] },
-        want: "50 | 100 | 200",
+        given: { type: "number", enum: [-50, 50, 100, 200] },
+        want: "-50 | 50 | 100 | 200",
         // options: DEFAULT_OPTIONS,
       },
     ],
