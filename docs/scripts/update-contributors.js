@@ -7,7 +7,7 @@ const CONTRIBUTORS_JSON = new URL("../data/contributors.json", import.meta.url);
 
 const contributors = JSON.parse(fs.readFileSync(CONTRIBUTORS_JSON, "utf8"));
 
-const ONE_WEEK = 1000 * 60 * 60 * 24 * 7;
+const ONE_MONTH = 1000 * 60 * 60 * 24 * 7 * 30;
 
 async function fetchUserInfo(username) {
   const res = await fetch(`https://github.com/${username}`, {
@@ -147,6 +147,9 @@ const OPENAPI_TS_CONTRIBUTORS = [
     "JeanRemiDelteil",
     "TzviPM",
     "LucaSchwan",
+    "nzapponi",
+    "luchsamapparat",
+    "nmacmunn",
   ]),
 ];
 
@@ -186,7 +189,7 @@ async function main() {
       for (const username of userlist) {
         // skip profiles that have been updated within the past week
         const { lastFetch } = contributors[repo].find((u) => u.username === username) ?? { lastFetch: 0 };
-        if (Date.now() - lastFetch < ONE_WEEK) {
+        if (Date.now() - lastFetch < ONE_MONTH) {
           continue;
         }
 
@@ -200,7 +203,8 @@ async function main() {
             lastFetch: new Date().getTime(),
           };
           upsert(contributors[repo], userData);
-          console.log(`Updated old contributor data for ${username}`); // biome-disable-line no-console
+          // biome-ignore lint/suspicious/noConsoleLog: this is  a script
+          console.log(`Updated old contributor data for ${username}`);
           fs.writeFileSync(new URL("../data/contributors.json", import.meta.url), JSON.stringify(contributors)); // update file while fetching (sync happens safely in between fetches)
           await new Promise((resolve) => setTimeout(resolve, 750)); // sleep to prevent 429
         } catch (err) {
