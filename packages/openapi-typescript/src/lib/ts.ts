@@ -206,19 +206,69 @@ export function tsEnum(
   metadata?: { name?: string; description?: string }[],
   options?: { export?: boolean },
 ) {
-  let enumName = name.replace(JS_ENUM_INVALID_CHARS_RE, (c) => {
-    const last = c[c.length - 1];
-    return JS_PROPERTY_INDEX_INVALID_CHARS_RE.test(last) ? "" : last.toUpperCase();
-  });
-  if (Number(name[0]) >= 0) {
-    enumName = `Value${name}`;
-  }
+  let enumName = sanitizeMemberName(name);
   enumName = `${enumName[0].toUpperCase()}${enumName.substring(1)}`;
   return ts.factory.createEnumDeclaration(
     /* modifiers */ options ? tsModifiers({ export: options.export ?? false }) : undefined,
     /* name      */ enumName,
     /* members   */ members.map((value, i) => tsEnumMember(value, metadata?.[i])),
   );
+}
+
+/** Create an exported TS array literal expression  */
+export function tsArrayLiteralExpression(
+  name: string,
+  elementType: ts.TypeNode,
+  values: (string | number)[],
+  options?: { export?: boolean; readonly?: boolean },
+) {
+  let variableName = sanitizeMemberName(name);
+  variableName = `${variableName[0].toLowerCase()}${variableName.substring(1)}`;
+
+  const arrayType = options?.readonly
+    ? ts.factory.createTypeReferenceNode("ReadonlyArray", [elementType])
+    : ts.factory.createArrayTypeNode(elementType);
+
+  return ts.factory.createVariableStatement(
+    options ? tsModifiers({ export: options.export ?? false }) : undefined,
+    ts.factory.createVariableDeclarationList(
+      [
+        ts.factory.createVariableDeclaration(
+          variableName,
+          undefined,
+          arrayType,
+          ts.factory.createArrayLiteralExpression(
+            values.map((value) => {
+              if (typeof value === "number") {
+                if (value < 0) {
+                  return ts.factory.createPrefixUnaryExpression(
+                    ts.SyntaxKind.MinusToken,
+                    ts.factory.createNumericLiteral(Math.abs(value)),
+                  );
+                } else {
+                  return ts.factory.createNumericLiteral(value);
+                }
+              } else {
+                return ts.factory.createStringLiteral(value);
+              }
+            }),
+          ),
+        ),
+      ],
+      ts.NodeFlags.Const,
+    ),
+  );
+}
+
+function sanitizeMemberName(name: string) {
+  let sanitizedName = name.replace(JS_ENUM_INVALID_CHARS_RE, (c) => {
+    const last = c[c.length - 1];
+    return JS_PROPERTY_INDEX_INVALID_CHARS_RE.test(last) ? "" : last.toUpperCase();
+  });
+  if (Number(name[0]) >= 0) {
+    sanitizedName = `Value${name}`;
+  }
+  return sanitizedName;
 }
 
 /** Sanitize TS enum member expression */

@@ -14,6 +14,7 @@ export const DEFAULT_CTX: GlobalContext = {
   },
   emptyObjectsUnknown: false,
   enum: false,
+  enumValues: false,
   excludeDeprecated: false,
   exportType: false,
   immutable: false,
