@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 6.7.6
+
+### Patch Changes
+
+- [#1648](https://github.com/drwpow/openapi-typescript/pull/1648) [`37885c2aec15d406720c5457da5bcaf7a142ab75`](https://github.com/drwpow/openapi-typescript/commit/37885c2aec15d406720c5457da5bcaf7a142ab75) Thanks [@nzapponi](https://github.com/nzapponi)! - Fix SecurityRequirementsObject to allow partial security schemes
+
 ## 6.7.5
 
 ### Patch Changes
