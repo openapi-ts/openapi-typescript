@@ -40,17 +40,16 @@
     "url": "https://github.com/drwpow/openapi-typescript/issues"
   },
   "scripts": {
-    "build": "run-s -s build:*",
-    "build:clean": "del dist",
-    "build:esm": "tsc -p tsconfig.build.json",
+    "build": "pnpm run build:esm && pnpm run build:cjs",
+    "build:esm": "del dist && tsc -p tsconfig.build.json",
     "build:cjs": "esbuild --bundle --platform=node --target=es2019 --outfile=dist/index.cjs --external:js-yaml --external:undici src/index.ts --footer:js=\"module.exports = module.exports.default;\"",
     "dev": "tsc -p tsconfig.build.json --watch",
     "download:schemas": "vite-node ./scripts/download-schemas.ts",
     "format": "prettier --write \"src/**/*\"",
-    "lint": "run-p -s lint:*",
+    "lint": "pnpm run --parallel --filter=\"openapi-typescript\" \"/^lint:/\"",
     "lint:js": "eslint \"{src,test}/**/*.{js,ts}\"",
     "lint:prettier": "prettier --check \"src/**/*\"",
-    "test": "run-p -s test:*",
+    "test": "pnpm run --parallel --filter=\"openapi-typescript\" \"/^test:/\"",
     "test:js": "vitest run",
     "test:ts": "tsc --noEmit",
     "update:examples": "pnpm run download:schemas && vite-node ./scripts/update-examples.ts",
@@ -62,19 +61,19 @@
     "fast-glob": "^3.3.2",
     "js-yaml": "^4.1.0",
     "supports-color": "^9.4.0",
-    "undici": "^5.28.2",
+    "undici": "^5.28.4",
     "yargs-parser": "^21.1.1"
   },
   "devDependencies": {
     "@types/degit": "^2.8.6",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^20.10.4",
+    "@types/node": "^20.12.12",
     "degit": "^2.8.4",
     "del-cli": "^5.1.0",
-    "esbuild": "^0.19.9",
+    "esbuild": "^0.21.3",
     "execa": "^7.2.0",
-    "vite": "^5.0.8",
-    "vite-node": "^1.0.4",
-    "vitest": "^0.34.6"
+    "vite": "^5.2.11",
+    "vite-node": "^1.6.0",
+    "vitest": "^1.6.0"
   }
 }

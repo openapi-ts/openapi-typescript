@@ -11,70 +11,61 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-      - uses: pnpm/action-setup@v2
-        with:
-          version: latest
-      - run: pnpm i
-      - run: pnpm run build
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - uses: pnpm/action-setup@v2
+          node-version: 22
+      - uses: pnpm/action-setup@v4
         with:
           version: latest
-      - run: pnpm i
+          run_install: true
       - run: pnpm run lint
   test-node-versions:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [18.x, 20.x, 22.x]
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
           version: latest
-      - run: pnpm i
+          run_install: true
+      - run: pnpm run build
       - run: pnpm test
   test-macos:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - uses: pnpm/action-setup@v2
+          node-version: 22
+      - uses: pnpm/action-setup@v4
         with:
           version: latest
-      - run: pnpm i
+          run_install: true
+      - run: pnpm run build
       - run: pnpm test
         env:
           CI_ENV: macos
   test-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - uses: pnpm/action-setup@v2
+          node-version: 22
+      - uses: pnpm/action-setup@v4
         with:
           version: latest
-      - run: pnpm i
+          run_install: true
+      - run: pnpm run build
       - run: pnpm test
         env:
           CI_ENV: windows

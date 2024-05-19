@@ -12,12 +12,14 @@
     "openapi-typescript": "workspace:^"
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "^2.1.0",
-    "@sveltejs/kit": "^1.24.1",
-    "svelte": "^4.2.0",
-    "svelte-check": "^3.5.1",
+    "@sveltejs/adapter-auto": "^3.2.0",
+    "@sveltejs/kit": "^2.5.8",
+    "@sveltejs/vite-plugin-svelte": "^3.1.0",
+    "openapi-typescript": "workspace:^",
+    "svelte": "^4.2.17",
+    "svelte-check": "^3.7.1",
     "tslib": "^2.6.2",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.8"
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11"
   }
 }

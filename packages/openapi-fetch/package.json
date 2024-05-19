@@ -62,19 +62,19 @@
     "version": "pnpm run prepare && pnpm run build"
   },
   "dependencies": {
-    "openapi-typescript-helpers": "^0.0.6"
+    "openapi-typescript-helpers": "workspace:^"
   },
   "devDependencies": {
-    "axios": "^1.6.2",
+    "axios": "^1.6.8",
     "del-cli": "^5.1.0",
-    "esbuild": "^0.19.9",
-    "nanostores": "^0.9.5",
+    "esbuild": "^0.21.3",
+    "nanostores": "^0.10.3",
     "openapi-typescript": "workspace:^",
-    "openapi-typescript-codegen": "^0.25.0",
+    "openapi-typescript-codegen": "^0.29.0",
     "openapi-typescript-fetch": "^1.1.3",
-    "superagent": "^8.1.2",
-    "typescript": "^5.3.3",
-    "vitest": "^0.34.6",
+    "superagent": "^9.0.2",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0",
     "vitest-fetch-mock": "^0.2.2"
   }
 }
