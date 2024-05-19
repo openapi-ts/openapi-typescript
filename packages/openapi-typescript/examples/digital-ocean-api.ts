@@ -9894,7 +9894,7 @@ export interface components {
              *       "web"
              *     ]
              */
-            tags: string[] | null;
+            tags: string[];
             /**
              * @description A string containing 'user data' which may be used to configure the Droplet on first boot, often a 'cloud-config' file or Bash script. It must be plain text and may not exceed 64 KiB in size.
              * @example #cloud-config

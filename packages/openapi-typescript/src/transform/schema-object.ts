@@ -116,7 +116,10 @@ export function transformSchemaObjectWithComposition(
       return ts.factory.createTypeReferenceNode(enumType.name);
     }
     const enumType = schemaObject.enum.map(tsLiteral);
-    if ((Array.isArray(schemaObject.type) && schemaObject.type.includes("null")) || schemaObject.nullable) {
+    if (
+      ((Array.isArray(schemaObject.type) && schemaObject.type.includes("null")) || schemaObject.nullable) &&
+      !schemaObject.default
+    ) {
       enumType.push(NULL);
     }
 
@@ -242,7 +245,7 @@ export function transformSchemaObjectWithComposition(
   // if final type could be generated, return intersection of all members
   if (finalType) {
     // deprecated nullable
-    if (schemaObject.nullable) {
+    if (schemaObject.nullable && !schemaObject.default) {
       return tsNullable([finalType]);
     }
     return finalType;
@@ -364,7 +367,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
     // polymorphic, or 3.1 nullable
     if (Array.isArray(schemaObject.type) && !Array.isArray(schemaObject)) {
       // skip any primitive types that appear in oneOf as well
-      let uniqueTypes: ts.TypeNode[] = [];
+      const uniqueTypes: ts.TypeNode[] = [];
       if (Array.isArray(schemaObject.oneOf)) {
         for (const t of schemaObject.type) {
           if (
@@ -383,11 +386,15 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
           );
         }
       } else {
-        uniqueTypes = schemaObject.type.map((t) =>
-          t === "null" || t === null
-            ? NULL
-            : transformSchemaObject({ ...schemaObject, type: t } as SchemaObject, options),
-        );
+        for (const t of schemaObject.type) {
+          if (t === "null" || t === null) {
+            if (!schemaObject.default) {
+              uniqueTypes.push(NULL);
+            }
+          } else {
+            uniqueTypes.push(transformSchemaObject({ ...schemaObject, type: t } as SchemaObject, options));
+          }
+        }
       }
       return tsUnion(uniqueTypes);
     }
