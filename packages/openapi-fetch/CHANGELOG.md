@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.9.7
+
+### Patch Changes
+
+- [#1672](https://github.com/drwpow/openapi-typescript/pull/1672) [`64cb619`](https://github.com/drwpow/openapi-typescript/commit/64cb6193ddd94523636fd55ba308117f2614a2e2) Thanks [@jaredLunde](https://github.com/jaredLunde)! - Fixes issue where native properties were not excluded from custom properties in the CustomRequest class
+
 ## 0.9.6
 
 ### Patch Changes
