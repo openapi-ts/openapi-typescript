@@ -1,13 +1,13 @@
-import { SpyInstance } from "vitest";
+import type { MockInstance } from "vitest";
 import openapiTS from "../dist/index.js";
 
 describe("Invalid schemas", () => {
-  let consoleError: SpyInstance;
-  let procExit: SpyInstance;
+  let consoleError: MockInstance;
+  let procExit: MockInstance;
 
   beforeEach(() => {
     consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
-    procExit = vi.spyOn(process, "exit").mockImplementation((() => {}) as any);
+    procExit = vi.spyOn(process, "exit").mockImplementation((() => {}) as any) as any;
   });
 
   afterAll(() => {

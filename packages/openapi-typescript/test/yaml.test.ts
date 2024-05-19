@@ -17,9 +17,9 @@ describe("YAML features", () => {
 
 
       export interface paths {
-        \\"/admin/ping\\": {
+        "/admin/ping": {
           /** Ping pongs */
-          get: operations[\\"AdminPing\\"];
+          get: operations["AdminPing"];
         };
       }
 
@@ -54,13 +54,13 @@ describe("YAML features", () => {
             /** @description OK */
             200: {
               content: {
-                \\"text/plain\\": string;
+                "text/plain": string;
               };
             };
             /** @description Error response */
-            \\"4XX\\": {
+            "4XX": {
               content: {
-                \\"application/json\\": components[\\"schemas\\"][\\"HTTPError\\"];
+                "application/json": components["schemas"]["HTTPError"];
               };
             };
           };
