@@ -14,7 +14,7 @@ class CustomRequest extends Request {
 
     // add custom parameters
     for (const key in init) {
-      if (!this[key]) {
+      if (!(key in this)) {
         this[key] = init[key];
       }
     }
