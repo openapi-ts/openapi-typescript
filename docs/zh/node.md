@@ -169,9 +169,7 @@ Body_file_upload:
 ::: code-group
 
 ```ts [src/my-project.ts]
-import openapiTS from "open
-
-api-typescript";
+import openapiTS from "openapi-typescript";
 import ts from "typescript";
 
 const BLOB = ts.factory.createIdentifier("Blob"); // `Blob`
