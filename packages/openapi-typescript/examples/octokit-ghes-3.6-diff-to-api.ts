@@ -7195,7 +7195,7 @@ export interface operations {
                      * @description Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
                      * @default true
                      */
-                    active: boolean;
+                    active?: boolean;
                 };
             };
         };
@@ -7285,7 +7285,7 @@ export interface operations {
                      * @description Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
                      * @default true
                      */
-                    active: boolean;
+                    active?: boolean;
                 };
             };
         };
@@ -9332,12 +9332,12 @@ export interface operations {
                      * @default read
                      * @enum {string}
                      */
-                    default_repository_permission: "read" | "write" | "admin" | "none";
+                    default_repository_permission?: "read" | "write" | "admin" | "none";
                     /**
                      * @description Whether of non-admin organization members can create repositories. **Note:** A parameter can override this parameter. See `members_allowed_repository_creation_type` in this table for details.
                      * @default true
                      */
-                    members_can_create_repositories: boolean;
+                    members_can_create_repositories?: boolean;
                     /** @description Whether organization members can create internal repositories, which are visible to all enterprise members. You can only allow members to create internal repositories if your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+. For more information, see "[Restricting repository creation in your organization](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/restricting-repository-creation-in-your-organization)" in the GitHub Help documentation. */
                     members_can_create_internal_repositories?: boolean;
                     /** @description Whether organization members can create private repositories, which are visible to organization members with permission. For more information, see "[Restricting repository creation in your organization](https://docs.github.com/github/setting-up-and-managing-organizations-and-teams/restricting-repository-creation-in-your-organization)" in the GitHub Help documentation. */
@@ -9354,17 +9354,17 @@ export interface operations {
                      * @description Whether organization members can create GitHub Pages sites. Existing published sites will not be impacted.
                      * @default true
                      */
-                    members_can_create_pages: boolean;
+                    members_can_create_pages?: boolean;
                     /**
                      * @description Whether organization members can fork private organization repositories.
                      * @default false
                      */
-                    members_can_fork_private_repositories: boolean;
+                    members_can_fork_private_repositories?: boolean;
                     /**
                      * @description Whether contributors to organization repositories are required to sign off on commits they make through GitHub's web interface.
                      * @default false
                      */
-                    web_commit_signoff_required: boolean;
+                    web_commit_signoff_required?: boolean;
                     /** @example "http://github.blog" */
                     blog?: string;
                 };
@@ -9795,7 +9795,7 @@ export interface operations {
                      * @default pull
                      * @enum {string}
                      */
-                    permission: "pull" | "push";
+                    permission?: "pull" | "push";
                     /** @description The ID of a team to set as the parent team. */
                     parent_team_id?: number;
                     /** @description The [distinguished name](https://www.ldap.com/ldap-dns-and-rdns) (DN) of the LDAP entry to map to a team. LDAP synchronization must be enabled to map LDAP entries to a team. Use the "[Update LDAP mapping for a team](https://docs.github.com/enterprise-server@3.6/rest/reference/enterprise-admin#update-ldap-mapping-for-a-team)" endpoint to change the LDAP DN. For more information, see "[Using LDAP](https://docs.github.com/enterprise-server@3.6/admin/identity-and-access-management/authenticating-users-for-your-github-enterprise-server-instance/using-ldap#enabling-ldap-sync)." */
@@ -10240,7 +10240,7 @@ export interface operations {
                      * @description Whether this autolink reference matches alphanumeric characters. If true, the `<num>` parameter of the `url_template` matches alphanumeric characters `A-Z` (case insensitive), `0-9`, and `-`. If false, this autolink reference only matches numeric characters.
                      * @default true
                      */
-                    is_alphanumeric: boolean;
+                    is_alphanumeric?: boolean;
                 };
             };
         };
@@ -10771,17 +10771,17 @@ export interface operations {
                      * @description `true` to create a draft (unpublished) release, `false` to create a published one.
                      * @default false
                      */
-                    draft: boolean;
+                    draft?: boolean;
                     /**
                      * @description `true` to identify the release as a prerelease. `false` to identify the release as a full release.
                      * @default false
                      */
-                    prerelease: boolean;
+                    prerelease?: boolean;
                     /**
                      * @description Whether to automatically generate the name and body for this release. If `name` is specified, the specified name will be used; otherwise, a name will be automatically generated. If `body` is specified, the body will be pre-pended to the automatically generated notes.
                      * @default false
                      */
-                    generate_release_notes: boolean;
+                    generate_release_notes?: boolean;
                 };
             };
         };
