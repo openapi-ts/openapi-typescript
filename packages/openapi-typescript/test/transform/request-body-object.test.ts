@@ -48,7 +48,45 @@ describe("transformRequestBodyObject", () => {
         "*/*"?: never;
     };
 }`,
-        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "POST data with default values",
+      {
+        given: {
+          content: {
+            "application/x-www-form-urlencoded": {
+              schema: {
+                type: "object",
+                properties: {
+                  required: { type: "string" },
+                  optional: { type: "string" },
+                  flag_optional: { type: "boolean", default: false },
+                  flag_required: { type: "boolean", default: false },
+                },
+                required: ["required", "flag_required"],
+              },
+            },
+          },
+          required: true,
+          description: "description",
+        },
+        want: `{
+    content: {
+        "application/x-www-form-urlencoded": {
+            required: string;
+            optional?: string;
+            /** @default false */
+            flag_optional?: boolean;
+            /** @default false */
+            flag_required: boolean;
+        };
+    };
+}`,
+        options: {
+          path: "#/paths/~post-item/post/requestBody/application~1x-www-form-urlencoded",
+          ctx: { ...DEFAULT_CTX },
+        },
       },
     ],
   ];
