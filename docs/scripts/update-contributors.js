@@ -183,6 +183,8 @@ export const OPENAPI_FETCH_CONTRIBUTORS = [
 ];
 
 async function main() {
+  const total = [...OPENAPI_TS_CONTRIBUTORS, OPENAPI_FETCH_CONTRIBUTORS].length;
+  let i = 0;
   await Promise.all(
     ["openapi-typescript", "openapi-fetch"].map(async (repo) => {
       const userlist = repo === "openapi-fetch" ? OPENAPI_FETCH_CONTRIBUTORS : OPENAPI_TS_CONTRIBUTORS;
@@ -203,10 +205,11 @@ async function main() {
             lastFetch: new Date().getTime(),
           };
           upsert(contributors[repo], userData);
+          i++;
           // biome-ignore lint/suspicious/noConsoleLog: this is  a script
-          console.log(`Updated old contributor data for ${username}`);
+          console.log(`[${i}/${total}] Updated for ${username}`);
           fs.writeFileSync(new URL("../data/contributors.json", import.meta.url), JSON.stringify(contributors)); // update file while fetching (sync happens safely in between fetches)
-          await new Promise((resolve) => setTimeout(resolve, 750)); // sleep to prevent 429
+          await new Promise((resolve) => setTimeout(resolve, 900)); // sleep to prevent 429
         } catch (err) {
           throw new Error(err);
         }
