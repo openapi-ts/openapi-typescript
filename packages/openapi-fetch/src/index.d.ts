@@ -144,7 +144,11 @@ export function onRequest(
   req: MiddlewareRequest,
   options: MergedOptions,
 ): Request | undefined | Promise<Request | undefined>;
-export function onResponse(res: Response, options: MergedOptions): Response | undefined | Promise<Response | undefined>;
+export function onResponse(
+  res: Response,
+  options: MergedOptions,
+  req: MiddlewareRequest,
+): Response | undefined | Promise<Response | undefined>;
 
 export interface Middleware {
   onRequest?: typeof onRequest;

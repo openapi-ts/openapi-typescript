@@ -114,7 +114,9 @@ export default function createClient(clientOptions) {
     for (let i = middlewares.length - 1; i >= 0; i--) {
       const m = middlewares[i];
       if (m && typeof m === "object" && typeof m.onResponse === "function") {
-        const result = await m.onResponse(response, mergedOptions);
+        request.schemaPath = url; // (re)attach original URL
+        request.params = params; // (re)attach params
+        const result = await m.onResponse(response, mergedOptions, request);
         if (result) {
           if (!(result instanceof Response)) {
             throw new Error("Middleware must return new Response() when modifying the response");

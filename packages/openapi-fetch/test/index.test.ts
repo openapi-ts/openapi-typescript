@@ -1013,6 +1013,29 @@ describe("client", () => {
         expect(requestBaseUrl).toBe("https://api.foo.bar/v1");
       });
 
+      it("receives the original request", async () => {
+        useMockRequestHandler({
+          baseUrl: "https://api.foo.bar/v1/",
+          method: "get",
+          path: "/self",
+          status: 200,
+          body: {},
+        });
+
+        const client = createClient<paths>({
+          baseUrl: "https://api.foo.bar/v1/",
+        });
+        client.use({
+          onResponse(res, options, req) {
+            expect(req).toBeInstanceOf(Request);
+
+            return undefined;
+          },
+        });
+
+        await client.GET("/self");
+      });
+
       it("receives OpenAPI options passed in from parent", async () => {
         useMockRequestHandler({
           method: "put",
