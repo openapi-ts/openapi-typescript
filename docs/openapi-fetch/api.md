@@ -206,16 +206,17 @@ And it expects either:
 ### onResponse
 
 ```ts
-onResponse(res, options) {
+onResponse(res, options, req) {
   // …
 }
 ```
 
-`onResponse()` also takes 2 params:
+`onResponse()` also takes 3 params:
 | Name | Type | Description |
 | :-------- | :-----------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `req` | `MiddlewareRequest` | A standard [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response). |
+| `req` | `Response` | A standard [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response). |
 | `options` | `MergedOptions` | Combination of [createClient](/openapi-fetch/api#create-client) options + [fetch overrides](/openapi-fetch/api#fetch-options) |
+| `req` | `MiddlewareRequest` | A standard [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) with `schemaPath` (OpenAPI pathname) and `params` ([params](/openapi-fetch/api#fetch-options) object) |
 
 And it expects either:
 
