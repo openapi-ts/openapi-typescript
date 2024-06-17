@@ -5,6 +5,16 @@ import fs from "node:fs";
 import path from "node:path";
 import parser from "yargs-parser";
 import openapiTS, { COMMENT_HEADER, astToString, c, error, formatTime, warn } from "../dist/index.js";
+import { ProxyAgent, setGlobalDispatcher } from 'undici';
+
+// Corporate proxy support
+if (process.env.http_proxy) {
+    const proxyUrl = new URL(process.env.http_proxy);
+    const proxyAgent = new ProxyAgent({
+        uri: proxyUrl.protocol + proxyUrl.host,
+    });
+    setGlobalDispatcher(proxyAgent);
+}
 
 const HELP = `Usage
   $ openapi-typescript [input] [options]
