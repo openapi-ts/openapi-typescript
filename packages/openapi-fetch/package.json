@@ -27,11 +27,11 @@
   "homepage": "https://openapi-ts.dev",
   "repository": {
     "type": "git",
-    "url": "https://github.com/drwpow/openapi-typescript",
+    "url": "https://github.com/openapi-ts/openapi-typescript",
     "directory": "packages/openapi-fetch"
   },
   "bugs": {
-    "url": "https://github.com/drwpow/openapi-typescript/issues"
+    "url": "https://github.com/openapi-ts/openapi-typescript/issues"
   },
   "keywords": [
     "openapi",
@@ -70,7 +70,7 @@
     "esbuild": "^0.20.2",
     "execa": "^8.0.1",
     "msw": "^2.3.0",
-    "openapi-typescript": "^6.7.5",
+    "openapi-typescript": "^6.x",
     "openapi-typescript-codegen": "^0.25.0",
     "openapi-typescript-fetch": "^2.0.0",
     "superagent": "^9.0.2",

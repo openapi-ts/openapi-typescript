@@ -26,11 +26,11 @@
   "homepage": "https://openapi-ts.dev",
   "repository": {
     "type": "git",
-    "url": "https://github.com/drwpow/openapi-typescript",
+    "url": "https://github.com/openapi-ts/openapi-typescript",
     "directory": "packages/openapi-fetch"
   },
   "bugs": {
-    "url": "https://github.com/drwpow/openapi-typescript/issues"
+    "url": "https://github.com/openapi-ts/openapi-typescript/issues"
   },
   "scripts": {
     "build": "cp index.d.ts index.d.cts",

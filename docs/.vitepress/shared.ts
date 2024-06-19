@@ -34,7 +34,7 @@ export const shared = defineConfig({
         locales: { ...zhSearch },
       },
     },
-    socialLinks: [{ icon: "github", link: "https://github.com/drwpow/openapi-typescript" }],
+    socialLinks: [{ icon: "github", link: "https://github.com/openapi-ts/openapi-typescript" }],
   },
   transformPageData({ relativePath, frontmatter }) {
     frontmatter.head ??= [];

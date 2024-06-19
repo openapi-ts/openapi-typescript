@@ -6,15 +6,15 @@ See the [README](./README.md) for basic setup.
 
 ## Corrections / small edits
 
-Corrections are always welcome! Please go straight to [opening a PR](https://github.com/drwpow/openapi-typescript/pulls) for correcting typos or misinformation. Small grammar edits are also welcome such as shortening verbose language or clarifying confusing statements.
+Corrections are always welcome! Please go straight to [opening a PR](https://github.com/openapi-ts/openapi-typescript/pulls) for correcting typos or misinformation. Small grammar edits are also welcome such as shortening verbose language or clarifying confusing statements.
 
 ## Styling fixes
 
-Styling fixes are also welcome (contrast improvements, styling bugs, general frontend improvements). You can also go straight to [opening a PR](https://github.com/drwpow/openapi-typescript/pulls) for those.
+Styling fixes are also welcome (contrast improvements, styling bugs, general frontend improvements). You can also go straight to [opening a PR](https://github.com/openapi-ts/openapi-typescript/pulls) for those.
 
 ## Additions & Larger edits
 
-[Opening a new discussion](https://github.com/drwpow/openapi-typescript/discussions) would be appreciated for all of the following:
+[Opening a new discussion](https://github.com/openapi-ts/openapi-typescript/discussions) would be appreciated for all of the following:
 
 - Adding a new section or page
 - Restructuring the docs

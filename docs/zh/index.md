@@ -11,7 +11,7 @@ hero:
       link: /zh/introduction
     - theme: alt
       text: GitHub
-      link: https://github.com/drwpow/openapi-typescript
+      link: https://github.com/openapi-ts/openapi-typescript
 
 features:
   - title: 快速的

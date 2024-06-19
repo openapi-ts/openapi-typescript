@@ -53,4 +53,4 @@ The biggest change is the handling of `string`s—in 6.x a string could refer to
 
 ---
 
-[See the full CHANGELOG](https://github.com/drwpow/openapi-typescript/blob/6.x/packages/openapi-typescript/CHANGELOG.md)
+[See the full CHANGELOG](https://github.com/openapi-ts/openapi-typescript/blob/6.x/packages/openapi-typescript/CHANGELOG.md)

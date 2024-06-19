@@ -6,7 +6,7 @@ Thanks for being willing to contribute! 🙏
 
 ## Open issues
 
-Please check out the [the open issues](https://github.com/drwpow/openapi-typescript/issues). Issues labelled [**Good First Issue**](https://github.com/drwpow/openapi-typescript/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) are especially good to start with.
+Please check out the [the open issues](https://github.com/openapi-ts/openapi-typescript/issues). Issues labelled [**Good First Issue**](https://github.com/openapi-ts/openapi-typescript/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) are especially good to start with.
 
 Contributing doesn’t have to be in code. Simply answering questions in open issues or providing workarounds is as important as making pull requests.
 
@@ -68,7 +68,7 @@ To add a schema as a snapshot test, modify the [/scripts/download-schemas.ts](/s
 
 It may be surprising to hear, but generating TypeScript types from OpenAPI is opinionated. Even though TypeScript and OpenAPI are close relatives—both JavaScript/JSON-based—they are nonetheless 2 different languages and thus there is room for interpretation. Further, some parts of the OpenAPI specification can be ambiguous on how they’re used, and what the expected type outcomes may be (though this is generally for more advanced use cases, such as specific implementations of `anyOf` as well as [discriminator](https://spec.openapis.org/oas/latest.html#discriminatorObject) and complex polymorphism).
 
-All that said, this library should strive to generate _the most predictable_ TypeScript output for a given schema. And to achieve that, it always helps to open an [issue](https://github.com/drwpow/openapi-typescript/issues) or [discussion](https://github.com/drwpow/openapi-typescript/discussions) to gather feedback.
+All that said, this library should strive to generate _the most predictable_ TypeScript output for a given schema. And to achieve that, it always helps to open an [issue](https://github.com/openapi-ts/openapi-typescript/issues) or [discussion](https://github.com/openapi-ts/openapi-typescript/discussions) to gather feedback.
 
 ### Opening a PR
 

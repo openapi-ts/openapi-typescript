@@ -16,4 +16,4 @@ _Write out the proposed syntax change. Please reference any prior art or similar
 
 **Checklist**
 
-- [ ] I’m willing to open a PR for this (see [CONTRIBUTING.md](https://github.com/drwpow/openapi-typescript/blob/main/packages/openapi-fetch/CONTRIBUTING.md))
+- [ ] I’m willing to open a PR for this (see [CONTRIBUTING.md](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-fetch/CONTRIBUTING.md))

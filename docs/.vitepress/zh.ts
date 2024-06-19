@@ -54,7 +54,7 @@ export const zh = defineConfig({
 
     footer: {
       message:
-        '基于 <a href="https://github.com/drwpow/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE">MIT</a> 许可发布',
+        '基于 <a href="https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE">MIT</a> 许可发布',
     },
   },
 });

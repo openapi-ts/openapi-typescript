@@ -78,12 +78,10 @@ export const en = defineConfig({
         indexName: "openapi-ts",
       },
     },
-    socialLinks: [
-      { icon: "github", link: "https://github.com/drwpow/openapi-typescript" },
-    ],
+    socialLinks: [{ icon: "github", link: "https://github.com/openapi-ts/openapi-typescript" }],
     footer: {
       message:
-        'Released under the <a href="https://github.com/drwpow/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE">MIT License</a>.',
+        'Released under the <a href="https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE">MIT License</a>.',
     },
   },
 });

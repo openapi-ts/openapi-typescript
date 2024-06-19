@@ -11,7 +11,7 @@ hero:
       link: /introduction
     - theme: alt
       text: View on GitHub
-      link: https://github.com/drwpow/openapi-typescript
+      link: https://github.com/openapi-ts/openapi-typescript
 
 features:
   - title: Blazing Fast
