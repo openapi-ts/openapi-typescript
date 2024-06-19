@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.9.8
+
+### Patch Changes
+
+- [#1697](https://github.com/openapi-ts/openapi-typescript/pull/1697) [`e77ce50`](https://github.com/openapi-ts/openapi-typescript/commit/e77ce501e479f54fb783c19b99fa7a53a894732c) Thanks [@armandabric](https://github.com/armandabric)! - Expose original request on Middleware.onResponse
+
 ## 0.9.7
 
 ### Patch Changes
