@@ -38,7 +38,7 @@
     - `--immutable-types` has been renamed to `--immutable`
     - `--support-array-length` has been renamed to `--array-length`
 
-- [`fbaf96d`](https://github.com/drwpow/openapi-typescript/commit/fbaf96d33181a2fabd3d4748e54c0f111ed6756e) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: Remove globbing schemas in favor of `redocly.yaml` config. Specify multiple schemas with outputs in there instead. See [Multiple schemas](https://openapi-ts.pages.dev/docs/cli/#multiple-schemas) for more info.
+- [`fbaf96d`](https://github.com/drwpow/openapi-typescript/commit/fbaf96d33181a2fabd3d4748e54c0f111ed6756e) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: Remove globbing schemas in favor of `redocly.yaml` config. Specify multiple schemas with outputs in there instead. See [Multiple schemas](https://openapi-ts.dev/docs/cli/#multiple-schemas) for more info.
 
 - [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: Most optional objects are now always present in types, just typed as `:never`. This includes keys of the Components Object as well as HTTP methods.
 
@@ -55,7 +55,7 @@
   - By default, it will only throw on actual schema errors (uses Redocly’s default settings)
   - For stricter linting or custom rules, you can create a [redocly.yaml config](https://redocly.com/docs/cli/configuration/)
 
-- [`312b7ba`](https://github.com/drwpow/openapi-typescript/commit/312b7ba03fc0334153d4eeb51d6159f3fc63934e) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature:** allow configuration of schemas via `apis` key in redocly.config.yaml. [See docs](https://openapi-ts.pages.dev/cli/) for more info.
+- [`312b7ba`](https://github.com/drwpow/openapi-typescript/commit/312b7ba03fc0334153d4eeb51d6159f3fc63934e) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature:** allow configuration of schemas via `apis` key in redocly.config.yaml. [See docs](https://openapi-ts.dev/cli/) for more info.
 
   - Any options passed into your [redocly.yaml config](https://redocly.com/docs/cli/configuration/) are respected
 

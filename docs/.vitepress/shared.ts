@@ -1,7 +1,7 @@
 import { defineConfig } from "vitepress";
 import { zhSearch } from "./zh";
 
-const HOSTNAME = "https://openapi-ts.pages.dev";
+const HOSTNAME = "https://openapi-ts.dev";
 
 export const shared = defineConfig({
   title: "OpenAPI TypeScript",
@@ -35,5 +35,12 @@ export const shared = defineConfig({
       },
     },
     socialLinks: [{ icon: "github", link: "https://github.com/drwpow/openapi-typescript" }],
+  },
+  transformPageData({ relativePath, frontmatter }) {
+    frontmatter.head ??= [];
+    frontmatter.head.push([
+      "link",
+      { rel: "canonical", href: `${HOSTNAME}/${relativePath.replace(/(index\.md|\.md)$/, "")}` },
+    ]);
   },
 });
