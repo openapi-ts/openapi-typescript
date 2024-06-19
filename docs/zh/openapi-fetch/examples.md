@@ -10,13 +10,13 @@ title: openapi-fetch 示例
 
 [React Query](https://tanstack.com/query/latest) 是在 React 中完美封装 openapi-fetch 的工具。仅有 13 kB 的大小，提供了客户端缓存而没有太多的客户端负担。其出色的类型推断通过最小的设置完美地保留了 openapi-fetch 的类型。
 
-[在 GitHub 中查看代码示例](https://github.com/drwpow/openapi-typescript/tree/main/packages/openapi-fetch/examples/react-query)
+[在 GitHub 中查看代码示例](https://github.com/openapi-ts/openapi-typescript/tree/main/packages/openapi-fetch/examples/react-query)
 
 ## Next.js
 
 [Next.js](https://nextjs.org/) 是 React 的最流行的 SSR 框架。虽然对于所有客户端获取 openapi-fetch，推荐使用 [React Query](#react--react-query)（而不是 SWR），但该示例展示了如何利用 Next.js 的[服务器端获取](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#fetching-data-on-the-server-with-fetch)并内建缓存。
 
-[在 GitHub 中查看代码示例](https://github.com/drwpow/openapi-typescript/tree/main/packages/openapi-fetch/examples/nextjs)
+[在 GitHub 中查看代码示例](https://github.com/openapi-ts/openapi-typescript/tree/main/packages/openapi-fetch/examples/nextjs)
 
 ## Svelte / SvelteKit
 
@@ -24,12 +24,12 @@ title: openapi-fetch 示例
 
 _注意：如果你在没有 SvelteKit 的情况下使用 Svelte，`src/routes/+page.svelte` 中的根示例不使用任何 SvelteKit 特性，通常适用于任何设置。_
 
-[在 GitHub 中查看代码示例](https://github.com/drwpow/openapi-typescript/tree/main/packages/openapi-fetch/examples/sveltekit)
+[在 GitHub 中查看代码示例](https://github.com/openapi-ts/openapi-typescript/tree/main/packages/openapi-fetch/examples/sveltekit)
 
 ## Vue
 
-目前还没有 Vue 的示例应用。你在 Vue 中使用吗？请[提交 PR 添加！](https://github.com/drwpow/openapi-typescript/pulls)
+目前还没有 Vue 的示例应用。你在 Vue 中使用吗？请[提交 PR 添加！](https://github.com/openapi-ts/openapi-typescript/pulls)
 
 ---
 
-欢迎提供更多示例！请[提交 PR](https://github.com/drwpow/openapi-typescript/pulls)添加你的示例。
+欢迎提供更多示例！请[提交 PR](https://github.com/openapi-ts/openapi-typescript/pulls)添加你的示例。

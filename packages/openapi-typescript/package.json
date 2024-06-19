@@ -22,7 +22,7 @@
   "homepage": "https://openapi-ts.dev",
   "repository": {
     "type": "git",
-    "url": "https://github.com/drwpow/openapi-typescript",
+    "url": "https://github.com/openapi-ts/openapi-typescript",
     "directory": "packages/openapi-typescript"
   },
   "keywords": [
@@ -37,7 +37,7 @@
     "node"
   ],
   "bugs": {
-    "url": "https://github.com/drwpow/openapi-typescript/issues"
+    "url": "https://github.com/openapi-ts/openapi-typescript/issues"
   },
   "scripts": {
     "build": "pnpm run build:clean && pnpm run build:esm && pnpm run build:cjs",

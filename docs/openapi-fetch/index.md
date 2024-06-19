@@ -14,7 +14,7 @@ openapi-fetch is a type-safe fetch client that pulls in your OpenAPI schema. Wei
 | superagent                 |    `55 kB` | `50k` ops/s (6× slower)    |
 | openapi-typescript-codegen |   `367 kB` | `100k` ops/s (3× slower)   |
 
-_\* [Benchmarks are approximate](https://github.com/drwpow/openapi-typescript/blob/main/packages/openapi-fetch/test/index.bench.js) to just show rough baseline and will differ among machines and browsers. The relative performance between libraries is more reliable._
+_\* [Benchmarks are approximate](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-fetch/test/index.bench.js) to just show rough baseline and will differ among machines and browsers. The relative performance between libraries is more reliable._
 
 The syntax is inspired by popular libraries like react-query or Apollo client, but without all the bells and whistles and in a 5 kb package.
 

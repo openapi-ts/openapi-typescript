@@ -20,4 +20,4 @@ _(in case it’s not obvious)_
 
 **Checklist**
 
-- [ ] I’m willing to open a PR (see [CONTRIBUTING.md](https://github.com/drwpow/openapi-typescript/blob/main/packages/openapi-fetch/CONTRIBUTING.md))
+- [ ] I’m willing to open a PR (see [CONTRIBUTING.md](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-fetch/CONTRIBUTING.md))

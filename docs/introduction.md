@@ -13,7 +13,7 @@ The 7.x docs are for a beta release that’s not production-ready yet. See the [
 
 openapi-typescript turns [OpenAPI 3.0 & 3.1](https://spec.openapis.org/oas/latest.html) schemas into TypeScript quickly using Node.js. No Java/node-gyp/running OpenAPI servers necessary.
 
-The code is [MIT-licensed](https://github.com/drwpow/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE") and free for use.
+The code is [MIT-licensed](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE") and free for use.
 
 ::: tip
 
@@ -32,7 +32,7 @@ _Note: OpenAPI 2.x is supported with versions `5.x` and previous_
 
 ## Examples
 
-👀 [See examples](https://github.com/drwpow/openapi-typescript/blob/main/packages/openapi-typescript/examples/)
+👀 [See examples](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/examples/)
 
 ## Setup
 

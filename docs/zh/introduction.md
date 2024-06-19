@@ -13,7 +13,7 @@ description: Quickstart
 
 openapi-typescript 使用 Node.js 快速将 [OpenAPI 3.0 & 3.1](https://spec.openapis.org/oas/latest.html) 模式转换为 TypeScript。无需 Java/node-gyp/运行 OpenAPI 服务器。
 
-该代码受到 [MIT 许可](https://github.com/drwpow/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE") 保护，可免费使用。
+该代码受到 [MIT 许可](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE") 保护，可免费使用。
 
 ## 特性
 
@@ -26,7 +26,7 @@ _注意：OpenAPI 2.x 在版本 `5.x` 及更早版本中受支持_
 
 ## 示例
 
-👀 [查看示例](https://github.com/drwpow/openapi-typescript/blob/main/packages/openapi-typescript/examples/)
+👀 [查看示例](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/examples/)
 
 ## 安装
 

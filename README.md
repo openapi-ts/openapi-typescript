@@ -39,8 +39,8 @@ Contributions are appreciated and welcome! See the appropriate guide for each pa
 
 ## ♥️ Thanks
 
-- Thanks to [the Project Sponsors](#sponsors) for keeping this project going!
-- Thanks to [dozens of lovely, smart contributors](https://github.com/drwpow/openapi-typescript/graphs/contributors) that made this library possible
+- Thanks to [the Project Sponsors](#-sponsors) for keeping this project going!
+- Thanks to [dozens of lovely, smart contributors](https://github.com/openapi-ts/openapi-typescript/graphs/contributors) that made this library possible
 - Thanks to [Vitepress](https://vitepress.dev/) for the docs site
 - Thanks to [Cloudflare Pages](https://pages.cloudflare.com/) for docs site hosting
 - Thanks to [Algolia](https://www.algolia.com/) for the docs site search

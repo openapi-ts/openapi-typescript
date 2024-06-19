@@ -4,282 +4,282 @@
 
 ### Major Changes
 
-- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: The Node.js API now returns the TypeScript AST for the main method as well as `transform()` and `postTransform()`. To migrate, you’ll have to use the `typescript` compiler API:
+- [`6d1eb32`](https://github.com/openapi-ts/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: The Node.js API now returns the TypeScript AST for the main method as well as `transform()` and `postTransform()`. To migrate, you’ll have to use the `typescript` compiler API:
 
-    ```diff
-    + import ts from "typescript";
+  ```diff
+  + import ts from "typescript";
 
-    + const DATE = ts.factory.createIdentifier("Date");
-    + const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull());
+  + const DATE = ts.factory.createIdentifier("Date");
+  + const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull());
 
-      const ast = await openapiTS(mySchema, {
-        transform(schemaObject, metadata) {
-          if (schemaObject.format === "date-time") {
-    -       return schemaObject.nullable ? "Date | null" : "Date";
-    +       return schemaObject.nullable
-    +         ? ts.factory.createUnionTypeNode([DATE, NULL])
-    +         : DATE;
-          }
-        },
-      };
-    ```
+    const ast = await openapiTS(mySchema, {
+      transform(schemaObject, metadata) {
+        if (schemaObject.format === "date-time") {
+  -       return schemaObject.nullable ? "Date | null" : "Date";
+  +       return schemaObject.nullable
+  +         ? ts.factory.createUnionTypeNode([DATE, NULL])
+  +         : DATE;
+        }
+      },
+    };
+  ```
 
-    Though it’s more verbose, it’s also more powerful, as now you have access to additional properties of the generated code you didn’t before (such as injecting comments).
+  Though it’s more verbose, it’s also more powerful, as now you have access to additional properties of the generated code you didn’t before (such as injecting comments).
 
-    For example syntax, search this codebae to see how the TypeScript AST is used.
+  For example syntax, search this codebae to see how the TypeScript AST is used.
 
-    Also see [AST Explorer](https://astexplorer.net/)’s `typescript` parser to inspect how TypeScript is interpreted as an AST.
+  Also see [AST Explorer](https://astexplorer.net/)’s `typescript` parser to inspect how TypeScript is interpreted as an AST.
 
-- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: Changing of several CLI flags and Node.js API options
+- [`6d1eb32`](https://github.com/openapi-ts/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: Changing of several CLI flags and Node.js API options
 
-    - The `--auth`, `--httpHeaders`, `--httpMethod`, and `fetch` (Node.js-only) options were all removed from the CLI and Node.js API
-        - To migrate, you’ll need to create a [redocly.yaml config](https://redocly.com/docs/cli/configuration/) that specifies your auth options [in the http setting](https://redocly.com/docs/cli/configuration/#resolve-non-public-or-non-remote-urls)
-        - You can also set your fetch client in redocly.yaml as well.
-    - `--immutable-types` has been renamed to `--immutable`
-    - `--support-array-length` has been renamed to `--array-length`
+  - The `--auth`, `--httpHeaders`, `--httpMethod`, and `fetch` (Node.js-only) options were all removed from the CLI and Node.js API
+    - To migrate, you’ll need to create a [redocly.yaml config](https://redocly.com/docs/cli/configuration/) that specifies your auth options [in the http setting](https://redocly.com/docs/cli/configuration/#resolve-non-public-or-non-remote-urls)
+    - You can also set your fetch client in redocly.yaml as well.
+  - `--immutable-types` has been renamed to `--immutable`
+  - `--support-array-length` has been renamed to `--array-length`
 
-- [`fbaf96d`](https://github.com/drwpow/openapi-typescript/commit/fbaf96d33181a2fabd3d4748e54c0f111ed6756e) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: Remove globbing schemas in favor of `redocly.yaml` config. Specify multiple schemas with outputs in there instead. See [Multiple schemas](https://openapi-ts.dev/docs/cli/#multiple-schemas) for more info.
+- [`fbaf96d`](https://github.com/openapi-ts/openapi-typescript/commit/fbaf96d33181a2fabd3d4748e54c0f111ed6756e) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: Remove globbing schemas in favor of `redocly.yaml` config. Specify multiple schemas with outputs in there instead. See [Multiple schemas](https://openapi-ts.dev/docs/cli/#multiple-schemas) for more info.
 
-- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: Most optional objects are now always present in types, just typed as `:never`. This includes keys of the Components Object as well as HTTP methods.
+- [`6d1eb32`](https://github.com/openapi-ts/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: Most optional objects are now always present in types, just typed as `:never`. This includes keys of the Components Object as well as HTTP methods.
 
-- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: No more `external` export in schemas anymore. Everything gets flattened into the `components` object instead (if referencing a schema object from a remote partial, note it may have had a minor name change to avoid conflict).
+- [`6d1eb32`](https://github.com/openapi-ts/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: No more `external` export in schemas anymore. Everything gets flattened into the `components` object instead (if referencing a schema object from a remote partial, note it may have had a minor name change to avoid conflict).
 
-- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking** `defaultNonNullable` option now defaults to `true`. You’ll now need to manually set `false` to return to old behavior.
+- [`6d1eb32`](https://github.com/openapi-ts/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking** `defaultNonNullable` option now defaults to `true`. You’ll now need to manually set `false` to return to old behavior.
 
-- [`799194d `](https://github.com/drwpow/openapi-typescript/commit/799194d98c3934570c6500d986496eee17b79309) Thanks [@drwpow](https://github.com/drwpow)~ - ⚠️ **Breaking** TypeScript is now a peerDependency and must be installed alongside `openapi-typescript`
+- [`799194d `](https://github.com/openapi-ts/openapi-typescript/commit/799194d98c3934570c6500d986496eee17b79309) Thanks [@drwpow](https://github.com/drwpow)~ - ⚠️ **Breaking** TypeScript is now a peerDependency and must be installed alongside `openapi-typescript`
 
 ### Minor Changes
 
-- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: automatically validate schemas with Redocly CLI ([docs](https://redocly.com/docs/cli/)). No more need for external tools to report errors! 🎉
+- [`6d1eb32`](https://github.com/openapi-ts/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: automatically validate schemas with Redocly CLI ([docs](https://redocly.com/docs/cli/)). No more need for external tools to report errors! 🎉
 
   - By default, it will only throw on actual schema errors (uses Redocly’s default settings)
   - For stricter linting or custom rules, you can create a [redocly.yaml config](https://redocly.com/docs/cli/configuration/)
 
-- [`312b7ba`](https://github.com/drwpow/openapi-typescript/commit/312b7ba03fc0334153d4eeb51d6159f3fc63934e) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature:** allow configuration of schemas via `apis` key in redocly.config.yaml. [See docs](https://openapi-ts.dev/cli/) for more info.
+- [`312b7ba`](https://github.com/openapi-ts/openapi-typescript/commit/312b7ba03fc0334153d4eeb51d6159f3fc63934e) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature:** allow configuration of schemas via `apis` key in redocly.config.yaml. [See docs](https://openapi-ts.dev/cli/) for more info.
 
   - Any options passed into your [redocly.yaml config](https://redocly.com/docs/cli/configuration/) are respected
 
-- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: add `enum` option to export top-level enums from schemas
+- [`6d1eb32`](https://github.com/openapi-ts/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: add `enum` option to export top-level enums from schemas
 
-- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: add `formatOptions` to allow formatting TS output
+- [`6d1eb32`](https://github.com/openapi-ts/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: add `formatOptions` to allow formatting TS output
 
-- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: header responses add `[key: string]: unknown` index type to allow for additional untyped headers
+- [`6d1eb32`](https://github.com/openapi-ts/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: header responses add `[key: string]: unknown` index type to allow for additional untyped headers
 
-- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: bundle schemas with Redocly CLI
+- [`6d1eb32`](https://github.com/openapi-ts/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: bundle schemas with Redocly CLI
 
-- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: Added debugger that lets you profile performance and see more in-depth messages
+- [`6d1eb32`](https://github.com/openapi-ts/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: Added debugger that lets you profile performance and see more in-depth messages
 
-- [#1374](https://github.com/drwpow/openapi-typescript/pull/1374) [`7ac5174`](https://github.com/drwpow/openapi-typescript/commit/7ac5174a1f767c1103573543bb17622ac8d25fe4) Thanks [@ElForastero](https://github.com/ElForastero)! - Add support for x-enum-varnames and x-enum-descriptions
+- [#1374](https://github.com/openapi-ts/openapi-typescript/pull/1374) [`7ac5174`](https://github.com/openapi-ts/openapi-typescript/commit/7ac5174a1f767c1103573543bb17622ac8d25fe4) Thanks [@ElForastero](https://github.com/ElForastero)! - Add support for x-enum-varnames and x-enum-descriptions
 
-- [#1545](https://github.com/drwpow/openapi-typescript/pull/1545) [`9158b81`](https://github.com/drwpow/openapi-typescript/commit/9158b81e8fdd45491afde8e291a786d7b2abc154) Thanks [@jaredLunde](https://github.com/drwpow/openapi-typescript/commits?author=jaredLunde)! - Replace # characters in operation IDs with a slash
+- [#1545](https://github.com/openapi-ts/openapi-typescript/pull/1545) [`9158b81`](https://github.com/openapi-ts/openapi-typescript/commit/9158b81e8fdd45491afde8e291a786d7b2abc154) Thanks [@jaredLunde](https://github.com/openapi-ts/openapi-typescript/commits?author=jaredLunde)! - Replace # characters in operation IDs with a slash
 
 ### Patch Changes
 
-- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - Refactor internals to use TypeScript AST rather than string mashing
+- [`6d1eb32`](https://github.com/openapi-ts/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - Refactor internals to use TypeScript AST rather than string mashing
 
-- [`6d1eb32`](https://github.com/drwpow/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - 🧹 Cleaned up and reorganized all tests
+- [`6d1eb32`](https://github.com/openapi-ts/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - 🧹 Cleaned up and reorganized all tests
 
-- [#1602](https://github.com/drwpow/openapi-typescript/pull/1602) [`9da96cd`](https://github.com/drwpow/openapi-typescript/commit/9da96cda4eb8f959c4703637d8fc89e1d3532af1) Thanks [@JeanRemiDelteil](https://github.com/JeanRemiDelteil)! - Do not add readonly on Typescript enum when the --immutable option is used.
+- [#1602](https://github.com/openapi-ts/openapi-typescript/pull/1602) [`9da96cd`](https://github.com/openapi-ts/openapi-typescript/commit/9da96cda4eb8f959c4703637d8fc89e1d3532af1) Thanks [@JeanRemiDelteil](https://github.com/JeanRemiDelteil)! - Do not add readonly on Typescript enum when the --immutable option is used.
 
 ## 6.7.0
 
 ### Minor Changes
 
-- [#1355](https://github.com/drwpow/openapi-typescript/pull/1355) [`7568941`](https://github.com/drwpow/openapi-typescript/commit/7568941fb378a9b94c96754553a720093645dd64) Thanks [@drwpow](https://github.com/drwpow)! - Revert optional parameters breaking change (v6.6.0, #1335)
+- [#1355](https://github.com/openapi-ts/openapi-typescript/pull/1355) [`7568941`](https://github.com/openapi-ts/openapi-typescript/commit/7568941fb378a9b94c96754553a720093645dd64) Thanks [@drwpow](https://github.com/drwpow)! - Revert optional parameters breaking change (v6.6.0, #1335)
 
 ## 6.6.2
 
 ### Patch Changes
 
-- [#1348](https://github.com/drwpow/openapi-typescript/pull/1348) [`f6fdd2f`](https://github.com/drwpow/openapi-typescript/commit/f6fdd2f59d035fec22f7fee27136939faae4628b) Thanks [@drwpow](https://github.com/drwpow)! - Improve YAML vs JSON parsing
+- [#1348](https://github.com/openapi-ts/openapi-typescript/pull/1348) [`f6fdd2f`](https://github.com/openapi-ts/openapi-typescript/commit/f6fdd2f59d035fec22f7fee27136939faae4628b) Thanks [@drwpow](https://github.com/drwpow)! - Improve YAML vs JSON parsing
 
-- [#1352](https://github.com/drwpow/openapi-typescript/pull/1352) [`33b2c4f`](https://github.com/drwpow/openapi-typescript/commit/33b2c4f6d9f8d2a1bd42b13b3c8c168ed86609d6) Thanks [@drwpow](https://github.com/drwpow)! - Fix all parameters optional
+- [#1352](https://github.com/openapi-ts/openapi-typescript/pull/1352) [`33b2c4f`](https://github.com/openapi-ts/openapi-typescript/commit/33b2c4f6d9f8d2a1bd42b13b3c8c168ed86609d6) Thanks [@drwpow](https://github.com/drwpow)! - Fix all parameters optional
 
-- [#1345](https://github.com/drwpow/openapi-typescript/pull/1345) [`6f078c1`](https://github.com/drwpow/openapi-typescript/commit/6f078c1eb008a278858e6764e92af6ceb39922b4) Thanks [@SchabaJo](https://github.com/SchabaJo)! - Mirror directory structure of input files if output is a directory to prevent overwriting the same file again and again.
+- [#1345](https://github.com/openapi-ts/openapi-typescript/pull/1345) [`6f078c1`](https://github.com/openapi-ts/openapi-typescript/commit/6f078c1eb008a278858e6764e92af6ceb39922b4) Thanks [@SchabaJo](https://github.com/SchabaJo)! - Mirror directory structure of input files if output is a directory to prevent overwriting the same file again and again.
 
 ## 6.6.1
 
 ### Patch Changes
 
-- [#1342](https://github.com/drwpow/openapi-typescript/pull/1342) [`c17669d`](https://github.com/drwpow/openapi-typescript/commit/c17669dbee47af49136bea3c40e12009e92cd81b) Thanks [@drwpow](https://github.com/drwpow)! - Fix discriminator propertyName inference
+- [#1342](https://github.com/openapi-ts/openapi-typescript/pull/1342) [`c17669d`](https://github.com/openapi-ts/openapi-typescript/commit/c17669dbee47af49136bea3c40e12009e92cd81b) Thanks [@drwpow](https://github.com/drwpow)! - Fix discriminator propertyName inference
 
 ## 6.6.0
 
 ### Minor Changes
 
-- [#1335](https://github.com/drwpow/openapi-typescript/pull/1335) [`7cb02ac`](https://github.com/drwpow/openapi-typescript/commit/7cb02acbcf57946b8202b9598a888454f09f81fa) Thanks [@duncanbeevers](https://github.com/duncanbeevers)! - Request parameters member is optional when all parameters are optional.
+- [#1335](https://github.com/openapi-ts/openapi-typescript/pull/1335) [`7cb02ac`](https://github.com/openapi-ts/openapi-typescript/commit/7cb02acbcf57946b8202b9598a888454f09f81fa) Thanks [@duncanbeevers](https://github.com/duncanbeevers)! - Request parameters member is optional when all parameters are optional.
 
 ## 6.5.5
 
 ### Patch Changes
 
-- [#1332](https://github.com/drwpow/openapi-typescript/pull/1332) [`8e8ebfd`](https://github.com/drwpow/openapi-typescript/commit/8e8ebfdcd84ff6a3d7b6f5d00695fc11366b436e) Thanks [@drwpow](https://github.com/drwpow)! - Restore original .d.ts module-resolution behavior
+- [#1332](https://github.com/openapi-ts/openapi-typescript/pull/1332) [`8e8ebfd`](https://github.com/openapi-ts/openapi-typescript/commit/8e8ebfdcd84ff6a3d7b6f5d00695fc11366b436e) Thanks [@drwpow](https://github.com/drwpow)! - Restore original .d.ts module-resolution behavior
 
 ## 6.5.4
 
 ### Patch Changes
 
-- [#1324](https://github.com/drwpow/openapi-typescript/pull/1324) [`0357325`](https://github.com/drwpow/openapi-typescript/commit/0357325ae136cbdd9c9891ebb7f5414e3ad8bfec) Thanks [@drwpow](https://github.com/drwpow)! - Fix accidental quote appearing in components/responses with $refs
+- [#1324](https://github.com/openapi-ts/openapi-typescript/pull/1324) [`0357325`](https://github.com/openapi-ts/openapi-typescript/commit/0357325ae136cbdd9c9891ebb7f5414e3ad8bfec) Thanks [@drwpow](https://github.com/drwpow)! - Fix accidental quote appearing in components/responses with $refs
 
 ## 6.5.3
 
 ### Patch Changes
 
-- [#1320](https://github.com/drwpow/openapi-typescript/pull/1320) [`3cf78b9`](https://github.com/drwpow/openapi-typescript/commit/3cf78b920ab23624c0524e0d58338ee66acad799) Thanks [@duncanbeevers](https://github.com/duncanbeevers)! - Wrap nested readonly types in parentheses, allowing for nested immutable arrays
+- [#1320](https://github.com/openapi-ts/openapi-typescript/pull/1320) [`3cf78b9`](https://github.com/openapi-ts/openapi-typescript/commit/3cf78b920ab23624c0524e0d58338ee66acad799) Thanks [@duncanbeevers](https://github.com/duncanbeevers)! - Wrap nested readonly types in parentheses, allowing for nested immutable arrays
 
 ## 6.5.2
 
 ### Patch Changes
 
-- [#1317](https://github.com/drwpow/openapi-typescript/pull/1317) [`5e054db`](https://github.com/drwpow/openapi-typescript/commit/5e054dbc0984198c7f89e29b6f38e9d60790cafb) Thanks [@drwpow](https://github.com/drwpow)! - Fix JSONSchema $defs
+- [#1317](https://github.com/openapi-ts/openapi-typescript/pull/1317) [`5e054db`](https://github.com/openapi-ts/openapi-typescript/commit/5e054dbc0984198c7f89e29b6f38e9d60790cafb) Thanks [@drwpow](https://github.com/drwpow)! - Fix JSONSchema $defs
 
-- [#1317](https://github.com/drwpow/openapi-typescript/pull/1317) [`5e054db`](https://github.com/drwpow/openapi-typescript/commit/5e054dbc0984198c7f89e29b6f38e9d60790cafb) Thanks [@drwpow](https://github.com/drwpow)! - Improve remote $ref parsing
+- [#1317](https://github.com/openapi-ts/openapi-typescript/pull/1317) [`5e054db`](https://github.com/openapi-ts/openapi-typescript/commit/5e054dbc0984198c7f89e29b6f38e9d60790cafb) Thanks [@drwpow](https://github.com/drwpow)! - Improve remote $ref parsing
 
 ## 6.5.1
 
 ### Patch Changes
 
-- [#1308](https://github.com/drwpow/openapi-typescript/pull/1308) [`ebb73b6`](https://github.com/drwpow/openapi-typescript/commit/ebb73b68c3a2f9a8c8193888735f9c0b7855722f) Thanks [@drwpow](https://github.com/drwpow)! - Fix bugs with remote $refs, add `cwd` option for JSON schema parsing
+- [#1308](https://github.com/openapi-ts/openapi-typescript/pull/1308) [`ebb73b6`](https://github.com/openapi-ts/openapi-typescript/commit/ebb73b68c3a2f9a8c8193888735f9c0b7855722f) Thanks [@drwpow](https://github.com/drwpow)! - Fix bugs with remote $refs, add `cwd` option for JSON schema parsing
 
 ## 6.5.0
 
 ### Minor Changes
 
-- [#1295](https://github.com/drwpow/openapi-typescript/pull/1295) [`99a1648`](https://github.com/drwpow/openapi-typescript/commit/99a1648affd5731c2d303619f050fee2ed834eef) Thanks [@pvanagtmaal](https://github.com/pvanagtmaal)! - Avoid adding a undefined union to additionProperties
+- [#1295](https://github.com/openapi-ts/openapi-typescript/pull/1295) [`99a1648`](https://github.com/openapi-ts/openapi-typescript/commit/99a1648affd5731c2d303619f050fee2ed834eef) Thanks [@pvanagtmaal](https://github.com/pvanagtmaal)! - Avoid adding a undefined union to additionProperties
 
 ## 6.4.5
 
 ### Patch Changes
 
-- [#1280](https://github.com/drwpow/openapi-typescript/pull/1280) [`50441d0`](https://github.com/drwpow/openapi-typescript/commit/50441d048b8724d1ec31d20a1583c8748b7ddc99) Thanks [@pvanagtmaal](https://github.com/pvanagtmaal)! - Fix invalid typescript for empty request bodies, fix headers being left out when response body is omitted
+- [#1280](https://github.com/openapi-ts/openapi-typescript/pull/1280) [`50441d0`](https://github.com/openapi-ts/openapi-typescript/commit/50441d048b8724d1ec31d20a1583c8748b7ddc99) Thanks [@pvanagtmaal](https://github.com/pvanagtmaal)! - Fix invalid typescript for empty request bodies, fix headers being left out when response body is omitted
 
-- [#1289](https://github.com/drwpow/openapi-typescript/pull/1289) [`7f452fa`](https://github.com/drwpow/openapi-typescript/commit/7f452fa00044c7191c2721b6691178158f97940f) Thanks [@adamschoenemann](https://github.com/adamschoenemann)! - Fixed a bug where references to types with discriminators with implicit mappings would generate incorrect types
+- [#1289](https://github.com/openapi-ts/openapi-typescript/pull/1289) [`7f452fa`](https://github.com/openapi-ts/openapi-typescript/commit/7f452fa00044c7191c2721b6691178158f97940f) Thanks [@adamschoenemann](https://github.com/adamschoenemann)! - Fixed a bug where references to types with discriminators with implicit mappings would generate incorrect types
 
 ## 6.4.4
 
 ### Patch Changes
 
-- [#1281](https://github.com/drwpow/openapi-typescript/pull/1281) [`ebd31ff`](https://github.com/drwpow/openapi-typescript/commit/ebd31ff3d143dbe8e4d91a4ba18b110ff6656dd0) Thanks [@pvanagtmaal](https://github.com/pvanagtmaal)! - Refactor CLI path handling, fixing several bugs
+- [#1281](https://github.com/openapi-ts/openapi-typescript/pull/1281) [`ebd31ff`](https://github.com/openapi-ts/openapi-typescript/commit/ebd31ff3d143dbe8e4d91a4ba18b110ff6656dd0) Thanks [@pvanagtmaal](https://github.com/pvanagtmaal)! - Refactor CLI path handling, fixing several bugs
 
 ## 6.4.3
 
 ### Patch Changes
 
-- [#1287](https://github.com/drwpow/openapi-typescript/pull/1287) [`8a9d8ed`](https://github.com/drwpow/openapi-typescript/commit/8a9d8ede95802370c4015846a4856fd0701ada33) Thanks [@drwpow](https://github.com/drwpow)! - Fix oneOf handling with empty object parent type
+- [#1287](https://github.com/openapi-ts/openapi-typescript/pull/1287) [`8a9d8ed`](https://github.com/openapi-ts/openapi-typescript/commit/8a9d8ede95802370c4015846a4856fd0701ada33) Thanks [@drwpow](https://github.com/drwpow)! - Fix oneOf handling with empty object parent type
 
 ## 6.4.2
 
 ### Patch Changes
 
-- [#1278](https://github.com/drwpow/openapi-typescript/pull/1278) [`d7420e3`](https://github.com/drwpow/openapi-typescript/commit/d7420e30f1697ad8cfc0fdefc93127ad2b813f99) Thanks [@pvanagtmaal](https://github.com/pvanagtmaal)! - Fix externalizing external refs
+- [#1278](https://github.com/openapi-ts/openapi-typescript/pull/1278) [`d7420e3`](https://github.com/openapi-ts/openapi-typescript/commit/d7420e30f1697ad8cfc0fdefc93127ad2b813f99) Thanks [@pvanagtmaal](https://github.com/pvanagtmaal)! - Fix externalizing external refs
 
 ## 6.4.1
 
 ### Patch Changes
 
-- [#1269](https://github.com/drwpow/openapi-typescript/pull/1269) [`e735ff2`](https://github.com/drwpow/openapi-typescript/commit/e735ff2b9307eaec1959d0d3bf733a240a880c48) Thanks [@pimveldhuisen](https://github.com/pimveldhuisen)! - Stop trimming whitespace other than linebreaks in string values
+- [#1269](https://github.com/openapi-ts/openapi-typescript/pull/1269) [`e735ff2`](https://github.com/openapi-ts/openapi-typescript/commit/e735ff2b9307eaec1959d0d3bf733a240a880c48) Thanks [@pimveldhuisen](https://github.com/pimveldhuisen)! - Stop trimming whitespace other than linebreaks in string values
 
 ## 6.4.0
 
 ### Minor Changes
 
-- [#1263](https://github.com/drwpow/openapi-typescript/pull/1263) [`1bf2d4d`](https://github.com/drwpow/openapi-typescript/commit/1bf2d4db73b93fd1d36ffb56bdfb90321b0bfaba) Thanks [@drwpow](https://github.com/drwpow)! - Ship CJS bundle
+- [#1263](https://github.com/openapi-ts/openapi-typescript/pull/1263) [`1bf2d4d`](https://github.com/openapi-ts/openapi-typescript/commit/1bf2d4db73b93fd1d36ffb56bdfb90321b0bfaba) Thanks [@drwpow](https://github.com/drwpow)! - Ship CJS bundle
 
 ## 6.3.9
 
 ### Patch Changes
 
-- [#1248](https://github.com/drwpow/openapi-typescript/pull/1248) [`c145f5f`](https://github.com/drwpow/openapi-typescript/commit/c145f5f6164b52a8b437b2e944f60927d546edbf) Thanks [@drwpow](https://github.com/drwpow)! - Fix Record<string, never> appearing in union
+- [#1248](https://github.com/openapi-ts/openapi-typescript/pull/1248) [`c145f5f`](https://github.com/openapi-ts/openapi-typescript/commit/c145f5f6164b52a8b437b2e944f60927d546edbf) Thanks [@drwpow](https://github.com/drwpow)! - Fix Record<string, never> appearing in union
 
-- [#1248](https://github.com/drwpow/openapi-typescript/pull/1248) [`c145f5f`](https://github.com/drwpow/openapi-typescript/commit/c145f5f6164b52a8b437b2e944f60927d546edbf) Thanks [@drwpow](https://github.com/drwpow)! - Improve oneOf generated types
+- [#1248](https://github.com/openapi-ts/openapi-typescript/pull/1248) [`c145f5f`](https://github.com/openapi-ts/openapi-typescript/commit/c145f5f6164b52a8b437b2e944f60927d546edbf) Thanks [@drwpow](https://github.com/drwpow)! - Improve oneOf generated types
 
 ## 6.3.8
 
 ### Patch Changes
 
-- [#1246](https://github.com/drwpow/openapi-typescript/pull/1246) [`17a375e`](https://github.com/drwpow/openapi-typescript/commit/17a375ec5d13b89f526a63f6d9b9f15db85b75e9) Thanks [@drwpow](https://github.com/drwpow)! - Fix remote path item object $refs
+- [#1246](https://github.com/openapi-ts/openapi-typescript/pull/1246) [`17a375e`](https://github.com/openapi-ts/openapi-typescript/commit/17a375ec5d13b89f526a63f6d9b9f15db85b75e9) Thanks [@drwpow](https://github.com/drwpow)! - Fix remote path item object $refs
 
 ## 6.3.7
 
 ### Patch Changes
 
-- [#1236](https://github.com/drwpow/openapi-typescript/pull/1236) [`95a4c8c`](https://github.com/drwpow/openapi-typescript/commit/95a4c8c573c8eea2c911359879419eb07e10bd63) Thanks [@drwpow](https://github.com/drwpow)! - Improve oneOf and enum handling
+- [#1236](https://github.com/openapi-ts/openapi-typescript/pull/1236) [`95a4c8c`](https://github.com/openapi-ts/openapi-typescript/commit/95a4c8c573c8eea2c911359879419eb07e10bd63) Thanks [@drwpow](https://github.com/drwpow)! - Improve oneOf and enum handling
 
 ## 6.3.6
 
 ### Patch Changes
 
-- [#1231](https://github.com/drwpow/openapi-typescript/pull/1231) [`e1ce2d6`](https://github.com/drwpow/openapi-typescript/commit/e1ce2d67a5350ff2871ae01503df2280454b7a80) Thanks [@tkrotoff](https://github.com/tkrotoff)! - Do not append trailing spaces to JSDoc tags
+- [#1231](https://github.com/openapi-ts/openapi-typescript/pull/1231) [`e1ce2d6`](https://github.com/openapi-ts/openapi-typescript/commit/e1ce2d67a5350ff2871ae01503df2280454b7a80) Thanks [@tkrotoff](https://github.com/tkrotoff)! - Do not append trailing spaces to JSDoc tags
 
-- [#1232](https://github.com/drwpow/openapi-typescript/pull/1232) [`31c030d`](https://github.com/drwpow/openapi-typescript/commit/31c030d5f1bf2739dbc146e42372cf9aec922f93) Thanks [@tkrotoff](https://github.com/tkrotoff)! - Remove unnecessary array parenthesis
+- [#1232](https://github.com/openapi-ts/openapi-typescript/pull/1232) [`31c030d`](https://github.com/openapi-ts/openapi-typescript/commit/31c030d5f1bf2739dbc146e42372cf9aec922f93) Thanks [@tkrotoff](https://github.com/tkrotoff)! - Remove unnecessary array parenthesis
 
 ## 6.3.5
 
 ### Patch Changes
 
-- [#1228](https://github.com/drwpow/openapi-typescript/pull/1228) [`3107f1e`](https://github.com/drwpow/openapi-typescript/commit/3107f1edb9119397fca3e34aeda4def3555c0811) Thanks [@m-ronchi](https://github.com/m-ronchi)! - Fix boolean JSON Schemas
+- [#1228](https://github.com/openapi-ts/openapi-typescript/pull/1228) [`3107f1e`](https://github.com/openapi-ts/openapi-typescript/commit/3107f1edb9119397fca3e34aeda4def3555c0811) Thanks [@m-ronchi](https://github.com/m-ronchi)! - Fix boolean JSON Schemas
 
 ## 6.3.4
 
 ### Patch Changes
 
-- [#1221](https://github.com/drwpow/openapi-typescript/pull/1221) [`4e96e9d`](https://github.com/drwpow/openapi-typescript/commit/4e96e9dcb845adc501d7256c3c3c9c30c8c6d99d) Thanks [@drwpow](https://github.com/drwpow)! - Remove OneOf<> helper for simple type comparisons
+- [#1221](https://github.com/openapi-ts/openapi-typescript/pull/1221) [`4e96e9d`](https://github.com/openapi-ts/openapi-typescript/commit/4e96e9dcb845adc501d7256c3c3c9c30c8c6d99d) Thanks [@drwpow](https://github.com/drwpow)! - Remove OneOf<> helper for simple type comparisons
 
-- [#1221](https://github.com/drwpow/openapi-typescript/pull/1221) [`4e96e9d`](https://github.com/drwpow/openapi-typescript/commit/4e96e9dcb845adc501d7256c3c3c9c30c8c6d99d) Thanks [@drwpow](https://github.com/drwpow)! - Fix 3.1 nullable types
+- [#1221](https://github.com/openapi-ts/openapi-typescript/pull/1221) [`4e96e9d`](https://github.com/openapi-ts/openapi-typescript/commit/4e96e9dcb845adc501d7256c3c3c9c30c8c6d99d) Thanks [@drwpow](https://github.com/drwpow)! - Fix 3.1 nullable types
 
 ## 6.3.3
 
 ### Patch Changes
 
-- [#1200](https://github.com/drwpow/openapi-typescript/pull/1200) [`4fc8c20`](https://github.com/drwpow/openapi-typescript/commit/4fc8c20c079e81c600ecffffd90fc9c77c11d49e) Thanks [@toomuchdesign](https://github.com/toomuchdesign)! - Remove unexpected empty string in generated nullable polymophic enum types (["string", "null"])
+- [#1200](https://github.com/openapi-ts/openapi-typescript/pull/1200) [`4fc8c20`](https://github.com/openapi-ts/openapi-typescript/commit/4fc8c20c079e81c600ecffffd90fc9c77c11d49e) Thanks [@toomuchdesign](https://github.com/toomuchdesign)! - Remove unexpected empty string in generated nullable polymophic enum types (["string", "null"])
 
 ## 6.3.2
 
 ### Patch Changes
 
-- [#1212](https://github.com/drwpow/openapi-typescript/pull/1212) [`e173ccf`](https://github.com/drwpow/openapi-typescript/commit/e173ccf0d92fd4b54cb2dec54056f4647cbadc83) Thanks [@drwpow](https://github.com/drwpow)! - Fix bug with remote schema $refs
+- [#1212](https://github.com/openapi-ts/openapi-typescript/pull/1212) [`e173ccf`](https://github.com/openapi-ts/openapi-typescript/commit/e173ccf0d92fd4b54cb2dec54056f4647cbadc83) Thanks [@drwpow](https://github.com/drwpow)! - Fix bug with remote schema $refs
 
 ## 6.3.1
 
 ### Patch Changes
 
-- [#1207](https://github.com/drwpow/openapi-typescript/pull/1207) [`914e049`](https://github.com/drwpow/openapi-typescript/commit/914e049573218b1bf791ce7855cdb1022bedc2b2) Thanks [@drwpow](https://github.com/drwpow)! - Fall back to TypeScript unions for long oneOf lists
+- [#1207](https://github.com/openapi-ts/openapi-typescript/pull/1207) [`914e049`](https://github.com/openapi-ts/openapi-typescript/commit/914e049573218b1bf791ce7855cdb1022bedc2b2) Thanks [@drwpow](https://github.com/drwpow)! - Fall back to TypeScript unions for long oneOf lists
 
 ## 6.3.0
 
 ### Minor Changes
 
-- [#1205](https://github.com/drwpow/openapi-typescript/pull/1205) [`c753f7b`](https://github.com/drwpow/openapi-typescript/commit/c753f7b27a93bb963d8b762b8faa785025aa9135) Thanks [@drwpow](https://github.com/drwpow)! - Add prefixItems support
+- [#1205](https://github.com/openapi-ts/openapi-typescript/pull/1205) [`c753f7b`](https://github.com/openapi-ts/openapi-typescript/commit/c753f7b27a93bb963d8b762b8faa785025aa9135) Thanks [@drwpow](https://github.com/drwpow)! - Add prefixItems support
 
 ### Patch Changes
 
-- [#1203](https://github.com/drwpow/openapi-typescript/pull/1203) [`902fde1`](https://github.com/drwpow/openapi-typescript/commit/902fde156a55f2f0f4889680cea3605cc9d137b4) Thanks [@drwpow](https://github.com/drwpow)! - Fix mutating $refs in Node.js API
+- [#1203](https://github.com/openapi-ts/openapi-typescript/pull/1203) [`902fde1`](https://github.com/openapi-ts/openapi-typescript/commit/902fde156a55f2f0f4889680cea3605cc9d137b4) Thanks [@drwpow](https://github.com/drwpow)! - Fix mutating $refs in Node.js API
 
 ## 6.2.9
 
 ### Patch Changes
 
-- [#1193](https://github.com/drwpow/openapi-typescript/pull/1193) [`64decb7`](https://github.com/drwpow/openapi-typescript/commit/64decb7243e3f4962dd3a97378f37142ee89546a) Thanks [@psychedelicious](https://github.com/psychedelicious)! - Add example for `Blob` type transforms
+- [#1193](https://github.com/openapi-ts/openapi-typescript/pull/1193) [`64decb7`](https://github.com/openapi-ts/openapi-typescript/commit/64decb7243e3f4962dd3a97378f37142ee89546a) Thanks [@psychedelicious](https://github.com/psychedelicious)! - Add example for `Blob` type transforms
 
 ## 6.2.8
 
 ### Patch Changes
 
-- [#1166](https://github.com/drwpow/openapi-typescript/pull/1166) [`db37f3c`](https://github.com/drwpow/openapi-typescript/commit/db37f3ca2993a3d7e7cf580273452c21a68c503d) Thanks [@pvanagtmaal](https://github.com/pvanagtmaal)! - Fix property escaping for discriminators
+- [#1166](https://github.com/openapi-ts/openapi-typescript/pull/1166) [`db37f3c`](https://github.com/openapi-ts/openapi-typescript/commit/db37f3ca2993a3d7e7cf580273452c21a68c503d) Thanks [@pvanagtmaal](https://github.com/pvanagtmaal)! - Fix property escaping for discriminators
 
 ## 6.2.7
 
 ### Patch Changes
 
-- [#1149](https://github.com/drwpow/openapi-typescript/pull/1149) [`b82cffb`](https://github.com/drwpow/openapi-typescript/commit/b82cffbc6c3fc0da9a24d9b90b303dcb2dd71c62) Thanks [@duncanbeevers](https://github.com/duncanbeevers)! - Stringify const values with no specified type
+- [#1149](https://github.com/openapi-ts/openapi-typescript/pull/1149) [`b82cffb`](https://github.com/openapi-ts/openapi-typescript/commit/b82cffbc6c3fc0da9a24d9b90b303dcb2dd71c62) Thanks [@duncanbeevers](https://github.com/duncanbeevers)! - Stringify const values with no specified type
 
-- [#1156](https://github.com/drwpow/openapi-typescript/pull/1156) [`ad017a9`](https://github.com/drwpow/openapi-typescript/commit/ad017a9ac2dc5b01726267fca9418b311fe91896) Thanks [@horaklukas](https://github.com/horaklukas)! - Avoid index signature TS error for paths with empty params
+- [#1156](https://github.com/openapi-ts/openapi-typescript/pull/1156) [`ad017a9`](https://github.com/openapi-ts/openapi-typescript/commit/ad017a9ac2dc5b01726267fca9418b311fe91896) Thanks [@horaklukas](https://github.com/horaklukas)! - Avoid index signature TS error for paths with empty params
 
 ## 6.2.6
 
 ### Patch Changes
 
-- [#1146](https://github.com/drwpow/openapi-typescript/pull/1146) [`12aa721`](https://github.com/drwpow/openapi-typescript/commit/12aa7212fbe09efd0fe89dca18713145e8da9c8e) Thanks [@drwpow](https://github.com/drwpow)! - Fix js-yaml $refs
+- [#1146](https://github.com/openapi-ts/openapi-typescript/pull/1146) [`12aa721`](https://github.com/openapi-ts/openapi-typescript/commit/12aa7212fbe09efd0fe89dca18713145e8da9c8e) Thanks [@drwpow](https://github.com/drwpow)! - Fix js-yaml $refs
 
 ## 6.2.5
 
@@ -488,7 +488,7 @@
 
 ### Minor changes
 
-- Now supports a `URL()` as input to make ESM usage easier ([see example](https://github.com/drwpow/openapi-typescript/tree/5.x#-node))
+- Now supports a `URL()` as input to make ESM usage easier ([see example](https://github.com/openapi-ts/openapi-typescript/tree/5.x#-node))
 
 ## 4.5.0
 
