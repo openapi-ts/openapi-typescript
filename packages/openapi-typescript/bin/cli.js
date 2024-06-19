@@ -157,7 +157,7 @@ async function main() {
         }
         if (!api[REDOC_CONFIG_KEY]?.output) {
           errorAndExit(
-            `API ${name} is missing an \`${REDOC_CONFIG_KEY}.output\` key. See https://openapi-ts.pages.dev/cli/#multiple-schemas.`,
+            `API ${name} is missing an \`${REDOC_CONFIG_KEY}.output\` key. See https://openapi-ts.dev/cli/#multiple-schemas.`,
           );
         }
         const result = await generateSchema(new URL(api.root, configRoot), { redocly });
@@ -191,7 +191,7 @@ async function main() {
     // throw error on glob
     if (input.includes("*")) {
       errorAndExit(
-        "Globbing has been deprecated in favor of redocly.yaml’s `apis` keys. See https://openapi-ts.pages.dev/cli/#multiple-schemas",
+        "Globbing has been deprecated in favor of redocly.yaml’s `apis` keys. See https://openapi-ts.dev/cli/#multiple-schemas",
       );
     }
     const result = await generateSchema(new URL(input, CWD), {

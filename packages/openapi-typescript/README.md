@@ -87,4 +87,4 @@ _Thanks, [@psmyrdek](https://github.com/psmyrdek)!_
 
 ## 📓 Docs
 
-[View Docs](https://openapi-ts.pages.dev/introduction/)
+[View Docs](https://openapi-ts.dev/)

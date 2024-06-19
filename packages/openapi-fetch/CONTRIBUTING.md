@@ -78,7 +78,7 @@ Pull requests are **welcome** for this repo!
 
 Bugfixes will always be accepted, though in some cases some small changes may be requested.
 
-However, if adding a feature or breaking change, please **open an issue first to discuss.** This ensures no time or work is wasted writing code that won’t be accepted to the project (see [Project Goals](https://openapi-ts.pages.dev/openapi-fetch/about/#project-goals)). Undiscussed feature work may be rejected at the discretion of the maintainers.
+However, if adding a feature or breaking change, please **open an issue first to discuss.** This ensures no time or work is wasted writing code that won’t be accepted to the project (see [Project Goals](https://openapi-ts.dev/openapi-fetch/about/#project-goals)). Undiscussed feature work may be rejected at the discretion of the maintainers.
 
 ### Writing the commit
 

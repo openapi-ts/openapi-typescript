@@ -2,7 +2,7 @@
 
 Docs site powered by [Vitepress](https://vitepress.dev/), an ergonomic docs site template powered by Vite.
 
-Lives at [https://openapi-ts.pages.dev](https://openapi-ts.pages.dev).
+Lives at [https://openapi-ts.dev](https://openapi-ts.dev).
 
 ## Setup
 
