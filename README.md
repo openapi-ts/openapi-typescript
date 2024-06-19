@@ -12,6 +12,23 @@ Generate TypeScript types from static OpenAPI schemas
 Ultra-fast fetching for TypeScript generated automatically from your OpenAPI schema.
 </a>
 
+## ⭐ Sponsors
+
+### Gold Sponsors
+
+<p align="center"><a href="https://github.com/zuplo"><img width="128" height="128" alt="@zuplo on GitHub" src="https://avatars.githubusercontent.com/u/85497839?s=200&v=4"></a></p>
+
+### Backers
+
+<p align="center"><a href="https://github.com/bddvlpr"><img width="64" height="64" alt="@bddvlpr on GitHub" src="https://avatars.githubusercontent.com/u/17461028?v=4" /></a>
+<a href="https://github.com/customerio"><img width="64" height="64" alt="@customerio on GitHub" src="https://avatars.githubusercontent.com/u/1152079?s=200&v=4"></a></p>
+
+Become a sponsor by supporting this project on [OpenCollective](https://opencollective.com/openapi-ts)!
+
+<a href="https://opencollective.com/webpack/donate" target="_blank">
+  <img src="https://opencollective.com/webpack/donate/button@2x.png?color=blue" width="300" />
+</a>
+
 ## 🤝 Contributing
 
 Contributions are appreciated and welcome! See the appropriate guide for each package:
@@ -22,6 +39,7 @@ Contributions are appreciated and welcome! See the appropriate guide for each pa
 
 ## ♥️ Thanks
 
+- Thanks to [the Project Sponsors](#sponsors) for keeping this project going!
 - Thanks to [dozens of lovely, smart contributors](https://github.com/drwpow/openapi-typescript/graphs/contributors) that made this library possible
 - Thanks to [Vitepress](https://vitepress.dev/) for the docs site
 - Thanks to [Cloudflare Pages](https://pages.cloudflare.com/) for docs site hosting

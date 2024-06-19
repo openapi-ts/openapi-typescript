@@ -15,7 +15,7 @@ export const shared = defineConfig({
       {
         defer: "",
         src: "https://static.cloudflareinsights.com/beacon.min.js",
-        "data-cf-beacon": '{"token": "ea4189cb68024071a5aff8663b3b63f1"}',
+        "data-cf-beacon": '{"token": "a2adac3f69344a25a38525e84400dd6c"}',
       },
     ],
   ],
