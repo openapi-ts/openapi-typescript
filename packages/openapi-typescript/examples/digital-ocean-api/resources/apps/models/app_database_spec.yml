@@ -25,10 +25,14 @@ properties:
     - MYSQL
     - PG
     - REDIS
+    - MONGODB
+    - KAFKA
     description: |-
       - MYSQL: MySQL
       - PG: PostgreSQL
       - REDIS: Redis
+      - MONGODB: MongoDB
+      - KAFKA: Kafka
     example: PG
 
   name:

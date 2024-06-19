@@ -60,7 +60,7 @@
     "typescript": "^5.x"
   },
   "dependencies": {
-    "@redocly/openapi-core": "^1.12.2",
+    "@redocly/openapi-core": "^1.16.0",
     "ansi-colors": "^4.1.3",
     "parse-json": "^8.1.0",
     "supports-color": "^9.4.0",
@@ -69,7 +69,7 @@
   "devDependencies": {
     "@types/degit": "^2.8.6",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^20.12.12",
+    "@types/node": "^20.14.6",
     "degit": "^2.8.4",
     "del-cli": "^5.1.0",
     "esbuild": "^0.20.2",

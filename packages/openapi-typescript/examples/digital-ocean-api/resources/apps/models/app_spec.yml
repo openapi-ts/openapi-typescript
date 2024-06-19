@@ -74,5 +74,8 @@ properties:
   ingress:
     $ref: app_ingress_spec.yml
 
+  egress:
+    $ref: app_egress_spec.yml
+
 required:
 - name

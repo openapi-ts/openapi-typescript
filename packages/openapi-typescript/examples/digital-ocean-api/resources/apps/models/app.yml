@@ -80,6 +80,12 @@ properties:
     allOf:
       - description: The deployment that the app is pinned to.
       - $ref: apps_deployment.yml
+  dedicated_ips:
+    readOnly: true
+    title: The dedicated egress IP addresses associated with the app.
+    type: array
+    items:
+      $ref: apps_dedicated_egress_ip.yml
 required:
 - spec
 type: object

@@ -14,6 +14,8 @@ properties:
     $ref: app_log_destination_datadog_spec.yml
   logtail:
     $ref: app_log_destination_logtail_spec.yml
+  open_search:
+    $ref: app_log_destination_open_search_spec.yml
 title: Configurations for external logging.
 required:
   - name

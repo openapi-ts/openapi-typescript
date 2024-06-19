@@ -1,0 +1,14 @@
+type: object
+properties:
+  user:
+    type: string
+    description: Username to authenticate with.
+    example: apps_user
+  password:
+    type: string
+    description: Password for user defined in User.
+    example: password1
+description: Configure Username and/or Password for Basic authentication.
+required:
+  - user
+  - password

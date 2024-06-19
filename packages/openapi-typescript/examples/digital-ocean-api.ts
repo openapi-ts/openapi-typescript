@@ -373,7 +373,11 @@ export interface paths {
         };
         /**
          * List App Tiers
+         * @deprecated
          * @description List all app tiers.
+         *     This endpoint has been deprecated because app tiers are not tied to instance sizes anymore.
+         *     The concept of tiers will be retired in the future.
+         *
          */
         get: operations["apps_list_tiers"];
         put?: never;
@@ -393,7 +397,11 @@ export interface paths {
         };
         /**
          * Retrieve an App Tier
+         * @deprecated
          * @description Retrieve information about a specific app tier.
+         *     This endpoint has been deprecated because app tiers are not tied to instance sizes anymore.
+         *     The concept of tiers will be retired in the future.
+         *
          */
         get: operations["apps_get_tier"];
         put?: never;
@@ -962,6 +970,7 @@ export interface paths {
          * List Database Options
          * @description To list all of the options available for the offered database engines, send a GET request to `/v2/databases/options`.
          *     The result will be a JSON object with an `options` key.
+         *     OpenSearch is in closed beta. To request access, [contact support](https://cloudsupport.digitalocean.com).
          */
         get: operations["databases_list_options"];
         put?: never;
@@ -1000,6 +1009,7 @@ export interface paths {
          *
          *     DigitalOcean managed PostgreSQL and MySQL database clusters take automated daily backups. To create a new database cluster based on a backup of an existing cluster, send a POST request to `/v2/databases`. In addition to the standard database cluster attributes, the JSON body must include a key named `backup_restore` with the name of the original database cluster and the timestamp of the backup to be restored. Creating a database from a backup is the same as forking a database in the control panel.
          *     Note: Backups are not supported for Redis clusters.
+         *     OpenSearch is in closed beta. To request access, [contact support](https://cloudsupport.digitalocean.com).
          */
         post: operations["databases_create_cluster"];
         delete?: never;
@@ -5936,6 +5946,34 @@ export interface components {
              */
             token?: string;
         };
+        /** @description Configure Username and/or Password for Basic authentication. */
+        app_log_destination_open_search_spec_basic_auth: {
+            /**
+             * @description Username to authenticate with.
+             * @example apps_user
+             */
+            user: string;
+            /**
+             * @description Password for user defined in User.
+             * @example password1
+             */
+            password: string;
+        };
+        /** @description OpenSearch configuration. */
+        app_log_destination_open_search_spec: {
+            /**
+             * @description OpenSearch API Endpoint. Only HTTPS is supported. Format: `https://<host>:<port>`.
+             * @example https://example.com:9300
+             */
+            endpoint: string;
+            basic_auth?: components["schemas"]["app_log_destination_open_search_spec_basic_auth"];
+            /**
+             * @description The index name to use for the logs. If not set, the default index name is "logs".
+             * @default logs
+             * @example logs
+             */
+            index_name: string;
+        };
         /** Configurations for external logging. */
         app_log_destination_definition: {
             /** @example my_log_destination */
@@ -5943,6 +5981,7 @@ export interface components {
             papertrail?: components["schemas"]["app_log_destination_papertrail_spec"];
             datadog?: components["schemas"]["app_log_destination_datadog_spec"];
             logtail?: components["schemas"]["app_log_destination_logtail_spec"];
+            open_search?: components["schemas"]["app_log_destination_open_search_spec"];
         };
         app_component_base: {
             /**
@@ -5992,12 +6031,12 @@ export interface components {
              */
             instance_count: number;
             /**
-             * @description The instance size to use for this component. Default: `basic-xxs`
-             * @default basic-xxs
-             * @example basic-xxs
+             * @description The instance size to use for this component. Default: `apps-s-1vcpu-0.5gb`
+             * @default apps-s-1vcpu-0.5gb
+             * @example apps-s-1vcpu-0.5gb
              * @enum {string}
              */
-            instance_size_slug: "basic-xxs" | "basic-xs" | "basic-s" | "basic-m" | "professional-xs" | "professional-s" | "professional-m" | "professional-1l" | "professional-l" | "professional-xl";
+            instance_size_slug: "apps-s-1vcpu-0.5gb" | "apps-s-1vcpu-1gb-fixed" | "apps-s-1vcpu-1gb" | "apps-s-1vcpu-2gb" | "apps-s-2vcpu-4gb" | "apps-d-1vcpu-0.5gb" | "apps-d-1vcpu-1gb" | "apps-d-1vcpu-2gb" | "apps-d-1vcpu-4gb" | "apps-d-2vcpu-4gb" | "apps-d-2vcpu-8gb" | "apps-d-4vcpu-8gb" | "apps-d-4vcpu-16gb" | "apps-d-8vcpu-32gb";
             /** @description Configuration for automatically scaling this component based on metrics. */
             autoscaling?: {
                 /**
@@ -6152,6 +6191,20 @@ export interface components {
              */
             preserve_path_prefix?: boolean;
         };
+        app_service_spec_termination: {
+            /**
+             * Format: int32
+             * @description The number of seconds to wait between selecting a container instance for termination and issuing the TERM signal. Selecting a container instance for termination begins an asynchronous drain of new requests on upstream load-balancers. (Default 15)
+             * @example 15
+             */
+            drain_seconds?: number;
+            /**
+             * Format: int32
+             * @description The number of seconds to wait between sending a TERM signal to a container and issuing a KILL which causes immediate shutdown. (Default 120)
+             * @example 120
+             */
+            grace_period_seconds?: number;
+        };
         app_service_spec: components["schemas"]["app_component_base"] & components["schemas"]["app_component_instance_base"] & {
             cors?: components["schemas"]["apps_cors_policy"] & unknown & unknown;
             health_check?: components["schemas"]["app_service_spec_health_check"];
@@ -6175,6 +6228,7 @@ export interface components {
              * @description (Deprecated - Use Ingress Rules instead). A list of HTTP routes that should be routed to this component.
              */
             routes?: components["schemas"]["app_route_spec"][];
+            termination?: components["schemas"]["app_service_spec_termination"];
         };
         app_static_site_spec: WithRequired<components["schemas"]["app_component_base"], "name"> & {
             /**
@@ -6206,6 +6260,14 @@ export interface components {
              */
             routes?: components["schemas"]["app_route_spec"][];
         };
+        app_job_spec_termination: {
+            /**
+             * Format: int32
+             * @description The number of seconds to wait between sending a TERM signal to a container and issuing a KILL which causes immediate shutdown. (Default 120)
+             * @example 120
+             */
+            grace_period_seconds?: number;
+        };
         app_job_spec: components["schemas"]["app_component_base"] & components["schemas"]["app_component_instance_base"] & {
             /**
              * @description - UNSPECIFIED: Default job type, will auto-complete to POST_DEPLOY kind.
@@ -6217,8 +6279,19 @@ export interface components {
              * @enum {string}
              */
             kind: "UNSPECIFIED" | "PRE_DEPLOY" | "POST_DEPLOY" | "FAILED_DEPLOY";
+            termination?: components["schemas"]["app_job_spec_termination"];
         };
-        app_worker_spec: WithRequired<components["schemas"]["app_component_base"], "name"> & components["schemas"]["app_component_instance_base"];
+        app_worker_spec_termination: {
+            /**
+             * Format: int32
+             * @description The number of seconds to wait between sending a TERM signal to a container and issuing a KILL which causes immediate shutdown. (Default 120)
+             * @example 120
+             */
+            grace_period_seconds?: number;
+        };
+        app_worker_spec: WithRequired<components["schemas"]["app_component_base"], "name"> & components["schemas"]["app_component_instance_base"] & {
+            termination?: components["schemas"]["app_worker_spec_termination"];
+        };
         /**
          * @default UNSPECIFIED_RULE
          * @example CPU_UTILIZATION
@@ -6298,11 +6371,13 @@ export interface components {
              * @description - MYSQL: MySQL
              *     - PG: PostgreSQL
              *     - REDIS: Redis
+             *     - MONGODB: MongoDB
+             *     - KAFKA: Kafka
              * @default UNSET
              * @example PG
              * @enum {string}
              */
-            engine: "UNSET" | "MYSQL" | "PG" | "REDIS";
+            engine: "UNSET" | "MYSQL" | "PG" | "REDIS" | "MONGODB" | "KAFKA";
             /**
              * @description The name. Must be unique across all components within the same app.
              * @example prod-db
@@ -6391,6 +6466,17 @@ export interface components {
             rules?: components["schemas"]["app_ingress_spec_rule"][];
         };
         /**
+         * The app egress type.
+         * @default AUTOASSIGN
+         * @example AUTOASSIGN
+         * @enum {string}
+         */
+        app_egress_type_spec: "AUTOASSIGN" | "DEDICATED_IP";
+        /** @description Specification for app egress configurations. */
+        app_egress_spec: {
+            type?: components["schemas"]["app_egress_type_spec"];
+        };
+        /**
          * AppSpec
          * @description The desired configuration of an application.
          */
@@ -6422,6 +6508,7 @@ export interface components {
              *     application. */
             databases?: components["schemas"]["app_database_spec"][];
             ingress?: components["schemas"]["app_ingress_spec"];
+            egress?: components["schemas"]["app_egress_spec"];
         };
         apps_deployment_static_site: {
             /**
@@ -6588,6 +6675,26 @@ export interface components {
              */
             readonly slug?: string;
         };
+        /**
+         * The status of the dedicated egress IP.
+         * @default UNKNOWN
+         * @example ASSIGNED
+         * @enum {string}
+         */
+        apps_dedicated_egress_ip_status: "UNKNOWN" | "ASSIGNING" | "ASSIGNED" | "REMOVED";
+        apps_dedicated_egress_ip: {
+            /**
+             * The IP address of the dedicated egress IP.
+             * @example 192.168.1.1
+             */
+            ip?: string;
+            /**
+             * The ID of the dedicated egress IP.
+             * @example 9e7bc2ac-205a-45d6-919c-e1ac5e73f962
+             */
+            id?: string;
+            status?: components["schemas"]["apps_dedicated_egress_ip_status"];
+        };
         /** @description An application's configuration and status. */
         app: {
             active_deployment?: components["schemas"]["apps_deployment"];
@@ -6656,6 +6763,8 @@ export interface components {
              */
             readonly updated_at?: string;
             pinned_deployment?: unknown & components["schemas"]["apps_deployment"];
+            /** The dedicated egress IP addresses associated with the app. */
+            readonly dedicated_ips?: components["schemas"]["apps_dedicated_egress_ip"][];
         };
         apps_response: {
             /** A list of apps */
@@ -6747,6 +6856,12 @@ export interface components {
          */
         instance_size_cpu_type: "UNSPECIFIED" | "SHARED" | "DEDICATED";
         apps_instance_size: {
+            /**
+             * The bandwidth allowance in GiB for the instance size
+             * Format: int64
+             * @example 1
+             */
+            bandwidth_allowance_gib?: string;
             cpu_type?: components["schemas"]["instance_size_cpu_type"];
             /**
              * The number of allotted vCPU cores
@@ -6754,6 +6869,11 @@ export interface components {
              * @example 3
              */
             cpus?: string;
+            /**
+             * Indicates if the instance size is intended for deprecation
+             * @example true
+             */
+            deprecation_intent?: boolean;
             /**
              * The allotted memory in bytes
              * Format: int64
@@ -6766,8 +6886,18 @@ export interface components {
              */
             name?: string;
             /**
+             * Indicates if the instance size can enable autoscaling
+             * @example false
+             */
+            scalable?: boolean;
+            /**
+             * Indicates if the instance size allows more than one instance
+             * @example true
+             */
+            single_instance_only?: boolean;
+            /**
              * The slug of the instance size
-             * @example basic
+             * @example apps-s-1vcpu-1gb
              */
             slug?: string;
             /**
@@ -6844,7 +6974,7 @@ export interface components {
             spec?: components["schemas"]["app_spec"];
             /**
              * Format: int32
-             * @description The monthly cost of the proposed app in USD using the next pricing plan tier. For example, if you propose an app that uses the Basic tier, the `app_tier_upgrade_cost` field displays the monthly cost of the app if it were to use the Professional tier. If the proposed app already uses the most expensive tier, the field is empty.
+             * @description The monthly cost of the proposed app in USD.
              * @example 5
              */
             app_cost?: number;
@@ -7957,7 +8087,7 @@ export interface components {
              */
             name: string;
             /**
-             * @description A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, "mongodb" for MongoDB, "kafka" for Kafka and "opensearch" for Opensearch.
+             * @description A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, "mongodb" for MongoDB, "kafka" for Kafka and "opensearch" for OpenSearch. OpenSearch is in closed beta. To request access, [contact support](https://cloudsupport.digitalocean.com).
              * @example mysql
              * @enum {string}
              */
@@ -15258,7 +15388,7 @@ export interface components {
         slug_tier: string;
         /**
          * @description The slug of the instance size
-         * @example basic-xxs
+         * @example apps-s-1vcpu-0.5gb
          */
         slug_size: string;
         /**
@@ -15937,14 +16067,17 @@ export interface operations {
                  *             "run_command": "bin/api",
                  *             "environment_slug": "node-js",
                  *             "instance_count": 2,
-                 *             "instance_size_slug": "basic-xxs",
+                 *             "instance_size_slug": "apps-s-1vcpu-0.5gb",
                  *             "routes": [
                  *               {
                  *                 "path": "/api"
                  *               }
                  *             ]
                  *           }
-                 *         ]
+                 *         ],
+                 *         "egress": {
+                 *           "type": "DEDICATED_IP"
+                 *         }
                  *       }
                  *     } */
                 "application/json": components["schemas"]["apps_create_app_request"];
@@ -16408,7 +16541,7 @@ export interface operations {
             path: {
                 /**
                  * @description The slug of the instance size
-                 * @example basic-xxs
+                 * @example apps-s-1vcpu-0.5gb
                  */
                 slug: components["parameters"]["slug_size"];
             };
@@ -16464,7 +16597,7 @@ export interface operations {
                  *             "run_command": "bin/api",
                  *             "environment_slug": "node-js",
                  *             "instance_count": 2,
-                 *             "instance_size_slug": "basic-xxs",
+                 *             "instance_size_slug": "apps-s-1vcpu-0.5gb",
                  *             "routes": [
                  *               {
                  *                 "path": "/api"

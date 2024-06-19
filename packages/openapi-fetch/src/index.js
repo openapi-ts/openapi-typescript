@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid";
+
 // settings & const
 const DEFAULT_HEADERS = {
   "Content-Type": "application/json",
@@ -5,9 +7,7 @@ const DEFAULT_HEADERS = {
 
 const PATH_PARAM_RE = /\{[^{}]+\}/g;
 
-/**
- * Add custom parameters to Request object
- */
+/** Add custom parameters to Request object */
 class CustomRequest extends Request {
   constructor(input, init) {
     super(input, init);
@@ -45,7 +45,7 @@ export default function createClient(clientOptions) {
    * @param {T} url
    * @param {import('./index.js').FetchOptions<T>} fetchOptions
    */
-  async function coreFetch(url, fetchOptions) {
+  async function coreFetch(schemaPath, fetchOptions) {
     const {
       fetch = baseFetch,
       headers,
@@ -83,23 +83,30 @@ export default function createClient(clientOptions) {
     if (requestInit.body instanceof FormData) {
       requestInit.headers.delete("Content-Type");
     }
-    let request = new CustomRequest(createFinalURL(url, { baseUrl, params, querySerializer }), requestInit);
+
+    const id = nanoid();
+    let request = new CustomRequest(createFinalURL(schemaPath, { baseUrl, params, querySerializer }), requestInit);
+
     // middleware (request)
-    const mergedOptions = {
+    const options = Object.freeze({
       baseUrl,
       fetch,
       parseAs,
       querySerializer,
       bodySerializer,
-    };
+    });
     for (const m of middlewares) {
       if (m && typeof m === "object" && typeof m.onRequest === "function") {
-        request.schemaPath = url; // (re)attach original URL
-        request.params = params; // (re)attach params
-        const result = await m.onRequest(request, mergedOptions);
+        const result = await m.onRequest({
+          request,
+          schemaPath,
+          params,
+          options,
+          id,
+        });
         if (result) {
           if (!(result instanceof Request)) {
-            throw new Error("Middleware must return new Request() when modifying the request");
+            throw new Error("onRequest: must return new Request() when modifying the request");
           }
           request = result;
         }
@@ -107,19 +114,24 @@ export default function createClient(clientOptions) {
     }
 
     // fetch!
-    let response = await fetch(request);
+    let response = await fetch(request.url, request);
 
     // middleware (response)
     // execute in reverse-array order (first priority gets last transform)
     for (let i = middlewares.length - 1; i >= 0; i--) {
       const m = middlewares[i];
       if (m && typeof m === "object" && typeof m.onResponse === "function") {
-        request.schemaPath = url; // (re)attach original URL
-        request.params = params; // (re)attach params
-        const result = await m.onResponse(response, mergedOptions, request);
+        const result = await m.onResponse({
+          request,
+          response,
+          schemaPath,
+          params,
+          options,
+          id,
+        });
         if (result) {
           if (!(result instanceof Response)) {
-            throw new Error("Middleware must return new Response() when modifying the response");
+            throw new Error("onResponse: must return new Response() when modifying the response");
           }
           response = result;
         }

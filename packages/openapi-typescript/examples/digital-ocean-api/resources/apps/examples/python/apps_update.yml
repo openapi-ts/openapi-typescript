@@ -1,206 +1,230 @@
 lang: Python
 source: |-
-  import os
-  from pydo import Client
+    import os
+    from pydo import Client
 
-  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
-  req = {
-  "spec": {
-      "name": "web-app-01",
-      "region": "nyc",
-      "domains": [
-          {
-              "domain": "app.example.com",
-              "type": "DEFAULT",
-              "wildcard": True,
-              "zone": "example.com",
-              "minimum_tls_version": "1.3",
-          }
-      ],
-      "services": [],
-      "static_sites": [
-          {
-              "cors": {
-                  "allow_origins": [
-                      {"exact": "https://www.example.com"},
-                      {"regex": "^.*example.com"},
-                  ],
-                  "allow_methods": [
-                      "GET",
-                      "OPTIONS",
-                      "POST",
-                      "PUT",
-                      "PATCH",
-                      "DELETE",
-                  ],
-                  "allow_headers": ["Content-Type", "X-Custom-Header"],
-                  "expose_headers": ["Content-Encoding", "X-Custom-Header"],
-                  "max_age": "5h30m",
-                  "allow_credentials": False,
-              },
-              "routes": [{"path": "/api", "preserve_path_prefix": True}],
-          }
-      ],
-      "jobs": [
-          {
-              "name": "api",
-              "gitlab": {
-                  "branch": "main",
-                  "deploy_on_push": True,
-                  "repo": "digitalocean/sample-golang",
-              },
-              "image": {
-                  "registry": "registry.hub.docker.com",
-                  "registry_type": "DOCR",
-                  "repository": "origin/master",
-                  "tag": "latest",
-              },
-              "dockerfile_path": "path/to/Dockerfile",
-              "build_command": "npm run build",
-              "run_command": "bin/api",
-              "source_dir": "path/to/dir",
-              "envs": [
-                  {
-                      "key": "BASE_URL",
-                      "scope": "BUILD_TIME",
-                      "type": "GENERAL",
-                      "value": "http://example.com",
-                  }
-              ],
-              "environment_slug": "node-js",
-              "log_destinations": {
-                  "name": "my_log_destination",
-                  "papertrail": {
-                      "endpoint": "https://mypapertrailendpoint.com"
-                  },
-                  "datadog": {
-                      "endpoint": "https://mydatadogendpoint.com",
-                      "api_key": "abcdefghijklmnopqrstuvwxyz0123456789",
-                  },
-                  "logtail": {
-                      "token": "abcdefghijklmnopqrstuvwxyz0123456789"
-                  },
-              },
-              "instance_count": 2,
-              "instance_size_slug": "basic-xxs",
-              "kind": "PRE_DEPLOY",
-          }
-      ],
-      "workers": [
-          {
-              "name": "api",
-              "gitlab": {
-                  "branch": "main",
-                  "deploy_on_push": True,
-                  "repo": "digitalocean/sample-golang",
-              },
-              "image": {
-                  "registry": "registry.hub.docker.com",
-                  "registry_type": "DOCR",
-                  "repository": "origin/master",
-                  "tag": "latest",
-              },
-              "dockerfile_path": "path/to/Dockerfile",
-              "build_command": "npm run build",
-              "run_command": "bin/api",
-              "source_dir": "path/to/dir",
-              "envs": [
-                  {
-                      "key": "BASE_URL",
-                      "scope": "BUILD_TIME",
-                      "type": "GENERAL",
-                      "value": "http://example.com",
-                  }
-              ],
-              "environment_slug": "node-js",
-              "log_destinations": {
-                  "name": "my_log_destination",
-                  "papertrail": {
-                      "endpoint": "https://mypapertrailendpoint.com"
-                  },
-                  "datadog": {
-                      "endpoint": "https://mydatadogendpoint.com",
-                      "api_key": "abcdefghijklmnopqrstuvwxyz0123456789",
-                  },
-                  "logtail": {
-                      "token": "abcdefghijklmnopqrstuvwxyz0123456789"
-                  },
-              },
-              "instance_count": 2,
-              "instance_size_slug": "basic-xxs",
-          }
-      ],
-      "functions": [
-          {
-              "cors": {
-                  "allow_origins": [
-                      {"exact": "https://www.example.com"},
-                      {"regex": "^.*example.com"},
-                  ],
-                  "allow_methods": [
-                      "GET",
-                      "OPTIONS",
-                      "POST",
-                      "PUT",
-                      "PATCH",
-                      "DELETE",
-                  ],
-                  "allow_headers": ["Content-Type", "X-Custom-Header"],
-                  "expose_headers": ["Content-Encoding", "X-Custom-Header"],
-                  "max_age": "5h30m",
-                  "allow_credentials": False,
-              },
-              "routes": [{"path": "/api", "preserve_path_prefix": True}],
-              "name": "api",
-              "source_dir": "path/to/dir",
-              "alerts": [
-                  {
-                      "rule": "CPU_UTILIZATION",
-                      "disabled": False,
-                      "operator": "GREATER_THAN",
-                      "value": 2.32,
-                      "window": "FIVE_MINUTES",
-                  }
-              ],
-              "envs": [
-                  {
-                      "key": "BASE_URL",
-                      "scope": "BUILD_TIME",
-                      "type": "GENERAL",
-                      "value": "http://example.com",
-                  }
-              ],
-              "gitlab": {
-                  "branch": "main",
-                  "deploy_on_push": True,
-                  "repo": "digitalocean/sample-golang",
-              },
-              "log_destinations": {
-                  "name": "my_log_destination",
-                  "papertrail": {
-                      "endpoint": "https://mypapertrailendpoint.com"
-                  },
-                  "datadog": {
-                      "endpoint": "https://mydatadogendpoint.com",
-                      "api_key": "abcdefghijklmnopqrstuvwxyz0123456789",
-                  },
-                  "logtail": {
-                      "token": "abcdefghijklmnopqrstuvwxyz0123456789"
-                  },
-              },
-          }
-      ],
-      "databases": [
-          {
-              "cluster_name": "cluster_name",
-              "db_name": "my_db",
-              "db_user": "superuser",
-              "engine": "PG",
-              "name": "prod-db",
-              "production": True,
-              "version": "12",
-          }
-      ],
-  }
-  }
-  update_resp = client.apps.update(id="bb245ba", body=req)
+    client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+    req = {
+    "spec": {
+        "name": "web-app-01",
+        "region": "nyc",
+        "domains": [
+            {
+                "domain": "app.example.com",
+                "type": "DEFAULT",
+                "wildcard": True,
+                "zone": "example.com",
+                "minimum_tls_version": "1.3",
+            }
+        ],
+        "services": [],
+        "static_sites": [
+            {
+                "cors": {
+                    "allow_origins": [
+                        {"exact": "https://www.example.com"},
+                        {"regex": "^.*example.com"},
+                    ],
+                    "allow_methods": [
+                        "GET",
+                        "OPTIONS",
+                        "POST",
+                        "PUT",
+                        "PATCH",
+                        "DELETE",
+                    ],
+                    "allow_headers": ["Content-Type", "X-Custom-Header"],
+                    "expose_headers": ["Content-Encoding", "X-Custom-Header"],
+                    "max_age": "5h30m",
+                    "allow_credentials": False,
+                },
+                "routes": [{"path": "/api", "preserve_path_prefix": True}],
+            }
+        ],
+        "jobs": [
+            {
+                "name": "api",
+                "gitlab": {
+                    "branch": "main",
+                    "deploy_on_push": True,
+                    "repo": "digitalocean/sample-golang",
+                },
+                "image": {
+                    "registry": "registry.hub.docker.com",
+                    "registry_type": "DOCR",
+                    "repository": "origin/master",
+                    "tag": "latest",
+                },
+                "dockerfile_path": "path/to/Dockerfile",
+                "build_command": "npm run build",
+                "run_command": "bin/api",
+                "source_dir": "path/to/dir",
+                "envs": [
+                    {
+                        "key": "BASE_URL",
+                        "scope": "BUILD_TIME",
+                        "type": "GENERAL",
+                        "value": "http://example.com",
+                    }
+                ],
+                "environment_slug": "node-js",
+                "log_destinations": {
+                    "name": "my_log_destination",
+                    "papertrail": {
+                        "endpoint": "https://mypapertrailendpoint.com"
+                    },
+                    "datadog": {
+                        "endpoint": "https://mydatadogendpoint.com",
+                        "api_key": "abcdefghijklmnopqrstuvwxyz0123456789",
+                    },
+                    "logtail": {
+                        "token": "abcdefghijklmnopqrstuvwxyz0123456789"
+                    },
+                   "open_search": {
+                        "endpoint": "myopensearchendpoint.com:9300"
+                        "index_name": "logs"
+                        "basic_auth": {
+                            "user": "doadmin",
+                            "password": "password"
+                        }
+                    },
+                },
+                "instance_count": 2,
+                "instance_size_slug": "apps-s-1vcpu-0.5gb",
+                "kind": "PRE_DEPLOY",
+            }
+        ],
+        "workers": [
+            {
+                "name": "api",
+                "gitlab": {
+                    "branch": "main",
+                    "deploy_on_push": True,
+                    "repo": "digitalocean/sample-golang",
+                },
+                "image": {
+                    "registry": "registry.hub.docker.com",
+                    "registry_type": "DOCR",
+                    "repository": "origin/master",
+                    "tag": "latest",
+                },
+                "dockerfile_path": "path/to/Dockerfile",
+                "build_command": "npm run build",
+                "run_command": "bin/api",
+                "source_dir": "path/to/dir",
+                "envs": [
+                    {
+                        "key": "BASE_URL",
+                        "scope": "BUILD_TIME",
+                        "type": "GENERAL",
+                        "value": "http://example.com",
+                    }
+                ],
+                "environment_slug": "node-js",
+                "log_destinations": {
+                    "name": "my_log_destination",
+                    "papertrail": {
+                        "endpoint": "https://mypapertrailendpoint.com"
+                    },
+                    "datadog": {
+                        "endpoint": "https://mydatadogendpoint.com",
+                        "api_key": "abcdefghijklmnopqrstuvwxyz0123456789",
+                    },
+                    "logtail": {
+                        "token": "abcdefghijklmnopqrstuvwxyz0123456789"
+                    },
+                   "open_search": {
+                        "endpoint": "myopensearchendpoint.com:9300"
+                        "index_name": "logs"
+                        "basic_auth": {
+                            "user": "doadmin",
+                            "password": "password"
+                        }
+                    },
+                },
+                "instance_count": 2,
+                "instance_size_slug": "apps-s-1vcpu-0.5gb",
+            }
+        ],
+        "functions": [
+            {
+                "cors": {
+                    "allow_origins": [
+                        {"exact": "https://www.example.com"},
+                        {"regex": "^.*example.com"},
+                    ],
+                    "allow_methods": [
+                        "GET",
+                        "OPTIONS",
+                        "POST",
+                        "PUT",
+                        "PATCH",
+                        "DELETE",
+                    ],
+                    "allow_headers": ["Content-Type", "X-Custom-Header"],
+                    "expose_headers": ["Content-Encoding", "X-Custom-Header"],
+                    "max_age": "5h30m",
+                    "allow_credentials": False,
+                },
+                "routes": [{"path": "/api", "preserve_path_prefix": True}],
+                "name": "api",
+                "source_dir": "path/to/dir",
+                "alerts": [
+                    {
+                        "rule": "CPU_UTILIZATION",
+                        "disabled": False,
+                        "operator": "GREATER_THAN",
+                        "value": 2.32,
+                        "window": "FIVE_MINUTES",
+                    }
+                ],
+                "envs": [
+                    {
+                        "key": "BASE_URL",
+                        "scope": "BUILD_TIME",
+                        "type": "GENERAL",
+                        "value": "http://example.com",
+                    }
+                ],
+                "gitlab": {
+                    "branch": "main",
+                    "deploy_on_push": True,
+                    "repo": "digitalocean/sample-golang",
+                },
+                "log_destinations": {
+                    "name": "my_log_destination",
+                    "papertrail": {
+                        "endpoint": "https://mypapertrailendpoint.com"
+                    },
+                    "datadog": {
+                        "endpoint": "https://mydatadogendpoint.com",
+                        "api_key": "abcdefghijklmnopqrstuvwxyz0123456789",
+                    },
+                    "logtail": {
+                        "token": "abcdefghijklmnopqrstuvwxyz0123456789"
+                    },
+                   "open_search": {
+                        "endpoint": "https://myopensearchendpoint.com:9300"
+                        "index_name": "logs"
+                        "basic_auth": {
+                            "user": "doadmin",
+                            "password": "password"
+                        }
+                    },
+                },
+            }
+        ],
+        "databases": [
+            {
+                "cluster_name": "cluster_name",
+                "db_name": "my_db",
+                "db_user": "superuser",
+                "engine": "PG",
+                "name": "prod-db",
+                "production": True,
+                "version": "12",
+            }
+        ],
+    }
+    }
+    update_resp = client.apps.update(id="bb245ba", body=req)

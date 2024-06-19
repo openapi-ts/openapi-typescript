@@ -1,17 +1,17 @@
 openapi: 3.1.0
 info:
   title: Test Specification
-  version: '1.0'
+  version: "1.0"
 paths:
   /comment:
     put:
       requestBody:
-        $ref: '#/components/requestBodies/CreateReply'
+        $ref: "#/components/requestBodies/CreateReply"
       responses:
         201:
-          $ref: '#/components/responses/CreateReply'
+          $ref: "#/components/responses/CreateReply"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
   /blogposts:
     get:
       parameters:
@@ -27,25 +27,23 @@ paths:
             type: boolean
       responses:
         200:
-          $ref: '#/components/responses/AllPostsGet'
-        401:
-          $ref: '#/components/responses/EmptyError'
+          $ref: "#/components/responses/AllPostsGet"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
     put:
       requestBody:
-        $ref: '#/components/requestBodies/CreatePost'
+        $ref: "#/components/requestBodies/CreatePost"
       responses:
         201:
-          $ref: '#/components/responses/CreatePost'
+          $ref: "#/components/responses/CreatePost"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
     patch:
       requestBody:
-        $ref: '#/components/requestBodies/PatchPost'
+        $ref: "#/components/requestBodies/PatchPost"
       responses:
         201:
-          $ref: '#/components/responses/PatchPost'
+          $ref: "#/components/responses/PatchPost"
   /blogposts/{post_id}:
     parameters:
       - in: path
@@ -65,48 +63,48 @@ paths:
             type: string
       responses:
         200:
-          $ref: '#/components/responses/PostGet'
+          $ref: "#/components/responses/PostGet"
         404:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
     patch:
       requestBody:
-        $ref: '#/components/requestBodies/PatchPost'
+        $ref: "#/components/requestBodies/PatchPost"
       responses:
         200:
-          $ref: '#/components/responses/PatchPost'
+          $ref: "#/components/responses/PatchPost"
         404:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
     delete:
       responses:
         200:
-          $ref: '#/components/responses/PostDelete'
+          $ref: "#/components/responses/PostDelete"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
   /blogposts-optional:
     put:
       requestBody:
-        $ref: '#/components/requestBodies/CreatePostOptional'
+        $ref: "#/components/requestBodies/CreatePostOptional"
       responses:
         201:
-          $ref: '#/components/responses/CreatePost'
+          $ref: "#/components/responses/CreatePost"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
   /blogposts-optional-inline:
     put:
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Post'
+              $ref: "#/components/schemas/Post"
       responses:
         201:
-          $ref: '#/components/responses/CreatePost'
+          $ref: "#/components/responses/CreatePost"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
   /header-params:
     get:
       operationId: getHeaderParams
@@ -128,7 +126,7 @@ paths:
                 required:
                   - status
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
   /media:
     put:
       requestBody:
@@ -158,23 +156,41 @@ paths:
                 required:
                   - status
         4XX:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
+  /mismatched-data:
+    get:
+      responses:
+        200:
+          $ref: "#/components/responses/User"
+        201:
+          $ref: "#/components/responses/PostGet"
+        500:
+          $ref: "#/components/responses/Error"
+  /mismatched-errors:
+    get:
+      responses:
+        200:
+          $ref: "#/components/responses/User"
+        401:
+          $ref: "#/components/responses/EmptyError"
+        500:
+          $ref: "#/components/responses/Error"
   /self:
     get:
       responses:
         200:
-          $ref: '#/components/responses/User'
+          $ref: "#/components/responses/User"
         404:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
   /string-array:
     get:
       responses:
         200:
-          $ref: '#/components/responses/StringArray'
+          $ref: "#/components/responses/StringArray"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
   /tag/{name}:
     parameters:
       - in: path
@@ -185,23 +201,23 @@ paths:
     get:
       responses:
         200:
-          $ref: '#/components/responses/Tag'
+          $ref: "#/components/responses/Tag"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
     put:
       requestBody:
-        $ref: '#/components/requestBodies/CreateTag'
+        $ref: "#/components/requestBodies/CreateTag"
       responses:
         201:
-          $ref: '#/components/responses/CreateTag'
+          $ref: "#/components/responses/CreateTag"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
     delete:
       responses:
         204:
           description: No Content
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
   /query-params:
     parameters:
       - in: query
@@ -247,7 +263,7 @@ paths:
                 required:
                   - status
         default:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
   /path-params/{simple_primitive}/{simple_obj_flat}/{simple_arr_flat}/{simple_obj_explode*}/{simple_arr_explode*}/{.label_primitive}/{.label_obj_flat}/{.label_arr_flat}/{.label_obj_explode*}/{.label_arr_explode*}/{;matrix_primitive}/{;matrix_obj_flat}/{;matrix_arr_flat}/{;matrix_obj_explode*}/{;matrix_arr_explode*}:
     parameters:
       - in: path
@@ -371,89 +387,89 @@ paths:
                 required:
                   - status
         default:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
   /default-as-error:
     get:
       responses:
         default:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
   /anyMethod:
     get:
       responses:
         200:
-          $ref: '#/components/responses/User'
+          $ref: "#/components/responses/User"
         404:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
     put:
       responses:
         200:
-          $ref: '#/components/responses/User'
+          $ref: "#/components/responses/User"
         404:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
     post:
       responses:
         200:
-          $ref: '#/components/responses/User'
+          $ref: "#/components/responses/User"
         404:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
     delete:
       responses:
         200:
-          $ref: '#/components/responses/User'
+          $ref: "#/components/responses/User"
         404:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
     options:
       responses:
         200:
-          $ref: '#/components/responses/User'
+          $ref: "#/components/responses/User"
         404:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
     head:
       responses:
         200:
-          $ref: '#/components/responses/User'
+          $ref: "#/components/responses/User"
         404:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
     patch:
       responses:
         200:
-          $ref: '#/components/responses/User'
+          $ref: "#/components/responses/User"
         404:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
     trace:
       responses:
         200:
-          $ref: '#/components/responses/User'
+          $ref: "#/components/responses/User"
         404:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
         500:
-          $ref: '#/components/responses/Error'
+          $ref: "#/components/responses/Error"
   /contact:
     put:
       requestBody:
-        $ref: '#/components/requestBodies/Contact'
+        $ref: "#/components/requestBodies/Contact"
       responses:
         200:
-          $ref: '#/components/responses/Contact'
+          $ref: "#/components/responses/Contact"
   /multiple-response-content:
     get:
       responses:
         200:
-          $ref: '#/components/responses/MultipleResponse'
+          $ref: "#/components/responses/MultipleResponse"
 components:
   schemas:
     Post:
@@ -538,7 +554,7 @@ components:
     CreateReply:
       required: true
       content:
-        'application/json;charset=utf-8':
+        "application/json;charset=utf-8":
           schema:
             type: object
             properties:
@@ -589,7 +605,7 @@ components:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/Post'
+              $ref: "#/components/schemas/Post"
     CreatePost:
       content:
         application/json:
@@ -612,7 +628,7 @@ components:
               - status
     CreateReply:
       content:
-        'application/json;charset=utf-8':
+        "application/json;charset=utf-8":
           schema:
             type: object
             properties:
@@ -664,23 +680,22 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Post'
+            $ref: "#/components/schemas/Post"
     StringArray:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/StringArray'
+            $ref: "#/components/schemas/StringArray"
     Tag:
       content:
         application/json:
           schema:
-            type:
-              string
+            type: string
     User:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/User'
+            $ref: "#/components/schemas/User"
     MultipleResponse:
       content:
         application/json:
@@ -700,12 +715,12 @@ components:
           schema:
             type: object
             properties:
-              '@id':
+              "@id":
                 type: string
               email:
                 type: string
               name:
                 type: string
             required:
-              - '@id'
+              - "@id"
               - email

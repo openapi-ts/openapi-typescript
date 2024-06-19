@@ -64,7 +64,7 @@ slug_size:
   required: true
   schema:
     type: string
-  example: basic-xxs
+  example: apps-s-1vcpu-0.5gb
 
 component:
   description: An optional component name. If set, logs will be limited to this component

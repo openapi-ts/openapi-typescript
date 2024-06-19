@@ -1,0 +1,19 @@
+type: object
+properties:
+  endpoint:
+    type: string
+    description: >-
+      OpenSearch API Endpoint. Only HTTPS is supported. Format: `https://<host>:<port>`.
+    example: "https://example.com:9300"
+  basic_auth:
+    $ref: app_log_destination_open_search_spec_basic_auth.yml
+  index_name:
+    type: string
+    default: logs
+    description: >-
+      The index name to use for the logs. If not set, the default index name
+      is "logs".
+    example: logs
+description: OpenSearch configuration.
+required:
+  - endpoint

@@ -1,4 +1,9 @@
 properties:
+  bandwidth_allowance_gib:
+    format: int64
+    title: The bandwidth allowance in GiB for the instance size
+    type: string
+    example: "1" 
   cpu_type:
     $ref: instance_size_cpu_type.yml
   cpus:
@@ -6,6 +11,10 @@ properties:
     title: The number of allotted vCPU cores
     type: string
     example: "3"
+  deprecation_intent:
+    title: Indicates if the instance size is intended for deprecation
+    type: boolean
+    example: true
   memory_bytes:
     format: int64
     title: The allotted memory in bytes
@@ -15,10 +24,18 @@ properties:
     title: A human-readable name of the instance size
     type: string
     example: name
+  scalable:
+    title: Indicates if the instance size can enable autoscaling
+    type: boolean
+    example: false
+  single_instance_only:
+    title: Indicates if the instance size allows more than one instance
+    type: boolean
+    example: true
   slug:
     title: The slug of the instance size
     type: string
-    example: basic
+    example: apps-s-1vcpu-1gb
   tier_downgrade_to:
     title: The slug of the corresponding downgradable instance size on the lower tier
     type: string

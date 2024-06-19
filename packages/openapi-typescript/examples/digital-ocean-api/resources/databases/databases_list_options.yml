@@ -8,6 +8,8 @@ description: >-
 
   The result will be a JSON object with an `options` key.
 
+  OpenSearch is in closed beta. To request access, [contact support](https://cloudsupport.digitalocean.com).
+
 tags:
   - Databases
 
