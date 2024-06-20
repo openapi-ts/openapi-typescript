@@ -15,11 +15,7 @@ type UseQueryOptions<T> = ParamsOption<T> &
 // paths
 const GET_FACT = "/fact";
 
-export function getFact({
-  params,
-  body,
-  reactQuery,
-}: UseQueryOptions<paths[typeof GET_FACT]["get"]>) {
+export function getFact({ params, body, reactQuery }: UseQueryOptions<paths[typeof GET_FACT]["get"]>) {
   return useQuery({
     ...reactQuery,
     queryKey: [

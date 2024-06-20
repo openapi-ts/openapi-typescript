@@ -1184,6 +1184,59 @@ describe("client", () => {
         expect(() => client.GET("/blogposts")).not.toThrow();
         expect(called).toBe(false);
       });
+
+      it("preserves (and can safely add) headers", async () => {
+        const { getRequest } = useMockRequestHandler({
+          baseUrl,
+          method: "get",
+          path: "/blogposts",
+          status: 200,
+          body: { success: true },
+        });
+
+        const client = createClient<paths>({
+          baseUrl,
+          headers: {
+            createClient: "exists",
+          },
+        });
+
+        client.use(
+          {
+            onRequest({ request }) {
+              // assert headers are kept in middleware onRequest
+              expect(request.headers.get("createClient")).toBe("exists");
+              expect(request.headers.get("onFetch")).toBe("exists");
+              request.headers.set("onRequest", "exists");
+              return request;
+            },
+            onResponse({ request }) {
+              // assert headers are (still) kept in onResponse
+              expect(request.headers.get("createClient")).toBe("exists");
+              expect(request.headers.get("onFetch")).toBe("exists");
+              expect(request.headers.get("onRequest")).toBe("exists");
+            },
+          },
+          {
+            onRequest({ request }) {
+              // also assert a 2nd middleware (that doesn’t modify request) still sees headers
+              expect(request.headers.get("createClient")).toBe("exists");
+              expect(request.headers.get("onFetch")).toBe("exists");
+              expect(request.headers.get("onRequest")).toBe("exists");
+            },
+          },
+        );
+
+        await client.GET("/blogposts", {
+          headers: { onFetch: "exists" },
+        });
+
+        // assert server received them in final request
+        const req = getRequest();
+        expect(req.headers.get("createClient")).toBe("exists");
+        expect(req.headers.get("onFetch")).toBe("exists");
+        expect(req.headers.get("onRequest")).toBe("exists");
+      });
     });
   });
 
