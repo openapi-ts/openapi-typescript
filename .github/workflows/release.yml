@@ -9,7 +9,8 @@ jobs:
   changelog:
     runs-on: ubuntu-latest
     permissions:
-      actions: write
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
