@@ -10,7 +10,7 @@ Node.js API 对于处理动态创建的模式或在较大应用程序上下文�
 ## 安装
 
 ```bash
-npm i --save-dev openapi-typescript@next typescript
+npm i --save-dev openapi-typescript typescript
 ```
 
 ::: tip 推荐
