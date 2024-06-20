@@ -17,7 +17,7 @@ New to OpenAPI? Speakeasy’s [Intro to OpenAPI](https://www.speakeasyapi.dev/op
 
 ## Features
 
-- ✅ Supports OpenAPI 3.0 and 3.1 (including advanced features like [discriminators](https://spec.openapis.org/oas/v3.1.0#discriminator-object)
+- ✅ Supports OpenAPI 3.0 and 3.1 (including advanced features like [discriminators](https://spec.openapis.org/oas/v3.1.0#discriminator-object))
 - ✅ Generate **runtime-free types** that outperform old school codegen
 - ✅ Load schemas from YAML or JSON, locally or remotely
 - ✅ Generate types for even huge schemas within milliseconds
