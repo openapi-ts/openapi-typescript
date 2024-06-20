@@ -121,3 +121,9 @@ This results in more explicit typechecking of array lengths.
 _Note: this has a reasonable limit, so for example `maxItems: 100` would simply flatten back down to `string[];`_
 
 _Thanks, [@kgtkr](https://github.com/kgtkr)!_
+
+## Proxy support
+
+When the use of a corporate proxy is required to access the internet and download external definitions, please configure
+this using the standard environment variable ```HTTP_PROXY```. Make sure this environment variable is set when
+running ```openapi-typescript```

@@ -7,6 +7,13 @@ import glob from "fast-glob";
 import parser from "yargs-parser";
 import openapiTS from "../dist/index.js";
 import { c, error } from "../dist/utils.js";
+import { ProxyAgent, setGlobalDispatcher } from 'undici';
+
+// Corporate proxy support
+if (process.env.HTTP_PROXY) {
+  const proxyAgent = new ProxyAgent(process.env.HTTP_PROXY);
+  setGlobalDispatcher(proxyAgent);
+}
 
 const HELP = `Usage
   $ openapi-typescript [input] [options]
