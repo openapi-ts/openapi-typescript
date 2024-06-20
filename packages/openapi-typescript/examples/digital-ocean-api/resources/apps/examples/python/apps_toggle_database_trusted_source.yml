@@ -1,0 +1,17 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  app_id = "123e4567-e89b-12d3-a456-426614174000"
+  component_name = "database"
+  
+  req = {
+     "enable": True
+  }
+
+  toggle_resp = client.apps.toggle_database_trusted_source(app_id=app_id, component_name=component_name, body=req)
+
+  print(toggle_resp)

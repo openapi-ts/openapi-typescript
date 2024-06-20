@@ -1,7 +1,12 @@
 import { HttpResponse, type StrictResponse } from "msw";
-import createClient, { type Middleware, type MiddlewareRequest, type QuerySerializerOptions } from "../src/index.js";
-import type { paths } from "./fixtures/api.js";
+import { afterAll, beforeAll, describe, expect, expectTypeOf, it } from "vitest";
+import createClient, {
+  type Middleware,
+  type MiddlewareCallbackParams,
+  type QuerySerializerOptions,
+} from "../src/index.js";
 import { server, baseUrl, useMockRequestHandler, toAbsoluteURL } from "./fixtures/mock-server.js";
+import type { paths } from "./fixtures/api.js";
 
 beforeAll(() => {
   server.listen({
@@ -53,12 +58,17 @@ describe("client", () => {
       // … is present if error is undefined
       if (!dataRes.error) {
         expect(dataRes.data[0]).toBe("one");
+      } else {
+        expect(() => dataRes.error.code).toThrow(); // type test: assert inverse of above infers type correctly
       }
 
       // … means data is undefined
       if (dataRes.data) {
         // @ts-expect-error
         expect(() => dataRes.error.message).toThrow();
+      } else {
+        // @ts-expect-error
+        expect(() => dataRes.data[0]).toThrow(); // type test: assert inverse of above infers type correctly
       }
 
       // error
@@ -84,6 +94,48 @@ describe("client", () => {
       if (errorRes.error) {
         // @ts-expect-error
         expect(() => errorRes.data[0]).toThrow();
+      }
+    });
+
+    test("infers correct data type on mismatched media", async () => {
+      const client = createClient<paths>({ baseUrl });
+      const result = await client.GET("/mismatched-data");
+      if (result.data) {
+        expectTypeOf(result.data).toEqualTypeOf<
+          | {
+              email: string;
+              age?: number;
+              avatar?: string;
+              created_at: number;
+              updated_at: number;
+            }
+          | {
+              title: string;
+              body: string;
+              publish_date?: number;
+            }
+        >();
+      } else {
+        expectTypeOf(result.error).extract<{ code: number }>().toEqualTypeOf<{ code: number; message: string }>();
+        expectTypeOf(result.error).exclude<{ code: number }>().toEqualTypeOf<never>();
+      }
+    });
+
+    test("infers correct error type on mismatched media", async () => {
+      const client = createClient<paths>({ baseUrl });
+      const result = await client.GET("/mismatched-errors");
+      if (result.data) {
+        expectTypeOf(result.data).toEqualTypeOf<{
+          email: string;
+          age?: number;
+          avatar?: string;
+          created_at: number;
+          updated_at: number;
+        }>();
+      } else {
+        expectTypeOf(result.data).toBeUndefined();
+        expectTypeOf(result.error).extract<{ code: number }>().toEqualTypeOf<{ code: number; message: string }>();
+        expectTypeOf(result.error).exclude<{ code: number }>().toEqualTypeOf<never>();
       }
     });
 
@@ -122,8 +174,10 @@ describe("client", () => {
 
           // expect error on unknown property in 'params'
           await client.GET("/blogposts/{post_id}", {
-            // @ts-expect-error
-            TODO: "this should be an error",
+            params: {
+              // @ts-expect-error
+              TODO: "this should be an error",
+            },
           });
 
           // (no error)
@@ -826,12 +880,40 @@ describe("client", () => {
     });
 
     describe("middleware", () => {
+      it("receives a UUID per-request", async () => {
+        const client = createClient<paths>({ baseUrl });
+
+        const requestIDs: string[] = [];
+        const responseIDs: string[] = [];
+
+        client.use({
+          async onRequest({ id }) {
+            requestIDs.push(id);
+          },
+          async onResponse({ id }) {
+            responseIDs.push(id);
+          },
+        });
+
+        await client.GET("/self");
+        await client.GET("/self");
+        await client.GET("/self");
+
+        // assert IDs matched between requests and responses
+        expect(requestIDs[0]).toBe(responseIDs[0]);
+        expect(requestIDs[1]).toBe(responseIDs[1]);
+        expect(requestIDs[2]).toBe(responseIDs[2]);
+
+        // assert IDs were unique
+        expect(requestIDs[0] !== requestIDs[1] && requestIDs[1] !== requestIDs[2]).toBe(true);
+      });
+
       it("can modify request", async () => {
         const client = createClient<paths>({ baseUrl });
         client.use({
-          async onRequest(req) {
+          async onRequest({ request }) {
             return new Request("https://foo.bar/api/v1", {
-              ...req,
+              ...request,
               method: "OPTIONS",
               headers: { foo: "bar" },
             });
@@ -852,29 +934,6 @@ describe("client", () => {
         expect(req.url).toBe("https://foo.bar/api/v1");
         expect(req.method).toBe("OPTIONS");
         expect(req.headers.get("foo")).toBe("bar");
-      });
-
-      it("can attach custom properties to request", async () => {
-        function createCustomFetch(data: any) {
-          const response = {
-            clone: () => ({ ...response }),
-            headers: new Headers(),
-            json: async () => data,
-            status: 200,
-            ok: true,
-          } as Response;
-          return async (input: Request) => {
-            expect(input).toHaveProperty("customProperty", "value");
-            return Promise.resolve(response);
-          };
-        }
-
-        const customFetch = createCustomFetch({});
-        const client = createClient<paths>({ fetch: customFetch, baseUrl });
-
-        client.GET("/self", {
-          customProperty: "value",
-        });
       });
 
       it("can modify response", async () => {
@@ -898,14 +957,14 @@ describe("client", () => {
         const client = createClient<paths>({ baseUrl });
         client.use({
           // convert date string to unix time
-          async onResponse(res) {
-            const body = await res.json();
+          async onResponse({ response }) {
+            const body = await response.json();
             body.created_at = toUnix(body.created_at);
             body.updated_at = toUnix(body.updated_at);
-            const headers = new Headers(res.headers);
+            const headers = new Headers(response.headers);
             headers.set("middleware", "value");
             return new Response(JSON.stringify(body), {
-              ...res,
+              ...response,
               status: 201,
               headers,
             });
@@ -942,39 +1001,39 @@ describe("client", () => {
         // it received the end result of the previous middleware step
         client.use(
           {
-            async onRequest(req) {
-              req.headers.set("step", "A");
-              return req;
+            async onRequest({ request }) {
+              request.headers.set("step", "A");
+              return request;
             },
-            async onResponse(res) {
-              if (res.headers.get("step") === "B") {
-                const headers = new Headers(res.headers);
+            async onResponse({ response }) {
+              if (response.headers.get("step") === "B") {
+                const headers = new Headers(response.headers);
                 headers.set("step", "A");
-                return new Response(res.body, { ...res, headers });
+                return new Response(response.body, { ...response, headers });
               }
             },
           },
           {
-            async onRequest(req) {
-              req.headers.set("step", "B");
-              return req;
+            async onRequest({ request }) {
+              request.headers.set("step", "B");
+              return request;
             },
-            async onResponse(res) {
-              const headers = new Headers(res.headers);
+            async onResponse({ response }) {
+              const headers = new Headers(response.headers);
               headers.set("step", "B");
-              if (res.headers.get("step") === "C") {
-                return new Response(res.body, { ...res, headers });
+              if (response.headers.get("step") === "C") {
+                return new Response(response.body, { ...response, headers });
               }
             },
           },
           {
-            onRequest(req) {
-              req.headers.set("step", "C");
-              return req;
+            onRequest({ request }) {
+              request.headers.set("step", "C");
+              return request;
             },
-            onResponse(res) {
-              res.headers.set("step", "C");
-              return res;
+            onResponse({ response }) {
+              response.headers.set("step", "C");
+              return response;
             },
           },
         );
@@ -1003,7 +1062,7 @@ describe("client", () => {
           baseUrl: "https://api.foo.bar/v1/",
         });
         client.use({
-          onRequest(_, options) {
+          onRequest({ options }) {
             requestBaseUrl = options.baseUrl;
             return undefined;
           },
@@ -1026,9 +1085,8 @@ describe("client", () => {
           baseUrl: "https://api.foo.bar/v1/",
         });
         client.use({
-          onResponse(res, options, req) {
-            expect(req).toBeInstanceOf(Request);
-
+          onResponse({ request }) {
+            expect(request).toBeInstanceOf(Request);
             return undefined;
           },
         });
@@ -1060,15 +1118,15 @@ describe("client", () => {
         };
 
         let receivedPath = "";
-        let receivedParams: MiddlewareRequest["params"] = {};
+        let receivedParams: MiddlewareCallbackParams["params"] = {};
 
         const client = createClient<paths>({
           baseUrl: "https://api.foo.bar/v1/",
         });
         client.use({
-          onRequest(req) {
-            receivedPath = req.schemaPath;
-            receivedParams = req.params;
+          onRequest({ schemaPath, params }) {
+            receivedPath = schemaPath;
+            receivedParams = params;
             return undefined;
           },
         });
@@ -1182,6 +1240,29 @@ describe("client", () => {
 
       const cookies = getRequestCookies();
       expect(cookies).toEqual({ session: "1234" });
+    });
+
+    it("can attach custom properties to request", async () => {
+      function createCustomFetch(data: any) {
+        const response = {
+          clone: () => ({ ...response }),
+          headers: new Headers(),
+          json: async () => data,
+          status: 200,
+          ok: true,
+        } as Response;
+        return async (input: string, requestInit?: RequestInit) => {
+          expect(requestInit).toHaveProperty("customProperty", "value");
+          return Promise.resolve(response);
+        };
+      }
+
+      const customFetch = createCustomFetch({});
+      const client = createClient<paths>({ fetch: customFetch, baseUrl });
+
+      client.GET("/self", {
+        customProperty: "value",
+      });
     });
   });
 
@@ -1681,10 +1762,10 @@ describe("examples", () => {
   it("auth middleware", async () => {
     let accessToken: string | undefined = undefined;
     const authMiddleware: Middleware = {
-      async onRequest(req) {
+      async onRequest({ request }) {
         if (accessToken) {
-          req.headers.set("Authorization", `Bearer ${accessToken}`);
-          return req;
+          request.headers.set("Authorization", `Bearer ${accessToken}`);
+          return request;
         }
       },
     };

@@ -1,5 +1,12 @@
 # openapi-typescript-helpers
 
+## 0.0.9
+
+### Patch Changes
+
+- Improved handling of `SuccessResponse<T>` and `ErrorResponse<T>`
+- Changed handling of `ErrorResponse<T>` to produce one and only one error type (rather than an impossible union)
+
 ## 0.0.8
 
 ### Patch Changes

@@ -54,7 +54,7 @@
     "build:cjs": "esbuild --bundle src/index.js --format=cjs --outfile=dist/cjs/index.cjs && cp dist/index.d.ts dist/cjs/index.d.cts",
     "format": "biome format . --write",
     "lint": "biome check .",
-    "generate-types": "node ./scripts/generate-types.js",
+    "generate-types": "openapi-typescript test/fixtures/api.yaml -o test/fixtures/api.d.ts",
     "pretest": "pnpm run generate-types",
     "test": "pnpm run \"/^test:/\"",
     "test:js": "vitest run",
@@ -62,15 +62,16 @@
     "version": "pnpm run prepare && pnpm run build"
   },
   "dependencies": {
+    "nanoid": "^5.0.7",
     "openapi-typescript-helpers": "workspace:^"
   },
   "devDependencies": {
-    "axios": "^1.6.8",
+    "axios": "^1.7.2",
     "del-cli": "^5.1.0",
     "esbuild": "^0.20.2",
     "execa": "^8.0.1",
-    "msw": "^2.3.0",
-    "openapi-typescript": "^6.x",
+    "msw": "^2.3.1",
+    "openapi-typescript": "workspace:^",
     "openapi-typescript-codegen": "^0.25.0",
     "openapi-typescript-fetch": "^2.0.0",
     "superagent": "^9.0.2",

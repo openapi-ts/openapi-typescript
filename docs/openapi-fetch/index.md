@@ -59,12 +59,6 @@ Notice there are no generics, and no manual typing. Your endpoint’s request an
 
 ## Setup
 
-::: warning
-
-openapi-fetch currently requires openapi-typescript@6.x (latest). An upcoming breaking release will support openapi-typescript@7.x.
-
-:::
-
 Install this library along with [openapi-typescript](/introduction):
 
 ```bash

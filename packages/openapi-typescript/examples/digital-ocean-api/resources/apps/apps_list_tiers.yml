@@ -1,8 +1,13 @@
 operationId: apps_list_tiers
 
+deprecated: true
+
 summary: List App Tiers
 
-description: List all app tiers.
+description: | 
+  List all app tiers. 
+  This endpoint has been deprecated because app tiers are not tied to instance sizes anymore. 
+  The concept of tiers will be retired in the future.
 
 tags:
 - Apps

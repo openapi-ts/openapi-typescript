@@ -12,7 +12,7 @@ apps:
                 branch: main
               run_command: heroku-php-apache2
               environment_slug: php
-              instance_size_slug: basic-xxs
+              instance_size_slug: apps-s-1vcpu-0.5gb
               instance_count: 1
               http_port: 8080
               routes:
@@ -36,7 +36,7 @@ apps:
                   branch: main
                 run_command: heroku-php-apache2
                 environment_slug: php
-                instance_size_slug: basic-xxs
+                instance_size_slug: apps-s-1vcpu-0.5gb
                 instance_count: 1
                 http_port: 8080
                 routes:
@@ -65,7 +65,7 @@ apps:
                   branch: main
                 run_command: heroku-php-apache2
                 environment_slug: php
-                instance_size_slug: basic-xxs
+                instance_size_slug: apps-s-1vcpu-0.5gb
                 instance_count: 1
                 http_port: 8080
                 routes:
@@ -192,6 +192,13 @@ apps:
               name: configuration-alert
               started_at: '2023-01-30T22:15:46.278987808Z'
               status: SUCCESS
+        dedicated_ips:
+          - ip: 192.168.1.1
+            id: c24d8f48-3bc4-49f5-8ca0-58e8164427ac
+            status: ASSIGNED
+          - ip: 192.168.1.2
+            id: 4768fb15-2837-4dda-9be5-3951df4bc3d0
+            status: ASSIGNED
     links:
       pages: {}
     meta:
@@ -212,7 +219,7 @@ app:
             branch: main
           run_command: bin/sample-golang
           environment_slug: go
-          instance_size_slug: basic-xxs
+          instance_size_slug: apps-s-1vcpu-0.5gb
           instance_count: 1
           http_port: 8080
           routes:
@@ -236,7 +243,7 @@ app:
               branch: main
             run_command: bin/sample-golang
             environment_slug: go
-            instance_size_slug: basic-xxs
+            instance_size_slug: apps-s-1vcpu-0.5gb
             instance_count: 1
             http_port: 8080
             routes:
@@ -320,7 +327,7 @@ app:
                 branch: main
               run_command: heroku-php-apache2
               environment_slug: php
-              instance_size_slug: basic-xxs
+              instance_size_slug: apps-s-1vcpu-0.5gb
               instance_count: 1
               http_port: 8080
               routes:
@@ -414,6 +421,13 @@ app:
             name: configuration-alert
             started_at: '0001-01-01T00:00:00'
             status: PENDING
+      dedicated_ips:
+        - ip: 192.168.1.1
+          id: c24d8f48-3bc4-49f5-8ca0-58e8164427ac
+          status: ASSIGNED
+        - ip: 192.168.1.2
+          id: 4768fb15-2837-4dda-9be5-3951df4bc3d0
+          status: ASSIGNED
 
 
 deployments:
@@ -429,7 +443,7 @@ deployments:
                 branch: branch
               run_command: bin/sample-golang
               environment_slug: go
-              instance_size_slug: basic-xxs
+              instance_size_slug: apps-s-1vcpu-0.5gb
               instance_count: 2
               routes:
                 - path: "/"
@@ -500,7 +514,7 @@ deployment:
               branch: branch
             run_command: bin/sample-golang
             environment_slug: go
-            instance_size_slug: basic-xxs
+            instance_size_slug: apps-s-1vcpu-0.5gb
             instance_count: 2
             routes:
               - path: "/"
@@ -642,109 +656,157 @@ regions:
 instance_sizes:
   value:
     instance_sizes:
-    - name: Basic XXS
-      slug: basic-xxs
+    - name: Shared 1VCPU 0.5GB
+      slug: apps-s-1vcpu-0.5gb
       cpu_type: SHARED
       cpus: '1'
       memory_bytes: '536870912'
       usd_per_month: '5.00'
       usd_per_second: '0.000002066799'
       tier_slug: basic
-      tier_upgrade_to: professional-xs
-    - name: Basic XS
-      slug: basic-xs
+      single_instance_only: true
+      bandwidth_allowance_gib: '50'
+    - name: Shared 1VCPU 1GB Fixed
+      slug: apps-s-1vcpu-1gb-fixed
       cpu_type: SHARED
       cpus: '1'
       memory_bytes: '1073741824'
       usd_per_month: '10.00'
       usd_per_second: '0.000004133598'
       tier_slug: basic
-      tier_upgrade_to: professional-xs
-    - name: Basic S
-      slug: basic-s
-      cpu_type: SHARED
-      cpus: '1'
-      memory_bytes: '2147483648'
-      usd_per_month: '20.00'
-      usd_per_second: '0.000008267196'
-      tier_slug: basic
-      tier_upgrade_to: professional-s
-    - name: Basic M
-      slug: basic-m
-      cpu_type: SHARED
-      cpus: '2'
-      memory_bytes: '4294967296'
-      usd_per_month: '40.00'
-      usd_per_second: '0.000016534392'
-      tier_slug: basic
-      tier_upgrade_to: professional-m
-    - name: Professional XS
-      slug: professional-xs
+      single_instance_only: true
+      bandwidth_allowance_gib: '100'
+    - name: Shared 1VCPU 1GB
+      slug: apps-s-1vcpu-1gb
       cpu_type: SHARED
       cpus: '1'
       memory_bytes: '1073741824'
       usd_per_month: '12.00'
       usd_per_second: '0.000004960317'
       tier_slug: professional
-      tier_downgrade_to: basic-xs
-    - name: Professional S
-      slug: professional-s
+      bandwidth_allowance_gib: '150'
+    - name: Shared 1VCPU 2GB
+      slug: apps-s-1vcpu-2gb
       cpu_type: SHARED
       cpus: '1'
       memory_bytes: '2147483648'
       usd_per_month: '25.00'
       usd_per_second: '0.000010333995'
       tier_slug: professional
-      tier_downgrade_to: basic-s
-    - name: Professional M
-      slug: professional-m
+      bandwidth_allowance_gib: '200'
+    - name: Shared 2VCPU 4GB
+      slug: apps-s-2vcpu-4gb
       cpu_type: SHARED
       cpus: '2'
       memory_bytes: '4294967296'
       usd_per_month: '50.00'
       usd_per_second: '0.000020667989'
       tier_slug: professional
-      tier_downgrade_to: basic-s
-    - name: Professional 1L
-      slug: professional-1l
+      bandwidth_allowance_gib: '250'
+    - name: Dedicated 1VCPU 0.5GB
+      slug: apps-d-1vcpu-0.5gb
+      cpu_type: DEDICATED
+      cpus: '1'
+      memory_bytes: '536870912'
+      usd_per_month: '29.00'
+      usd_per_second: '0.000011987434'
+      tier_slug: professional
+      scalable: true
+      bandwidth_allowance_gib: '100'
+    - name: Dedicated 1VCPU 1GB
+      slug: apps-d-1vcpu-1gb
+      cpu_type: DEDICATED
+      cpus: '1'
+      memory_bytes: '1073741824'
+      usd_per_month: '34.00'
+      usd_per_second: '0.000014054233'
+      tier_slug: professional
+      scalable: true
+      bandwidth_allowance_gib: '200'
+    - name: Dedicated 1VCPU 2GB
+      slug: apps-d-1vcpu-2gb
+      cpu_type: DEDICATED
+      cpus: '1'
+      memory_bytes: '2147483648'
+      usd_per_month: '39.00'
+      usd_per_second: '0.000016121032'
+      tier_slug: professional
+      scalable: true
+      bandwidth_allowance_gib: '300'
+    - name: Dedicated 1VCPU 4GB
+      slug: apps-d-1vcpu-4gb
       cpu_type: DEDICATED
       cpus: '1'
       memory_bytes: '4294967296'
-      usd_per_month: '75.00'
-      usd_per_second: '0.000031001984'
+      usd_per_month: '49.00'
+      usd_per_second: '0.000020254630'
       tier_slug: professional
-      tier_downgrade_to: basic-m
-    - name: Professional L
-      slug: professional-l
+      scalable: true
+      bandwidth_allowance_gib: '400'
+    - name: Dedicated 2VCPU 4GB
+      slug: apps-d-2vcpu-4gb
+      cpu_type: DEDICATED
+      cpus: '2'
+      memory_bytes: '4294967296'
+      usd_per_month: '78.00'
+      usd_per_second: '0.000032242063'
+      tier_slug: professional
+      scalable: true
+      bandwidth_allowance_gib: '500'
+    - name: Dedicated 2VCPU 8GB
+      slug: apps-d-2vcpu-8gb
       cpu_type: DEDICATED
       cpus: '2'
       memory_bytes: '8589934592'
-      usd_per_month: '150.00'
-      usd_per_second: '0.000062003968'
+      usd_per_month: '98.00'
+      usd_per_second: '0.000040509259'
       tier_slug: professional
-      tier_downgrade_to: basic-s
-    - name: Professional XL
-      slug: professional-xl
+      scalable: true
+      bandwidth_allowance_gib: '600'
+    - name: Dedicated 4VCPU 8GB
+      slug: apps-d-4vcpu-8gb
+      cpu_type: DEDICATED
+      cpus: '4'
+      memory_bytes: '8589934592'
+      usd_per_month: '156.00'
+      usd_per_second: '0.000064484127'
+      tier_slug: professional
+      scalable: true
+      bandwidth_allowance_gib: '700'
+    - name: Dedicated 4VCPU 16GB
+      slug: apps-d-4vcpu-16gb
       cpu_type: DEDICATED
       cpus: '4'
       memory_bytes: '17179869184'
-      usd_per_month: '300.00'
-      usd_per_second: '0.000124007937'
+      usd_per_month: '196.00'
+      usd_per_second: '0.000081018519'
       tier_slug: professional
-      tier_downgrade_to: basic-s
+      scalable: true
+      bandwidth_allowance_gib: '800'
+    - name: Dedicated 8VCPU 32GB
+      slug: apps-d-8vcpu-32gb
+      cpu_type: DEDICATED
+      cpus: '8'
+      memory_bytes: '34359738368'
+      usd_per_month: '392.00'
+      usd_per_second: '0.000162037037'
+      tier_slug: professional
+      scalable: true
+      bandwidth_allowance_gib: '900'
 
 instance_size:
   value:
     instance_size:
-      name: Basic XXS
-      slug: basic-xxs
+      name: Shared 1VCPU 0.5GB
+      slug: apps-s-1vcpu-0.5gb
       cpu_type: SHARED
       cpus: '1'
       memory_bytes: '536870912'
       usd_per_month: '5.00'
       usd_per_second: '0.000002066799'
       tier_slug: basic
-      tier_upgrade_to: professional-xs
+      single_instance_only: true
+      bandwidth_allowance_gib: '50'
 
 components:
   value:
@@ -776,14 +838,13 @@ propose:
           branch: branch
         run_command: bin/sample-golang
         environment_slug: go
-        instance_size_slug: basic-xxs
+        instance_size_slug: apps-s-1vcpu-0.5gb
         instance_count: 1
         http_port: 8080
         routes:
         - path: "/"
       region: ams
     app_cost: 5
-    app_tier_upgrade_cost: 17
 
 alerts:
   value:

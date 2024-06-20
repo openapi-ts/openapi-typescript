@@ -1,0 +1,5 @@
+type: object
+properties:
+  isEnabled:
+    type: boolean
+    description: Indicates if the trusted source status is enabled

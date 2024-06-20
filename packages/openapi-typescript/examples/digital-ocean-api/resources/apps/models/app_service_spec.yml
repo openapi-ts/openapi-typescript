@@ -40,5 +40,8 @@ allOf:
       items:
         $ref: app_route_spec.yml
 
+    termination:
+      $ref: app_service_spec_termination.yml
+
   required:
   - name

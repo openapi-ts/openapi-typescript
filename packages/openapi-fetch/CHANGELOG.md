@@ -1,5 +1,16 @@
 # openapi-fetch
 
+## 0.10.0
+
+### Minor Changes
+
+- ⚠️ **Breaking Change**: `openapi-typescript@7` is needed to work. You’ll get type errors with `openapi-typescript@6` and below.
+- ⚠️ **Breaking Change**: The Middleware API has changed to be an object rather than `(request, options)` or `(response, options)`. [See Middleware docs](https://openapi-ts.dev/openapi-fetch/middleware-auth) for updated API.
+- ⚠️ **Breaking Change**: The `Content-Type` header is no longer sent by default if a body payload is attached.
+- ⚠️ **Breaking Change**: The `customFetch` type now calls `fetch(input: string, init: RequestInit)` and the types have been updated, rather than `fetch(input: Request)` introduced in `0.9.0`.
+
+- Added `id` to middleware handlers that create a unique ID per-fetch
+
 ## 0.9.8
 
 ### Patch Changes

@@ -18,6 +18,7 @@ allOf:
         - FAILED_DEPLOY: Indicates a job that runs after a component fails to deploy.
       default: UNSPECIFIED
       example: PRE_DEPLOY
-
+    termination:
+      $ref: app_job_spec_termination.yml
   required:
   - name

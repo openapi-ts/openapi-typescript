@@ -56,5 +56,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'image:read'
     - 'snapshot:read'

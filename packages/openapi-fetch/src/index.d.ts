@@ -1,7 +1,6 @@
 import type {
   ErrorResponse,
   FilterKeys,
-  GetValueWithDefault,
   HasRequiredKeys,
   HttpMethod,
   MediaType,
@@ -16,7 +15,7 @@ export interface ClientOptions extends Omit<RequestInit, "headers"> {
   /** set the common root URL for all API requests */
   baseUrl?: string;
   /** custom fetch (defaults to globalThis.fetch) */
-  fetch?: (request: Request) => ReturnType<typeof fetch>;
+  fetch?: (input: string, init?: RequestInit) => Promise<Response>;
   /** global querySerializer */
   querySerializer?: QuerySerializer<unknown> | QuerySerializerOptions;
   /** global bodySerializer */
@@ -68,10 +67,10 @@ type BodyType<T = unknown> = {
   stream: Response["body"];
 };
 export type ParseAs = keyof BodyType;
-export type ParseAsResponse<T, O> = O extends {
+export type ParseAsResponse<T, Options> = Options extends {
   parseAs: ParseAs;
 }
-  ? BodyType<T>[O["parseAs"]]
+  ? BodyType<T>[Options["parseAs"]]
   : T;
 
 export interface DefaultParamsOption {
@@ -96,18 +95,15 @@ export type RequestBodyOption<T> = OperationRequestBodyContent<T> extends never
 
 export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body" | "headers">;
 
-export type FetchResponse<T, O, Media extends MediaType> =
+export type FetchResponse<T, Options, Media extends MediaType> =
   | {
-      data: ParseAsResponse<
-        GetValueWithDefault<SuccessResponse<ResponseObjectMap<T>>, Media, Record<string, never>>,
-        O
-      >;
+      data: ParseAsResponse<SuccessResponse<ResponseObjectMap<T>, Media>, Options>;
       error?: never;
       response: Response;
     }
   | {
       data?: never;
-      error: GetValueWithDefault<ErrorResponse<ResponseObjectMap<T>>, Media, Record<string, never>>;
+      error: ErrorResponse<ResponseObjectMap<T>, Media>;
       response: Response;
     };
 
@@ -128,50 +124,50 @@ export type MergedOptions<T = unknown> = {
   fetch: typeof globalThis.fetch;
 };
 
-export interface MiddlewareRequest extends Request {
+export interface MiddlewareCallbackParams {
+  /** Final URL for this request */
+  readonly url: string;
+  /** Current Request object */
+  request: Request;
   /** The original OpenAPI schema path (including curly braces) */
-  schemaPath: string;
+  readonly schemaPath: string;
   /** OpenAPI parameters as provided from openapi-fetch */
-  params: {
+  readonly params: {
     query?: Record<string, unknown>;
     header?: Record<string, unknown>;
     path?: Record<string, unknown>;
     cookie?: Record<string, unknown>;
   };
+  /** Unique ID for this request */
+  readonly id: string;
+  /** createClient options (read-only) */
+  readonly options: MergedOptions;
 }
-
-export function onRequest(
-  req: MiddlewareRequest,
-  options: MergedOptions,
-): Request | undefined | Promise<Request | undefined>;
-export function onResponse(
-  res: Response,
-  options: MergedOptions,
-  req: MiddlewareRequest,
-): Response | undefined | Promise<Response | undefined>;
 
 export interface Middleware {
-  onRequest?: typeof onRequest;
-  onResponse?: typeof onResponse;
+  onRequest?: (options: MiddlewareCallbackParams) => void | Request | undefined | Promise<Request | undefined | void>;
+  onResponse?: (
+    options: MiddlewareCallbackParams & { response: Response },
+  ) => void | Response | undefined | Promise<Response | undefined | void>;
 }
 
-// biome-ignore lint/complexity/noBannedTypes: though extending "{}" is a bad practice in general, this library relies on complex layers of inference, and extending off generic objects is necessary
-type PathMethods = Partial<Record<HttpMethod, {}>>;
-
 /** This type helper makes the 2nd function param required if params/requestBody are required; otherwise, optional */
-export type MaybeOptionalInit<P extends PathMethods, M extends keyof P> = HasRequiredKeys<
-  FetchOptions<FilterKeys<P, M>>
+export type MaybeOptionalInit<Params extends Record<HttpMethod, {}>, Location extends keyof Params> = HasRequiredKeys<
+  FetchOptions<FilterKeys<Params, Location>>
 > extends never
-  ? FetchOptions<FilterKeys<P, M>> | undefined
-  : FetchOptions<FilterKeys<P, M>>;
+  ? FetchOptions<FilterKeys<Params, Location>> | undefined
+  : FetchOptions<FilterKeys<Params, Location>>;
 
-export type ClientMethod<Paths extends Record<string, PathMethods>, M extends HttpMethod, Media extends MediaType> = <
-  P extends PathsWithMethod<Paths, M>,
-  I extends MaybeOptionalInit<Paths[P], M>,
->(
-  url: P,
-  ...init: HasRequiredKeys<I> extends never ? [(I & { [key: string]: unknown })?] : [I]
-) => Promise<FetchResponse<Paths[P][M], I, Media>>;
+export type ClientMethod<
+  Paths extends Record<string, Record<HttpMethod, {}>>,
+  Method extends HttpMethod,
+  Media extends MediaType,
+> = <Path extends PathsWithMethod<Paths, Method>, Init extends MaybeOptionalInit<Paths[Path], Method>>(
+  url: Path,
+  ...init: HasRequiredKeys<Init> extends never
+    ? [(Init & { [key: string]: unknown })?] // note: the arbitrary [key: string]: addition MUST happen here after all the inference happens (otherwise TS can’t infer if it’s required or not)
+    : [Init & { [key: string]: unknown }]
+) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
 
 export default function createClient<Paths extends {}, Media extends MediaType = MediaType>(
   clientOptions?: ClientOptions,

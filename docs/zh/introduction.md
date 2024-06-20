@@ -33,7 +33,7 @@ _注意：OpenAPI 2.x 在版本 `5.x` 及更早版本中受支持_
 此库需要安装最新版本的 [Node.js](https://nodejs.org)（建议使用 20.x 或更高版本）。安装完成后，在项目中运行以下命令：
 
 ```bash
-npm i -D openapi-typescript@next typescript
+npm i -D openapi-typescript typescript
 ```
 
 ::: tip 强烈推荐

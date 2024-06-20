@@ -24,7 +24,7 @@ introduction: |
   |GET|For simple retrieval of information about your account, Droplets, or environment, you should use the GET method.  The information you request will be returned to you as a JSON object. The attributes defined by the JSON object can be used to form additional requests.  Any request using the GET method is read-only and will not affect any of the objects you are querying.|
   |DELETE|To destroy a resource and remove it from your account and environment, the DELETE method should be used.  This will remove the specified object if it is found.  If it is not found, the operation will return a response indicating that the object was not found. This idempotency means that you do not have to check for a resource's availability prior to issuing a delete command, the final state will be the same regardless of its existence.|
   |PUT|To update the information about a resource in your account, the PUT method is available. Like the DELETE Method, the PUT method is idempotent.  It sets the state of the target using the provided values, regardless of their current values. Requests using the PUT method do not need to check the current attributes of the object.|
-  |PATCH|Some resources support partial modification. In these cases, the PATCH method is available. Unlike PUT which generally requires a complete representation of a resource, a PATCH request is is a set of instructions on how to modify a resource updating only specific attributes.|
+  |PATCH|Some resources support partial modification. In these cases, the PATCH method is available. Unlike PUT which generally requires a complete representation of a resource, a PATCH request is a set of instructions on how to modify a resource updating only specific attributes.|
   |POST|To create a new object, your request should specify the POST method. The POST request includes all of the attributes necessary to create a new object.  When you wish to create a new object, send a POST request to the target endpoint.|
   |HEAD|Finally, to retrieve metadata information, you should use the HEAD method to get the headers.  This returns only the header of what would be returned with an associated GET request. Response headers contain some useful information about your API access and the results that are available for your request. For instance, the headers contain your current rate-limit value and the amount of time available until the limit resets. It also contains metrics about the total number of objects found, pagination information, and the total content length.|
 
@@ -93,7 +93,7 @@ introduction: |
 
   ### Response for a Single Object
 
-  ```
+  ```json
       {
           "droplet": {
               "name": "example.com"
@@ -104,7 +104,7 @@ introduction: |
 
   ### Response for an Object Collection
 
-  ```
+  ```json
       {
           "droplets": [
               {
@@ -135,7 +135,7 @@ introduction: |
 
   ### Sample Meta Object
 
-  ```
+  ```json
       {
           . . .
           "meta": {
@@ -175,7 +175,7 @@ introduction: |
 
   ### Sample Links Object
 
-  ```
+  ```json
       {
           . . .
           "links": {
@@ -233,7 +233,7 @@ introduction: |
   
   `ratelimit-remaining` reaching zero can also indicate that the "burst limit" of 250 
   requests per minute limit was met, even if the 5,000 requests per hour limit was not. 
-  In this case, the 429 error response will include a retry-after header to indicate how 
+  In this case, the 429 error response will include a `retry-after` header to indicate how 
   long to wait (in seconds) until the request may be retried.
 
   You can see the format of the response in the examples. 

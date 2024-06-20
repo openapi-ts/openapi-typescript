@@ -10,21 +10,25 @@ properties:
     example: 2
 
   instance_size_slug:
-    description: 'The instance size to use for this component. Default: `basic-xxs`'
+    description: 'The instance size to use for this component. Default: `apps-s-1vcpu-0.5gb`'
     type: string
     enum:
-    - basic-xxs
-    - basic-xs
-    - basic-s
-    - basic-m
-    - professional-xs
-    - professional-s
-    - professional-m
-    - professional-1l
-    - professional-l
-    - professional-xl
-    default: basic-xxs
-    example: basic-xxs
+    - apps-s-1vcpu-0.5gb
+    - apps-s-1vcpu-1gb-fixed
+    - apps-s-1vcpu-1gb
+    - apps-s-1vcpu-2gb
+    - apps-s-2vcpu-4gb
+    - apps-d-1vcpu-0.5gb
+    - apps-d-1vcpu-1gb
+    - apps-d-1vcpu-2gb
+    - apps-d-1vcpu-4gb
+    - apps-d-2vcpu-4gb
+    - apps-d-2vcpu-8gb
+    - apps-d-4vcpu-8gb
+    - apps-d-4vcpu-16gb
+    - apps-d-8vcpu-32gb
+    default: apps-s-1vcpu-0.5gb
+    example: apps-s-1vcpu-0.5gb
   
   autoscaling:
     description: Configuration for automatically scaling this component based on metrics.

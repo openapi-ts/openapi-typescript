@@ -1,0 +1,5 @@
+type: object
+description: Specification for app egress configurations.
+properties:
+  type:
+    $ref: app_egress_type_spec.yml

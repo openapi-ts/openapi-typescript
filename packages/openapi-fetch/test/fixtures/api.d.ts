@@ -3,602 +3,1053 @@
  * Do not make direct changes to the file.
  */
 
-
 export interface paths {
-  "/comment": {
-    put: {
-      requestBody: components["requestBodies"]["CreateReply"];
-      responses: {
-        201: components["responses"]["CreateReply"];
-        500: components["responses"]["Error"];
-      };
-    };
-  };
-  "/blogposts": {
-    get: {
-      parameters: {
-        query?: {
-          tags?: string[];
-          published?: boolean;
+    "/comment": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-      };
-      responses: {
-        200: components["responses"]["AllPostsGet"];
-        401: components["responses"]["EmptyError"];
-        500: components["responses"]["Error"];
-      };
-    };
-    put: {
-      requestBody: components["requestBodies"]["CreatePost"];
-      responses: {
-        201: components["responses"]["CreatePost"];
-        500: components["responses"]["Error"];
-      };
-    };
-    patch: {
-      requestBody: components["requestBodies"]["PatchPost"];
-      responses: {
-        201: components["responses"]["PatchPost"];
-      };
-    };
-  };
-  "/blogposts/{post_id}": {
-    get: {
-      parameters: {
-        query?: {
-          version?: number;
-          format?: string;
-        };
-        path: {
-          post_id: string;
-        };
-      };
-      responses: {
-        200: components["responses"]["PostGet"];
-        404: components["responses"]["Error"];
-        500: components["responses"]["Error"];
-      };
-    };
-    delete: {
-      parameters: {
-        path: {
-          post_id: string;
-        };
-      };
-      responses: {
-        200: components["responses"]["PostDelete"];
-        500: components["responses"]["Error"];
-      };
-    };
-    patch: {
-      parameters: {
-        path: {
-          post_id: string;
-        };
-      };
-      requestBody: components["requestBodies"]["PatchPost"];
-      responses: {
-        200: components["responses"]["PatchPost"];
-        404: components["responses"]["Error"];
-        500: components["responses"]["Error"];
-      };
-    };
-    parameters: {
-      path: {
-        post_id: string;
-      };
-    };
-  };
-  "/blogposts-optional": {
-    put: {
-      requestBody: components["requestBodies"]["CreatePostOptional"];
-      responses: {
-        201: components["responses"]["CreatePost"];
-        500: components["responses"]["Error"];
-      };
-    };
-  };
-  "/blogposts-optional-inline": {
-    put: {
-      requestBody?: {
-        content: {
-          "application/json": components["schemas"]["Post"];
-        };
-      };
-      responses: {
-        201: components["responses"]["CreatePost"];
-        500: components["responses"]["Error"];
-      };
-    };
-  };
-  "/header-params": {
-    get: operations["getHeaderParams"];
-  };
-  "/media": {
-    put: {
-      requestBody: {
-        content: {
-          "application/json": {
-            /** Format: blob */
-            media: string;
-            name: string;
-          };
-        };
-      };
-      responses: {
-        "2XX": {
-          content: {
-            "application/json": {
-              status: string;
+        get?: never;
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
             };
-          };
-        };
-        "4XX": components["responses"]["Error"];
-      };
-    };
-  };
-  "/self": {
-    get: {
-      responses: {
-        200: components["responses"]["User"];
-        404: components["responses"]["Error"];
-        500: components["responses"]["Error"];
-      };
-    };
-  };
-  "/string-array": {
-    get: {
-      responses: {
-        200: components["responses"]["StringArray"];
-        500: components["responses"]["Error"];
-      };
-    };
-  };
-  "/tag/{name}": {
-    get: {
-      parameters: {
-        path: {
-          name: string;
-        };
-      };
-      responses: {
-        200: components["responses"]["Tag"];
-        500: components["responses"]["Error"];
-      };
-    };
-    put: {
-      parameters: {
-        path: {
-          name: string;
-        };
-      };
-      requestBody: components["requestBodies"]["CreateTag"];
-      responses: {
-        201: components["responses"]["CreateTag"];
-        500: components["responses"]["Error"];
-      };
-    };
-    delete: {
-      parameters: {
-        path: {
-          name: string;
-        };
-      };
-      responses: {
-        /** @description No Content */
-        204: {
-          content: never;
-        };
-        500: components["responses"]["Error"];
-      };
-    };
-    parameters: {
-      path: {
-        name: string;
-      };
-    };
-  };
-  "/query-params": {
-    get: {
-      parameters: {
-        query?: {
-          string?: string;
-          number?: number;
-          boolean?: boolean;
-          array?: string[];
-          object?: {
-            foo: string;
-            bar: string;
-          };
-        };
-      };
-      responses: {
-        200: {
-          content: {
-            "application/json": {
-              status: string;
+            requestBody: components["requestBodies"]["CreateReply"];
+            responses: {
+                201: components["responses"]["CreateReply"];
+                500: components["responses"]["Error"];
             };
-          };
         };
-        default: components["responses"]["Error"];
-      };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    parameters: {
-      query?: {
-        string?: string;
-        number?: number;
-        boolean?: boolean;
-        array?: string[];
-        object?: {
-          foo: string;
-          bar: string;
+    "/blogposts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-      };
-    };
-  };
-  "/path-params/{simple_primitive}/{simple_obj_flat}/{simple_arr_flat}/{simple_obj_explode*}/{simple_arr_explode*}/{.label_primitive}/{.label_obj_flat}/{.label_arr_flat}/{.label_obj_explode*}/{.label_arr_explode*}/{;matrix_primitive}/{;matrix_obj_flat}/{;matrix_arr_flat}/{;matrix_obj_explode*}/{;matrix_arr_explode*}": {
-    get: {
-      parameters: {
-        path: {
-          simple_primitive: string;
-          simple_obj_flat: {
-            a: string;
-            c: string;
-          };
-          simple_arr_flat: number[];
-          simple_obj_explode: {
-            e: string;
-            g: string;
-          };
-          simple_arr_explode: number[];
-          label_primitive: string;
-          label_obj_flat: {
-            a: string;
-            c: string;
-          };
-          label_arr_flat: number[];
-          label_obj_explode: {
-            e: string;
-            g: string;
-          };
-          label_arr_explode: number[];
-          matrix_primitive: string;
-          matrix_obj_flat: {
-            a: string;
-            c: string;
-          };
-          matrix_arr_flat: number[];
-          matrix_obj_explode: {
-            e: string;
-            g: string;
-          };
-          matrix_arr_explode: number[];
-        };
-      };
-      responses: {
-        200: {
-          content: {
-            "application/json": {
-              status: string;
+        get: {
+            parameters: {
+                query?: {
+                    tags?: string[];
+                    published?: boolean;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
             };
-          };
+            requestBody?: never;
+            responses: {
+                200: components["responses"]["AllPostsGet"];
+                500: components["responses"]["Error"];
+            };
         };
-        default: components["responses"]["Error"];
-      };
-    };
-    parameters: {
-      path: {
-        simple_primitive: string;
-        simple_obj_flat: {
-          a: string;
-          c: string;
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: components["requestBodies"]["CreatePost"];
+            responses: {
+                201: components["responses"]["CreatePost"];
+                500: components["responses"]["Error"];
+            };
         };
-        simple_arr_flat: number[];
-        simple_obj_explode: {
-          e: string;
-          g: string;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: components["requestBodies"]["PatchPost"];
+            responses: {
+                201: components["responses"]["PatchPost"];
+            };
         };
-        simple_arr_explode: number[];
-        label_primitive: string;
-        label_obj_flat: {
-          a: string;
-          c: string;
+        trace?: never;
+    };
+    "/blogposts/{post_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                post_id: string;
+            };
+            cookie?: never;
         };
-        label_arr_flat: number[];
-        label_obj_explode: {
-          e: string;
-          g: string;
+        get: {
+            parameters: {
+                query?: {
+                    version?: number;
+                    format?: string;
+                };
+                header?: never;
+                path: {
+                    post_id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: components["responses"]["PostGet"];
+                404: components["responses"]["Error"];
+                500: components["responses"]["Error"];
+            };
         };
-        label_arr_explode: number[];
-        matrix_primitive: string;
-        matrix_obj_flat: {
-          a: string;
-          c: string;
+        put?: never;
+        post?: never;
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    post_id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: components["responses"]["PostDelete"];
+                500: components["responses"]["Error"];
+            };
         };
-        matrix_arr_flat: number[];
-        matrix_obj_explode: {
-          e: string;
-          g: string;
+        options?: never;
+        head?: never;
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    post_id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: components["requestBodies"]["PatchPost"];
+            responses: {
+                200: components["responses"]["PatchPost"];
+                404: components["responses"]["Error"];
+                500: components["responses"]["Error"];
+            };
         };
-        matrix_arr_explode: number[];
-      };
+        trace?: never;
     };
-  };
-  "/default-as-error": {
-    get: {
-      responses: {
-        default: components["responses"]["Error"];
-      };
+    "/blogposts-optional": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: components["requestBodies"]["CreatePostOptional"];
+            responses: {
+                201: components["responses"]["CreatePost"];
+                500: components["responses"]["Error"];
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-  };
-  "/anyMethod": {
-    get: {
-      responses: {
-        200: components["responses"]["User"];
-        404: components["responses"]["Error"];
-        500: components["responses"]["Error"];
-      };
+    "/blogposts-optional-inline": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["Post"];
+                };
+            };
+            responses: {
+                201: components["responses"]["CreatePost"];
+                500: components["responses"]["Error"];
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    put: {
-      responses: {
-        200: components["responses"]["User"];
-        404: components["responses"]["Error"];
-        500: components["responses"]["Error"];
-      };
+    "/header-params": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getHeaderParams"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    post: {
-      responses: {
-        200: components["responses"]["User"];
-        404: components["responses"]["Error"];
-        500: components["responses"]["Error"];
-      };
+    "/media": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** Format: blob */
+                        media: string;
+                        name: string;
+                    };
+                };
+            };
+            responses: {
+                "2XX": {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            status: string;
+                        };
+                    };
+                };
+                "4XX": components["responses"]["Error"];
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    delete: {
-      responses: {
-        200: components["responses"]["User"];
-        404: components["responses"]["Error"];
-        500: components["responses"]["Error"];
-      };
+    "/mismatched-data": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: components["responses"]["User"];
+                201: components["responses"]["PostGet"];
+                500: components["responses"]["Error"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    options: {
-      responses: {
-        200: components["responses"]["User"];
-        404: components["responses"]["Error"];
-        500: components["responses"]["Error"];
-      };
+    "/mismatched-errors": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: components["responses"]["User"];
+                401: components["responses"]["EmptyError"];
+                500: components["responses"]["Error"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    head: {
-      responses: {
-        200: components["responses"]["User"];
-        404: components["responses"]["Error"];
-        500: components["responses"]["Error"];
-      };
+    "/self": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: components["responses"]["User"];
+                404: components["responses"]["Error"];
+                500: components["responses"]["Error"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    patch: {
-      responses: {
-        200: components["responses"]["User"];
-        404: components["responses"]["Error"];
-        500: components["responses"]["Error"];
-      };
+    "/string-array": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: components["responses"]["StringArray"];
+                500: components["responses"]["Error"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-    trace: {
-      responses: {
-        200: components["responses"]["User"];
-        404: components["responses"]["Error"];
-        500: components["responses"]["Error"];
-      };
+    "/tag/{name}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                name: string;
+            };
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    name: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: components["responses"]["Tag"];
+                500: components["responses"]["Error"];
+            };
+        };
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    name: string;
+                };
+                cookie?: never;
+            };
+            requestBody: components["requestBodies"]["CreateTag"];
+            responses: {
+                201: components["responses"]["CreateTag"];
+                500: components["responses"]["Error"];
+            };
+        };
+        post?: never;
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    name: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description No Content */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                500: components["responses"]["Error"];
+            };
+        };
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-  };
-  "/contact": {
-    put: {
-      requestBody: components["requestBodies"]["Contact"];
-      responses: {
-        200: components["responses"]["Contact"];
-      };
+    "/query-params": {
+        parameters: {
+            query?: {
+                string?: string;
+                number?: number;
+                boolean?: boolean;
+                array?: string[];
+                object?: {
+                    foo: string;
+                    bar: string;
+                };
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    string?: string;
+                    number?: number;
+                    boolean?: boolean;
+                    array?: string[];
+                    object?: {
+                        foo: string;
+                        bar: string;
+                    };
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            status: string;
+                        };
+                    };
+                };
+                default: components["responses"]["Error"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-  };
-  "/multiple-response-content": {
-    get: {
-      responses: {
-        200: components["responses"]["MultipleResponse"];
-      };
+    "/path-params/{simple_primitive}/{simple_obj_flat}/{simple_arr_flat}/{simple_obj_explode*}/{simple_arr_explode*}/{.label_primitive}/{.label_obj_flat}/{.label_arr_flat}/{.label_obj_explode*}/{.label_arr_explode*}/{;matrix_primitive}/{;matrix_obj_flat}/{;matrix_arr_flat}/{;matrix_obj_explode*}/{;matrix_arr_explode*}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                simple_primitive: string;
+                simple_obj_flat: {
+                    a: string;
+                    c: string;
+                };
+                simple_arr_flat: number[];
+                simple_obj_explode: {
+                    e: string;
+                    g: string;
+                };
+                simple_arr_explode: number[];
+                label_primitive: string;
+                label_obj_flat: {
+                    a: string;
+                    c: string;
+                };
+                label_arr_flat: number[];
+                label_obj_explode: {
+                    e: string;
+                    g: string;
+                };
+                label_arr_explode: number[];
+                matrix_primitive: string;
+                matrix_obj_flat: {
+                    a: string;
+                    c: string;
+                };
+                matrix_arr_flat: number[];
+                matrix_obj_explode: {
+                    e: string;
+                    g: string;
+                };
+                matrix_arr_explode: number[];
+            };
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    simple_primitive: string;
+                    simple_obj_flat: {
+                        a: string;
+                        c: string;
+                    };
+                    simple_arr_flat: number[];
+                    simple_obj_explode: {
+                        e: string;
+                        g: string;
+                    };
+                    simple_arr_explode: number[];
+                    label_primitive: string;
+                    label_obj_flat: {
+                        a: string;
+                        c: string;
+                    };
+                    label_arr_flat: number[];
+                    label_obj_explode: {
+                        e: string;
+                        g: string;
+                    };
+                    label_arr_explode: number[];
+                    matrix_primitive: string;
+                    matrix_obj_flat: {
+                        a: string;
+                        c: string;
+                    };
+                    matrix_arr_flat: number[];
+                    matrix_obj_explode: {
+                        e: string;
+                        g: string;
+                    };
+                    matrix_arr_explode: number[];
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            status: string;
+                        };
+                    };
+                };
+                default: components["responses"]["Error"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-  };
+    "/default-as-error": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                default: components["responses"]["Error"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/anyMethod": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: components["responses"]["User"];
+                404: components["responses"]["Error"];
+                500: components["responses"]["Error"];
+            };
+        };
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: components["responses"]["User"];
+                404: components["responses"]["Error"];
+                500: components["responses"]["Error"];
+            };
+        };
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: components["responses"]["User"];
+                404: components["responses"]["Error"];
+                500: components["responses"]["Error"];
+            };
+        };
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: components["responses"]["User"];
+                404: components["responses"]["Error"];
+                500: components["responses"]["Error"];
+            };
+        };
+        options: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: components["responses"]["User"];
+                404: components["responses"]["Error"];
+                500: components["responses"]["Error"];
+            };
+        };
+        head: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: components["responses"]["User"];
+                404: components["responses"]["Error"];
+                500: components["responses"]["Error"];
+            };
+        };
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: components["responses"]["User"];
+                404: components["responses"]["Error"];
+                500: components["responses"]["Error"];
+            };
+        };
+        trace: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: components["responses"]["User"];
+                404: components["responses"]["Error"];
+                500: components["responses"]["Error"];
+            };
+        };
+    };
+    "/contact": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: components["requestBodies"]["Contact"];
+            responses: {
+                200: components["responses"]["Contact"];
+            };
+        };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/multiple-response-content": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                200: components["responses"]["MultipleResponse"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
-
 export type webhooks = Record<string, never>;
-
 export interface components {
-  schemas: {
-    Post: {
-      title: string;
-      body: string;
-      publish_date?: number;
-    };
-    StringArray: string[];
-    User: {
-      email: string;
-      age?: number;
-      avatar?: string;
-      /** Format: date */
-      created_at: number;
-      /** Format: date */
-      updated_at: number;
-    };
-  };
-  responses: {
-    AllPostsGet: {
-      content: {
-        "application/json": components["schemas"]["Post"][];
-      };
-    };
-    CreatePost: {
-      content: {
-        "application/json": {
-          status: string;
+    schemas: {
+        Post: {
+            title: string;
+            body: string;
+            publish_date?: number;
         };
-      };
-    };
-    CreateTag: {
-      content: {
-        "application/json": {
-          status: string;
+        StringArray: string[];
+        User: {
+            email: string;
+            age?: number;
+            avatar?: string;
+            /** Format: date */
+            created_at: number;
+            /** Format: date */
+            updated_at: number;
         };
-      };
-    };
-    CreateReply: {
-      content: {
-        "application/json;charset=utf-8": {
-          message: string;
-        };
-      };
-    };
-    Contact: {
-      content: {
-        "text/html": string;
-      };
-    };
-    EmptyError: {
-      content: {
-      };
-    };
-    Error: {
-      content: {
-        "application/json": {
-          code: number;
-          message: string;
-        };
-      };
-    };
-    PatchPost: {
-      content: {
-        "application/json": {
-          status: string;
-        };
-      };
-    };
-    PostDelete: {
-      content: {
-        "application/json": {
-          status: string;
-        };
-      };
-    };
-    PostGet: {
-      content: {
-        "application/json": components["schemas"]["Post"];
-      };
-    };
-    StringArray: {
-      content: {
-        "application/json": components["schemas"]["StringArray"];
-      };
-    };
-    Tag: {
-      content: {
-        "application/json": string;
-      };
-    };
-    User: {
-      content: {
-        "application/json": components["schemas"]["User"];
-      };
-    };
-    MultipleResponse: {
-      content: {
-        "application/json": {
-          id: string;
-          email: string;
-          name?: string;
-        };
-        "application/ld+json": {
-          "@id": string;
-          email: string;
-          name?: string;
-        };
-      };
-    };
-  };
-  parameters: never;
-  requestBodies: {
-    CreatePost: {
-      content: {
-        "application/json": {
-          title: string;
-          body: string;
-          publish_date: number;
-        };
-      };
-    };
-    CreatePostOptional?: {
-      content: {
-        "application/json": {
-          title: string;
-          body: string;
-          publish_date: number;
-        };
-      };
-    };
-    CreateTag: {
-      content: {
-        "application/json": {
-          description?: string;
-        };
-      };
-    };
-    CreateReply: {
-      content: {
-        "application/json;charset=utf-8": {
-          message: string;
-          replied_at: number;
-        };
-      };
-    };
-    Contact: {
-      content: {
-        "multipart/form-data": {
-          name: string;
-          email: string;
-          subject: string;
-          message: string;
-        };
-      };
-    };
-    PatchPost: {
-      content: {
-        "application/json": {
-          title?: string;
-          body?: string;
-          publish_date?: number;
-        };
-      };
-    };
-  };
-  headers: never;
-  pathItems: never;
-}
-
-export type $defs = Record<string, never>;
-
-export type external = Record<string, never>;
-
-export interface operations {
-
-  getHeaderParams: {
-    parameters: {
-      header: {
-        "x-required-header": string;
-      };
     };
     responses: {
-      200: {
-        content: {
-          "application/json": {
-            status: string;
-          };
+        AllPostsGet: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["Post"][];
+            };
         };
-      };
-      500: components["responses"]["Error"];
+        CreatePost: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    status: string;
+                };
+            };
+        };
+        CreateTag: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    status: string;
+                };
+            };
+        };
+        CreateReply: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json;charset=utf-8": {
+                    message: string;
+                };
+            };
+        };
+        Contact: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "text/html": string;
+            };
+        };
+        EmptyError: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content?: never;
+        };
+        Error: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    code: number;
+                    message: string;
+                };
+            };
+        };
+        PatchPost: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    status: string;
+                };
+            };
+        };
+        PostDelete: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    status: string;
+                };
+            };
+        };
+        PostGet: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["Post"];
+            };
+        };
+        StringArray: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["StringArray"];
+            };
+        };
+        Tag: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": string;
+            };
+        };
+        User: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["User"];
+            };
+        };
+        MultipleResponse: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    id: string;
+                    email: string;
+                    name?: string;
+                };
+                "application/ld+json": {
+                    "@id": string;
+                    email: string;
+                    name?: string;
+                };
+            };
+        };
     };
-  };
+    parameters: never;
+    requestBodies: {
+        CreatePost: {
+            content: {
+                "application/json": {
+                    title: string;
+                    body: string;
+                    publish_date: number;
+                };
+            };
+        };
+        CreatePostOptional: {
+            content: {
+                "application/json": {
+                    title: string;
+                    body: string;
+                    publish_date: number;
+                };
+            };
+        };
+        CreateTag: {
+            content: {
+                "application/json": {
+                    description?: string;
+                };
+            };
+        };
+        CreateReply: {
+            content: {
+                "application/json;charset=utf-8": {
+                    message: string;
+                    replied_at: number;
+                };
+            };
+        };
+        Contact: {
+            content: {
+                "multipart/form-data": {
+                    name: string;
+                    email: string;
+                    subject: string;
+                    message: string;
+                };
+            };
+        };
+        PatchPost: {
+            content: {
+                "application/json": {
+                    title?: string;
+                    body?: string;
+                    publish_date?: number;
+                };
+            };
+        };
+    };
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export interface operations {
+    getHeaderParams: {
+        parameters: {
+            query?: never;
+            header: {
+                "x-required-header": string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        status: string;
+                    };
+                };
+            };
+            500: components["responses"]["Error"];
+        };
+    };
 }

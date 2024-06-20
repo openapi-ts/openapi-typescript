@@ -29,7 +29,7 @@ requestBody:
               run_command: bin/api
               environment_slug: node-js
               instance_count: 2
-              instance_size_slug: basic-xxs
+              instance_size_slug: apps-s-1vcpu-0.5gb
               routes:
                 - path: /api
         app_id: b6bdf840-2854-4f87-a36c-5f231c617c84

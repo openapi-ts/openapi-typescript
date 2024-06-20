@@ -1,8 +1,13 @@
 operationId: apps_get_tier
 
+deprecated: true
+
 summary: Retrieve an App Tier
 
-description: Retrieve information about a specific app tier.
+description: |
+  Retrieve information about a specific app tier. 
+  This endpoint has been deprecated because app tiers are not tied to instance sizes anymore. 
+  The concept of tiers will be retired in the future.
 
 tags:
 - Apps
