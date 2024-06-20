@@ -63,7 +63,7 @@
   },
   "dependencies": {
     "nanoid": "^5.0.7",
-    "openapi-typescript-helpers": "^0.0.9"
+    "openapi-typescript-helpers": "workspace:^"
   },
   "devDependencies": {
     "axios": "^1.7.2",
