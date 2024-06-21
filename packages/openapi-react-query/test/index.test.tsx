@@ -1,9 +1,5 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import {
-  server,
-  baseUrl,
-  useMockRequestHandler,
-} from "./fixtures/mock-server.js";
+import { server, baseUrl, useMockRequestHandler } from "./fixtures/mock-server.js";
 import type { paths } from "./fixtures/api.js";
 import createClient from "../src/index.js";
 import createFetchClient from "openapi-fetch";
@@ -14,9 +10,7 @@ import React, { type ReactNode } from "react";
 beforeAll(() => {
   server.listen({
     onUnhandledRequest: (request) => {
-      throw new Error(
-        `No request handler found for ${request.method} ${request.url}`,
-      );
+      throw new Error(`No request handler found for ${request.method} ${request.url}`);
     },
   });
 });
@@ -75,12 +69,9 @@ describe("client", () => {
         body: { message: "OK" },
       });
 
-      const { result } = renderHook(
-        () => client.useMutation("get", "/tag/{name}"),
-        {
-          wrapper,
-        },
-      );
+      const { result } = renderHook(() => client.useMutation("get", "/tag/{name}"), {
+        wrapper,
+      });
 
       result.current.mutate({
         params: {
