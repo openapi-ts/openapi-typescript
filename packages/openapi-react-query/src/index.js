@@ -18,10 +18,10 @@ export default function createClient(client) {
         },
         ...options,
       }),
-    useMutation: (method, url, init, options) =>
+    useMutation: (method, url, options) =>
       useMutation({
-        mutationKey: [method, url, init],
-        mutationFn: async () => {
+        mutationKey: [method, url],
+        mutationFn: async (init) => {
           const { data, error } = await client[method.toUpperCase()](url, init);
           if (error) {
             throw error;
