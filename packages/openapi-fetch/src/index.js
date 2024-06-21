@@ -1,5 +1,3 @@
-import { nanoid } from "nanoid";
-
 // settings & const
 const DEFAULT_HEADERS = {
   "Content-Type": "application/json",
@@ -19,6 +17,14 @@ class CustomRequest extends Request {
       }
     }
   }
+}
+
+/**
+ * Returns a cheap, non-cryptographically-secure random ID
+ * Courtesy of @imranbarbhuiya (https://github.com/imranbarbhuiya)
+ */
+export function randomID() {
+  return Math.random().toString(36).slice(2, 11);
 }
 
 /**
@@ -84,56 +90,63 @@ export default function createClient(clientOptions) {
       requestInit.headers.delete("Content-Type");
     }
 
-    const id = nanoid();
+    let id;
+    let options;
     let request = new CustomRequest(createFinalURL(schemaPath, { baseUrl, params, querySerializer }), requestInit);
 
-    // middleware (request)
-    const options = Object.freeze({
-      baseUrl,
-      fetch,
-      parseAs,
-      querySerializer,
-      bodySerializer,
-    });
-    for (const m of middlewares) {
-      if (m && typeof m === "object" && typeof m.onRequest === "function") {
-        const result = await m.onRequest({
-          request,
-          schemaPath,
-          params,
-          options,
-          id,
-        });
-        if (result) {
-          if (!(result instanceof Request)) {
-            throw new Error("onRequest: must return new Request() when modifying the request");
+    if (middlewares.length) {
+      id = randomID();
+
+      // middleware (request)
+      options = Object.freeze({
+        baseUrl,
+        fetch,
+        parseAs,
+        querySerializer,
+        bodySerializer,
+      });
+      for (const m of middlewares) {
+        if (m && typeof m === "object" && typeof m.onRequest === "function") {
+          const result = await m.onRequest({
+            request,
+            schemaPath,
+            params,
+            options,
+            id,
+          });
+          if (result) {
+            if (!(result instanceof Request)) {
+              throw new Error("onRequest: must return new Request() when modifying the request");
+            }
+            request = result;
           }
-          request = result;
         }
       }
     }
 
     // fetch!
-    let response = await fetch(request.url, request);
+    let response = await fetch(request);
 
     // middleware (response)
     // execute in reverse-array order (first priority gets last transform)
-    for (let i = middlewares.length - 1; i >= 0; i--) {
-      const m = middlewares[i];
-      if (m && typeof m === "object" && typeof m.onResponse === "function") {
-        const result = await m.onResponse({
-          request,
-          response,
-          schemaPath,
-          params,
-          options,
-          id,
-        });
-        if (result) {
-          if (!(result instanceof Response)) {
-            throw new Error("onResponse: must return new Response() when modifying the response");
+    if (middlewares.length) {
+      for (let i = middlewares.length - 1; i >= 0; i--) {
+        const m = middlewares[i];
+        if (m && typeof m === "object" && typeof m.onResponse === "function") {
+          const result = await m.onResponse({
+            request,
+            response,
+            schemaPath,
+            params,
+            options,
+            id,
+          });
+          if (result) {
+            if (!(result instanceof Response)) {
+              throw new Error("onResponse: must return new Response() when modifying the response");
+            }
+            response = result;
           }
-          response = result;
         }
       }
     }

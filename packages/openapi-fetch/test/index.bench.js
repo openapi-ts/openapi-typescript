@@ -2,6 +2,7 @@ import axios from "axios";
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 import { Fetcher } from "openapi-typescript-fetch";
+import { nanoid } from "nanoid";
 import superagent from "superagent";
 import { afterAll, bench, describe } from "vitest";
 import createClient from "../dist/index.js";

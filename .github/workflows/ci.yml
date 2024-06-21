@@ -39,6 +39,19 @@ jobs:
           run_install: true
       - run: pnpm run build
       - run: pnpm test
+  test-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: latest
+          run_install: true
+      - run: pnpm exec playwright install --with-deps
+      - run: pnpm run test-e2e
   test-macos:
     runs-on: macos-latest
     steps:

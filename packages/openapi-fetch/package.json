@@ -54,15 +54,17 @@
     "build:cjs": "esbuild --bundle src/index.js --format=cjs --outfile=dist/cjs/index.cjs && cp dist/index.d.ts dist/cjs/index.d.cts",
     "format": "biome format . --write",
     "lint": "biome check .",
-    "generate-types": "openapi-typescript test/fixtures/api.yaml -o test/fixtures/api.d.ts",
+    "generate-types": "openapi-typescript -c test/redocly.yaml",
     "pretest": "pnpm run generate-types",
     "test": "pnpm run \"/^test:/\"",
     "test:js": "vitest run",
     "test:ts": "tsc --noEmit",
+    "test-e2e": "playwright test",
+    "e2e-vite-build": "vite build test/fixtures/e2e",
+    "e2e-vite-start": "vite preview test/fixtures/e2e",
     "version": "pnpm run prepare && pnpm run build"
   },
   "dependencies": {
-    "nanoid": "^5.0.7",
     "openapi-typescript-helpers": "workspace:^"
   },
   "devDependencies": {
@@ -76,6 +78,6 @@
     "openapi-typescript-fetch": "^2.0.0",
     "superagent": "^9.0.2",
     "typescript": "^5.4.5",
-    "vitest": "^1.6.0"
+    "vite": "^5.3.1"
   }
 }

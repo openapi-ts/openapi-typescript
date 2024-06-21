@@ -1304,8 +1304,8 @@ describe("client", () => {
           status: 200,
           ok: true,
         } as Response;
-        return async (input: string, requestInit?: RequestInit) => {
-          expect(requestInit).toHaveProperty("customProperty", "value");
+        return async (input: Request) => {
+          expect(input).toHaveProperty("customProperty", "value");
           return Promise.resolve(response);
         };
       }
