@@ -1,0 +1,9 @@
+apis:
+  unit:
+    root: ./fixtures/api.yaml
+    x-openapi-ts:
+      output: ./fixtures/api.d.ts
+  e2e:
+    root: ./fixtures/e2e/e2e.yaml
+    x-openapi-ts:
+      output: ./fixtures/e2e/e2e.d.ts

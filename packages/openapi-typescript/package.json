@@ -69,14 +69,12 @@
   "devDependencies": {
     "@types/degit": "^2.8.6",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^20.14.6",
     "degit": "^2.8.4",
     "del-cli": "^5.1.0",
     "esbuild": "^0.20.2",
     "execa": "^8.0.1",
     "strip-ansi": "^7.1.0",
     "typescript": "^5.4.5",
-    "vite-node": "^1.6.0",
-    "vitest": "^1.6.0"
+    "vite-node": "^1.6.0"
   }
 }

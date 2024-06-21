@@ -12,14 +12,18 @@
     "lint": "pnpm run -r --parallel --aggregate-output lint",
     "format": "pnpm run -r --parallel --aggregate-output format",
     "test": "pnpm run -r --parallel --aggregate-output test",
+    "test-e2e": "pnpm run -r --parallel --aggregate-output test-e2e",
     "version": "pnpm run build && changeset version && pnpm i"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.1",
     "@changesets/changelog-github": "^0.5.0",
     "@changesets/cli": "^2.27.5",
+    "@playwright/test": "^1.44.1",
+    "@types/node": "^20.14.7",
     "del-cli": "^5.1.0",
     "prettier": "^3.3.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
   }
 }
