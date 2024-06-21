@@ -7,6 +7,7 @@ import {
   type UseSuspenseQueryResult,
   useMutation,
   useQuery,
+  useSuspenseQuery,
 } from "@tanstack/react-query";
 import type { ClientMethod, FetchResponse, MaybeOptionalInit, Client as FetchClient } from "openapi-fetch";
 import type { HasRequiredKeys, HttpMethod, MediaType, PathsWithMethod } from "openapi-typescript-helpers";
@@ -53,10 +54,12 @@ export type UseMutationMethod<Paths extends Record<string, Record<HttpMethod, {}
 
 export interface OpenapiQueryClient<Paths extends {}, Media extends MediaType = MediaType> {
   useQuery: UseQueryMethod<Paths, Media>;
-  useSuspenseQery: any;
+  useSuspenseQuery: UseSuspenseQueryMethod<Paths, Media>;
   useMutation: UseMutationMethod<Paths, Media>;
 }
 
+// TODO: Move the client[method]() fn outside for reusability
+// TODO: Add the ability to bring queryClient as argument
 export default function createClient<Paths extends {}, Media extends MediaType = MediaType>(
   client: FetchClient<Paths, Media>,
 ): OpenapiQueryClient<Paths, Media> {
@@ -76,11 +79,25 @@ export default function createClient<Paths extends {}, Media extends MediaType =
         ...options,
       });
     },
-    useSuspenseQery: () => {},
+    useSuspenseQuery: (method, path, ...[init, options]) => {
+      return useSuspenseQuery({
+        queryKey: [method, path, init],
+        queryFn: async () => {
+          const mth = method.toUpperCase() as keyof typeof client;
+          const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
+          const { data, error } = await fn(path, init as any); // TODO: find a way to avoid as any
+          if (error || !data) {
+            throw error;
+          }
+          return data;
+        },
+      });
+    },
     useMutation: (method, path, options) => {
       return useMutation({
         mutationKey: [method, path],
         mutationFn: async (init) => {
+          // TODO: Put in external fn for reusability
           const mth = method.toUpperCase() as keyof typeof client;
           const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
           const { data, error } = await fn(path, init as any); // TODO: find a way to avoid as any

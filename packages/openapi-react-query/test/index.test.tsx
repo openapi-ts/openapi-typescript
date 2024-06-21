@@ -30,6 +30,7 @@ describe("client", () => {
     const fetchClient = createFetchClient<paths>({ baseUrl });
     const client = createClient<paths>(fetchClient);
     expect(client).toHaveProperty("useQuery");
+    expect(client).toHaveProperty("useSuspenseQuery");
     expect(client).toHaveProperty("useMutation");
   });
 
@@ -47,6 +48,29 @@ describe("client", () => {
       });
 
       const { result } = renderHook(() => client.useQuery("get", "/self"), {
+        wrapper,
+      });
+
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+      expect(result.current.data).toEqual({ message: "OK" });
+    });
+  });
+
+  describe("useSuspenseQuery", () => {
+    it("should work", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/self",
+        status: 200,
+        body: { message: "OK" },
+      });
+
+      const { result } = renderHook(() => client.useSuspenseQuery("get", "/self"), {
         wrapper,
       });
 
