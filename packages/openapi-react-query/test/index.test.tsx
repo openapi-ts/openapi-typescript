@@ -52,7 +52,7 @@ describe("client", () => {
         body: { message: "OK" },
       });
 
-      const { result } = renderHook(() => client.useQuery("get", "/self", {}), {
+      const { result } = renderHook(() => client.useQuery("get", "/self"), {
         wrapper,
       });
 
