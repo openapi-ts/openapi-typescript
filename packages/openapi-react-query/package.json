@@ -47,11 +47,11 @@
     "tanstack"
   ],
   "scripts": {
-    "build": "pnpm run build:clean && pnpm run build:js && pnpm run build:js-min && pnpm run build:cjs",
+    "build": "pnpm run build:clean && pnpm run build:esm && pnpm run build:cjs",
     "build:clean": "del-cli dist",
-    "build:js": "mkdir -p dist && cp src/* dist",
-    "build:js-min": "esbuild --bundle src/index.js --format=esm --minify --outfile=dist/index.min.js && cp dist/index.d.ts dist/index.min.d.ts",
-    "build:cjs": "esbuild --bundle src/index.js --format=cjs --outfile=dist/cjs/index.cjs && cp dist/index.d.ts dist/cjs/index.d.cts",
+    "build:esm": "tsc -p tsconfig.build.json",
+    "build:cjs": "esbuild --bundle --platform=node --target=es2019 --outfile=dist/index.cjs --external:@redocly/ajv --external:@redocly/openapi-core --external:typescript src/index.ts",
+    "dev": "tsc -p tsconfig.build.json --watch",
     "format": "biome format . --write",
     "lint": "biome check .",
     "generate-types": "openapi-typescript test/fixtures/api.yaml -o test/fixtures/api.d.ts",

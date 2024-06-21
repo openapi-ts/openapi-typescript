@@ -8,7 +8,7 @@ import {
   useMutation,
   useQuery,
 } from "@tanstack/react-query";
-import type { ClientMethod, FetchResponse, MaybeOptionalInit, OpenapiClient } from "openapi-fetch";
+import type { ClientMethod, FetchResponse, MaybeOptionalInit, Client as FetchClient } from "openapi-fetch";
 import type { HasRequiredKeys, HttpMethod, MediaType, PathsWithMethod } from "openapi-typescript-helpers";
 
 export type UseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
@@ -58,7 +58,7 @@ export interface OpenapiQueryClient<Paths extends {}, Media extends MediaType = 
 }
 
 export default function createClient<Paths extends {}, Media extends MediaType = MediaType>(
-  client: OpenapiClient<Paths, Media>,
+  client: FetchClient<Paths, Media>,
 ): OpenapiQueryClient<Paths, Media> {
   return {
     useQuery: (method, path, ...[init, options]) => {
