@@ -1,5 +1,15 @@
 # openapi-fetch
 
+## 0.10.1
+
+### Patch Changes
+
+- [#1719](https://github.com/openapi-ts/openapi-typescript/pull/1719) [`a8f2253`](https://github.com/openapi-ts/openapi-typescript/commit/a8f2253d31f060f66fe8c5c69ae79b1f81e78587) Thanks [@drwpow](https://github.com/drwpow)! - Remove nanoid from dependencies
+
+- [#1719](https://github.com/openapi-ts/openapi-typescript/pull/1719) [`a8f2253`](https://github.com/openapi-ts/openapi-typescript/commit/a8f2253d31f060f66fe8c5c69ae79b1f81e78587) Thanks [@drwpow](https://github.com/drwpow)! - Fix "failed to execute fetch on Window" error
+
+- [#1719](https://github.com/openapi-ts/openapi-typescript/pull/1719) [`a8f2253`](https://github.com/openapi-ts/openapi-typescript/commit/a8f2253d31f060f66fe8c5c69ae79b1f81e78587) Thanks [@drwpow](https://github.com/drwpow)! - Revert customFetch API back to `fetch(input: Request)`
+
 ## 0.10.0
 
 ### Minor Changes
