@@ -3,9 +3,10 @@ import { server, baseUrl, useMockRequestHandler } from "./fixtures/mock-server.j
 import type { paths } from "./fixtures/api.js";
 import createClient from "../src/index.js";
 import createFetchClient from "openapi-fetch";
-import { renderHook, waitFor } from "@testing-library/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import React, { type ReactNode } from "react";
+import { act, render, renderHook, screen, waitFor } from "@testing-library/react";
+import { QueryClient, QueryClientProvider, QueryErrorResetBoundary } from "@tanstack/react-query";
+import React, { Suspense, type ReactNode } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -70,7 +71,7 @@ describe("client", () => {
       expect(error).toBeNull();
     });
 
-    it("should resolve error properlly and have undefined data when failed request", async () => {
+    it("should resolve error properly and have undefined data when failed request", async () => {
       const fetchClient = createFetchClient<paths>({ baseUrl });
       const client = createClient(fetchClient);
 
@@ -109,7 +110,7 @@ describe("client", () => {
     });
 
     describe("params", () => {
-      it("typechecks", async () => {
+      it("should be required if OpenAPI schema requires params", async () => {
         const fetchClient = createFetchClient<paths>({ baseUrl });
         const client = createClient(fetchClient);
 
@@ -132,56 +133,158 @@ describe("client", () => {
   });
 
   describe("useSuspenseQuery", () => {
-    it("should work", async () => {
+    it("should resolve data properly and have error as null when successfull request", async () => {
       const fetchClient = createFetchClient<paths>({ baseUrl });
       const client = createClient(fetchClient);
 
       useMockRequestHandler({
         baseUrl,
         method: "get",
-        path: "/self",
+        path: "/string-array",
         status: 200,
-        body: { message: "OK" },
+        body: ["one", "two", "three"],
       });
 
-      const { result } = renderHook(() => client.useSuspenseQuery("get", "/self"), {
+      const { result } = renderHook(() => client.useSuspenseQuery("get", "/string-array"), {
         wrapper,
       });
 
-      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+      await waitFor(() => expect(result.current.isFetching).toBe(false));
 
-      expect(result.current.data).toEqual({ message: "OK" });
+      const { data, error } = result.current;
+
+      expect(data[0]).toBe("one");
+      expect(error).toBeNull();
+    });
+
+    it("should properly propagate error to suspense with a failed http request", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+      const errorSpy = vi.spyOn(console, "error").mockImplementation(() => { }); // to avoid sending errors to console
+
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/string-array",
+        status: 500,
+        body: { code: 500, message: "Something went wrong" },
+      });
+
+      const TestComponent = () => {
+        client.useSuspenseQuery("get", "/string-array");
+        return <div />;
+      };
+
+      render(
+        <QueryClientProvider client={queryClient}>
+          <ErrorBoundary fallbackRender={({ error }) => <p>{error.message}</p>}>
+            <Suspense fallback={<p>loading</p>}>
+              <TestComponent />
+            </Suspense>
+          </ErrorBoundary>
+        </QueryClientProvider>,
+      );
+
+      expect(await screen.findByText("Something went wrong")).toBeDefined();
+      errorSpy.mockRestore();
     });
   });
 
   describe("useMutation", () => {
-    it("should work", async () => {
-      const fetchClient = createFetchClient<paths>({ baseUrl });
-      const client = createClient(fetchClient);
+    describe("mutate", () => {
+      it("should resolve data properly and have error as null when successfull request", async () => {
+        const fetchClient = createFetchClient<paths>({ baseUrl });
+        const client = createClient(fetchClient);
 
-      useMockRequestHandler({
-        baseUrl,
-        method: "get",
-        path: "/tag/*",
-        status: 200,
-        body: { message: "OK" },
+        useMockRequestHandler({
+          baseUrl,
+          method: "put",
+          path: "/comment",
+          status: 200,
+          body: { message: "Hello" },
+        });
+
+        const { result } = renderHook(() => client.useMutation("put", "/comment"), {
+          wrapper,
+        });
+
+        result.current.mutate({ body: { message: "Hello", replied_at: 0 } });
+
+        await waitFor(() => expect(result.current.isPending).toBe(false));
+
+        const { data, error } = result.current;
+
+        expect(data?.message).toBe("Hello");
+        expect(error).toBeNull();
       });
 
-      const { result } = renderHook(() => client.useMutation("get", "/tag/{name}"), {
-        wrapper,
+      it("should resolve error properly and have undefined data when failed request", async () => {
+        const fetchClient = createFetchClient<paths>({ baseUrl });
+        const client = createClient(fetchClient);
+
+        useMockRequestHandler({
+          baseUrl,
+          method: "put",
+          path: "/comment",
+          status: 500,
+          body: { code: 500, message: "Something went wrong" },
+        });
+
+        const { result } = renderHook(() => client.useMutation("put", "/comment"), {
+          wrapper,
+        });
+
+        result.current.mutate({ body: { message: "Hello", replied_at: 0 } });
+
+        await waitFor(() => expect(result.current.isPending).toBe(false));
+
+        const { data, error } = result.current;
+
+        expect(data).toBeUndefined();
+        expect(error?.message).toBe("Something went wrong");
+      });
+    });
+
+    describe("mutateAsync", () => {
+      it("should resolve data properly", async () => {
+        const fetchClient = createFetchClient<paths>({ baseUrl });
+        const client = createClient(fetchClient);
+
+        useMockRequestHandler({
+          baseUrl,
+          method: "put",
+          path: "/comment",
+          status: 200,
+          body: { message: "Hello" },
+        });
+
+        const { result } = renderHook(() => client.useMutation("put", "/comment"), {
+          wrapper,
+        });
+
+        const data = await result.current.mutateAsync({ body: { message: "Hello", replied_at: 0 } });
+
+        expect(data.message).toBe("Hello");
       });
 
-      result.current.mutate({
-        params: {
-          path: {
-            name: "test",
-          },
-        },
+      it("should throw an error when failed request", async () => {
+        const fetchClient = createFetchClient<paths>({ baseUrl });
+        const client = createClient(fetchClient);
+
+        useMockRequestHandler({
+          baseUrl,
+          method: "put",
+          path: "/comment",
+          status: 500,
+          body: { code: 500, message: "Something went wrong" },
+        });
+
+        const { result } = renderHook(() => client.useMutation("put", "/comment"), {
+          wrapper,
+        });
+
+        expect(result.current.mutateAsync({ body: { message: "Hello", replied_at: 0 } })).rejects.toThrow();
       });
-
-      await waitFor(() => expect(result.current.isSuccess).toBe(true));
-
-      expect(result.current.data).toEqual({ message: "OK" });
     });
   });
 });

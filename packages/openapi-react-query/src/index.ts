@@ -91,6 +91,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
           }
           return data;
         },
+        ...options,
       });
     },
     useMutation: (method, path, options) => {
