@@ -3,8 +3,8 @@ import { server, baseUrl, useMockRequestHandler } from "./fixtures/mock-server.j
 import type { paths } from "./fixtures/api.js";
 import createClient from "../src/index.js";
 import createFetchClient from "openapi-fetch";
-import { act, render, renderHook, screen, waitFor } from "@testing-library/react";
-import { QueryClient, QueryClientProvider, QueryErrorResetBoundary } from "@tanstack/react-query";
+import { render, renderHook, screen, waitFor } from "@testing-library/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React, { Suspense, type ReactNode } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -160,7 +160,7 @@ describe("client", () => {
     it("should properly propagate error to suspense with a failed http request", async () => {
       const fetchClient = createFetchClient<paths>({ baseUrl });
       const client = createClient(fetchClient);
-      const errorSpy = vi.spyOn(console, "error").mockImplementation(() => { }); // to avoid sending errors to console
+      const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {}); // to avoid sending errors to console
 
       useMockRequestHandler({
         baseUrl,
