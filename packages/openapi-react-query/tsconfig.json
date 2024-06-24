@@ -3,11 +3,11 @@
   "compilerOptions": {
     "lib": ["ESNext", "DOM"],
     "module": "ES2022",
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "outDir": "dist",
     "skipLibCheck": true,
     "sourceRoot": ".",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "types": ["vitest/globals"]
   },
   "include": ["scripts", "src", "test", "*.ts"],
