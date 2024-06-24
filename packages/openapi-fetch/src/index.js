@@ -424,7 +424,7 @@ export function defaultPathSerializer(pathname, pathParams) {
       nextURL = nextURL.replace(match, `;${serializePrimitiveParam(name, value)}`);
       continue;
     }
-    nextURL = nextURL.replace(match, style === "label" ? `.${value}` : value);
+    nextURL = nextURL.replace(match, style === "label" ? `.${encodeURIComponent(value)}` : encodeURIComponent(value));
   }
   return nextURL;
 }
