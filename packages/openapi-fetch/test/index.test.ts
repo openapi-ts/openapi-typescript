@@ -206,6 +206,42 @@ describe("client", () => {
           );
         });
 
+        it("escapes reserved characters in path segment", async () => {
+          const client = createClient<paths>({ baseUrl });
+          const { getRequestUrl } = useMockRequestHandler({
+            baseUrl,
+            method: "get",
+            path: "/blogposts/*",
+          });
+
+          await client.GET("/blogposts/{post_id}", {
+            params: { path: { post_id: ";/?:@&=+$,# " } },
+          });
+
+          // expect post_id to be encoded properly
+          const url = getRequestUrl();
+          expect(url.pathname).toBe("/blogposts/%3B%2F%3F%3A%40%26%3D%2B%24%2C%23%20");
+        });
+
+        it("does not escape allowed characters in path segment", async () => {
+          const client = createClient<paths>({ baseUrl });
+          const { getRequestUrl } = useMockRequestHandler({
+            baseUrl,
+            method: "get",
+            path: "/blogposts/*",
+          });
+
+          const postId = "aAzZ09-_.!~*'()";
+
+          await client.GET("/blogposts/{post_id}", {
+            params: { path: { post_id: postId } },
+          });
+
+          // expect post_id to stay unchanged
+          const url = getRequestUrl();
+          expect(url.pathname).toBe(`/blogposts/${postId}`);
+        });
+
         it("allows UTF-8 characters", async () => {
           const client = createClient<paths>({ baseUrl });
           const { getRequestUrl } = useMockRequestHandler({
@@ -215,12 +251,12 @@ describe("client", () => {
           });
 
           await client.GET("/blogposts/{post_id}", {
-            params: { path: { post_id: "post?id = 🥴" } },
+            params: { path: { post_id: "🥴" } },
           });
 
           // expect post_id to be encoded properly
           const url = getRequestUrl();
-          expect(url.pathname).toBe("/blogposts/post%3Fid%20%3D%20%F0%9F%A5%B4");
+          expect(url.pathname).toBe("/blogposts/%F0%9F%A5%B4");
         });
       });
 
