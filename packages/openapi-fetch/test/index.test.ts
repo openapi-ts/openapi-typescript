@@ -220,8 +220,7 @@ describe("client", () => {
 
           // expect post_id to be encoded properly
           const url = getRequestUrl();
-          expect(url.searchParams.get("id ")).toBe(" 🥴");
-          expect(url.pathname + url.search).toBe("/blogposts/post?id%20=%20%F0%9F%A5%B4");
+          expect(url.pathname).toBe("/blogposts/post%3Fid%20%3D%20%F0%9F%A5%B4");
         });
       });
 
