@@ -21,7 +21,7 @@ export const server = setupServer();
 export const baseUrl = "https://api.example.com" as const;
 
 /**
- * Test path helper, returns a an absolute URL based on
+ * Test path helper, returns an absolute URL based on
  * the given path and base
  */
 export function toAbsoluteURL(path: string, base: string = baseUrl) {
@@ -97,23 +97,20 @@ export function useMockRequestHandler<
   const resolvedPath = toAbsoluteURL(path, requestBaseUrl);
 
   server.use(
-    http[method]<Params, RequestBodyType, ResponseBodyType>(
-      resolvedPath,
-      (args) => {
-        requestUrl = args.request.url;
-        receivedRequest = args.request.clone();
-        receivedCookies = { ...args.cookies };
+    http[method]<Params, RequestBodyType, ResponseBodyType>(resolvedPath, (args) => {
+      requestUrl = args.request.url;
+      receivedRequest = args.request.clone();
+      receivedCookies = { ...args.cookies };
 
-        if (handler) {
-          return handler(args);
-        }
+      if (handler) {
+        return handler(args);
+      }
 
-        return HttpResponse.json(body as any, {
-          status: status ?? 200,
-          headers,
-        }) as AsyncResponseResolverReturnType<ResponseBodyType>;
-      },
-    ),
+      return HttpResponse.json(body as any, {
+        status: status ?? 200,
+        headers,
+      }) as AsyncResponseResolverReturnType<ResponseBodyType>;
+    }),
   );
 
   return {

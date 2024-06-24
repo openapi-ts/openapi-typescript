@@ -21,7 +21,7 @@ export const server = setupServer();
 export const baseUrl = "https://api.example.com" as const;
 
 /**
- * Test path helper, returns a an absolute URL based on
+ * Test path helper, returns an absolute URL based on
  * the given path and base
  */
 export function toAbsoluteURL(path: string, base: string = baseUrl) {
