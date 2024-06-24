@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.10.2
+
+### Patch Changes
+
+- [#1696](https://github.com/openapi-ts/openapi-typescript/pull/1696) [`aea31a8`](https://github.com/openapi-ts/openapi-typescript/commit/aea31a8679b901745a98f856fea9d53dff6807b3) Thanks [@swachter](https://github.com/swachter)! - Fix: encode primitive path parameters
+
 ## 0.10.1
 
 ### Patch Changes
