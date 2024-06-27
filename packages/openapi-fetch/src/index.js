@@ -78,10 +78,10 @@ export default function createClient(clientOptions) {
     };
     if (requestInit.body) {
       requestInit.body = bodySerializer(requestInit.body);
-    }
-    // remove `Content-Type` if serialized body is FormData; browser will correctly set Content-Type & boundary expression
-    if (requestInit.body && requestInit.body instanceof FormData) {
-      requestInit.headers.delete("Content-Type");
+      // remove `Content-Type` if serialized body is FormData; browser will correctly set Content-Type & boundary expression
+      if (requestInit.body instanceof FormData) {
+        requestInit.headers.delete("Content-Type");
+      }
     }
     let request = new CustomRequest(createFinalURL(url, { baseUrl, params, querySerializer }), requestInit);
     // middleware (request)
