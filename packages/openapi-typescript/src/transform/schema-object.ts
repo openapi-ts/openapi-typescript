@@ -269,7 +269,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
   if ("type" in schemaObject && schemaObject.type) {
     if (typeof options.ctx.transform === "function") {
       const result = options.ctx.transform(schemaObject, options);
-      if (result) {
+      if (result && typeof result === "object") {
         if ("schema" in result) {
           if (result.questionToken) {
             return ts.factory.createUnionTypeNode([result.schema, UNDEFINED]);
@@ -470,7 +470,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
 
         if (typeof options.ctx.transform === "function") {
           const result = options.ctx.transform(v as SchemaObject, options);
-          if (result) {
+          if (result && typeof result === "object") {
             if ("schema" in result) {
               type = result.schema;
               optional = result.questionToken ? QUESTION_TOKEN : optional;
