@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "ES2022",
-    "moduleResolution": "Bundler"
+    "moduleResolution": "Node"
   },
   "exclude": ["scripts", "test", "*.ts"]
 }
