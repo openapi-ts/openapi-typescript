@@ -2,4 +2,5 @@ examples/
 scripts/
 test/
 vitest.config.ts
-tsconfig.*.json
+tsconfig*.json
+biome.json

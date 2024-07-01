@@ -5,7 +5,7 @@ import createClient from "../src/index.js";
 import createFetchClient from "openapi-fetch";
 import { render, renderHook, screen, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import React, { Suspense, type ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
 const queryClient = new QueryClient({
