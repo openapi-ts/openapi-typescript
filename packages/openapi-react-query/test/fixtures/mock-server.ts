@@ -26,9 +26,9 @@ export const baseUrl = "https://api.example.com" as const;
  */
 export function toAbsoluteURL(path: string, base: string = baseUrl) {
   // If we have absolute path
-  if (URL.canParse(path)) {
-    return new URL(path).toString();
-  }
+  // if (URL.canParse(path)) {
+  //   return new URL(path).toString();
+  // }
 
   // Otherwise we want to support relative paths
   // where base may also contain some part of the path
@@ -81,7 +81,15 @@ export function useMockRequestHandler<
   Params extends PathParams<keyof Params> = PathParams,
   RequestBodyType extends DefaultBodyType = DefaultBodyType,
   ResponseBodyType extends DefaultBodyType = undefined,
->({ baseUrl: requestBaseUrl, method, path, body, headers, status, handler }: MockRequestHandlerOptions<Params, RequestBodyType, ResponseBodyType>) {
+>({
+  baseUrl: requestBaseUrl,
+  method,
+  path,
+  body,
+  headers,
+  status,
+  handler,
+}: MockRequestHandlerOptions<Params, RequestBodyType, ResponseBodyType>) {
   let requestUrl = "";
   let receivedRequest: StrictRequest<DefaultBodyType>;
   let receivedCookies: Record<string, string> = {};

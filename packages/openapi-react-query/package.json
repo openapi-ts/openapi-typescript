@@ -1,0 +1,85 @@
+{
+  "name": "openapi-react-query",
+  "description": "Fast, type-safe @tanstack/react-query client to work with your OpenAPI schema.",
+  "version": "0.0.0",
+  "author": {
+    "name": "Martin Paucot",
+    "email": "contact@martin-paucot.fr"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.cts",
+        "default": "./dist/cjs/index.cjs"
+      }
+    },
+    "./*": "./*"
+  },
+  "homepage": "https://openapi-ts.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openapi-ts/openapi-typescript",
+    "directory": "packages/openapi-react-query"
+  },
+  "bugs": {
+    "url": "https://github.com/openapi-ts/openapi-typescript/issues"
+  },
+  "keywords": [
+    "openapi",
+    "swagger",
+    "rest",
+    "api",
+    "oapi_3",
+    "oapi_3_1",
+    "typescript",
+    "fetch",
+    "react",
+    "react-query",
+    "tanstack"
+  ],
+  "scripts": {
+    "build": "pnpm run build:clean && pnpm run build:esm && pnpm run build:cjs",
+    "build:clean": "del-cli dist",
+    "build:esm": "tsc -p tsconfig.build.json",
+    "build:cjs": "esbuild --bundle --platform=node --target=es2019 --outfile=dist/index.cjs --external:@redocly/ajv --external:@redocly/openapi-core --external:typescript src/index.ts",
+    "dev": "tsc -p tsconfig.build.json --watch",
+    "format": "biome format . --write",
+    "lint": "biome check .",
+    "generate-types": "openapi-typescript test/fixtures/api.yaml -o test/fixtures/api.d.ts",
+    "pretest": "pnpm run generate-types",
+    "test": "pnpm run \"/^test:/\"",
+    "test:js": "vitest run",
+    "test:ts": "tsc --noEmit",
+    "version": "pnpm run prepare && pnpm run build"
+  },
+  "dependencies": {
+    "openapi-typescript-helpers": "workspace:^"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.0.0",
+    "@types/react": "18.3.1",
+    "@vitejs/plugin-react": "^4.3.1",
+    "del-cli": "^5.1.0",
+    "esbuild": "^0.20.2",
+    "execa": "^8.0.1",
+    "openapi-typescript": "workspace:^",
+    "msw": "^2.3.1",
+    "react": "^18.3.1",
+    "react-error-boundary": "^4.0.13",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.0.0",
+    "openapi-fetch": "workspace:^"
+  }
+}

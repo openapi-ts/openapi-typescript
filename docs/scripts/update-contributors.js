@@ -182,12 +182,19 @@ export const OPENAPI_FETCH_CONTRIBUTORS = [
   ]),
 ];
 
+export const OPENAPI_REACT_QUERY_CONTRIBUTORS = [...new Set(["drwpow", "kerwanp"])];
+
 async function main() {
-  const total = [...OPENAPI_TS_CONTRIBUTORS, OPENAPI_FETCH_CONTRIBUTORS].length;
+  const total = [...OPENAPI_TS_CONTRIBUTORS, OPENAPI_FETCH_CONTRIBUTORS, OPENAPI_REACT_QUERY_CONTRIBUTORS].length;
   let i = 0;
   await Promise.all(
-    ["openapi-typescript", "openapi-fetch"].map(async (repo) => {
-      const userlist = repo === "openapi-fetch" ? OPENAPI_FETCH_CONTRIBUTORS : OPENAPI_TS_CONTRIBUTORS;
+    ["openapi-typescript", "openapi-fetch", "openapi-react-query"].map(async (repo) => {
+      const userlist =
+        repo === "openapi-fetch"
+          ? OPENAPI_FETCH_CONTRIBUTORS
+          : repo === "openapi-react-query"
+            ? OPENAPI_REACT_QUERY_CONTRIBUTORS
+            : OPENAPI_TS_CONTRIBUTORS;
       for (const username of userlist) {
         // skip profiles that have been updated within the past week
         const { lastFetch } = contributors[repo].find((u) => u.username === username) ?? { lastFetch: 0 };
