@@ -18,8 +18,8 @@
         "default": "./dist/index.js"
       },
       "require": {
-        "types": "./dist/cjs/index.d.cts",
-        "default": "./dist/cjs/index.cjs"
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
       }
     },
     "./*": "./*"
@@ -50,7 +50,7 @@
     "build": "pnpm run build:clean && pnpm run build:esm && pnpm run build:cjs",
     "build:clean": "del-cli dist",
     "build:esm": "tsc -p tsconfig.build.json",
-    "build:cjs": "esbuild --bundle --platform=node --target=es2019 --outfile=dist/index.cjs --external:@redocly/ajv --external:@redocly/openapi-core --external:typescript src/index.ts",
+    "build:cjs": "esbuild --bundle --platform=node --target=es2019 --outfile=dist/index.cjs --external:typescript src/index.ts",
     "dev": "tsc -p tsconfig.build.json --watch",
     "format": "biome format . --write",
     "lint": "biome check .",
