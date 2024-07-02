@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.0.1
+
+### Patch Changes
+
+- [#1724](https://github.com/openapi-ts/openapi-typescript/pull/1724) [`f47268f`](https://github.com/openapi-ts/openapi-typescript/commit/f47268f38b542b0adf61861efe3fdbf63d0a37f1) Thanks [@simensol](https://github.com/simensol)! - Make sure result is an object before using the in operator.
+
 ## 7.0.0
 
 ### Major Changes
