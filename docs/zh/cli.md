@@ -68,7 +68,7 @@ npx openapi-typescript
 使用 openapi-typescript 不需要 `redocly.yaml` 文件。默认情况下，它扩展了内置配置中的 `"minimal"`。但如果您想要自定义验证规则（或构建[多个模式](#multiple-schemas)的类型），建议使用它。CLI 将尝试在项目根目录自动找到 `redocly.yaml`，但您也可以使用 `--redoc` 标志提供其位置：
 
 ```bash
-npx openapi-typescript --redoc ./path/to/redocly.yaml
+npx openapi-typescript --redocly ./path/to/redocly.yaml
 ```
 
 您可以在 [Redoc 文档](https://redocly.com/docs/cli/configuration/) 中详细了解 Redoc 的配置选项。
@@ -104,7 +104,7 @@ CLI 支持以下参数：
 | `--help`                  |      |          | 显示内联帮助消息并退出                                                                            |
 | `--version`               |      |          | 显示此库的版本并退出                                                                              |
 | `--output [location]`     | `-o` | (stdout) | 应将输出文件保存在何处？                                                                          |
-| `--redoc [location]`      |      |          | `redocly.yaml` 文件的路径（参见 [多个模式](#multiple-schemas)）                                   |
+| `--redocly [location]`      |      |          | `redocly.yaml` 文件的路径（参见 [多个模式](#multiple-schemas)）                                   |
 | `--additional-properties` |      | `false`  | 允许所有模式对象使用 `additionalProperties: false` 之外的任意属性                                 |
 | `--alphabetize`           |      | `false`  | 按字母顺序排序类型                                                                                |
 | `--array-length`          |      | `false`  | 使用数组 `minItems` / `maxItems` 生成元组                                                         |

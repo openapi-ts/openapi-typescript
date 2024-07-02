@@ -63,12 +63,12 @@ In previous versions globbing was supported, but that has been **deprecated** in
 
 :::
 
-## Redoc config
+## Redocly config
 
 A `redocly.yaml` file isn’t required to use openapi-typescript. By default it extends the `"minimal"` built-in config. But it is recommended if you want to have custom validation rules (or build types for [multiple schemas](#multiple-schemas)). The CLI will try to automatically find a `redocly.yaml` in the root of your project, but you can also provide its location with the `--redoc` flag:
 
 ```bash
-npx openapi-typescript --redoc ./path/to/redocly.yaml
+npx openapi-typescript --redocly ./path/to/redocly.yaml
 ```
 
 You can read more about the Redoc’s configuration options [in their docs](https://redocly.com/docs/cli/configuration/).
@@ -104,7 +104,7 @@ The following flags are supported in the CLI:
 | `--help`                           |       |          | Display inline help message and exit                                                                                |
 | `--version`                        |       |          | Display this library’s version and exit                                                                             |
 | `--output [location]`              | `-o`  | (stdout) | Where should the output file be saved?                                                                              |
-| `--redoc [location]`               |       |          | Path to a `redocly.yaml` file (see [Multiple schemas](#multiple-schemas))                                           |
+| `--redocly [location]`               |       |          | Path to a `redocly.yaml` file (see [Multiple schemas](#multiple-schemas))                                           |
 | `--additional-properties`          |       | `false`  | Allow arbitrary properties for all schema objects without `additionalProperties: false`                             |
 | `--alphabetize`                    |       | `false`  | Sort types alphabetically                                                                                           |
 | `--array-length`                   |       | `false`  | Generate tuples using array `minItems` / `maxItems`                                                                 |
