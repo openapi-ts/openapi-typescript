@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.0.2
+
+### Patch Changes
+
+- [#1743](https://github.com/openapi-ts/openapi-typescript/pull/1743) [`8f6ec20`](https://github.com/openapi-ts/openapi-typescript/commit/8f6ec20d5d26396c1745690f0e42675776e1a691) Thanks [@avaly](https://github.com/avaly)! - Generate valid types for referenced nested properties
+
 ## 7.0.1
 
 ### Patch Changes
