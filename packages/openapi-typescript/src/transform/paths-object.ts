@@ -35,6 +35,7 @@ export default function transformPathsObject(pathsObject: PathsObject, ctx: Glob
         /* type          */ oapiRef(pathItemObject.$ref),
       );
       addJSDocComment(pathItemObject, property);
+      type.push(property);
     } else {
       const pathItemType = transformPathItemObject(pathItemObject, {
         path: createRef(["paths", url]),
