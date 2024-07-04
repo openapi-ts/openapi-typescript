@@ -503,6 +503,60 @@ describe("transformComponentsObject", () => {
         },
       },
     ],
+    [
+      "$ref nested properties",
+      {
+        given: {
+          parameters: {
+            direct: {
+              name: "direct",
+              in: "query",
+              required: true,
+              schema: {
+                $ref: "#/components/aaa",
+              },
+            },
+            nested: {
+              name: "nested",
+              in: "query",
+              required: true,
+              schema: {
+                $ref: "#/components/schemas/bbb/properties/ccc",
+              },
+            },
+          },
+          schemas: {
+            aaa: {
+              type: "string",
+            },
+            bbb: {
+              type: "object",
+              properties: {
+                ccc: {
+                  type: "string",
+                },
+              },
+            },
+          },
+        },
+        want: `{
+    schemas: {
+        aaa: string;
+        bbb: {
+            ccc?: string;
+        };
+    };
+    responses: never;
+    parameters: {
+        direct: components["aaa"];
+        nested: components["schemas"]["bbb"]["ccc"];
+    };
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}`,
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
