@@ -89,6 +89,62 @@ describe("transformRequestBodyObject", () => {
         },
       },
     ],
+    [
+      "requestBodies -> POST data with default values",
+      {
+        given: {
+          content: {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "card_title": {
+                    "type": "string",
+                    "title": "Card Title",
+                    "default": "Social Profile"
+                  },
+                  "template": {
+                    "type": "string",
+                    "title": "Template"
+                  },
+                  "socials": {
+                    "type": "object",
+                    "title": "Socials",
+                    "default": {}
+                  }
+                },
+                "type": "object",
+                "required": ["template"],
+                "title": "Create",
+                "description": "Social Profile schema for create."
+              }
+            }
+          },
+          description: "description",
+        },
+        want: `{
+    content: {
+        "application/json": {
+            /**
+             * Card Title
+             * @default Social Profile
+             */
+            card_title?: string;
+            /** Template */
+            template: string;
+            /**
+             * Socials
+             * @default {}
+             */
+            socials?: Record<string, never>;
+        };
+    };
+}`,
+        options: {
+          path: "#/components/requestBodies/social_profiles__Create/application~1json",
+          ctx: { ...DEFAULT_CTX },
+        },
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
