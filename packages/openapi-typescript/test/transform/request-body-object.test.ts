@@ -100,24 +100,24 @@ describe("transformRequestBodyObject", () => {
                   card_title: {
                     type: "string",
                     title: "Card Title",
-                    default: "Social Profile"
+                    default: "Social Profile",
                   },
                   template: {
                     type: "string",
-                    title: "Template"
+                    title: "Template",
                   },
                   socials: {
                     type: "object",
                     title: "Socials",
-                    default: {}
-                  }
+                    default: {},
+                  },
                 },
                 type: "object",
                 required: ["template"],
                 title: "Create",
-                description: "Social Profile schema for create."
-              }
-            }
+                description: "Social Profile schema for create.",
+              },
+            },
           },
           description: "description",
         },
