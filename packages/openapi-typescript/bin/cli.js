@@ -87,7 +87,7 @@ function normalizeOutput(output) {
   if (path.isAbsolute(output)) {
     return new URL(`file://${output}}`);
   }
-  return new URL(flags.output, CWD);
+  return new URL(output, CWD);
 }
 
 /**
