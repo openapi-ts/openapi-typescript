@@ -95,27 +95,27 @@ describe("transformRequestBodyObject", () => {
         given: {
           content: {
             "application/json": {
-              "schema": {
-                "properties": {
-                  "card_title": {
-                    "type": "string",
-                    "title": "Card Title",
-                    "default": "Social Profile"
+              schema: {
+                properties: {
+                  card_title: {
+                    type: "string",
+                    title: "Card Title",
+                    default: "Social Profile"
                   },
-                  "template": {
-                    "type": "string",
-                    "title": "Template"
+                  template: {
+                    type: "string",
+                    title: "Template"
                   },
-                  "socials": {
-                    "type": "object",
-                    "title": "Socials",
-                    "default": {}
+                  socials: {
+                    type: "object",
+                    title: "Socials",
+                    default: {}
                   }
                 },
-                "type": "object",
-                "required": ["template"],
-                "title": "Create",
-                "description": "Social Profile schema for create."
+                type: "object",
+                required: ["template"],
+                title: "Create",
+                description: "Social Profile schema for create."
               }
             }
           },
