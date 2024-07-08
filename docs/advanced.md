@@ -68,6 +68,8 @@ enum ErrorCode {
 
 :::
 
+To generate in this fashion, `--enum` needs to be specified on the [command line](cli.md#flags).
+
 Alternatively you can use `x-enumNames` and `x-enumDescriptions` ([NSwag/NJsonSchema](https://github.com/RicoSuter/NJsonSchema/wiki/Enums#enum-names-and-descriptions)).
 
 ## Styleguide
