@@ -116,7 +116,7 @@ By default, openapiTS will generate `updated_at?: string;` because it’s not su
 import openapiTS from "openapi-typescript";
 import ts from "typescript";
 
-const DATE = ts.factory.createIdentifier("Date"); // `Date`
+const DATE = ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Date")); // `Date`
 const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull()); // `null`
 
 const ast = await openapiTS(mySchema, {
@@ -168,7 +168,7 @@ Use the same pattern to transform the types:
 import openapiTS from "openapi-typescript";
 import ts from "typescript";
 
-const BLOB = ts.factory.createIdentifier("Blob"); // `Blob`
+const BLOB = ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Blob")); // `Blob`
 const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull()); // `null`
 
 const ast = await openapiTS(mySchema, {
@@ -221,7 +221,7 @@ Here we return an object with a schema property, which is the same as the above 
 import openapiTS from "openapi-typescript";
 import ts from "typescript";
 
-const BLOB = ts.factory.createIdentifier("Blob"); // `Blob`
+const BLOB = ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Blob")); // `Blob`
 const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull()); // `null`
 
 const ast = await openapiTS(mySchema, {
