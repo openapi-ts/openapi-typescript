@@ -79,6 +79,18 @@ const flags = parser(args, {
 });
 
 /**
+ * Normalize the output path into a file URL.
+ * @param {string} output - The output path to be transformed.
+ * @returns {URL} The transformed file URL.
+ */
+function normalizeOutput(output) {
+  if (path.isAbsolute(output)) {
+    return new URL(`file://${output}}`);
+  }
+  return new URL(output, CWD);
+}
+
+/**
  * @param {string | URL} schema
  * @param {@type import('@redocly/openapi-core').Config} redocly
  */
@@ -179,7 +191,7 @@ async function main() {
       // if stdout, (still) don’t log anything to console!
       process.stdout.write(result);
     } else {
-      const outFile = new URL(flags.output, CWD);
+      const outFile = normalizeOutput(flags.output);
       fs.mkdirSync(new URL(".", outFile), { recursive: true });
       fs.writeFileSync(outFile, result, "utf8");
       done("stdin", flags.output, performance.now() - timeStart);
@@ -202,7 +214,7 @@ async function main() {
       // if stdout, (still) don’t log anything to console!
       process.stdout.write(result);
     } else {
-      const outFile = new URL(flags.output, CWD);
+      const outFile = normalizeOutput(flags.output);
       fs.mkdirSync(new URL(".", outFile), { recursive: true });
       fs.writeFileSync(outFile, result, "utf8");
       done(input, flags.output, performance.now() - timeStart);

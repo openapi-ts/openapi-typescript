@@ -122,6 +122,11 @@ export function oapiRef(path: string): ts.TypeNode {
   );
   if (pointer.length > 1) {
     for (let i = 1; i < pointer.length; i++) {
+      // Skip `properties` items when in the middle of the pointer
+      // See: https://github.com/openapi-ts/openapi-typescript/issues/1742
+      if (i > 2 && i < pointer.length - 1 && pointer[i] === "properties") {
+        continue;
+      }
       t = ts.factory.createIndexedAccessTypeNode(
         t,
         ts.factory.createLiteralTypeNode(
