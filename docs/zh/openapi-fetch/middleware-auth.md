@@ -123,7 +123,7 @@ import type { paths } from "./my-openapi-3-schema"; // 由openapi-typescript生�
 let accessToken: string | undefined = undefined;
 
 const authMiddleware: Middleware = {
-  async onRequest(req) {
+  async onRequest({ request }) {
     // 获取令牌，如果不存在
     if (!accessToken) {
       const authRes = await someAuthFunc();
@@ -137,8 +137,8 @@ const authMiddleware: Middleware = {
     // (可选) 在此添加逻辑以在令牌过期时刷新令牌
 
     // 在每个请求中添加 Authorization 标头
-    req.headers.set("Authorization", `Bearer ${accessToken}`);
-    return req;
+    request.headers.set("Authorization", `Bearer ${accessToken}`);
+    return request;
   },
 };
 

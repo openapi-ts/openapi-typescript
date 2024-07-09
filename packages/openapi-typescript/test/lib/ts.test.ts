@@ -64,6 +64,16 @@ describe("oapiRef", () => {
   test("multiple parts", () => {
     expect(astToString(oapiRef("#/components/schemas/User")).trim()).toBe(`components["schemas"]["User"]`);
   });
+
+  test("removes inner `properties`", () => {
+    expect(astToString(oapiRef("#/components/schemas/User/properties/username")).trim()).toBe(
+      `components["schemas"]["User"]["username"]`,
+    );
+  });
+
+  test("leaves final `properties` intact", () => {
+    expect(astToString(oapiRef("#/components/schemas/properties")).trim()).toBe(`components["schemas"]["properties"]`);
+  });
 });
 
 describe("tsEnum", () => {
