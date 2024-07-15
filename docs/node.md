@@ -61,7 +61,7 @@ import { createConfig, loadConfig } from "@redocly/openapi-core";
 import openapiTS from "openapi-typescript";
 
 // option 1: create in-memory config
-const redoc = await createConfig(
+const redocly = await createConfig(
   {
     apis: {
       "core@v2": { … },
@@ -72,9 +72,9 @@ const redoc = await createConfig(
 );
 
 // option 2: load from redocly.yaml file
-const redoc = await loadConfig({ configPath: "redocly.yaml" });
+const redocly = await loadConfig({ configPath: "redocly.yaml" });
 
-const ast = await openapiTS(mySchema, { redoc });
+const ast = await openapiTS(mySchema, { redocly });
 ```
 
 :::
