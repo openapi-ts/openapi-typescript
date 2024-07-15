@@ -51,6 +51,17 @@ describe("transformRequestBodyObject", () => {
       },
     ],
     [
+      "no-content",
+      {
+        given: {},
+        want: `{
+    content: {
+        "*/*"?: never;
+    };
+}`,
+      },
+    ],
+    [
       "POST data with default values",
       {
         given: {
