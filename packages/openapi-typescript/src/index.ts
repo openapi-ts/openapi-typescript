@@ -8,18 +8,21 @@ import type { GlobalContext, OpenAPI3, OpenAPITSOptions } from "./types.js";
 
 export * from "./lib/ts.js";
 export * from "./lib/utils.js";
-export * from "./transform/index.js";
-export * from "./transform/components-object.js";
-export * from "./transform/header-object.js";
-export * from "./transform/media-type-object.js";
+export { default as transformSchema } from "./transform/index.js";
+export { default as transformComponentsObject } from "./transform/components-object.js";
+export { default as transformHeaderObject } from "./transform/header-object.js";
+export { default as transformMediaTypeObject } from "./transform/media-type-object.js";
 export * from "./transform/operation-object.js";
-export * from "./transform/parameter-object.js";
+export { default as transformOperationObject } from "./transform/operation-object.js";
+export { default as transformParameterObject } from "./transform/parameter-object.js";
 export * from "./transform/path-item-object.js";
-export * from "./transform/paths-object.js";
-export * from "./transform/request-body-object.js";
-export * from "./transform/response-object.js";
-export * from "./transform/responses-object.js";
+export { default as transformPathItemObject } from "./transform/path-item-object.js";
+export { default as transformPathsObject } from "./transform/paths-object.js";
+export { default as transformRequestBodyObject } from "./transform/request-body-object.js";
+export { default as transformResponseObject } from "./transform/response-object.js";
+export { default as transformResponsesObject } from "./transform/responses-object.js";
 export * from "./transform/schema-object.js";
+export { default as transformSchemaObject } from "./transform/schema-object.js";
 export * from "./types.js";
 
 export const COMMENT_HEADER = `/**
