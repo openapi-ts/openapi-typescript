@@ -620,7 +620,7 @@ export type operations = Record<string, never>;`,
               InvalidPropertyNameChars: {
                 type: "string",
                 enum: ["=", "!=", ">", "~", "^", "TE=ST"],
-              }
+              },
             },
           },
         },
