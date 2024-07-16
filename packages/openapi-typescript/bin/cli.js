@@ -101,7 +101,7 @@ async function generateSchema(schema, { redocly, silent = false }) {
       alphabetize: flags.alphabetize,
       arrayLength: flags.arrayLength,
       contentNever: flags.contentNever,
-      propertiesRequired: flags.propertiesRequired,
+      propertiesRequiredByDefault: flags.propertiesRequiredByDefault,
       defaultNonNullable: flags.defaultNonNullable,
       emptyObjectsUnknown: flags.emptyObjectsUnknown,
       enum: flags.enum,
