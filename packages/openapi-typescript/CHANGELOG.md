@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.0.3
+
+### Patch Changes
+
+- [#1761](https://github.com/openapi-ts/openapi-typescript/pull/1761) [`8043c5d`](https://github.com/openapi-ts/openapi-typescript/commit/8043c5d27d3abf9df1a3e9cf031531a52921a122) Thanks [@yoshi2no](https://github.com/yoshi2no)! - fix: Enum option cannot generate enums if values are not valid property names
+
 ## 7.0.2
 
 ### Patch Changes
