@@ -617,6 +617,10 @@ export type operations = Record<string, never>;`,
                 "x-enumNames": ["Uno", "Dos", "Tres"],
                 "x-enumDescriptions": ["El número uno", "El número dos", "El número tres"],
               },
+              InvalidPropertyNameChars: {
+                type: "string",
+                enum: ["=", "!=", ">", "~", "^", "TE=ST"],
+              },
             },
           },
         },
@@ -660,6 +664,8 @@ export interface components {
         XEnumVarnames: XEnumVarnames;
         /** @enum {number} */
         XEnumNames: XEnumNames;
+        /** @enum {string} */
+        InvalidPropertyNameChars: InvalidPropertyNameChars;
     };
     responses: never;
     parameters: never;
@@ -699,6 +705,14 @@ export enum XEnumNames {
     Dos = 2,
     // El número tres
     Tres = 3
+}
+export enum InvalidPropertyNameChars {
+    "=" = "=",
+    "!=" = "!=",
+    ">" = ">",
+    "~" = "~",
+    "^" = "^",
+    TE_ST = "TE=ST"
 }
 export type operations = Record<string, never>;`,
         options: { enum: true },

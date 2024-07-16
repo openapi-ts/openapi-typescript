@@ -285,7 +285,15 @@ export function tsEnumMember(value: string | number, metadata: { name?: string; 
     } else if (name[0] === "-") {
       name = `ValueMinus${name.slice(1)}`;
     }
-    name = name.replace(JS_PROPERTY_INDEX_INVALID_CHARS_RE, "_");
+
+    const invalidCharMatch = name.match(JS_PROPERTY_INDEX_INVALID_CHARS_RE);
+    if (invalidCharMatch) {
+      if (invalidCharMatch[0] === name) {
+        name = `"${name}"`;
+      } else {
+        name = name.replace(JS_PROPERTY_INDEX_INVALID_CHARS_RE, "_");
+      }
+    }
   }
 
   let member: ts.EnumMember;
