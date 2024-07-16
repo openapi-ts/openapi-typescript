@@ -44,7 +44,7 @@ await client.PUT("/blogposts", {
 
 :::
 
-`data` and `error` are typechecked and expose their shapes to Intellisence in VS Code (and any other IDE with TypeScript support). Likewise, the request `body` will also typecheck its fields, erring if any required params are missing, or if there’s a type mismatch.
+`data` and `error` are typechecked and expose their shapes to Intellisense in VS Code (and any other IDE with TypeScript support). Likewise, the request `body` will also typecheck its fields, erring if any required params are missing, or if there’s a type mismatch.
 
 `GET()`, `PUT()`, `POST()`, etc. are thin wrappers around the native [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) (which you can [swap for any call](/openapi-fetch/api#create-client)).
 

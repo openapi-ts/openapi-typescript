@@ -1,6 +1,6 @@
 <img src="../../docs/public/assets/openapi-fetch.svg" alt="openapi-fetch" width="216" height="40" />
 
-openapi-fetch is a type-safe fetch client that pulls in your OpenAPI schema. Weighs **4 kB** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
+openapi-fetch is a type-safe fetch client that pulls in your OpenAPI schema. Weighs **5 kb** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
 
 | Library                    | Size (min) | “GET” request\*            |
 | :------------------------- | ---------: | :------------------------- |
@@ -12,7 +12,7 @@ openapi-fetch is a type-safe fetch client that pulls in your OpenAPI schema. Wei
 
 _\* [Benchmarks are approximate](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-fetch/test/index.bench.js) to just show rough baseline and will differ among machines and browsers. The relative performance between libraries is more reliable._
 
-The syntax is inspired by popular libraries like react-query or Apollo client, but without all the bells and whistles and in a 2 kB package.
+The syntax is inspired by popular libraries like react-query or Apollo client, but without all the bells and whistles and in a 5 kb package.
 
 ```ts
 import createClient from "openapi-fetch";
@@ -38,7 +38,7 @@ await client.PUT("/blogposts", {
 
 `data` and `error` are typechecked and expose their shapes to Intellisense in VS Code (and any other IDE with TypeScript support). Likewise, the request `body` will also typecheck its fields, erring if any required params are missing, or if there’s a type mismatch.
 
-`GET`, `PUT`, `POST`, etc. are only thin wrappers around the native [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) (which you can [swap for any call](https://openapi-ts.dev/openapi-fetch/api/#create-client)).
+`GET()`, `PUT()`, `POST()`, etc. are thin wrappers around the native [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) (which you can [swap for any call](https://openapi-ts.dev/openapi-fetch/api/#create-client)).
 
 Notice there are no generics, and no manual typing. Your endpoint’s request and response were inferred automatically. This is a huge improvement in the type safety of your endpoints because **every manual assertion could lead to a bug**! This eliminates all of the following:
 
@@ -49,7 +49,7 @@ Notice there are no generics, and no manual typing. Your endpoint’s request an
 - ✅ Also eliminates `as` type overrides that can also hide bugs
 - ✅ All of this in a **5 kb** client package 🎉
 
-## 🔧 Setup
+## Setup
 
 Install this library along with [openapi-typescript](../openapi-typescript):
 
@@ -58,7 +58,9 @@ npm i openapi-fetch
 npm i -D openapi-typescript typescript
 ```
 
-> **Highly recommended**: enable [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) in your `tsconfig.json` ([docs](/advanced#enable-nouncheckedindexaccess-in-your-tsconfigjson))
+> **Highly recommended**
+> 
+> Enable [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) in your `tsconfig.json` ([docs](/advanced#enable-nouncheckedindexaccess-in-your-tsconfigjson))
 
 Next, generate TypeScript types from your OpenAPI schema using openapi-typescript:
 
@@ -66,9 +68,7 @@ Next, generate TypeScript types from your OpenAPI schema using openapi-typescrip
 npx openapi-typescript ./path/to/api/v1.yaml -o ./src/lib/api/v1.d.ts
 ```
 
-> ⚠️ Be sure to <a href="https://redocly.com/docs/cli/commands/lint/" target="_blank" rel="noopener noreferrer">validate your schemas</a>! openapi-typescript will err on invalid schemas.
-
-Lastly, be sure to **run typechecking** in your project. This can be done by adding `tsc --noEmit` to your <a href="https://docs.npmjs.com/cli/v9/using-npm/scripts" target="_blank" rel="noopener noreferrer">npm scripts</a> like so:
+Lastly, be sure to **run typechecking** in your project. This can be done by adding `tsc --noEmit` to your [npm scripts](https://docs.npmjs.com/cli/v9/using-npm/scripts) like so:
 
 ```json
 {
@@ -80,9 +80,11 @@ Lastly, be sure to **run typechecking** in your project. This can be done by add
 
 And run `npm run test:ts` in your CI to catch type errors.
 
-> **Tip**: use `tsc --noEmit` to check for type errors rather than relying on your linter or your build command. Nothing will typecheck as accurately as the TypeScript compiler itself.
+> **TIP:**
+> 
+> Use `tsc --noEmit` to check for type errors rather than relying on your linter or your build command. Nothing will typecheck as accurately as the TypeScript compiler itself.
 
-## Usage
+## Basic usage
 
 The best part about using openapi-fetch over oldschool codegen is no documentation needed. openapi-fetch encourages using your existing OpenAPI documentation rather than trying to find what function to import, or what parameters that function wants:
 
