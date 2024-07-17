@@ -89,6 +89,7 @@ Node API 支持所有 [CLI 参数](/zh/cli#命令行参数)（采用 `camelCase`
 | `postTransform` |   `Function`    |                 | 与 `transform` 相同，但在 TypeScript 转换之后运行               |
 | `silent`        |    `boolean`    |     `false`     | 静默警告消息（致命错误仍将显示）                                |
 | `cwd`           | `string \| URL` | `process.cwd()` | （可选）提供当前工作目录以帮助解析远程 `$ref`（如果需要的话）。 |
+| `inject`        |    `string`     |                 | 在文件开头注入任意的 TypeScript 类型   |
 
 ### transform / postTransform
 

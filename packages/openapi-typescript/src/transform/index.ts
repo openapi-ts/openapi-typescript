@@ -1,5 +1,5 @@
 import ts, { type InterfaceDeclaration, type TypeLiteralNode } from "typescript";
-import { NEVER, STRING, tsModifiers, tsRecord } from "../lib/ts.js";
+import { NEVER, STRING, stringToAST, tsModifiers, tsRecord } from "../lib/ts.js";
 import { createRef, debug } from "../lib/utils.js";
 import type { GlobalContext, OpenAPI3 } from "../types.js";
 import transformComponentsObject from "./components-object.js";
@@ -18,6 +18,11 @@ const transformers: Record<SchemaTransforms, (node: any, options: GlobalContext)
 
 export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
   const type: ts.Node[] = [];
+
+  if (ctx.inject) {
+    const injectNodes = stringToAST(ctx.inject) as ts.Node[];
+    type.push(...injectNodes);
+  }
 
   for (const root of Object.keys(transformers) as SchemaTransforms[]) {
     const emptyObj = ts.factory.createTypeAliasDeclaration(
