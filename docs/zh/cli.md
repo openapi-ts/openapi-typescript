@@ -111,7 +111,8 @@ CLI 支持以下参数：
 | `--default-non-nullable`  |      | `false`  | 将带有默认值的模式对象视为非可空                                                                  |
 | `--empty-objects-unknown` |      | `false`  | 允许在未指定属性和未指定 `additionalProperties` 的情况下，为模式对象设置任意属性                  |
 | `--enum`                  |      | `false`  | 生成真实的 [TS 枚举](https://www.typescriptlang.org/docs/handbook/enums.html)，而不是字符串联合。 |
-| `--enum-values            |      | `false`  |                                                                                                   |
+| `--enum-values`            |      | `false`  | 将 enum 值导出为数组                                                                                                  |
+| `--check`            |      | `false`  | 检查生成的类型是否是最新的                                                   |
 | `--exclude-deprecated`    |      | `false`  | 从类型中排除已弃用的字段                                                                          |
 | `--export-type`           | `-t` | `false`  | 导出 `type` 而不是 `interface`                                                                    |
 | `--immutable`             |      | `false`  | 生成不可变类型（只读属性和只读数组）                                                              |
