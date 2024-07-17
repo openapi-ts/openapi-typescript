@@ -457,7 +457,8 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
           ("default" in v &&
             options.ctx.defaultNonNullable &&
             !options.path?.includes("parameters") &&
-            !options.path?.includes("requestBody")) // parameters can’t be required, even with defaults
+            !options.path?.includes("requestBody") &&
+            !options.path?.includes("requestBodies")) // can’t be required, even with defaults
             ? undefined
             : QUESTION_TOKEN;
         let type =
