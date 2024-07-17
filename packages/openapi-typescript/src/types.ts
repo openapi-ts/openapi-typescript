@@ -660,6 +660,8 @@ export interface OpenAPITSOptions {
    * @see https://redocly.com/docs/cli/configuration/
    */
   redocly?: RedoclyConfig;
+  /** Inject arbitrary TypeScript types into the start of the file */
+  inject?: string;
 }
 
 /** Context passed to all submodules */
@@ -688,6 +690,7 @@ export interface GlobalContext {
   transform: OpenAPITSOptions["transform"];
   /** retrieve a node by $ref */
   resolve<T>($ref: string): T | undefined;
+  inject?: string;
 }
 
 export type $defs = Record<string, SchemaObject>;

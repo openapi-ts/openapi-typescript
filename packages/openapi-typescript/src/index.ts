@@ -83,6 +83,7 @@ export default async function openapiTS(
     propertiesRequiredByDefault: options.propertiesRequiredByDefault ?? false,
     redoc,
     silent: options.silent ?? false,
+    inject: options.inject ?? undefined,
     transform: typeof options.transform === "function" ? options.transform : undefined,
     resolve($ref) {
       return resolveRef(schema, $ref, { silent: options.silent ?? false });

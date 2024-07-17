@@ -89,6 +89,7 @@ The Node API supports all the [CLI flags](/cli#options) in `camelCase` format, p
 | `postTransform` |   `Function`    |                 | Same as `transform` but runs _after_ the TypeScript transformation                           |
 | `silent`        |    `boolean`    |     `false`     | Silence warning messages (fatal errors will still show)                                      |
 | `cwd`           | `string \| URL` | `process.cwd()` | (optional) Provide the current working directory to help resolve remote `$ref`s (if needed). |
+| `inject`        |    `string`     |                 | Inject arbitrary TypeScript types into the start of the file                                 |
 
 ### transform / postTransform
 
