@@ -106,10 +106,16 @@ describe("CLI", () => {
       expect(stdout).toEqual(expect.stringMatching(/^v[\d.]+(-.*)?$/));
     });
 
-    test("--properties-required-by-default", async () => {
-      const { stdout } = await execa(cmd, ["--properties-required-by-default=true", "./examples/github-api.yaml"], { cwd });
-      expect(stdout).toMatchFileSnapshot(fileURLToPath(new URL("./examples/github-api-required.ts", root)));
-    }, TIMEOUT)
+    test(
+      "--properties-required-by-default",
+      async () => {
+        const { stdout } = await execa(cmd, ["--properties-required-by-default=true", "./examples/github-api.yaml"], {
+          cwd,
+        });
+        expect(stdout).toMatchFileSnapshot(fileURLToPath(new URL("./examples/github-api-required.ts", root)));
+      },
+      TIMEOUT,
+    );
   });
 
   describe("Redocly config", () => {
