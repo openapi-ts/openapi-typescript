@@ -85,7 +85,7 @@ const flags = parser(args, {
  */
 function normalizeOutput(output) {
   if (path.isAbsolute(output)) {
-    return new URL(`file://${output}}`);
+    return new URL(`file://${output}`);
   }
   return new URL(output, CWD);
 }
