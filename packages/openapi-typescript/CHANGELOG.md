@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.0.4
+
+### Patch Changes
+
+- [#1746](https://github.com/openapi-ts/openapi-typescript/pull/1746) [`e705909`](https://github.com/openapi-ts/openapi-typescript/commit/e705909f2b15d8b207be4be22f329e29e5f6444b) Thanks [@phk422](https://github.com/phk422)! - fix: Correct handling of default parameter values in referenced component schema
+
 ## 7.0.3
 
 ### Patch Changes
