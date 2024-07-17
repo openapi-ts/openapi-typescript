@@ -16,6 +16,7 @@ Options
   --output, -o               Specify output file (if not specified in redocly.yaml)
   --enum                     Export true TS enums instead of unions
   --enum-values              Export enum values as arrays
+  --check                    Check that the generated types are up-to-date. (default: false)
   --export-type, -t          Export top-level \`type\` instead of \`interface\`
   --immutable                Generate readonly types
   --additional-properties    Treat schema objects as if \`additionalProperties: true\` is set
@@ -64,6 +65,7 @@ const flags = parser(args, {
     "emptyObjectsUnknown",
     "enum",
     "enumValues",
+    "check",
     "excludeDeprecated",
     "exportType",
     "help",
@@ -88,6 +90,23 @@ function normalizeOutput(output) {
     return new URL(`file://${output}}`);
   }
   return new URL(output, CWD);
+}
+
+/**
+ * Check if the generated types are up-to-date.
+ * @param {string} current - The current generated types.
+ * @param {URL} outputPath - The path to the output file.
+ */
+function checkStaleOutput(current, outputPath) {
+  if (flags.check) {
+    const previous = fs.readFileSync(outputPath, "utf8");
+    if (current === previous) {
+      process.exit(0);
+    } else {
+      error("Generated types are not up-to-date!");
+      process.exit(1);
+    }
+  }
 }
 
 /**
@@ -174,6 +193,7 @@ async function main() {
         }
         const result = await generateSchema(new URL(api.root, configRoot), { redocly });
         const outFile = new URL(api[REDOC_CONFIG_KEY].output, configRoot);
+        checkStaleOutput(result, outFile);
         fs.mkdirSync(new URL(".", outFile), { recursive: true });
         fs.writeFileSync(outFile, result, "utf8");
         done(name, api[REDOC_CONFIG_KEY].output, performance.now() - timeStart);
@@ -192,6 +212,7 @@ async function main() {
       process.stdout.write(result);
     } else {
       const outFile = normalizeOutput(flags.output);
+      checkStaleOutput(result, outFile);
       fs.mkdirSync(new URL(".", outFile), { recursive: true });
       fs.writeFileSync(outFile, result, "utf8");
       done("stdin", flags.output, performance.now() - timeStart);
@@ -215,6 +236,7 @@ async function main() {
       process.stdout.write(result);
     } else {
       const outFile = normalizeOutput(flags.output);
+      checkStaleOutput(result, outFile);
       fs.mkdirSync(new URL(".", outFile), { recursive: true });
       fs.writeFileSync(outFile, result, "utf8");
       done(input, flags.output, performance.now() - timeStart);
