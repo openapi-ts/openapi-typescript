@@ -1355,7 +1355,7 @@ describe("client", () => {
 
     it('multipart/form-data with a file', async () => {
       const TEST_STRING = 'Hello this is text file string';
-      
+
       const file = new Blob([TEST_STRING], { type: 'text/plain' });
       const formData = new FormData();
       formData.append('file', file);
@@ -1373,8 +1373,8 @@ describe("client", () => {
         },
       });
       const {data} = await client.POST("/multipart-form-data-file-upload", {
-        // @ts-ignore // TODO: how to get this to accept FormData? 
-        body: formData,
+        // TODO: how to get this to accept FormData? 
+        body: formData as unknown as string,
       })
 
       expect(data?.text).toBe(TEST_STRING)
