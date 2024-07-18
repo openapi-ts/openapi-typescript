@@ -435,7 +435,7 @@ export function defaultPathSerializer(pathname, pathParams) {
  */
 export function defaultBodySerializer(body) {
   if (body instanceof FormData) {
-    return body
+    return body;
   }
   return JSON.stringify(body);
 }
