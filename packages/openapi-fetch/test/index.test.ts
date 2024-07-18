@@ -1352,6 +1352,33 @@ describe("client", () => {
         customProperty: "value",
       });
     });
+
+    it('multipart/form-data with a file', async () => {
+      const TEST_STRING = 'Hello this is text file string';
+      
+      const file = new Blob([TEST_STRING], { type: 'text/plain' });
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const client = createClient<paths>({ baseUrl });
+       useMockRequestHandler({
+        baseUrl,
+        method: "post",
+        path: "/multipart-form-data-file-upload",
+        handler: async (data) =>{
+          // Get text from file and send it back
+          const formData = await data.request.formData();
+          const text = await (formData.get('file') as File).text()
+          return new HttpResponse(JSON.stringify({text}))
+        },
+      });
+      const {data} = await client.POST("/multipart-form-data-file-upload", {
+        // @ts-ignore // TODO: how to get this to accept FormData? 
+        body: formData,
+      })
+
+      expect(data?.text).toBe(TEST_STRING)
+    })
   });
 
   describe("responses", () => {

@@ -470,6 +470,26 @@ paths:
       responses:
         200:
           $ref: "#/components/responses/MultipleResponse"
+  /multipart-form-data-file-upload:
+    post:
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: string
+              format: binary
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text:
+                    type: string
+                required:
+                  - text
 components:
   schemas:
     Post:
