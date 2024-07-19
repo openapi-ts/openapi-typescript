@@ -1,5 +1,21 @@
 # openapi-typescript
 
+## 7.1.0
+
+### Minor Changes
+
+- [#1766](https://github.com/openapi-ts/openapi-typescript/pull/1766) [`0ce35d7`](https://github.com/openapi-ts/openapi-typescript/commit/0ce35d7ca707b4bd8e2d794c002dcd158079864e) Thanks [@phk422](https://github.com/phk422)! - feat: Add the inject option
+
+- [#1768](https://github.com/openapi-ts/openapi-typescript/pull/1768) [`285b097`](https://github.com/openapi-ts/openapi-typescript/commit/285b0970a6d32406bb67677860e2dcbb3d7ad993) Thanks [@phk422](https://github.com/phk422)! - feat: Add check option
+
+### Patch Changes
+
+- [#1772](https://github.com/openapi-ts/openapi-typescript/pull/1772) [`41cb9a2`](https://github.com/openapi-ts/openapi-typescript/commit/41cb9a232127e5ae421b1853506b75f718683c3d) Thanks [@ashwin153](https://github.com/ashwin153)! - fix: add explicit import of performance to fix bazel compatibility issues
+
+- [#1764](https://github.com/openapi-ts/openapi-typescript/pull/1764) [`2793049`](https://github.com/openapi-ts/openapi-typescript/commit/2793049b1102d9e3ae6ec0f933794993a228c745) Thanks [@michalfedyna](https://github.com/michalfedyna)! - Fix --properties-required-by-default flag not working
+
+- [#1763](https://github.com/openapi-ts/openapi-typescript/pull/1763) [`19b9383`](https://github.com/openapi-ts/openapi-typescript/commit/19b9383de63b6aa6a9c71cdd8741a0de6f206a55) Thanks [@nkt](https://github.com/nkt)! - fix: schema.content might be omitted
+
 ## 7.0.4
 
 ### Patch Changes
