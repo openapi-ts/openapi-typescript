@@ -14,7 +14,7 @@ export default function transformRequestBodyObject(
   options: TransformNodeOptions,
 ): ts.TypeNode {
   const type: ts.TypeElement[] = [];
-  for (const [contentType, mediaTypeObject] of getEntries(requestBodyObject.content, options.ctx)) {
+  for (const [contentType, mediaTypeObject] of getEntries(requestBodyObject.content ?? {}, options.ctx)) {
     const nextPath = createRef([options.path, contentType]);
     const mediaType =
       "$ref" in mediaTypeObject

@@ -74,7 +74,7 @@ export default function transformResponseObject(
   // content
   const contentObject: ts.TypeElement[] = [];
   if (responseObject.content) {
-    for (const [contentType, mediaTypeObject] of getEntries(responseObject.content, options.ctx)) {
+    for (const [contentType, mediaTypeObject] of getEntries(responseObject.content ?? {}, options.ctx)) {
       const property = ts.factory.createPropertySignature(
         /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
         /* name          */ tsPropertyIndex(contentType),

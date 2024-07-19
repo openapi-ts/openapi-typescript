@@ -70,6 +70,18 @@ describe("transformResponseObject", () => {
         // options: DEFAULT_OPTIONS,
       },
     ],
+    [
+      "no-content",
+      {
+        given: {},
+        want: `{
+    headers: {
+        [name: string]: unknown;
+    };
+    content?: never;
+}`,
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {

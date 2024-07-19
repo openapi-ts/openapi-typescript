@@ -17,7 +17,7 @@ export default function transformHeaderObject(headerObject: HeaderObject, option
 
   if (headerObject.content) {
     const type: ts.TypeElement[] = [];
-    for (const [contentType, mediaTypeObject] of getEntries(headerObject.content, options.ctx)) {
+    for (const [contentType, mediaTypeObject] of getEntries(headerObject.content ?? {}, options.ctx)) {
       const nextPath = `${options.path ?? "#"}/${escapePointer(contentType)}`;
       const mediaType =
         "$ref" in mediaTypeObject
