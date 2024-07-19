@@ -1,5 +1,6 @@
 import { execa } from "execa";
 import path from "node:path";
+import { performance } from "node:perf_hooks";
 import { multiFile, singleFile } from "./schemas.js";
 
 async function generateSchemas() {

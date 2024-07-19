@@ -1,4 +1,5 @@
 import ts from "typescript";
+import { performance } from "node:perf_hooks";
 import { NEVER, QUESTION_TOKEN, addJSDocComment, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
 import { createRef, debug, getEntries } from "../lib/utils.js";
 import type { ComponentsObject, GlobalContext, SchemaObject, TransformNodeOptions } from "../types.js";

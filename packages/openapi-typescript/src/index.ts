@@ -1,5 +1,6 @@
 import { createConfig } from "@redocly/openapi-core";
 import type { Readable } from "node:stream";
+import { performance } from "node:perf_hooks";
 import type ts from "typescript";
 import { validateAndBundle } from "./lib/redoc.js";
 import { debug, resolveRef, scanDiscriminators } from "./lib/utils.js";
