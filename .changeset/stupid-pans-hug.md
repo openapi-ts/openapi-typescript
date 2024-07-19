@@ -1,5 +1,4 @@
 ---
-"openapi-typescript-docs": minor
 "openapi-typescript": minor
 ---
 
