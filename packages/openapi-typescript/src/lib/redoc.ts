@@ -7,6 +7,7 @@ import {
   type Document,
   lintDocument,
 } from "@redocly/openapi-core";
+import { performance } from "node:perf_hooks";
 import { Readable } from "node:stream";
 import { fileURLToPath } from "node:url";
 import parseJson from "parse-json";

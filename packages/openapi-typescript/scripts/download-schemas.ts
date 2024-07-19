@@ -1,6 +1,7 @@
 import degit from "degit";
 import fs from "node:fs";
 import path from "node:path";
+import { performance } from "node:perf_hooks";
 import { fileURLToPath } from "node:url";
 import { error } from "../src/lib/utils.js";
 import { multiFile, singleFile } from "./schemas.js";

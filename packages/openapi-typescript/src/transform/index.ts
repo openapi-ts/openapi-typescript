@@ -1,4 +1,5 @@
 import ts, { type InterfaceDeclaration, type TypeLiteralNode } from "typescript";
+import { performance } from "node:perf_hooks";
 import { NEVER, STRING, stringToAST, tsModifiers, tsRecord } from "../lib/ts.js";
 import { createRef, debug } from "../lib/utils.js";
 import type { GlobalContext, OpenAPI3 } from "../types.js";
