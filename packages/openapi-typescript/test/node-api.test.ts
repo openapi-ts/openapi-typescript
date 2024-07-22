@@ -805,6 +805,93 @@ export type operations = Record<string, never>;`,
       },
     ],
     [
+      "options > dedupeEnums",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
+          paths: {
+            "/url": {
+              get: {
+                parameters: [
+                  {
+                    name: "status",
+                    in: "query",
+                    schema: {
+                      type: "string",
+                      enum: ["active", "inactive"],
+                    },
+                  },
+                ],
+              },
+            },
+          },
+          components: {
+            schemas: {
+              Status: {
+                type: "string",
+                enum: ["active", "inactive"],
+              },
+              StatusReverse: {
+                type: "string",
+                enum: ["inactive", "active"],
+              },
+            },
+          },
+        },
+        want: `export interface paths {
+    "/url": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    status?: PathsUrlGetParametersQueryStatus;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: never;
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        /** @enum {string} */
+        Status: PathsUrlGetParametersQueryStatus;
+        /** @enum {string} */
+        StatusReverse: PathsUrlGetParametersQueryStatus;
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export enum PathsUrlGetParametersQueryStatus {
+    active = "active",
+    inactive = "inactive"
+}
+export type operations = Record<string, never>;`,
+        options: { enum: true, dedupeEnums: true },
+      },
+    ],
+    [
       "snapshot > GitHub",
       {
         given: new URL("./github-api.yaml", EXAMPLES_DIR),

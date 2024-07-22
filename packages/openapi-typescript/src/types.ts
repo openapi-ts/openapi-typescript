@@ -651,6 +651,8 @@ export interface OpenAPITSOptions {
   enum?: boolean;
   /** Export union values as arrays */
   enumValues?: boolean;
+  /** Dedupe enum values */
+  dedupeEnums?: boolean;
   /** (optional) Substitute path parameter names with their respective types */
   pathParamsAsTypes?: boolean;
   /** Treat all objects as if they have \`required\` set to all properties by default (default: false) */
@@ -678,6 +680,7 @@ export interface GlobalContext {
   emptyObjectsUnknown: boolean;
   enum: boolean;
   enumValues: boolean;
+  dedupeEnums: boolean;
   excludeDeprecated: boolean;
   exportType: boolean;
   immutable: boolean;

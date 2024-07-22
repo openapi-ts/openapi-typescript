@@ -204,20 +204,37 @@ export function tsDedupe(types: ts.TypeNode[]): ts.TypeNode[] {
   return filteredTypes;
 }
 
+export const enumCache = new Map<string, ts.EnumDeclaration>();
+
 /** Create a TS enum (with sanitized name and members) */
 export function tsEnum(
   name: string,
   members: (string | number)[],
   metadata?: { name?: string; description?: string }[],
-  options?: { export?: boolean },
+  options?: { export?: boolean; shouldCache?: boolean },
 ) {
   let enumName = sanitizeMemberName(name);
   enumName = `${enumName[0].toUpperCase()}${enumName.substring(1)}`;
-  return ts.factory.createEnumDeclaration(
+  let key = "";
+  if (options?.shouldCache) {
+    key = `${members
+      .slice(0)
+      .sort()
+      .map((v, i) => {
+        return `${metadata?.[i]?.name ?? String(v)}:${metadata?.[i]?.description || ""}`;
+      })
+      .join(",")}`;
+    if (enumCache.has(key)) {
+      return enumCache.get(key) as ts.EnumDeclaration;
+    }
+  }
+  const enumDeclaration = ts.factory.createEnumDeclaration(
     /* modifiers */ options ? tsModifiers({ export: options.export ?? false }) : undefined,
     /* name      */ enumName,
     /* members   */ members.map((value, i) => tsEnumMember(value, metadata?.[i])),
   );
+  options?.shouldCache && enumCache.set(key, enumDeclaration);
+  return enumDeclaration;
 }
 
 /** Create an exported TS array literal expression  */
