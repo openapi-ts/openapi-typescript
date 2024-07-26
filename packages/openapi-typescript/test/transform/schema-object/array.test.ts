@@ -158,7 +158,7 @@ describe("transformSchemaObject > array", () => {
           ...DEFAULT_OPTIONS,
           ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
         },
-      }
+      },
     ],
     [
       "options > immutable: true",
