@@ -1,9 +1,9 @@
 ---
-title: useQuery
+title: useMutation
 ---
 # {{ $frontmatter.title }}
 
-The `useMutation` method allows you to use the original [useMutation](https://tanstack.com/query/latest/docs/framework/react/guides/queries).
+The `useMutation` method allows you to use the original [useMutation](https://tanstack.com/query/latest/docs/framework/react/guides/mutations).
 
 - The result is the same as the original function.
 - The `mutationKey` is `[method, path]`.
