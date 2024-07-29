@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.1.1
+
+### Patch Changes
+
+- [#1784](https://github.com/openapi-ts/openapi-typescript/pull/1784) [`c2f8655`](https://github.com/openapi-ts/openapi-typescript/commit/c2f8655c0be5f8131d0ef115724fa4a443c44a8b) Thanks [@yoshi2no](https://github.com/yoshi2no)! - Fix: Correct handling of identical minItems and maxItems in array schemas when arrayLength option is true
+
 ## 7.1.0
 
 ### Minor Changes
