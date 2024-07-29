@@ -160,8 +160,8 @@ If authorization isn’t needed for certain routes, you could also handle that w
 const UNPROTECTED_ROUTES = ["/v1/login", "/v1/logout", "/v1/public/"];
 
 const authMiddleware = {
-  onRequest({ url, request }) {
-    if (UNPROTECTED_ROUTES.some((pathname) => url.startsWith(pathname))) {
+  onRequest({ schemaPath, request }) {
+    if (UNPROTECTED_ROUTES.some((pathname) => schemaPath.startsWith(pathname))) {
       return undefined; // don’t modify request for certain paths
     }
 
