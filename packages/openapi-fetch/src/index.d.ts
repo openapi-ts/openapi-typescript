@@ -125,8 +125,6 @@ export type MergedOptions<T = unknown> = {
 };
 
 export interface MiddlewareCallbackParams {
-  /** Final URL for this request */
-  readonly url: string;
   /** Current Request object */
   request: Request;
   /** The original OpenAPI schema path (including curly braces) */
