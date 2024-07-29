@@ -330,8 +330,14 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
         (min !== 0 || max !== undefined) &&
         estimateCodeSize < 30 // "30" is an arbitrary number but roughly around when TS starts to struggle with tuple inference in practice
       ) {
-        // if maxItems is set, then return a union of all permutations of possible tuple types
-        if ((schemaObject.maxItems as number) > 0) {
+        if (min === max) {
+          const elements: ts.TypeNode[] = [];
+          for (let i = 0; i < min; i++) {
+            elements.push(itemType);
+          }
+          return tsUnion([ts.factory.createTupleTypeNode(elements)]);
+        } else if ((schemaObject.maxItems as number) > 0) {
+          // if maxItems is set, then return a union of all permutations of possible tuple types
           const members: ts.TypeNode[] = [];
           // populate 1 short of min …
           for (let i = 0; i <= (max ?? 0) - min; i++) {
