@@ -1,5 +1,11 @@
 # openapi-typescript-helpers
 
+## 0.0.11
+
+### Patch Changes
+
+- [#1788](https://github.com/openapi-ts/openapi-typescript/pull/1788) [`bcc9222`](https://github.com/openapi-ts/openapi-typescript/commit/bcc92223c83ba074316e17534a173fee8da9cd41) Thanks [@yukukotani](https://github.com/yukukotani)! - keep index.d.cts in npm distribution
+
 ## 0.0.10
 
 ### Patch Changes
