@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.2.0
+
+### Minor Changes
+
+- [#1775](https://github.com/openapi-ts/openapi-typescript/pull/1775) [`b1bbe62`](https://github.com/openapi-ts/openapi-typescript/commit/b1bbe6295fad3a798fe3d8c5c9c1347ae17e268f) Thanks [@phk422](https://github.com/phk422)! - feat: add dedupeEnums option
+
 ## 7.1.2
 
 ### Patch Changes
