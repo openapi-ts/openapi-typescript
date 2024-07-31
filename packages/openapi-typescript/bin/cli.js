@@ -17,6 +17,7 @@ Options
   --output, -o               Specify output file (if not specified in redocly.yaml)
   --enum                     Export true TS enums instead of unions
   --enum-values              Export enum values as arrays
+  --dedupe-enums             Dedupe enum types when \`--enum=true\` is set
   --check                    Check that the generated types are up-to-date. (default: false)
   --export-type, -t          Export top-level \`type\` instead of \`interface\`
   --immutable                Generate readonly types
@@ -66,6 +67,7 @@ const flags = parser(args, {
     "emptyObjectsUnknown",
     "enum",
     "enumValues",
+    "dedupeEnums",
     "check",
     "excludeDeprecated",
     "exportType",
@@ -126,6 +128,7 @@ async function generateSchema(schema, { redocly, silent = false }) {
       emptyObjectsUnknown: flags.emptyObjectsUnknown,
       enum: flags.enum,
       enumValues: flags.enumValues,
+      dedupeEnums: flags.dedupeEnums,
       excludeDeprecated: flags.excludeDeprecated,
       exportType: flags.exportType,
       immutable: flags.immutable,

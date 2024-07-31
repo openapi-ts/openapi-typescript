@@ -102,17 +102,14 @@ export function transformSchemaObjectWithComposition(
         name: schemaObject["x-enum-varnames"]?.[i] ?? schemaObject["x-enumNames"]?.[i],
         description: schemaObject["x-enum-descriptions"]?.[i] ?? schemaObject["x-enumDescriptions"]?.[i],
       }));
-      const enumType = tsEnum(
-        enumName,
-        schemaObject.enum as (string | number)[],
-        metadata,
-
-        {
-          export: true,
-          // readonly: TS enum do not support the readonly modifier
-        },
-      );
-      options.ctx.injectFooter.push(enumType);
+      const enumType = tsEnum(enumName, schemaObject.enum as (string | number)[], metadata, {
+        shouldCache: options.ctx.dedupeEnums,
+        export: true,
+        // readonly: TS enum do not support the readonly modifier
+      });
+      if (!options.ctx.injectFooter.includes(enumType)) {
+        options.ctx.injectFooter.push(enumType);
+      }
       return ts.factory.createTypeReferenceNode(enumType.name);
     }
     const enumType = schemaObject.enum.map(tsLiteral);
