@@ -21,19 +21,6 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe("client", () => {
-  it("generates all proper functions", () => {
-    const client = createClient<paths>();
-
-    expect(client).toHaveProperty("GET");
-    expect(client).toHaveProperty("PUT");
-    expect(client).toHaveProperty("POST");
-    expect(client).toHaveProperty("DELETE");
-    expect(client).toHaveProperty("OPTIONS");
-    expect(client).toHaveProperty("HEAD");
-    expect(client).toHaveProperty("PATCH");
-    expect(client).toHaveProperty("TRACE");
-  });
-
   describe("TypeScript checks", () => {
     it("marks data or error as undefined, but never both", async () => {
       const client = createClient<paths>({
@@ -1868,6 +1855,41 @@ describe("client", () => {
       await expect(async () => await client.TRACE("/anyMethod")).rejects.toThrowError(
         "'TRACE' HTTP method is unsupported",
       );
+    });
+  });
+
+  describe("URL as property style call", () => {
+    it("performs a call without params", async () => {
+      const client = createClient<paths>({ baseUrl });
+      const { getRequest } = useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/anyMethod",
+      });
+      await client["/anyMethod"].GET();
+      expect(getRequest().method).toBe("GET");
+    });
+
+    it("performs a call with params", async () => {
+      const client = createClient<paths>({ baseUrl });
+      const { getRequestUrl } = useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/blogposts/:post_id",
+        status: 200,
+        body: { message: "OK" },
+      });
+
+      await client["/blogposts/{post_id}"].GET({
+        // expect error on number instead of string.
+        // @ts-expect-error
+        params: { path: { post_id: 1234 } },
+      });
+
+      await client["/blogposts/{post_id}"].GET({
+        params: { path: { post_id: "1234" } },
+      });
+      expect(getRequestUrl().pathname).toBe("/blogposts/1234");
     });
   });
 });

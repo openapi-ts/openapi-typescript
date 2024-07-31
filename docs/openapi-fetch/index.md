@@ -169,6 +169,19 @@ const { data, error, response } = await client.GET("/url");
 | `error`    | `5xx`, `4xx`, or `default` response if not OK; otherwise `undefined`                                                        |
 | `response` | [The original Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) which contains `status`, `headers`, etc. |
 
+### Path-property style
+
+Alternatively to passing the path as parameter, you can select it as a property on the client:
+
+```ts
+client["/blogposts/{post_id}"].GET({
+  params: { post_id: "my-post" },
+  query: { version: 2 },
+});
+```
+
+This is strictly equivalent to `.GET("/blogposts/{post_id}", { ... } )`.
+
 ## Support
 
 | Platform       | Support                                                                                                                                            |
