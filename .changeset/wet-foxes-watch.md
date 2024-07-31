@@ -1,5 +1,5 @@
 ---
-"openapi-typescript": patch
+"openapi-typescript": minor
 ---
 
 feat: add dedupeEnums option
