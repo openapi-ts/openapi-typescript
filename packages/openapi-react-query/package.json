@@ -1,10 +1,10 @@
 {
-  "name": "openapi-fetch",
-  "description": "Fast, type-safe fetch client for your OpenAPI schema. Only 5 kb (min). Works with React, Vue, Svelte, or vanilla JS.",
-  "version": "0.10.4",
+  "name": "openapi-react-query",
+  "description": "Fast, type-safe @tanstack/react-query client to work with your OpenAPI schema.",
+  "version": "0.0.2",
   "author": {
-    "name": "Drew Powers",
-    "email": "drew@pow.rs"
+    "name": "Martin Paucot",
+    "email": "contact@martin-paucot.fr"
   },
   "license": "MIT",
   "type": "module",
@@ -18,8 +18,8 @@
         "default": "./dist/index.js"
       },
       "require": {
-        "types": "./dist/cjs/index.d.cts",
-        "default": "./dist/cjs/index.cjs"
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
       }
     },
     "./*": "./*"
@@ -28,7 +28,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/openapi-ts/openapi-typescript",
-    "directory": "packages/openapi-fetch"
+    "directory": "packages/openapi-react-query"
   },
   "bugs": {
     "url": "https://github.com/openapi-ts/openapi-typescript/issues"
@@ -43,41 +43,43 @@
     "typescript",
     "fetch",
     "react",
-    "vue",
-    "svelte"
+    "react-query",
+    "tanstack"
   ],
   "scripts": {
-    "build": "pnpm run build:clean && pnpm run build:js && pnpm run build:js-min && pnpm run build:cjs",
+    "build": "pnpm run build:clean && pnpm run build:esm && pnpm run build:cjs",
     "build:clean": "del-cli dist",
-    "build:js": "mkdir -p dist && cp src/* dist",
-    "build:js-min": "esbuild --bundle src/index.js --format=esm --minify --outfile=dist/index.min.js && cp dist/index.d.ts dist/index.min.d.ts",
-    "build:cjs": "esbuild --bundle src/index.js --format=cjs --outfile=dist/cjs/index.cjs && cp dist/index.d.ts dist/cjs/index.d.cts",
+    "build:esm": "tsc -p tsconfig.build.json",
+    "build:cjs": "esbuild --bundle --platform=node --target=es2019 --outfile=dist/index.cjs --external:typescript src/index.ts",
+    "dev": "tsc -p tsconfig.build.json --watch",
     "format": "biome format . --write",
     "lint": "biome check .",
-    "generate-types": "openapi-typescript -c test/redocly.yaml",
+    "generate-types": "openapi-typescript test/fixtures/api.yaml -o test/fixtures/api.d.ts",
     "pretest": "pnpm run generate-types",
     "test": "pnpm run \"/^test:/\"",
     "test:js": "vitest run",
     "test:ts": "tsc --noEmit",
-    "test-e2e": "playwright test",
-    "e2e-vite-build": "vite build test/fixtures/e2e",
-    "e2e-vite-start": "vite preview test/fixtures/e2e",
     "version": "pnpm run prepare && pnpm run build"
   },
   "dependencies": {
     "openapi-typescript-helpers": "workspace:^"
   },
   "devDependencies": {
-    "axios": "^1.7.2",
+    "@testing-library/react": "^16.0.0",
+    "@types/react": "18.3.1",
+    "@vitejs/plugin-react": "^4.3.1",
     "del-cli": "^5.1.0",
     "esbuild": "^0.20.2",
     "execa": "^8.0.1",
-    "msw": "^2.3.1",
     "openapi-typescript": "workspace:^",
-    "openapi-typescript-codegen": "^0.25.0",
-    "openapi-typescript-fetch": "^2.0.0",
-    "superagent": "^9.0.2",
+    "msw": "^2.3.1",
+    "react": "^18.3.1",
+    "react-error-boundary": "^4.0.13",
     "typescript": "^5.4.5",
-    "vite": "^5.3.1"
+    "vitest": "^1.6.0"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.0.0",
+    "openapi-fetch": "workspace:^"
   }
 }

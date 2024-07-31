@@ -1,0 +1,17 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.8.1/schema.json",
+  "extends": ["../../biome.json"],
+  "files": {
+    "ignore": ["./test/fixtures/"]
+  },
+  "linter": {
+    "rules": {
+      "complexity": {
+        "noBannedTypes": "off"
+      },
+      "suspicious": {
+        "noConfusingVoidType": "off"
+      }
+    }
+  }
+}

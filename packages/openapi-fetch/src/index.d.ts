@@ -125,8 +125,6 @@ export type MergedOptions<T = unknown> = {
 };
 
 export interface MiddlewareCallbackParams {
-  /** Final URL for this request */
-  readonly url: string;
   /** Current Request object */
   request: Request;
   /** The original OpenAPI schema path (including curly braces) */
@@ -169,9 +167,7 @@ export type ClientMethod<
     : [Init & { [key: string]: unknown }]
 ) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
 
-export default function createClient<Paths extends {}, Media extends MediaType = MediaType>(
-  clientOptions?: ClientOptions,
-): {
+export interface Client<Paths extends {}, Media extends MediaType = MediaType> {
   /** Call a GET endpoint */
   GET: ClientMethod<Paths, "get", Media>;
   /** Call a PUT endpoint */
@@ -192,7 +188,11 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   use(...middleware: Middleware[]): void;
   /** Unregister middleware */
   eject(...middleware: Middleware[]): void;
-};
+}
+
+export default function createClient<Paths extends {}, Media extends MediaType = MediaType>(
+  clientOptions?: ClientOptions,
+): Client<Paths, Media>;
 
 /** Serialize primitive params to string */
 export declare function serializePrimitiveParam(
