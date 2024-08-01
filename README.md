@@ -25,8 +25,8 @@ Ultra-fast fetching for TypeScript generated automatically from your OpenAPI sch
 
 Become a sponsor by supporting this project on [OpenCollective](https://opencollective.com/openapi-ts)!
 
-<a href="https://opencollective.com/webpack/donate" target="_blank">
-  <img src="https://opencollective.com/webpack/donate/button@2x.png?color=blue" width="300" />
+<a href="https://opencollective.com/openapi-ts/donate" target="_blank">
+  <img src="https://opencollective.com/openapi-ts/donate/button@2x.png?color=blue" width="300" />
 </a>
 
 ## 🤝 Contributing
