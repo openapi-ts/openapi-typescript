@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.10.5
+
+### Patch Changes
+
+- [#1762](https://github.com/openapi-ts/openapi-typescript/pull/1762) [`7698546`](https://github.com/openapi-ts/openapi-typescript/commit/76985467402dc52d705902c21159387ddaff3519) Thanks [@thatsprettyfaroutman](https://github.com/thatsprettyfaroutman)! - Allow FormData through defaultBodySerializer
+
 ## 0.10.4
 
 ### Patch Changes
