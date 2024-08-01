@@ -23,7 +23,12 @@
     },
     "./*": "./*"
   },
-  "files": ["index.js", "index.cjs", "index.d.ts", "index.d.cts"],
+  "files": [
+    "index.js",
+    "index.cjs",
+    "index.d.ts",
+    "index.d.cts"
+  ],
   "homepage": "https://openapi-ts.dev",
   "repository": {
     "type": "git",
