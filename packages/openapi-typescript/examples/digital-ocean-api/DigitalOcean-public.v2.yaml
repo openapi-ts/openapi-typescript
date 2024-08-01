@@ -144,8 +144,9 @@ tags:
       simplifies the creation and management of highly available database clusters. Currently, it
       offers support for [PostgreSQL](http://www.digitalocean.com/docs/databases/postgresql/),
       [Redis](https://www.digitalocean.com/docs/databases/redis/),
-      [MySQL](https://www.digitalocean.com/docs/databases/mysql/), and
-      [MongoDB](https://www.digitalocean.com/docs/databases/mongodb/).
+      [MySQL](https://www.digitalocean.com/docs/databases/mysql/), 
+      [MongoDB](https://www.digitalocean.com/docs/databases/mongodb/), and
+      [OpenSearch](https://docs.digitalocean.com/products/databases/opensearch/).
 
       By sending requests to the `/v2/databases` endpoint, you can list, create, or delete
       database clusters as well as scale the size of a cluster, add or remove read-only replicas,
@@ -839,6 +840,21 @@ paths:
        $ref: 'resources/databases/databases_update_kafka_topic.yml'
     delete:
        $ref: 'resources/databases/databases_delete_kafka_topic.yml'
+  
+  /v2/databases/{database_cluster_uuid}/logsink:
+    get:
+      $ref: 'resources/databases/databases_list_logsink.yml'
+    post:
+      $ref: 'resources/databases/databases_create_logsink.yml'
+
+  /v2/databases/{database_cluster_uuid}/logsink/{logsink_id}:
+    get:
+      $ref: 'resources/databases/databases_get_logsink.yml'
+    put:
+      $ref: 'resources/databases/databases_update_logsink.yml'
+    delete:
+      $ref: 'resources/databases/databases_delete_logsink.yml'
+
 
   /v2/databases/metrics/credentials:
     get:

@@ -15,6 +15,7 @@ properties:
     maxLength: 256
     minLength: 1
     example: https://www.example.com
+    deprecated: true
 
   regex:
     type: string

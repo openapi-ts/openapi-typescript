@@ -45,5 +45,8 @@ properties:
       is run in a highly available configuration in the cluster. Highly available
       control planes incur less downtime. The property cannot be disabled.
 
+  control_plane_firewall:
+    $ref: 'control_plane_firewall.yml'
+
 required:
   - name

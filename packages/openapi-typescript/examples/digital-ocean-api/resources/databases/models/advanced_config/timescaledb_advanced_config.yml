@@ -1,0 +1,12 @@
+type: object
+description: TimescaleDB extension configuration values
+
+properties:
+  max_background_workers:
+    description: >-
+      The number of background workers for timescaledb operations. 
+      Set to the sum of your number of databases and the total number of concurrent background workers you want running at any given point in time.
+    type: integer
+    minimum: 1
+    maximum: 4096
+    example: 8

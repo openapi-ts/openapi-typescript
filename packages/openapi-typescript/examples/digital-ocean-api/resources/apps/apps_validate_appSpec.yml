@@ -53,5 +53,5 @@ responses:
 
 security:
   - bearer_auth:
-    - 'app:create'
+    - 'app:read'
 

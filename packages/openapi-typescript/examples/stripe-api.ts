@@ -1014,7 +1014,8 @@ export interface paths {
         /** @description <p>Retrieves a Session object.</p> */
         get: operations["GetCheckoutSessionsSession"];
         put?: never;
-        post?: never;
+        /** @description <p>Updates a Session object.</p> */
+        post: operations["PostCheckoutSessionsSession"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1399,7 +1400,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Creates a customer session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.</p> */
+        /** @description <p>Creates a Customer Session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.</p> */
         post: operations["PostCustomerSessions"];
         delete?: never;
         options?: never;
@@ -2073,7 +2074,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an event. Supply the unique identifier of the event, which you might have received in a webhook.</p> */
+        /** @description <p>Retrieves the details of an event if it was created in the last 30 days. Supply the unique identifier of the event, which you might have received in a webhook.</p> */
         get: operations["GetEventsId"];
         put?: never;
         post?: never;
@@ -2710,6 +2711,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/invoices/{invoice}/add_lines": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description <p>Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.</p> */
+        post: operations["PostInvoicesInvoiceAddLines"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/invoices/{invoice}/finalize": {
         parameters: {
             query?: never;
@@ -2798,6 +2816,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/invoices/{invoice}/remove_lines": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description <p>Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.</p> */
+        post: operations["PostInvoicesInvoiceRemoveLines"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/invoices/{invoice}/send": {
         parameters: {
             query?: never;
@@ -2811,6 +2846,23 @@ export interface paths {
          *
          *     <p>Requests made in test-mode result in no emails being sent, despite sending an <code>invoice.sent</code> event.</p> */
         post: operations["PostInvoicesInvoiceSend"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/invoices/{invoice}/update_lines": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description <p>Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.</p> */
+        post: operations["PostInvoicesInvoiceUpdateLines"];
         delete?: never;
         options?: never;
         head?: never;
@@ -4344,7 +4396,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first The 10 most recent refunds are always available by default on the Charge object.</p> */
+        /** @description <p>Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first. The 10 most recent refunds are always available by default on the Charge object.</p> */
         get: operations["GetRefunds"];
         put?: never;
         /** @description <p>When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.</p>
@@ -5030,7 +5082,7 @@ export interface paths {
         put?: never;
         /** @description <p>Updates an existing subscription to match the specified parameters.
          *     When changing prices or quantities, we optionally prorate the price we charge next month to make up for any price changes.
-         *     To preview how the proration is calculated, use the <a href="/docs/api/invoices/upcoming">upcoming invoice</a> endpoint.</p>
+         *     To preview how the proration is calculated, use the <a href="/docs/api/invoices/create_preview">create preview</a> endpoint.</p>
          *
          *     <p>By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a <currency>100</currency> price, they’ll be billed <currency>100</currency> immediately. If on May 15 they switch to a <currency>200</currency> price, then on June 1 they’ll be billed <currency>250</currency> (<currency>200</currency> for a renewal of her subscription, plus a <currency>50</currency> prorating adjustment for half of the previous month’s <currency>100</currency> difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes.</p>
          *
@@ -5038,11 +5090,11 @@ export interface paths {
          *
          *     <ul>
          *     <li>The billing interval is changed (for example, from monthly to yearly).</li>
-         *     <li>The subscription moves from free to paid, or paid to free.</li>
+         *     <li>The subscription moves from free to paid.</li>
          *     <li>A trial starts or ends.</li>
          *     </ul>
          *
-         *     <p>In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date.</p>
+         *     <p>In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date. Learn about how <a href="/billing/subscriptions/upgrade-downgrade#immediate-payment">Stripe immediately attempts payment for subscription changes</a>.</p>
          *
          *     <p>If you want to charge for an upgrade immediately, pass <code>proration_behavior</code> as <code>always_invoice</code> to create prorations, automatically invoice the customer for those proration adjustments, and attempt to collect payment. If you pass <code>create_prorations</code>, the prorations are created but not automatically invoiced. If you want to bill the customer for the prorations before the subscription’s renewal date, you need to manually <a href="/docs/api/invoices/create">invoice the customer</a>.</p>
          *
@@ -5104,7 +5156,7 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Calculates tax based on input and returns a Tax <code>Calculation</code> object.</p> */
+        /** @description <p>Calculates tax based on the input and returns a Tax <code>Calculation</code> object.</p> */
         post: operations["PostTaxCalculations"];
         delete?: never;
         options?: never;
@@ -5652,6 +5704,23 @@ export interface paths {
         put?: never;
         /** @description <p>Expire a test-mode Authorization.</p> */
         post: operations["PostTestHelpersIssuingAuthorizationsAuthorizationExpire"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/test_helpers/issuing/authorizations/{authorization}/finalize_amount": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description <p>Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.</p> */
+        post: operations["PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount"];
         delete?: never;
         options?: never;
         head?: never;
@@ -6859,7 +6928,7 @@ export interface components {
             individual?: components["schemas"]["person"];
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -6880,7 +6949,7 @@ export interface components {
         };
         /** AccountAnnualRevenue */
         account_annual_revenue: {
-            /** @description A non-negative integer representing the amount in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). */
+            /** @description A non-negative integer representing the amount in the [smallest currency unit](/currencies#zero-decimal). */
             amount?: number | null;
             /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
             currency?: string | null;
@@ -6911,7 +6980,7 @@ export interface components {
             annual_revenue?: components["schemas"]["account_annual_revenue"] | null;
             /** @description An estimated upper bound of employees, contractors, vendors, etc. currently working for the business. */
             estimated_worker_count?: number | null;
-            /** @description [The merchant category code for the account](https://stripe.com/docs/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide. */
+            /** @description [The merchant category code for the account](/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide. */
             mcc?: string | null;
             monthly_estimated_revenue?: components["schemas"]["account_monthly_estimated_revenue"];
             /** @description The customer-facing business name. */
@@ -7178,8 +7247,11 @@ export interface components {
             current_deadline?: number | null;
             /** @description Fields that need to be collected to keep the capability enabled. If not collected by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash. */
             currently_due: string[];
-            /** @description This is typed as a string for consistency with `requirements.disabled_reason`, but it safe to assume `future_requirements.disabled_reason` is empty because fields in `future_requirements` will never disable the account. */
-            disabled_reason?: string | null;
+            /**
+             * @description This is typed as an enum for consistency with `requirements.disabled_reason`, but it safe to assume `future_requirements.disabled_reason` is null because fields in `future_requirements` will never disable the account.
+             * @enum {string|null}
+             */
+            disabled_reason?: "other" | "paused.inactivity" | "pending.onboarding" | "pending.review" | "platform_disabled" | "platform_paused" | "rejected.inactivity" | "rejected.other" | "rejected.unsupported_business" | "requirements.fields_needed" | null;
             /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
             errors: components["schemas"]["account_requirements_error"][];
             /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well. */
@@ -7200,12 +7272,11 @@ export interface components {
             current_deadline?: number | null;
             /** @description Fields that need to be collected to keep the capability enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the capability is disabled. */
             currently_due: string[];
-            /** @description If the capability is disabled, this string describes why. [Learn more about handling verification issues](https://stripe.com/docs/connect/handling-api-verification). Can be `requirements.fields_needed`, `pending.onboarding`, `pending.review`, `rejected.other`, `platform_paused`, `rejected.inactivty`, or `rejected.unsupported_business`.
-             *
-             *     `rejected.unsupported_business` means that the account's business is not supported by the capability. For example, payment methods may restrict the businesses they support in their terms of service, such as in [Afterpay Clearpay's terms of service](/afterpay-clearpay/legal#restricted-businesses).
-             *
-             *     `rejected.inactivity` means that the capability has been paused for inactivity. This disabled reason currently only applies to the Issuing capability. See [Issuing: Managing Inactive Connects](https://support.stripe.com/questions/issuing-managing-inactive-connect-accounts) for more details. */
-            disabled_reason?: string | null;
+            /**
+             * @description Description of why the capability is disabled. [Learn more about handling verification issues](https://stripe.com/docs/connect/handling-api-verification).
+             * @enum {string|null}
+             */
+            disabled_reason?: "other" | "paused.inactivity" | "pending.onboarding" | "pending.review" | "platform_disabled" | "platform_paused" | "rejected.inactivity" | "rejected.other" | "rejected.unsupported_business" | "requirements.fields_needed" | null;
             /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
             errors: components["schemas"]["account_requirements_error"][];
             /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set. */
@@ -7298,7 +7369,7 @@ export interface components {
         };
         /** AccountMonthlyEstimatedRevenue */
         account_monthly_estimated_revenue: {
-            /** @description A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). */
+            /** @description A non-negative integer representing how much to charge in the [smallest currency unit](/currencies#zero-decimal). */
             amount: number;
             /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
             currency: string;
@@ -7829,7 +7900,7 @@ export interface components {
             last4: string;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -7866,13 +7937,13 @@ export interface components {
             as_of: number;
             cash?: components["schemas"]["bank_connections_resource_balance_api_resource_cash_balance"];
             credit?: components["schemas"]["bank_connections_resource_balance_api_resource_credit_balance"];
-            /** @description The balances owed to (or by) the account holder.
+            /** @description The balances owed to (or by) the account holder, before subtracting any outbound pending transactions or adding any inbound pending transactions.
              *
              *     Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
              *
              *     Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder. */
             current: {
-                [key: string]: number | undefined;
+                [key: string]: number;
             };
             /**
              * @description The `type` of the balance. An additional hash is included on the balance with a name matching this value.
@@ -7882,13 +7953,13 @@ export interface components {
         };
         /** BankConnectionsResourceBalanceAPIResourceCashBalance */
         bank_connections_resource_balance_api_resource_cash_balance: {
-            /** @description The funds available to the account holder. Typically this is the current balance less any holds.
+            /** @description The funds available to the account holder. Typically this is the current balance after subtracting any outbound pending transactions and adding any inbound pending transactions.
              *
              *     Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
              *
              *     Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder. */
             available?: {
-                [key: string]: number | undefined;
+                [key: string]: number;
             } | null;
         };
         /** BankConnectionsResourceBalanceAPIResourceCreditBalance */
@@ -7899,7 +7970,7 @@ export interface components {
              *
              *     Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder. */
             used?: {
-                [key: string]: number | undefined;
+                [key: string]: number;
             } | null;
         };
         /** BankConnectionsResourceBalanceRefresh */
@@ -7922,6 +7993,8 @@ export interface components {
         };
         /** BankConnectionsResourceLinkAccountSessionFilters */
         bank_connections_resource_link_account_session_filters: {
+            /** @description Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`. */
+            account_subcategories?: ("checking" | "credit_card" | "line_of_credit" | "mortgage" | "savings")[] | null;
             /** @description List of countries from which to filter accounts. */
             countries?: string[] | null;
         };
@@ -8043,7 +8116,7 @@ export interface components {
             object: "billing.meter_event";
             /** @description The payload of the event. This contains the fields corresponding to a meter's `customer_mapping.event_payload_key` (default is `stripe_customer_id`) and `value_settings.event_payload_key` (default is `value`). Read more about the [payload](https://stripe.com/docs/billing/subscriptions/usage-based/recording-usage#payload-key-overrides). */
             payload: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * Format: unix-time
@@ -8088,7 +8161,7 @@ export interface components {
             aggregated_value: number;
             /**
              * Format: unix-time
-             * @description End timestamp for this event summary (inclusive).
+             * @description End timestamp for this event summary (exclusive). Must be aligned with minute boundaries.
              */
             end_time: number;
             /** @description Unique identifier for the object. */
@@ -8104,7 +8177,7 @@ export interface components {
             object: "billing.meter_event_summary";
             /**
              * Format: unix-time
-             * @description Start timestamp for this event summary (inclusive).
+             * @description Start timestamp for this event summary (inclusive). Must be aligned with minute boundaries.
              */
             start_time: number;
         };
@@ -8182,7 +8255,7 @@ export interface components {
             login_page: components["schemas"]["portal_login_page"];
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -8210,7 +8283,7 @@ export interface components {
          *     Create sessions on-demand when customers intend to manage their subscriptions
          *     and billing details.
          *
-         *     Learn more in the [integration guide](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal).
+         *     Related guide: [Customer management](/customer-management)
          */
         "billing_portal.session": {
             /** @description The configuration used by this session, describing the features available. */
@@ -8350,7 +8423,7 @@ export interface components {
             last4: string;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /** @description Cardholder name. */
             name?: string | null;
@@ -8389,7 +8462,7 @@ export interface components {
         cash_balance: {
             /** @description A hash of all cash balances available to this customer. You cannot delete a customer with any cash balances, even if the balance is 0. Amounts are represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
             available?: {
-                [key: string]: number | undefined;
+                [key: string]: number;
             } | null;
             /** @description The ID of the customer whose cash balance this object represents. */
             customer: string;
@@ -8425,7 +8498,7 @@ export interface components {
             /** @description ID of the balance transaction that describes the impact of this charge on your account balance (not including refunds or disputes). */
             balance_transaction?: (string | components["schemas"]["balance_transaction"]) | null;
             billing_details: components["schemas"]["billing_details"];
-            /** @description The full statement descriptor that is passed to card networks, and that is displayed on your customers' credit card and bank statements. Allows you to see what the statement descriptor looks like after the static and dynamic portions are combined. */
+            /** @description The full statement descriptor that is passed to card networks, and that is displayed on your customers' credit card and bank statements. Allows you to see what the statement descriptor looks like after the static and dynamic portions are combined. This only works for card payments. */
             calculated_statement_descriptor?: string | null;
             /** @description If the charge was created without capturing, this Boolean represents whether it is still uncaptured or has since been captured. */
             captured: boolean;
@@ -8458,7 +8531,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -8607,7 +8680,7 @@ export interface components {
             created: number;
             /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
             currency?: string | null;
-            /** @description Currency conversion details for automatic currency conversion sessions */
+            /** @description Currency conversion details for [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) sessions */
             currency_conversion?: components["schemas"]["payment_pages_checkout_session_currency_conversion"] | null;
             /** @description Collect additional information from your customer using custom fields. Up to 3 fields are supported. */
             custom_fields: components["schemas"]["payment_pages_checkout_session_custom_fields"][];
@@ -8668,7 +8741,7 @@ export interface components {
             locale?: "auto" | "bg" | "cs" | "da" | "de" | "el" | "en" | "en-GB" | "es" | "es-419" | "et" | "fi" | "fil" | "fr" | "fr-CA" | "hr" | "hu" | "id" | "it" | "ja" | "ko" | "lt" | "lv" | "ms" | "mt" | "nb" | "nl" | "pl" | "pt" | "pt-BR" | "ro" | "ru" | "sk" | "sl" | "sv" | "th" | "tr" | "vi" | "zh" | "zh-HK" | "zh-TW" | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /**
              * @description The mode of the Checkout Session.
@@ -8785,6 +8858,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -8802,6 +8877,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -8813,6 +8890,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -8826,6 +8905,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -8837,6 +8918,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -8850,6 +8933,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -8862,6 +8947,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -8873,6 +8960,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -8887,6 +8976,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -8911,6 +9002,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -8926,6 +9019,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -8958,6 +9053,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -8969,6 +9066,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -8982,6 +9081,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -8993,6 +9094,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -9006,6 +9109,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -9018,6 +9123,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -9029,6 +9136,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -9044,6 +9153,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -9055,6 +9166,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -9068,6 +9181,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -9079,6 +9194,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -9094,6 +9211,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -9106,6 +9225,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -9117,6 +9238,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -9139,6 +9262,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -9156,6 +9281,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -9167,6 +9294,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -9215,6 +9344,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -9232,6 +9363,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -9300,7 +9433,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * Format: decimal
@@ -9338,7 +9471,7 @@ export interface components {
             created: number;
             /** @description Current prices for a metric ton of carbon removal in a currency's smallest unit. */
             current_prices_per_metric_ton: {
-                [key: string]: components["schemas"]["climate_removals_products_price"] | undefined;
+                [key: string]: components["schemas"]["climate_removals_products_price"];
             };
             /** @description The year in which the carbon removal is expected to be delivered. */
             delivery_year?: number | null;
@@ -9468,6 +9601,8 @@ export interface components {
             object: "confirmation_token";
             /** @description ID of the PaymentIntent that this ConfirmationToken was used to confirm, or null if this ConfirmationToken has not yet been used. */
             payment_intent?: string | null;
+            /** @description Payment-method-specific configuration for this ConfirmationToken. */
+            payment_method_options?: components["schemas"]["confirmation_tokens_resource_payment_method_options"] | null;
             /** @description Payment details collected by the Payment Element, used to create a PaymentMethod when a PaymentIntent or SetupIntent is confirmed with this ConfirmationToken. */
             payment_method_preview?: components["schemas"]["confirmation_tokens_resource_payment_method_preview"] | null;
             /** @description Return URL used to confirm the Intent. */
@@ -9514,6 +9649,22 @@ export interface components {
             user_agent?: string | null;
         };
         /**
+         * ConfirmationTokensResourcePaymentMethodOptions
+         * @description Payment-method-specific configuration
+         */
+        confirmation_tokens_resource_payment_method_options: {
+            /** @description This hash contains the card payment method options. */
+            card?: components["schemas"]["confirmation_tokens_resource_payment_method_options_resource_card"] | null;
+        };
+        /**
+         * ConfirmationTokensResourcePaymentMethodOptionsResourceCard
+         * @description This hash contains the card payment method options.
+         */
+        confirmation_tokens_resource_payment_method_options_resource_card: {
+            /** @description The `cvc_update` Token collected from the Payment Element. */
+            cvc_token?: string | null;
+        };
+        /**
          * ConfirmationTokensResourcePaymentMethodPreview
          * @description Details of the PaymentMethod collected by Payment Element
          */
@@ -9537,6 +9688,8 @@ export interface components {
             card?: components["schemas"]["payment_method_card"];
             card_present?: components["schemas"]["payment_method_card_present"];
             cashapp?: components["schemas"]["payment_method_cashapp"];
+            /** @description The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer. */
+            customer?: (string | components["schemas"]["customer"]) | null;
             customer_balance?: components["schemas"]["payment_method_customer_balance"];
             eps?: components["schemas"]["payment_method_eps"];
             fpx?: components["schemas"]["payment_method_fpx"];
@@ -9627,6 +9780,8 @@ export interface components {
             payments: components["schemas"]["connect_embedded_payments_config_claim"];
             payouts: components["schemas"]["connect_embedded_payouts_config_claim"];
             payouts_list: components["schemas"]["connect_embedded_base_config_claim"];
+            tax_registrations: components["schemas"]["connect_embedded_base_config_claim"];
+            tax_settings: components["schemas"]["connect_embedded_base_config_claim"];
         };
         /** ConnectEmbeddedBaseConfigClaim */
         connect_embedded_base_config_claim: {
@@ -9691,7 +9846,7 @@ export interface components {
             object: "country_spec";
             /** @description Currencies that can be accepted in the specific country (for transfers). */
             supported_bank_account_currencies: {
-                [key: string]: string[] | undefined;
+                [key: string]: string[];
             };
             /** @description Currencies that can be accepted in the specified country (for payments). */
             supported_payment_currencies: string[];
@@ -9732,7 +9887,7 @@ export interface components {
             currency?: string | null;
             /** @description Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
             currency_options?: {
-                [key: string]: components["schemas"]["coupon_currency_option"] | undefined;
+                [key: string]: components["schemas"]["coupon_currency_option"];
             };
             /**
              * @description One of `forever`, `once`, and `repeating`. Describes how long a customer who applies this coupon will get the discount.
@@ -9749,7 +9904,7 @@ export interface components {
             max_redemptions?: number | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /** @description Name of the coupon displayed to customers on for instance invoices or receipts. */
             name?: string | null;
@@ -9838,7 +9993,7 @@ export interface components {
             memo?: string | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /** @description A unique number that identifies this particular credit note and appears on the PDF of the credit note and its associated invoice. */
             number: string;
@@ -10020,7 +10175,7 @@ export interface components {
             id: string;
             /** @description The current multi-currency balances, if any, that's stored on the customer. If positive in a currency, the customer has a credit to apply to their next invoice denominated in that currency. If negative, the customer has an amount owed that's added to their next invoice denominated in that currency. These balances don't apply to unpaid invoices. They solely track amounts that Stripe hasn't successfully applied to any invoice. Stripe only applies a balance in a specific currency to an invoice after that invoice (which is in the same currency) finalizes. */
             invoice_credit_balance?: {
-                [key: string]: number | undefined;
+                [key: string]: number;
             };
             /** @description The prefix for the customer used to generate unique invoice numbers. */
             invoice_prefix?: string | null;
@@ -10029,11 +10184,11 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /** @description The customer's full name or business name. */
             name?: string | null;
-            /** @description The suffix of the customer's next invoice number (for example, 0001). */
+            /** @description The suffix of the customer's next invoice number (for example, 0001). When the account uses account level sequencing, this parameter is ignored in API requests and the field omitted in API responses. */
             next_invoice_sequence?: number;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -10248,7 +10403,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -10305,11 +10460,11 @@ export interface components {
         };
         /**
          * CustomerSessionResourceCustomerSession
-         * @description A customer session allows you to grant client access to Stripe's frontend SDKs (like StripeJs)
-         *     control over a customer.
+         * @description A Customer Session allows you to grant Stripe's frontend SDKs (like Stripe.js) client-side access
+         *     control over a Customer.
          */
         customer_session: {
-            /** @description The client secret of this customer session. Used on the client to set up secure access to the given `customer`.
+            /** @description The client secret of this Customer Session. Used on the client to set up secure access to the given `customer`.
              *
              *     The client secret can be used to provide access to `customer` from your frontend. It should not be stored, logged, or exposed to anyone other than the relevant customer. Make sure that you have TLS enabled on any page that includes the client secret. */
             client_secret: string;
@@ -10319,11 +10474,11 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description The customer the customer session was created for. */
+            /** @description The Customer the Customer Session was created for. */
             customer: string | components["schemas"]["customer"];
             /**
              * Format: unix-time
-             * @description The timestamp at which this customer session will expire.
+             * @description The timestamp at which this Customer Session will expire.
              */
             expires_at: number;
             /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -10336,10 +10491,11 @@ export interface components {
         };
         /**
          * CustomerSessionResourceComponents
-         * @description Configuration for the components supported by this customer session.
+         * @description Configuration for the components supported by this Customer Session.
          */
         customer_session_resource_components: {
             buy_button: components["schemas"]["customer_session_resource_components_resource_buy_button"];
+            payment_element: components["schemas"]["customer_session_resource_components_resource_payment_element"];
             pricing_table: components["schemas"]["customer_session_resource_components_resource_pricing_table"];
         };
         /**
@@ -10349,6 +10505,54 @@ export interface components {
         customer_session_resource_components_resource_buy_button: {
             /** @description Whether the buy button is enabled. */
             enabled: boolean;
+        };
+        /**
+         * CustomerSessionResourceComponentsResourcePaymentElement
+         * @description This hash contains whether the Payment Element is enabled and the features it supports.
+         */
+        customer_session_resource_components_resource_payment_element: {
+            /** @description Whether the Payment Element is enabled. */
+            enabled: boolean;
+            /** @description This hash defines whether the Payment Element supports certain features. */
+            features?: components["schemas"]["customer_session_resource_components_resource_payment_element_resource_features"] | null;
+        };
+        /**
+         * CustomerSessionResourceComponentsResourcePaymentElementResourceFeatures
+         * @description This hash contains the features the Payment Element supports.
+         */
+        customer_session_resource_components_resource_payment_element_resource_features: {
+            /** @description A list of [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) values that controls which saved payment methods the Payment Element displays by filtering to only show payment methods with an `allow_redisplay` value that is present in this list.
+             *
+             *     If not specified, defaults to ["always"]. In order to display all saved payment methods, specify ["always", "limited", "unspecified"]. */
+            payment_method_allow_redisplay_filters: ("always" | "limited" | "unspecified")[];
+            /**
+             * @description Controls whether or not the Payment Element shows saved payment methods. This parameter defaults to `disabled`.
+             * @enum {string}
+             */
+            payment_method_redisplay: "disabled" | "enabled";
+            /** @description Determines the max number of saved payment methods for the Payment Element to display. This parameter defaults to `10`. */
+            payment_method_redisplay_limit?: number | null;
+            /**
+             * @description Controls whether the Payment Element displays the option to remove a saved payment method. This parameter defaults to `disabled`.
+             *
+             *     Allowing buyers to remove their saved payment methods impacts subscriptions that depend on that payment method. Removing the payment method detaches the [`customer` object](https://docs.stripe.com/api/payment_methods/object#payment_method_object-customer) from that [PaymentMethod](https://docs.stripe.com/api/payment_methods).
+             * @enum {string}
+             */
+            payment_method_remove: "disabled" | "enabled";
+            /**
+             * @description Controls whether the Payment Element displays a checkbox offering to save a new payment method. This parameter defaults to `disabled`.
+             *
+             *     If a customer checks the box, the [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) value on the PaymentMethod is set to `'always'` at confirmation time. For PaymentIntents, the [`setup_future_usage`](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-setup_future_usage) value is also set to the value defined in `payment_method_save_usage`.
+             * @enum {string}
+             */
+            payment_method_save: "disabled" | "enabled";
+            /**
+             * @description When using PaymentIntents and the customer checks the save checkbox, this field determines the [`setup_future_usage`](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-setup_future_usage) value used to confirm the PaymentIntent.
+             *
+             *     When using SetupIntents, directly configure the [`usage`](https://docs.stripe.com/api/setup_intents/object#setup_intent_object-usage) value on SetupIntent creation.
+             * @enum {string|null}
+             */
+            payment_method_save_usage?: "off_session" | "on_session" | null;
         };
         /**
          * CustomerSessionResourceComponentsResourcePricingTable
@@ -10863,7 +11067,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -10967,6 +11171,11 @@ export interface components {
         dispute_payment_method_details_card: {
             /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             brand: string;
+            /**
+             * @description The type of dispute opened. Different case types may have varying fees and financial impact.
+             * @enum {string}
+             */
+            case_type: "chargeback" | "inquiry";
             /** @description The card network's specific dispute reason code, which maps to one of Stripe's primary dispute categories to simplify response guidance. The [Network code map](https://stripe.com/docs/disputes/categories#network-code-map) lists all available dispute reason codes by network. */
             network_reason_code?: string | null;
         };
@@ -11027,7 +11236,7 @@ export interface components {
             lookup_key: string;
             /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /** @description The feature's name, for your own purpose, not meant to be displayable to the customer. */
             name: string;
@@ -11164,7 +11373,7 @@ export interface components {
             object: "exchange_rate";
             /** @description Hash where the keys are supported currencies and the values are the exchange rate at which the base id currency converts to the key currency. */
             rates: {
-                [key: string]: number | undefined;
+                [key: string]: number;
             };
         };
         /** Polymorphic */
@@ -11219,7 +11428,7 @@ export interface components {
             id: string;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -11315,7 +11524,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -12122,7 +12331,7 @@ export interface components {
          *     API. To configure and create VerificationReports, use the
          *     [VerificationSession](https://stripe.com/docs/api/identity/verification_sessions) API.
          *
-         *     Related guides: [Accessing verification results](https://stripe.com/docs/identity/verification-sessions#results).
+         *     Related guide: [Accessing verification results](https://stripe.com/docs/identity/verification-sessions#results).
          */
         "identity.verification_report": {
             /** @description A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems. */
@@ -12191,7 +12400,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -12441,7 +12650,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /**
              * Format: unix-time
@@ -12638,10 +12847,16 @@ export interface components {
         };
         /** invoice_payment_method_options_us_bank_account_linked_account_options */
         invoice_payment_method_options_us_bank_account_linked_account_options: {
+            filters?: components["schemas"]["invoice_payment_method_options_us_bank_account_linked_account_options_filters"];
             /** @description The list of permissions to request. The `payment_method` permission must be included. */
             permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
             /** @description Data features requested to be retrieved upon account creation. */
             prefetch?: ("balances" | "ownership" | "transactions")[] | null;
+        };
+        /** invoice_payment_method_options_us_bank_account_linked_account_options_filters */
+        invoice_payment_method_options_us_bank_account_linked_account_options_filters: {
+            /** @description The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`. */
+            account_subcategories?: ("checking" | "savings")[];
         };
         /** InvoiceRenderingPdf */
         invoice_rendering_pdf: {
@@ -12772,7 +12987,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -12826,7 +13041,7 @@ export interface components {
             /** @description Payment-method-specific configuration to provide to the invoice’s PaymentIntent. */
             payment_method_options?: components["schemas"]["invoices_payment_method_options"] | null;
             /** @description The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). */
-            payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | null;
+            payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "multibanco" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | null;
         };
         /** InvoicesResourceFromInvoice */
         invoices_resource_from_invoice: {
@@ -12845,10 +13060,10 @@ export interface components {
         /** InvoicesResourceInvoiceTaxID */
         invoices_resource_invoice_tax_id: {
             /**
-             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, or `unknown`
+             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, or `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
             /** @description The value of the tax ID. */
             value?: string | null;
         };
@@ -12932,6 +13147,10 @@ export interface components {
             created: number;
             /** @description The currency of the cardholder. This currency can be different from the currency presented at authorization and the `merchant_currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
             currency: string;
+            /** @description Fleet-specific information for authorizations using Fleet cards. */
+            fleet?: components["schemas"]["issuing_authorization_fleet_data"] | null;
+            /** @description Information about fuel that was purchased with this transaction. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed. */
+            fuel?: components["schemas"]["issuing_authorization_fuel_data"] | null;
             /** @description Unique identifier for the object. */
             id: string;
             /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -12943,7 +13162,7 @@ export interface components {
             merchant_data: components["schemas"]["issuing_authorization_merchant_data"];
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /** @description Details about the authorization, such as identifiers, set by the card network. */
             network_data?: components["schemas"]["issuing_authorization_network_data"] | null;
@@ -13007,7 +13226,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /** @description The full unredacted card number. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint. */
             number?: string;
@@ -13068,7 +13287,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /** @description The cardholder's name. This will be printed on cards issued to them. */
             name: string;
@@ -13126,7 +13345,7 @@ export interface components {
             loss_reason?: "cardholder_authentication_issuer_liability" | "eci5_token_transaction_with_tavv" | "excess_disputes_in_timeframe" | "has_not_met_the_minimum_dispute_amount_requirements" | "invalid_duplicate_dispute" | "invalid_incorrect_amount_dispute" | "invalid_no_authorization" | "invalid_use_of_disputes" | "merchandise_delivered_or_shipped" | "merchandise_or_service_as_described" | "not_cancelled" | "other" | "refund_issued" | "submitted_beyond_allowable_time_limit" | "transaction_3ds_required" | "transaction_approved_after_prior_fraud_dispute" | "transaction_authorized" | "transaction_electronically_read" | "transaction_qualifies_for_visa_easy_payment_service" | "transaction_unattended";
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -13165,7 +13384,7 @@ export interface components {
             lookup_key?: string | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /** @description Friendly display name. */
             name?: string | null;
@@ -13236,7 +13455,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /** @description The total net amount required to settle with the network. */
             net_total: number;
@@ -13349,7 +13568,7 @@ export interface components {
             merchant_data: components["schemas"]["issuing_authorization_merchant_data"];
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /** @description Details about the transaction, such as processing dates, set by the card network. */
             network_data?: components["schemas"]["issuing_transaction_network_data"] | null;
@@ -13394,6 +13613,101 @@ export interface components {
              * @enum {string}
              */
             type: "low_value_transaction" | "transaction_risk_analysis" | "unknown";
+        };
+        /** IssuingAuthorizationFleetCardholderPromptData */
+        issuing_authorization_fleet_cardholder_prompt_data: {
+            /** @description [Deprecated] An alphanumeric ID, though typical point of sales only support numeric entry. The card program can be configured to prompt for a vehicle ID, driver ID, or generic ID. */
+            alphanumeric_id?: string | null;
+            /** @description Driver ID. */
+            driver_id?: string | null;
+            /** @description Odometer reading. */
+            odometer?: number | null;
+            /** @description An alphanumeric ID. This field is used when a vehicle ID, driver ID, or generic ID is entered by the cardholder, but the merchant or card network did not specify the prompt type. */
+            unspecified_id?: string | null;
+            /** @description User ID. */
+            user_id?: string | null;
+            /** @description Vehicle number. */
+            vehicle_number?: string | null;
+        };
+        /** IssuingAuthorizationFleetData */
+        issuing_authorization_fleet_data: {
+            /** @description Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry. */
+            cardholder_prompt_data?: components["schemas"]["issuing_authorization_fleet_cardholder_prompt_data"] | null;
+            /**
+             * @description The type of purchase.
+             * @enum {string|null}
+             */
+            purchase_type?: "fuel_and_non_fuel_purchase" | "fuel_purchase" | "non_fuel_purchase" | null;
+            /** @description More information about the total amount. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed. This information is not guaranteed to be accurate as some merchants may provide unreliable data. */
+            reported_breakdown?: components["schemas"]["issuing_authorization_fleet_reported_breakdown"] | null;
+            /**
+             * @description The type of fuel service.
+             * @enum {string|null}
+             */
+            service_type?: "full_service" | "non_fuel_transaction" | "self_service" | null;
+        };
+        /** IssuingAuthorizationFleetFuelPriceData */
+        issuing_authorization_fleet_fuel_price_data: {
+            /**
+             * Format: decimal
+             * @description Gross fuel amount that should equal Fuel Quantity multiplied by Fuel Unit Cost, inclusive of taxes.
+             */
+            gross_amount_decimal?: string | null;
+        };
+        /** IssuingAuthorizationFleetNonFuelPriceData */
+        issuing_authorization_fleet_non_fuel_price_data: {
+            /**
+             * Format: decimal
+             * @description Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
+             */
+            gross_amount_decimal?: string | null;
+        };
+        /** IssuingAuthorizationFleetReportedBreakdown */
+        issuing_authorization_fleet_reported_breakdown: {
+            /** @description Breakdown of fuel portion of the purchase. */
+            fuel?: components["schemas"]["issuing_authorization_fleet_fuel_price_data"] | null;
+            /** @description Breakdown of non-fuel portion of the purchase. */
+            non_fuel?: components["schemas"]["issuing_authorization_fleet_non_fuel_price_data"] | null;
+            /** @description Information about tax included in this transaction. */
+            tax?: components["schemas"]["issuing_authorization_fleet_tax_data"] | null;
+        };
+        /** IssuingAuthorizationFleetTaxData */
+        issuing_authorization_fleet_tax_data: {
+            /**
+             * Format: decimal
+             * @description Amount of state or provincial Sales Tax included in the transaction amount. `null` if not reported by merchant or not subject to tax.
+             */
+            local_amount_decimal?: string | null;
+            /**
+             * Format: decimal
+             * @description Amount of national Sales Tax or VAT included in the transaction amount. `null` if not reported by merchant or not subject to tax.
+             */
+            national_amount_decimal?: string | null;
+        };
+        /** IssuingAuthorizationFuelData */
+        issuing_authorization_fuel_data: {
+            /** @description [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased. */
+            industry_product_code?: string | null;
+            /**
+             * Format: decimal
+             * @description The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
+             */
+            quantity_decimal?: string | null;
+            /**
+             * @description The type of fuel that was purchased.
+             * @enum {string|null}
+             */
+            type?: "diesel" | "other" | "unleaded_plus" | "unleaded_regular" | "unleaded_super" | null;
+            /**
+             * @description The units for `quantity_decimal`.
+             * @enum {string|null}
+             */
+            unit?: "charging_minute" | "imperial_gallon" | "kilogram" | "kilowatt_hour" | "liter" | "other" | "pound" | "us_gallon" | null;
+            /**
+             * Format: decimal
+             * @description The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
+             */
+            unit_cost_decimal?: string | null;
         };
         /** IssuingAuthorizationMerchantData */
         issuing_authorization_merchant_data: {
@@ -13471,7 +13785,7 @@ export interface components {
              * @description When an authorization is approved or declined by you or by Stripe, this field provides additional detail on the reason for the outcome.
              * @enum {string}
              */
-            reason: "account_disabled" | "card_active" | "card_inactive" | "cardholder_inactive" | "cardholder_verification_required" | "insufficient_funds" | "not_allowed" | "spending_controls" | "suspected_fraud" | "verification_failed" | "webhook_approved" | "webhook_declined" | "webhook_error" | "webhook_timeout";
+            reason: "account_disabled" | "card_active" | "card_canceled" | "card_expired" | "card_inactive" | "cardholder_blocked" | "cardholder_inactive" | "cardholder_verification_required" | "insecure_authorization_method" | "insufficient_funds" | "not_allowed" | "pin_blocked" | "spending_controls" | "suspected_fraud" | "verification_failed" | "webhook_approved" | "webhook_declined" | "webhook_error" | "webhook_timeout";
             /** @description If the `request_history.reason` is `webhook_error` because the direct webhook response is invalid (for example, parsing errors or missing parameters), we surface a more detailed error message via this field. */
             reason_message?: string | null;
             /**
@@ -13564,6 +13878,8 @@ export interface components {
         /** IssuingCardShipping */
         issuing_card_shipping: {
             address: components["schemas"]["address"];
+            /** @description Address validation details for the shipment. */
+            address_validation?: components["schemas"]["issuing_card_shipping_address_validation"] | null;
             /**
              * @description The delivery company that shipped a card.
              * @enum {string|null}
@@ -13601,6 +13917,21 @@ export interface components {
              * @enum {string}
              */
             type: "bulk" | "individual";
+        };
+        /** IssuingCardShippingAddressValidation */
+        issuing_card_shipping_address_validation: {
+            /**
+             * @description The address validation capabilities to use.
+             * @enum {string}
+             */
+            mode: "disabled" | "normalization_only" | "validation_and_normalization";
+            /** @description The normalized shipping address. */
+            normalized_address?: components["schemas"]["address"] | null;
+            /**
+             * @description The validation result for the shipping address.
+             * @enum {string|null}
+             */
+            result?: "indeterminate" | "likely_deliverable" | "likely_undeliverable" | null;
         };
         /** IssuingCardShippingCustoms */
         issuing_card_shipping_customs: {
@@ -14026,6 +14357,68 @@ export interface components {
             /** @description The amount of cash requested by the cardholder. */
             cashback_amount?: number | null;
         };
+        /** IssuingTransactionFleetCardholderPromptData */
+        issuing_transaction_fleet_cardholder_prompt_data: {
+            /** @description Driver ID. */
+            driver_id?: string | null;
+            /** @description Odometer reading. */
+            odometer?: number | null;
+            /** @description An alphanumeric ID. This field is used when a vehicle ID, driver ID, or generic ID is entered by the cardholder, but the merchant or card network did not specify the prompt type. */
+            unspecified_id?: string | null;
+            /** @description User ID. */
+            user_id?: string | null;
+            /** @description Vehicle number. */
+            vehicle_number?: string | null;
+        };
+        /** IssuingTransactionFleetData */
+        issuing_transaction_fleet_data: {
+            /** @description Answers to prompts presented to cardholder at point of sale. */
+            cardholder_prompt_data?: components["schemas"]["issuing_transaction_fleet_cardholder_prompt_data"] | null;
+            /** @description The type of purchase. One of `fuel_purchase`, `non_fuel_purchase`, or `fuel_and_non_fuel_purchase`. */
+            purchase_type?: string | null;
+            /** @description More information about the total amount. This information is not guaranteed to be accurate as some merchants may provide unreliable data. */
+            reported_breakdown?: components["schemas"]["issuing_transaction_fleet_reported_breakdown"] | null;
+            /** @description The type of fuel service. One of `non_fuel_transaction`, `full_service`, or `self_service`. */
+            service_type?: string | null;
+        };
+        /** IssuingTransactionFleetFuelPriceData */
+        issuing_transaction_fleet_fuel_price_data: {
+            /**
+             * Format: decimal
+             * @description Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+             */
+            gross_amount_decimal?: string | null;
+        };
+        /** IssuingTransactionFleetNonFuelPriceData */
+        issuing_transaction_fleet_non_fuel_price_data: {
+            /**
+             * Format: decimal
+             * @description Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
+             */
+            gross_amount_decimal?: string | null;
+        };
+        /** IssuingTransactionFleetReportedBreakdown */
+        issuing_transaction_fleet_reported_breakdown: {
+            /** @description Breakdown of fuel portion of the purchase. */
+            fuel?: components["schemas"]["issuing_transaction_fleet_fuel_price_data"] | null;
+            /** @description Breakdown of non-fuel portion of the purchase. */
+            non_fuel?: components["schemas"]["issuing_transaction_fleet_non_fuel_price_data"] | null;
+            /** @description Information about tax included in this transaction. */
+            tax?: components["schemas"]["issuing_transaction_fleet_tax_data"] | null;
+        };
+        /** IssuingTransactionFleetTaxData */
+        issuing_transaction_fleet_tax_data: {
+            /**
+             * Format: decimal
+             * @description Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
+             */
+            local_amount_decimal?: string | null;
+            /**
+             * Format: decimal
+             * @description Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
+             */
+            national_amount_decimal?: string | null;
+        };
         /** IssuingTransactionFlightData */
         issuing_transaction_flight_data: {
             /** @description The time that the flight departed. */
@@ -14056,6 +14449,8 @@ export interface components {
         };
         /** IssuingTransactionFuelData */
         issuing_transaction_fuel_data: {
+            /** @description [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased. */
+            industry_product_code?: string | null;
             /**
              * Format: decimal
              * @description The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
@@ -14089,6 +14484,8 @@ export interface components {
         };
         /** IssuingTransactionPurchaseDetails */
         issuing_transaction_purchase_details: {
+            /** @description Fleet-specific information for transactions using Fleet cards. */
+            fleet?: components["schemas"]["issuing_transaction_fleet_data"] | null;
             /** @description Information about the flight that was purchased with this transaction. */
             flight?: components["schemas"]["issuing_transaction_flight_data"] | null;
             /** @description Information about fuel that was purchased with this transaction. */
@@ -14294,7 +14691,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Note that for line items with `type=subscription`, `metadata` reflects the current metadata from the subscription associated with the line item, unless the invoice line was directly updated with different metadata after creation. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -14350,6 +14747,7 @@ export interface components {
         };
         /** linked_account_options_us_bank_account */
         linked_account_options_us_bank_account: {
+            filters?: components["schemas"]["payment_flows_private_payment_methods_us_bank_account_linked_account_options_filters"];
             /** @description The list of permissions to request. The `payment_method` permission must be included. */
             permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
             /** @description Data features requested to be retrieved upon account creation. */
@@ -14722,6 +15120,11 @@ export interface components {
             /** @description The four-digit year of birth. */
             year?: number | null;
         };
+        /** PaymentFlowsPrivatePaymentMethodsUsBankAccountLinkedAccountOptionsFilters */
+        payment_flows_private_payment_methods_us_bank_account_linked_account_options_filters: {
+            /** @description The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`. */
+            account_subcategories?: ("checking" | "savings")[];
+        };
         /**
          * PaymentIntent
          * @description A PaymentIntent guides you through the process of collecting a payment from your customer.
@@ -14787,7 +15190,7 @@ export interface components {
              *
              *     Payment methods attached to other Customers cannot be used with this PaymentIntent.
              *
-             *     If present in combination with [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage), this PaymentIntent's payment method will be attached to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. */
+             *     If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead. */
             customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -14797,13 +15200,13 @@ export interface components {
             invoice?: (string | components["schemas"]["invoice"]) | null;
             /** @description The payment error encountered in the previous PaymentIntent confirmation. It will be cleared if the PaymentIntent is later updated for any reason. */
             last_payment_error?: components["schemas"]["api_errors"] | null;
-            /** @description The latest charge created by this PaymentIntent. */
+            /** @description ID of the latest [Charge object](https://stripe.com/docs/api/charges) created by this PaymentIntent. This property is `null` until PaymentIntent confirmation is attempted. */
             latest_charge?: (string | components["schemas"]["charge"]) | null;
             /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Learn more about [storing information in metadata](https://stripe.com/docs/payments/payment-intents/creating-payment-intents#storing-information-in-metadata). */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /** @description If present, this property tells you what actions you need to take in order for your customer to fulfill a payment using the provided source. */
             next_action?: components["schemas"]["payment_intent_next_action"] | null;
@@ -14832,6 +15235,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string|null}
@@ -15187,6 +15592,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -15204,6 +15611,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -15215,6 +15624,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -15271,6 +15682,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -15286,6 +15699,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -15303,6 +15718,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -15340,6 +15757,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -15352,6 +15771,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -15366,6 +15787,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -15385,6 +15808,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -15423,6 +15848,8 @@ export interface components {
              */
             capture_method?: "manual" | "manual_preferred";
             installments?: components["schemas"]["payment_flows_installment_options"];
+            /** @description Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support. */
+            request_incremental_authorization_support?: boolean;
             /** @description When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter). */
             require_cvc_recollection?: boolean;
             routing?: components["schemas"]["payment_method_options_card_present_routing"];
@@ -15430,6 +15857,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -15506,7 +15935,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -15523,7 +15952,7 @@ export interface components {
              */
             payment_method_collection: "always" | "if_required";
             /** @description The list of payment method types that customers can use. When `null`, Stripe will dynamically show relevant payment methods you've enabled in your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
-            payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | null;
+            payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[] | null;
             phone_number_collection: components["schemas"]["payment_links_resource_phone_number_collection"];
             /** @description Settings that restrict the usage of a payment link. */
             restrictions?: components["schemas"]["payment_links_resource_restrictions"] | null;
@@ -15682,7 +16111,7 @@ export interface components {
             issuer?: components["schemas"]["connect_account_reference"] | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /** @description Options for invoice PDF rendering. */
             rendering_options?: components["schemas"]["invoice_setting_rendering_options"] | null;
@@ -15698,7 +16127,7 @@ export interface components {
             description?: string | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description Indicates that you intend to make future payments with the payment method collected during checkout.
@@ -15750,7 +16179,7 @@ export interface components {
             invoice_settings: components["schemas"]["payment_links_resource_subscription_data_invoice_settings"];
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /** @description Integer representing the number of trial period days before the customer is charged for the first time. */
             trial_period_days?: number | null;
@@ -15824,7 +16253,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             mobilepay?: components["schemas"]["payment_method_mobilepay"];
             multibanco?: components["schemas"]["payment_method_multibanco"];
@@ -15953,10 +16382,14 @@ export interface components {
         payment_method_card_present: {
             /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             brand?: string | null;
+            /** @description The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. */
+            brand_product?: string | null;
             /** @description The cardholder name as read from the card, in [ISO 7813](https://en.wikipedia.org/wiki/ISO/IEC_7813) format. May include alphanumeric characters, special characters and first/last name separator (`/`). In some cases, the cardholder name may not be available depending on how the issuer has configured the card. Cardholder name is typically not available on swipe or contactless payments, such as those made with Apple Pay and Google Pay. */
             cardholder_name?: string | null;
             /** @description Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
             country?: string | null;
+            /** @description A high-level description of the type of cards issued in this range. */
+            description?: string | null;
             /** @description Two-digit number representing the card's expiration month. */
             exp_month: number;
             /** @description Four-digit number representing the card's expiration year. */
@@ -15967,6 +16400,8 @@ export interface components {
             fingerprint?: string | null;
             /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
             funding?: string | null;
+            /** @description The name of the card's issuing bank. */
+            issuer?: string | null;
             /** @description The last four digits of the card. */
             last4?: string | null;
             /** @description Contains information about card networks that can be used to process the payment. */
@@ -16143,6 +16578,7 @@ export interface components {
             sepa_debit?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
             sofort?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
             swish?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+            twint?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
             us_bank_account?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
             wechat_pay?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
             zip?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
@@ -16244,7 +16680,10 @@ export interface components {
             transit_number?: string | null;
         };
         /** payment_method_details_affirm */
-        payment_method_details_affirm: Record<string, never>;
+        payment_method_details_affirm: {
+            /** @description The Affirm transaction ID associated with this payment. */
+            transaction_id?: string | null;
+        };
         /** payment_method_details_afterpay_clearpay */
         payment_method_details_afterpay_clearpay: {
             /** @description The Afterpay order ID associated with this payment intent. */
@@ -16301,7 +16740,10 @@ export interface components {
             verified_name?: string | null;
         };
         /** payment_method_details_blik */
-        payment_method_details_blik: Record<string, never>;
+        payment_method_details_blik: {
+            /** @description A unique and immutable identifier assigned by BLIK to every buyer. */
+            buyer_id?: string | null;
+        };
         /** payment_method_details_boleto */
         payment_method_details_boleto: {
             /** @description The tax ID of the customer (CPF for individuals consumers or CNPJ for businesses consumers) */
@@ -16394,6 +16836,8 @@ export interface components {
             amount_authorized?: number | null;
             /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             brand?: string | null;
+            /** @description The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. */
+            brand_product?: string | null;
             /**
              * Format: unix-time
              * @description When using manual capture, a future timestamp after which the charge will be automatically refunded if uncaptured.
@@ -16403,6 +16847,8 @@ export interface components {
             cardholder_name?: string | null;
             /** @description Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
             country?: string | null;
+            /** @description A high-level description of the type of cards issued in this range. */
+            description?: string | null;
             /** @description Authorization response cryptogram. */
             emv_auth_data?: string | null;
             /** @description Two-digit number representing the card's expiration month. */
@@ -16419,10 +16865,17 @@ export interface components {
             generated_card?: string | null;
             /** @description Whether this [PaymentIntent](https://stripe.com/docs/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support). */
             incremental_authorization_supported: boolean;
+            /** @description The name of the card's issuing bank. */
+            issuer?: string | null;
             /** @description The last four digits of the card. */
             last4?: string | null;
             /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             network?: string | null;
+            /** @description This is used by the financial networks to identify a transaction.
+             *     Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data.
+             *     The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD).
+             *     This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands. */
+            network_transaction_id?: string | null;
             /** @description Details about payments collected offline. */
             offline?: components["schemas"]["payment_method_details_card_present_offline"] | null;
             /** @description Defines whether the authorized amount can be over-captured or not */
@@ -16597,6 +17050,8 @@ export interface components {
             cardholder_name?: string | null;
             /** @description Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
             country?: string | null;
+            /** @description A high-level description of the type of cards issued in this range. */
+            description?: string | null;
             /** @description Authorization response cryptogram. */
             emv_auth_data?: string | null;
             /** @description Two-digit number representing the card's expiration month. */
@@ -16611,10 +17066,17 @@ export interface components {
             funding?: string | null;
             /** @description ID of a card PaymentMethod generated from the card_present PaymentMethod that may be attached to a Customer for future transactions. Only present if it was possible to generate a card PaymentMethod. */
             generated_card?: string | null;
+            /** @description The name of the card's issuing bank. */
+            issuer?: string | null;
             /** @description The last four digits of the card. */
             last4?: string | null;
             /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             network?: string | null;
+            /** @description This is used by the financial networks to identify a transaction.
+             *     Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data.
+             *     The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD).
+             *     This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands. */
+            network_transaction_id?: string | null;
             /** @description EMV tag 5F2D. Preferred languages specified by the integrated circuit chip. */
             preferred_locales?: string[] | null;
             /**
@@ -16835,7 +17297,7 @@ export interface components {
          * @description A payment method domain represents a web domain that you have registered with Stripe.
          *     Stripe Elements use registered payment method domains to control where certain payment methods are shown.
          *
-         *     Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
+         *     Related guide: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
          */
         payment_method_domain: {
             apple_pay: components["schemas"]["payment_method_domain_resource_payment_method_status"];
@@ -16922,6 +17384,8 @@ export interface components {
             cardholder_name?: string | null;
             /** @description Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
             country?: string | null;
+            /** @description A high-level description of the type of cards issued in this range. */
+            description?: string | null;
             /** @description Two-digit number representing the card's expiration month. */
             exp_month: number;
             /** @description Four-digit number representing the card's expiration year. */
@@ -16932,6 +17396,8 @@ export interface components {
             fingerprint?: string | null;
             /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
             funding?: string | null;
+            /** @description The name of the card's issuing bank. */
+            issuer?: string | null;
             /** @description The last four digits of the card. */
             last4?: string | null;
             /** @description Contains information about card networks that can be used to process the payment. */
@@ -16974,6 +17440,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -16994,6 +17462,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -17005,6 +17475,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -17023,6 +17495,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -17034,6 +17508,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -17052,6 +17528,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -17065,6 +17543,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -17141,6 +17621,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -17158,6 +17640,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -17192,6 +17676,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -17203,6 +17689,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -17216,6 +17704,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -17227,6 +17717,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -17248,6 +17740,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -17272,6 +17766,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -17283,6 +17779,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -17298,6 +17796,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -17310,6 +17810,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -17321,6 +17823,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -17343,6 +17847,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -17359,6 +17865,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -17370,6 +17878,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -17388,6 +17898,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -17405,6 +17917,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -17416,6 +17930,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -17444,6 +17960,8 @@ export interface components {
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
              *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
              */
@@ -17455,6 +17973,8 @@ export interface components {
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
              *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
              *
              *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
              * @enum {string}
@@ -17756,7 +18276,7 @@ export interface components {
             issuer?: components["schemas"]["connect_account_reference"] | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /** @description Options for invoice PDF rendering. */
             rendering_options?: components["schemas"]["invoice_setting_rendering_options"] | null;
@@ -17820,10 +18340,10 @@ export interface components {
         /** PaymentPagesCheckoutSessionTaxID */
         payment_pages_checkout_session_tax_id: {
             /**
-             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, or `unknown`
+             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, or `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
             /** @description The value of the tax ID. */
             value?: string | null;
         };
@@ -17901,7 +18421,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /** @description The method used to send this payout, which can be `standard` or `instant`. `instant` is supported for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks). */
             method: string;
@@ -18004,7 +18524,7 @@ export interface components {
             maiden_name?: string | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /** @description The country where the person is a national. */
             nationality?: string | null;
@@ -18141,7 +18661,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /** @description The meter tracking the usage of a metered price */
             meter?: string | null;
@@ -18404,7 +18924,7 @@ export interface components {
             currency: string;
             /** @description Prices defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
             currency_options?: {
-                [key: string]: components["schemas"]["currency_option"] | undefined;
+                [key: string]: components["schemas"]["currency_option"];
             };
             /** @description When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links. */
             custom_unit_amount?: components["schemas"]["custom_unit_amount"] | null;
@@ -18416,7 +18936,7 @@ export interface components {
             lookup_key?: string | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /** @description A brief description of the price, hidden from customers. */
             nickname?: string | null;
@@ -18508,7 +19028,7 @@ export interface components {
             marketing_features: components["schemas"]["product_marketing_feature"][];
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /** @description The product's name, meant to be displayable to the customer. */
             name: string;
@@ -18588,7 +19108,7 @@ export interface components {
             max_redemptions?: number | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -18608,7 +19128,7 @@ export interface components {
         promotion_codes_resource_restrictions: {
             /** @description Promotion code restrictions defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
             currency_options?: {
-                [key: string]: components["schemas"]["promotion_code_currency_option"] | undefined;
+                [key: string]: components["schemas"]["promotion_code_currency_option"];
             };
             /** @description A Boolean indicating if the Promotion Code should only be redeemed for Customers without any successful payments or invoices */
             first_time_transaction: boolean;
@@ -18692,7 +19212,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /** @description A unique number that identifies this particular quote. This number is assigned once the quote is [finalized](https://stripe.com/docs/quotes/overview#finalize). */
             number?: string | null;
@@ -18789,7 +19309,7 @@ export interface components {
             effective_date?: number | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /** @description Integer representing the number of trial period days before the customer is charged for the first time. */
             trial_period_days?: number | null;
@@ -18920,7 +19440,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /** @description The name of the value list. */
             name: string;
@@ -19057,7 +19577,7 @@ export interface components {
             instructions_email?: string;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             next_action?: components["schemas"]["refund_next_action"];
             /**
@@ -19667,7 +20187,7 @@ export interface components {
             mandate?: (string | components["schemas"]["mandate"]) | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /** @description If present, this property tells you what actions you need to take in order for your customer to continue payment setup. */
             next_action?: components["schemas"]["setup_intent_next_action"] | null;
@@ -19678,7 +20198,7 @@ export interface components {
             object: "setup_intent";
             /** @description The account (if any) for which the setup is intended. */
             on_behalf_of?: (string | components["schemas"]["account"]) | null;
-            /** @description ID of the payment method used with this SetupIntent. */
+            /** @description ID of the payment method used with this SetupIntent. If the payment method is `card_present` and isn't a digital wallet, then the [generated_card](https://docs.corp.stripe.com/api/setup_attempts/object#setup_attempt_object-payment_method_details-card_present-generated_card) associated with the `latest_attempt` is attached to the Customer instead. */
             payment_method?: (string | components["schemas"]["payment_method"]) | null;
             /** @description Information about the payment method configuration used for this Setup Intent. */
             payment_method_configuration_details?: components["schemas"]["payment_method_config_biz_payment_method_configuration_details"] | null;
@@ -19734,7 +20254,7 @@ export interface components {
         setup_intent_payment_method_options: {
             acss_debit?: components["schemas"]["setup_intent_payment_method_options_acss_debit"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
             amazon_pay?: components["schemas"]["setup_intent_payment_method_options_amazon_pay"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
-            card?: components["schemas"]["setup_intent_payment_method_options_card"];
+            card?: components["schemas"]["setup_intent_payment_method_options_card"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
             card_present?: components["schemas"]["setup_intent_payment_method_options_card_present"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
             link?: components["schemas"]["setup_intent_payment_method_options_link"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
             paypal?: components["schemas"]["setup_intent_payment_method_options_paypal"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
@@ -19895,7 +20415,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -19950,7 +20470,7 @@ export interface components {
             currency: string;
             /** @description Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
             currency_options?: {
-                [key: string]: components["schemas"]["shipping_rate_currency_option"] | undefined;
+                [key: string]: components["schemas"]["shipping_rate_currency_option"];
             };
         };
         /** SigmaScheduledQueryRunError */
@@ -20006,7 +20526,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             multibanco?: components["schemas"]["source_type_multibanco"];
             /**
@@ -20482,7 +21002,7 @@ export interface components {
              * @description A date in the future at which the subscription will automatically get canceled
              */
             cancel_at?: number | null;
-            /** @description If the subscription has been canceled with the `at_period_end` flag set to `true`, `cancel_at_period_end` on the subscription will be true. You can use this attribute to determine whether a subscription that has a status of active is scheduled to be canceled at the end of the current period. */
+            /** @description Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period. */
             cancel_at_period_end: boolean;
             /**
              * Format: unix-time
@@ -20560,7 +21080,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * Format: unix-time
@@ -20642,7 +21162,7 @@ export interface components {
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
              *      *Note: This attribute is populated only for invoices created on or after June 29, 2023.* */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
         };
         /**
@@ -20661,7 +21181,7 @@ export interface components {
             id: string;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -20745,7 +21265,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -20796,7 +21316,7 @@ export interface components {
             discounts: components["schemas"]["discounts_resource_stackable_discount"][];
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an item. Metadata on this item will update the underlying subscription item's `metadata` when the phase is entered. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /** @description ID of the price to which the customer should be subscribed. */
             price: string | components["schemas"]["price"] | components["schemas"]["deleted_price"];
@@ -20863,7 +21383,7 @@ export interface components {
             items: components["schemas"]["subscription_schedule_configuration_item"][];
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered. Updating the underlying subscription's `metadata` directly will not affect the current phase's `metadata`. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /** @description The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details. */
             on_behalf_of?: (string | components["schemas"]["account"]) | null;
@@ -20978,9 +21498,9 @@ export interface components {
             /** @description Payment-method-specific configuration to provide to invoices created by the subscription. */
             payment_method_options?: components["schemas"]["subscriptions_resource_payment_method_options"] | null;
             /** @description The list of payment method types to provide to every invoice created by the subscription. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). */
-            payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | null;
+            payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "multibanco" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | null;
             /**
-             * @description Either `off`, or `on_subscription`. With `on_subscription` Stripe updates `subscription.default_payment_method` when a subscription payment succeeds.
+             * @description Configure whether Stripe updates `subscription.default_payment_method` when payment succeeds. Defaults to `off`.
              * @enum {string|null}
              */
             save_default_payment_method?: "off" | "on_subscription" | null;
@@ -21042,7 +21562,7 @@ export interface components {
          *     Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom)
          */
         "tax.calculation": {
-            /** @description Total after taxes. */
+            /** @description Total amount after taxes in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
             amount_total: number;
             /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
             currency: string;
@@ -21233,13 +21753,18 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
              * @enum {string}
              */
             object: "tax.transaction";
+            /**
+             * Format: unix-time
+             * @description The Unix timestamp representing when the tax liability is assumed or reduced.
+             */
+            posted_at: number;
             /** @description A custom unique identifier, such as 'myOrder_123'. */
             reference: string;
             /** @description If `type=reversal`, contains information about what was reversed. */
@@ -21271,7 +21796,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -21381,10 +21906,10 @@ export interface components {
             /** @description The account or customer the tax ID belongs to. */
             owner?: components["schemas"]["tax_i_ds_owner"] | null;
             /**
-             * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`. Note that some legacy tax IDs have type `unknown`
+             * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`. Note that some legacy tax IDs have type `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
             /** @description Value of the tax ID. */
             value: string;
             /** @description Tax ID verification information. */
@@ -21552,10 +22077,10 @@ export interface components {
         /** TaxProductResourceCustomerDetailsResourceTaxId */
         tax_product_resource_customer_details_resource_tax_id: {
             /**
-             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, or `unknown`
+             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, or `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
             /** @description The value of the tax ID. */
             value: string;
         };
@@ -21762,7 +22287,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -21799,6 +22324,7 @@ export interface components {
              */
             object: "terminal.configuration";
             offline?: components["schemas"]["terminal_configuration_configuration_resource_offline_config"];
+            reboot_window?: components["schemas"]["terminal_configuration_configuration_resource_reboot_window"];
             stripe_s700?: components["schemas"]["terminal_configuration_configuration_resource_device_type_specific_config"];
             tipping?: components["schemas"]["terminal_configuration_configuration_resource_tipping"];
             verifone_p400?: components["schemas"]["terminal_configuration_configuration_resource_device_type_specific_config"];
@@ -21838,7 +22364,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -21858,10 +22384,10 @@ export interface components {
             /** @description The current software version of the reader. */
             device_sw_version?: string | null;
             /**
-             * @description Type of reader, one of `bbpos_wisepad3`, `stripe_m2`, `bbpos_chipper2x`, `bbpos_wisepos_e`, `verifone_P400`, `simulated_wisepos_e`, or `mobile_phone_reader`.
+             * @description Type of reader, one of `bbpos_wisepad3`, `stripe_m2`, `stripe_s700`, `bbpos_chipper2x`, `bbpos_wisepos_e`, `verifone_P400`, `simulated_wisepos_e`, or `mobile_phone_reader`.
              * @enum {string}
              */
-            device_type: "bbpos_chipper2x" | "bbpos_wisepad3" | "bbpos_wisepos_e" | "mobile_phone_reader" | "simulated_wisepos_e" | "stripe_m2" | "verifone_P400";
+            device_type: "bbpos_chipper2x" | "bbpos_wisepad3" | "bbpos_wisepos_e" | "mobile_phone_reader" | "simulated_wisepos_e" | "stripe_m2" | "stripe_s700" | "verifone_P400";
             /** @description Unique identifier for the object. */
             id: string;
             /** @description The local IP address of the reader. */
@@ -21874,7 +22400,7 @@ export interface components {
             location?: (string | components["schemas"]["terminal.location"]) | null;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -21907,6 +22433,13 @@ export interface components {
         terminal_configuration_configuration_resource_offline_config: {
             /** @description Determines whether to allow transactions to be collected while reader is offline. Defaults to false. */
             enabled?: boolean | null;
+        };
+        /** TerminalConfigurationConfigurationResourceRebootWindow */
+        terminal_configuration_configuration_resource_reboot_window: {
+            /** @description Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour. */
+            end_hour: number;
+            /** @description Integer between 0 to 23 that represents the start hour of the reboot time window. */
+            start_hour: number;
         };
         /** TerminalConfigurationConfigurationResourceTipping */
         terminal_configuration_configuration_resource_tipping: {
@@ -22025,7 +22558,7 @@ export interface components {
             charge?: string | components["schemas"]["charge"];
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /** @description Payment intent that is being refunded. */
             payment_intent?: string | components["schemas"]["payment_intent"];
@@ -22277,7 +22810,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -22335,7 +22868,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -22411,7 +22944,7 @@ export interface components {
             id: string;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -22478,7 +23011,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description The rails used to reverse the funds.
@@ -22527,7 +23060,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description The rails used to reverse the funds.
@@ -22575,7 +23108,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -22647,7 +23180,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -22714,7 +23247,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -22774,7 +23307,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -23058,15 +23591,15 @@ export interface components {
         treasury_financial_accounts_resource_balance: {
             /** @description Funds the user can spend right now. */
             cash: {
-                [key: string]: number | undefined;
+                [key: string]: number;
             };
             /** @description Funds not spendable yet, but will become available at a later time. */
             inbound_pending: {
-                [key: string]: number | undefined;
+                [key: string]: number;
             };
             /** @description Funds in the account, but not spendable because they are being held for pending outbound flows. */
             outbound_pending: {
-                [key: string]: number | undefined;
+                [key: string]: number;
             };
         };
         /** TreasuryFinancialAccountsResourceClosedStatusDetails */
@@ -23578,7 +24111,7 @@ export interface components {
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
@@ -23792,6 +24325,18 @@ export interface operations {
                         };
                         /** base_config_param */
                         payouts_list?: {
+                            enabled: boolean;
+                            /** base_features_param */
+                            features?: Record<string, never>;
+                        };
+                        /** base_config_param */
+                        tax_registrations?: {
+                            enabled: boolean;
+                            /** base_features_param */
+                            features?: Record<string, never>;
+                        };
+                        /** base_config_param */
+                        tax_settings?: {
                             enabled: boolean;
                             /** base_features_param */
                             features?: Record<string, never>;
@@ -24340,7 +24885,7 @@ export interface operations {
                         last_name_kanji?: string;
                         maiden_name?: string;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         } | "";
                         phone?: string;
                         /** @enum {string} */
@@ -24379,7 +24924,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /**
                      * settings_specs
@@ -24940,7 +25485,7 @@ export interface operations {
                         last_name_kanji?: string;
                         maiden_name?: string;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         } | "";
                         phone?: string;
                         /** @enum {string} */
@@ -24979,7 +25524,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /**
                      * settings_specs_update
@@ -25164,7 +25709,7 @@ export interface operations {
                     external_account?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                 };
             };
@@ -25286,7 +25831,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description Cardholder name. */
                     name?: string;
@@ -25580,7 +26125,7 @@ export interface operations {
                     external_account?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                 };
             };
@@ -25702,7 +26247,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description Cardholder name. */
                     name?: string;
@@ -25982,7 +26527,7 @@ export interface operations {
                     maiden_name?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
                     nationality?: string;
@@ -26214,7 +26759,7 @@ export interface operations {
                     maiden_name?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
                     nationality?: string;
@@ -26505,7 +27050,7 @@ export interface operations {
                     maiden_name?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
                     nationality?: string;
@@ -26737,7 +27282,7 @@ export interface operations {
                     maiden_name?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description The country where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), or "XX" if unavailable. */
                     nationality?: string;
@@ -27172,7 +27717,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -27350,7 +27895,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                 };
             };
@@ -27896,7 +28441,7 @@ export interface operations {
                     identifier?: string;
                     /** @description The payload of the event. This must contain the fields corresponding to a meter's `customer_mapping.event_payload_key` (default is `stripe_customer_id`) and `value_settings.event_payload_key` (default is `value`). Read more about the [payload](https://docs.stripe.com/billing/subscriptions/usage-based/recording-usage#payload-key-overrides). */
                     payload: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /**
                      * Format: unix-time
@@ -28175,7 +28720,7 @@ export interface operations {
             query: {
                 /** @description The customer for which to fetch event summaries. */
                 customer: string;
-                /** @description The timestamp from when to stop aggregating meter events (exclusive). */
+                /** @description The timestamp from when to stop aggregating meter events (exclusive). Must be aligned with minute boundaries. */
                 end_time: number;
                 /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
                 ending_before?: string;
@@ -28183,12 +28728,12 @@ export interface operations {
                 expand?: string[];
                 /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
                 limit?: number;
-                /** @description The timestamp from when to start aggregating meter events (inclusive). */
+                /** @description The timestamp from when to start aggregating meter events (inclusive). Must be aligned with minute boundaries. */
                 start_time: number;
                 /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
                 starting_after?: string;
-                /** @description Specifies what granularity to use when generating event summaries. If not specified, a single event summary would be returned for the specified time range. */
-                value_grouping_window?: "hour";
+                /** @description Specifies what granularity to use when generating event summaries. If not specified, a single event summary would be returned for the specified time range. For hourly granularity, start and end times must align with hour boundaries (e.g., 00:00, 01:00, ..., 23:00). For daily granularity, start and end times must align with UTC day boundaries (00:00 UTC). */
+                value_grouping_window?: "day" | "hour";
             };
             header?: never;
             path: {
@@ -28405,7 +28950,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                 };
             };
@@ -28548,7 +29093,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -28769,7 +29314,7 @@ export interface operations {
                         exp_month: number;
                         exp_year: number;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         name?: string;
                         number: string;
@@ -28790,7 +29335,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description The Stripe account ID for which these funds are intended. Automatically set if you use the `destination` parameter. For details, see [Creating Separate Charges and Transfers](https://stripe.com/docs/connect/separate-charges-and-transfers#settlement-merchant). */
                     on_behalf_of?: string;
@@ -28982,7 +29527,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description This is the email address that the receipt for this charge will be sent to. If this field is updated, then a new email receipt will be sent to the updated address. */
                     receipt_email?: string;
@@ -29177,7 +29722,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
                     submit?: boolean;
@@ -29264,7 +29809,7 @@ export interface operations {
                     instructions_email?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description The identifier of the PaymentIntent to refund. */
                     payment_intent?: string;
@@ -29381,7 +29926,7 @@ export interface operations {
                     instructions_email?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /**
                      * @description Origin of the refund
@@ -29478,7 +30023,7 @@ export interface operations {
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -29770,7 +30315,7 @@ export interface operations {
                                 type: "account" | "self";
                             };
                             metadata?: {
-                                [key: string]: string | undefined;
+                                [key: string]: string;
                             };
                             rendering_options?: {
                                 /** @enum {string} */
@@ -29801,7 +30346,7 @@ export interface operations {
                                 description?: string;
                                 images?: string[];
                                 metadata?: {
-                                    [key: string]: string | undefined;
+                                    [key: string]: string;
                                 };
                                 name: string;
                                 tax_code?: string;
@@ -29828,7 +30373,7 @@ export interface operations {
                     locale?: "auto" | "bg" | "cs" | "da" | "de" | "el" | "en" | "en-GB" | "es" | "es-419" | "et" | "fi" | "fil" | "fr" | "fr-CA" | "hr" | "hu" | "id" | "it" | "ja" | "ko" | "lt" | "lv" | "ms" | "mt" | "nb" | "nl" | "pl" | "pt" | "pt-BR" | "ro" | "ru" | "sk" | "sl" | "sv" | "th" | "tr" | "vi" | "zh" | "zh-HK" | "zh-TW";
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /**
                      * @description The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
@@ -29845,7 +30390,7 @@ export interface operations {
                         capture_method?: "automatic" | "automatic_async" | "manual";
                         description?: string;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         on_behalf_of?: string;
                         receipt_email?: string;
@@ -30166,7 +30711,7 @@ export interface operations {
                     setup_intent_data?: {
                         description?: string;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         on_behalf_of?: string;
                     };
@@ -30207,11 +30752,11 @@ export interface operations {
                                         amount: number;
                                         /** @enum {string} */
                                         tax_behavior?: "exclusive" | "inclusive" | "unspecified";
-                                    } | undefined;
+                                    };
                                 };
                             };
                             metadata?: {
-                                [key: string]: string | undefined;
+                                [key: string]: string;
                             };
                             /** @enum {string} */
                             tax_behavior?: "exclusive" | "inclusive" | "unspecified";
@@ -30247,7 +30792,7 @@ export interface operations {
                             };
                         };
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         on_behalf_of?: string;
                         /** @enum {string} */
@@ -30326,6 +30871,48 @@ export interface operations {
         requestBody?: {
             content: {
                 "application/x-www-form-urlencoded": Record<string, never>;
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["checkout.session"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    PostCheckoutSessionsSession: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                session: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                    /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
+                    metadata?: {
+                        [key: string]: string;
+                    } | "";
+                };
             };
         };
         responses: {
@@ -30521,7 +31108,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /**
                      * Format: decimal
@@ -30614,7 +31201,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                 };
             };
@@ -31075,7 +31662,7 @@ export interface operations {
                     currency_options?: {
                         [key: string]: {
                             amount_off: number;
-                        } | undefined;
+                        };
                     };
                     /**
                      * @description Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
@@ -31092,7 +31679,7 @@ export interface operations {
                     max_redemptions?: number;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
                     name?: string;
@@ -31181,13 +31768,13 @@ export interface operations {
                     currency_options?: {
                         [key: string]: {
                             amount_off: number;
-                        } | undefined;
+                        };
                     };
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set. */
                     name?: string;
@@ -31333,6 +31920,11 @@ export interface operations {
                      * @description The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.
                      */
                     effective_at?: number;
+                    /**
+                     * @description Type of email to send to the customer, one of `credit_note` or `none` and the default is `credit_note`.
+                     * @enum {string}
+                     */
+                    email_type?: "credit_note" | "none";
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     /** @description ID of the invoice. */
@@ -31359,7 +31951,7 @@ export interface operations {
                     memo?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe. */
                     out_of_band_amount?: number;
@@ -31412,6 +32004,8 @@ export interface operations {
                 credit_amount?: number;
                 /** @description The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF. */
                 effective_at?: number;
+                /** @description Type of email to send to the customer, one of `credit_note` or `none` and the default is `credit_note`. */
+                email_type?: "credit_note" | "none";
                 /** @description Specifies which fields in the response should be expanded. */
                 expand?: string[];
                 /** @description ID of the invoice. */
@@ -31438,7 +32032,7 @@ export interface operations {
                 memo?: string;
                 /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                 metadata?: {
-                    [key: string]: string | undefined;
+                    [key: string]: string;
                 };
                 /** @description The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe. */
                 out_of_band_amount?: number;
@@ -31492,6 +32086,8 @@ export interface operations {
                 credit_amount?: number;
                 /** @description The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF. */
                 effective_at?: number;
+                /** @description Type of email to send to the customer, one of `credit_note` or `none` and the default is `credit_note`. */
+                email_type?: "credit_note" | "none";
                 /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
                 ending_before?: string;
                 /** @description Specifies which fields in the response should be expanded. */
@@ -31522,7 +32118,7 @@ export interface operations {
                 memo?: string;
                 /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                 metadata?: {
-                    [key: string]: string | undefined;
+                    [key: string]: string;
                 };
                 /** @description The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe. */
                 out_of_band_amount?: number;
@@ -31693,7 +32289,7 @@ export interface operations {
                     memo?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                 };
             };
@@ -31776,12 +32372,29 @@ export interface operations {
                         buy_button?: {
                             enabled: boolean;
                         };
+                        /** payment_element_param */
+                        payment_element?: {
+                            enabled: boolean;
+                            /** features_param */
+                            features?: {
+                                payment_method_allow_redisplay_filters?: ("always" | "limited" | "unspecified")[];
+                                /** @enum {string} */
+                                payment_method_redisplay?: "disabled" | "enabled";
+                                payment_method_redisplay_limit?: number;
+                                /** @enum {string} */
+                                payment_method_remove?: "disabled" | "enabled";
+                                /** @enum {string} */
+                                payment_method_save?: "disabled" | "enabled";
+                                /** @enum {string} */
+                                payment_method_save_usage?: "off_session" | "on_session";
+                            };
+                        };
                         /** pricing_table_param */
                         pricing_table?: {
                             enabled: boolean;
                         };
                     };
-                    /** @description The ID of an existing customer for which to create the customer session. */
+                    /** @description The ID of an existing customer for which to create the Customer Session. */
                     customer: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -31932,7 +32545,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description The customer's full name or business name. */
                     name?: string;
@@ -31977,7 +32590,7 @@ export interface operations {
                     /** @description The customer's tax IDs. */
                     tax_id_data?: {
                         /** @enum {string} */
-                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
                         value: string;
                     }[];
                     /** @description ID of the test clock to attach to the customer. */
@@ -32145,7 +32758,7 @@ export interface operations {
                         exp_month: number;
                         exp_year: number;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         name?: string;
                         number: string;
@@ -32202,7 +32815,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description The customer's full name or business name. */
                     name?: string;
@@ -32380,7 +32993,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -32464,7 +33077,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -32584,7 +33197,7 @@ export interface operations {
                         exp_month: number;
                         exp_year: number;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         name?: string;
                         number: string;
@@ -32595,7 +33208,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description Please refer to full [documentation](https://stripe.com/docs/api) instead. */
                     source?: string;
@@ -32702,7 +33315,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description Cardholder name. */
                     name?: string;
@@ -32918,7 +33531,7 @@ export interface operations {
                         exp_month: number;
                         exp_year: number;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         name?: string;
                         number: string;
@@ -32929,7 +33542,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description Please refer to full [documentation](https://stripe.com/docs/api) instead. */
                     source?: string;
@@ -33036,7 +33649,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description Cardholder name. */
                     name?: string;
@@ -33622,7 +34235,7 @@ export interface operations {
                         exp_month: number;
                         exp_year: number;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         name?: string;
                         number: string;
@@ -33633,7 +34246,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description Please refer to full [documentation](https://stripe.com/docs/api) instead. */
                     source?: string;
@@ -33740,7 +34353,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description Cardholder name. */
                     name?: string;
@@ -33987,7 +34600,7 @@ export interface operations {
                      * @description A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
                      */
                     cancel_at?: number;
-                    /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
+                    /** @description Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. */
                     cancel_at_period_end?: boolean;
                     /**
                      * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
@@ -34038,7 +34651,7 @@ export interface operations {
                             promotion_code?: string;
                         }[] | "";
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         price?: string;
                         /** recurring_price_data */
@@ -34062,9 +34675,9 @@ export interface operations {
                     }[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
-                    /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
+                    /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. Defaults to `false` (on-session). */
                     off_session?: boolean;
                     /**
                      * @description Only applies to subscriptions with `collection_method=charge_automatically`.
@@ -34130,6 +34743,10 @@ export interface operations {
                             us_bank_account?: {
                                 /** invoice_linked_account_options_param */
                                 financial_connections?: {
+                                    /** invoice_linked_account_options_filters_param */
+                                    filters?: {
+                                        account_subcategories?: ("checking" | "savings")[];
+                                    };
                                     permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
                                     prefetch?: ("balances" | "ownership" | "transactions")[];
                                 };
@@ -34137,7 +34754,7 @@ export interface operations {
                                 verification_method?: "automatic" | "instant" | "microdeposits";
                             } | "";
                         };
-                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
+                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "multibanco" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
                         /** @enum {string} */
                         save_default_payment_method?: "off" | "on_subscription";
                     };
@@ -34303,7 +34920,7 @@ export interface operations {
                     } | "";
                     /** @description A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
                     cancel_at?: number | "";
-                    /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
+                    /** @description Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. */
                     cancel_at_period_end?: boolean;
                     /**
                      * cancellation_details_param
@@ -34364,7 +34981,7 @@ export interface operations {
                         }[] | "";
                         id?: string;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         } | "";
                         price?: string;
                         /** recurring_price_data */
@@ -34388,9 +35005,9 @@ export interface operations {
                     }[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
-                    /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
+                    /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. Defaults to `false` (on-session). */
                     off_session?: boolean;
                     /** @description If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](/billing/subscriptions/pause-payment). */
                     pause_collection?: {
@@ -34459,6 +35076,10 @@ export interface operations {
                             us_bank_account?: {
                                 /** invoice_linked_account_options_param */
                                 financial_connections?: {
+                                    /** invoice_linked_account_options_filters_param */
+                                    filters?: {
+                                        account_subcategories?: ("checking" | "savings")[];
+                                    };
                                     permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
                                     prefetch?: ("balances" | "ownership" | "transactions")[];
                                 };
@@ -34466,7 +35087,7 @@ export interface operations {
                                 verification_method?: "automatic" | "instant" | "microdeposits";
                             } | "";
                         };
-                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
+                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "multibanco" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
                         /** @enum {string} */
                         save_default_payment_method?: "off" | "on_subscription";
                     };
@@ -34721,10 +35342,10 @@ export interface operations {
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     /**
-                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
+                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
                      * @enum {string}
                      */
-                    type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                    type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
                     /** @description Value of the tax ID. */
                     value: string;
                 };
@@ -34831,6 +35452,7 @@ export interface operations {
             query?: {
                 /** @description Only return disputes associated to the charge specified by this charge ID. */
                 charge?: string;
+                /** @description Only return disputes that were created during the given date interval. */
                 created?: {
                     gt?: number;
                     gte?: number;
@@ -34976,7 +35598,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default). */
                     submit?: boolean;
@@ -35209,7 +35831,7 @@ export interface operations {
                     lookup_key: string;
                     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description The feature's name, for your own purpose, not meant to be displayable to the customer. */
                     name: string;
@@ -35294,7 +35916,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description The feature's name, for your own purpose, not meant to be displayable to the customer. */
                     name?: string;
@@ -35685,7 +36307,7 @@ export interface operations {
                     file: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -35767,7 +36389,7 @@ export interface operations {
                     expires_at?: "now" | number | "";
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -35881,7 +36503,7 @@ export interface operations {
                         /** Format: unix-time */
                         expires_at?: number;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         } | "";
                     };
                     /**
@@ -36293,6 +36915,7 @@ export interface operations {
                      * @description Filters to restrict the kinds of accounts to collect.
                      */
                     filters?: {
+                        account_subcategories?: ("checking" | "credit_card" | "line_of_credit" | "mortgage" | "savings")[];
                         countries?: string[];
                     };
                     /** @description List of data features that you would like to request access to.
@@ -36805,7 +37428,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /**
                      * session_options_param
@@ -36914,7 +37537,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /**
                      * session_options_param
@@ -37139,7 +37762,7 @@ export interface operations {
                     invoice?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /**
                      * period
@@ -37276,7 +37899,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /**
                      * period
@@ -37547,7 +38170,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description Set the number for this invoice. If no number is present then a number will be assigned automatically when the invoice is finalized. In many markets, regulations require invoices to be unique, sequential and / or gapless. You are responsible for ensuring this is true across all your different invoicing systems in the event that you edit the invoice number using our API. If you use only Stripe for your invoices and do not change invoice numbers, Stripe handles this aspect of compliance for you automatically. */
                     number?: string;
@@ -37605,6 +38228,10 @@ export interface operations {
                             us_bank_account?: {
                                 /** invoice_linked_account_options_param */
                                 financial_connections?: {
+                                    /** invoice_linked_account_options_filters_param */
+                                    filters?: {
+                                        account_subcategories?: ("checking" | "savings")[];
+                                    };
                                     permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
                                     prefetch?: ("balances" | "ownership" | "transactions")[];
                                 };
@@ -37612,7 +38239,7 @@ export interface operations {
                                 verification_method?: "automatic" | "instant" | "microdeposits";
                             } | "";
                         };
-                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
+                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "multibanco" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
                     };
                     /**
                      * @description How to handle pending invoice items on invoice creation. Defaults to `exclude` if the parameter is omitted.
@@ -37665,11 +38292,11 @@ export interface operations {
                                         amount: number;
                                         /** @enum {string} */
                                         tax_behavior?: "exclusive" | "inclusive" | "unspecified";
-                                    } | undefined;
+                                    };
                                 };
                             };
                             metadata?: {
-                                [key: string]: string | undefined;
+                                [key: string]: string;
                             };
                             /** @enum {string} */
                             tax_behavior?: "exclusive" | "inclusive" | "unspecified";
@@ -37794,7 +38421,7 @@ export interface operations {
                         tax_exempt?: "" | "exempt" | "none" | "reverse";
                         tax_ids?: {
                             /** @enum {string} */
-                            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
                             value: string;
                         }[];
                     };
@@ -37819,7 +38446,7 @@ export interface operations {
                         }[] | "";
                         invoiceitem?: string;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         } | "";
                         /** period */
                         period?: {
@@ -37944,7 +38571,7 @@ export interface operations {
                                     promotion_code?: string;
                                 }[] | "";
                                 metadata?: {
-                                    [key: string]: string | undefined;
+                                    [key: string]: string;
                                 };
                                 price?: string;
                                 /** recurring_price_data */
@@ -37968,7 +38595,7 @@ export interface operations {
                             }[];
                             iterations?: number;
                             metadata?: {
-                                [key: string]: string | undefined;
+                                [key: string]: string;
                             };
                             on_behalf_of?: string;
                             /** @enum {string} */
@@ -38010,7 +38637,7 @@ export interface operations {
                             }[] | "";
                             id?: string;
                             metadata?: {
-                                [key: string]: string | undefined;
+                                [key: string]: string;
                             } | "";
                             price?: string;
                             /** recurring_price_data */
@@ -38170,7 +38797,7 @@ export interface operations {
                     tax_exempt?: "" | "exempt" | "none" | "reverse";
                     tax_ids?: {
                         /** @enum {string} */
-                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
                         value: string;
                     }[];
                 };
@@ -38195,7 +38822,7 @@ export interface operations {
                     }[] | "";
                     invoiceitem?: string;
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** period */
                     period?: {
@@ -38311,7 +38938,7 @@ export interface operations {
                                 promotion_code?: string;
                             }[] | "";
                             metadata?: {
-                                [key: string]: string | undefined;
+                                [key: string]: string;
                             };
                             price?: string;
                             /** recurring_price_data */
@@ -38335,7 +38962,7 @@ export interface operations {
                         }[];
                         iterations?: number;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         on_behalf_of?: string;
                         /** @enum {string} */
@@ -38358,7 +38985,7 @@ export interface operations {
                 subscription_billing_cycle_anchor?: ("now" | "unchanged") | number;
                 /** @description A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at` instead. */
                 subscription_cancel_at?: number | "";
-                /** @description Boolean indicating whether this subscription should cancel at the end of the current period. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead. */
+                /** @description Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead. */
                 subscription_cancel_at_period_end?: boolean;
                 /** @description This simulates the subscription being canceled or expired immediately. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_now` instead. */
                 subscription_cancel_now?: boolean;
@@ -38384,7 +39011,7 @@ export interface operations {
                         }[] | "";
                         id?: string;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         } | "";
                         price?: string;
                         /** recurring_price_data */
@@ -38430,7 +39057,7 @@ export interface operations {
                     }[] | "";
                     id?: string;
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     price?: string;
                     /** recurring_price_data */
@@ -38543,7 +39170,7 @@ export interface operations {
                     tax_exempt?: "" | "exempt" | "none" | "reverse";
                     tax_ids?: {
                         /** @enum {string} */
-                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
                         value: string;
                     }[];
                 };
@@ -38570,7 +39197,7 @@ export interface operations {
                     }[] | "";
                     invoiceitem?: string;
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** period */
                     period?: {
@@ -38688,7 +39315,7 @@ export interface operations {
                                 promotion_code?: string;
                             }[] | "";
                             metadata?: {
-                                [key: string]: string | undefined;
+                                [key: string]: string;
                             };
                             price?: string;
                             /** recurring_price_data */
@@ -38712,7 +39339,7 @@ export interface operations {
                         }[];
                         iterations?: number;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         on_behalf_of?: string;
                         /** @enum {string} */
@@ -38737,7 +39364,7 @@ export interface operations {
                 subscription_billing_cycle_anchor?: ("now" | "unchanged") | number;
                 /** @description A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at` instead. */
                 subscription_cancel_at?: number | "";
-                /** @description Boolean indicating whether this subscription should cancel at the end of the current period. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead. */
+                /** @description Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead. */
                 subscription_cancel_at_period_end?: boolean;
                 /** @description This simulates the subscription being canceled or expired immediately. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_now` instead. */
                 subscription_cancel_now?: boolean;
@@ -38763,7 +39390,7 @@ export interface operations {
                         }[] | "";
                         id?: string;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         } | "";
                         price?: string;
                         /** recurring_price_data */
@@ -38809,7 +39436,7 @@ export interface operations {
                     }[] | "";
                     id?: string;
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     price?: string;
                     /** recurring_price_data */
@@ -39001,7 +39628,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description Set the number for this invoice. If no number is present then a number will be assigned automatically when the invoice is finalized. In many markets, regulations require invoices to be unique, sequential and / or gapless. You are responsible for ensuring this is true across all your different invoicing systems in the event that you edit the invoice number using our API. If you use only Stripe for your invoices and do not change invoice numbers, Stripe handles this aspect of compliance for you automatically. */
                     number?: string | "";
@@ -39059,6 +39686,10 @@ export interface operations {
                             us_bank_account?: {
                                 /** invoice_linked_account_options_param */
                                 financial_connections?: {
+                                    /** invoice_linked_account_options_filters_param */
+                                    filters?: {
+                                        account_subcategories?: ("checking" | "savings")[];
+                                    };
                                     permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
                                     prefetch?: ("balances" | "ownership" | "transactions")[];
                                 };
@@ -39066,7 +39697,7 @@ export interface operations {
                                 verification_method?: "automatic" | "instant" | "microdeposits";
                             } | "";
                         };
-                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
+                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "multibanco" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
                     };
                     /**
                      * rendering_param
@@ -39111,11 +39742,11 @@ export interface operations {
                                         amount: number;
                                         /** @enum {string} */
                                         tax_behavior?: "exclusive" | "inclusive" | "unspecified";
-                                    } | undefined;
+                                    };
                                 };
                             };
                             metadata?: {
-                                [key: string]: string | undefined;
+                                [key: string]: string;
                             };
                             /** @enum {string} */
                             tax_behavior?: "exclusive" | "inclusive" | "unspecified";
@@ -39191,6 +39822,109 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["deleted_invoice"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    PostInvoicesInvoiceAddLines: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                invoice: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                    /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
+                    invoice_metadata?: {
+                        [key: string]: string;
+                    } | "";
+                    /** @description The line items to add. */
+                    lines: {
+                        amount?: number;
+                        description?: string;
+                        discountable?: boolean;
+                        discounts?: {
+                            coupon?: string;
+                            discount?: string;
+                            promotion_code?: string;
+                        }[] | "";
+                        invoice_item?: string;
+                        metadata?: {
+                            [key: string]: string;
+                        } | "";
+                        /** period */
+                        period?: {
+                            /** Format: unix-time */
+                            end: number;
+                            /** Format: unix-time */
+                            start: number;
+                        };
+                        price?: string;
+                        /** one_time_price_data_with_product_data */
+                        price_data?: {
+                            currency: string;
+                            product?: string;
+                            /** product_data */
+                            product_data?: {
+                                description?: string;
+                                images?: string[];
+                                metadata?: {
+                                    [key: string]: string;
+                                };
+                                name: string;
+                                tax_code?: string;
+                            };
+                            /** @enum {string} */
+                            tax_behavior?: "exclusive" | "inclusive" | "unspecified";
+                            unit_amount?: number;
+                            /** Format: decimal */
+                            unit_amount_decimal?: string;
+                        };
+                        quantity?: number;
+                        tax_amounts?: {
+                            amount: number;
+                            /** tax_rate_data_param */
+                            tax_rate_data: {
+                                country?: string;
+                                description?: string;
+                                display_name: string;
+                                inclusive: boolean;
+                                jurisdiction?: string;
+                                percentage: number;
+                                state?: string;
+                                /** @enum {string} */
+                                tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
+                            };
+                            taxable_amount: number;
+                        }[] | "";
+                        tax_rates?: string[] | "";
+                    }[];
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["invoice"];
                 };
             };
             /** @description Error response. */
@@ -39329,9 +40063,9 @@ export interface operations {
                     }[] | "";
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
-                    /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For `type=recurring` line items, the incoming metadata specified on the request is directly used to set this value, in contrast to `type=invoiceitem` line items, where any existing metadata on the invoice line is merged with the incoming data. */
+                    /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-type) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](api/invoices/line_item#invoice_line_item_object-type) line items, where any existing metadata on the invoice line is merged with the incoming data. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /**
                      * period
@@ -39357,7 +40091,7 @@ export interface operations {
                             description?: string;
                             images?: string[];
                             metadata?: {
-                                [key: string]: string | undefined;
+                                [key: string]: string;
                             };
                             name: string;
                             tax_code?: string;
@@ -39503,6 +40237,54 @@ export interface operations {
             };
         };
     };
+    PostInvoicesInvoiceRemoveLines: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                invoice: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                    /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
+                    invoice_metadata?: {
+                        [key: string]: string;
+                    } | "";
+                    /** @description The line items to remove. */
+                    lines: {
+                        /** @enum {string} */
+                        behavior: "delete" | "unassign";
+                        id: string;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["invoice"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
     PostInvoicesInvoiceSend: {
         parameters: {
             query?: never;
@@ -39517,6 +40299,109 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["invoice"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    PostInvoicesInvoiceUpdateLines: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                invoice: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                    /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-type) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](api/invoices/line_item#invoice_line_item_object-type) line items, where any existing metadata on the invoice line is merged with the incoming data. */
+                    invoice_metadata?: {
+                        [key: string]: string;
+                    } | "";
+                    /** @description The line items to update. */
+                    lines: {
+                        amount?: number;
+                        description?: string;
+                        discountable?: boolean;
+                        discounts?: {
+                            coupon?: string;
+                            discount?: string;
+                            promotion_code?: string;
+                        }[] | "";
+                        id: string;
+                        metadata?: {
+                            [key: string]: string;
+                        } | "";
+                        /** period */
+                        period?: {
+                            /** Format: unix-time */
+                            end: number;
+                            /** Format: unix-time */
+                            start: number;
+                        };
+                        price?: string;
+                        /** one_time_price_data_with_product_data */
+                        price_data?: {
+                            currency: string;
+                            product?: string;
+                            /** product_data */
+                            product_data?: {
+                                description?: string;
+                                images?: string[];
+                                metadata?: {
+                                    [key: string]: string;
+                                };
+                                name: string;
+                                tax_code?: string;
+                            };
+                            /** @enum {string} */
+                            tax_behavior?: "exclusive" | "inclusive" | "unspecified";
+                            unit_amount?: number;
+                            /** Format: decimal */
+                            unit_amount_decimal?: string;
+                        };
+                        quantity?: number;
+                        tax_amounts?: {
+                            amount: number;
+                            /** tax_rate_data_param */
+                            tax_rate_data: {
+                                country?: string;
+                                description?: string;
+                                display_name: string;
+                                inclusive: boolean;
+                                jurisdiction?: string;
+                                percentage: number;
+                                state?: string;
+                                /** @enum {string} */
+                                tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
+                            };
+                            taxable_amount: number;
+                        }[] | "";
+                        tax_rates?: string[] | "";
+                    }[];
                 };
             };
         };
@@ -39699,7 +40584,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -39743,7 +40628,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -39785,7 +40670,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -39949,7 +40834,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description The cardholder's name. This will be printed on cards issued to them. The maximum length of this field is 24 characters. This field cannot contain any special characters or numbers. */
                     name: string;
@@ -40119,7 +41004,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description The cardholder's phone number. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://stripe.com/docs/issuing/3d-secure) for more details. */
                     phone_number?: string;
@@ -40264,7 +41149,7 @@ export interface operations {
                     financial_account?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description The personalization design object belonging to this card. */
                     personalization_design?: string;
@@ -40297,6 +41182,11 @@ export interface operations {
                             line2?: string;
                             postal_code: string;
                             state?: string;
+                        };
+                        /** address_validation_param */
+                        address_validation?: {
+                            /** @enum {string} */
+                            mode: "disabled" | "normalization_only" | "validation_and_normalization";
                         };
                         /** customs_param */
                         customs?: {
@@ -40419,7 +41309,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     personalization_design?: string;
                     /**
@@ -40428,6 +41318,37 @@ export interface operations {
                      */
                     pin?: {
                         encrypted_number?: string;
+                    };
+                    /**
+                     * shipping_specs
+                     * @description Updated shipping information for the card.
+                     */
+                    shipping?: {
+                        /** required_address */
+                        address: {
+                            city: string;
+                            country: string;
+                            line1: string;
+                            line2?: string;
+                            postal_code: string;
+                            state?: string;
+                        };
+                        /** address_validation_param */
+                        address_validation?: {
+                            /** @enum {string} */
+                            mode: "disabled" | "normalization_only" | "validation_and_normalization";
+                        };
+                        /** customs_param */
+                        customs?: {
+                            eori_number?: string;
+                        };
+                        name: string;
+                        phone_number?: string;
+                        require_signature?: boolean;
+                        /** @enum {string} */
+                        service?: "express" | "priority" | "standard";
+                        /** @enum {string} */
+                        type?: "bulk" | "individual";
                     };
                     /**
                      * authorization_controls_param
@@ -40623,7 +41544,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description The ID of the issuing transaction to create a dispute for. For transaction on Treasury FinancialAccounts, use `treasury.received_debit`. */
                     transaction?: string;
@@ -40783,7 +41704,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -40825,7 +41746,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -40941,7 +41862,7 @@ export interface operations {
                     lookup_key?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description Friendly display name. */
                     name?: string;
@@ -41045,7 +41966,7 @@ export interface operations {
                     lookup_key?: string | "";
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description Friendly display name. Providing an empty string will set the field to null. */
                     name?: string | "";
@@ -41233,7 +42154,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                 };
             };
@@ -41524,7 +42445,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -41577,6 +42498,7 @@ export interface operations {
                      * @description Filters to restrict the kinds of accounts to collect.
                      */
                     filters?: {
+                        account_subcategories?: ("checking" | "credit_card" | "line_of_credit" | "mortgage" | "savings")[];
                         countries?: string[];
                     };
                     /** @description List of data features that you would like to request access to.
@@ -42029,7 +42951,7 @@ export interface operations {
                      *
                      *     Payment methods attached to other Customers cannot be used with this PaymentIntent.
                      *
-                     *     If present in combination with [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage), this PaymentIntent's payment method will be attached to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. */
+                     *     If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead. */
                     customer?: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -42058,7 +42980,7 @@ export interface operations {
                     } | "";
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description Set to `true` to indicate that the customer isn't in your checkout flow during this payment attempt and can't authenticate. Use this parameter in scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm). */
                     off_session?: boolean | ("one_off" | "recurring");
@@ -42164,7 +43086,7 @@ export interface operations {
                         /** param */
                         link?: Record<string, never>;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         /** param */
                         mobilepay?: Record<string, never>;
@@ -42511,6 +43433,10 @@ export interface operations {
                         us_bank_account?: {
                             /** linked_account_options_param */
                             financial_connections?: {
+                                /** linked_account_options_filters_param */
+                                filters?: {
+                                    account_subcategories?: ("checking" | "savings")[];
+                                };
                                 permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
                                 prefetch?: ("balances" | "ownership" | "transactions")[];
                                 return_url?: string;
@@ -42560,6 +43486,8 @@ export interface operations {
                      * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
                      *
                      *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+                     *
+                     *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
                      *
                      *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
                      * @enum {string}
@@ -42746,7 +43674,7 @@ export interface operations {
                      *
                      *     Payment methods attached to other Customers cannot be used with this PaymentIntent.
                      *
-                     *     If present in combination with [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage), this PaymentIntent's payment method will be attached to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. */
+                     *     If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead. */
                     customer?: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -42754,9 +43682,9 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
-                    /** @description ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent. */
+                    /** @description ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent. To unset this field to null, pass in an empty string. */
                     payment_method?: string;
                     /** @description The ID of the payment method configuration to use with this PaymentIntent. */
                     payment_method_configuration?: string;
@@ -42854,7 +43782,7 @@ export interface operations {
                         /** param */
                         link?: Record<string, never>;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         /** param */
                         mobilepay?: Record<string, never>;
@@ -43201,6 +44129,10 @@ export interface operations {
                         us_bank_account?: {
                             /** linked_account_options_param */
                             financial_connections?: {
+                                /** linked_account_options_filters_param */
+                                filters?: {
+                                    account_subcategories?: ("checking" | "savings")[];
+                                };
                                 permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
                                 prefetch?: ("balances" | "ownership" | "transactions")[];
                                 return_url?: string;
@@ -43242,9 +44174,11 @@ export interface operations {
                      *
                      *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
                      *
+                     *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+                     *
                      *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
                      *
-                     *     If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+                     *     If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
                      * @enum {string}
                      */
                     setup_future_usage?: "" | "off_session" | "on_session";
@@ -43414,7 +44348,7 @@ export interface operations {
                     final_capture?: boolean;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description For card charges, use [statement_descriptor_suffix](https://stripe.com/docs/payments/account/statement-descriptors#dynamic). Otherwise, you can use this value as the complete description of a charge on your customers' statements. It must contain at least one letter and be 1–22 characters long. */
                     statement_descriptor?: string;
@@ -43606,7 +44540,7 @@ export interface operations {
                         /** param */
                         link?: Record<string, never>;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         /** param */
                         mobilepay?: Record<string, never>;
@@ -43953,6 +44887,10 @@ export interface operations {
                         us_bank_account?: {
                             /** linked_account_options_param */
                             financial_connections?: {
+                                /** linked_account_options_filters_param */
+                                filters?: {
+                                    account_subcategories?: ("checking" | "savings")[];
+                                };
                                 permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
                                 prefetch?: ("balances" | "ownership" | "transactions")[];
                                 return_url?: string;
@@ -44005,9 +44943,11 @@ export interface operations {
                      *
                      *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
                      *
+                     *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+                     *
                      *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
                      *
-                     *     If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+                     *     If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
                      * @enum {string}
                      */
                     setup_future_usage?: "" | "off_session" | "on_session";
@@ -44075,7 +45015,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description For card charges, use [statement_descriptor_suffix](https://stripe.com/docs/payments/account/statement-descriptors#dynamic). Otherwise, you can use this value as the complete description of a charge on your customers' statements. It must contain at least one letter and be 1–22 characters long. */
                     statement_descriptor?: string;
@@ -44356,7 +45296,7 @@ export interface operations {
                                 type: "account" | "self";
                             };
                             metadata?: {
-                                [key: string]: string | undefined;
+                                [key: string]: string;
                             } | "";
                             rendering_options?: {
                                 /** @enum {string} */
@@ -44377,7 +45317,7 @@ export interface operations {
                     }[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description The account on behalf of which to charge. */
                     on_behalf_of?: string;
@@ -44390,7 +45330,7 @@ export interface operations {
                         capture_method?: "automatic" | "automatic_async" | "manual";
                         description?: string;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         /** @enum {string} */
                         setup_future_usage?: "off_session" | "on_session";
@@ -44408,7 +45348,7 @@ export interface operations {
                      */
                     payment_method_collection?: "always" | "if_required";
                     /** @description The list of payment method types that customers can use. If no value is passed, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods) (20+ payment methods [supported](https://stripe.com/docs/payments/payment-methods/integration-options#payment-method-product-support)). */
-                    payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[];
+                    payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[];
                     /**
                      * phone_number_collection_params
                      * @description Controls phone number collection settings during checkout.
@@ -44460,7 +45400,7 @@ export interface operations {
                             };
                         };
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         trial_period_days?: number;
                         /** trial_settings_config */
@@ -44678,7 +45618,7 @@ export interface operations {
                                 type: "account" | "self";
                             };
                             metadata?: {
-                                [key: string]: string | undefined;
+                                [key: string]: string;
                             } | "";
                             rendering_options?: {
                                 /** @enum {string} */
@@ -44699,7 +45639,7 @@ export interface operations {
                     }[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /**
                      * payment_intent_data_update_params
@@ -44708,7 +45648,7 @@ export interface operations {
                     payment_intent_data?: {
                         description?: string | "";
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         } | "";
                         statement_descriptor?: string | "";
                         statement_descriptor_suffix?: string | "";
@@ -44724,7 +45664,7 @@ export interface operations {
                      */
                     payment_method_collection?: "always" | "if_required";
                     /** @description The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
-                    payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
+                    payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[] | "";
                     /** @description Settings that restrict the usage of a payment link. */
                     restrictions?: {
                         /** completed_sessions_params */
@@ -44751,7 +45691,7 @@ export interface operations {
                             };
                         };
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         } | "";
                         trial_settings?: {
                             /** end_behavior */
@@ -45328,6 +46268,17 @@ export interface operations {
                     };
                     /**
                      * payment_method_param
+                     * @description Twint is a payment method popular in Switzerland. It allows customers to pay using their mobile phone. Check this [page](https://docs.stripe.com/payments/twint) for more details.
+                     */
+                    twint?: {
+                        /** display_preference_param */
+                        display_preference?: {
+                            /** @enum {string} */
+                            preference?: "none" | "off" | "on";
+                        };
+                    };
+                    /**
+                     * payment_method_param
                      * @description Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://stripe.com/docs/payments/ach-debit) for more details.
                      */
                     us_bank_account?: {
@@ -45848,6 +46799,17 @@ export interface operations {
                     };
                     /**
                      * payment_method_param
+                     * @description Twint is a payment method popular in Switzerland. It allows customers to pay using their mobile phone. Check this [page](https://docs.stripe.com/payments/twint) for more details.
+                     */
+                    twint?: {
+                        /** display_preference_param */
+                        display_preference?: {
+                            /** @enum {string} */
+                            preference?: "none" | "off" | "on";
+                        };
+                    };
+                    /**
+                     * payment_method_param
                      * @description Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://stripe.com/docs/payments/ach-debit) for more details.
                      */
                     us_bank_account?: {
@@ -46358,7 +47320,7 @@ export interface operations {
                     link?: Record<string, never>;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /**
                      * param
@@ -46588,7 +47550,7 @@ export interface operations {
                     link?: Record<string, never>;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /**
                      * update_param
@@ -46795,7 +47757,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /**
                      * @description The method used to send this payout, which is `standard` or `instant`. We support `instant` for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks).
@@ -46887,7 +47849,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -46967,7 +47929,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                 };
             };
@@ -47102,7 +48064,7 @@ export interface operations {
                     interval_count?: number;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description The meter tracking the usage of a metered price */
                     meter?: string;
@@ -47113,7 +48075,7 @@ export interface operations {
                         /** @deprecated */
                         id?: string;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         name: string;
                         statement_descriptor?: string;
@@ -47231,7 +48193,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description A brief description of the plan, hidden from customers. */
                     nickname?: string;
@@ -47420,7 +48382,7 @@ export interface operations {
                             unit_amount?: number;
                             /** Format: decimal */
                             unit_amount_decimal?: string;
-                        } | undefined;
+                        };
                     };
                     /**
                      * custom_unit_amount
@@ -47438,7 +48400,7 @@ export interface operations {
                     lookup_key?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description A brief description of the price, hidden from customers. */
                     nickname?: string;
@@ -47453,7 +48415,7 @@ export interface operations {
                         /** @deprecated */
                         id?: string;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         name: string;
                         statement_descriptor?: string;
@@ -47666,7 +48628,7 @@ export interface operations {
                             unit_amount?: number;
                             /** Format: decimal */
                             unit_amount_decimal?: string;
-                        } | undefined;
+                        };
                     } | "";
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -47674,7 +48636,7 @@ export interface operations {
                     lookup_key?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description A brief description of the price, hidden from customers. */
                     nickname?: string;
@@ -47819,7 +48781,7 @@ export interface operations {
                                 unit_amount?: number;
                                 /** Format: decimal */
                                 unit_amount_decimal?: string;
-                            } | undefined;
+                            };
                         };
                         /** recurring_adhoc */
                         recurring?: {
@@ -47847,7 +48809,7 @@ export interface operations {
                     }[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description The product's name, meant to be displayable to the customer. */
                     name: string;
@@ -48018,7 +48980,7 @@ export interface operations {
                     }[] | "";
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description The product's name, meant to be displayable to the customer. */
                     name?: string;
@@ -48370,7 +49332,7 @@ export interface operations {
                     max_redemptions?: number;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /**
                      * restrictions_params
@@ -48380,7 +49342,7 @@ export interface operations {
                         currency_options?: {
                             [key: string]: {
                                 minimum_amount?: number;
-                            } | undefined;
+                            };
                         };
                         first_time_transaction?: boolean;
                         minimum_amount?: number;
@@ -48466,7 +49428,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /**
                      * restrictions_params
@@ -48476,7 +49438,7 @@ export interface operations {
                         currency_options?: {
                             [key: string]: {
                                 minimum_amount?: number;
-                            } | undefined;
+                            };
                         };
                     };
                 };
@@ -48667,7 +49629,7 @@ export interface operations {
                     }[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description The account on behalf of which to charge. */
                     on_behalf_of?: string | "";
@@ -48679,7 +49641,7 @@ export interface operations {
                         description?: string;
                         effective_date?: "current_period_end" | number | "";
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         trial_period_days?: number | "";
                     };
@@ -48853,7 +49815,7 @@ export interface operations {
                     }[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description The account on behalf of which to charge. */
                     on_behalf_of?: string | "";
@@ -48865,7 +49827,7 @@ export interface operations {
                         description?: string | "";
                         effective_date?: "current_period_end" | number | "";
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         trial_period_days?: number | "";
                     };
@@ -49532,7 +50494,7 @@ export interface operations {
                     item_type?: "card_bin" | "card_fingerprint" | "case_sensitive_string" | "country" | "customer_id" | "email" | "ip_address" | "sepa_debit_fingerprint" | "string" | "us_bank_account_fingerprint";
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description The human-readable name of the value list. */
                     name: string;
@@ -49616,7 +50578,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description The human-readable name of the value list. */
                     name?: string;
@@ -49766,7 +50728,7 @@ export interface operations {
                     instructions_email?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /**
                      * @description Origin of the refund
@@ -49862,7 +50824,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -50494,7 +51456,7 @@ export interface operations {
                     } | "";
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description The Stripe account ID created for this SetupIntent. */
                     on_behalf_of?: string;
@@ -50595,7 +51557,7 @@ export interface operations {
                         /** param */
                         link?: Record<string, never>;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         /** param */
                         mobilepay?: Record<string, never>;
@@ -50739,6 +51701,10 @@ export interface operations {
                         us_bank_account?: {
                             /** linked_account_options_param */
                             financial_connections?: {
+                                /** linked_account_options_filters_param */
+                                filters?: {
+                                    account_subcategories?: ("checking" | "savings")[];
+                                };
                                 permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
                                 prefetch?: ("balances" | "ownership" | "transactions")[];
                                 return_url?: string;
@@ -50869,9 +51835,9 @@ export interface operations {
                     flow_directions?: ("inbound" | "outbound")[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
-                    /** @description ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
+                    /** @description ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. To unset this field to null, pass in an empty string. */
                     payment_method?: string;
                     /** @description The ID of the payment method configuration to use with this SetupIntent. */
                     payment_method_configuration?: string;
@@ -50968,7 +51934,7 @@ export interface operations {
                         /** param */
                         link?: Record<string, never>;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         /** param */
                         mobilepay?: Record<string, never>;
@@ -51112,6 +52078,10 @@ export interface operations {
                         us_bank_account?: {
                             /** linked_account_options_param */
                             financial_connections?: {
+                                /** linked_account_options_filters_param */
+                                filters?: {
+                                    account_subcategories?: ("checking" | "savings")[];
+                                };
                                 permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
                                 prefetch?: ("balances" | "ownership" | "transactions")[];
                                 return_url?: string;
@@ -51340,7 +52310,7 @@ export interface operations {
                         /** param */
                         link?: Record<string, never>;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         /** param */
                         mobilepay?: Record<string, never>;
@@ -51484,6 +52454,10 @@ export interface operations {
                         us_bank_account?: {
                             /** linked_account_options_param */
                             financial_connections?: {
+                                /** linked_account_options_filters_param */
+                                filters?: {
+                                    account_subcategories?: ("checking" | "savings")[];
+                                };
                                 permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
                                 prefetch?: ("balances" | "ownership" | "transactions")[];
                                 return_url?: string;
@@ -51683,12 +52657,12 @@ export interface operations {
                                 amount: number;
                                 /** @enum {string} */
                                 tax_behavior?: "exclusive" | "inclusive" | "unspecified";
-                            } | undefined;
+                            };
                         };
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /**
                      * @description Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
@@ -51790,12 +52764,12 @@ export interface operations {
                                 amount?: number;
                                 /** @enum {string} */
                                 tax_behavior?: "exclusive" | "inclusive" | "unspecified";
-                            } | undefined;
+                            };
                         };
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /**
                      * @description Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
@@ -51975,7 +52949,7 @@ export interface operations {
                         notification_method?: "deprecated_none" | "email" | "manual" | "none" | "stripe_email";
                     };
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description The source to share. */
                     original_source?: string;
@@ -52167,7 +53141,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /**
                      * owner
@@ -52494,7 +53468,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /**
                      * @description Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
@@ -52632,9 +53606,9 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
-                    /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
+                    /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. Defaults to `false` (on-session). */
                     off_session?: boolean;
                     /**
                      * @description Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
@@ -53007,7 +53981,7 @@ export interface operations {
                     from_subscription?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. */
                     phases?: {
@@ -53083,7 +54057,7 @@ export interface operations {
                                 promotion_code?: string;
                             }[] | "";
                             metadata?: {
-                                [key: string]: string | undefined;
+                                [key: string]: string;
                             };
                             price?: string;
                             /** recurring_price_data */
@@ -53107,7 +54081,7 @@ export interface operations {
                         }[];
                         iterations?: number;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         on_behalf_of?: string;
                         /** @enum {string} */
@@ -53249,7 +54223,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. Note that past phases can be omitted. */
                     phases?: {
@@ -53323,7 +54297,7 @@ export interface operations {
                                 promotion_code?: string;
                             }[] | "";
                             metadata?: {
-                                [key: string]: string | undefined;
+                                [key: string]: string;
                             };
                             price?: string;
                             /** recurring_price_data */
@@ -53347,7 +54321,7 @@ export interface operations {
                         }[];
                         iterations?: number;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         on_behalf_of?: string;
                         /** @enum {string} */
@@ -53635,7 +54609,7 @@ export interface operations {
                      * @description A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
                      */
                     cancel_at?: number;
-                    /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
+                    /** @description Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. */
                     cancel_at_period_end?: boolean;
                     /**
                      * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
@@ -53690,7 +54664,7 @@ export interface operations {
                             promotion_code?: string;
                         }[] | "";
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         price?: string;
                         /** recurring_price_data */
@@ -53714,9 +54688,9 @@ export interface operations {
                     }[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
-                    /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
+                    /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. Defaults to `false` (on-session). */
                     off_session?: boolean;
                     /** @description The account on behalf of which to charge, for each of the subscription's invoices. */
                     on_behalf_of?: string | "";
@@ -53784,6 +54758,10 @@ export interface operations {
                             us_bank_account?: {
                                 /** invoice_linked_account_options_param */
                                 financial_connections?: {
+                                    /** invoice_linked_account_options_filters_param */
+                                    filters?: {
+                                        account_subcategories?: ("checking" | "savings")[];
+                                    };
                                     permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
                                     prefetch?: ("balances" | "ownership" | "transactions")[];
                                 };
@@ -53791,7 +54769,7 @@ export interface operations {
                                 verification_method?: "automatic" | "instant" | "microdeposits";
                             } | "";
                         };
-                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
+                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "multibanco" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
                         /** @enum {string} */
                         save_default_payment_method?: "off" | "on_subscription";
                     };
@@ -54009,7 +54987,7 @@ export interface operations {
                     } | "";
                     /** @description A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. */
                     cancel_at?: number | "";
-                    /** @description Boolean indicating whether this subscription should cancel at the end of the current period. */
+                    /** @description Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. */
                     cancel_at_period_end?: boolean;
                     /**
                      * cancellation_details_param
@@ -54072,7 +55050,7 @@ export interface operations {
                         }[] | "";
                         id?: string;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         } | "";
                         price?: string;
                         /** recurring_price_data */
@@ -54096,9 +55074,9 @@ export interface operations {
                     }[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
-                    /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. */
+                    /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. Defaults to `false` (on-session). */
                     off_session?: boolean;
                     /** @description The account on behalf of which to charge, for each of the subscription's invoices. */
                     on_behalf_of?: string | "";
@@ -54169,6 +55147,10 @@ export interface operations {
                             us_bank_account?: {
                                 /** invoice_linked_account_options_param */
                                 financial_connections?: {
+                                    /** invoice_linked_account_options_filters_param */
+                                    filters?: {
+                                        account_subcategories?: ("checking" | "savings")[];
+                                    };
                                     permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[];
                                     prefetch?: ("balances" | "ownership" | "transactions")[];
                                 };
@@ -54176,7 +55158,7 @@ export interface operations {
                                 verification_method?: "automatic" | "instant" | "microdeposits";
                             } | "";
                         };
-                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
+                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "multibanco" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
                         /** @enum {string} */
                         save_default_payment_method?: "off" | "on_subscription";
                     };
@@ -54414,7 +55396,7 @@ export interface operations {
                         ip_address?: string;
                         tax_ids?: {
                             /** @enum {string} */
-                            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
                             value: string;
                         }[];
                         /** @enum {string} */
@@ -55266,8 +56248,13 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
+                    /**
+                     * Format: unix-time
+                     * @description The Unix timestamp representing when the tax liability is assumed or reduced, which determines the liability posting period and handling in tax liability reports. The timestamp must fall within the `tax_date` and the current time, unless the `tax_date` is scheduled in advance. Defaults to the current time.
+                     */
+                    posted_at?: number;
                     /** @description A custom order or sale identifier, such as 'myOrder_123'. Must be unique across all transactions, including reversals. */
                     reference: string;
                 };
@@ -55313,7 +56300,7 @@ export interface operations {
                         amount: number;
                         amount_tax: number;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         original_line_item: string;
                         quantity?: number;
@@ -55321,7 +56308,7 @@ export interface operations {
                     }[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /**
                      * @description If `partial`, the provided line item or shipping cost amounts are reversed. If `full`, the original transaction is fully reversed.
@@ -55633,10 +56620,10 @@ export interface operations {
                         type: "account" | "application" | "customer" | "self";
                     };
                     /**
-                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
+                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
                      * @enum {string}
                      */
-                    type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                    type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
                     /** @description Value of the tax ID. */
                     value: string;
                 };
@@ -55826,7 +56813,7 @@ export interface operations {
                     jurisdiction?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description This represents the tax rate percent out of 100. */
                     percentage: number;
@@ -55925,7 +56912,7 @@ export interface operations {
                     jurisdiction?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States. */
                     state?: string;
@@ -56038,6 +57025,14 @@ export interface operations {
                     offline?: {
                         enabled: boolean;
                     } | "";
+                    /**
+                     * reboot_window
+                     * @description Reboot time settings for readers that support customized reboot time configuration.
+                     */
+                    reboot_window?: {
+                        end_hour: number;
+                        start_hour: number;
+                    };
                     /**
                      * stripe_s700
                      * @description An object containing device type specific settings for Stripe S700 readers
@@ -56224,6 +57219,11 @@ export interface operations {
                     /** @description Configurations for collecting transactions offline. */
                     offline?: {
                         enabled: boolean;
+                    } | "";
+                    /** @description Reboot time settings for readers that support customized reboot time configuration. */
+                    reboot_window?: {
+                        end_hour: number;
+                        start_hour: number;
                     } | "";
                     /** @description An object containing device type specific settings for Stripe S700 readers */
                     stripe_s700?: {
@@ -56500,7 +57500,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -56596,7 +57596,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -56661,7 +57661,7 @@ export interface operations {
         parameters: {
             query?: {
                 /** @description Filters readers by device type */
-                device_type?: "bbpos_chipper2x" | "bbpos_wisepad3" | "bbpos_wisepos_e" | "mobile_phone_reader" | "simulated_wisepos_e" | "stripe_m2" | "verifone_P400";
+                device_type?: "bbpos_chipper2x" | "bbpos_wisepad3" | "bbpos_wisepos_e" | "mobile_phone_reader" | "simulated_wisepos_e" | "stripe_m2" | "stripe_s700" | "verifone_P400";
                 /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
                 ending_before?: string;
                 /** @description Specifies which fields in the response should be expanded. */
@@ -56737,7 +57737,7 @@ export interface operations {
                     location?: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description A code generated by the reader used for registering to an account. */
                     registration_code: string;
@@ -56821,7 +57821,7 @@ export interface operations {
                     label?: string | "";
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -57041,7 +58041,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description ID of the PaymentIntent to refund. */
                     payment_intent?: string;
@@ -57243,7 +58243,7 @@ export interface operations {
                         /** param */
                         link?: Record<string, never>;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         /** param */
                         mobilepay?: Record<string, never>;
@@ -57425,6 +58425,59 @@ export interface operations {
                     currency?: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
+                    /**
+                     * fleet_testmode_authorization_specs
+                     * @description Fleet-specific information for authorizations using Fleet cards.
+                     */
+                    fleet?: {
+                        /** fleet_cardholder_prompt_data_specs */
+                        cardholder_prompt_data?: {
+                            driver_id?: string;
+                            odometer?: number;
+                            unspecified_id?: string;
+                            user_id?: string;
+                            vehicle_number?: string;
+                        };
+                        /** @enum {string} */
+                        purchase_type?: "fuel_and_non_fuel_purchase" | "fuel_purchase" | "non_fuel_purchase";
+                        /** fleet_reported_breakdown_specs */
+                        reported_breakdown?: {
+                            /** fleet_reported_breakdown_fuel_specs */
+                            fuel?: {
+                                /** Format: decimal */
+                                gross_amount_decimal?: string;
+                            };
+                            /** fleet_reported_breakdown_non_fuel_specs */
+                            non_fuel?: {
+                                /** Format: decimal */
+                                gross_amount_decimal?: string;
+                            };
+                            /** fleet_reported_breakdown_tax_specs */
+                            tax?: {
+                                /** Format: decimal */
+                                local_amount_decimal?: string;
+                                /** Format: decimal */
+                                national_amount_decimal?: string;
+                            };
+                        };
+                        /** @enum {string} */
+                        service_type?: "full_service" | "non_fuel_transaction" | "self_service";
+                    };
+                    /**
+                     * fuel_specs
+                     * @description Information about fuel that was purchased with this transaction.
+                     */
+                    fuel?: {
+                        industry_product_code?: string;
+                        /** Format: decimal */
+                        quantity_decimal?: string;
+                        /** @enum {string} */
+                        type?: "diesel" | "other" | "unleaded_plus" | "unleaded_regular" | "unleaded_super";
+                        /** @enum {string} */
+                        unit?: "charging_minute" | "imperial_gallon" | "kilogram" | "kilowatt_hour" | "liter" | "other" | "pound" | "us_gallon";
+                        /** Format: decimal */
+                        unit_cost_decimal?: string;
+                    };
                     /** @description If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization. */
                     is_amount_controllable?: boolean;
                     /**
@@ -57528,6 +58581,41 @@ export interface operations {
                      * @description Additional purchase information that is optionally provided by the merchant.
                      */
                     purchase_details?: {
+                        /** fleet_specs */
+                        fleet?: {
+                            /** fleet_cardholder_prompt_data_specs */
+                            cardholder_prompt_data?: {
+                                driver_id?: string;
+                                odometer?: number;
+                                unspecified_id?: string;
+                                user_id?: string;
+                                vehicle_number?: string;
+                            };
+                            /** @enum {string} */
+                            purchase_type?: "fuel_and_non_fuel_purchase" | "fuel_purchase" | "non_fuel_purchase";
+                            /** fleet_reported_breakdown_specs */
+                            reported_breakdown?: {
+                                /** fleet_reported_breakdown_fuel_specs */
+                                fuel?: {
+                                    /** Format: decimal */
+                                    gross_amount_decimal?: string;
+                                };
+                                /** fleet_reported_breakdown_non_fuel_specs */
+                                non_fuel?: {
+                                    /** Format: decimal */
+                                    gross_amount_decimal?: string;
+                                };
+                                /** fleet_reported_breakdown_tax_specs */
+                                tax?: {
+                                    /** Format: decimal */
+                                    local_amount_decimal?: string;
+                                    /** Format: decimal */
+                                    national_amount_decimal?: string;
+                                };
+                            };
+                            /** @enum {string} */
+                            service_type?: "full_service" | "non_fuel_transaction" | "self_service";
+                        };
                         /** flight_specs */
                         flight?: {
                             /** Format: unix-time */
@@ -57546,6 +58634,7 @@ export interface operations {
                         };
                         /** fuel_specs */
                         fuel?: {
+                            industry_product_code?: string;
                             /** Format: decimal */
                             quantity_decimal?: string;
                             /** @enum {string} */
@@ -57608,6 +58697,99 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["issuing.authorization"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                authorization: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                    /** @description The final authorization amount that will be captured by the merchant. This amount is in the authorization currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
+                    final_amount: number;
+                    /**
+                     * fleet_specs
+                     * @description Fleet-specific information for authorizations using Fleet cards.
+                     */
+                    fleet?: {
+                        /** fleet_cardholder_prompt_data_specs */
+                        cardholder_prompt_data?: {
+                            driver_id?: string;
+                            odometer?: number;
+                            unspecified_id?: string;
+                            user_id?: string;
+                            vehicle_number?: string;
+                        };
+                        /** @enum {string} */
+                        purchase_type?: "fuel_and_non_fuel_purchase" | "fuel_purchase" | "non_fuel_purchase";
+                        /** fleet_reported_breakdown_specs */
+                        reported_breakdown?: {
+                            /** fleet_reported_breakdown_fuel_specs */
+                            fuel?: {
+                                /** Format: decimal */
+                                gross_amount_decimal?: string;
+                            };
+                            /** fleet_reported_breakdown_non_fuel_specs */
+                            non_fuel?: {
+                                /** Format: decimal */
+                                gross_amount_decimal?: string;
+                            };
+                            /** fleet_reported_breakdown_tax_specs */
+                            tax?: {
+                                /** Format: decimal */
+                                local_amount_decimal?: string;
+                                /** Format: decimal */
+                                national_amount_decimal?: string;
+                            };
+                        };
+                        /** @enum {string} */
+                        service_type?: "full_service" | "non_fuel_transaction" | "self_service";
+                    };
+                    /**
+                     * fuel_specs
+                     * @description Information about fuel that was purchased with this transaction.
+                     */
+                    fuel?: {
+                        industry_product_code?: string;
+                        /** Format: decimal */
+                        quantity_decimal?: string;
+                        /** @enum {string} */
+                        type?: "diesel" | "other" | "unleaded_plus" | "unleaded_regular" | "unleaded_super";
+                        /** @enum {string} */
+                        unit?: "charging_minute" | "imperial_gallon" | "kilogram" | "kilowatt_hour" | "liter" | "other" | "pound" | "us_gallon";
+                        /** Format: decimal */
+                        unit_cost_decimal?: string;
+                    };
                 };
             };
         };
@@ -58027,6 +59209,41 @@ export interface operations {
                      * @description Additional purchase information that is optionally provided by the merchant.
                      */
                     purchase_details?: {
+                        /** fleet_specs */
+                        fleet?: {
+                            /** fleet_cardholder_prompt_data_specs */
+                            cardholder_prompt_data?: {
+                                driver_id?: string;
+                                odometer?: number;
+                                unspecified_id?: string;
+                                user_id?: string;
+                                vehicle_number?: string;
+                            };
+                            /** @enum {string} */
+                            purchase_type?: "fuel_and_non_fuel_purchase" | "fuel_purchase" | "non_fuel_purchase";
+                            /** fleet_reported_breakdown_specs */
+                            reported_breakdown?: {
+                                /** fleet_reported_breakdown_fuel_specs */
+                                fuel?: {
+                                    /** Format: decimal */
+                                    gross_amount_decimal?: string;
+                                };
+                                /** fleet_reported_breakdown_non_fuel_specs */
+                                non_fuel?: {
+                                    /** Format: decimal */
+                                    gross_amount_decimal?: string;
+                                };
+                                /** fleet_reported_breakdown_tax_specs */
+                                tax?: {
+                                    /** Format: decimal */
+                                    local_amount_decimal?: string;
+                                    /** Format: decimal */
+                                    national_amount_decimal?: string;
+                                };
+                            };
+                            /** @enum {string} */
+                            service_type?: "full_service" | "non_fuel_transaction" | "self_service";
+                        };
                         /** flight_specs */
                         flight?: {
                             /** Format: unix-time */
@@ -58045,6 +59262,7 @@ export interface operations {
                         };
                         /** fuel_specs */
                         fuel?: {
+                            industry_product_code?: string;
                             /** Format: decimal */
                             quantity_decimal?: string;
                             /** @enum {string} */
@@ -58132,6 +59350,41 @@ export interface operations {
                      * @description Additional purchase information that is optionally provided by the merchant.
                      */
                     purchase_details?: {
+                        /** fleet_specs */
+                        fleet?: {
+                            /** fleet_cardholder_prompt_data_specs */
+                            cardholder_prompt_data?: {
+                                driver_id?: string;
+                                odometer?: number;
+                                unspecified_id?: string;
+                                user_id?: string;
+                                vehicle_number?: string;
+                            };
+                            /** @enum {string} */
+                            purchase_type?: "fuel_and_non_fuel_purchase" | "fuel_purchase" | "non_fuel_purchase";
+                            /** fleet_reported_breakdown_specs */
+                            reported_breakdown?: {
+                                /** fleet_reported_breakdown_fuel_specs */
+                                fuel?: {
+                                    /** Format: decimal */
+                                    gross_amount_decimal?: string;
+                                };
+                                /** fleet_reported_breakdown_non_fuel_specs */
+                                non_fuel?: {
+                                    /** Format: decimal */
+                                    gross_amount_decimal?: string;
+                                };
+                                /** fleet_reported_breakdown_tax_specs */
+                                tax?: {
+                                    /** Format: decimal */
+                                    local_amount_decimal?: string;
+                                    /** Format: decimal */
+                                    national_amount_decimal?: string;
+                                };
+                            };
+                            /** @enum {string} */
+                            service_type?: "full_service" | "non_fuel_transaction" | "self_service";
+                        };
                         /** flight_specs */
                         flight?: {
                             /** Format: unix-time */
@@ -58150,6 +59403,7 @@ export interface operations {
                         };
                         /** fuel_specs */
                         fuel?: {
+                            industry_product_code?: string;
                             /** Format: decimal */
                             quantity_decimal?: string;
                             /** @enum {string} */
@@ -59278,7 +60532,7 @@ export interface operations {
                             last_name_kanji?: string;
                             maiden_name?: string;
                             metadata?: {
-                                [key: string]: string | undefined;
+                                [key: string]: string;
                             } | "";
                             phone?: string;
                             /** @enum {string} */
@@ -59441,7 +60695,7 @@ export interface operations {
                         last_name_kanji?: string;
                         maiden_name?: string;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         } | "";
                         nationality?: string;
                         phone?: string;
@@ -59638,7 +60892,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description The ID of a source to transfer funds from. For most users, this should be left unspecified which will use the bank account that was set up in the dashboard for the specified currency. In test mode, this can be a test bank token (see [Testing Top-ups](https://stripe.com/docs/connect/testing#testing-top-ups)). */
                     source?: string;
@@ -59726,7 +60980,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -59877,7 +61131,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description You can use this parameter to transfer funds from a charge before they are added to your available balance. A pending balance will transfer immediately but the funds will not become available until the original charge becomes available. [See the Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-availability) for details. */
                     source_transaction?: string;
@@ -59988,7 +61242,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description Boolean indicating whether the application fee should be refunded when reversing this transfer. If a full transfer reversal is given, the full application fee will be refunded. Otherwise, the application fee will be refunded with an amount proportional to the amount of the transfer reversed. */
                     refund_application_fee?: boolean;
@@ -60072,7 +61326,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -60154,7 +61408,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                 };
             };
@@ -60254,7 +61508,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description The ReceivedCredit to reverse. */
                     received_credit: string;
@@ -60396,7 +61650,7 @@ export interface operations {
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description The ReceivedDebit to reverse. */
                     received_debit: string;
@@ -60590,7 +61844,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /**
                      * platform_restrictions
@@ -60736,7 +61990,7 @@ export interface operations {
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /**
                      * platform_restrictions
@@ -60997,7 +62251,7 @@ export interface operations {
                     financial_account: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description The origin payment method to be debited for the InboundTransfer. */
                     origin_payment_method: string;
@@ -61211,7 +62465,7 @@ export interface operations {
                         };
                         financial_account?: string;
                         metadata?: {
-                            [key: string]: string | undefined;
+                            [key: string]: string;
                         };
                         /** @enum {string} */
                         type: "financial_account" | "us_bank_account";
@@ -61250,7 +62504,7 @@ export interface operations {
                     financial_account: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description The description that appears on the receiving end for this OutboundPayment (for example, bank statement for external bank transfer). Maximum 10 characters for `ach` payments, 140 characters for `us_domestic_wire` payments, or 500 characters for `stripe` network transfers. The default value is "payment". */
                     statement_descriptor?: string;
@@ -61446,7 +62700,7 @@ export interface operations {
                     financial_account: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     };
                     /** @description Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for `ach` transfers or 140 characters for `us_domestic_wire` transfers. The default value is "transfer". */
                     statement_descriptor?: string;
@@ -62045,12 +63299,12 @@ export interface operations {
                     /** @description An optional description of what the webhook is used for. */
                     description?: string | "";
                     /** @description The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection. */
-                    enabled_events: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "climate.order.canceled" | "climate.order.created" | "climate.order.delayed" | "climate.order.delivered" | "climate.order.product_substituted" | "climate.product.created" | "climate.product.pricing_updated" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "entitlements.active_entitlement_summary.updated" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "financial_connections.account.refreshed_ownership" | "financial_connections.account.refreshed_transactions" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoiceitem.created" | "invoiceitem.deleted" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_personalization_design.activated" | "issuing_personalization_design.deactivated" | "issuing_personalization_design.rejected" | "issuing_personalization_design.updated" | "issuing_token.created" | "issuing_token.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax.settings.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_payment.tracking_details_updated" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.outbound_transfer.tracking_details_updated" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
+                    enabled_events: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing.alert.triggered" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "climate.order.canceled" | "climate.order.created" | "climate.order.delayed" | "climate.order.delivered" | "climate.order.product_substituted" | "climate.product.created" | "climate.product.pricing_updated" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "entitlements.active_entitlement_summary.updated" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "financial_connections.account.refreshed_ownership" | "financial_connections.account.refreshed_transactions" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.overdue" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoice.will_be_due" | "invoiceitem.created" | "invoiceitem.deleted" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.funds_rescinded" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_personalization_design.activated" | "issuing_personalization_design.deactivated" | "issuing_personalization_design.rejected" | "issuing_personalization_design.updated" | "issuing_token.created" | "issuing_token.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax.settings.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_payment.tracking_details_updated" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.outbound_transfer.tracking_details_updated" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description The URL of the webhook endpoint. */
                     url: string;
@@ -62133,12 +63387,12 @@ export interface operations {
                     /** @description Disable the webhook endpoint if set to true. */
                     disabled?: boolean;
                     /** @description The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection. */
-                    enabled_events?: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "climate.order.canceled" | "climate.order.created" | "climate.order.delayed" | "climate.order.delivered" | "climate.order.product_substituted" | "climate.product.created" | "climate.product.pricing_updated" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "entitlements.active_entitlement_summary.updated" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "financial_connections.account.refreshed_ownership" | "financial_connections.account.refreshed_transactions" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoiceitem.created" | "invoiceitem.deleted" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_personalization_design.activated" | "issuing_personalization_design.deactivated" | "issuing_personalization_design.rejected" | "issuing_personalization_design.updated" | "issuing_token.created" | "issuing_token.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax.settings.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_payment.tracking_details_updated" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.outbound_transfer.tracking_details_updated" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
+                    enabled_events?: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing.alert.triggered" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "climate.order.canceled" | "climate.order.created" | "climate.order.delayed" | "climate.order.delivered" | "climate.order.product_substituted" | "climate.product.created" | "climate.product.pricing_updated" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "entitlements.active_entitlement_summary.updated" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "financial_connections.account.refreshed_ownership" | "financial_connections.account.refreshed_transactions" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.overdue" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoice.will_be_due" | "invoiceitem.created" | "invoiceitem.deleted" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.funds_rescinded" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_personalization_design.activated" | "issuing_personalization_design.deactivated" | "issuing_personalization_design.rejected" | "issuing_personalization_design.updated" | "issuing_token.created" | "issuing_token.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax.settings.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_payment.tracking_details_updated" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.outbound_transfer.tracking_details_updated" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
-                        [key: string]: string | undefined;
+                        [key: string]: string;
                     } | "";
                     /** @description The URL of the webhook endpoint. */
                     url?: string;

@@ -529,13 +529,9 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
     if (schemaObject.additionalProperties || options.ctx.additionalProperties) {
       const hasExplicitAdditionalProperties =
         typeof schemaObject.additionalProperties === "object" && Object.keys(schemaObject.additionalProperties).length;
-      let addlType = hasExplicitAdditionalProperties
+      const addlType = hasExplicitAdditionalProperties
         ? transformSchemaObject(schemaObject.additionalProperties as SchemaObject, options)
         : UNKNOWN;
-      // allow for `| undefined`, at least until https://github.com/microsoft/TypeScript/issues/4196 is resolved
-      if (addlType.kind !== ts.SyntaxKind.UnknownKeyword) {
-        addlType = tsUnion([addlType, UNDEFINED]);
-      }
       coreObjectType.push(
         ts.factory.createIndexSignature(
           /* modifiers  */ tsModifiers({

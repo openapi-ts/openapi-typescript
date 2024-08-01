@@ -20,7 +20,6 @@ properties:
       the cluster.
   size:
     type: string
-    writeOnly: true
     example: db-s-2vcpu-4gb
     description: >-
       A slug identifier representing the size of the node for the read-only

@@ -98,6 +98,11 @@ kubernetes_clusters_all:
       surge_upgrade: false
       registry_enabled: false
       ha: false
+      control_plane_firewall:
+        enabled: true
+        allowed_addresses:
+          - "1.2.3.4/32"
+          - "1.1.0.0/16"
     meta:
       total: 1
 
@@ -200,6 +205,11 @@ kubernetes_single:
       surge_upgrade: false
       registry_enabled: false
       ha: false
+      control_plane_firewall:
+        enabled: true
+        allowed_addresses:
+          - "1.2.3.4/32"
+          - "1.1.0.0/16"
 
 kubernetes_updated:
   value:
@@ -300,6 +310,11 @@ kubernetes_updated:
       surge_upgrade: true
       registry_enabled: false
       ha: false
+      control_plane_firewall:
+        enabled: true
+        allowed_addresses:
+          - "1.2.3.4/32"
+          - "1.1.0.0/16"
 
 kubernetes_clusters_create_basic_response:
   value:
@@ -365,6 +380,11 @@ kubernetes_clusters_create_basic_response:
       surge_upgrade: false
       registry_enabled: false
       ha: false
+      control_plane_firewall:
+        enabled: true
+        allowed_addresses:
+          - "1.2.3.4/32"
+          - "1.1.0.0/16"
 
 kubernetes_clusters_multi_pool_response:
   value:
@@ -467,6 +487,11 @@ kubernetes_clusters_multi_pool_response:
       surge_upgrade: false
       registry_enabled: false
       ha: false
+      control_plane_firewall:
+        enabled: true
+        allowed_addresses:
+          - "1.2.3.4/32"
+          - "1.1.0.0/16"
 
 kubernetes_options:
   value:

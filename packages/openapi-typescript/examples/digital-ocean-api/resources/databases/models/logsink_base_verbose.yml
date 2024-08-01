@@ -1,0 +1,20 @@
+type: object
+
+properties:
+  sink_id:
+    type: string
+    example: dfcc9f57d86bf58e321c2c6c31c7a971be244ac7
+    description: A unique identifier for Logsink
+
+  sink_name:
+    type: string
+    description: The name of the Logsink
+    example: prod-logsink
+
+  sink_type:
+    type: string
+    enum:
+      - rsyslog
+      - elasticsearch
+      - opensearch
+    example: rsyslog

@@ -1,0 +1,49 @@
+description: A JSON object with a key of `sink`.
+
+headers:
+  ratelimit-limit:
+    $ref: "../../../shared/headers.yml#/ratelimit-limit"
+  ratelimit-remaining:
+    $ref: "../../../shared/headers.yml#/ratelimit-remaining"
+  ratelimit-reset:
+    $ref: "../../../shared/headers.yml#/ratelimit-reset"
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: "../models/logsink_verbose.yml"
+      required:
+        - sink_id
+        - sink_name
+        - sink_type
+        - config
+    examples:
+      Create an opensearch logsink:
+        value:
+          sink_id: "dfcc9f57d86bf58e321c2c6c31c7a971be244ac7"
+          sink_name: "logs-sink"
+          sink_type: "opensearch"
+          config:
+            url: https://user:passwd@192.168.0.1:25060
+            index_prefix: "opensearch-logs"
+            index_days_max: 5
+      Create an elasticsearch logsink:
+        value:
+          sink_id: "dfcc9f57d86bf58e321c2c6c31c7a971be244ac7"
+          sink_name: "logs-sink"
+          sink_type: "elasticsearch"
+          config:
+            url: https://user:passwd@192.168.0.1:25060
+            index_prefix: "elasticsearch-logs"
+            index_days_max: 5
+      Create a rsyslog logsink:
+        value:
+          sink_id: "dfcc9f57d86bf58e321c2c6c31c7a971be244ac7"
+          sink_name: logs-sink
+          sink_type: rsyslog
+          config:
+            server: 192.168.0.1
+            port: 514
+            tls: false
+            format: rfc5424

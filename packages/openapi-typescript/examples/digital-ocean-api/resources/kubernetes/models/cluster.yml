@@ -156,6 +156,8 @@ properties:
     description: A read-only boolean value indicating if a container registry is
       integrated with the cluster.
 
+  control_plane_firewall:
+    $ref: 'control_plane_firewall.yml'
 
 required:
   - name

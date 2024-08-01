@@ -970,7 +970,6 @@ export interface paths {
          * List Database Options
          * @description To list all of the options available for the offered database engines, send a GET request to `/v2/databases/options`.
          *     The result will be a JSON object with an `options` key.
-         *     OpenSearch is in closed beta. To request access, [contact support](https://cloudsupport.digitalocean.com).
          */
         get: operations["databases_list_options"];
         put?: never;
@@ -1009,7 +1008,6 @@ export interface paths {
          *
          *     DigitalOcean managed PostgreSQL and MySQL database clusters take automated daily backups. To create a new database cluster based on a backup of an existing cluster, send a POST request to `/v2/databases`. In addition to the standard database cluster attributes, the JSON body must include a key named `backup_restore` with the name of the original database cluster and the timestamp of the backup to be restored. Creating a database from a backup is the same as forking a database in the control panel.
          *     Note: Backups are not supported for Redis clusters.
-         *     OpenSearch is in closed beta. To request access, [contact support](https://cloudsupport.digitalocean.com).
          */
         post: operations["databases_create_cluster"];
         delete?: never;
@@ -1798,6 +1796,73 @@ export interface paths {
          *
          */
         delete: operations["databases_delete_kafka_topic"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/databases/{database_cluster_uuid}/logsink": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Logsinks for a Database Cluster
+         *
+         * @description To list logsinks for a database cluster, send a GET request to
+         *     `/v2/databases/$DATABASE_ID/logsink`.
+         *
+         */
+        get: operations["databases_list_logsink"];
+        put?: never;
+        /**
+         * Create Logsink for a Database Cluster
+         *
+         * @description To create logsink for a database cluster, send a POST request to
+         *     `/v2/databases/$DATABASE_ID/logsink`.
+         *
+         */
+        post: operations["databases_create_logsink"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/databases/{database_cluster_uuid}/logsink/{logsink_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Logsink for a Database Cluster
+         *
+         * @description To get a logsink for a database cluster, send a GET request to
+         *     `/v2/databases/$DATABASE_ID/logsink/$LOGSINK_ID`.
+         *
+         */
+        get: operations["databases_get_logsink"];
+        /**
+         * Update Logsink for a Database Cluster
+         *
+         * @description To update a logsink for a database cluster, send a PUT request to
+         *     `/v2/databases/$DATABASE_ID/logsink/$LOGSINK_ID`.
+         *
+         */
+        put: operations["databases_update_logsink"];
+        post?: never;
+        /**
+         * Delete Logsink for a Database Cluster
+         *
+         * @description To delete a logsink for a database cluster, send a DELETE request to
+         *     `/v2/databases/$DATABASE_ID/logsink/$LOGSINK_ID`.
+         *
+         */
+        delete: operations["databases_delete_logsink"];
         options?: never;
         head?: never;
         patch?: never;
@@ -5949,23 +6014,26 @@ export interface components {
         /** @description Configure Username and/or Password for Basic authentication. */
         app_log_destination_open_search_spec_basic_auth: {
             /**
-             * @description Username to authenticate with.
+             * @description Username to authenticate with. Only required when `endpoint` is set.
+             *     Defaults to `doadmin` when `cluster_name` is set.
              * @example apps_user
              */
-            user: string;
+            user?: string;
             /**
-             * @description Password for user defined in User.
+             * @description Password for user defined in User. Is required when `endpoint` is set.
+             *     Cannot be set if using a DigitalOcean DBaaS OpenSearch cluster.
              * @example password1
              */
-            password: string;
+            password?: unknown;
         };
         /** @description OpenSearch configuration. */
         app_log_destination_open_search_spec: {
             /**
-             * @description OpenSearch API Endpoint. Only HTTPS is supported. Format: `https://<host>:<port>`.
+             * @description OpenSearch API Endpoint. Only HTTPS is supported. Format: https://<host>:<port>.
+             *     Cannot be specified if `cluster_name` is also specified.
              * @example https://example.com:9300
              */
-            endpoint: string;
+            endpoint?: string;
             basic_auth?: components["schemas"]["app_log_destination_open_search_spec_basic_auth"];
             /**
              * @description The index name to use for the logs. If not set, the default index name is "logs".
@@ -5973,6 +6041,12 @@ export interface components {
              * @example logs
              */
             index_name: string;
+            /**
+             * @description The name of a DigitalOcean DBaaS OpenSearch cluster to use as a log forwarding destination.
+             *     Cannot be specified if `endpoint` is also specified.
+             * @example my-opensearch-cluster
+             */
+            cluster_name?: string;
         };
         /** Configurations for external logging. */
         app_log_destination_definition: {
@@ -6073,6 +6147,7 @@ export interface components {
              */
             exact?: string;
             /**
+             * @deprecated
              * @description Prefix-based match. Only 1 of `exact`, `prefix`, or `regex` must be set.
              * @example https://www.example.com
              */
@@ -6373,13 +6448,14 @@ export interface components {
              *     - REDIS: Redis
              *     - MONGODB: MongoDB
              *     - KAFKA: Kafka
+             *     - OPENSEARCH: OpenSearch
              * @default UNSET
              * @example PG
              * @enum {string}
              */
-            engine: "UNSET" | "MYSQL" | "PG" | "REDIS" | "MONGODB" | "KAFKA";
+            engine: "UNSET" | "MYSQL" | "PG" | "REDIS" | "MONGODB" | "KAFKA" | "OPENSEARCH";
             /**
-             * @description The name. Must be unique across all components within the same app.
+             * @description The database's name. The name must be unique across all components within the same app and cannot use capital letters.
              * @example prod-db
              */
             name: string;
@@ -8087,7 +8163,7 @@ export interface components {
              */
             name: string;
             /**
-             * @description A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, "mongodb" for MongoDB, "kafka" for Kafka and "opensearch" for OpenSearch. OpenSearch is in closed beta. To request access, [contact support](https://cloudsupport.digitalocean.com).
+             * @description A slug representing the database engine used for the cluster. The possible values are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, "mongodb" for MongoDB, "kafka" for Kafka, and "opensearch" for OpenSearch.
              * @example mysql
              * @enum {string}
              */
@@ -8194,7 +8270,7 @@ export interface components {
              */
             backup_created_at?: string;
         };
-        mysql: {
+        mysql_advanced_config: {
             /**
              * @description The hour of day (in UTC) when backup for the service starts. New backup only starts if previous backup has already completed.
              * @example 3
@@ -8367,7 +8443,7 @@ export interface components {
             net_buffer_length?: number;
         };
         /** @description PGBouncer connection pooling settings */
-        pgbouncer: {
+        pgbouncer_advanced_config: {
             /**
              * @description Run server_reset_query (DISCARD ALL) in all pooling modes.
              * @example false
@@ -8419,14 +8495,14 @@ export interface components {
             autodb_idle_timeout?: number;
         };
         /** @description TimescaleDB extension configuration values */
-        timescaledb: {
+        timescaledb_advanced_config: {
             /**
              * @description The number of background workers for timescaledb operations.  Set to the sum of your number of databases and the total number of concurrent background workers you want running at any given point in time.
              * @example 8
              */
             max_background_workers?: number;
         };
-        postgres: {
+        postgres_advanced_config: {
             /**
              * @description Specifies the maximum age (in transactions) that a table's pg_class.relfrozenxid field can attain before a VACUUM operation is forced to prevent transaction ID wraparound within the table. Note that the system will launch autovacuum processes to prevent wraparound even when autovacuum is otherwise disabled. This parameter will cause the server to be restarted.
              * @example 200000000
@@ -8674,13 +8750,13 @@ export interface components {
              * @example 41.5
              */
             shared_buffers_percentage?: number;
-            pgbouncer?: components["schemas"]["pgbouncer"];
+            pgbouncer?: components["schemas"]["pgbouncer_advanced_config"];
             /**
              * @description The maximum amount of memory, in MB, used by a query operation (such as a sort or hash table) before writing to temporary disk files. Default is 1MB + 0.075% of total RAM (up to 32MB).
              * @example 4
              */
             work_mem?: number;
-            timescaledb?: components["schemas"]["timescaledb"];
+            timescaledb?: components["schemas"]["timescaledb_advanced_config"];
             /**
              * @description Synchronous replication type. Note that the service plan also needs to support synchronous replication.
              * @example off
@@ -8706,7 +8782,7 @@ export interface components {
          * @enum {string}
          */
         eviction_policy_model: "noeviction" | "allkeys_lru" | "allkeys_random" | "volatile_lru" | "volatile_random" | "volatile_ttl";
-        redis: {
+        redis_advanced_config: {
             redis_maxmemory_policy?: components["schemas"]["eviction_policy_model"];
             /**
              * @description Set output buffer limit for pub / sub clients in MB. The value is the hard limit, the soft limit is 1/4 of the hard limit. When setting the limit, be mindful of the available memory in the selected service plan.
@@ -8781,40 +8857,7 @@ export interface components {
              */
             redis_acl_channels_default?: "allchannels" | "resetchannels";
         };
-        mongo: {
-            /**
-             * @description Specifies the default consistency behavior of reads from the database. Data that is returned from the query with may or may not have been acknowledged by all nodes in the replicaset depending on this value.  Learn more [here](https://www.mongodb.com/docs/manual/reference/read-concern/).
-             * @default local
-             * @example local
-             * @enum {string}
-             */
-            default_read_concern: "local" | "available" | "majority";
-            /**
-             * @description Describes the level of acknowledgment requested from MongoDB for write operations clusters. This field can set to either `majority` or a number `0...n` which will describe the number of nodes that must acknowledge the write operation before it is fully accepted. Setting to `0` will request no acknowledgement of the write operation.  Learn more [here](https://www.mongodb.com/docs/manual/reference/write-concern/).
-             * @default majority
-             * @example majority
-             */
-            default_write_concern: string;
-            /**
-             * @description Specifies the lifetime of multi-document transactions. Transactions that exceed this limit are considered expired and will be  aborted by a periodic cleanup process. The cleanup process runs every `transactionLifetimeLimitSeconds/2 seconds` or at least  once every 60 seconds. *Changing this parameter will lead to a restart of the MongoDB service.* Learn more [here](https://www.mongodb.com/docs/manual/reference/parameters/#mongodb-parameter-param.transactionLifetimeLimitSeconds).
-             * @default 60
-             * @example 100
-             */
-            transaction_lifetime_limit_seconds: number;
-            /**
-             * @description Operations that run for longer than this threshold are considered slow which are then recorded to the diagnostic logs.  Higher log levels (verbosity) will record all operations regardless of this threshold on the primary node.  *Changing this parameter will lead to a restart of the MongoDB service.* Learn more [here](https://www.mongodb.com/docs/manual/reference/configuration-options/#mongodb-setting-operationProfiling.slowOpThresholdMs).
-             * @default 100
-             * @example 200
-             */
-            slow_op_threshold_ms: number;
-            /**
-             * @description The log message verbosity level. The verbosity level determines the amount of Informational and Debug messages MongoDB outputs. 0 includes informational messages while 1...5 increases the level to include debug messages. *Changing this parameter will lead to a restart of the MongoDB service.* Learn more [here](https://www.mongodb.com/docs/manual/reference/configuration-options/#mongodb-setting-systemLog.verbosity).
-             * @default 0
-             * @example 3
-             */
-            verbosity: number;
-        };
-        kafka: {
+        kafka_advanced_config: {
             /**
              * @description Specify the final compression type for a given topic. This configuration accepts the standard compression codecs ('gzip', 'snappy', 'lz4', 'zstd'). It additionally accepts 'uncompressed' which is equivalent to no compression; and 'producer' which means retain the original compression codec set by the producer.
              * @example gzip
@@ -9014,8 +9057,252 @@ export interface components {
              */
             transaction_remove_expired_transaction_cleanup_interval_ms?: number;
         };
+        opensearch_advanced_config: {
+            /**
+             * @description Maximum content length for HTTP requests to the OpenSearch HTTP API, in bytes.
+             * @default 100000000
+             * @example 100000000
+             */
+            http_max_content_length_bytes: number;
+            /**
+             * @description Maximum size of allowed headers, in bytes.
+             * @default 8192
+             * @example 8192
+             */
+            http_max_header_size_bytes: number;
+            /**
+             * @description Maximum length of an HTTP URL, in bytes.
+             * @default 4096
+             * @example 4096
+             */
+            http_max_initial_line_length_bytes: number;
+            /**
+             * @description Maximum number of clauses Lucene BooleanQuery can have.  Only increase it if necessary, as it may cause performance issues.
+             * @default 1024
+             * @example 1024
+             */
+            indices_query_bool_max_clause_count: number;
+            /**
+             * @description Maximum amount of heap memory used for field data cache, expressed as a percentage. Decreasing the value too much will increase overhead of loading field data. Increasing the value too much will decrease amount of heap available for other operations.
+             * @example 3
+             */
+            indices_fielddata_cache_size_percentage?: number;
+            /**
+             * @description Total amount of heap used for indexing buffer before writing segments to disk, expressed as a percentage. Too low value will slow down indexing; too high value will increase indexing performance but causes performance issues for query performance.
+             * @default 10
+             * @example 10
+             */
+            indices_memory_index_buffer_size_percentage: number;
+            /**
+             * @description Minimum amount of heap used for indexing buffer before writing segments to disk, in mb. Works in conjunction with indices_memory_index_buffer_size_percentage, each being enforced.
+             * @default 48
+             * @example 48
+             */
+            indices_memory_min_index_buffer_size_mb: number;
+            /**
+             * @description Maximum amount of heap used for indexing buffer before writing segments to disk, in mb. Works in conjunction with indices_memory_index_buffer_size_percentage, each being enforced. The default is unbounded.
+             * @example 48
+             */
+            indices_memory_max_index_buffer_size_mb?: number;
+            /**
+             * @description Maximum amount of heap used for query cache.  Too low value will decrease query performance and increase performance for other operations; too high value will cause issues with other functionality.
+             * @default 10
+             * @example 10
+             */
+            indices_queries_cache_size_percentage: number;
+            /**
+             * @description Limits total inbound and outbound recovery traffic for each node, expressed in mb per second. Applies to both peer recoveries as well as snapshot recoveries (i.e., restores from a snapshot).
+             * @default 40
+             * @example 40
+             */
+            indices_recovery_max_mb_per_sec: number;
+            /**
+             * @description Maximum number of file chunks sent in parallel for each recovery.
+             * @default 2
+             * @example 2
+             */
+            indices_recovery_max_concurrent_file_chunks: number;
+            /**
+             * @description Number of workers in the search operation thread pool.  Do note this may have maximum value depending on CPU count - value is automatically lowered if set to higher than maximum value.
+             * @example 1
+             */
+            thread_pool_search_size?: number;
+            /**
+             * @description Number of workers in the search throttled operation thread pool. This pool is used for searching frozen indices. Do note this may have maximum value depending on CPU count - value is automatically lowered if set to higher than maximum value.
+             * @example 1
+             */
+            thread_pool_search_throttled_size?: number;
+            /**
+             * @description Number of workers in the get operation thread pool.  Do note this may have maximum value depending on CPU count - value is automatically lowered if set to higher than maximum value.
+             * @example 1
+             */
+            thread_pool_get_size?: number;
+            /**
+             * @description Number of workers in the analyze operation thread pool.  Do note this may have maximum value depending on CPU count - value is automatically lowered if set to higher than maximum value.
+             * @example 1
+             */
+            thread_pool_analyze_size?: number;
+            /**
+             * @description Number of workers in the write operation thread pool.  Do note this may have maximum value depending on CPU count - value is automatically lowered if set to higher than maximum value.
+             * @example 1
+             */
+            thread_pool_write_size?: number;
+            /**
+             * @description Number of workers in the force merge operation thread pool. This pool is used for forcing a merge between shards of one or more indices. Do note this may have maximum value depending on CPU count - value is automatically lowered if set to higher than maximum value.
+             * @example 1
+             */
+            thread_pool_force_merge_size?: number;
+            /**
+             * @description Size of queue for operations in the search thread pool.
+             * @example 10
+             */
+            thread_pool_search_queue_size?: number;
+            /**
+             * @description Size of queue for operations in the search throttled thread pool.
+             * @example 10
+             */
+            thread_pool_search_throttled_queue_size?: number;
+            /**
+             * @description Size of queue for operations in the get thread pool.
+             * @example 10
+             */
+            thread_pool_get_queue_size?: number;
+            /**
+             * @description Size of queue for operations in the analyze thread pool.
+             * @example 10
+             */
+            thread_pool_analyze_queue_size?: number;
+            /**
+             * @description Size of queue for operations in the write thread pool.
+             * @example 10
+             */
+            thread_pool_write_queue_size?: number;
+            /**
+             * @description Specifies whether ISM is enabled or not.
+             * @default true
+             * @example true
+             */
+            ism_enabled: boolean;
+            /**
+             * @description Specifies whether audit history is enabled or not. The logs from ISM are automatically indexed to a logs document.
+             * @default true
+             * @example true
+             */
+            ism_history_enabled: boolean;
+            /**
+             * @description Maximum age before rolling over the audit history index, in hours.
+             * @default 24
+             * @example 24
+             */
+            ism_history_max_age_hours: number;
+            /**
+             * @description Maximum number of documents before rolling over the audit history index.
+             * @default 2500000
+             * @example 2500000
+             */
+            ism_history_max_docs: number;
+            /**
+             * @description The time between rollover checks for the audit history index, in hours.
+             * @default 8
+             * @example 8
+             */
+            ism_history_rollover_check_period_hours: number;
+            /**
+             * @description Length of time long audit history indices are kept, in days.
+             * @default 30
+             * @example 30
+             */
+            ism_history_rollover_retention_period_days: number;
+            /**
+             * @description Maximum number of aggregation buckets allowed in a single response.
+             * @default 10000
+             * @example 10000
+             */
+            search_max_buckets: number;
+            /**
+             * @description Specifices whether to allow automatic creation of indices.
+             * @default true
+             * @example true
+             */
+            action_auto_create_index_enabled: boolean;
+            /**
+             * @description Specifies whether to allow security audit logging.
+             * @default false
+             * @example false
+             */
+            enable_security_audit: boolean;
+            /**
+             * @description Specifies whether to require explicit index names when deleting indices.
+             * @example false
+             */
+            action_destructive_requires_name?: boolean;
+            /**
+             * @description Maximum number of shards allowed per data node.
+             * @example 100
+             */
+            cluster_max_shards_per_node?: number;
+            /**
+             * @description Compatibility mode sets OpenSearch to report its version as 7.10 so clients continue to work.
+             * @default false
+             * @example false
+             */
+            override_main_response_version: boolean;
+            /**
+             * @description Limits the number of inline script compilations within a period of time. Default is use-context
+             * @default use-context
+             * @example 75/5m
+             */
+            script_max_compilations_rate: string;
+            /**
+             * @description Maximum concurrent incoming/outgoing shard recoveries (normally replicas) are allowed to happen per node .
+             * @default 2
+             * @example 2
+             */
+            cluster_routing_allocation_node_concurrent_recoveries: number;
+            /**
+             * @description Allowlist of remote IP addresses for reindexing. Changing this value will cause all OpenSearch instances to restart.
+             * @example [
+             *       "255.255.223.233:9200",
+             *       "222.33.222.222:6300"
+             *     ]
+             */
+            reindex_remote_whitelist?: string[];
+        };
+        mongo_advanced_config: {
+            /**
+             * @description Specifies the default consistency behavior of reads from the database. Data that is returned from the query with may or may not have been acknowledged by all nodes in the replicaset depending on this value.  Learn more [here](https://www.mongodb.com/docs/manual/reference/read-concern/).
+             * @default local
+             * @example local
+             * @enum {string}
+             */
+            default_read_concern: "local" | "available" | "majority";
+            /**
+             * @description Describes the level of acknowledgment requested from MongoDB for write operations clusters. This field can set to either `majority` or a number `0...n` which will describe the number of nodes that must acknowledge the write operation before it is fully accepted. Setting to `0` will request no acknowledgement of the write operation.  Learn more [here](https://www.mongodb.com/docs/manual/reference/write-concern/).
+             * @default majority
+             * @example majority
+             */
+            default_write_concern: string;
+            /**
+             * @description Specifies the lifetime of multi-document transactions. Transactions that exceed this limit are considered expired and will be  aborted by a periodic cleanup process. The cleanup process runs every `transactionLifetimeLimitSeconds/2 seconds` or at least  once every 60 seconds. *Changing this parameter will lead to a restart of the MongoDB service.* Learn more [here](https://www.mongodb.com/docs/manual/reference/parameters/#mongodb-parameter-param.transactionLifetimeLimitSeconds).
+             * @default 60
+             * @example 100
+             */
+            transaction_lifetime_limit_seconds: number;
+            /**
+             * @description Operations that run for longer than this threshold are considered slow which are then recorded to the diagnostic logs.  Higher log levels (verbosity) will record all operations regardless of this threshold on the primary node.  *Changing this parameter will lead to a restart of the MongoDB service.* Learn more [here](https://www.mongodb.com/docs/manual/reference/configuration-options/#mongodb-setting-operationProfiling.slowOpThresholdMs).
+             * @default 100
+             * @example 200
+             */
+            slow_op_threshold_ms: number;
+            /**
+             * @description The log message verbosity level. The verbosity level determines the amount of Informational and Debug messages MongoDB outputs. 0 includes informational messages while 1...5 increases the level to include debug messages. *Changing this parameter will lead to a restart of the MongoDB service.* Learn more [here](https://www.mongodb.com/docs/manual/reference/configuration-options/#mongodb-setting-systemLog.verbosity).
+             * @default 0
+             * @example 3
+             */
+            verbosity: number;
+        };
         database_config: {
-            config?: components["schemas"]["mysql"] | components["schemas"]["postgres"] | components["schemas"]["redis"] | components["schemas"]["mongo"] | components["schemas"]["kafka"];
+            config?: components["schemas"]["mysql_advanced_config"] | components["schemas"]["postgres_advanced_config"] | components["schemas"]["redis_advanced_config"] | components["schemas"]["mongo_advanced_config"] | components["schemas"]["kafka_advanced_config"] | components["schemas"]["opensearch_advanced_config"];
         };
         ca: {
             /**
@@ -9501,6 +9788,163 @@ export interface components {
              */
             partition_count?: number;
             config?: components["schemas"]["kafka_topic_config"];
+        };
+        logsink_base_verbose: {
+            /**
+             * @description A unique identifier for Logsink
+             * @example dfcc9f57d86bf58e321c2c6c31c7a971be244ac7
+             */
+            sink_id?: string;
+            /**
+             * @description The name of the Logsink
+             * @example prod-logsink
+             */
+            sink_name?: string;
+            /**
+             * @example rsyslog
+             * @enum {string}
+             */
+            sink_type?: "rsyslog" | "elasticsearch" | "opensearch";
+        };
+        rsyslog_logsink: {
+            /**
+             * @description DNS name or IPv4 address of the rsyslog server
+             * @example 192.168.0.1
+             */
+            server: string;
+            /**
+             * @description The internal port on which the rsyslog server is listening
+             * @example 514
+             */
+            port: number;
+            /**
+             * @description Use TLS (as the messages are not filtered and may contain sensitive information, it is highly recommended to set this to true if the remote server supports it)
+             * @example false
+             */
+            tls: boolean;
+            /**
+             * @description Message format used by the server, this can be either rfc3164 (the old BSD style message format), `rfc5424` (current syslog message format) or custom
+             * @example rfc5424
+             * @enum {string}
+             */
+            format: "rfc5424" | "rfc3164" | "custom";
+            /**
+             * @description Conditional (required if `format` == `custom`).
+             *
+             *     Syslog log line template for a custom format, supporting limited rsyslog style templating (using `%tag%`). Supported tags are: `HOSTNAME`, `app-name`, `msg`, `msgid`, `pri`, `procid`, `structured-data`, `timestamp` and `timestamp:::date-rfc3339`.
+             *
+             * @example <%pri%>%timestamp:::date-rfc3339% %HOSTNAME% %app-name% %msg%
+             */
+            logline?: string;
+            /**
+             * @description content of the structured data block of rfc5424 message
+             * @example TOKEN tag="LiteralValue"
+             */
+            sd?: string;
+            /**
+             * @description PEM encoded CA certificate
+             * @example -----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----\n
+             */
+            ca?: string;
+            /**
+             * @description (PEM format) client key if the server requires client authentication
+             * @example -----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n
+             */
+            key?: string;
+            /**
+             * @description (PEM format) client cert to use
+             * @example -----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----\n
+             */
+            cert?: string;
+        };
+        elasticsearch_logsink: {
+            /**
+             * @description Elasticsearch connection URL
+             * @example https://user:passwd@192.168.0.1:9200
+             */
+            url: string;
+            /**
+             * @description Elasticsearch index prefix
+             * @example elastic-logs
+             */
+            index_prefix: string;
+            /**
+             * @description Maximum number of days of logs to keep
+             * @default 7
+             * @example 5
+             */
+            index_days_max: number;
+            /**
+             * Format: float
+             * @description Elasticsearch request timeout limit
+             * @default 10
+             * @example 10
+             */
+            timeout: number;
+            /**
+             * @description PEM encoded CA certificate
+             * @example -----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----\n
+             */
+            ca?: string;
+        };
+        opensearch_logsink: {
+            /**
+             * @description Opensearch connection URL
+             * @example https://user:passwd@192.168.0.1:9200
+             */
+            url: string;
+            /**
+             * @description Opensearch index prefix
+             * @example opensearch-logs
+             */
+            index_prefix: string;
+            /**
+             * @description Maximum number of days of logs to keep
+             * @default 7
+             * @example 5
+             */
+            index_days_max: number;
+            /**
+             * Format: float
+             * @description Opensearch request timeout limit
+             * @default 10
+             * @example 10
+             */
+            timeout: number;
+            /**
+             * @description PEM encoded CA certificate
+             * @example -----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----\n
+             */
+            ca?: string;
+        };
+        logsink_verbose: components["schemas"]["logsink_base_verbose"] & {
+            /** @example {
+             *       "config": {
+             *         "server": "192.168.0.1",
+             *         "port": 514,
+             *         "tls": false,
+             *         "format": "rfc5424"
+             *       }
+             *     } */
+            config?: components["schemas"]["rsyslog_logsink"] | components["schemas"]["elasticsearch_logsink"] | components["schemas"]["opensearch_logsink"];
+        };
+        logsink_base: {
+            /**
+             * @description The name of the Logsink
+             * @example prod-logsink
+             */
+            sink_name?: string;
+            /**
+             * @example rsyslog
+             * @enum {string}
+             */
+            sink_type?: "rsyslog" | "elasticsearch" | "opensearch";
+        };
+        logsink_create: components["schemas"]["logsink_base"] & {
+            config?: components["schemas"]["rsyslog_logsink"] | components["schemas"]["elasticsearch_logsink"] | components["schemas"]["opensearch_logsink"];
+        };
+        logsink_update: {
+            config: components["schemas"]["rsyslog_logsink"] | components["schemas"]["elasticsearch_logsink"] | components["schemas"]["opensearch_logsink"];
         };
         databases_basic_auth_credentials: {
             /**
@@ -10805,6 +11249,22 @@ export interface components {
              */
             day?: "any" | "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
         } | null;
+        /** @description An object specifying the control plane firewall for the Kubernetes cluster. Control plane firewall is in early availability (invite only). */
+        control_plane_firewall: {
+            /**
+             * @description Indicates whether the control plane firewall is enabled.
+             * @example true
+             */
+            enable?: boolean;
+            /**
+             * @description An array of public addresses (IPv4 or CIDR) allowed to access the control plane.
+             * @example [
+             *       "1.2.3.4/32",
+             *       "1.1.0.0/16"
+             *     ]
+             */
+            allowed_addresses?: string[];
+        } | null;
         cluster: {
             /**
              * Format: uuid
@@ -10916,6 +11376,7 @@ export interface components {
              * @example true
              */
             readonly registry_enabled?: boolean;
+            control_plane_firewall?: components["schemas"]["control_plane_firewall"];
         };
         cluster_update: {
             /**
@@ -10952,6 +11413,7 @@ export interface components {
              * @example true
              */
             ha: boolean;
+            control_plane_firewall?: components["schemas"]["control_plane_firewall"];
         };
         associated_kubernetes_resource: {
             /**
@@ -11614,7 +12076,7 @@ export interface components {
              *     }
              */
             metric: {
-                [key: string]: string | undefined;
+                [key: string]: string;
             };
             /** @example [
              *       [
@@ -13300,7 +13762,7 @@ export interface components {
             };
             content: {
                 "application/json": {
-                    config: components["schemas"]["mysql"] | components["schemas"]["postgres"] | components["schemas"]["redis"];
+                    config: components["schemas"]["mysql_advanced_config"] | components["schemas"]["postgres_advanced_config"] | components["schemas"]["redis_advanced_config"] | components["schemas"]["kafka_advanced_config"] | components["schemas"]["opensearch_advanced_config"] | components["schemas"]["mongo_advanced_config"];
                 };
             };
         };
@@ -13544,6 +14006,32 @@ export interface components {
                 "application/json": {
                     topic?: components["schemas"]["kafka_topic_verbose"];
                 };
+            };
+        };
+        /** @description A JSON object with a key of `sinks`. */
+        logsinks: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    sinks?: components["schemas"]["logsink_verbose"][];
+                };
+            };
+        };
+        /** @description A JSON object with a key of `sink`. */
+        logsink: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["logsink_verbose"];
             };
         };
         /** @description A JSON object with a key of `credentials`. */
@@ -15456,6 +15944,11 @@ export interface components {
          * @example customer-events
          */
         kafka_topic_name: string;
+        /**
+         * @description A unique identifier for a logsink of a database cluster
+         * @example 50484ec3-19d6-4cd3-b56f-3b0381c289a6
+         */
+        logsink_id: string;
         /**
          * @description The name of the domain itself.
          * @example example.com
@@ -18596,6 +19089,152 @@ export interface operations {
         requestBody?: never;
         responses: {
             204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_list_logsink: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            201: components["responses"]["logsinks"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_create_logsink: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["logsink_create"];
+            };
+        };
+        responses: {
+            201: components["responses"]["logsink"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_get_logsink: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+                /**
+                 * @description A unique identifier for a logsink of a database cluster
+                 * @example 50484ec3-19d6-4cd3-b56f-3b0381c289a6
+                 */
+                logsink_id: components["parameters"]["logsink_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            201: components["responses"]["logsink"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_update_logsink: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+                /**
+                 * @description A unique identifier for a logsink of a database cluster
+                 * @example 50484ec3-19d6-4cd3-b56f-3b0381c289a6
+                 */
+                logsink_id: components["parameters"]["logsink_id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                /** @example {
+                 *       "config": {
+                 *         "server": "192.168.0.1",
+                 *         "port": 514,
+                 *         "tls": false,
+                 *         "format": "rfc3164"
+                 *       }
+                 *     } */
+                "application/json": components["schemas"]["logsink_update"];
+            };
+        };
+        responses: {
+            200: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_delete_logsink: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+                /**
+                 * @description A unique identifier for a logsink of a database cluster
+                 * @example 50484ec3-19d6-4cd3-b56f-3b0381c289a6
+                 */
+                logsink_id: components["parameters"]["logsink_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["no_content"];
             401: components["responses"]["unauthorized"];
             404: components["responses"]["not_found"];
             429: components["responses"]["too_many_requests"];

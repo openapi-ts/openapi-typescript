@@ -1,0 +1,284 @@
+type: object
+
+properties:
+  http_max_content_length_bytes:
+    description: >-
+      Maximum content length for HTTP requests to the OpenSearch HTTP API, in bytes.
+    type: integer
+    example: 100000000
+    minimum: 1
+    maximum: 2147483647
+    default: 100000000
+  http_max_header_size_bytes:
+    description: >-
+      Maximum size of allowed headers, in bytes.
+    type: integer
+    example: 8192
+    minimum: 1024
+    maximum: 262144
+    default: 8192
+  http_max_initial_line_length_bytes:
+    description: >-
+      Maximum length of an HTTP URL, in bytes.
+    type: integer
+    example: 4096
+    minimum: 1024
+    maximum: 65536
+    default: 4096
+  indices_query_bool_max_clause_count:
+    description: >-
+      Maximum number of clauses Lucene BooleanQuery can have. 
+      Only increase it if necessary, as it may cause performance issues.
+    type: integer
+    example: 1024
+    minimum: 64
+    maximum: 4096
+    default: 1024
+  indices_fielddata_cache_size_percentage:
+    description: >-
+      Maximum amount of heap memory used for field data cache, expressed as a percentage.
+      Decreasing the value too much will increase overhead of loading field data.
+      Increasing the value too much will decrease amount of heap available for other operations.
+    type: integer
+    example: 3
+    minimum: 3
+    maximum: 100
+  indices_memory_index_buffer_size_percentage:
+    description: >-
+      Total amount of heap used for indexing buffer before writing segments to disk, expressed as a percentage.
+      Too low value will slow down indexing; too high value will increase indexing performance but causes performance issues for query performance.
+    type: integer
+    example: 10
+    minimum: 3
+    maximum: 40
+    default: 10
+  indices_memory_min_index_buffer_size_mb:
+    description: >-
+      Minimum amount of heap used for indexing buffer before writing segments to disk, in mb.
+      Works in conjunction with indices_memory_index_buffer_size_percentage, each being enforced.
+    type: integer
+    example: 48
+    minimum: 3
+    maximum: 2048
+    default: 48
+  indices_memory_max_index_buffer_size_mb:
+    description: >-
+      Maximum amount of heap used for indexing buffer before writing segments to disk, in mb.
+      Works in conjunction with indices_memory_index_buffer_size_percentage, each being enforced.
+      The default is unbounded.
+    type: integer
+    example: 48
+    minimum: 3
+    maximum: 2048
+  indices_queries_cache_size_percentage:
+    description: >-
+      Maximum amount of heap used for query cache. 
+      Too low value will decrease query performance and increase performance for other operations; too high value will cause issues with other functionality.
+    type: integer
+    example: 10
+    minimum: 3
+    maximum: 40
+    default: 10
+  indices_recovery_max_mb_per_sec:
+    description: >-
+      Limits total inbound and outbound recovery traffic for each node, expressed in mb per second.
+      Applies to both peer recoveries as well as snapshot recoveries (i.e., restores from a snapshot).
+    type: integer
+    example: 40
+    minimum: 40
+    maximum: 400
+    default: 40
+  indices_recovery_max_concurrent_file_chunks:
+    description: >-
+      Maximum number of file chunks sent in parallel for each recovery.
+    type: integer
+    example: 2
+    minimum: 2
+    maximum: 5
+    default: 2
+  thread_pool_search_size:
+    description: >-
+      Number of workers in the search operation thread pool. 
+      Do note this may have maximum value depending on CPU count - value is automatically lowered if set to higher than maximum value.
+    type: integer
+    example: 1
+    minimum: 1
+    maximum: 128
+  thread_pool_search_throttled_size:
+    description: >-
+      Number of workers in the search throttled operation thread pool. This pool is used for searching frozen indices.
+      Do note this may have maximum value depending on CPU count - value is automatically lowered if set to higher than maximum value.
+    type: integer
+    example: 1
+    minimum: 1
+    maximum: 128
+  thread_pool_get_size:
+    description: >-
+      Number of workers in the get operation thread pool. 
+      Do note this may have maximum value depending on CPU count - value is automatically lowered if set to higher than maximum value.
+    type: integer
+    example: 1
+    minimum: 1
+    maximum: 128
+  thread_pool_analyze_size:
+    description: >-
+      Number of workers in the analyze operation thread pool. 
+      Do note this may have maximum value depending on CPU count - value is automatically lowered if set to higher than maximum value.
+    type: integer
+    example: 1
+    minimum: 1
+    maximum: 128
+  thread_pool_write_size:
+    description: >-
+      Number of workers in the write operation thread pool. 
+      Do note this may have maximum value depending on CPU count - value is automatically lowered if set to higher than maximum value.
+    type: integer
+    example: 1
+    minimum: 1
+    maximum: 128
+  thread_pool_force_merge_size:
+    description: >-
+      Number of workers in the force merge operation thread pool. This pool is used for forcing a merge between shards of one or more indices.
+      Do note this may have maximum value depending on CPU count - value is automatically lowered if set to higher than maximum value.
+    type: integer
+    example: 1
+    minimum: 1
+    maximum: 128
+  thread_pool_search_queue_size:
+    description: >-
+      Size of queue for operations in the search thread pool.
+    type: integer
+    example: 10
+    minimum: 10
+    maximum: 2000
+  thread_pool_search_throttled_queue_size:
+    description: >-
+      Size of queue for operations in the search throttled thread pool.
+    type: integer
+    example: 10
+    minimum: 10
+    maximum: 2000
+  thread_pool_get_queue_size:
+    description: >-
+      Size of queue for operations in the get thread pool.
+    type: integer
+    example: 10
+    minimum: 10
+    maximum: 2000
+  thread_pool_analyze_queue_size:
+    description: >-
+      Size of queue for operations in the analyze thread pool.
+    type: integer
+    example: 10
+    minimum: 10
+    maximum: 2000
+  thread_pool_write_queue_size:
+    description: >-
+      Size of queue for operations in the write thread pool.
+    type: integer
+    example: 10
+    minimum: 10
+    maximum: 2000
+  ism_enabled:
+    description: >-
+      Specifies whether ISM is enabled or not.
+    type: boolean
+    example: true
+    default: true
+  ism_history_enabled:
+    description: >-
+      Specifies whether audit history is enabled or not. The logs from ISM are automatically indexed to a logs document.
+    type: boolean
+    example: true
+    default: true
+  ism_history_max_age_hours:
+    description: >-
+      Maximum age before rolling over the audit history index, in hours.
+    type: integer
+    example: 24
+    minimum: 1
+    maximum: 2147483647
+    default: 24
+  ism_history_max_docs:
+    description: >-
+      Maximum number of documents before rolling over the audit history index.
+    type: integer
+    example: 2500000
+    minimum: 1
+    maximum: 9223372036854776000
+    default: 2500000
+  ism_history_rollover_check_period_hours:
+    description: >-
+      The time between rollover checks for the audit history index, in hours.
+    type: integer
+    example: 8
+    minimum: 1
+    maximum: 2147483647
+    default: 8
+  ism_history_rollover_retention_period_days:
+    description: >-
+      Length of time long audit history indices are kept, in days.
+    type: integer
+    example: 30
+    minimum: 1
+    maximum: 2147483647
+    default: 30
+  search_max_buckets:
+    description: >-
+      Maximum number of aggregation buckets allowed in a single response.
+    type: integer
+    example: 10000
+    minimum: 1
+    maximum: 1000000
+    default: 10000
+  action_auto_create_index_enabled:
+    description: >-
+      Specifices whether to allow automatic creation of indices.
+    type: boolean
+    example: true
+    default: true
+  enable_security_audit:
+    description: >-
+      Specifies whether to allow security audit logging.
+    type: boolean
+    example: false
+    default: false
+  action_destructive_requires_name:
+    description: >-
+      Specifies whether to require explicit index names when deleting indices.
+    type: boolean
+    example: false
+  cluster_max_shards_per_node:
+    description: >-
+      Maximum number of shards allowed per data node.
+    type: integer
+    example: 100
+    minimum: 100
+    maximum: 10000
+  override_main_response_version:
+    description: >-
+      Compatibility mode sets OpenSearch to report its version as 7.10 so clients continue to work.
+    type: boolean
+    example: false
+    default: false
+  script_max_compilations_rate:
+    description: >-
+      Limits the number of inline script compilations within a period of time. Default is use-context
+    type: string
+    example: 75/5m
+    default: use-context
+  cluster_routing_allocation_node_concurrent_recoveries:
+    description: >-
+      Maximum concurrent incoming/outgoing shard recoveries (normally replicas) are allowed to happen per node . 
+    type: integer
+    example: 2
+    minimum: 2
+    maximum: 16
+    default: 2
+  reindex_remote_whitelist:
+    description: >-
+      Allowlist of remote IP addresses for reindexing. Changing this value will cause all OpenSearch instances to restart.
+    type: array
+    items: 
+      type: string
+    example: ["255.255.223.233:9200", "222.33.222.222:6300"]

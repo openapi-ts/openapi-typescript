@@ -1,0 +1,10 @@
+type: object
+
+allOf:
+- $ref: './logsink_base.yml'
+- properties:
+    config:
+      anyOf:
+      - $ref: './logsink/rsyslog_logsink.yml'
+      - $ref: './logsink/elasticsearch_logsink.yml'
+      - $ref: './logsink/opensearch_logsink.yml'
