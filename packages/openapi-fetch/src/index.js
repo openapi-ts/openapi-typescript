@@ -434,6 +434,9 @@ export function defaultPathSerializer(pathname, pathParams) {
  * @type {import("./index.js").defaultBodySerializer}
  */
 export function defaultBodySerializer(body) {
+  if (body instanceof FormData) {
+    return body;
+  }
   return JSON.stringify(body);
 }
 
