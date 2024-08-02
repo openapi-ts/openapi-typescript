@@ -532,23 +532,26 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
       const addlType = hasExplicitAdditionalProperties
         ? transformSchemaObject(schemaObject.additionalProperties as SchemaObject, options)
         : UNKNOWN;
-      coreObjectType.push(
-        ts.factory.createIndexSignature(
-          /* modifiers  */ tsModifiers({
-            readonly: options.ctx.immutable,
-          }),
-          /* parameters */ [
-            ts.factory.createParameterDeclaration(
-              /* modifiers      */ undefined,
-              /* dotDotDotToken */ undefined,
-              /* name           */ ts.factory.createIdentifier("key"),
-              /* questionToken  */ undefined,
-              /* type           */ STRING,
-            ),
-          ],
-          /* type       */ addlType,
-        ),
-      );
+      return tsIntersection([
+        ...(coreObjectType.length ? [ts.factory.createTypeLiteralNode(coreObjectType)] : []),
+        ts.factory.createTypeLiteralNode([
+          ts.factory.createIndexSignature(
+            /* modifiers  */ tsModifiers({
+              readonly: options.ctx.immutable,
+            }),
+            /* parameters */ [
+              ts.factory.createParameterDeclaration(
+                /* modifiers      */ undefined,
+                /* dotDotDotToken */ undefined,
+                /* name           */ ts.factory.createIdentifier("key"),
+                /* questionToken  */ undefined,
+                /* type           */ STRING,
+              ),
+            ],
+            /* type       */ addlType,
+          ),
+        ]),
+      ]);
     }
   }
 
