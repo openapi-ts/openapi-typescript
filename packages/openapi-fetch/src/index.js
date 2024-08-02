@@ -176,15 +176,39 @@ export default function createClient(clientOptions) {
     return { error, response };
   }
 
-  const methods = ["GET", "PUT", "POST", "DELETE", "OPTIONS", "HEAD", "PATCH", "TRACE"];
-
-  const methodMembers = Object.fromEntries(
-    methods.map((method) => [method, (url, init) => coreFetch(url, { ...init, method })]),
-  );
-
-  const coreClient = {
-    ...methodMembers,
-
+  return {
+    /** Call a GET endpoint */
+    async GET(url, init) {
+      return coreFetch(url, { ...init, method: "GET" });
+    },
+    /** Call a PUT endpoint */
+    async PUT(url, init) {
+      return coreFetch(url, { ...init, method: "PUT" });
+    },
+    /** Call a POST endpoint */
+    async POST(url, init) {
+      return coreFetch(url, { ...init, method: "POST" });
+    },
+    /** Call a DELETE endpoint */
+    async DELETE(url, init) {
+      return coreFetch(url, { ...init, method: "DELETE" });
+    },
+    /** Call a OPTIONS endpoint */
+    async OPTIONS(url, init) {
+      return coreFetch(url, { ...init, method: "OPTIONS" });
+    },
+    /** Call a HEAD endpoint */
+    async HEAD(url, init) {
+      return coreFetch(url, { ...init, method: "HEAD" });
+    },
+    /** Call a PATCH endpoint */
+    async PATCH(url, init) {
+      return coreFetch(url, { ...init, method: "PATCH" });
+    },
+    /** Call a TRACE endpoint */
+    async TRACE(url, init) {
+      return coreFetch(url, { ...init, method: "TRACE" });
+    },
     /** Register middleware */
     use(...middleware) {
       for (const m of middleware) {
@@ -207,19 +231,60 @@ export default function createClient(clientOptions) {
       }
     },
   };
+}
 
-  const handler = {
-    get: (coreClient, property) => {
-      if (property in coreClient) {
-        return coreClient[property];
-      }
+class UrlCallForwarder {
+  constructor(client, url) {
+    this.client = client;
+    this.url = url;
+  }
 
-      // Assume the property is an URL.
-      return Object.fromEntries(methods.map((method) => [method, (init) => coreFetch(property, { ...init, method })]));
-    },
-  };
+  GET(init) {
+    return this.client.GET(this.url, init);
+  }
+  PUT(init) {
+    return this.client.PUT(this.url, init);
+  }
+  POST(init) {
+    return this.client.POST(this.url, init);
+  }
+  DELETE(init) {
+    return this.client.DELETE(this.url, init);
+  }
+  OPTIONS(init) {
+    return this.client.OPTIONS(this.url, init);
+  }
+  HEAD(init) {
+    return this.client.HEAD(this.url, init);
+  }
+  PATCH(init) {
+    return this.client.PATCH(this.url, init);
+  }
+  TRACE(init) {
+    return this.client.TRACE(this.url, init);
+  }
+}
 
-  return new Proxy(coreClient, handler);
+const clientProxyHandler = {
+  // Assume the property is an URL.
+  get: (coreClient, url) => new UrlCallForwarder(coreClient, url),
+};
+
+/**
+ * Wrap openapi-fetch client to support a path based API.
+ * @type {import("./index.js").wrapAsPathBasedClient}
+ */
+export function wrapAsPathBasedClient(coreClient) {
+  return new Proxy(coreClient, clientProxyHandler);
+}
+
+/**
+ * Convenience method to an openapi-fetch path based client.
+ * Strictly equivalent to `wrapAsPathBasedClient(createClient(...))`.
+ * @type {import("./index.js").createPathBasedClient}
+ */
+export function createPathBasedClient(clientOptions) {
+  return wrapAsPathBasedClient(createClient(clientOptions));
 }
 
 // utils
