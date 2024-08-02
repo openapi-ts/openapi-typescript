@@ -81,7 +81,7 @@ source: |-
                         "token": "abcdefghijklmnopqrstuvwxyz0123456789"
                     },
                    "open_search": {
-                        "endpoint": "myopensearchendpoint.com:9300"
+                        "endpoint": "https://myopensearchendpoint.com:9300"
                         "index_name": "logs"
                         "basic_auth": {
                             "user": "doadmin",
@@ -134,7 +134,7 @@ source: |-
                         "token": "abcdefghijklmnopqrstuvwxyz0123456789"
                     },
                    "open_search": {
-                        "endpoint": "myopensearchendpoint.com:9300"
+                        "endpoint": "https://myopensearchendpoint.com:9300"
                         "index_name": "logs"
                         "basic_auth": {
                             "user": "doadmin",

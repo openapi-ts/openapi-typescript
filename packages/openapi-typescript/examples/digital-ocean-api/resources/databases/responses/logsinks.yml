@@ -1,0 +1,42 @@
+description: A JSON object with a key of `sinks`.
+
+headers:
+  ratelimit-limit:
+    $ref: "../../../shared/headers.yml#/ratelimit-limit"
+  ratelimit-remaining:
+    $ref: "../../../shared/headers.yml#/ratelimit-remaining"
+  ratelimit-reset:
+    $ref: "../../../shared/headers.yml#/ratelimit-reset"
+
+content:
+  application/json:
+    schema:
+      properties:
+        sinks:
+          type: array
+          items:
+            allOf:
+              - $ref: "../models/logsink_verbose.yml"
+            required:
+              - sink_id
+              - sink_name
+              - sink_type
+              - config
+    example:
+      sinks:
+        - sink_id: 799990b6-d551-454b-9ffe-b8618e9d6272
+          sink_name: logs-sink-1
+          sink_type: rsyslog
+          config:
+            server: 192.168.0.1
+            port: 514
+            tls: false
+            format: rfc5424
+        - sink_id: d6e95157-5f58-48d0-9023-8cfb409d102a
+          sink_name: logs-sink-2
+          sink_type: rsyslog
+          config:
+            server: 192.168.10.1
+            port: 514
+            tls: false
+            format: rfc3164

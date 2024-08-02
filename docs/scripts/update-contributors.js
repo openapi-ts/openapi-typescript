@@ -196,9 +196,12 @@ async function main() {
             ? OPENAPI_REACT_QUERY_CONTRIBUTORS
             : OPENAPI_TS_CONTRIBUTORS;
       for (const username of userlist) {
+        i++;
         // skip profiles that have been updated within the past week
         const { lastFetch } = contributors[repo].find((u) => u.username === username) ?? { lastFetch: 0 };
         if (Date.now() - lastFetch < ONE_MONTH) {
+          // biome-ignore lint/suspicious/noConsoleLog: this is a script
+          console.log(`[${i}/${total}] (Skipped ${username})`);
           continue;
         }
 
@@ -212,11 +215,10 @@ async function main() {
             lastFetch: new Date().getTime(),
           };
           upsert(contributors[repo], userData);
-          i++;
-          // biome-ignore lint/suspicious/noConsoleLog: this is  a script
+          // biome-ignore lint/suspicious/noConsoleLog: this is a script
           console.log(`[${i}/${total}] Updated for ${username}`);
           fs.writeFileSync(new URL("../data/contributors.json", import.meta.url), JSON.stringify(contributors)); // update file while fetching (sync happens safely in between fetches)
-          await new Promise((resolve) => setTimeout(resolve, 900)); // sleep to prevent 429
+          await new Promise((resolve) => setTimeout(resolve, 1000)); // sleep to prevent 429
         } catch (err) {
           throw new Error(err);
         }

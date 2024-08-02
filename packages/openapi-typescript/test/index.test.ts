@@ -108,7 +108,7 @@ export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
         Base: {
-            [key: string]: string | undefined;
+            [key: string]: string;
         };
         SchemaType: components["schemas"]["Base"] | x-swagger-bake["components"]["schemas"]["Extension"];
     };

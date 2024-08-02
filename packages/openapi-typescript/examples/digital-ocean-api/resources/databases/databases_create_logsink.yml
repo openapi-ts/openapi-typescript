@@ -1,0 +1,78 @@
+operationId: databases_create_logsink
+
+summary: >
+  Create Logsink for a Database Cluster
+
+description: |
+  To create logsink for a database cluster, send a POST request to
+  `/v2/databases/$DATABASE_ID/logsink`.
+
+tags:
+  - Databases
+
+parameters:
+  - $ref: "parameters.yml#/database_cluster_uuid"
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        allOf:
+          - $ref: models/logsink_create.yml
+        required:
+          - sink_name
+          - sink_type
+          - config
+      examples:
+        Create an opensearch logsink:
+          value:
+            sink_name: "logs-sink"
+            sink_type: "opensearch"
+            config:
+              url: https://user:passwd@192.168.0.1:25060
+              index_prefix: "opensearch-logs"
+              index_days_max: 5
+        Create an elasticsearch logsink:
+          value:
+            sink_name: "logs-sink"
+            sink_type: "elasticsearch"
+            config:
+              url: https://user:passwd@192.168.0.1:25060
+              index_prefix: "elasticsearch-logs"
+              index_days_max: 5
+        Create a rsyslog logsink:
+          value:
+            sink_name: "logs-sink"
+            sink_type: "rsyslog"
+            config:
+              server: 192.168.0.1
+              port: 514
+              tls: false
+              format: rfc5424
+
+responses:
+  "201":
+    $ref: "responses/logsink.yml"
+
+  "401":
+    $ref: "../../shared/responses/unauthorized.yml"
+
+  "404":
+    $ref: "../../shared/responses/not_found.yml"
+
+  "429":
+    $ref: "../../shared/responses/too_many_requests.yml"
+
+  "500":
+    $ref: "../../shared/responses/server_error.yml"
+
+  default:
+    $ref: "../../shared/responses/unexpected_error.yml"
+
+x-codeSamples:
+  - $ref: "examples/curl/databases_create_logsink.yml"
+
+security:
+  - bearer_auth:
+    - 'database:create'

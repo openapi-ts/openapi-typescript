@@ -1,0 +1,256 @@
+type: object
+
+properties:
+  backup_hour:
+    description: >-
+      The hour of day (in UTC) when backup for the service starts. New backup
+      only starts if previous backup has already completed.
+    minimum: 0
+    maximum: 23
+    type: integer
+    example: 3
+  backup_minute:
+    description: >-
+      The minute of the backup hour when backup for the service starts. New backup 
+      only starts if previous backup has already completed.
+    minimum: 0
+    maximum: 59
+    type: integer
+    example: 30
+  sql_mode:
+    description: >-
+      Global SQL mode. If empty, uses MySQL server defaults.
+      Must only include uppercase alphabetic characters, underscores, and commas.
+    type: string
+    pattern: ^[A-Z_]*(,[A-Z_]+)*$
+    example: ANSI,TRADITIONAL
+    maxLength: 1024
+  connect_timeout:
+    description: >-
+      The number of seconds that the mysqld server waits for a connect packet
+      before responding with bad handshake.
+    type: integer
+    minimum: 2
+    maximum: 3600
+    example: 10
+  default_time_zone:
+    description: >-
+      Default server time zone, in the form of an offset from UTC (from -12:00 to +12:00), a
+      time zone name (EST), or 'SYSTEM' to use the MySQL server default.
+    type: string
+    example: '+03:00'
+    minLength: 2
+    maxLength: 100
+  group_concat_max_len:
+    description: >-
+      The maximum permitted result length, in bytes, for the GROUP_CONCAT()
+      function.
+    type: integer
+    minimum: 4
+    maximum: 18446744073709552000
+    example: 1024
+  information_schema_stats_expiry:
+    description: The time, in seconds, before cached statistics expire.
+    type: integer
+    minimum: 900
+    maximum: 31536000
+    example: 86400
+  innodb_ft_min_token_size:
+    description: The minimum length of words that an InnoDB FULLTEXT index stores.
+    type: integer
+    minimum: 0
+    maximum: 16
+    example: 3
+  innodb_ft_server_stopword_table:
+    description: >-
+      The InnoDB FULLTEXT index stopword
+      list for all InnoDB tables.
+    type: string
+    pattern: ^.+/.+$
+    example: db_name/table_name
+    maxLength: 1024
+  innodb_lock_wait_timeout:
+    description: >-
+      The time, in seconds, that an InnoDB transaction waits for a row lock.
+      before giving up.
+    type: integer
+    minimum: 1
+    maximum: 3600
+    example: 50
+  innodb_log_buffer_size:
+    description: >-
+      The size of the buffer, in bytes, that InnoDB uses to write to the log files.
+      on disk.
+    type: integer
+    minimum: 1048576
+    maximum: 4294967295
+    example: 16777216
+  innodb_online_alter_log_max_size:
+    description: >-
+      The upper limit, in bytes, of the size of the temporary log files used
+      during online DDL operations for InnoDB tables.
+    type: integer
+    minimum: 65536
+    maximum: 1099511627776
+    example: 134217728
+  innodb_print_all_deadlocks:
+    description: >-
+      When enabled, records information about all deadlocks in InnoDB user transactions 
+      in the error log. Disabled by default.
+    type: boolean
+    example: true
+  innodb_rollback_on_timeout:
+    description: >-
+      When enabled, transaction timeouts cause InnoDB to abort and roll back
+      the entire transaction.
+    type: boolean
+    example: true
+  interactive_timeout:
+    description: >-
+      The time, in seconds, the server waits for activity on an interactive.
+      connection before closing it.
+    type: integer
+    minimum: 30
+    maximum: 604800
+    example: 3600
+  internal_tmp_mem_storage_engine:
+    description: The storage engine for in-memory internal temporary tables.
+    type: string
+    enum:
+      - TempTable
+      - MEMORY
+    example: TempTable
+  net_read_timeout:
+    description: >-
+      The time, in seconds, to wait for more data from an existing connection.
+      aborting the read.
+    type: integer
+    minimum: 1
+    maximum: 3600
+    example: 30
+  net_write_timeout:
+    description: >-
+      The number of seconds to wait for a block to be written to a connection
+      before aborting the write.
+    type: integer
+    minimum: 1
+    maximum: 3600
+    example: 30
+  sql_require_primary_key:
+    description: >-
+      Require primary key to be defined for new tables or old tables modified
+      with ALTER TABLE and fail if missing. It is recommended to always have
+      primary keys because various functionality may break if any large table is
+      missing them.
+    type: boolean
+    example: true
+  wait_timeout:
+    description: >-
+      The number of seconds the server waits for activity on a noninteractive
+      connection before closing it.
+    type: integer
+    minimum: 1
+    maximum: 2147483
+    example: 28800
+  max_allowed_packet:
+    description: >-
+      The size of the largest message, in bytes, that can be received by the server.
+      Default is 67108864 (64M).
+    type: integer
+    minimum: 102400
+    maximum: 1073741824
+    example: 67108864
+  max_heap_table_size:
+    description: >-
+      The maximum size, in bytes, of internal in-memory tables. Also set tmp_table_size.
+      Default is 16777216 (16M)
+    type: integer
+    minimum: 1048576
+    maximum: 1073741824
+    example: 16777216
+  sort_buffer_size:
+    description: >-
+      The sort buffer size, in bytes, for ORDER BY optimization. Default is 262144.
+      (256K).
+    type: integer
+    minimum: 32768
+    maximum: 1073741824
+    example: 262144
+  tmp_table_size:
+    description: >-
+      The maximum size, in bytes, of internal in-memory tables. Also set
+      max_heap_table_size. Default is 16777216 (16M).
+    type: integer
+    minimum: 1048576
+    maximum: 1073741824
+    example: 16777216
+  slow_query_log:
+    description: >-
+      When enabled, captures slow queries. When disabled, also
+      truncates the mysql.slow_log table. Default is false.
+    type: boolean
+    example: true
+  long_query_time:
+    description: >-
+      The time, in seconds, for a query to take to execute before 
+      being captured by slow_query_logs. Default is 10 seconds.
+    type: number
+    minimum: 0
+    maximum: 3600
+    example: 10
+  binlog_retention_period:
+    description: >-
+      The minimum amount of time, in seconds, to keep binlog entries before deletion. 
+      This may be extended for services that require binlog entries for longer than the default, for example if using the MySQL Debezium Kafka connector.
+    type: number
+    minimum: 600
+    maximum: 86400
+    example: 600
+  innodb_change_buffer_max_size:
+    description: >-
+      Specifies the maximum size of the InnoDB change buffer as a percentage of the buffer pool.
+    type: integer
+    minimum: 0
+    maximum: 50
+    example: 25
+  innodb_flush_neighbors:
+    description: >-
+      Specifies whether flushing a page from the InnoDB buffer pool also flushes other dirty pages in the same extent.
+        - 0 &mdash; disables this functionality, dirty pages in the same extent are not flushed.
+        - 1 &mdash; flushes contiguous dirty pages in the same extent.
+        - 2 &mdash; flushes dirty pages in the same extent.
+    type: integer
+    enum:
+      - 0
+      - 1
+      - 2
+    example: 0
+  innodb_read_io_threads:
+    description: >-
+      The number of I/O threads for read operations in InnoDB. Changing this parameter will lead to a restart of the MySQL service.
+    type: integer
+    minimum: 1
+    maximum: 64
+    example: 16
+  innodb_write_io_threads:
+    description: >-
+      The number of I/O threads for write operations in InnoDB. Changing this parameter will lead to a restart of the MySQL service.
+    type: integer
+    minimum: 1
+    maximum: 64
+    example: 16
+  innodb_thread_concurrency:
+    description: >-
+      Defines the maximum number of threads permitted inside of InnoDB. A value of 0 (the default) is interpreted as infinite concurrency (no limit). This variable is intended for performance 
+      tuning on high concurrency systems.
+    type: integer
+    minimum: 0
+    maximum: 1000
+    example: 0
+  net_buffer_length: 
+    description: >-
+      Start sizes of connection buffer and result buffer, must be multiple of 1024. Changing this parameter will lead to a restart of the MySQL service.
+    type: integer
+    minimum: 1024
+    maximum: 1048576
+    example: 4096

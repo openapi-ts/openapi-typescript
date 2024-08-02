@@ -70,3 +70,12 @@ kafka_topic_name:
   example: customer-events
   schema:
     type: string
+
+logsink_id:
+  in: path
+  name: logsink_id
+  description: A unique identifier for a logsink of a database cluster
+  required: true
+  example: 50484ec3-19d6-4cd3-b56f-3b0381c289a6
+  schema:
+    type: string

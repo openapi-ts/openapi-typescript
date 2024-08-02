@@ -27,8 +27,6 @@ description: >-
 
   Note: Backups are not supported for Redis clusters.
 
-  OpenSearch is in closed beta. To request access, [contact support](https://cloudsupport.digitalocean.com).
-
 tags:
   - Databases
 

@@ -46,7 +46,8 @@ describe("transformSchemaObject > object", () => {
         },
         want: `{
     property?: boolean;
-    [key: string]: string | undefined;
+} & {
+    [key: string]: string;
 }`,
         // options: DEFAULT_OPTIONS,
       },
@@ -56,15 +57,17 @@ describe("transformSchemaObject > object", () => {
       {
         given: { type: "object", additionalProperties: { type: "string" } },
         want: `{
-    [key: string]: string | undefined;
+    [key: string]: string;
 }`,
       },
     ],
     [
       "additionalProperties > true",
       {
-        given: { type: "object", additionalProperties: true },
+        given: { type: "object", properties: { property: { type: "number" } }, additionalProperties: true },
         want: `{
+    property?: number;
+} & {
     [key: string]: unknown;
 }`,
       },
@@ -270,6 +273,7 @@ describe("transformSchemaObject > object", () => {
         given: { type: "object", properties: { string: { type: "string" } } },
         want: `{
     string?: string;
+} & {
     [key: string]: unknown;
 }`,
         options: {

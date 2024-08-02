@@ -1,7 +1,8 @@
 type: object
 properties:
   cluster_name:
-    description: The name of the underlying DigitalOcean DBaaS cluster. This is required
+    description:
+      The name of the underlying DigitalOcean DBaaS cluster. This is required
       for production databases. For dev databases, if cluster_name is not set, a new
       cluster will be provisioned.
     type: string
@@ -21,22 +22,24 @@ properties:
     type: string
     default: UNSET
     enum:
-    - UNSET
-    - MYSQL
-    - PG
-    - REDIS
-    - MONGODB
-    - KAFKA
+      - UNSET
+      - MYSQL
+      - PG
+      - REDIS
+      - MONGODB
+      - KAFKA
+      - OPENSEARCH
     description: |-
       - MYSQL: MySQL
       - PG: PostgreSQL
       - REDIS: Redis
       - MONGODB: MongoDB
       - KAFKA: Kafka
+      - OPENSEARCH: OpenSearch
     example: PG
 
   name:
-    description: The name. Must be unique across all components within the same app.
+    description: The database's name. The name must be unique across all components within the same app and cannot use capital letters.
     maxLength: 32
     minLength: 2
     pattern: ^[a-z][a-z0-9-]{0,30}[a-z0-9]$
@@ -54,4 +57,4 @@ properties:
     example: "12"
 
 required:
-- name
+  - name

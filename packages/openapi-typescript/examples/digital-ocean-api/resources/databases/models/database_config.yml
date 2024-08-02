@@ -3,8 +3,9 @@ type: object
 properties:
   config:
     anyOf:
-      - $ref: './mysql.yml'
-      - $ref: './postgres.yml'
-      - $ref: './redis.yml'
-      - $ref: './mongo.yml'
-      - $ref: './kafka.yml'
+      - $ref: './advanced_config/mysql_advanced_config.yml'
+      - $ref: './advanced_config/postgres_advanced_config.yml'
+      - $ref: './advanced_config/redis_advanced_config.yml'
+      - $ref: './advanced_config/mongo_advanced_config.yml'
+      - $ref: './advanced_config/kafka_advanced_config.yml'
+      - $ref: './advanced_config/opensearch_advanced_config.yml'
