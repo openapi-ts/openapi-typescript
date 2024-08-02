@@ -233,7 +233,7 @@ export default function createClient(clientOptions) {
   };
 }
 
-class UrlCallForwarder {
+class PathCallForwarder {
   constructor(client, url) {
     this.client = client;
     this.url = url;
@@ -265,17 +265,42 @@ class UrlCallForwarder {
   }
 }
 
-const clientProxyHandler = {
+class PathClientProxyHandler {
+  constructor() {
+    this.client = null;
+  }
+
   // Assume the property is an URL.
-  get: (coreClient, url) => new UrlCallForwarder(coreClient, url),
-};
+  get(coreClient, url) {
+    const forwarder = new PathCallForwarder(coreClient, url);
+    this.client[url] = forwarder;
+    return forwarder;
+  }
+}
 
 /**
  * Wrap openapi-fetch client to support a path based API.
  * @type {import("./index.js").wrapAsPathBasedClient}
  */
 export function wrapAsPathBasedClient(coreClient) {
-  return new Proxy(coreClient, clientProxyHandler);
+  const handler = new PathClientProxyHandler();
+  const proxy = new Proxy(coreClient, handler);
+
+  // Put the proxy on the prototype chain of the actual client.
+  // This means if we do not have a memoized PathCallForwarder,
+  // we fall back to the proxy to synthesize it.
+  // However, the proxy itself is not on the hot-path (if we fetch the same
+  // endpoint multiple times, only the first call will hit the proxy).
+  function Client() {}
+  Client.prototype = proxy;
+
+  const client = new Client();
+
+  // Feed the client back to the proxy handler so it can store the generated
+  // PathCallForwarder.
+  handler.client = client;
+
+  return client;
 }
 
 /**
