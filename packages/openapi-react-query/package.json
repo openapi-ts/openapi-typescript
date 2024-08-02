@@ -71,12 +71,10 @@
     "del-cli": "^5.1.0",
     "esbuild": "^0.20.2",
     "execa": "^8.0.1",
-    "openapi-typescript": "workspace:^",
     "msw": "^2.3.1",
+    "openapi-typescript": "workspace:^",
     "react": "^18.3.1",
-    "react-error-boundary": "^4.0.13",
-    "typescript": "^5.4.5",
-    "vitest": "^1.6.0"
+    "react-error-boundary": "^4.0.13"
   },
   "peerDependencies": {
     "@tanstack/react-query": "^5.0.0",
