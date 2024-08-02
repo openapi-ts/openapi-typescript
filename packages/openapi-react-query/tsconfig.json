@@ -2,14 +2,15 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "lib": ["ESNext", "DOM"],
-    "module": "ES2022",
+    "module": "ESNext",
     "moduleResolution": "Bundler",
     "outDir": "dist",
     "skipLibCheck": true,
     "sourceRoot": ".",
     "jsx": "react-jsx",
+    "target": "ES2022",
     "types": ["vitest/globals"]
   },
-  "include": ["scripts", "src", "test", "*.ts"],
+  "include": ["src", "test", "*.ts"],
   "exclude": ["node_modules"]
 }
