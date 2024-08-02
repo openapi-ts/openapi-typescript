@@ -1,44 +1,31 @@
 import fs from "node:fs";
 import { URL } from "node:url";
 
-const AVATAR_RE = /property="og:image" content="([^"]+)/;
-const TITLE_RE = /<title>[^(<]*\(([^)<]+)/;
 const CONTRIBUTORS_JSON = new URL("../data/contributors.json", import.meta.url);
 
-const contributors = JSON.parse(fs.readFileSync(CONTRIBUTORS_JSON, "utf8"));
+const data = JSON.parse(fs.readFileSync(CONTRIBUTORS_JSON, "utf8"));
 
-const ONE_MONTH = 1000 * 60 * 60 * 24 * 7 * 30;
+const ONE_WEEK = 1000 * 60 * 60 * 24;
+
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+if (!GITHUB_TOKEN) {
+  throw new Error(
+    'GITHUB_TOKEN not set! Create a token with "read:user" scope and set as an environment variable.\nhttps://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic',
+  );
+}
 
 async function fetchUserInfo(username) {
-  const res = await fetch(`https://github.com/${username}`, {
+  const res = await fetch(`https://api.github.com/users/${username}`, {
     headers: {
-      accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-      "accept-encoding": "gzip, deflate, br, zstd",
-      "accept-language": "en-US,en;q=0.5",
-      "cache-control": "no-cache",
-      connection: "keep-alive",
-      "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0",
+      Accept: "application/vnd.github+json",
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
+      "X-GitHub-Api-Version": "2022-11-28",
     },
   });
   if (!res.ok) {
     throw new Error(`${res.url} responded with ${res.status}`);
   }
-  const body = await res.text();
-  const avatarMatch = body.match(AVATAR_RE);
-  if (!avatarMatch) {
-    throw new Error(`Could not find avatar for ${username}`);
-  }
-
-  const nameMatch = body.match(TITLE_RE);
-  let name = username;
-  if (nameMatch?.[1]) {
-    name = nameMatch[1];
-  }
-
-  return {
-    avatar: avatarMatch[1],
-    name,
-  };
+  return await res.json();
 }
 
 function upsert(list, userData) {
@@ -50,8 +37,8 @@ function upsert(list, userData) {
   }
 }
 
-const OPENAPI_TS_CONTRIBUTORS = [
-  ...new Set([
+const CONTRIBUTORS = {
+  "openapi-typescript": new Set([
     "drwpow",
     "psmyrdek",
     "enmand",
@@ -151,10 +138,7 @@ const OPENAPI_TS_CONTRIBUTORS = [
     "luchsamapparat",
     "nmacmunn",
   ]),
-];
-
-export const OPENAPI_FETCH_CONTRIBUTORS = [
-  ...new Set([
+  "openapi-fetch": new Set([
     "drwpow",
     "fergusean",
     "shinzui",
@@ -180,45 +164,36 @@ export const OPENAPI_FETCH_CONTRIBUTORS = [
     "armandabric",
     "illright",
   ]),
-];
-
-export const OPENAPI_REACT_QUERY_CONTRIBUTORS = [...new Set(["drwpow", "kerwanp"])];
+  "openapi-react-query": new Set(["drwpow", "kerwanp"]),
+};
 
 async function main() {
-  const total = [...OPENAPI_TS_CONTRIBUTORS, OPENAPI_FETCH_CONTRIBUTORS, OPENAPI_REACT_QUERY_CONTRIBUTORS].length;
   let i = 0;
+  const total = Object.values(CONTRIBUTORS).reduce((total, next) => total + next.size, 0);
   await Promise.all(
-    ["openapi-typescript", "openapi-fetch", "openapi-react-query"].map(async (repo) => {
-      const userlist =
-        repo === "openapi-fetch"
-          ? OPENAPI_FETCH_CONTRIBUTORS
-          : repo === "openapi-react-query"
-            ? OPENAPI_REACT_QUERY_CONTRIBUTORS
-            : OPENAPI_TS_CONTRIBUTORS;
-      for (const username of userlist) {
+    Object.entries(CONTRIBUTORS).map(async ([repo, contributors]) => {
+      for (const username of [...contributors]) {
         i++;
         // skip profiles that have been updated within the past week
-        const { lastFetch } = contributors[repo].find((u) => u.username === username) ?? { lastFetch: 0 };
-        if (Date.now() - lastFetch < ONE_MONTH) {
+        const { lastFetch } = data[repo].find((u) => u.username === username) ?? { lastFetch: 0 };
+        if (Date.now() - lastFetch < ONE_WEEK) {
           // biome-ignore lint/suspicious/noConsoleLog: this is a script
           console.log(`[${i}/${total}] (Skipped ${username})`);
           continue;
         }
-
-        // note: fetch sequentially, otherwise GitHub times out (429)
-        // also run on every docs build to pick up updated avatars
         try {
+          const { avatar_url: avatar, name } = await fetchUserInfo(username);
           const userData = {
             username,
-            ...(await fetchUserInfo(username)),
+            name,
+            avatar,
             links: [{ icon: "github", link: `https://github.com/${username}` }],
             lastFetch: new Date().getTime(),
           };
-          upsert(contributors[repo], userData);
+          upsert(data[repo], userData);
           // biome-ignore lint/suspicious/noConsoleLog: this is a script
           console.log(`[${i}/${total}] Updated for ${username}`);
-          fs.writeFileSync(new URL("../data/contributors.json", import.meta.url), JSON.stringify(contributors)); // update file while fetching (sync happens safely in between fetches)
-          await new Promise((resolve) => setTimeout(resolve, 1000)); // sleep to prevent 429
+          fs.writeFileSync(new URL("../data/contributors.json", import.meta.url), JSON.stringify(data)); // update file while fetching (sync happens safely in between fetches)
         } catch (err) {
           throw new Error(err);
         }
