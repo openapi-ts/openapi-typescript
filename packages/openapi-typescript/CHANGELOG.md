@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.3.0
+
+### Minor Changes
+
+- [#1799](https://github.com/openapi-ts/openapi-typescript/pull/1799) [`9939b76`](https://github.com/openapi-ts/openapi-typescript/commit/9939b76f29b90baa868b8764a403dcb98fc2ca65) Thanks [@drwpow](https://github.com/drwpow)! - Don’t generate `| undefined` for additionalProperties
+
 ## 7.2.0
 
 ### Minor Changes
