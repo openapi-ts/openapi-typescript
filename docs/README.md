@@ -9,7 +9,7 @@ Lives at [https://openapi-ts.dev](https://openapi-ts.dev).
 Setup requires the latest version of [Node.js](https://nodejs.org/en) and [pnpm](https://pnpm.io/). With both installed, run:
 
 ```
-pnpm 1
+pnpm i
 pnpm run dev
 ```
 
