@@ -1318,7 +1318,7 @@ describe("client", () => {
         });
 
         await client.GET("/self", {
-          baseUrl: "https://api.foo.bar/v1/"
+          baseUrl: "https://api.foo.bar/v1/",
         });
         expect(requestBaseUrl).toBe("https://api.foo.bar/v1");
       });
