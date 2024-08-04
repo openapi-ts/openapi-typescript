@@ -5,6 +5,7 @@ import {
   type UseQueryResult,
   type UseSuspenseQueryOptions,
   type UseSuspenseQueryResult,
+  type QueryClient,
   useMutation,
   useQuery,
   useSuspenseQuery,
@@ -21,9 +22,9 @@ export type UseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>,
 >(
   method: Method,
   url: Path,
-  ...[init, options]: HasRequiredKeys<Init> extends never
-    ? [(Init & { [key: string]: unknown })?, Options?]
-    : [Init & { [key: string]: unknown }, Options?]
+  ...[init, options, queryClient]: HasRequiredKeys<Init> extends never
+    ? [(Init & { [key: string]: unknown })?, Options?, QueryClient?]
+    : [Init & { [key: string]: unknown }, Options?, QueryClient?]
 ) => UseQueryResult<Response["data"], Response["error"]>;
 
 export type UseSuspenseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
@@ -35,9 +36,9 @@ export type UseSuspenseQueryMethod<Paths extends Record<string, Record<HttpMetho
 >(
   method: Method,
   url: Path,
-  ...[init, options]: HasRequiredKeys<Init> extends never
-    ? [(Init & { [key: string]: unknown })?, Options?]
-    : [Init & { [key: string]: unknown }, Options?]
+  ...[init, options, queryClient]: HasRequiredKeys<Init> extends never
+    ? [(Init & { [key: string]: unknown })?, Options?, QueryClient?]
+    : [Init & { [key: string]: unknown }, Options?, QueryClient?]
 ) => UseSuspenseQueryResult<Response["data"], Response["error"]>;
 
 export type UseMutationMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
@@ -50,6 +51,7 @@ export type UseMutationMethod<Paths extends Record<string, Record<HttpMethod, {}
   method: Method,
   url: Path,
   options?: Options,
+  queryClient?: QueryClient,
 ) => UseMutationResult<Response["data"], Response["error"], Init>;
 
 export interface OpenapiQueryClient<Paths extends {}, Media extends MediaType = MediaType> {
@@ -64,51 +66,60 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   client: FetchClient<Paths, Media>,
 ): OpenapiQueryClient<Paths, Media> {
   return {
-    useQuery: (method, path, ...[init, options]) => {
-      return useQuery({
-        queryKey: [method, path, init],
-        queryFn: async () => {
-          const mth = method.toUpperCase() as keyof typeof client;
-          const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
-          const { data, error } = await fn(path, init as any); // TODO: find a way to avoid as any
-          if (error || !data) {
-            throw error;
-          }
-          return data;
+    useQuery: (method, path, ...[init, options, queryClient]) => {
+      return useQuery(
+        {
+          queryKey: [method, path, init],
+          queryFn: async () => {
+            const mth = method.toUpperCase() as keyof typeof client;
+            const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
+            const { data, error } = await fn(path, init as any); // TODO: find a way to avoid as any
+            if (error || !data) {
+              throw error;
+            }
+            return data;
+          },
+          ...options,
         },
-        ...options,
-      });
+        queryClient,
+      );
     },
-    useSuspenseQuery: (method, path, ...[init, options]) => {
-      return useSuspenseQuery({
-        queryKey: [method, path, init],
-        queryFn: async () => {
-          const mth = method.toUpperCase() as keyof typeof client;
-          const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
-          const { data, error } = await fn(path, init as any); // TODO: find a way to avoid as any
-          if (error || !data) {
-            throw error;
-          }
-          return data;
+    useSuspenseQuery: (method, path, ...[init, options, queryClient]) => {
+      return useSuspenseQuery(
+        {
+          queryKey: [method, path, init],
+          queryFn: async () => {
+            const mth = method.toUpperCase() as keyof typeof client;
+            const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
+            const { data, error } = await fn(path, init as any); // TODO: find a way to avoid as any
+            if (error || !data) {
+              throw error;
+            }
+            return data;
+          },
+          ...options,
         },
-        ...options,
-      });
+        queryClient,
+      );
     },
-    useMutation: (method, path, options) => {
-      return useMutation({
-        mutationKey: [method, path],
-        mutationFn: async (init) => {
-          // TODO: Put in external fn for reusability
-          const mth = method.toUpperCase() as keyof typeof client;
-          const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
-          const { data, error } = await fn(path, init as any); // TODO: find a way to avoid as any
-          if (error || !data) {
-            throw error;
-          }
-          return data;
+    useMutation: (method, path, options, queryClient) => {
+      return useMutation(
+        {
+          mutationKey: [method, path],
+          mutationFn: async (init) => {
+            // TODO: Put in external fn for reusability
+            const mth = method.toUpperCase() as keyof typeof client;
+            const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
+            const { data, error } = await fn(path, init as any); // TODO: find a way to avoid as any
+            if (error || !data) {
+              throw error;
+            }
+            return data;
+          },
+          ...options,
         },
-        ...options,
-      });
+        queryClient,
+      );
     },
   };
 }
