@@ -767,6 +767,29 @@ describe("client", () => {
       expect(getRequestUrl().href).toBe(toAbsoluteURL("/self"));
     });
 
+    it("baseUrl per request", async () => {
+      const localBaseUrl = "https://api.foo.bar/v1";
+      let client = createClient<paths>({ baseUrl });
+
+      const { getRequestUrl } = useMockRequestHandler({
+        baseUrl: localBaseUrl,
+        method: "get",
+        path: "/self",
+        status: 200,
+        body: { message: "OK" },
+      });
+
+      await client.GET("/self", { baseUrl: localBaseUrl });
+
+      // assert baseUrl and path mesh as expected
+      expect(getRequestUrl().href).toBe(toAbsoluteURL("/self", localBaseUrl));
+
+      client = createClient<paths>({ baseUrl });
+      await client.GET("/self", { baseUrl: localBaseUrl });
+      // assert trailing '/' was removed
+      expect(getRequestUrl().href).toBe(toAbsoluteURL("/self", localBaseUrl));
+    });
+
     describe("headers", () => {
       it("persist", async () => {
         const headers: HeadersInit = { Authorization: "Bearer secrettoken" };
@@ -1271,6 +1294,33 @@ describe("client", () => {
         expect(req.headers.get("createClient")).toBe("exists");
         expect(req.headers.get("onFetch")).toBe("exists");
         expect(req.headers.get("onRequest")).toBe("exists");
+      });
+
+      it("baseUrl can be overriden", async () => {
+        useMockRequestHandler({
+          baseUrl: "https://api.foo.bar/v1/",
+          method: "get",
+          path: "/self",
+          status: 200,
+          body: {},
+        });
+
+        let requestBaseUrl = "";
+
+        const client = createClient<paths>({
+          baseUrl,
+        });
+        client.use({
+          onRequest({ options }) {
+            requestBaseUrl = options.baseUrl;
+            return undefined;
+          },
+        });
+
+        await client.GET("/self", {
+          baseUrl: "https://api.foo.bar/v1/"
+        });
+        expect(requestBaseUrl).toBe("https://api.foo.bar/v1");
       });
     });
   });
