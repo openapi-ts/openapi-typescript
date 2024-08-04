@@ -62,4 +62,6 @@ const query = $api.useQuery(method, path, options, queryOptions);
 - `queryOptions`
   - The original `useMutation` options.
   - [See more information](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation)
-
+- `queryClient`
+  - The original `queryClient` option.
+  - [See more information](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation)
