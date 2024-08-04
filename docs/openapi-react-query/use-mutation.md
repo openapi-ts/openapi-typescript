@@ -47,7 +47,7 @@ export const $api = createClient(fetchClient);
 ## Api
 
 ```tsx
-const query = $api.useQuery(method, path, options, queryOptions);
+const query = $api.useQuery(method, path, options, queryOptions, queryClient);
 ```
 
 **Arguments**

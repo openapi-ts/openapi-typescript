@@ -57,7 +57,7 @@ export const $api = createClient(fetchClient);
 ## Api
 
 ```tsx
-const query = $api.useSuspenseQuery(method, path, options, queryOptions);
+const query = $api.useSuspenseQuery(method, path, options, queryOptions, queryClient);
 ```
 
 **Arguments**
