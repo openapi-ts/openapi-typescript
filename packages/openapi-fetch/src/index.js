@@ -382,7 +382,7 @@ export function createQuerySerializer(options) {
         search.push(serializePrimitiveParam(name, value, options));
       }
     }
-    return search.join("&");
+    return search.filter(Boolean).join("&");
   };
 }
 
