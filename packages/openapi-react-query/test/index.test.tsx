@@ -130,6 +130,41 @@ describe("client", () => {
         await waitFor(() => expect(result.current.isSuccess).toBe(true));
       });
     });
+
+    it("should use provided custom queryClient", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+      const customQueryClient = new QueryClient({});
+
+      function Page() {
+        const { data } = client.useQuery(
+          "get",
+          "/blogposts/{post_id}",
+          {
+            params: {
+              path: {
+                post_id: "1",
+              },
+            },
+          },
+          {},
+          customQueryClient,
+        );
+        return <div>data: {data?.title}</div>;
+      }
+
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/blogposts/:post_id",
+        status: 200,
+        body: { title: "hello" },
+      });
+
+      const rendered = render(<Page />);
+
+      await waitFor(() => expect(rendered.getByText("data: hello")));
+    });
   });
 
   describe("useSuspenseQuery", () => {
