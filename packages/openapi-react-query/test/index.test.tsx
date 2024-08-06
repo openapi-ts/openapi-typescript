@@ -223,6 +223,41 @@ describe("client", () => {
       expect(await screen.findByText("Something went wrong")).toBeDefined();
       errorSpy.mockRestore();
     });
+
+    it("should use provided custom queryClient", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+      const customQueryClient = new QueryClient({});
+
+      function Page() {
+        const { data } = client.useSuspenseQuery(
+          "get",
+          "/blogposts/{post_id}",
+          {
+            params: {
+              path: {
+                post_id: "1",
+              },
+            },
+          },
+          {},
+          customQueryClient,
+        );
+        return <div>data: {data?.title}</div>;
+      }
+
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/blogposts/:post_id",
+        status: 200,
+        body: { title: "Hello" },
+      });
+
+      const rendered = render(<Page />);
+
+      await waitFor(() => rendered.findByText("data: Hello"));
+    });
   });
 
   describe("useMutation", () => {
@@ -290,6 +325,7 @@ describe("client", () => {
           return (
             <div>
               <button
+                type="button"
                 onClick={() =>
                   mutation.mutate({
                     body: {
@@ -316,7 +352,7 @@ describe("client", () => {
           body: { message: "Hello" },
         });
 
-        const rendered = render(<Page></Page>);
+        const rendered = render(<Page />);
 
         await rendered.findByText("data: null, status: idle");
 
@@ -378,6 +414,7 @@ describe("client", () => {
           return (
             <div>
               <button
+                type="button"
                 onClick={() =>
                   mutation.mutateAsync({
                     body: {
@@ -404,7 +441,7 @@ describe("client", () => {
           body: { message: "Hello" },
         });
 
-        const rendered = render(<Page></Page>);
+        const rendered = render(<Page />);
 
         await rendered.findByText("data: null, status: idle");
 
