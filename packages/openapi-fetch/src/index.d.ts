@@ -24,7 +24,7 @@ export interface ClientOptions extends Omit<RequestInit, "headers"> {
 }
 
 export type HeadersOptions =
-  | HeadersInit
+  | Required<RequestInit>["headers"]
   | Record<string, string | number | boolean | (string | number | boolean)[] | null | undefined>;
 
 export type QuerySerializer<T> = (
