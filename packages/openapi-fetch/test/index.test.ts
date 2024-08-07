@@ -933,7 +933,6 @@ describe("client", () => {
       });
 
       const BODIES = [{ prop: "a" }, {}, "", "str", null, false, 0, 1, new Date("2024-08-07T09:52:00.836Z")] as const;
-      // const BODIES = ["str"] as const;
       const METHOD_BODY_COMBINATIONS = BODY_ACCEPTING_METHODS.flatMap(([method]) =>
         BODIES.map((body) => [method, body] as const),
       );
