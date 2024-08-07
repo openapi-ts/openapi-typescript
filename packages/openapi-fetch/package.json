@@ -1,7 +1,7 @@
 {
   "name": "openapi-fetch",
   "description": "Fast, type-safe fetch client for your OpenAPI schema. Only 5 kb (min). Works with React, Vue, Svelte, or vanilla JS.",
-  "version": "0.10.5",
+  "version": "0.10.6",
   "author": {
     "name": "Drew Powers",
     "email": "drew@pow.rs"
