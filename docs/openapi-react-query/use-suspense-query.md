@@ -57,7 +57,7 @@ export const $api = createClient(fetchClient);
 ## Api
 
 ```tsx
-const query = $api.useSuspenseQuery(method, path, options, queryOptions);
+const query = $api.useSuspenseQuery(method, path, options, queryOptions, queryClient);
 ```
 
 **Arguments**
@@ -76,4 +76,6 @@ const query = $api.useSuspenseQuery(method, path, options, queryOptions);
 - `queryOptions`
   - The original `useSuspenseQuery` options.
   - [See more information](https://tanstack.com/query/latest/docs/framework/react/reference/useSuspenseQuery)
-
+- `queryClient`
+  - The original `queryClient` option.
+  - [See more information](https://tanstack.com/query/latest/docs/framework/react/reference/useSuspenseQuery)
