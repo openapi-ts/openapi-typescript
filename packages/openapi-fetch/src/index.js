@@ -84,7 +84,7 @@ export default function createClient(clientOptions) {
       ...init,
       headers: mergeHeaders(baseHeaders, headers, params.header),
     };
-    if (requestInit.body) {
+    if (requestInit.body !== undefined) {
       requestInit.body = bodySerializer(requestInit.body);
       // remove `Content-Type` if serialized body is FormData; browser will correctly set Content-Type & boundary expression
       if (requestInit.body instanceof FormData) {
