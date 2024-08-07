@@ -4,6 +4,8 @@ import createClient, {
   type BodySerializer,
   type FetchOptions,
   type MethodResponse,
+  type FetchOptions,
+  type HeadersOptions,
   type Middleware,
   type MiddlewareCallbackParams,
   type QuerySerializerOptions,
@@ -11,7 +13,7 @@ import createClient, {
   type PathBasedClient,
   createPathBasedClient,
 } from "../src/index.js";
-import { server, baseUrl, useMockRequestHandler, toAbsoluteURL } from "./fixtures/mock-server.js";
+import { baseUrl, server, toAbsoluteURL, useMockRequestHandler } from "./fixtures/mock-server.js";
 import type { paths } from "./fixtures/api.js";
 
 beforeAll(() => {
@@ -819,12 +821,7 @@ describe("client", () => {
         await client.GET("/self");
 
         // assert default headers were passed
-        expect(getRequest().headers).toEqual(
-          new Headers({
-            ...headers, // assert new header got passed
-            "Content-Type": "application/json", //  probably doesn’t need to get tested, but this was simpler than writing lots of code to ignore these
-          }),
-        );
+        expect(getRequest().headers).toEqual(new Headers(headers));
       });
 
       it("can be overridden", async () => {
@@ -850,7 +847,6 @@ describe("client", () => {
         expect(getRequest().headers).toEqual(
           new Headers({
             "Cache-Control": "no-cache",
-            "Content-Type": "application/json",
           }),
         );
       });
@@ -892,6 +888,139 @@ describe("client", () => {
 
         expect(getRequest().headers.get("list")).toEqual(list.join(", "));
       });
+    });
+
+    describe("content-type", () => {
+      const BODY_ACCEPTING_METHODS = [["PUT"], ["POST"], ["DELETE"], ["OPTIONS"], ["PATCH"]] as const;
+      const ALL_METHODS = [...BODY_ACCEPTING_METHODS, ["GET"], ["HEAD"]] as const;
+
+      const fireRequestAndGetContentType = async (options: {
+        defaultHeaders?: HeadersOptions;
+        method: (typeof ALL_METHODS)[number][number];
+        fetchOptions: FetchOptions<any>;
+      }) => {
+        const client = createClient<any>({ baseUrl, headers: options.defaultHeaders });
+        const { getRequest } = useMockRequestHandler({
+          baseUrl,
+          method: "all",
+          path: "/blogposts-optional",
+          status: 200,
+        });
+        await client[options.method]("/blogposts-optional", options.fetchOptions as any);
+
+        const request = getRequest();
+        return request.headers.get("content-type");
+      };
+
+      it.each(ALL_METHODS)("no content-type for body-less requests - %s", async (method) => {
+        const contentType = await fireRequestAndGetContentType({
+          method,
+          fetchOptions: {},
+        });
+
+        expect(contentType).toBe(null);
+      });
+
+      it.each(ALL_METHODS)("no content-type for `undefined` body requests - %s", async (method) => {
+        const contentType = await fireRequestAndGetContentType({
+          method,
+          fetchOptions: {
+            body: undefined,
+          },
+        });
+
+        expect(contentType).toBe(null);
+      });
+
+      const BODIES = [{ prop: "a" }, {}, "", "str", null, false, 0, 1, new Date("2024-08-07T09:52:00.836Z")] as const;
+      // const BODIES = ["str"] as const;
+      const METHOD_BODY_COMBINATIONS = BODY_ACCEPTING_METHODS.flatMap(([method]) =>
+        BODIES.map((body) => [method, body] as const),
+      );
+
+      it.each(METHOD_BODY_COMBINATIONS)(
+        "implicit default content-type for body-full requests - %s, %j",
+        async (method, body) => {
+          const contentType = await fireRequestAndGetContentType({
+            method,
+            fetchOptions: {
+              body,
+            },
+          });
+
+          expect(contentType).toBe("application/json");
+        },
+      );
+
+      it.each(METHOD_BODY_COMBINATIONS)(
+        "provided default content-type for body-full requests - %s, %j",
+        async (method, body) => {
+          const contentType = await fireRequestAndGetContentType({
+            defaultHeaders: {
+              "content-type": "application/my-json",
+            },
+            method,
+            fetchOptions: {
+              body,
+            },
+          });
+
+          expect(contentType).toBe("application/my-json");
+        },
+      );
+
+      it.each(METHOD_BODY_COMBINATIONS)(
+        "native-fetch default content-type for body-full requests, when default is suppressed - %s, %j",
+        async (method, body) => {
+          const contentType = await fireRequestAndGetContentType({
+            defaultHeaders: {
+              "content-type": null,
+            },
+            method,
+            fetchOptions: {
+              body,
+            },
+          });
+          // the fetch implementation won't allow sending a body without content-type,
+          // so it invents one up and sends it, hopefully this will be consistent across
+          // local environments and won't make the tests flaky
+          expect(contentType).toBe("text/plain;charset=UTF-8");
+        },
+      );
+
+      it.each(METHOD_BODY_COMBINATIONS)(
+        "specified content-type for body-full requests - %s, %j",
+        async (method, body) => {
+          const contentType = await fireRequestAndGetContentType({
+            method,
+            fetchOptions: {
+              body,
+              headers: {
+                "content-type": "application/my-json",
+              },
+            },
+          });
+
+          expect(contentType).toBe("application/my-json");
+        },
+      );
+
+      it.each(METHOD_BODY_COMBINATIONS)(
+        "specified content-type for body-full requests, even when default is suppressed - %s, %j",
+        async (method, body) => {
+          const contentType = await fireRequestAndGetContentType({
+            method,
+            fetchOptions: {
+              body,
+              headers: {
+                "content-type": "application/my-json",
+              },
+            },
+          });
+
+          expect(contentType).toBe("application/my-json");
+        },
+      );
     });
 
     describe("fetch", () => {

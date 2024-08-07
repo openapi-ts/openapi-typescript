@@ -1,8 +1,4 @@
 // settings & const
-const DEFAULT_HEADERS = {
-  "Content-Type": "application/json",
-};
-
 const PATH_PARAM_RE = /\{[^{}]+\}/g;
 
 /** Add custom parameters to Request object */
@@ -41,7 +37,6 @@ export default function createClient(clientOptions) {
     ...baseOptions
   } = { ...clientOptions };
   baseUrl = removeTrailingSlash(baseUrl);
-  baseHeaders = mergeHeaders(DEFAULT_HEADERS, baseHeaders);
   const middlewares = [];
 
   /**
@@ -58,6 +53,7 @@ export default function createClient(clientOptions) {
       parseAs = "json",
       querySerializer: requestQuerySerializer,
       bodySerializer = globalBodySerializer ?? defaultBodySerializer,
+      body,
       ...init
     } = fetchOptions || {};
     if (localBaseUrl) {
@@ -78,19 +74,25 @@ export default function createClient(clientOptions) {
             });
     }
 
+    const serializedBody = body === undefined ? undefined : bodySerializer(body);
+
+    const defaultHeaders =
+      // with no body, we should not to set Content-Type
+      serializedBody === undefined ||
+      // if serialized body is FormData; browser will correctly set Content-Type & boundary expression
+      serializedBody instanceof FormData
+        ? {}
+        : {
+            "Content-Type": "application/json",
+          };
+
     const requestInit = {
       redirect: "follow",
       ...baseOptions,
       ...init,
-      headers: mergeHeaders(baseHeaders, headers, params.header),
+      body: serializedBody,
+      headers: mergeHeaders(defaultHeaders, baseHeaders, headers, params.header),
     };
-    if (requestInit.body !== undefined) {
-      requestInit.body = bodySerializer(requestInit.body);
-      // remove `Content-Type` if serialized body is FormData; browser will correctly set Content-Type & boundary expression
-      if (requestInit.body instanceof FormData) {
-        requestInit.headers.delete("Content-Type");
-      }
-    }
 
     let id;
     let options;
