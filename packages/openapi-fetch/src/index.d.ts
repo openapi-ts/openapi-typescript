@@ -156,16 +156,28 @@ export type MaybeOptionalInit<Params extends Record<HttpMethod, {}>, Location ex
   ? FetchOptions<FilterKeys<Params, Location>> | undefined
   : FetchOptions<FilterKeys<Params, Location>>;
 
+// The final init param to accept.
+// - Determines if the param is optional or not.
+// - Performs arbitrary [key: string] addition.
+// Note: the addition It MUST happen after all the inference happens (otherwise TS can’t infer if init is required or not).
+type InitParam<Init> = HasRequiredKeys<Init> extends never
+  ? [(Init & { [key: string]: unknown })?]
+  : [Init & { [key: string]: unknown }];
+
 export type ClientMethod<
   Paths extends Record<string, Record<HttpMethod, {}>>,
   Method extends HttpMethod,
   Media extends MediaType,
 > = <Path extends PathsWithMethod<Paths, Method>, Init extends MaybeOptionalInit<Paths[Path], Method>>(
   url: Path,
-  ...init: HasRequiredKeys<Init> extends never
-    ? [(Init & { [key: string]: unknown })?] // note: the arbitrary [key: string]: addition MUST happen here after all the inference happens (otherwise TS can’t infer if it’s required or not)
-    : [Init & { [key: string]: unknown }]
+  ...init: InitParam<Init>
 ) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
+
+export type ClientForPath<PathInfo extends Record<HttpMethod, {}>, Media extends MediaType> = {
+  [Method in keyof PathInfo as Uppercase<string & Method>]: <Init extends MaybeOptionalInit<PathInfo, Method>>(
+    ...init: InitParam<Init>
+  ) => Promise<FetchResponse<PathInfo[Method], Init, Media>>;
+};
 
 export interface Client<Paths extends {}, Media extends MediaType = MediaType> {
   /** Call a GET endpoint */
@@ -193,6 +205,21 @@ export interface Client<Paths extends {}, Media extends MediaType = MediaType> {
 export default function createClient<Paths extends {}, Media extends MediaType = MediaType>(
   clientOptions?: ClientOptions,
 ): Client<Paths, Media>;
+
+export type PathBasedClient<
+  Paths extends Record<string, Record<HttpMethod, {}>>,
+  Media extends MediaType = MediaType,
+> = {
+  [Path in keyof Paths]: ClientForPath<Paths[Path], Media>;
+};
+
+export declare function wrapAsPathBasedClient<Paths extends {}, Media extends MediaType = MediaType>(
+  client: Client<Paths, Media>,
+): PathBasedClient<Paths, Media>;
+
+export declare function createPathBasedClient<Paths extends {}, Media extends MediaType = MediaType>(
+  clientOptions?: ClientOptions,
+): PathBasedClient<Paths, Media>;
 
 /** Serialize primitive params to string */
 export declare function serializePrimitiveParam(

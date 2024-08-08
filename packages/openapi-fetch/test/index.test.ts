@@ -4,6 +4,7 @@ import createClient, {
   type Middleware,
   type MiddlewareCallbackParams,
   type QuerySerializerOptions,
+  createPathBasedClient,
 } from "../src/index.js";
 import { server, baseUrl, useMockRequestHandler, toAbsoluteURL } from "./fixtures/mock-server.js";
 import type { paths } from "./fixtures/api.js";
@@ -1868,6 +1869,116 @@ describe("client", () => {
       await expect(async () => await client.TRACE("/anyMethod")).rejects.toThrowError(
         "'TRACE' HTTP method is unsupported",
       );
+    });
+  });
+
+  describe("path based client", () => {
+    it("performs a call without params", async () => {
+      const client = createPathBasedClient<paths>({ baseUrl });
+
+      const { getRequest } = useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/anyMethod",
+      });
+      await client["/anyMethod"].GET();
+      expect(getRequest().method).toBe("GET");
+    });
+
+    it("performs a call with params", async () => {
+      const client = createPathBasedClient<paths>({ baseUrl });
+      const { getRequestUrl } = useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/blogposts/:post_id",
+        status: 200,
+        body: { title: "Blog post title" },
+      });
+
+      // Wrong method
+      // @ts-expect-error
+      await client["/blogposts/{post_id}"].POST({
+        params: {
+          // Unknown property `path`.
+          // @ts-expect-error
+          path: { post_id: "1234" },
+        },
+      });
+
+      await client["/blogposts/{post_id}"].GET({
+        // expect error on number instead of string.
+        // @ts-expect-error
+        params: { path: { post_id: 1234 } },
+      });
+
+      const { data, error } = await client["/blogposts/{post_id}"].GET({
+        params: { path: { post_id: "1234" } },
+      });
+
+      expect(getRequestUrl().pathname).toBe("/blogposts/1234");
+
+      // Check typing of data.
+      if (error) {
+        // Fail, but we need the if above for type inference.
+        expect(error).toBeUndefined();
+      } else {
+        // @ts-expect-error
+        data.not_a_blogpost_property;
+        // Check typing of result value.
+        expect(data.title).toBe("Blog post title");
+      }
+    });
+
+    it("performs a POST call", async () => {
+      const client = createPathBasedClient<paths>({ baseUrl });
+      const { getRequest } = useMockRequestHandler({
+        baseUrl,
+        method: "post",
+        path: "/anyMethod",
+      });
+      await client["/anyMethod"].POST();
+      expect(getRequest().method).toBe("POST");
+    });
+
+    it("performs a PUT call with a request body", async () => {
+      const mockData = { status: "success" };
+
+      const client = createPathBasedClient<paths>({ baseUrl });
+      const { getRequestUrl } = useMockRequestHandler({
+        baseUrl,
+        method: "put",
+        path: "/blogposts",
+        status: 201,
+        body: mockData,
+      });
+
+      await client["/blogposts"].PUT({
+        body: {
+          title: "New Post",
+          body: "<p>Best post yet</p>",
+          // Should be a number, not a Date.
+          // @ts-expect-error
+          publish_date: new Date("2023-03-31T12:00:00Z"),
+        },
+      });
+
+      const { data, error, response } = await client["/blogposts"].PUT({
+        body: {
+          title: "New Post",
+          body: "<p>Best post yet</p>",
+          publish_date: new Date("2023-03-31T12:00:00Z").getTime(),
+        },
+      });
+
+      // assert correct URL was called
+      expect(getRequestUrl().pathname).toBe("/blogposts");
+
+      // assert correct data was returned
+      expect(data).toEqual(mockData);
+      expect(response.status).toBe(201);
+
+      // assert error is empty
+      expect(error).toBeUndefined();
     });
   });
 });

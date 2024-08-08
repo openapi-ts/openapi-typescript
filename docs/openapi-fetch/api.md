@@ -40,6 +40,43 @@ client.GET("/my-url", options);
 | `middleware`      | `Middleware[]`                                                    | [See docs](/openapi-fetch/middleware-auth)                                                                                                                                                                                        |
 | (Fetch options)   |                                                                   | Any valid fetch option (`headers`, `mode`, `cache`, `signal`, …) ([docs](https://developer.mozilla.org/en-US/docs/Web/API/fetch#options))                                                                                         |
 
+## wrapAsPathBasedClient
+
+**wrapAsPathBasedClient** wraps the result of `createClient()` to return a [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)-based client that allows path-indexed calls:
+
+```ts
+const client = createClient<paths>(clientOptions);
+const pathBasedClient = wrapAsPathBasedClient(client);
+
+pathBasedClient["/my-url"].GET(fetchOptions);
+```
+
+The `fetchOptions` are the same than for the base client.
+
+A path based client can lead to better type inference but comes at a runtime cost due to the use of a Proxy.
+
+**createPathBasedClient** is a convenience method combining `createClient` and `wrapAsPathBasedClient` if you only want to use the path based call style:
+
+```ts
+const client = createPathBasedClient<paths>(clientOptions);
+
+client["/my-url"].GET(fetchOptions);
+```
+
+Note that it does not allow you to attach middlewares. If you need middlewares, you need to use the full form:
+
+```ts
+const client = createClient<paths>(clientOptions);
+
+client.use(...);
+
+const pathBasedClient = wrapAsPathBasedClient(client);
+
+client.use(...); // the client reference is shared, so the middlewares will propagate.
+
+pathBasedClient["/my-url"].GET(fetchOptions);
+```
+
 ## querySerializer
 
 OpenAPI supports [different ways of serializing objects and arrays](https://swagger.io/docs/specification/serialization/#query) for parameters (strings, numbers, and booleans—primitives—always behave the same way). By default, this library serializes arrays using `style: "form", explode: true`, and objects using `style: "deepObject", explode: true`, but you can customize that behavior with the `querySerializer` option (either on `createClient()` to control every request, or on individual requests for just one).
