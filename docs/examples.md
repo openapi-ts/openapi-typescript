@@ -13,6 +13,7 @@ Fetching data can be done simply and safely using an **automatically-typed fetch
 
 - [openapi-fetch](/openapi-fetch/) (recommended)
 - [openapi-typescript-fetch](https://www.npmjs.com/package/openapi-typescript-fetch) by [@ajaishankar](https://github.com/ajaishankar)
+- [feature-fetch](https://www.npmjs.com/package/feature-fetch) by [builder.group](https://github.com/builder-group)
 
 ::: tip
 
@@ -59,6 +60,86 @@ export default app;
 TypeChecking in server environments can be tricky, as you’re often querying databases and talking to other endpoints that TypeScript can’t introspect. But using generics will alert you of the obvious errors that TypeScript _can_ catch (and more things in your stack may have types than you realize!).
 
 :::
+
+## Hono with `@blgc/openapi-router`
+
+```ts [src/router.ts]
+import { createHonoOpenApiRouter } from '@blgc/openapi-router';
+import { Hono } from 'hono';
+import { zValidator } from 'validation-adapters/zod';
+import * as z from 'zod';
+
+import { paths } from './gen/v1';
+import { PetSchema } from './schemas';
+
+export const router = new Hono();
+export const openApiRouter = createHonoOpenApiRouter<paths>(router);
+
+openApiRouter.get('/pet/{petId}', {
+	pathValidator: zValidator(
+		z.object({
+			petId: z.number()
+		})
+	),
+	handler: (c) => {
+		const { petId } = c.req.valid('param');
+
+		return c.json({
+			name: 'Falko',
+			photoUrls: []
+		});
+	}
+});
+
+openApiRouter.post('/pet', {
+	bodyValidator: zValidator(PetSchema),
+	handler: (c) => {
+		const { name, photoUrls } = c.req.valid('json');
+
+		return c.json({ name, photoUrls });
+	}
+});
+```
+
+## Express with `@blgc/openapi-router`
+
+```ts [src/router.ts]
+import { createExpressOpenApiRouter } from '@blgc/openapi-router';
+import { Router } from 'express';
+import * as v from 'valibot';
+import { vValidator } from 'validation-adapters/valibot';
+
+import { type paths } from './gen/v1';
+import { PetSchema } from './schemas';
+
+export const router: Router = Router();
+export const openApiRouter = createExpressOpenApiRouter<paths>(router);
+
+openApiRouter.get('/pet/{petId}', {
+	pathValidator: vValidator(
+		v.object({
+			petId: v.number()
+		})
+	),
+	handler: (req, res) => {
+		const { petId } = req.params;
+
+		res.send({
+			name: 'Falko',
+			photoUrls: []
+		});
+	}
+});
+
+openApiRouter.post('/pet', {
+	bodyValidator: vValidator(PetSchema),
+	handler: (req, res) => {
+		const { name, photoUrls } = req.body;
+
+		res.send({ name, photoUrls });
+	}
+});
+```
 
 ## Mock-Service-Worker (MSW)
 
