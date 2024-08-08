@@ -15,7 +15,7 @@ jobs:
           ascending: false
           operations-per-run: 300
           days-before-issue-stale: 90
-          days-before-issue-close: 5
+          days-before-issue-close: 7
           days-before-pr-stale: -1
           days-before-pr-close: -1
           stale-issue-label: "stale"
