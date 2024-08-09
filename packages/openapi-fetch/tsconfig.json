@@ -15,5 +15,5 @@
     "types": ["vitest/globals"]
   },
   "include": ["src", "test"],
-  "exclude": ["examples", "node_modules"]
+  "exclude": ["examples", "node_modules", "test/no-strict-null-checks"]
 }
