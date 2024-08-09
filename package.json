@@ -10,6 +10,7 @@
   "scripts": {
     "build": "pnpm run -r --parallel --filter \"!*docs\" --aggregate-output build",
     "lint": "pnpm run -r --parallel --aggregate-output lint",
+    "dev": "pnpm run -r --parallel --filter \"{packages/*}\" --aggregate-output dev",
     "format": "pnpm run -r --parallel --aggregate-output format",
     "test": "pnpm run -r --parallel --aggregate-output test",
     "test-e2e": "pnpm run -r --parallel --aggregate-output test-e2e",

@@ -1,0 +1,75 @@
+{
+  "name": "openapi-decorators",
+  "description": "Auto-Generate OpenAPI specifications from Typescript decorators",
+  "version": "0.0.1",
+  "author": {
+    "name": "Martin PAUCOT",
+    "email": "contact@martin-paucot.Fr"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./builders": {
+      "types": "./dist/builders/index.d.ts",
+      "import": "./dist/builders/index.js"
+    },
+    "./loaders": {
+      "types": "./dist/loaders/index.d.ts",
+      "import": "./dist/loaders/index.js"
+    },
+    "./ui": {
+      "types": "./dist/ui/index.d.ts",
+      "import": "./dist/ui/index.js"
+    }
+  },
+  "homepage": "https://openapi-ts.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openapi-ts/openapi-typescript",
+    "directory": "packages/openapi-decorators"
+  },
+  "bugs": {
+    "url": "https://github.com/openapi-ts/openapi-typescript/issues"
+  },
+  "keywords": [
+    "openapi",
+    "swagger",
+    "rest",
+    "api",
+    "oapi_3",
+    "oapi_3_1",
+    "typescript"
+  ],
+  "scripts": {
+    "build": "pnpm run build:clean && pnpm run build:esm && pnpm run build:cjs",
+    "build:clean": "del-cli dist",
+    "build:esm": "tsc -p tsconfig.json",
+    "build:cjs": "esbuild --bundle --platform=node --target=es2019 --outfile=dist/index.cjs --external:typescript src/index.ts",
+    "dev": "tsup --watch",
+    "format": "biome format . --write",
+    "lint": "biome check .",
+    "test": "pnpm run \"/^test:/\"",
+    "test:js": "vitest run",
+    "test:ts": "tsc --noEmit",
+    "version": "pnpm run prepare && pnpm run build"
+  },
+  "dependencies": {
+    "@fastify/deepmerge": "^2.0.0",
+    "lodash": "^4.17.21",
+    "openapi-types": "^12.1.3",
+    "reflect-metadata": "^0.2.2"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.7",
+    "@types/node": "^22.1.0",
+    "del-cli": "^5.1.0",
+    "esbuild": "^0.20.2",
+    "execa": "^8.0.1",
+    "tsup": "^8.2.4",
+    "typescript": "^5.4.5",
+    "unplugin-swc": "^1.5.1"
+  }
+}
