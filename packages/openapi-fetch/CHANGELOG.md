@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.11.0
+
+### Minor Changes
+
+- [#1791](https://github.com/openapi-ts/openapi-typescript/pull/1791) [`a956d5d`](https://github.com/openapi-ts/openapi-typescript/commit/a956d5d8480834402536283ee2f24ce8086698dc) Thanks [@gzm0](https://github.com/gzm0)! - Add support for `client["/endpoint"].GET()` style calls
+
 ## 0.10.6
 
 ### Patch Changes
