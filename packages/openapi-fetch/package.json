@@ -77,6 +77,7 @@
     "openapi-typescript-codegen": "^0.25.0",
     "openapi-typescript-fetch": "^2.0.0",
     "superagent": "^9.0.2",
+    "undici": "^6.14.1",
     "typescript": "^5.4.5",
     "vite": "^5.3.5"
   }
