@@ -4,7 +4,7 @@ import { setupServer } from "msw/node";
 import { Fetcher } from "openapi-typescript-fetch";
 import superagent from "superagent";
 import { afterAll, bench, describe } from "vitest";
-import createClient from "../dist/index.js";
+import createClient, { createPathBasedClient } from "../dist/index.js";
 import * as openapiTSCodegen from "./fixtures/openapi-typescript-codegen.min.js";
 
 const BASE_URL = "https://api.test.local";
@@ -40,6 +40,10 @@ describe("setup", () => {
     createClient({ baseUrl: BASE_URL });
   });
 
+  bench("openapi-fetch (path based)", async () => {
+    createPathBasedClient({ baseUrl: BASE_URL });
+  });
+
   bench("openapi-typescript-fetch", async () => {
     const fetcher = Fetcher.for();
     fetcher.configure({
@@ -59,6 +63,7 @@ describe("setup", () => {
 
 describe("get (only URL)", () => {
   const openapiFetch = createClient({ baseUrl: BASE_URL });
+  const openapiFetchPath = createPathBasedClient({ baseUrl: BASE_URL });
   const openapiTSFetch = Fetcher.for();
   openapiTSFetch.configure({
     baseUrl: BASE_URL,
@@ -71,6 +76,10 @@ describe("get (only URL)", () => {
 
   bench("openapi-fetch", async () => {
     await openapiFetch.GET("/url");
+  });
+
+  bench("openapi-fetch (path based)", async () => {
+    await openapiFetchPath["/url"].GET();
   });
 
   bench("openapi-typescript-fetch", async () => {
@@ -95,6 +104,10 @@ describe("get (headers)", () => {
     baseUrl: BASE_URL,
     headers: { "x-base-header": 123 },
   });
+  const openapiFetchPath = createPathBasedClient({
+    baseUrl: BASE_URL,
+    headers: { "x-base-header": 123 },
+  });
   const openapiTSFetch = Fetcher.for();
   openapiTSFetch.configure({
     baseUrl: BASE_URL,
@@ -108,6 +121,12 @@ describe("get (headers)", () => {
 
   bench("openapi-fetch", async () => {
     await openapiFetch.GET("/url", {
+      headers: { "x-header-1": 123, "x-header-2": 456 },
+    });
+  });
+
+  bench("openapi-fetch (path based)", async () => {
+    await openapiFetchPath["/url"].GET({
       headers: { "x-header-1": 123, "x-header-2": 456 },
     });
   });
