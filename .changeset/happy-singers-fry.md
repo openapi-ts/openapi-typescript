@@ -2,4 +2,4 @@
 "openapi-fetch": minor
 ---
 
-feat: set baseUrl per request
+Allow specifying baseUrl per request
