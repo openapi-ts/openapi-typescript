@@ -1296,7 +1296,7 @@ describe("client", () => {
         expect(req.headers.get("onRequest")).toBe("exists");
       });
 
-      it("baseUrl can be overriden", async () => {
+      it("baseUrl can be overridden", async () => {
         useMockRequestHandler({
           baseUrl: "https://api.foo.bar/v1/",
           method: "get",
