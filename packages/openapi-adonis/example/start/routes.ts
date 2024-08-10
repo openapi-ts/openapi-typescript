@@ -7,19 +7,19 @@
 |
 */
 
-import router from "@adonisjs/core/services/router";
-import AdonisOpenAPI from "openapi-adonis";
+import router from '@adonisjs/core/services/router'
+import AdonisOpenAPI from 'openapi-adonis'
 
-const UsersController = () => import("#controllers/users_controller");
+const UsersController = () => import('#controllers/users_controller')
 
-router.get("/", async () => {
+router.get('/', async () => {
   return {
-    hello: "world",
-  };
-});
+    hello: 'world',
+  }
+})
 
-router.get("/users/:id", [UsersController, "index"]);
-router.post("/users", [UsersController, "create"]);
+router.get('/users/:id', [UsersController, 'index'])
+router.post('/users', [UsersController, 'create'])
 
-const builder = AdonisOpenAPI.document().setTitle("OpenAPI Adonis Example");
-AdonisOpenAPI.setup("/docs", router, builder);
+const builder = AdonisOpenAPI.document().setTitle('OpenAPI Adonis Example')
+AdonisOpenAPI.setup('/docs', router, builder)

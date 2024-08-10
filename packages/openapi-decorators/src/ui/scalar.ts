@@ -1,5 +1,5 @@
 export function generateScalarUI(url: string) {
-	return `
+  return `
       <!doctype html>
       <html>
         <head>

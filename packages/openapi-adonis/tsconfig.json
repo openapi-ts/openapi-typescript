@@ -4,10 +4,7 @@
     "declaration": true,
     "downlevelIteration": false,
     "esModuleInterop": true,
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
+    "lib": ["ESNext", "DOM"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "noUncheckedIndexedAccess": true,
@@ -17,16 +14,8 @@
     "target": "ESNext",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "types": [
-      "vitest/globals"
-    ]
+    "types": ["vitest/globals"]
   },
-  "include": [
-    "src",
-    "test"
-  ],
-  "exclude": [
-    "example",
-    "node_modules"
-  ]
+  "include": ["src", "test"],
+  "exclude": ["example", "node_modules"]
 }
