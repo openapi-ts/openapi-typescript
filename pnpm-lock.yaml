@@ -81,15 +81,6 @@ importers:
       '@types/node':
         specifier: ^22.1.0
         version: 22.9.0
-      del-cli:
-        specifier: ^5.1.0
-        version: 5.1.0
-      esbuild:
-        specifier: ^0.20.2
-        version: 0.20.2
-      execa:
-        specifier: ^8.0.1
-        version: 8.0.1
       tsup:
         specifier: ^8.2.4
         version: 8.2.4(@swc/core@1.9.1(@swc/helpers@0.5.13))(jiti@2.4.0)(postcss@8.4.47)(typescript@5.6.3)(yaml@2.5.1)
