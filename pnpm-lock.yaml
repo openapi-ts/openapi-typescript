@@ -75,15 +75,6 @@ importers:
       '@types/node':
         specifier: ^22.1.0
         version: 22.1.0
-      del-cli:
-        specifier: ^5.1.0
-        version: 5.1.0
-      esbuild:
-        specifier: ^0.20.2
-        version: 0.20.2
-      execa:
-        specifier: ^8.0.1
-        version: 8.0.1
       tsup:
         specifier: ^8.2.4
         version: 8.2.4(@swc/core@1.7.4(@swc/helpers@0.5.5))(postcss@8.4.40)(typescript@5.4.5)
@@ -117,6 +108,73 @@ importers:
       openapi-adonis:
         specifier: workspace:^
         version: link:..
+      reflect-metadata:
+        specifier: ^0.2.2
+        version: 0.2.2
+    devDependencies:
+      '@adonisjs/assembler':
+        specifier: ^7.7.0
+        version: 7.7.0(typescript@5.4.5)
+      '@adonisjs/eslint-config':
+        specifier: ^1.3.0
+        version: 1.3.0(eslint@8.57.0)(prettier@3.3.2)(typescript@5.4.5)
+      '@adonisjs/http-server':
+        specifier: ^7.2.3
+        version: 7.2.3(@adonisjs/application@8.3.1(@adonisjs/config@5.0.2)(@adonisjs/fold@10.1.2))(@adonisjs/encryption@6.0.2)(@adonisjs/events@9.0.2(@adonisjs/application@8.3.1(@adonisjs/config@5.0.2)(@adonisjs/fold@10.1.2))(@adonisjs/fold@10.1.2))(@adonisjs/fold@10.1.2)(@adonisjs/logger@6.0.3)
+      '@adonisjs/prettier-config':
+        specifier: ^1.3.0
+        version: 1.3.0
+      '@adonisjs/tsconfig':
+        specifier: ^1.3.0
+        version: 1.3.0
+      '@swc/core':
+        specifier: ^1.6.5
+        version: 1.7.4(@swc/helpers@0.5.5)
+      '@types/node':
+        specifier: ^20.14.9
+        version: 20.14.14
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
+      hot-hook:
+        specifier: ^0.2.6
+        version: 0.2.6
+      pino-pretty:
+        specifier: ^11.2.1
+        version: 11.2.2
+      prettier:
+        specifier: ^3.3.2
+        version: 3.3.2
+      ts-node:
+        specifier: ^10.9.2
+        version: 10.9.2(@swc/core@1.7.4(@swc/helpers@0.5.5))(@types/node@20.14.14)(typescript@5.4.5)
+      typescript:
+        specifier: ~5.4
+        version: 5.4.5
+
+  packages/openapi-adonis/example/build:
+    dependencies:
+      '@adonisjs/auth':
+        specifier: ^9.2.3
+        version: 9.2.3(@adonisjs/assembler@7.7.0(typescript@5.4.5))(@adonisjs/core@6.12.1(@adonisjs/assembler@7.7.0(typescript@5.4.5))(@vinejs/vine@2.1.0))(@adonisjs/lucid@21.1.1(@adonisjs/assembler@7.7.0(typescript@5.4.5))(@adonisjs/core@6.12.1(@adonisjs/assembler@7.7.0(typescript@5.4.5))(@vinejs/vine@2.1.0))(luxon@3.5.0))(@japa/api-client@2.0.3)(@japa/plugin-adonisjs@3.0.1(@adonisjs/core@6.12.1(@adonisjs/assembler@7.7.0(typescript@5.4.5))(@vinejs/vine@2.1.0))(@japa/api-client@2.0.3))
+      '@adonisjs/core':
+        specifier: ^6.12.1
+        version: 6.12.1(@adonisjs/assembler@7.7.0(typescript@5.4.5))(@vinejs/vine@2.1.0)
+      '@adonisjs/cors':
+        specifier: ^2.2.1
+        version: 2.2.1(@adonisjs/core@6.12.1(@adonisjs/assembler@7.7.0(typescript@5.4.5))(@vinejs/vine@2.1.0))
+      '@adonisjs/lucid':
+        specifier: ^21.1.0
+        version: 21.1.1(@adonisjs/assembler@7.7.0(typescript@5.4.5))(@adonisjs/core@6.12.1(@adonisjs/assembler@7.7.0(typescript@5.4.5))(@vinejs/vine@2.1.0))(luxon@3.5.0)
+      '@vinejs/vine':
+        specifier: ^2.1.0
+        version: 2.1.0
+      luxon:
+        specifier: ^3.5.0
+        version: 3.5.0
+      openapi-adonis:
+        specifier: workspace:^
+        version: link:../..
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
