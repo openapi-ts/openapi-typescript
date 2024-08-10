@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { DocumentBuilder, apiProperty } from "../src";
+import { DocumentBuilder } from "../src/builders/document-builder";
 import { OperationBuilder } from "../src/builders/operation-builder";
 import { loadApiBody } from "../src/loaders/loadApiBody";
 import { loadApiOperation } from "../src/loaders/loadApiOperation";
@@ -10,6 +10,7 @@ import { loadApiResponse } from "../src/loaders/loadApiResponse";
 import { loadApiTags } from "../src/loaders/loadApiTags";
 import { loadSchema } from "../src/loaders/loadSchema";
 import { resolveType } from "../src/loaders/loadType";
+import { apiProperty } from "../src/decorators/api-property";
 
 describe("loaders", () => {
   describe("loadApiBody", () => {

@@ -48,7 +48,7 @@
     "dev": "tsup --watch",
     "format": "biome format . --write",
     "lint": "biome check .",
-    "test": "pnpm run \"/^test:/\"",
+    "test": "vitest run",
     "version": "pnpm run prepare && pnpm run build"
   },
   "dependencies": {
