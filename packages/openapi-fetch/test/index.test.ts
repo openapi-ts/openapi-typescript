@@ -133,7 +133,7 @@ describe("client", () => {
           created_at: number;
           updated_at: number;
         }>();
-        expectTypeOf(result.data).toEqualTypeOf<MethodResponse<typeof client, 'get', '/mismatched-errors'>>();
+        expectTypeOf(result.data).toEqualTypeOf<MethodResponse<typeof client, "get", "/mismatched-errors">>();
       } else {
         expectTypeOf(result.data).toBeUndefined();
         expectTypeOf(result.error).extract<{ code: number }>().toEqualTypeOf<{ code: number; message: string }>();
