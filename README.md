@@ -14,14 +14,18 @@ Ultra-fast fetching for TypeScript generated automatically from your OpenAPI sch
 
 ## ⭐ Sponsors
 
-### Gold Sponsors
+### 🥇 Gold Sponsors
 
 <p align="center"><a href="https://zuplo.link/openapi-ts-gh"><img width="128" height="128" alt="Zuplo" src="https://avatars.githubusercontent.com/u/85497839?s=200&v=4"></a></p>
 
+### 🥈 Silver Sponsors
+
+<p align="center"><a href="https://github.com/nanabit-inc"><img width="128" height="128" alt="nanabit" src="https://avatars.githubusercontent.com/u/154126976?s=200&v=4"></a></p>
+
 ### Backers
 
-<p align="center"><a href="https://github.com/bddvlpr"><img width="64" height="64" alt="@bddvlpr on GitHub" src="https://avatars.githubusercontent.com/u/17461028?v=4" /></a>
-<a href="https://github.com/customerio"><img width="64" height="64" alt="@customerio on GitHub" src="https://avatars.githubusercontent.com/u/1152079?s=200&v=4"></a></p>
+<p align="center"><a href="https://github.com/customerio"><img width="64" height="64" alt="@customerio on GitHub" src="https://avatars.githubusercontent.com/u/1152079?s=200&v=4"></a>
+<a href="https://github.com/shaunpersad"><img width="64" height="64" alt="@shaunpersad on GitHub" src="https://avatars.githubusercontent.com/u/1702976?s=52&v=4"></a><a href="https://github.com/yoshi2no"><img width="64" height="64" alt="@yoshi2no on GitHub" src="https://avatars.githubusercontent.com/u/57059705?v=4"></a></p>
 
 Become a sponsor by supporting this project on [OpenCollective](https://opencollective.com/openapi-ts)!
 

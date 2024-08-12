@@ -1,6 +1,7 @@
 import { defineConfig } from "vitepress";
+import sharedConfig from "./shared";
 
-export const en = defineConfig({
+export default defineConfig({
   description: "Consume OpenAPI 3.0 & 3.1 schemas in TypeScript",
   themeConfig: {
     nav: [
@@ -88,7 +89,6 @@ export const en = defineConfig({
         indexName: "openapi-ts",
       },
     },
-    socialLinks: [{ icon: "github", link: "https://github.com/openapi-ts/openapi-typescript" }],
     footer: {
       message:
         'Released under the <a href="https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE">MIT License</a>.',
