@@ -1,12 +1,13 @@
 import type {
   ErrorResponse,
   FilterKeys,
-  HasRequiredKeys,
   HttpMethod,
+  IsOperationRequestBodyOptional,
   MediaType,
   OperationRequestBodyContent,
   PathsWithMethod,
   ResponseObjectMap,
+  RequiredKeysOf,
   SuccessResponse,
 } from "openapi-typescript-helpers";
 
@@ -82,14 +83,14 @@ export interface DefaultParamsOption {
 export type ParamsOption<T> = T extends {
   parameters: any;
 }
-  ? HasRequiredKeys<T["parameters"]> extends never
+  ? RequiredKeysOf<T["parameters"]> extends never
     ? { params?: T["parameters"] }
     : { params: T["parameters"] }
   : DefaultParamsOption;
 
 export type RequestBodyOption<T> = OperationRequestBodyContent<T> extends never
   ? { body?: never }
-  : undefined extends OperationRequestBodyContent<T>
+  : IsOperationRequestBodyOptional<T> extends true
     ? { body?: OperationRequestBodyContent<T> }
     : { body: OperationRequestBodyContent<T> };
 
@@ -150,7 +151,7 @@ export interface Middleware {
 }
 
 /** This type helper makes the 2nd function param required if params/requestBody are required; otherwise, optional */
-export type MaybeOptionalInit<Params extends Record<HttpMethod, {}>, Location extends keyof Params> = HasRequiredKeys<
+export type MaybeOptionalInit<Params extends Record<HttpMethod, {}>, Location extends keyof Params> = RequiredKeysOf<
   FetchOptions<FilterKeys<Params, Location>>
 > extends never
   ? FetchOptions<FilterKeys<Params, Location>> | undefined
@@ -160,7 +161,7 @@ export type MaybeOptionalInit<Params extends Record<HttpMethod, {}>, Location ex
 // - Determines if the param is optional or not.
 // - Performs arbitrary [key: string] addition.
 // Note: the addition It MUST happen after all the inference happens (otherwise TS can’t infer if init is required or not).
-type InitParam<Init> = HasRequiredKeys<Init> extends never
+type InitParam<Init> = RequiredKeysOf<Init> extends never
   ? [(Init & { [key: string]: unknown })?]
   : [Init & { [key: string]: unknown }];
 

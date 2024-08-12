@@ -97,11 +97,17 @@ export type ResponseObjectMap<T> = T extends { responses: any } ? T["responses"]
 /** Return `content` for a Response Object */
 export type ResponseContent<T> = T extends { content: any } ? T["content"] : unknown;
 
-/** Return `requestBody` for an Operation Object */
-export type OperationRequestBody<T> = T extends { requestBody?: any } ? T["requestBody"] : never;
+/** Return type of `requestBody` for an Operation Object */
+export type OperationRequestBody<T> = "requestBody" extends keyof T ? T["requestBody"] : never;
+
+/** Internal helper to get object type with only the `requestBody` property */
+type PickRequestBody<T> = "requestBody" extends keyof T ? Pick<T, "requestBody"> : never;
+
+/** Resolve to `true` if request body is optional, else `false` */
+export type IsOperationRequestBodyOptional<T> = RequiredKeysOf<PickRequestBody<T>> extends never ? true : false;
 
 /** Internal helper used in OperationRequestBodyContent */
-export type OperationRequestBodyMediaContent<T> = undefined extends OperationRequestBody<T>
+export type OperationRequestBodyMediaContent<T> = IsOperationRequestBodyOptional<T> extends true
   ? ResponseContent<NonNullable<OperationRequestBody<T>>> | undefined
   : ResponseContent<OperationRequestBody<T>>;
 
@@ -152,7 +158,22 @@ export type GetValueWithDefault<Obj, KeyPattern, Default> = Obj extends any
 export type MediaType = `${string}/${string}`;
 /** Return any media type containing "json" (works for "application/json", "application/vnd.api+json", "application/vnd.oai.openapi+json") */
 export type JSONLike<T> = FilterKeys<T, `${string}/json`>;
-/** Filter objects that have required keys */
+
+/**
+ * Filter objects that have required keys
+ * @deprecated Use `RequiredKeysOf` instead
+ */
 export type FindRequiredKeys<T, K extends keyof T> = K extends unknown ? (undefined extends T[K] ? never : K) : K;
-/** Does this object contain required keys? */
+/**
+ * Does this object contain required keys?
+ * @deprecated Use `RequiredKeysOf` instead
+ */
 export type HasRequiredKeys<T> = FindRequiredKeys<T, keyof T>;
+
+/** Helper to get the required keys of an object. If no keys are required, will be `undefined` with strictNullChecks enabled, else `never` */
+type RequiredKeysOfHelper<T> = {
+  // biome-ignore lint/complexity/noBannedTypes: `{}` is necessary here
+  [K in keyof T]: {} extends Pick<T, K> ? never : K;
+}[keyof T];
+/** Get the required keys of an object, or `never` if no keys are required */
+export type RequiredKeysOf<T> = RequiredKeysOfHelper<T> extends undefined ? never : RequiredKeysOfHelper<T>;
