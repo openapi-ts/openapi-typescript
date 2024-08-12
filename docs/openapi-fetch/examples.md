@@ -30,6 +30,7 @@ _Note: if you’re using Svelte without SvelteKit, the root example in `src/rout
 
 [Vue 3](https://vuejs.org/) is a popular framework with a large ecosystem. Vue 3’s Composition API is a perfect match for openapi-fetch, as it allows for easy separation of concerns and reactivity.
 
-## [View a code example in GitHub](https://github.com/openapi-ts/openapi-typescript/tree/main/packages/openapi-fetch/examples/vue-3)
+[View a code example in GitHub](https://github.com/openapi-ts/openapi-typescript/tree/main/packages/openapi-fetch/examples/vue-3)
 
+---
 Additional examples are always welcome! Please [open a PR](https://github.com/openapi-ts/openapi-typescript/pulls) with your examples.
