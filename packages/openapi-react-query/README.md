@@ -25,8 +25,6 @@ Next, generate TypeScript types from your OpenAPI schema using openapi-typescrip
 npx openapi-typescript ./path/to/api/v1.yaml -o ./src/lib/api/v1.d.ts
 ```
 
-> ⚠️ Be sure to <a href="https://redocly.com/docs/cli/commands/lint/" target="_blank" rel="noopener noreferrer">validate your schemas</a>! openapi-typescript will error on invalid schemas.
-
 ## Usage
 
 Once your types have been generated from your schema, you can create a [fetch client](../openapi-fetch), a react-query client and start querying your API.
