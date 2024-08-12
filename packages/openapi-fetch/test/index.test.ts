@@ -1,6 +1,7 @@
 import { HttpResponse, type StrictResponse } from "msw";
 import { afterAll, beforeAll, describe, expect, expectTypeOf, it } from "vitest";
 import createClient, {
+  type MethodResponse,
   type Middleware,
   type MiddlewareCallbackParams,
   type QuerySerializerOptions,
@@ -133,6 +134,7 @@ describe("client", () => {
           created_at: number;
           updated_at: number;
         }>();
+        expectTypeOf(result.data).toEqualTypeOf<MethodResponse<typeof client, "get", "/mismatched-errors">>();
       } else {
         expectTypeOf(result.data).toBeUndefined();
         expectTypeOf(result.error).extract<{ code: number }>().toEqualTypeOf<{ code: number; message: string }>();

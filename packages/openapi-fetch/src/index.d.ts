@@ -202,6 +202,20 @@ export interface Client<Paths extends {}, Media extends MediaType = MediaType> {
   eject(...middleware: Middleware[]): void;
 }
 
+export type ClientPathsWithMethod<
+  CreatedClient extends Client<any, any>,
+  Method extends HttpMethod,
+> = CreatedClient extends Client<infer Paths, infer _Media> ? PathsWithMethod<Paths, Method> : never;
+
+export type MethodResponse<
+  CreatedClient extends Client<any, any>,
+  Method extends HttpMethod,
+  Path extends ClientPathsWithMethod<CreatedClient, Method>,
+  Options = {},
+> = CreatedClient extends Client<infer Paths extends { [key: string]: any }, infer Media extends MediaType>
+  ? NonNullable<FetchResponse<Paths[Path][Method], Options, Media>["data"]>
+  : never;
+
 export default function createClient<Paths extends {}, Media extends MediaType = MediaType>(
   clientOptions?: ClientOptions,
 ): Client<Paths, Media>;
