@@ -8,7 +8,7 @@ It works by using [openapi-fetch](../openapi-fetch) and [openapi-typescript](../
 - ✅ All parameters, request bodies, and responses are type-checked and 100% match your schema
 - ✅ No manual typing of your API
 - ✅ Eliminates `any` types that hide bugs
-- ✅ Also eliminates `as` type overrides that can also hide bugs
+- ✅ Eliminates `as` type overrides that can also hide bugs
 
 ## Setup
 
@@ -25,11 +25,9 @@ Next, generate TypeScript types from your OpenAPI schema using openapi-typescrip
 npx openapi-typescript ./path/to/api/v1.yaml -o ./src/lib/api/v1.d.ts
 ```
 
-> ⚠️ Be sure to <a href="https://redocly.com/docs/cli/commands/lint/" target="_blank" rel="noopener noreferrer">validate your schemas</a>! openapi-typescript will err on invalid schemas.
-
 ## Usage
 
-Once your types has been generated from your schema, you can create a [fetch client](../openapi-fetch), a react-query client and start querying your API.
+Once your types have been generated from your schema, you can create a [fetch client](../openapi-fetch), a react-query client and start querying your API.
 
 ```tsx
 import createFetchClient from "openapi-fetch";
@@ -42,25 +40,25 @@ const fetchClient = createFetchClient<paths>({
 const $api = createClient(fetchClient);
 
 const MyComponent = () => {
-  const { data, error, isLoading } = $api.useQuery(
+  const { data, error, isPending } = $api.useQuery(
     "get",
     "/blogposts/{post_id}",
     {
       params: {
         path: { post_id: 5 },
       },
-    },
+    }
   );
 
-  if (isLoading || !data) return "Loading...";
+  if (isPending || !data) return "Loading...";
 
-  if (error) return `An error occured: ${error.message}`;
+  if (error) return `An error occurred: ${error.message}`;
 
   return <div>{data.title}</div>;
 };
 ```
 
-> You can find more information about `createFetchClient` on the [openapi-fetch documentation](../openapi-fetch).
+> You can find more information about `createFetchClient` in the [openapi-fetch documentation](../openapi-fetch).
 
 ## 📓 Docs
 
