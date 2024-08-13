@@ -1,5 +1,16 @@
 # openapi-fetch
 
+## 0.11.1
+
+### Patch Changes
+
+- [#1831](https://github.com/openapi-ts/openapi-typescript/pull/1831) [`091e71a`](https://github.com/openapi-ts/openapi-typescript/commit/091e71ad4bf805be32261a53524f320c2fa42690) Thanks [@SebastienGllmt](https://github.com/SebastienGllmt)! - Add MethodResponse utility type to easily get the return type of an endpoint on a client
+
+- [#1833](https://github.com/openapi-ts/openapi-typescript/pull/1833) [`cec023d`](https://github.com/openapi-ts/openapi-typescript/commit/cec023d3461c79ca355a88366949d0f6382e4e2a) Thanks [@ngraef](https://github.com/ngraef)! - Fix identification of required properties when `strictNullChecks` is disabled
+
+- Updated dependencies [[`cec023d`](https://github.com/openapi-ts/openapi-typescript/commit/cec023d3461c79ca355a88366949d0f6382e4e2a)]:
+  - openapi-typescript-helpers@0.0.12
+
 ## 0.11.0
 
 ### Minor Changes

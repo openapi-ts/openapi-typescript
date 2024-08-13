@@ -1,5 +1,11 @@
 # openapi-typescript-helpers
 
+## 0.0.12
+
+### Patch Changes
+
+- [#1833](https://github.com/openapi-ts/openapi-typescript/pull/1833) [`cec023d`](https://github.com/openapi-ts/openapi-typescript/commit/cec023d3461c79ca355a88366949d0f6382e4e2a) Thanks [@ngraef](https://github.com/ngraef)! - Fix identification of required properties when `strictNullChecks` is disabled
+
 ## 0.0.11
 
 ### Patch Changes
