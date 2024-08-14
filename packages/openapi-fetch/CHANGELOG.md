@@ -1,5 +1,30 @@
 # openapi-fetch
 
+## 0.11.1
+
+### Patch Changes
+
+- [#1831](https://github.com/openapi-ts/openapi-typescript/pull/1831) [`091e71a`](https://github.com/openapi-ts/openapi-typescript/commit/091e71ad4bf805be32261a53524f320c2fa42690) Thanks [@SebastienGllmt](https://github.com/SebastienGllmt)! - Add MethodResponse utility type to easily get the return type of an endpoint on a client
+
+- [#1833](https://github.com/openapi-ts/openapi-typescript/pull/1833) [`cec023d`](https://github.com/openapi-ts/openapi-typescript/commit/cec023d3461c79ca355a88366949d0f6382e4e2a) Thanks [@ngraef](https://github.com/ngraef)! - Fix identification of required properties when `strictNullChecks` is disabled
+
+- Updated dependencies [[`cec023d`](https://github.com/openapi-ts/openapi-typescript/commit/cec023d3461c79ca355a88366949d0f6382e4e2a)]:
+  - openapi-typescript-helpers@0.0.12
+
+## 0.11.0
+
+### Minor Changes
+
+- [#1791](https://github.com/openapi-ts/openapi-typescript/pull/1791) [`a956d5d`](https://github.com/openapi-ts/openapi-typescript/commit/a956d5d8480834402536283ee2f24ce8086698dc) Thanks [@gzm0](https://github.com/gzm0)! - Add support for `client["/endpoint"].GET()` style calls
+
+## 0.10.6
+
+### Patch Changes
+
+- [#1809](https://github.com/openapi-ts/openapi-typescript/pull/1809) [`f21c05b`](https://github.com/openapi-ts/openapi-typescript/commit/f21c05b9afcc89ee6ef73edab4045620b410eb01) Thanks [@gzm0](https://github.com/gzm0)! - perf: remove unnecessary `async` keywords (for reduced code size)
+
+- [#1827](https://github.com/openapi-ts/openapi-typescript/pull/1827) [`ba0d595`](https://github.com/openapi-ts/openapi-typescript/commit/ba0d595556661053b5ef310afafec4fcc116e206) Thanks [@ngraef](https://github.com/ngraef)! - Fix typing for environments without DOM lib
+
 ## 0.10.5
 
 ### Patch Changes

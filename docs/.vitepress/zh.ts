@@ -1,6 +1,6 @@
 import { defineConfig, type DefaultTheme } from "vitepress";
 
-export const zh = defineConfig({
+export default defineConfig({
   lang: "zh-Hans",
   description: "在 TypeScript 中使用 OpenAPI 3.0 和 3.1 的模式。",
   themeConfig: {

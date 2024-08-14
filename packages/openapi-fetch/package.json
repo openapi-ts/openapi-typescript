@@ -1,7 +1,7 @@
 {
   "name": "openapi-fetch",
   "description": "Fast, type-safe fetch client for your OpenAPI schema. Only 5 kb (min). Works with React, Vue, Svelte, or vanilla JS.",
-  "version": "0.10.5",
+  "version": "0.11.1",
   "author": {
     "name": "Drew Powers",
     "email": "drew@pow.rs"
@@ -59,6 +59,7 @@
     "test": "pnpm run \"/^test:/\"",
     "test:js": "vitest run",
     "test:ts": "tsc --noEmit",
+    "test:ts-no-strict": "tsc --noEmit -p test/no-strict-null-checks/tsconfig.json",
     "test-e2e": "playwright test",
     "e2e-vite-build": "vite build test/fixtures/e2e",
     "e2e-vite-start": "vite preview test/fixtures/e2e",

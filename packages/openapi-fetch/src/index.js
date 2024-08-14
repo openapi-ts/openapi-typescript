@@ -178,35 +178,35 @@ export default function createClient(clientOptions) {
 
   return {
     /** Call a GET endpoint */
-    async GET(url, init) {
+    GET(url, init) {
       return coreFetch(url, { ...init, method: "GET" });
     },
     /** Call a PUT endpoint */
-    async PUT(url, init) {
+    PUT(url, init) {
       return coreFetch(url, { ...init, method: "PUT" });
     },
     /** Call a POST endpoint */
-    async POST(url, init) {
+    POST(url, init) {
       return coreFetch(url, { ...init, method: "POST" });
     },
     /** Call a DELETE endpoint */
-    async DELETE(url, init) {
+    DELETE(url, init) {
       return coreFetch(url, { ...init, method: "DELETE" });
     },
     /** Call a OPTIONS endpoint */
-    async OPTIONS(url, init) {
+    OPTIONS(url, init) {
       return coreFetch(url, { ...init, method: "OPTIONS" });
     },
     /** Call a HEAD endpoint */
-    async HEAD(url, init) {
+    HEAD(url, init) {
       return coreFetch(url, { ...init, method: "HEAD" });
     },
     /** Call a PATCH endpoint */
-    async PATCH(url, init) {
+    PATCH(url, init) {
       return coreFetch(url, { ...init, method: "PATCH" });
     },
     /** Call a TRACE endpoint */
-    async TRACE(url, init) {
+    TRACE(url, init) {
       return coreFetch(url, { ...init, method: "TRACE" });
     },
     /** Register middleware */
@@ -231,6 +231,85 @@ export default function createClient(clientOptions) {
       }
     },
   };
+}
+
+class PathCallForwarder {
+  constructor(client, url) {
+    this.client = client;
+    this.url = url;
+  }
+
+  GET(init) {
+    return this.client.GET(this.url, init);
+  }
+  PUT(init) {
+    return this.client.PUT(this.url, init);
+  }
+  POST(init) {
+    return this.client.POST(this.url, init);
+  }
+  DELETE(init) {
+    return this.client.DELETE(this.url, init);
+  }
+  OPTIONS(init) {
+    return this.client.OPTIONS(this.url, init);
+  }
+  HEAD(init) {
+    return this.client.HEAD(this.url, init);
+  }
+  PATCH(init) {
+    return this.client.PATCH(this.url, init);
+  }
+  TRACE(init) {
+    return this.client.TRACE(this.url, init);
+  }
+}
+
+class PathClientProxyHandler {
+  constructor() {
+    this.client = null;
+  }
+
+  // Assume the property is an URL.
+  get(coreClient, url) {
+    const forwarder = new PathCallForwarder(coreClient, url);
+    this.client[url] = forwarder;
+    return forwarder;
+  }
+}
+
+/**
+ * Wrap openapi-fetch client to support a path based API.
+ * @type {import("./index.js").wrapAsPathBasedClient}
+ */
+export function wrapAsPathBasedClient(coreClient) {
+  const handler = new PathClientProxyHandler();
+  const proxy = new Proxy(coreClient, handler);
+
+  // Put the proxy on the prototype chain of the actual client.
+  // This means if we do not have a memoized PathCallForwarder,
+  // we fall back to the proxy to synthesize it.
+  // However, the proxy itself is not on the hot-path (if we fetch the same
+  // endpoint multiple times, only the first call will hit the proxy).
+  function Client() {}
+  Client.prototype = proxy;
+
+  const client = new Client();
+
+  // Feed the client back to the proxy handler so it can store the generated
+  // PathCallForwarder.
+  handler.client = client;
+
+  return client;
+}
+
+/**
+ * Convenience method to an openapi-fetch path based client.
+ * Strictly equivalent to `wrapAsPathBasedClient(createClient(...))`.
+ * @type {import("./index.js").createPathBasedClient}
+ */
+export function createPathBasedClient(clientOptions) {
+  return wrapAsPathBasedClient(createClient(clientOptions));
 }
 
 // utils

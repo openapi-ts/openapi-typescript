@@ -184,17 +184,17 @@ code {
 /**
  * Component: Homepage logos
  * -------------------------------------------------------------------------- */
-.logo-salad {
+.home-logo-salad {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 2.5rem;
-  margin-right: 2.5rem;
+  margin-inline: 2.5rem;
   margin-top: 3rem;
   text-align: center;
 }
 
-.logo-salad h3 {
+.home-logo-salad h3,
+.home-sponsor h3 {
   color: var(--vp-c-text-3);
   font-size: 0.875rem;
   font-weight: 600;
@@ -203,7 +203,7 @@ code {
   text-transform: uppercase;
 }
 
-.logo-salad-list {
+.home-logo-salad-list {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
@@ -212,12 +212,26 @@ code {
   justify-content: center;
 }
 
-.logo-salad-list li {
+.home-logo-salad-list li {
   display: flex;
   list-style: none;
 }
 
-.logo-salad-list svg {
+.home-logo-salad-list svg {
   fill: var(--vp-c-text-1);
   width: auto;
+}
+
+.home-sponsor,
+.home-sponsor p {
+  color: var(--vp-c-text-2);
+  text-align: center;
+}
+
+.home-sponsor-list {
+  margin-block: 4rem;
+}
+
+.home-sponsor .donate {
+  display: inline-block;
 }

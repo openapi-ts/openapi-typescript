@@ -1,11 +1,14 @@
 <script setup>
 import DefaultTheme from "vitepress/theme";
 
+import sponsors from "../../data/sponsors.json";
+
 const { Layout } = DefaultTheme;
 </script>
 
 <template>
   <Layout>
+    <!-- Gold sponsor banner -->
     <template #layout-top
       ><a
         class="banner"
@@ -35,6 +38,20 @@ const { Layout } = DefaultTheme;
         <span class="banner-pseudo-link">Start Free →</span>
       </a></template
     >
+
+    <!-- Silver sponsor logos -->
+    <template #sidebar-nav-after>
+      <div class="sidenav-sponsors">
+        <h5>Silver Sponsors</h5>
+        <ul>
+          <li v-for="sponsor in sponsors.silver" :key="sponsor.name">
+            <a :href="sponsor.url" target="_blank" :title="sponsor.name">
+              <img :src="sponsor.logo" :alt="sponsor.description" />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </template>
   </Layout>
 </template>
 
@@ -92,6 +109,28 @@ const { Layout } = DefaultTheme;
   line-height: calc(0.625 * var(--banner-height));
   padding: 0 0.75em;
   white-space: nowrap;
+}
+
+.sidenav-sponsors h5 {
+  color: var(--vp-c-text-2);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.0625em;
+  text-transform: uppercase;
+}
+
+.sidenav-sponsors ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+
+.sidenav-sponsors img {
+  height: 3rem;
+  width: auto;
 }
 </style>
 
