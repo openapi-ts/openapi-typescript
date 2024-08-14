@@ -421,10 +421,7 @@ describe("transformPathItemObject", () => {
     ],
   ];
 
-  for (const [
-    testName,
-    { given, want, options = DEFAULT_OPTIONS, ci },
-  ] of tests) {
+  for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
     test.skipIf(ci?.skipIf)(
       testName,
       async () => {
