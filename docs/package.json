@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "pnpm run update-contributors && vitepress build && cp _redirects .vitepress/dist",
-    "dev": "pnpm run update-contributors && vitepress dev",
+    "dev": "vitepress dev",
     "tokens": "co build",
     "update-contributors": "node scripts/update-contributors.js"
   },

@@ -10,6 +10,7 @@ openapi-fetch is a type-safe fetch client that pulls in your OpenAPI schema. Wei
 | :------------------------- | ---------: | :------------------------- |
 | openapi-fetch              |     `5 kB` | `300k` ops/s (fastest)     |
 | openapi-typescript-fetch   |     `4 kB` | `150k` ops/s (2× slower)   |
+| feature-fetch              |    `15 kB` | `300k` ops/s (not slower)  |
 | axios                      |    `32 kB` | `225k` ops/s (1.3× slower) |
 | superagent                 |    `55 kB` | `50k` ops/s (6× slower)    |
 | openapi-typescript-codegen |   `367 kB` | `100k` ops/s (3× slower)   |
