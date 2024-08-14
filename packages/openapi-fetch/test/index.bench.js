@@ -6,7 +6,7 @@ import superagent from "superagent";
 import { afterAll, bench, describe } from "vitest";
 import createClient, { createPathBasedClient } from "../dist/index.js";
 import * as openapiTSCodegen from "./fixtures/openapi-typescript-codegen.min.js";
-import { createApiFetchClient } from 'feature-fetch';
+import { createApiFetchClient } from "feature-fetch";
 
 const BASE_URL = "https://api.test.local";
 
@@ -59,9 +59,9 @@ describe("setup", () => {
     });
   });
 
-  bench('feature-fetch', async () => {
+  bench("feature-fetch", async () => {
     createApiFetchClient({ prefixUrl: BASE_URL });
-  })
+  });
 
   // superagent: N/A
 });
@@ -126,10 +126,10 @@ describe("get (headers)", () => {
   const axiosInstance = axios.create({
     baseURL: BASE_URL,
   });
-  const featureFetch = createApiFetchClient({ 
-    prefixUrl: BASE_URL, 
-    headers: { "x-base-header": '123' }
-   });
+  const featureFetch = createApiFetchClient({
+    prefixUrl: BASE_URL,
+    headers: { "x-base-header": "123" },
+  });
 
   bench("openapi-fetch", async () => {
     await openapiFetch.GET("/url", {
