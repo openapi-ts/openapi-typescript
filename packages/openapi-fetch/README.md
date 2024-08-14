@@ -1,6 +1,6 @@
 <img src="../../docs/public/assets/openapi-fetch.svg" alt="openapi-fetch" width="216" height="40" />
 
-openapi-fetch is a type-safe fetch client that pulls in your OpenAPI schema. Weighs **5 kb** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
+openapi-fetch is a type-safe fetch client that pulls in your OpenAPI schema. Weighs **6 kb** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
 
 | Library                    | Size (min) | “GET” request\*            |
 | :------------------------- | ---------: | :------------------------- |
@@ -13,7 +13,7 @@ openapi-fetch is a type-safe fetch client that pulls in your OpenAPI schema. Wei
 
 _\* [Benchmarks are approximate](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-fetch/test/index.bench.js) to just show rough baseline and will differ among machines and browsers. The relative performance between libraries is more reliable._
 
-The syntax is inspired by popular libraries like react-query or Apollo client, but without all the bells and whistles and in a 5 kb package.
+The syntax is inspired by popular libraries like react-query or Apollo client, but without all the bells and whistles and in a 6 kb package.
 
 ```ts
 import createClient from "openapi-fetch";
@@ -48,7 +48,7 @@ Notice there are no generics, and no manual typing. Your endpoint’s request an
 - ✅ No manual typing of your API
 - ✅ Eliminates `any` types that hide bugs
 - ✅ Also eliminates `as` type overrides that can also hide bugs
-- ✅ All of this in a **5 kb** client package 🎉
+- ✅ All of this in a **6 kb** client package 🎉
 
 ## Setup
 
