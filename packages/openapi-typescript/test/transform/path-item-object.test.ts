@@ -366,24 +366,24 @@ describe("transformPathItemObject", () => {
           get: {
             parameters: [
               {
-                "name": "param1",
-                "in": "header",
-                "required": true,
-                "schema": {
-                  "type": "string"
+                name: "param1",
+                in: "header",
+                required: true,
+                schema: {
+                  type: "string",
                 },
-                "description": "param1"
+                description: "param1",
               },
               {
-                "name": "param1",
-                "in": "cookie",
-                "required": true,
-                "schema": {
-                  "type": "string"
+                name: "param1",
+                in: "cookie",
+                required: true,
+                schema: {
+                  type: "string",
                 },
-                "description": "param1"
-              }
-            ]
+                description: "param1",
+              },
+            ],
           },
         },
         want: `{
@@ -421,7 +421,10 @@ describe("transformPathItemObject", () => {
     ],
   ];
 
-  for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
+  for (const [
+    testName,
+    { given, want, options = DEFAULT_OPTIONS, ci },
+  ] of tests) {
     test.skipIf(ci?.skipIf)(
       testName,
       async () => {
