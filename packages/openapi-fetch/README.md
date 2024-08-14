@@ -4,8 +4,9 @@ openapi-fetch is a type-safe fetch client that pulls in your OpenAPI schema. Wei
 
 | Library                    | Size (min) | “GET” request\*            |
 | :------------------------- | ---------: | :------------------------- |
-| openapi-fetch              |     `5 kB` | `300k` ops/s (fastest)     |
-| openapi-typescript-fetch   |     `4 kB` | `150k` ops/s (2× slower)   |
+| openapi-fetch              |     `6 kB` | `300k` ops/s (fastest)     |
+| openapi-typescript-fetch   |     `3 kB` | `300k` ops/s (fastest)     |
+| feature-fetch              |    `15 kB` | `300k` ops/s (fastest)     |
 | axios                      |    `32 kB` | `225k` ops/s (1.3× slower) |
 | superagent                 |    `55 kB` | `50k` ops/s (6× slower)    |
 | openapi-typescript-codegen |   `367 kB` | `100k` ops/s (3× slower)   |
@@ -59,7 +60,7 @@ npm i -D openapi-typescript typescript
 ```
 
 > **Highly recommended**
-> 
+>
 > Enable [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) in your `tsconfig.json` ([docs](/advanced#enable-nouncheckedindexaccess-in-your-tsconfigjson))
 
 Next, generate TypeScript types from your OpenAPI schema using openapi-typescript:
@@ -81,7 +82,7 @@ Lastly, be sure to **run typechecking** in your project. This can be done by add
 And run `npm run test:ts` in your CI to catch type errors.
 
 > **TIP:**
-> 
+>
 > Use `tsc --noEmit` to check for type errors rather than relying on your linter or your build command. Nothing will typecheck as accurately as the TypeScript compiler itself.
 
 ## Basic usage
