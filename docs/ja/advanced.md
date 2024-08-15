@@ -282,7 +282,7 @@ prefixItems:
 
 OpenAPIのコンポジションツール（`oneOf` / `anyOf` / `allOf`）は、スキーマ内のコード量を減らしながら柔軟性を最大化する強力なツールです。しかし、TypeScriptの共用体型は[XOR](https://en.wikipedia.org/wiki/Exclusive_or)を提供しないため、`oneOf` に直接マッピングすることはできません。そのため、oneOfは単独で使用し、他のコンポジションメソッドやプロパティと組み合わせないことが推奨されます。例えば:
 
-#### ❌ Bad
+#### ❌ 悪い
 
 ::: code-group
 
@@ -324,7 +324,7 @@ Pet:
 
 :::
 
-#### ✅ Better
+#### ✅ 良い
 
 ::: code-group
 
