@@ -199,7 +199,7 @@ openapi-fetchは、[3.1仕様書に記載されている](https://swagger.io/doc
 
 ```ts
 import createClient from "openapi-fetch";
-import type { paths } from "./my-openapi-3-schema"; // openapi-typescriptによって生成された型をインポート
+import type { paths } from "./my-openapi-3-schema"; // openapi-typescriptで生成された型
 
 const myMiddleware: Middleware = {
   async onRequest({ request, options }) {
