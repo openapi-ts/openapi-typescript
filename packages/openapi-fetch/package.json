@@ -1,7 +1,7 @@
 {
   "name": "openapi-fetch",
-  "description": "Fast, type-safe fetch client for your OpenAPI schema. Only 5 kb (min). Works with React, Vue, Svelte, or vanilla JS.",
-  "version": "0.11.0",
+  "description": "Fast, type-safe fetch client for your OpenAPI schema. Only 6 kb (min). Works with React, Vue, Svelte, or vanilla JS.",
+  "version": "0.11.1",
   "author": {
     "name": "Drew Powers",
     "email": "drew@pow.rs"
@@ -61,6 +61,7 @@
     "test:ts": "tsc --noEmit",
     "test:ts-no-strict": "tsc --noEmit -p test/no-strict-null-checks/tsconfig.json",
     "test-e2e": "playwright test",
+    "bench:js": "vitest bench",
     "e2e-vite-build": "vite build test/fixtures/e2e",
     "e2e-vite-start": "vite preview test/fixtures/e2e",
     "version": "pnpm run prepare && pnpm run build"
@@ -69,15 +70,16 @@
     "openapi-typescript-helpers": "workspace:^"
   },
   "devDependencies": {
-    "axios": "^1.7.2",
+    "axios": "^1.7.4",
     "del-cli": "^5.1.0",
-    "esbuild": "^0.20.2",
+    "esbuild": "^0.23.0",
     "execa": "^8.0.1",
+    "feature-fetch": "^0.0.15",
     "msw": "^2.3.1",
     "openapi-typescript": "workspace:^",
     "openapi-typescript-codegen": "^0.25.0",
     "openapi-typescript-fetch": "^2.0.0",
-    "superagent": "^9.0.2",
+    "superagent": "^10.0.1",
     "typescript": "^5.4.5",
     "vite": "^5.3.5"
   }
