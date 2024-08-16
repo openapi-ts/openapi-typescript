@@ -1,5 +1,6 @@
 import type { UserConfig } from "vitepress";
 import { zhSearch } from "./zh";
+import { jaSearch } from "./ja";
 
 const HOSTNAME = "https://openapi-ts.dev";
 
@@ -31,7 +32,7 @@ const shared: UserConfig = {
         appId: "NA92XVKBVS",
         apiKey: "4f3ce9ca7edc3b83c209e6656ab29eb8",
         indexName: "openapi-ts",
-        locales: { ...zhSearch },
+        locales: { ...zhSearch, ...jaSearch },
       },
     },
     socialLinks: [

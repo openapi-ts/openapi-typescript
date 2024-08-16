@@ -7,7 +7,7 @@ description: Quickstart
 
 openapi-typescript turns [OpenAPI 3.0 & 3.1](https://spec.openapis.org/oas/latest.html) schemas into TypeScript quickly using Node.js. No Java/node-gyp/running OpenAPI servers necessary.
 
-The code is [MIT-licensed](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE") and free for use.
+The code is [MIT-licensed](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE) and free for use.
 
 ::: tip
 

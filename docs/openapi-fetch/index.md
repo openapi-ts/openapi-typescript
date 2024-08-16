@@ -69,7 +69,7 @@ npm i -D openapi-typescript typescript
 
 ::: tip Highly recommended
 
-Enable [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) in your `tsconfig.json` ([docs](/advanced#enable-nouncheckedindexaccess-in-your-tsconfigjson))
+Enable [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) in your `tsconfig.json` ([docs](/advanced#enable-nouncheckedindexedaccess-in-tsconfig))
 
 :::
 
@@ -189,7 +189,7 @@ client["/blogposts/{post_id}"].GET({
 ```
 
 Note that this has performance implications and does not allow to attach middlewares directly.
-See [`wrapAsPathBasedClient`](/openapi-fetch/api#wrapAsPathBasedClient) for more.
+See [`wrapAsPathBasedClient`](/openapi-fetch/api#wrapaspathbasedclient) for more.
 
 ## Support
 

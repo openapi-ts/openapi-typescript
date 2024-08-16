@@ -73,7 +73,7 @@ npm i -D openapi-typescript typescript
 
 ::: tip 强烈推荐
 
-在 `tsconfig.json` 中启用 [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess)（[文档](/advanced#enable-nouncheckedindexaccess-in-your-tsconfigjson)）
+在 `tsconfig.json` 中启用 [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess)（[文档](/zh/advanced#在-tsconfig-中启用-nouncheckedindexedaccess)）
 
 :::
 
