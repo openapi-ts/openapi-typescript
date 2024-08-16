@@ -1,11 +1,12 @@
 ---
 title: useQuery
 ---
+
 # {{ $frontmatter.title }}
 
-`useQuery` メソッドを使用すると、react-query本来の [useQuery](https://tanstack.com/query/latest/docs/framework/react/guides/queries) を利用できます。
+`useQuery` メソッドを使用すると、react-query 本来の [useQuery](https://tanstack.com/query/latest/docs/framework/react/guides/queries) を利用できます。
 
-- resultは本来の関数と同じです。
+- result は本来の関数と同じです。
 - `functionKey` は `[method, path, params]` です。
 - `data` と `error` は完全に型付けされています。
 - 第4引数としてクエリオプションを渡すことができます。
@@ -28,8 +29,8 @@ export const App = () => {
     },
   });
 
-  if (!data || isLoading) return "Loading...";
-  if (error) return `An error occured: ${error.message}`;
+  if (!data || isLoading) return "読み込み中...";
+  if (error) return `エラーが発生しました: ${error.message}`;
 
   return <div>{data.firstname}</div>;
 };
@@ -57,15 +58,15 @@ const query = $api.useQuery(method, path, options, queryOptions, queryClient);
 **引数**
 
 - `method` **(必須)**
-  - リクエストに使用するHTTPメソッド
+  - リクエストに使用する HTTP メソッド
   - このメソッドがキーとして使用されます。詳細については [Query Keys](https://tanstack.com/query/latest/docs/framework/react/guides/query-keys) を参照してください。
 - `path` **(必須)**
   - リクエストに使用するパス名
   - スキーマ内で指定されたメソッドに対応する利用可能なパスでなければなりません。
   - パス名はキーとして使用されます。詳細については [Query Keys](https://tanstack.com/query/latest/docs/framework/react/guides/query-keys) を参照してください。
 - `options`
-  - リクエストに使用するfetchオプション
-  - OpenAPIスキーマがパラメータを要求する場合のみ必要です。
+  - リクエストに使用する fetch オプション
+  - OpenAPI スキーマがパラメータを要求する場合のみ必要です。
   - オプションの `params` はキーとして使用されます。詳細については [Query Keys](https://tanstack.com/query/latest/docs/framework/react/guides/query-keys) を参照してください。
 - `queryOptions`
   - 本来の `useQuery` オプション

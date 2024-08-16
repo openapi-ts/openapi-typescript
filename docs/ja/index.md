@@ -15,7 +15,7 @@ hero:
 
 features:
   - title: "超高速"
-    details: "静的な TypeScript 型は、実行時に影響を与えず、クライアントの負担もありません。"
+    details: "静的な TypeScriptの型は、実行時に影響を与えず、クライアントの負担もありません。"
   - title: "型安全"
     details: "OpenAPI スキーマを使用して、セットアップやテストなしでコード全体を型チェックします。"
   - title: "どこでも実行可能"

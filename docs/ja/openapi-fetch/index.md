@@ -9,7 +9,8 @@ openapi-fetchは、あなたのOpenAPIスキーマを取り込み、型安全な
 | ライブラリ                 | サイズ (min) | “GET” リクエスト\*       |
 | :------------------------- | -----------: | :----------------------- |
 | openapi-fetch              |       `6 kB` | `300k` ops/s (最速)      |
-| openapi-typescript-fetch   |       `4 kB` | `150k` ops/s (2倍遅い)   |
+| openapi-typescript-fetch   |       `3 kB` | `300k` ops/s (最速)      |
+| feature-fetch              |      `15 kB` | `300k` ops/s (最速)      |
 | axios                      |      `32 kB` | `225k` ops/s (1.3倍遅い) |
 | superagent                 |      `55 kB` | `50k` ops/s (6倍遅い)    |
 | openapi-typescript-codegen |     `367 kB` | `100k` ops/s (3倍遅い)   |
@@ -44,7 +45,7 @@ await client.PUT("/blogposts", {
 
 :::
 
-`data` と `error` は型チェックが行われ、VS Codeや他のTypeScript対応IDEでIntellisenseによる補完が利用可能です。同様に、リクエストの `body` もフィールドが型チェックされ、必要なパラメータが不足している場合や型の不一致がある場合にはエラーが発生します。
+`data` と `error` は型チェックが行われ、VS Code や他の TypeScript 対応 IDE で Intellisense による補完が利用可能です。同様に、リクエストの `body` もフィールドが型チェックされ、必要なパラメータが不足している場合や型の不一致がある場合にはエラーが発生します。
 
 `GET()`, `PUT()`, `POST()` などは、ネイティブの [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) の薄いラッパーとして動作します（[任意の呼び出しに変更することも可能です](/openapi-fetch/api#create-client)）。
 
@@ -54,12 +55,12 @@ await client.PUT("/blogposts", {
 - ✅ すべてのパラメータ、リクエストボディ、レスポンスが型チェックされ、スキーマと100%一致する
 - ✅ APIの手動での型指定が不要
 - ✅ バグを隠す可能性がある `any` 型の排除
-- ✅ バグを隠す可能性がある `as` 型の上書きも排除
-- ✅ これらすべてが**5 kb**のクライアントパッケージで実現 🎉
+- ✅ バグを隠す可能性がある `as` による型の上書きも排除
+- ✅ これらすべてが**6 kb**のクライアントパッケージで実現 🎉
 
 ## セットアップ
 
-このライブラリと [openapi-typescript](/introduction) をインストールします：
+このライブラリと [openapi-typescript](/ja/introduction) をインストールします：
 
 ```bash
 npm i openapi-fetch
@@ -68,7 +69,7 @@ npm i -D openapi-typescript typescript
 
 ::: tip 強く推奨
 
-`tsconfig.json`で [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) を有効にしてください ([ドキュメント](/advanced#enable-nouncheckedindexaccess-in-your-tsconfigjson))
+`tsconfig.json`で [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) を有効にしてください ([ドキュメント](/ja/advanced#tsconfigで-nouncheckedindexedaccess-を有効にする))
 
 :::
 
@@ -131,17 +132,17 @@ const { data, error } = await client.PUT("/blogposts", {
 
 :::
 
-1. HTTPメソッドは `createClient()` から直接取得します。
-2. `GET()` , `PUT()` , などに希望するpathを渡します。
+1. HTTPメソッドを `createClient()` から直接取得します。
+2. `GET()` , `PUT()` などに希望する `path` を渡します。
 3. TypeScriptが欠落しているものや無効なものがあれば有用なエラーを返します。
 
 ### Pathname
 
-`GET()` , `PUT()` , `POST()` などのpathnameは、スキーマと厳密に一致している必要があります。例では、URLは `/blogposts/{post_id}` です。このライブラリは、すべての `path` パラメータをすぐに置き換え、それらが型チェックされるようにします。
+`GET()` , `PUT()` , `POST()` などのpathnameは、**スキーマと厳密に一致している必要があります**。例では、URLは `/blogposts/{post_id}` です。このライブラリは、すべての `path` パラメータをすぐに置き換え、それらが型チェックされるようにします。
 
 ::: tip
 
-openapi-fetchはURLから型を推論します。動的な実行時の値よりも静的な文字列値を優先してください。例：
+openapi-fetch は URL から型を推論します。動的な実行時の値よりも静的な文字列値を優先してください。例：
 
 - ✅ `"/blogposts/{post_id}"`
 - ❌ `[...pathParts].join("/") + "{post_id}"`
@@ -188,8 +189,8 @@ client["/blogposts/{post_id}"].GET({
 });
 ```
 
-これにはパフォーマンスの影響があり、ミドルウェアを直接アタッチすることはできません。
-詳細については、[`wrapAsPathBasedClient`](/openapi-fetch/api#wrapAsPathBasedClient) を参照してください。
+これにはパフォーマンスの影響があり、ミドルウェアを直接付与することはできません。
+詳細については、[`wrapAsPathBasedClient`](/ja/openapi-fetch/api#wrapaspathbasedclient) を参照してください。
 
 ## サポート
 

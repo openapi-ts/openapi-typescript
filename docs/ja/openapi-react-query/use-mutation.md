@@ -4,9 +4,9 @@ title: useMutation
 
 # {{ $frontmatter.title }}
 
-`useMutation` メソッドを使用すると、react-query本来の [useMutation](https://tanstack.com/query/latest/docs/framework/react/guides/mutations) を利用できます。
+`useMutation` メソッドを使用すると、react-query 本来の [useMutation](https://tanstack.com/query/latest/docs/framework/react/guides/mutations) を利用できます。
 
-- resultは本来の関数と同じです。
+- result は本来の関数と同じです。
 - `mutationKey` は `[method, path]`です。
 - `data` と `error` は完全に型付けされています。
 
@@ -26,7 +26,7 @@ export const App = () => {
 
   return (
     <button onClick={() => mutate({ body: { firstname: "John" } })}>
-      Update
+      更新する
     </button>
   );
 };
@@ -54,15 +54,15 @@ const query = $api.useQuery(method, path, options, queryOptions, queryClient);
 **引数**
 
 - `method` **(必須)**
-  - リクエストに使用するHTTPメソッド
+  - リクエストに使用する HTTP メソッド
   - このメソッドがキーとして使用されます。詳細については [Query Keys](https://tanstack.com/query/latest/docs/framework/react/guides/query-keys) を参照してください。
 - `path` **(必須)**
   - リクエストに使用するパス名
   - スキーマ内で指定されたメソッドに対応する利用可能なパスでなければなりません。
   - パス名はキーとして使用されます。詳細については [Query Keys](https://tanstack.com/query/latest/docs/framework/react/guides/query-keys) を参照してください。
 - `queryOptions`
-  - 本来の useMutation オプション
+  - 本来の `useMutation` オプション
   - [See more information](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation)
 - `queryClient`
-  - 本来の queryClient オプション
+  - 本来の `queryClient` オプション
   - [See more information](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation)

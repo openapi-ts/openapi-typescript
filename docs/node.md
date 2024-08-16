@@ -81,7 +81,7 @@ const ast = await openapiTS(mySchema, { redocly });
 
 ## Options
 
-The Node API supports all the [CLI flags](/cli#options) in `camelCase` format, plus the following additional options:
+The Node API supports all the [CLI flags](/cli#flags) in `camelCase` format, plus the following additional options:
 
 | Name            |      Type       |     Default     | Description                                                                                  |
 | :-------------- | :-------------: | :-------------: | :------------------------------------------------------------------------------------------- |

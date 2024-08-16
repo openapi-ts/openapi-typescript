@@ -32,7 +32,7 @@ description: このプロジェクトに関する追加情報
 ## プロジェクトの目標
 
 1. 任意の有効な OpenAPI スキーマを TypeScript 型に変換できるようにすること。どんなに複雑なスキーマでも対応可能です。
-2. 生成される型は静的に解析可能で、実行時の依存関係がない（ただし、[enum](https://www.typescriptlang.org/docs/handbook/enums.html) のような例外はあります）。
+2. 生成される型は静的に解析可能で、実行時の依存関係がない（ただし、[enums](https://www.typescriptlang.org/docs/handbook/enums.html) のような例外はあります）。
 3. 生成された型は、元のスキーマにできるだけ一致し、元の大文字形式などを保持します。
 4. 型の生成 は Node.js だけで実行可能であり、（Java、Python などは不要）どんな環境でも実行できます。
 5. ファイルからの OpenAPI スキーマのフェッチや、ローカルおよびリモートサーバーからのフェッチをサポートします。

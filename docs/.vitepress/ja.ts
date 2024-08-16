@@ -46,7 +46,7 @@ export default defineConfig({
           items: [
             { text: "始める", link: "/ja/openapi-react-query/" },
             { text: "useQuery", link: "/ja/openapi-react-query/use-query" },
-            { text: "useMutation", link: "/ja/openapi-react-query/use-mutation  " },
+            { text: "useMutation", link: "/ja/openapi-react-query/use-mutation" },
             { text: "useSuspenseQuery", link: "/ja/openapi-react-query/use-suspense-query" },
             { text: "概要", link: "/ja/openapi-react-query/about" },
           ],
@@ -61,9 +61,11 @@ export default defineConfig({
     outline: {
       label: "目次",
     },
+    sidebarMenuLabel: "メニュー",
+    returnToTopLabel: "最上部に戻る",
     footer: {
       message:
-        '<a href="https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE">MITライセンス</a> に基づいて配布されています',
+        '<a href="https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE">MITライセンス</a> に基づいて配布されています。',
     },
   },
 });

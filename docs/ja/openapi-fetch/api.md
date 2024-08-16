@@ -13,10 +13,10 @@ description: openapi-fetch API
 createClient<paths>(options);
 ```
 
-| Name              | Type            | Description                                                                                                                                                                |
+| 名前              | 型              | 説明                                                                                                                                                                       |
 | :---------------- | :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `baseUrl`         | `string`        | すべてのfetch URLにこのオプションで指定されたプレフィックスを付与します (例. `"https://myapi.dev/v1/"`)                                                                    |
-| `fetch`           | `fetch`         | リクエストに使用するFetchインスタンス (デフォルト: `globalThis.fetch`)                                                                                                     |
+| `baseUrl`         | `string`        | すべての fetch URL にこのオプションで指定されたプレフィックスを付与します (例.`"https://myapi.dev/v1/"`)                                                                   |
+| `fetch`           | `fetch`         | リクエストに使用する Fetch インスタンス (デフォルト: `globalThis.fetch`)                                                                                                   |
 | `querySerializer` | QuerySerializer | (任意) [querySerializer](#queryserializer) を提供します                                                                                                                    |
 | `bodySerializer`  | BodySerializer  | (任意) [bodySerializer](#bodyserializer) を提供します                                                                                                                      |
 | (Fetch options)   |                 | 有効なすべてのfetchオプション（`headers`, `mode`, `cache`, `signal` など）を指定可能です。([ドキュメント](https://developer.mozilla.org/en-US/docs/Web/API/fetch#options)) |
@@ -29,16 +29,16 @@ createClient<paths>(options);
 client.GET("/my-url", options);
 ```
 
-| Name              | Type                                                              | Description                                                                                                                                                                                                                                                      |
-| :---------------- | :---------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `params`          | ParamsObject                                                      | エンドポイントの [path](https://swagger.io/specification/#parameter-locations) と [query](https://swagger.io/specification/#parameter-locations) パラメータ。                                                                                                    |
-| `body`            | `{ [name]:value }`                                                | エンドポイントの [requestBody](https://spec.openapis.org/oas/latest.html#request-body-object) データ。                                                                                                                                                           |
-| `querySerializer` | QuerySerializer                                                   | (任意) [querySerializer](#queryserializer) を提供します                                                                                                                                                                                                          |
-| `bodySerializer`  | BodySerializer                                                    | (任意) [bodySerializer](#bodyserializer) を提供します                                                                                                                                                                                                            |
-| `parseAs`         | `"json"` \| `"text"` \| `"arrayBuffer"` \| `"blob"` \| `"stream"` | (任意) [組み込みのインスタンスメソッド](https://developer.mozilla.org/en-US/docs/Web/API/Response#instance_methods) を使用してレスポンスを解析します（デフォルト: "json"） (デフォルト: `"json"`). `"stream"` は解析をスキップし、未処理のストリームを返します。 |
-| `fetch`           | `fetch`                                                           | リクエストに使用するFetchインスタンス (デフォルト: `createClient` で指定されたfetch)                                                                                                                                                                             |
-| `middleware`      | `Middleware[]`                                                    | [ドキュメントを参照](/openapi-fetch/middleware-auth)                                                                                                                                                                                                             |
-| (Fetch options)   |                                                                   | 有効なすべてのfetchオプション(`headers`, `mode`, `cache`, `signal`など) ([ドキュメント](https://developer.mozilla.org/en-US/docs/Web/API/fetch#options))                                                                                                         |
+| 名前              | 型                                                                | 説明                                                                                                                                                                                                                                       |
+| :---------------- | :---------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `params`          | ParamsObject                                                      | エンドポイントの [path](https://swagger.io/specification/#parameter-locations) と [query](https://swagger.io/specification/#parameter-locations) パラメータ。                                                                              |
+| `body`            | `{ [name]:value }`                                                | エンドポイントの [requestBody](https://spec.openapis.org/oas/latest.html#request-body-object) データ。                                                                                                                                     |
+| `querySerializer` | QuerySerializer                                                   | (任意) [querySerializer](#queryserializer) を提供します                                                                                                                                                                                    |
+| `bodySerializer`  | BodySerializer                                                    | (任意) [bodySerializer](#bodyserializer) を提供します                                                                                                                                                                                      |
+| `parseAs`         | `"json"` \| `"text"` \| `"arrayBuffer"` \| `"blob"` \| `"stream"` | (任意) [組み込みのインスタンスメソッド](https://developer.mozilla.org/en-US/docs/Web/API/Response#instance_methods) を使用してレスポンスを解析します (デフォルト: `"json"`). `"stream"` は解析をスキップし、未処理のストリームを返します。 |
+| `fetch`           | `fetch`                                                           | リクエストに使用する Fetch インスタンス (デフォルト: `createClient` で指定された fetch )                                                                                                                                                   |
+| `middleware`      | `Middleware[]`                                                    | [ドキュメントを参照](/openapi-fetch/middleware-auth)                                                                                                                                                                                       |
+| (Fetch options)   |                                                                   | 有効なすべての fetch オプション(`headers`, `mode`, `cache`, `signal`など) ([ドキュメント](https://developer.mozilla.org/en-US/docs/Web/API/fetch#options))                                                                                 |
 
 ## wrapAsPathBasedClient
 
@@ -53,7 +53,7 @@ pathBasedClient["/my-url"].GET(fetchOptions);
 
 `fetchOptions` はベースクライアントと同じです。
 
-Pathベースのクライアントは型推論の向上に役立ちますが、Proxyを使用するためランタイムのコストがかかります。
+Path ベースのクライアントは型推論の向上に役立ちますが、Proxy を使用するためランタイムのコストがかかります。
 
 **createPathBasedClient** は `createClient` と `wrapAsPathBasedClient` を結合した便利なメソッドで、パスに基づく呼び出しスタイルを使用したい場合にのみ使用します。
 
@@ -79,13 +79,13 @@ pathBasedClient["/my-url"].GET(fetchOptions);
 
 ## querySerializer
 
-OpenAPIは、パラメータに対してオブジェクトや配列をシリアライズする際に、[さまざまな方法をサポート](https://swagger.io/docs/specification/serialization/#query)しています（文字列、数値、ブール値などのプリミティブ型は常に同じ方法で処理されます）。デフォルトでは、このライブラリは配列を `style: "form"`, `explode: true` でシリアライズし、オブジェクトを `style: "deepObject"`, `explode: true` でシリアライズしますが、`querySerializer` オプションを使用して、この動作をカスタマイズすることができます（すべてのリクエストに対して `createClient()` で指定するか、個別のリクエストに対してのみ指定することができます）。
+OpenAPIは、パラメータに対してオブジェクトや配列をシリアライズする際に、[さまざまな方法をサポート](https://swagger.io/docs/specification/serialization/#query)しています（文字列、数値、ブール値などのプリミティブ型は常に同じ方法で処理されます）。デフォルトでは、このライブラリは配列を `style: "form", explode: true` でシリアライズし、オブジェクトを `style: "deepObject", explode: true` でシリアライズしますが、`querySerializer` オプションを使用して、この動作をカスタマイズすることができます（すべてのリクエストに対して `createClient()` で指定するか、個別のリクエストに対してのみ指定することができます）。
 
 ### オブジェクト構文
 
 openapi-fetchは、一般的なシリアル化方法を標準で提供しています:
 
-| Option          |       Type        | Description                                                                                                                                                                                       |
+| オプション      |        型         | 説明                                                                                                                                                                                              |
 | :-------------- | :---------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `array`         | SerializerOptions | 配列の `style` と `explode` を設定します ([ドキュメント](https://swagger.io/docs/specification/serialization/#query))。 デフォルト: `{ style: "form", explode: true }`                            |
 | `object`        | SerializerOptions | オブジェクトの `style` と `explode` を設定します ([ドキュメント](https://swagger.io/docs/specification/serialization/#query))。 デフォルト: `{ style: "deepObject", explode: true }`              |
@@ -108,7 +108,7 @@ const client = createClient({
 
 #### 配列のstyles
 
-| Style                        | Array `id = [3, 4, 5]`  |
+| Style                        | 配列 `id = [3, 4, 5]`   |
 | :--------------------------- | :---------------------- |
 | form                         | `/users?id=3,4,5`       |
 | **form (exploded, default)** | `/users?id=3&id=4&id=5` |
@@ -119,11 +119,11 @@ const client = createClient({
 
 #### オブジェクトのstyles
 
-| Style                    | Object `id = {"role": "admin", "firstName": "Alex"}` |
-| :----------------------- | :--------------------------------------------------- |
-| form                     | `/users?id=role,admin,firstName,Alex`                |
-| form (exploded)          | `/users?role=admin&firstName=Alex`                   |
-| **deepObject (default)** | `/users?id[role]=admin&id[firstName]=Alex`           |
+| Style                    | オブジェクト `id = {"role": "admin", "firstName": "Alex"}` |
+| :----------------------- | :--------------------------------------------------------- |
+| form                     | `/users?id=role,admin,firstName,Alex`                      |
+| form (exploded)          | `/users?role=admin&firstName=Alex`                         |
+| **deepObject (default)** | `/users?id[role]=admin&id[firstName]=Alex`                 |
 
 ::: tip
 
@@ -184,14 +184,14 @@ const { data, error } = await client.PUT("/submit", {
 
 openapi-fetchは、[3.1仕様書に記載されている](https://swagger.io/docs/specification/serialization/#path)ように、pathのシリアライズをサポートしています。これは、OpenAPIスキーマ内の特定のフォーマットに基づいて自動的に行われます。
 
-| Template          | Style                | Primitive `id = 5` | Array `id = [3, 4, 5]`   | Object `id = {"role": "admin", "firstName": "Alex"}` |
-| :---------------- | :------------------- | :----------------- | :----------------------- | :--------------------------------------------------- |
-| **`/users/{id}`** | **simple (default)** | **`/users/5`**     | **`/users/3,4,5`**       | **`/users/role,admin,firstName,Alex`**               |
-| `/users/{id*}`    | simple (exploded)    | `/users/5`         | `/users/3,4,5`           | `/users/role=admin,firstName=Alex`                   |
-| `/users/{.id}`    | label                | `/users/.5`        | `/users/.3,4,5`          | `/users/.role,admin,firstName,Alex`                  |
-| `/users/{.id*}`   | label (exploded)     | `/users/.5`        | `/users/.3.4.5`          | `/users/.role=admin.firstName=Alex`                  |
-| `/users/{;id}`    | matrix               | `/users/;id=5`     | `/users/;id=3,4,5`       | `/users/;id=role,admin,firstName,Alex`               |
-| `/users/{;id*}`   | matrix (exploded)    | `/users/;id=5`     | `/users/;id=3;id=4;id=5` | `/users/;role=admin;firstName=Alex`                  |
+| テンプレート      | Style                | プリミティブ `id = 5` | 配列 `id = [3, 4, 5]`    | オブジェクト `id = {"role": "admin", "firstName": "Alex"}` |
+| :---------------- | :------------------- | :-------------------- | :----------------------- | :--------------------------------------------------------- |
+| **`/users/{id}`** | **simple (default)** | **`/users/5`**        | **`/users/3,4,5`**       | **`/users/role,admin,firstName,Alex`**                     |
+| `/users/{id*}`    | simple (exploded)    | `/users/5`            | `/users/3,4,5`           | `/users/role=admin,firstName=Alex`                         |
+| `/users/{.id}`    | label                | `/users/.5`           | `/users/.3,4,5`          | `/users/.role,admin,firstName,Alex`                        |
+| `/users/{.id*}`   | label (exploded)     | `/users/.5`           | `/users/.3.4.5`          | `/users/.role=admin.firstName=Alex`                        |
+| `/users/{;id}`    | matrix               | `/users/;id=5`        | `/users/;id=3,4,5`       | `/users/;id=role,admin,firstName,Alex`                     |
+| `/users/{;id*}`   | matrix (exploded)    | `/users/;id=5`        | `/users/;id=3;id=4;id=5` | `/users/;role=admin;firstName=Alex`                        |
 
 ## ミドルウェア
 
@@ -226,7 +226,7 @@ client.use(myMiddleware);
 
 各ミドルウェアのコールバックは、以下の内容を持つ `options` オブジェクトを受け取ります。
 
-| Name         | Type            | Description                                                                                         |
+| 名前         | 型              | 説明                                                                                                |
 | :----------- | :-------------- | :-------------------------------------------------------------------------------------------------- |
 | `request`    | `Request`       | エンドポイントに送信される現在の `Request` オブジェクト。                                           |
 | `response`   | `Response`      | エンドポイントから返された `Response` オブジェクト（`onRequest` の場合は `undefined` になります）。 |
@@ -239,8 +239,8 @@ client.use(myMiddleware);
 
 各ミドルウェアのコールバックは以下を返すことができます：
 
-- **onRequest** リクエストを変更する `Request` またはそのままにする場合は `undefined`（スキップ）。
-- **onResponse** レスポンスを変更する `Response` またはそのままにする場合は `undefined`（スキップ）。
+- **onRequest** リクエストを変更するための `Request` またはそのままにする場合は `undefined`（スキップ）。
+- **onResponse** レスポンスを変更するための `Response` またはそのままにする場合は `undefined`（スキップ）。
 
 ### ミドルウェアの削除
 
@@ -258,4 +258,4 @@ client.use(myMiddleware);
 client.eject(myMiddleware);
 ```
 
-追加のガイドと例については、[Middleware & Auth](/openapi-fetch/middleware-auth) を参照してください。
+追加のガイドと例については、[Middleware & Auth](/ja/openapi-fetch/middleware-auth) を参照してください。

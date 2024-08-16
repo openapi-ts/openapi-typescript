@@ -5,18 +5,146 @@ description: openapi-typescriptを実際のアプリケーションで使用す�
 
 # 使用例
 
-openapi-typescriptで生成された型は汎用性が高く、さまざまな方法で利用できます。これらの例は包括的なものではありませんが、アプリケーションでの使用方法についてのアイデアを刺激することを期待しています。
+openapi-typescript で生成された型は汎用性が高く、さまざまな方法で利用できます。これらの例は包括的なものではありませんが、アプリケーションでの使用方法についてのアイデアを刺激することを期待しています。
 
 ## データフェッチ
 
 データを取得する際には、**自動的に型付けされたfetchラッパー**を使用すると、簡単かつ安全に行えます：
 
-- [openapi-fetch](/ja/openapi-fetch/) (推奨)
-- [openapi-typescript-fetch](https://www.npmjs.com/package/openapi-typescript-fetch) by [@ajaishankar](https://github.com/ajaishankar)
+<details>
+<summary><a href="/openapi-fetch/">openapi-fetch</a> (推奨)</summary>
+
+::: code-group
+
+```ts [test/my-project.ts]
+import createClient from "openapi-fetch";
+import type { paths } from "./my-openapi-3-schema"; // openapi-typescriptで生成された型
+
+const client = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
+
+const {
+  data, // 2XX レスポンスの場合のみ存在
+  error, // 4XX または 5XX レスポンスの場合のみ存在
+} = await client.GET("/blogposts/{post_id}", {
+  params: {
+    path: { post_id: "123" },
+  },
+});
+
+await client.PUT("/blogposts", {
+  body: {
+    title: "My New Post",
+  },
+});
+```
+
+:::
+
+</details>
+
+<details>
+<summary><a href="https://www.npmjs.com/package/openapi-typescript-fetch" target="_blank" rel="noreferrer">openapi-typescript-fetch</a> by <a href="https://github.com/ajaishankar" target="_blank" rel="noreferrer">@ajaishankar</a></summary>
+
+::: code-group
+
+```ts [test/my-project.ts]
+import { Fetcher } from "openapi-typescript-fetch";
+import type { paths } from "./my-openapi-3-schema"; // openapi-typescriptで生成された型
+
+const fetcher = Fetcher.for<paths>();
+
+// GET リクエストを送信
+const getBlogPost = fetcher.path("/blogposts/{post_id}").method("get").create();
+
+try {
+  const { status, data } = await getBlogPost({
+    pathParams: { post_id: "123" },
+  });
+  console.log(data);
+} catch (error) {
+  console.error("Error:", error);
+}
+
+// PUT リクエストを送信
+const updateBlogPost = fetcher.path("/blogposts").method("put").create();
+
+try {
+  await updateBlogPost({ body: { title: "My New Post" } });
+} catch (error) {
+  console.error("Error:", error);
+}
+```
+
+:::
+
+</details>
+
+<details>
+<summary><a href="https://www.npmjs.com/package/feature-fetch" target="_blank" rel="noreferrer">feature-fetch</a> by <a href="https://github.com/builder-group" target="_blank" rel="noreferrer">builder.group</a></summary>
+
+::: code-group
+
+```ts [test/my-project.ts]
+import { createOpenApiFetchClient } from "feature-fetch";
+import type { paths } from "./my-openapi-3-schema"; // openapi-typescriptで生成された型
+
+// OpenAPI fetch クライアントを作成
+const fetchClient = createOpenApiFetchClient<paths>({
+  prefixUrl: "https://myapi.dev/v1",
+});
+
+// GET リクエストを送信
+const response = await fetchClient.get("/blogposts/{post_id}", {
+  pathParams: {
+    post_id: "123",
+  },
+});
+
+// レスポンスを処理する（アプローチ1：標準のif-else）
+if (response.isOk()) {
+  const data = response.value.data;
+  console.log(data); // 成功したレスポンスを処理
+} else {
+  const error = response.error;
+  if (error instanceof NetworkError) {
+    console.error("Network error:", error.message);
+  } else if (error instanceof RequestError) {
+    console.error("Request error:", error.message, "Status:", error.status);
+  } else {
+    console.error("Service error:", error.message);
+  }
+}
+
+// PUT リクエストを送信
+const putResponse = await fetchClient.put("/blogposts", {
+  body: {
+    title: "My New Post",
+  },
+});
+
+// レスポンスを処理する（アプローチ2：try-catch）
+try {
+  const putData = putResponse.unwrap().data;
+  console.log(putData); // 成功したレスポンスを処理
+} catch (error) {
+  // エラーを処理
+  if (error instanceof NetworkError) {
+    console.error("Network error:", error.message);
+  } else if (error instanceof RequestError) {
+    console.error("Request error:", error.message, "Status:", error.status);
+  } else {
+    console.error("Service error:", error.message);
+  }
+}
+```
+
+:::
+
+</details>
 
 ::: tip
 
-良いfetchラッパーは**ジェネリクスの使用は避ける**べきです。ジェネリクスは多くのタイプ指定が必要で、エラーを隠してしまう可能性があります！
+良い fetch ラッパーは**ジェネリクスの使用は避ける**べきです。ジェネリクスは多くのタイプ指定が必要で、エラーを隠してしまう可能性があります！
 
 :::
 
@@ -30,7 +158,7 @@ openapi-typescriptで生成された型は汎用性が高く、さまざまな�
 
 ```ts [src/my-project.ts]
 import { Hono } from "hono";
-import { components, paths } from "./my-openapi-3-schema"; // openapi-typescriptで生成
+import { components, paths } from "./my-openapi-3-schema"; // openapi-typescriptで生成された型
 
 const app = new Hono();
 
@@ -58,6 +186,108 @@ export default app;
 
 :::
 
+## Hono と [`@blgc/openapi-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-router)
+
+[Honoの例](#hono) のように、各ルートをジェネリックで手動で型付けする代わりに、[`@blgc/openapi-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-router) は、[Hono router](https://hono.dev/docs/api/routing) をラップして完全な型安全性を提供し、バリデーターを使用してOpenAPIスキーマを強制します。
+
+::: tip 知っておくと良いこと
+
+TypeScriptの型はコンパイル時の安全性を保証しますが、実行時のスキーマ検証を強制するものではありません。実行時の検証を確保するためには、ZodやValibotなどのバリデーションライブラリと統合する必要があります。バリデーションルールを手動で定義する必要がありますが、それらは型安全であり、ルールが正しく定義されていることを保証します。
+
+:::
+
+::: code-group
+
+```ts [src/router.ts]
+import { createHonoOpenApiRouter } from "@blgc/openapi-router";
+import { Hono } from "hono";
+import { zValidator } from "validation-adapters/zod";
+import * as z from "zod";
+
+import { paths } from "./gen/v1"; // openapi-typescriptで生成された型
+import { PetSchema } from "./schemas"; // 検証用の再利用可能なカスタムZodスキーマ
+
+export const router = new Hono();
+export const openApiRouter = createHonoOpenApiRouter<paths>(router);
+
+// GET /pet/{petId}
+openApiRouter.get("/pet/{petId}", {
+  pathValidator: zValidator(
+    z.object({
+      petId: z.number(), // petIdが数値であることを検証
+    })
+  ),
+  handler: (c) => {
+    const { petId } = c.req.valid("param"); // 検証済みのパラメータにアクセス
+    return c.json({ name: "Falko", photoUrls: [] });
+  },
+});
+
+// POST /pet
+openApiRouter.post("/pet", {
+  bodyValidator: zValidator(PetSchema), // PetSchemaを使用してリクエストボディを検証
+  handler: (c) => {
+    const { name, photoUrls } = c.req.valid("json"); // 検証済みのボディデータにアクセス
+    return c.json({ name, photoUrls });
+  },
+});
+```
+
+:::
+
+[完全な例](https://github.com/builder-group/community/tree/develop/examples/openapi-router/hono/petstore)
+
+## Express と [`@blgc/openapi-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-router)
+
+[`@blgc/openapi-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-router) は、[Express ルーター](https://expressjs.com/en/5x/api.html#router) をラップして、完全な型安全性を提供し、バリデーターを使用して OpenAPI スキーマを強制します。
+
+::: tip 知っておくと良いこと
+
+TypeScriptの型はコンパイル時の安全性を保証しますが、実行時のスキーマ検証を強制するものではありません。実行時の検証を確保するためには、ZodやValibotなどのバリデーションライブラリと統合する必要があります。バリデーションルールを手動で定義する必要がありますが、それらは型安全であり、ルールが正しく定義されていることを保証します。
+
+:::
+
+::: code-group
+
+```ts [src/router.ts]
+import { createExpressOpenApiRouter } from "@blgc/openapi-router";
+import { Router } from "express";
+import * as v from "valibot";
+import { vValidator } from "validation-adapters/valibot";
+
+import { paths } from "./gen/v1"; // openapi-typescriptで生成された型
+import { PetSchema } from "./schemas"; // 検証用の再利用可能なカスタムZodスキーマ
+
+export const router: Router = Router();
+export const openApiRouter = createExpressOpenApiRouter<paths>(router);
+
+// GET /pet/{petId}
+openApiRouter.get("/pet/{petId}", {
+  pathValidator: vValidator(
+    v.object({
+      petId: v.number(), // petIdが数値であることを検証
+    })
+  ),
+  handler: (req, res) => {
+    const { petId } = req.params; // 検証済みのパラメータにアクセス
+    res.send({ name: "Falko", photoUrls: [] });
+  },
+});
+
+// POST /pet
+openApiRouter.post("/pet", {
+  bodyValidator: vValidator(PetSchema), // PetSchemaを使用してリクエストボディを検証
+  handler: (req, res) => {
+    const { name, photoUrls } = req.body; // 検証済みのボディデータにアクセス
+    res.send({ name, photoUrls });
+  },
+});
+```
+
+:::
+
+[完全な例](https://github.com/builder-group/community/tree/develop/examples/openapi-router/express/petstore)
+
 ## Mock-Service-Worker (MSW)
 
 [Mock Service Worker (MSW)](https://mswjs.io) を使用してAPIモックを定義している場合、**小さくて自動的に型付けされたラッパー**をMSWと合わせて使用することで、OpenAPI仕様が変更された際にAPIモックのコンフリクトを簡単に解決できます。最終的には、アプリケーションのAPIクライアントとAPIモックの**両方**に同じレベルの信頼を持つことができます。
@@ -74,7 +304,7 @@ export default app;
 
 最も一般的なテストの誤検知の原因の一つは、モックが実際のAPIレスポンスと一致していない場合です。
 
-`openapi-typescript` は、最小限の労力でこれを防ぐための素晴らしい方法を提供します。以下に、OpenAPIスキーマに一致するようにすべてのモックを型チェックするためのヘルパー関数を書く一例を示します（ここでは[vitest](https://vitest.dev/)や[vitest-fetch-mock](https://www.npmjs.com/package/vitest-fetch-mock)を使用しますが、同じ原則が他の設定にも適用できます）：
+`openapi-typescript` は、最小限の労力でこれを防ぐための素晴らしい方法を提供します。以下に、OpenAPIスキーマに一致するようにすべてのモックを型チェックするためのヘルパー関数を書く一例を示します（ここでは [vitest](https://vitest.dev/) や [vitest-fetch-mock](https://www.npmjs.com/package/vitest-fetch-mock) を使用しますが、同じ原則が他の設定にも適用できます）：
 
 次のようなオブジェクト構造でモックを定義し、一度に複数のエンドポイントをモックすることを考えてみましょう：
 
@@ -130,7 +360,7 @@ describe("My API test", () => {
 
 _注: この例では、標準の `fetch()` 関数を使用していますが、[openapi-fetch](/ja/openapi-fetch/) を含む他の fetch ラッパーも、何の変更も加えずに代わりに使用できます。_
 
-以下のコードは、`test/utils.ts` ファイルに記述し、必要に応じてプロジェクトにコピー＆ペーストして使用することができます（シンプルさを保つために隠しています）。
+コードは、`test/utils.ts` ファイルにあり、必要に応じてプロジェクトにコピー＆ペーストして使用することができます（シンプルさを保つために隠しています）。
 
 <details>
 <summary>📄 <strong>test/utils.ts</strong></summary>
@@ -138,7 +368,7 @@ _注: この例では、標準の `fetch()` 関数を使用していますが、
 ::: code-group
 
 ```ts [test/utils.ts]
-import type { paths } from "./my-openapi-3-schema"; // generated by openapi-typescript
+import type { paths } from "./my-openapi-3-schema"; // openapi-typescriptで生成された型
 
 // 設定
 // ⚠️ 重要: ここを変更してください！これはすべてのURLにプレフィックスを追加します
@@ -219,7 +449,7 @@ export function findPath(
 
 ::: info 追加の説明
 
-このコードはかなり複雑です！ 大部分は詳細な実装なので無視しても構いません。重要な仕掛けが行われているのは、`mockResponses(…)` 関数のシグネチャです。ここには、この構造と私たちの設計との直接的なリンクがあることに気づくでしょう。その後、残りのコードは、ランタイムが期待通りに動作するように調整するためのものです。
+このコードはかなり複雑です！ 大部分は詳細な実装なので無視しても構いません。重要な仕掛けが行われているのは、`mockResponses(…)` 関数のシグネチャです。ここにすべての重要な処理が行われています—この構造と私たちの設計との直接的な関係が見えるでしょう。残りのコードはランタイムが期待通りに動作するように整えるだけです。
 
 :::
 

@@ -27,11 +27,11 @@ npx openapi-typescript https://petstore3.swagger.io/api/v3/openapi.yaml -o petst
 
 ### 複数のスキーマ
 
-複数のスキーマを変換するには、プロジェクトのルートディレクトリに `redocly.yaml` ファイルを作成し、[APIs を定義します](https://redocly.com/docs/cli/configuration/)。`apis` の下に、それぞれのスキーマに一意の名前とオプションのバージョンを指定します（名前は一意であれば問題ありません）。`root` 値をスキーマのエントリーポイントとして設定し、これが主な入力として機能します。出力には、`x-openapi-ts.output` を設定します：
+複数のスキーマを変換するには、プロジェクトのルートディレクトリに `redocly.yaml` ファイルを作成し、[APIs を定義します](https://redocly.com/docs/cli/configuration/)。`apis` の下に、それぞれのスキーマに一意の名前と、必要に応じてオプションのバージョンを指定します（名前は一意であれば問題ありません）。`root` の値をスキーマのエントリーポイントに設定します。これが主な入力として機能します。出力については、`x-openapi-ts.output` で設定します：
 
 ::: code-group
 
-```yaml [my-openapi-3-schema.yaml]
+```yaml [redocly.yaml]
 apis:
   core@v2:
     root: ./openapi/openapi.yaml
@@ -59,7 +59,7 @@ npx openapi-typescript
 
 ::: warning
 
-以前のバージョンではワイルドカードがサポートされていましたが、v7 では廃止され、代わりに `redocly.yaml` が使用されるようになりました。これにより、各スキーマの出力先をより詳細に制御でき、各スキーマに固有の設定を適用することができます。
+以前のバージョンでは globbing がサポートされていましたが、v7 では廃止され、代わりに `redocly.yaml` が推奨されるようになりました。これにより、各スキーマの出力先をより詳細に制御でき、各スキーマに固有の設定を適用することができます。
 
 :::
 
@@ -79,7 +79,7 @@ Redoclyの設定オプションについての詳細は [Redoclyのドキュメ�
 
 ::: code-group
 
-```yaml [my-openap-3-schema.yaml]
+```yaml [redocly.yaml]
 resolve:
   http:
     headers:
@@ -108,10 +108,10 @@ CLI は以下のフラグをサポートしています：
 | `--additional-properties`          |            |  `false`   | `additionalProperties: false` がないすべてのスキーマオブジェクトに任意のプロパティを許可します           |
 | `--alphabetize`                    |            |  `false`   | 型をアルファベット順にソートします                                                                       |
 | `--array-length`                   |            |  `false`   | 配列の `minItems` / `maxItems` を使用してタプルを生成します                                              |
-| `--default-non-nullable`           |            |   `true`   | デフォルト値を持つスキーマオブジェクトを、パラメータを除き、非null型として扱います                       |
-| `--properties-required-by-default` |            |  `false`   | `required` がないスキーマオブジェクトを、すべてのプロパティが必須であるかのように扱います                |
+| `--default-non-nullable`           |            |   `true`   | デフォルト値を持つスキーマオブジェクトを、非nullableとして扱います（parametersを除きます）                       |
+| `--properties-required-by-default` |            |  `false`   | `required` がないスキーマオブジェクトについて、すべてのプロパティを必須として扱います                |
 | `--empty-objects-unknown`          |            |  `false`   | 指定されたプロパティも `additionalProperties` もないスキーマオブジェクトに任意のプロパティを許可します   |
-| `--enum`                           |            |  `false`   | 文字列の共用体ではなく、[TS enums](https://www.typescriptlang.org/docs/handbook/enums.html) を生成します |
+| `--enum`                           |            |  `false`   | 文字列のユニオン型ではなく、[TS enums](https://www.typescriptlang.org/docs/handbook/enums.html) を生成します |
 | `--enum-values`                    |            |  `false`   | enumの値を配列としてエクスポートします                                                                   |
 | `--dedupe-enums`                   |            |  `false`   | `--enum=true` が設定されている場合、enumの重複を排除します                                               |
 | `--check`                          |            |  `false`   | 生成された型が最新であることを確認します                                                                 |
@@ -160,7 +160,7 @@ type UserResponses = paths[url]["responses"]; // 自動的に `paths['/user/{use
 
 :::
 
-これは人為的な例ですが、この機能を使用して、フェッチクライアントやアプリケーション内の他の便利な場所で、URLに基づいて型を自動的に推論することができます。
+これは人為的な例ですが、この機能を使用して、フェッチクライアントやアプリケーション内の他に有用的な場面で、URLに基づいて型を自動的に推論することができます。
 
 _ありがとう, [@Powell-v2](https://github.com/Powell-v2)!_
 
@@ -202,6 +202,6 @@ export interface components {
 
 これにより、配列の長さに対するより明示的な型チェックが可能になります。
 
-_注: この機能には適切な制限があります。例えば `maxItems: 100` の場合は、単純に `string[];` に戻ります。_
+_注: この機能には合理的な制限があります。例えば `maxItems: 100` の場合は、単純に `string[];` に戻ります。_
 
 _ありがとう, [@kgtkr](https://github.com/kgtkr)!_

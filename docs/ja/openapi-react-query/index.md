@@ -4,15 +4,15 @@ title: openapi-react-query
 
 # Introduction
 
-openapi-react-queryは、[@tanstack/react-query](https://tanstack.com/query/latest/docs/framework/react/overview) と連携してOpenAPIスキーマを扱うための、1kbの型安全な軽量ラッパーです。
+openapi-react-queryは、[@tanstack/react-query](https://tanstack.com/query/latest/docs/framework/react/overview) と連携してOpenAPIスキーマを扱うための型安全な軽量ラッパー(1kb)です。
 
-これは [openapi-fetch](../openapi-fetch/)] および [openapi-typescript](../introduction) を使用することで、以下のすべての機能が提供されます：
+これは [openapi-fetch](../openapi-fetch/) および [openapi-typescript](../introduction) を使用することで、以下のすべての機能が提供されます：
 
 - ✅ URLやパラメータのタイプミスが起こらない
 - ✅ すべてのパラメータ、リクエストボディ、レスポンスが型チェックされ、スキーマと100%一致する
 - ✅ APIの手動での型指定が不要
 - ✅ バグを隠す可能性がある `any` 型の排除
-- ✅ バグを隠す可能性がある `as` 型の上書きも排除
+- ✅ バグを隠す可能性がある `as` による型の上書きも排除
 
 ::: code-group
 
@@ -58,7 +58,7 @@ npm i -D openapi-typescript typescript
 
 ::: tip 強く推奨
 
-`tsconfig.json`で [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) を有効にしてください ([ドキュメント](/advanced#enable-nouncheckedindexaccess-in-your-tsconfigjson))
+`tsconfig.json`で [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) を有効にしてください ([ドキュメント](/ja/advanced#tsconfigで-nouncheckedindexedaccess-を有効にする))
 
 :::
 
@@ -70,7 +70,7 @@ npx openapi-typescript ./path/to/api/v1.yaml -o ./src/lib/api/v1.d.ts
 
 ## 基本的な使い方
 
-スキーマから型が生成されたら、[fetchクライアント](../introduction.md)とreact-queryクライアントを作成し、APIにクエリを実行できます。
+スキーマから型が生成されたら、[fetch クライアント](../introduction.md)と react-query クライアントを作成し、API にクエリを実行できます。
 
 ::: code-group
 

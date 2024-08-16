@@ -13,13 +13,13 @@ description: openapi-typescript のバージョン間の移行
 
 ### TypeScript AST
 
-7.x では、単純な文字列変換の代わりに TypeScript AST が導入されました。これにより、Node.js のコア API が TypeScript AST を返すようになり、`transform()` および `postTransform()` オプションも影響を受けます。[Node.js API のドキュメントが、関連する例と共に更新されています](./node)。
+7.x では、単純な文字列変換の代わりに TypeScript AST が導入されました。これは、TypeScript ASTを返すようになったコアのNode.js API、および `transform()` や `postTransform()` オプションに適用されます。[Node.js API のドキュメントが、関連する例と共に更新されています](./node)。
 
-### defaultNonNullable: デフォルトで true
+### defaultNonNullableがデフォルトで true
 
-CLI および Node.js API では、`--default-non-nullable` の動作がデフォルトで有効になりました。これにより、スキーマオブジェクトに `default` 値がある場合、それは `required` として扱われます（パラメータを除く）。
+CLI および Node.js API では、`--default-non-nullable` の動作がデフォルトで有効になりました。これにより、スキーマオブジェクトに `default` 値がある場合、それは `required` として扱われます（parametersを除く）。
 
-### Redocly 設定ファイルによるグロビングの置き換え
+### Redocly 設定ファイルによる globbing の置き換え
 
 7.x では複数のスキーマを一度に生成することができますが、特定の命名スキーマに従うことを強制するグロビングの代わりに、`redocly.config.yaml` ファイルを宣言して、各入力スキーマとその関連する生成された型の保存場所を指定します。これにより、複数のスキーマの命名と整理に柔軟性が生まれます。
 
@@ -47,9 +47,9 @@ await openapiTS(input);
 | Local file    | `string \| URL` |  `URL`   |
 | Remote file   | `string \| URL` |  `URL`   |
 
-最大の変更点は `string` の扱いです。6.x では、string はローカルまたはリモートのファイルパスを指す可能性がありましたが、これは予測不可能でした。というのも、ローカルファイルパスの場合、Node が呼び出された場所に依存していたからです。7.x では、**すべてのファイルパスは [URL](https://nodejs.org/api/url.html) である必要があります**（ローカルパスの場合、`new URL('./path/to/my/schema', import.meta.url)` または `new URL('file:///absolute/path/to/my/schema')` を使用）。これにより、 `string` タイプがインライン YAML（または JSON）を扱えるようになりました（6.x ではサポートされていませんでした）。
+最大の変更点は `string` の扱いです。6.x では、string はローカルまたはリモートのファイルパスを指す可能性がありましたが、これは予測不可能でした。というのも、ローカルファイルパスの場合、Node が呼び出された場所に依存していたからです。7.x では、**すべてのファイルパスは [URL](https://nodejs.org/api/url.html) である必要があります**（ローカルパスの場合、`new URL('./path/to/my/schema', import.meta.url)` または `new URL('file:///absolute/path/to/my/schema')` を使用）。これにより、 `string` 型がインライン YAML（または JSON）を扱えるようになりました（6.x ではサポートされていませんでした）。
 
-[詳細は更新されたドキュメントを参照](./node#usage)。
+[詳細は更新されたドキュメントを参照](./node#使用方法)。
 
 ---
 

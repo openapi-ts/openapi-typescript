@@ -19,13 +19,13 @@ $ DEBUG=openapi-ts:* npx openapi-typescript schema.yaml -o my-types.ts
 
 出力が `stdout` の場合、デバッグメッセージは抑制されることに注意してください。
 
-## 列挙型の拡張
+## Enum の拡張
 
-`x-enum-varnames` は、対応する値に別の列挙型名を定義するために使用されます。これは列挙項目の名前を定義するために使用されます。
+`x-enum-varnames` は、対応する値に別の列挙型名を定義するために使用されます。これは enum の項目名を定義するために使用されます。
 
 `x-enum-descriptions` は、各値に対して個別の説明を提供するために使用できます。これは、コード内のコメント（Javaの場合はjavadocのようなもの）として使用されます。
 
-`x-enum-descriptions`および`x-enum-varnames`は、それぞれ列挙型と同じ数の項目を含むリストであることが期待されます。リスト内の項目の順序は重要です：位置を使用してこれらを結びつけます。
+`x-enum-descriptions`および`x-enum-varnames`は、それぞれ Enum と同じ数の項目を含むリストであることが期待されます。リスト内の項目の順序は重要です：位置を参考にしてこれらを結びつけます。
 
 例：
 
@@ -68,7 +68,7 @@ enum ErrorCode {
 
 :::
 
-この方法で生成するには、[コマンドライン](cli.md#flags)で `--enum` を指定する必要があります。
+この方法で生成するには、[コマンドライン](cli#%E3%83%95%E3%83%A9%E3%82%AF%E3%82%99)で `--enum` を指定する必要があります。
 
 または、`x-enumNames`および`x-enumDescriptions`（[NSwag/NJsonSchema](https://github.com/RicoSuter/NJsonSchema/wiki/Enums#enum-names-and-descriptions)）も使用できます。
 
@@ -78,7 +78,7 @@ enum ErrorCode {
 
 ### Redocly ルール
 
-TypeScript生成におけるエラーを減らすために、[Redocly config](https://redocly.com/docs/cli/rules/built-in-rules/)で次の組み込みルールを適用することをお勧めします：
+TypeScript生成におけるエラーを減らすために、[Redocly config](https://redocly.com/docs/cli/rules/built-in-rules/) で次の組み込みルールを適用することをお勧めします：
 
 | ルール                                                                                        |        設定        | 理由                             |
 | :-------------------------------------------------------------------------------------------- | :----------------: | :------------------------------- |
@@ -100,9 +100,9 @@ TypeScript生成におけるエラーを減らすために、[Redocly config](ht
 JSのスタイルガイドが推奨するように、APIレスポンスを`camelCase`にリネームしたくなるかもしれません。しかし、リネームは時間の無駄になるだけでなく、次のような保守上の問題を引き起こすため、**リネームを避ける**ことをお勧めします：
 
 - ❌ 生成された型（たとえばopenapi-typescriptが生成した型）は、手動で入力する必要がある
-- ❌ リネームは実行時に発生するため、アプリケーションが隠れた変更を行う際に遅延を引き起こす
+- ❌ リネームは実行時に発生するため、アプリケーションが見えない変更を行う際に遅延を引き起こす
 - ❌ 名前変更ツールを構築し、維持（およびテスト）する必要がある
-- ❌ APIが `requestBodies `に `snake_case` を必要とする場合、すべての作業を各APIリクエストで元に戻さなければならない
+- ❌ APIが `requestBodies`に `snake_case` を必要とする場合、すべての作業を各APIリクエストで元に戻さなければならない
 
 代わりに、「一貫性」をより包括的な概念と見なし、JSスタイルの規約に従うよりもAPIスキーマをそのまま保持することが優れていると認識してください。
 
@@ -195,8 +195,8 @@ Record<string, string>;
   <thead>
     <tr>
       <td style="width:10%">&nbsp;</td>
-      <th scope="col" style="width:40%">Schema</th>
-      <th scope="col" style="width:40%">Generated Type</th>
+      <th scope="col" style="width:40%">スキーマ</th>
+      <th scope="col" style="width:40%">生成される型</th>
     </tr>
   </thead>
   <tbody>
@@ -280,7 +280,7 @@ prefixItems:
 
 ### `oneOf`を単独で使用する
 
-OpenAPIのコンポジションツール（`oneOf` / `anyOf` / `allOf`）は、スキーマ内のコード量を減らしながら柔軟性を最大化する強力なツールです。しかし、TypeScriptの共用体型は[XOR](https://en.wikipedia.org/wiki/Exclusive_or)を提供しないため、`oneOf` に直接マッピングすることはできません。そのため、oneOfは単独で使用し、他のコンポジションメソッドやプロパティと組み合わせないことが推奨されます。例えば:
+OpenAPIのコンポジションツール（`oneOf` / `anyOf` / `allOf`）は、スキーマ内のコード量を減らしながら柔軟性を最大化する強力なツールです。しかし、TypeScriptのユニオン型は[XOR](https://en.wikipedia.org/wiki/Exclusive_or)を提供しないため、`oneOf` に直接マッピングすることはできません。そのため、oneOfは単独で使用し、他のコンポジションメソッドやプロパティと組み合わせないことが推奨されます。例えば:
 
 #### ❌ 悪い
 
@@ -310,7 +310,7 @@ Pet:
 
 :::
 
-これは、TypeScriptのユニオンとインターセクションの両方を組み合わせた次のような型が生成されます。これは有効なTypeScriptですが、複雑であり、推論が意図した通りに機能しない可能性があります。しかし、最も問題となるのは、TypeScriptがtypeプロパティを通じて区別できないことです。
+これは、TypeScript のユニオン型とインターセクション型の両方を組み合わせた次のような型が生成されます。これは有効な TypeScript ですが、複雑であり、推論が意図した通りに機能しない可能性があります。しかし、最も問題となるのは、TypeScript が type プロパティを通じて区別できないことです。
 
 ::: code-group
 
@@ -365,7 +365,7 @@ Cat: { type?: "cat"; } & components["schemas"]["PetCommonProperties"];
 
 _注: 任意で、`Pet` に `discriminator.propertyName: "type"` を指定することもできます（[ドキュメント](https://spec.openapis.org/oas/v3.1.0#discriminator-object)）。これにより、自動的に `type` キーが生成されますが、明示性が低くなります。_
 
-スキーマでは任意の方法でコンポジションを使用することが許可されていますが、生成された型を確認し、ユニオンやインターセクションをより簡潔に表現できる方法がないか検討することは重要です。 `oneOf` の使用を制限することが唯一の方法ではありませんが、しばしば最大の効果をもたらします。
+スキーマでは任意の方法でコンポジションを使用することが許可されていますが、生成された型を確認し、ユニオン型やインターセクション型をより簡潔に表現できる方法がないか検討することは重要です。 `oneOf` の使用を制限することが唯一の方法ではありませんが、しばしば最大の効果をもたらします。
 
 ## JSONSchema $defs の注意点
 
@@ -448,10 +448,10 @@ export interface components {
 
 :::
 
-そのため、$defs を定義する場所には注意が必要です。最終的に生成される型から $defs が消えてしまう可能性があります。
+そのため、`$defs` を定義する場所には注意が必要です。最終的に生成される型から $defs が消えてしまう可能性があります。
 
 ::: tip
 
-不安な場合は、$defs をルートスキーマレベルで定義するのが安全です。
+不安な場合は、`$defs` をルートスキーマレベルで定義するのが安全です。
 
 :::

@@ -23,17 +23,17 @@ npm i --save-dev openapi-typescript typescript
 
 Node.js APIは、`URL`、`string`、またはJSONオブジェクトを入力として受け付けます：
 
-|   Type   | Description                              | Example                                                                                                                          |
+|  タイプ  | 説明                                     | 例                                                                                                                               |
 | :------: | :--------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------- |
 |  `URL`   | ローカルまたはリモートファイルを読み取る | `await openapiTS(new URL('./schema.yaml', import.meta.url))`<br/>`await openapiTS(new URL('https://myapi.com/v1/openapi.yaml'))` |
 | `string` | 動的なYAMLまたはJSONを読み取る           | `await openapiTS('openapi: "3.1" … ')`                                                                                           |
 |  `JSON`  | 動的なJSONを読み取る                     | `await openapiTS({ openapi: '3.1', … })`                                                                                         |
 
-また、 `Readable` ストリームや`Buffer` 型も受け付け、これらは文字列として解決されます（ドキュメント全体が必要でないと検証、バンドル、型生成ができません）。
+また、 `Readable` ストリームや`Buffer` 型も受け付け、これらは文字列として解決されます（ドキュメント全体がないと検証、バンドル、型生成ができません）。
 
-Node APIはTypeScript ASTを返す `Promise` を返します。その後、必要に応じてASTをトラバース、操作、または修正できます。
+Node APIはTypeScript の AST を含む `Promise` を返します。その後、必要に応じてASTをトラバース、操作、または修正できます。
 
-TypeScript ASTを文字列に変換するには、[TypeScriptのプリンターのラッパー](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API#re-printing-sections-of-a-typescript-file)である `astToString()` ヘルパーを使用できます:
+TypeScript ASTを文字列に変換するには、[TypeScriptのprinterのラッパー](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API#re-printing-sections-of-a-typescript-file)である `astToString()` ヘルパーを使用できます:
 
 ::: code-group
 
@@ -60,7 +60,7 @@ Redoc configはopenapi-typescriptを使用するために必須ではありま�
 import { createConfig, loadConfig } from "@redocly/openapi-core";
 import openapiTS from "openapi-typescript";
 
-// オプション1：メモリ内で設定を作成
+// オプション1： インメモリ設定を作成
 const redocly = await createConfig(
   {
     apis: {
@@ -71,7 +71,7 @@ const redocly = await createConfig(
   { extends: ["recommended"] },
 );
 
-// オプション2：redocly.yamlファイルから読み込み
+// オプション2： redocly.yamlファイルから読み込み
 const redocly = await loadConfig({ configPath: "redocly.yaml" });
 
 const ast = await openapiTS(mySchema, { redocly });
@@ -79,17 +79,17 @@ const ast = await openapiTS(mySchema, { redocly });
 
 :::
 
-## Options
+## オプション
 
-Node APIは、 `camelCase` 形式で[CLI フラグ](./cli#options) すべてをサポートしており、以下の追加オプションも利用可能です：
+Node APIは、 `camelCase` 形式で[CLI フラグ](./cli#%E3%83%95%E3%83%A9%E3%82%AF%E3%82%99) すべてをサポートしており、以下の追加オプションも利用可能です：
 
-| 名前            |     タイプ      |   デフォルト    | Description                                                                              |
-| :-------------- | :-------------: | :-------------: | :--------------------------------------------------------------------------------------- |
-| `transform`     |   `Function`    |                 | Override the default Schema Object ➝ TypeScript transformer in certain scenarios         |
-| `postTransform` |   `Function`    |                 | `transform` と同じだが、TypeScript変換後に実行される                                     |
-| `silent`        |    `boolean`    |     `false`     | 警告メッセージを非表示にする（致命的なエラーは表示されます）                             |
-| `cwd`           | `string \| URL` | `process.cwd()` | （オプション）必要に応じてリモート$refの解決を支援するために現在の作業ディレクトリを指定 |
-| `inject`        |    `string`     |                 | ファイルの先頭に任意のTypeScript型を注入                                                 |
+| 名前            |     タイプ      |   デフォルト    | 説明                                                                                         |
+| :-------------- | :-------------: | :-------------: | :------------------------------------------------------------------------------------------- |
+| `transform`     |   `Function`    |                 | 特定の状況でデフォルトのスキーマオブジェクトをTypeScriptにするトランスフォーマーを上書きする |
+| `postTransform` |   `Function`    |                 | `transform` と同じだが、TypeScript変換後に実行される                                         |
+| `silent`        |    `boolean`    |     `false`     | 警告メッセージを非表示にする（致命的なエラーは表示されます）                                 |
+| `cwd`           | `string \| URL` | `process.cwd()` | （オプション）必要に応じてリモート$refの解決を支援するために現在の作業ディレクトリを指定     |
+| `inject`        |    `string`     |                 | ファイルの先頭に任意のTypeScript型を注入                                                     |
 
 ### transform / postTransform
 
