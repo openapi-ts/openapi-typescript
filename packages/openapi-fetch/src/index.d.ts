@@ -151,7 +151,7 @@ export interface Middleware {
 }
 
 /** This type helper makes the 2nd function param required if params/requestBody are required; otherwise, optional */
-export type MaybeOptionalInit<Params extends Record<HttpMethod, {}>, Location extends keyof Params> = RequiredKeysOf<
+export type MaybeOptionalInit<Params, Location extends keyof Params> = RequiredKeysOf<
   FetchOptions<FilterKeys<Params, Location>>
 > extends never
   ? FetchOptions<FilterKeys<Params, Location>> | undefined
@@ -174,7 +174,7 @@ export type ClientMethod<
   ...init: InitParam<Init>
 ) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
 
-export type ClientForPath<PathInfo extends Record<HttpMethod, {}>, Media extends MediaType> = {
+export type ClientForPath<PathInfo, Media extends MediaType> = {
   [Method in keyof PathInfo as Uppercase<string & Method>]: <Init extends MaybeOptionalInit<PathInfo, Method>>(
     ...init: InitParam<Init>
   ) => Promise<FetchResponse<PathInfo[Method], Init, Media>>;
@@ -221,10 +221,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   clientOptions?: ClientOptions,
 ): Client<Paths, Media>;
 
-export type PathBasedClient<
-  Paths extends Record<string, Record<HttpMethod, {}>>,
-  Media extends MediaType = MediaType,
-> = {
+export type PathBasedClient<Paths, Media extends MediaType = MediaType> = {
   [Path in keyof Paths]: ClientForPath<Paths[Path], Media>;
 };
 

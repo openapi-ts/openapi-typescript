@@ -5,6 +5,8 @@ import createClient, {
   type Middleware,
   type MiddlewareCallbackParams,
   type QuerySerializerOptions,
+  type Client,
+  type PathBasedClient,
   createPathBasedClient,
 } from "../src/index.js";
 import { server, baseUrl, useMockRequestHandler, toAbsoluteURL } from "./fixtures/mock-server.js";
@@ -140,6 +142,11 @@ describe("client", () => {
         expectTypeOf(result.error).extract<{ code: number }>().toEqualTypeOf<{ code: number; message: string }>();
         expectTypeOf(result.error).exclude<{ code: number }>().toEqualTypeOf<never>();
       }
+    });
+
+    it("provides a Client type", () => {
+      const client = createClient<paths>({ baseUrl });
+      expectTypeOf(client).toEqualTypeOf<Client<paths>>();
     });
 
     describe("params", () => {
@@ -1875,6 +1882,11 @@ describe("client", () => {
   });
 
   describe("path based client", () => {
+    it("provides a PathBasedClient type", () => {
+      const client = createPathBasedClient<paths>({ baseUrl });
+      expectTypeOf(client).toEqualTypeOf<PathBasedClient<paths>>();
+    });
+
     it("performs a call without params", async () => {
       const client = createPathBasedClient<paths>({ baseUrl });
 
