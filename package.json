@@ -13,6 +13,7 @@
     "format": "pnpm run -r --parallel --aggregate-output format",
     "test": "pnpm run -r --parallel --aggregate-output test",
     "test-e2e": "pnpm run -r --parallel --aggregate-output test-e2e",
+    "size": "pnpm run build && size-limit",
     "version": "pnpm run build && changeset version && pnpm i"
   },
   "devDependencies": {
@@ -20,10 +21,19 @@
     "@changesets/changelog-github": "^0.5.0",
     "@changesets/cli": "^2.27.5",
     "@playwright/test": "^1.44.1",
+    "@size-limit/preset-small-lib": "^11.1.4",
     "@types/node": "^20.14.7",
     "del-cli": "^5.1.0",
     "prettier": "^3.3.2",
+    "size-limit": "^11.1.4",
     "typescript": "^5.4.5",
     "vitest": "^2.0.5"
-  }
+  },
+  "size-limit": [
+    {
+      "path": "packages/openapi-fetch/dist/index.min.js",
+      "limit": "6.5 kB",
+      "brotli": false
+    }
+  ]
 }
