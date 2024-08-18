@@ -1,0 +1,7 @@
+---
+title: openapi-adonis
+---
+
+## `@apiProperty`
+
+

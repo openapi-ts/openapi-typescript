@@ -93,6 +93,13 @@ export default defineConfig({
             { text: "About", link: "/about" },
           ],
         },
+        {
+          text: "openapi-decorators",
+          items: [
+            { text: "Getting Started", link: "/openapi-decorators/" },
+            { text: "Decorators", link: "/openapi-decorators/decorators" },
+          ],
+        },
       ],
     },
     search: {
