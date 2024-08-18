@@ -1,15 +1,14 @@
 import type { OpenAPIV3 } from "openapi-types";
 import type { DocumentBuilder } from "../builders/document-builder";
 import type { SchemaType } from "../types";
-import { loadSchema } from "./loadSchema";
 
-export function resolveType(
+export async function resolveType(
   document: DocumentBuilder,
   type: SchemaType,
-): OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject {
+): Promise<OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject> {
   if (typeof type === "string") {
     return {
-      type,
+      type: type as OpenAPIV3.NonArraySchemaObjectType, // TODO: Fix that
     };
   }
 
@@ -31,9 +30,9 @@ export function resolveType(
     };
   }
 
-  if (typeof type === "object") {
+  if (typeof type === "object" && "$ref" in type) {
     return type;
   }
 
-  return loadSchema(document, type.prototype);
+  return document.resolve(type);
 }

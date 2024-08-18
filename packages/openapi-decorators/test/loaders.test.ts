@@ -8,17 +8,18 @@ import { loadApiProperty } from "../src/loaders/loadApiProperty";
 import { loadApiQuery } from "../src/loaders/loadApiQuery";
 import { loadApiResponse } from "../src/loaders/loadApiResponse";
 import { loadApiTags } from "../src/loaders/loadApiTags";
-import { loadSchema } from "../src/loaders/loadSchema";
 import { resolveType } from "../src/loaders/loadType";
-import { apiProperty } from "../src/decorators/api-property";
+import type { OpenAPIV3 } from "openapi-types";
+import { apiBody, apiOperation, apiParam, apiQuery, apiResponse, apiTags } from "../src";
+import { loadController } from "../src/loaders";
 
 describe("loaders", () => {
   describe("loadApiBody", () => {
-    it("should properly enrich operation", () => {
+    it("should properly enrich operation", async () => {
       const document = new DocumentBuilder();
       const operation = new OperationBuilder();
 
-      loadApiBody(document, operation, {
+      await loadApiBody(document, operation, {
         type: "string",
       });
 
@@ -60,18 +61,32 @@ describe("loaders", () => {
         responses: {},
       });
     });
+
+    it("should override method and pattern", () => {
+      const operation = new OperationBuilder();
+      operation.pattern = "/nop";
+      operation.method = "post";
+
+      loadApiOperation(operation, {
+        method: "get",
+        pattern: "/users",
+      });
+
+      expect(operation.method).toBe("get");
+      expect(operation.pattern).toBe("/users");
+    });
   });
 
   describe("loadApiParam", () => {
-    it("should properly enrich operation", () => {
+    it("should properly enrich operation", async () => {
       const document = new DocumentBuilder();
       const operation = new OperationBuilder();
 
-      loadApiParam(document, operation, {
+      await loadApiParam(document, operation, {
         name: "userId",
       });
 
-      loadApiParam(document, operation, {
+      await loadApiParam(document, operation, {
         name: "collectionId",
         type: "number",
       });
@@ -83,36 +98,34 @@ describe("loaders", () => {
   });
 
   describe("loadApiProperty", () => {
-    it("should properly enrich schema", () => {
+    it("should properly enrich schema", async () => {
       const document = new DocumentBuilder();
-      const schema = document.createSchema("Test");
+      const schema: OpenAPIV3.SchemaObject = {};
 
-      loadApiProperty(document, schema, "id", {});
-      loadApiProperty(document, schema, "name", { type: "string" });
-      loadApiProperty(document, schema, "notRequired", { type: "number", required: false });
+      await loadApiProperty(document, schema, "id", {});
+      await loadApiProperty(document, schema, "name", { type: "string" });
+      await loadApiProperty(document, schema, "notRequired", { type: "number", required: false });
 
-      const output = schema.build();
+      expect(schema.required).toContainEqual("id");
+      expect(schema.required).toContainEqual("name");
+      expect(schema.required).not.toContainEqual("notRequired");
 
-      expect(output.required).toContainEqual("id");
-      expect(output.required).toContainEqual("name");
-      expect(output.required).not.toContainEqual("notRequired");
-
-      expect(output.properties?.id).toEqual({});
-      expect(output.properties?.name).toEqual({ type: "string" });
-      expect(output.properties?.notRequired).toEqual({ type: "number" });
+      expect(schema.properties?.id).toEqual({});
+      expect(schema.properties?.name).toEqual({ type: "string" });
+      expect(schema.properties?.notRequired).toEqual({ type: "number" });
     });
   });
 
   describe("loadApiQuery", () => {
-    it("should properly enrich operation", () => {
+    it("should properly enrich operation", async () => {
       const document = new DocumentBuilder();
       const operation = new OperationBuilder();
 
-      loadApiQuery(document, operation, {
+      await loadApiQuery(document, operation, {
         name: "userId",
       });
 
-      loadApiQuery(document, operation, {
+      await loadApiQuery(document, operation, {
         name: "collectionId",
         type: "number",
       });
@@ -124,16 +137,16 @@ describe("loaders", () => {
   });
 
   describe("loadApiResponse", () => {
-    it("should properly enrich operation", () => {
+    it("should properly enrich operation", async () => {
       const document = new DocumentBuilder();
       const operation = new OperationBuilder();
 
-      loadApiResponse(document, operation, {
+      await loadApiResponse(document, operation, {
         status: 200,
         type: "string",
       });
 
-      loadApiResponse(document, operation, {
+      await loadApiResponse(document, operation, {
         status: 500,
         type: "number",
       });
@@ -175,48 +188,150 @@ describe("loaders", () => {
     });
   });
 
-  describe("loadSchema", () => {
-    it("should properly add the schema to the document", () => {
-      const document = new DocumentBuilder();
-
-      class Test {
-        @apiProperty()
-        declare helloworld: string;
-      }
-
-      const ref = loadSchema(document, Test.prototype);
-      const build = document.build();
-
-      expect(ref).toEqual({ $ref: "#/components/schemas/Test" });
-      expect(build.components?.schemas?.Test).toEqual({
-        type: "object",
-        properties: { helloworld: { type: "string" } },
-        required: ["helloworld"],
-      });
-    });
-  });
-
   describe("loadType", () => {
-    it("should accept string types", () => {
+    it("should accept string types", async () => {
       const document = new DocumentBuilder();
-      expect(resolveType(document, "boolean")).toEqual({ type: "boolean" });
-      expect(resolveType(document, "integer")).toEqual({ type: "integer" });
-      expect(resolveType(document, "number")).toEqual({ type: "number" });
-      expect(resolveType(document, "string")).toEqual({ type: "string" });
+      expect(await resolveType(document, "boolean")).toEqual({ type: "boolean" });
+      expect(await resolveType(document, "integer")).toEqual({ type: "integer" });
+      expect(await resolveType(document, "number")).toEqual({ type: "number" });
+      expect(await resolveType(document, "string")).toEqual({ type: "string" });
     });
 
-    it("should accept schema reference", () => {
+    it("should accept schema reference", async () => {
       const document = new DocumentBuilder();
-      expect(resolveType(document, { $ref: "#/components/schemas/User" })).toEqual({
+      expect(await resolveType(document, { $ref: "#/components/schemas/User" })).toEqual({
         $ref: "#/components/schemas/User",
       });
     });
 
-    it("should accept function types", () => {
+    it("should accept function types", async () => {
       const document = new DocumentBuilder();
-      expect(resolveType(document, Boolean)).toEqual({ type: "boolean" });
-      expect(resolveType(document, Number)).toEqual({ type: "number" });
-      expect(resolveType(document, String)).toEqual({ type: "string" });
+      expect(await resolveType(document, Boolean)).toEqual({ type: "boolean" });
+      expect(await resolveType(document, Number)).toEqual({ type: "number" });
+      expect(await resolveType(document, String)).toEqual({ type: "string" });
     });
+  });
+});
+
+// TODO: Move (and maybe rename) this elsewhere as it is different of other loaders
+describe("loadController", () => {
+  it("should load apiOperation", async () => {
+    class UsersController {
+      @apiOperation({
+        method: "post",
+        pattern: "/users",
+      })
+      public create() {}
+    }
+
+    const document = new DocumentBuilder();
+    const operation = new OperationBuilder();
+
+    await loadController(document, operation, UsersController.prototype, "create");
+
+    expect(operation.pattern).toBe("/users");
+    expect(operation.method).toBe("post");
+  });
+
+  it("should load tags", async () => {
+    @apiTags("Hello")
+    class UsersController {
+      @apiOperation({
+        method: "post",
+        pattern: "/users",
+      })
+      @apiTags("World")
+      public create() {}
+    }
+
+    const document = new DocumentBuilder();
+    const operation = new OperationBuilder();
+
+    await loadController(document, operation, UsersController.prototype, "create");
+    const res = operation.build();
+
+    expect(res.tags).toContain("Hello");
+    expect(res.tags).toContain("World");
+  });
+
+  it("should load apiBody", async () => {
+    class UsersController {
+      @apiOperation({
+        method: "post",
+        pattern: "/users",
+      })
+      @apiBody({ type: String })
+      public create() {}
+    }
+
+    const document = new DocumentBuilder();
+    const operation = new OperationBuilder();
+
+    await loadController(document, operation, UsersController.prototype, "create");
+
+    const res: any = operation.build();
+
+    expect(res.requestBody.content["application/json"].schema).toBeDefined();
+  });
+
+  it("should load apiResponse", async () => {
+    class UsersController {
+      @apiOperation({
+        method: "post",
+        pattern: "/users",
+      })
+      @apiResponse({ type: String })
+      public create() {}
+    }
+
+    const document = new DocumentBuilder();
+    const operation = new OperationBuilder();
+
+    await loadController(document, operation, UsersController.prototype, "create");
+
+    const res: any = operation.build();
+
+    expect(res.responses[200].content["application/json"].schema).toBeDefined();
+  });
+
+  it("should load apiParam", async () => {
+    class UsersController {
+      @apiOperation({
+        method: "post",
+        pattern: "/users",
+      })
+      @apiParam({ name: "userId", type: String })
+      @apiParam({ name: "testId", type: String })
+      public create() {}
+    }
+
+    const document = new DocumentBuilder();
+    const operation = new OperationBuilder();
+
+    await loadController(document, operation, UsersController.prototype, "create");
+
+    const res: any = operation.build();
+
+    expect(res.parameters).toHaveLength(2);
+  });
+
+  it("should load apiQuery", async () => {
+    class UsersController {
+      @apiOperation({
+        method: "post",
+        pattern: "/users",
+      })
+      @apiQuery({ name: "filter", type: String })
+      public create() {}
+    }
+
+    const document = new DocumentBuilder();
+    const operation = new OperationBuilder();
+
+    await loadController(document, operation, UsersController.prototype, "create");
+
+    const res: any = operation.build();
+
+    expect(res.parameters).toHaveLength(1);
   });
 });

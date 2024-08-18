@@ -1,6 +1,7 @@
 .DS_Store
 dist
 node_modules
+coverage
 
 packages/openapi-typescript/test/fixtures/cli-outputs/out
 

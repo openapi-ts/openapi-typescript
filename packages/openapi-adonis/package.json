@@ -45,6 +45,7 @@
     "format": "biome format . --write",
     "lint": "biome check .",
     "test": "vitest run",
+    "coverage": "vitest run --coverage",
     "version": "pnpm run prepare && pnpm run build"
   },
   "dependencies": {
@@ -60,6 +61,7 @@
     "@adonisjs/http-server": "^7.2.3",
     "@types/lodash": "^4.17.7",
     "@types/node": "^22.1.0",
+    "@vitest/coverage-v8": "^2.0.5",
     "tsup": "^8.2.4",
     "typescript": "^5.4.5",
     "unplugin-swc": "^1.5.1"

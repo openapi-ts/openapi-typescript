@@ -4,11 +4,15 @@ import type { Router } from "@adonisjs/http-server";
 import { DocumentBuilder } from "openapi-decorators/builders";
 import { generateScalarUI } from "openapi-decorators/ui";
 import { loadRouter } from "./loaders/loadRouter";
+import { VineTypeResolver } from "./resolvers/vine-type.resolver";
+
+export { VineType } from "./resolvers/vine-type.resolver";
+export { ModelType } from "openapi-decorators/resolvers";
 
 // biome-ignore lint/complexity/noStaticOnlyClass: TODO: move out of class
 export default class AdonisOpenAPI {
   public static document() {
-    return new DocumentBuilder();
+    return new DocumentBuilder().addResolver(VineTypeResolver);
   }
 
   public static async load(builder: DocumentBuilder, router: Router): Promise<OpenAPIV3.Document> {

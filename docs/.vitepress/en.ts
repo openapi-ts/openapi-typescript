@@ -78,6 +78,16 @@ export const en = defineConfig({
             { text: "About", link: "/openapi-react-query/about" },
           ],
         },
+        {
+          text: "openapi-adonis",
+          items: [
+            { text: "Getting Started", link: "/openapi-adonis/" },
+            { text: "useQuery", link: "/openapi-react-query/use-query" },
+            { text: "useMutation", link: "/openapi-react-query/use-mutation" },
+            { text: "useSuspenseQuery", link: "/openapi-react-query/use-suspense-query" },
+            { text: "About", link: "/openapi-react-query/about" },
+          ],
+        },
       ],
     },
     search: {

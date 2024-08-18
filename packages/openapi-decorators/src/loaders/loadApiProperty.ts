@@ -1,17 +1,27 @@
+import type { OpenAPIV3 } from "openapi-types";
 import type { DocumentBuilder } from "../builders/document-builder";
-import type { SchemaBuilder } from "../builders/schema-builder";
 import type { ApiPropertyOptions } from "../decorators/api-property";
 import { resolveType } from "./loadType";
 
-export function loadApiProperty(
+export async function loadApiProperty(
   document: DocumentBuilder,
-  schema: SchemaBuilder,
+  schema: OpenAPIV3.SchemaObject,
   name: string,
   apiProperty: ApiPropertyOptions,
 ) {
   const { type, required, ...rest } = apiProperty;
 
-  const resolved = type ? resolveType(document, type) : undefined;
+  const resolved = type ? await resolveType(document, type) : undefined;
 
-  schema.setProperty(name, { ...resolved, ...rest }, required ?? true);
+  schema.properties = {
+    ...schema.properties,
+    [name]: {
+      ...resolved,
+      ...rest,
+    },
+  };
+
+  if (required !== false) {
+    schema.required = [...(schema.required ?? []), name];
+  }
 }
