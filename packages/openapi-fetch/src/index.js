@@ -40,9 +40,7 @@ export default function createClient(clientOptions) {
     headers: baseHeaders,
     ...baseOptions
   } = { ...clientOptions };
-  if (baseUrl.endsWith("/")) {
-    baseUrl = baseUrl.substring(0, baseUrl.length - 1);
-  }
+  baseUrl = removeTrailingSlash(baseUrl);
   baseHeaders = mergeHeaders(DEFAULT_HEADERS, baseHeaders);
   const middlewares = [];
 
@@ -53,6 +51,7 @@ export default function createClient(clientOptions) {
    */
   async function coreFetch(schemaPath, fetchOptions) {
     const {
+      baseUrl: localBaseUrl,
       fetch = baseFetch,
       headers,
       params = {},
@@ -61,6 +60,9 @@ export default function createClient(clientOptions) {
       bodySerializer = globalBodySerializer ?? defaultBodySerializer,
       ...init
     } = fetchOptions || {};
+    if (localBaseUrl) {
+      baseUrl = removeTrailingSlash(localBaseUrl);
+    }
 
     let querySerializer =
       typeof globalQuerySerializer === "function"
@@ -562,4 +564,15 @@ export function mergeHeaders(...allHeaders) {
     }
   }
   return finalHeaders;
+}
+
+/**
+ * Remove trailing slash from url
+ * @type {import("./index.js").removeTrailingSlash}
+ */
+export function removeTrailingSlash(url) {
+  if (url.endsWith("/")) {
+    return url.substring(0, url.length - 1);
+  }
+  return url;
 }

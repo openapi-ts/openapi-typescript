@@ -110,6 +110,7 @@ export type FetchResponse<T, Options, Media extends MediaType> =
 
 export type RequestOptions<T> = ParamsOption<T> &
   RequestBodyOption<T> & {
+    baseUrl?: string;
     querySerializer?: QuerySerializer<T> | QuerySerializerOptions;
     bodySerializer?: BodySerializer<T>;
     parseAs?: ParseAs;
@@ -292,3 +293,6 @@ export declare function createFinalURL<O>(
 
 /** Merge headers a and b, with b taking priority */
 export declare function mergeHeaders(...allHeaders: (HeadersOptions | undefined)[]): Headers;
+
+/** Remove trailing slash from url */
+export declare function removeTrailingSlash(url: string): string;
