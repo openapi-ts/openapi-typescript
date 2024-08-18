@@ -20,6 +20,10 @@
       "types": "./dist/loaders/index.d.ts",
       "import": "./dist/loaders/index.js"
     },
+    "./resolvers": {
+      "types": "./dist/resolvers/index.d.ts",
+      "import": "./dist/resolvers/index.js"
+    },
     "./ui": {
       "types": "./dist/ui/index.d.ts",
       "import": "./dist/ui/index.js"
@@ -49,6 +53,7 @@
     "format": "biome format . --write",
     "lint": "biome check .",
     "test": "vitest run",
+    "coverage": "vitest run --coverage",
     "version": "pnpm run prepare && pnpm run build"
   },
   "dependencies": {
@@ -60,6 +65,7 @@
   "devDependencies": {
     "@types/lodash": "^4.17.7",
     "@types/node": "^22.1.0",
+    "@vitest/coverage-v8": "^2.0.5",
     "del-cli": "^5.1.0",
     "esbuild": "^0.20.2",
     "execa": "^8.0.1",

@@ -1,18 +1,21 @@
-import User from '#models/user'
-import { apiBody, apiOperation, apiResponse, apiParam, apiQuery } from 'openapi-adonis/decorators'
+import User from "#models/user";
+import { listUserValidator } from "#validators/user";
+import { apiBody, apiOperation, apiParam, apiQuery, apiResponse } from "openapi-adonis/decorators";
+import { VineType, ModelType } from "openapi-adonis";
 
 export default class UsersController {
-  @apiOperation({ summary: 'Get users', tags: ['User'] })
-  @apiResponse({ type: User })
-  @apiParam({ name: 'id' })
-  @apiQuery({ name: 'query' })
+  @apiOperation({ summary: "Get users" })
+  @apiResponse({ type: ModelType(User) })
+  @apiParam({ name: "id" })
+  @apiQuery({ name: "query" })
+  @apiBody({ type: VineType(listUserValidator, "listUserValidator") })
   async index(): Promise<User> {
-    return new User()
+    return new User();
   }
 
-  @apiOperation({ summary: 'Create new user', tags: ['User'] })
-  @apiBody({ type: User })
+  @apiOperation({ summary: "Create new user" })
+  // @apiBody({ type: User })
   async create(): Promise<User> {
-    return new User()
+    return new User();
   }
 }

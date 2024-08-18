@@ -14,7 +14,7 @@
     "target": "ESNext",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals", "reflect-metadata"]
   },
   "include": ["src", "test"],
   "exclude": ["example", "node_modules"]

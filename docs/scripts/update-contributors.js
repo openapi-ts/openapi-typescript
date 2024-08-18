@@ -146,7 +146,6 @@ const CONTRIBUTORS = {
     "JorrinKievit",
     "WickyNilliams",
     "hrsh7th",
-    "davidleger95",
     "phk422",
     "mzronek",
     "raurfang",
