@@ -9,6 +9,7 @@ import type {
   ResponseObjectMap,
   RequiredKeysOf,
   SuccessResponse,
+  Writable,
 } from "openapi-typescript-helpers";
 
 /** Options for each client instance */
@@ -29,7 +30,7 @@ export type HeadersOptions =
   | Record<string, string | number | boolean | (string | number | boolean)[] | null | undefined>;
 
 export type QuerySerializer<T> = (
-  query: T extends { parameters: any } ? NonNullable<T["parameters"]["query"]> : Record<string, unknown>,
+  query: T extends { parameters: any } ? Writable<NonNullable<T["parameters"]["query"]>> : Record<string, unknown>,
 ) => string;
 
 /** @see https://swagger.io/docs/specification/serialization/#query */
@@ -84,8 +85,8 @@ export type ParamsOption<T> = T extends {
   parameters: any;
 }
   ? RequiredKeysOf<T["parameters"]> extends never
-    ? { params?: T["parameters"] }
-    : { params: T["parameters"] }
+    ? { params?: Writable<T["parameters"]> }
+    : { params: Writable<T["parameters"]> }
   : DefaultParamsOption;
 
 export type RequestBodyOption<T> = OperationRequestBodyContent<T> extends never

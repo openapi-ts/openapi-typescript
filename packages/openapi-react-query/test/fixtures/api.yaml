@@ -475,15 +475,23 @@ components:
     Post:
       type: object
       properties:
+        id:
+          type: string
+          readOnly: true
         title:
           type: string
         body:
           type: string
         publish_date:
           type: number
+        password:
+          type: string
+          writeOnly: true
       required:
+        - id
         - title
         - body
+        - password
     StringArray:
       type: array
       items:

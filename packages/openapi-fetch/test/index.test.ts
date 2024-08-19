@@ -114,6 +114,7 @@ describe("client", () => {
               updated_at: number;
             }
           | {
+              id: string;
               title: string;
               body: string;
               publish_date?: number;
@@ -721,6 +722,7 @@ describe("client", () => {
             title: "",
             publish_date: 3,
             body: "",
+            password: "",
           },
         });
       });

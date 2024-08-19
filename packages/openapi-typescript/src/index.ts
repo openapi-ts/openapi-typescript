@@ -83,6 +83,7 @@ export default async function openapiTS(
     pathParamsAsTypes: options.pathParamsAsTypes ?? false,
     postTransform: typeof options.postTransform === "function" ? options.postTransform : undefined,
     propertiesRequiredByDefault: options.propertiesRequiredByDefault ?? false,
+    experimentalVisibility: options.experimentalVisibility ?? false,
     redoc,
     silent: options.silent ?? false,
     inject: options.inject ?? undefined,

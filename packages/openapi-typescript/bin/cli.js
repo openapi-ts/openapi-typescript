@@ -26,6 +26,7 @@ Options
   --default-non-nullable     Set to \`false\` to ignore default values when generating non-nullable types
   --properties-required-by-default
                              Treat schema objects as if \`required\` is set to all properties by default
+  --experimental-visibility  Enable experimental visibility support (readOnly, writeOnly) 
   --array-length             Generate tuples using array minItems / maxItems
   --path-params-as-types     Convert paths to template literal types
   --alphabetize              Sort object keys alphabetically
@@ -133,6 +134,7 @@ async function generateSchema(schema, { redocly, silent = false }) {
       exportType: flags.exportType,
       immutable: flags.immutable,
       pathParamsAsTypes: flags.pathParamsAsTypes,
+      experimentalVisibility: flags.experimentalVisibility,
       redocly,
       silent,
     }),

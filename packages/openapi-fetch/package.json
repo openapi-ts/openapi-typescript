@@ -54,7 +54,7 @@
     "build:cjs": "esbuild --bundle src/index.js --format=cjs --outfile=dist/cjs/index.cjs && cp dist/index.d.ts dist/cjs/index.d.cts",
     "format": "biome format . --write",
     "lint": "biome check .",
-    "generate-types": "openapi-typescript -c test/redocly.yaml",
+    "generate-types": "openapi-typescript -c test/redocly.yaml --experimental-visibility",
     "pretest": "pnpm run generate-types",
     "test": "pnpm run \"/^test:/\"",
     "test:js": "vitest run",

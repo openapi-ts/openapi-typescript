@@ -91,11 +91,17 @@ export type PathItemObject = {
   [M in HttpMethod]: OperationObject;
 } & { parameters?: any };
 
+/** Return `content` for a RequestBody or Response Object */
+type MediaContent<T> = T extends { content: any } ? T["content"] : unknown;
+
 /** Return `responses` for an Operation Object */
 export type ResponseObjectMap<T> = T extends { responses: any } ? T["responses"] : unknown;
 
 /** Return `content` for a Response Object */
-export type ResponseContent<T> = T extends { content: any } ? T["content"] : unknown;
+export type ResponseContent<T> = Readable<MediaContent<T>>;
+
+/** Return `content` for a RequestBody Object */
+export type RequestBodyContent<T> = Writable<MediaContent<T>>;
 
 /** Return type of `requestBody` for an Operation Object */
 export type OperationRequestBody<T> = "requestBody" extends keyof T ? T["requestBody"] : never;
@@ -108,8 +114,8 @@ export type IsOperationRequestBodyOptional<T> = RequiredKeysOf<PickRequestBody<T
 
 /** Internal helper used in OperationRequestBodyContent */
 export type OperationRequestBodyMediaContent<T> = IsOperationRequestBodyOptional<T> extends true
-  ? ResponseContent<NonNullable<OperationRequestBody<T>>> | undefined
-  : ResponseContent<OperationRequestBody<T>>;
+  ? RequestBodyContent<NonNullable<OperationRequestBody<T>>> | undefined
+  : RequestBodyContent<OperationRequestBody<T>>;
 
 /** Return first `content` from a Request Object Mapping, allowing any media type */
 export type OperationRequestBodyContent<T> = FilterKeys<OperationRequestBodyMediaContent<T>, MediaType> extends never
@@ -138,6 +144,30 @@ export type ErrorResponseJSON<PathMethod> = JSONLike<ErrorResponse<ResponseObjec
 
 /** Return JSON-like request body from a path + HTTP method */
 export type RequestBodyJSON<PathMethod> = JSONLike<FilterKeys<OperationRequestBody<PathMethod>, "content">>;
+
+/** Read-only property type */
+export type ReadOnly<T> = { $read: T };
+
+/** Write-only property type */
+export type WriteOnly<T> = { $write: T };
+
+type ReadOnlyKey<T> = { [K in keyof T]: T[K] extends ReadOnly<unknown> ? K : never }[keyof T];
+
+type WriteOnlyKey<T> = { [K in keyof T]: T[K] extends WriteOnly<unknown> ? K : never }[keyof T];
+
+/** Recursively remove write-only properties */
+export type Readable<T> = Omit<
+  { [K in keyof T]: T[K] extends ReadOnly<infer R> ? R : T[K] extends Record<string, unknown> ? Readable<T[K]> : T[K] },
+  WriteOnlyKey<T>
+>;
+
+/** Recursively remove read-only properties */
+export type Writable<T> = Omit<
+  {
+    [K in keyof T]: T[K] extends WriteOnly<infer W> ? W : T[K] extends Record<string, unknown> ? Writable<T[K]> : T[K];
+  },
+  ReadOnlyKey<T>
+>;
 
 // Generic TS utils
 

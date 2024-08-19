@@ -54,7 +54,7 @@
     "dev": "tsc -p tsconfig.build.json --watch",
     "format": "biome format . --write",
     "lint": "biome check .",
-    "generate-types": "openapi-typescript test/fixtures/api.yaml -o test/fixtures/api.d.ts",
+    "generate-types": "openapi-typescript test/fixtures/api.yaml -o test/fixtures/api.d.ts --experimental-visibility",
     "pretest": "pnpm run generate-types",
     "test": "pnpm run \"/^test:/\"",
     "test:js": "vitest run",
