@@ -5,5 +5,5 @@ export * from "./loadApiProperty";
 export * from "./loadApiQuery";
 export * from "./loadApiResponse";
 export * from "./loadApiTags";
-export * from "./loadController";
+export * from "./loadControllerOperation";
 export * from "./loadType";

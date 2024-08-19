@@ -11,7 +11,7 @@ import { loadApiTags } from "../src/loaders/loadApiTags";
 import { resolveType } from "../src/loaders/loadType";
 import type { OpenAPIV3 } from "openapi-types";
 import { apiBody, apiOperation, apiParam, apiQuery, apiResponse, apiTags } from "../src";
-import { loadController } from "../src/loaders";
+import { loadControllerOperation } from "../src/loaders";
 
 describe("loaders", () => {
   describe("loadApiBody", () => {
@@ -227,7 +227,7 @@ describe("loadController", () => {
     const document = new DocumentBuilder();
     const operation = new OperationBuilder();
 
-    await loadController(document, operation, UsersController.prototype, "create");
+    await loadControllerOperation(document, operation, UsersController.prototype, "create");
 
     expect(operation.pattern).toBe("/users");
     expect(operation.method).toBe("post");
@@ -247,7 +247,7 @@ describe("loadController", () => {
     const document = new DocumentBuilder();
     const operation = new OperationBuilder();
 
-    await loadController(document, operation, UsersController.prototype, "create");
+    await loadControllerOperation(document, operation, UsersController.prototype, "create");
     const res = operation.build();
 
     expect(res.tags).toContain("Hello");
@@ -267,7 +267,7 @@ describe("loadController", () => {
     const document = new DocumentBuilder();
     const operation = new OperationBuilder();
 
-    await loadController(document, operation, UsersController.prototype, "create");
+    await loadControllerOperation(document, operation, UsersController.prototype, "create");
 
     const res: any = operation.build();
 
@@ -287,7 +287,7 @@ describe("loadController", () => {
     const document = new DocumentBuilder();
     const operation = new OperationBuilder();
 
-    await loadController(document, operation, UsersController.prototype, "create");
+    await loadControllerOperation(document, operation, UsersController.prototype, "create");
 
     const res: any = operation.build();
 
@@ -308,7 +308,7 @@ describe("loadController", () => {
     const document = new DocumentBuilder();
     const operation = new OperationBuilder();
 
-    await loadController(document, operation, UsersController.prototype, "create");
+    await loadControllerOperation(document, operation, UsersController.prototype, "create");
 
     const res: any = operation.build();
 
@@ -328,7 +328,7 @@ describe("loadController", () => {
     const document = new DocumentBuilder();
     const operation = new OperationBuilder();
 
-    await loadController(document, operation, UsersController.prototype, "create");
+    await loadControllerOperation(document, operation, UsersController.prototype, "create");
 
     const res: any = operation.build();
 
