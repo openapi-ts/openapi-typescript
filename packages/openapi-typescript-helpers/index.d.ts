@@ -131,13 +131,13 @@ export type ErrorResponse<T, Media extends MediaType = MediaType> = FilterKeys<
 >;
 
 /** Return first JSON-like 2XX response from a path + HTTP method */
-export type SuccessResponseJSON<PathMethod> = JSONLike<SuccessResponse<ResponseObjectMap<PathMethod>>>;
+export type SuccessResponseJSON<PathMethod> = SuccessResponse<ResponseObjectMap<PathMethod>>;
 
 /** Return first JSON-like 5XX or 4XX response from a path + HTTP method */
-export type ErrorResponseJSON<PathMethod> = JSONLike<ErrorResponse<ResponseObjectMap<PathMethod>>>;
+export type ErrorResponseJSON<PathMethod> = ErrorResponse<ResponseObjectMap<PathMethod>>;
 
 /** Return JSON-like request body from a path + HTTP method */
-export type RequestBodyJSON<PathMethod> = JSONLike<FilterKeys<OperationRequestBody<PathMethod>, "content">>;
+export type RequestBodyJSON<PathMethod> = FilterKeys<OperationRequestBody<PathMethod>, "content">;
 
 // Generic TS utils
 
