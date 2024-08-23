@@ -54,7 +54,10 @@ export default function transformPathItemObject(pathItem: PathItemObject, option
       // important: OperationObject parameters come last, and will override any conflicts with PathItem parameters
       for (const parameter of [...(pathItem.parameters ?? []), ...(operationObject.parameters ?? [])]) {
         // fix: #1798, use unique key
-        const name = "$ref" in parameter ? options.ctx.resolve<ParameterObject>(parameter.$ref)?.name : `${parameter.in}-${parameter.name}`;
+        const name =
+          "$ref" in parameter
+            ? `${options.ctx.resolve<ParameterObject>(parameter.$ref)?.in}-${options.ctx.resolve<ParameterObject>(parameter.$ref)?.name}`
+            : `${parameter.in}-${parameter.name}`;
         if (name) {
           keyedParameters[name] = parameter;
         }
