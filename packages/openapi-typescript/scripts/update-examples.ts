@@ -40,6 +40,7 @@ async function generateSchemas() {
           "-o",
           `./examples/${name}-required.ts`,
         ]);
+        args.push([`./examples/${name}${ext}`, "--root-types", "-o", `./examples/${name}-root-types.ts`]);
       }
 
       await Promise.all(args.map((a) => execa("./bin/cli.js", a, { cwd })));
