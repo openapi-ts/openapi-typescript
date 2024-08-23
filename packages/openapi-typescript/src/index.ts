@@ -79,6 +79,7 @@ export default async function openapiTS(
     excludeDeprecated: options.excludeDeprecated ?? false,
     exportType: options.exportType ?? false,
     immutable: options.immutable ?? false,
+    rootTypes: options.rootTypes ?? false,
     injectFooter: [],
     pathParamsAsTypes: options.pathParamsAsTypes ?? false,
     postTransform: typeof options.postTransform === "function" ? options.postTransform : undefined,

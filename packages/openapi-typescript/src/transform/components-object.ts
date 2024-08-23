@@ -1,4 +1,5 @@
 import ts from "typescript";
+import * as changeCase from "change-case";
 import { performance } from "node:perf_hooks";
 import { NEVER, QUESTION_TOKEN, addJSDocComment, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
 import { createRef, debug, getEntries } from "../lib/utils.js";
@@ -25,8 +26,9 @@ const transformers: Record<ComponentTransforms, (node: any, options: TransformNo
  * Transform the ComponentsObject (4.8.7)
  * @see https://spec.openapis.org/oas/latest.html#components-object
  */
-export default function transformComponentsObject(componentsObject: ComponentsObject, ctx: GlobalContext): ts.TypeNode {
+export default function transformComponentsObject(componentsObject: ComponentsObject, ctx: GlobalContext): ts.Node[] {
   const type: ts.TypeElement[] = [];
+  const rootType: ts.TypeAliasDeclaration[] = [];
 
   for (const key of Object.keys(transformers) as ComponentTransforms[]) {
     const componentT = performance.now();
@@ -63,6 +65,17 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
         );
         addJSDocComment(item as unknown as any, property);
         items.push(property);
+
+        if (ctx.rootTypes) {
+          const ref = ts.factory.createTypeReferenceNode(`components['${key}']['${name}']`);
+          const typeAlias = ts.factory.createTypeAliasDeclaration(
+            /* modifiers      */ tsModifiers({ export: true }),
+            /* name           */ changeCase.pascalCase(name) + changeCase.pascalCase(singularizeComponentKey(key)),
+            /* typeParameters */ undefined,
+            /* type           */ ref,
+          );
+          rootType.push(typeAlias);
+        }
       }
     }
     type.push(
@@ -77,5 +90,18 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
     debug(`Transformed components → ${key}`, "ts", performance.now() - componentT);
   }
 
-  return ts.factory.createTypeLiteralNode(type);
+  return [ts.factory.createTypeLiteralNode(type), ...rootType];
+}
+
+export function singularizeComponentKey(
+  key: `x-${string}` | "schemas" | "responses" | "parameters" | "requestBodies" | "headers" | "pathItems",
+): string {
+  switch (key) {
+    // Handle special singular case
+    case "requestBodies":
+      return "requestBody";
+    // Default to removing the "s"
+    default:
+      return key.slice(0, -1);
+  }
 }
