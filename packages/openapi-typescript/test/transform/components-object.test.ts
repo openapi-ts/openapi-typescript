@@ -465,6 +465,37 @@ describe("transformComponentsObject", () => {
       },
     ],
     [
+      "options > rootTypes: true",
+      {
+        given: {
+          schemas: {
+            SomeType: {
+              type: "object",
+              properties: {
+                name: { type: "string" },
+                url: { type: "string" },
+              },
+            },
+          },
+        },
+        want: `{
+    schemas: {
+        SomeType: {
+            name?: string;
+            url?: string;
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type SomeTypeSchema = components['schemas']['SomeType'];`,
+        options: { ...DEFAULT_OPTIONS, rootTypes: true },
+      },
+    ],
+    [
       "transform > with transform object",
       {
         given: {
