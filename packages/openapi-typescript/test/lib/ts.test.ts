@@ -210,6 +210,14 @@ describe("tsEnum", () => {
     PermissionDenied = 102
 }`);
   });
+
+  test("replace special character", () => {
+    expect(astToString(tsEnum("FOO_ENUM", ["Etc/GMT+0", "Etc/GMT+1", "Etc/GMT-1"])).trim()).toBe(`enum FOO_ENUM {
+    Etc_GMTPlus0 = "Etc/GMT+0",
+    Etc_GMTPlus1 = "Etc/GMT+1",
+    Etc_GMT_1 = "Etc/GMT-1"
+}`);
+  });
 });
 
 describe("tsArrayLiteralExpression", () => {
