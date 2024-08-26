@@ -1,7 +1,7 @@
 import type { OpenAPIV3 } from "openapi-types";
-import { OperationBuilder, type DocumentBuilder } from "openapi-decorators/builders";
+import { OperationBuilder, type DocumentBuilder } from "openapi-metadata/builders";
 import type { AdonisRoute } from "../types";
-import { loadApiOperation, loadControllerOperation } from "openapi-decorators/loaders";
+import { loadApiOperation, loadControllerOperation } from "openapi-metadata/loaders";
 import { normalizeRoutePattern } from "../utils/normalizeRoutePattern";
 
 export async function loadRoute(document: DocumentBuilder, route: AdonisRoute) {

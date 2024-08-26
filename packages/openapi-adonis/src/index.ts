@@ -1,13 +1,13 @@
 import type { OpenAPIV3 } from "openapi-types";
 
 import type { Router } from "@adonisjs/http-server";
-import { DocumentBuilder } from "openapi-decorators/builders";
-import { generateScalarUI } from "openapi-decorators/ui";
+import { DocumentBuilder } from "openapi-metadata/builders";
+import { generateScalarUI } from "openapi-metadata/ui";
 import { loadRouter } from "./loaders/loadRouter";
 import { VineTypeResolver } from "./resolvers/vine-type.resolver";
 
 export { VineType } from "./resolvers/vine-type.resolver";
-export { ModelType } from "openapi-decorators/resolvers";
+export { ModelType } from "openapi-metadata/resolvers";
 
 // biome-ignore lint/complexity/noStaticOnlyClass: TODO: move out of class
 export default class AdonisOpenAPI {

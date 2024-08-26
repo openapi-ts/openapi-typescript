@@ -1,5 +1,5 @@
 {
-  "name": "openapi-decorators",
+  "name": "openapi-metadata",
   "description": "Auto-Generate OpenAPI specifications from Typescript decorators",
   "version": "0.0.1",
   "author": {
@@ -33,7 +33,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/openapi-ts/openapi-typescript",
-    "directory": "packages/openapi-decorators"
+    "directory": "packages/openapi-metadata"
   },
   "bugs": {
     "url": "https://github.com/openapi-ts/openapi-typescript/issues"

@@ -1,6 +1,6 @@
 import { SimpleMessagesProvider, type VineValidator } from "@vinejs/vine";
 import type { SchemaTypes } from "@vinejs/vine/types";
-import { TypeResolver } from "openapi-decorators/resolvers";
+import { TypeResolver } from "openapi-metadata/resolvers";
 import type { OpenAPIV3 } from "openapi-types";
 import _ from "lodash";
 

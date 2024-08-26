@@ -1,5 +1,5 @@
 import type { Router } from "@adonisjs/http-server";
-import type { DocumentBuilder } from "openapi-decorators/builders";
+import type { DocumentBuilder } from "openapi-metadata/builders";
 import { loadRoute } from "./loadRoute";
 
 /**

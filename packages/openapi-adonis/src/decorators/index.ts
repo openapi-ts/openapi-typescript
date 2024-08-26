@@ -1,1 +1,1 @@
-export * from "openapi-decorators";
+export * from "openapi-metadata";

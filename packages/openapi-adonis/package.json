@@ -52,7 +52,7 @@
     "@fastify/deepmerge": "^2.0.0",
     "@vinejs/vine": "^2.1.0",
     "lodash": "^4.17.21",
-    "openapi-decorators": "workspace:^",
+    "openapi-metadata": "workspace:^",
     "openapi-types": "^12.1.3",
     "reflect-metadata": "^0.2.2"
   },
