@@ -466,10 +466,7 @@ describe("client", () => {
       });
 
       const { result } = renderHook(
-        () => client.useInfiniteQuery("get", "/paginated-data", { params: { query: { limit: 3 } } }, {
-          getNextPageParam: (lastPage) => lastPage.nextPage,
-          initialPageParam: 0
-        }),
+        () => client.useInfiniteQuery("get", "/paginated-data", { params: { query: { limit: 3 } } }),
         { wrapper }
       );
 
