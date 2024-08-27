@@ -1,12 +1,12 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { server, baseUrl, useMockRequestHandler } from "./fixtures/mock-server.js";
-import type { paths } from "./fixtures/api.js";
-import createClient from "../src/index.js";
-import createFetchClient from "openapi-fetch";
-import { fireEvent, render, renderHook, screen, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { fireEvent, render, renderHook, screen, waitFor } from "@testing-library/react";
+import createFetchClient from "openapi-fetch";
 import { Suspense, type ReactNode } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import createClient from "../src/index.js";
+import type { paths } from "./fixtures/api.js";
+import { baseUrl, server, useMockRequestHandler } from "./fixtures/mock-server.js";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -466,7 +466,7 @@ describe("client", () => {
       });
 
       const { result } = renderHook(
-        () => client.useInfiniteQuery("get", "/paginated-data", { limit: 3 }, {
+        () => client.useInfiniteQuery("get", "/paginated-data", { params: { query: { limit: 3 } } }, {
           getNextPageParam: (lastPage) => lastPage.nextPage,
           initialPageParam: 0
         }),
@@ -507,7 +507,7 @@ describe("client", () => {
       });
 
       const { result } = renderHook(
-        () => client.useInfiniteQuery("get", "/paginated-data", { limit: 3 }),
+        () => client.useInfiniteQuery("get", "/paginated-data", { params: { query: { limit: 3 } } }),
         { wrapper }
       );
 
