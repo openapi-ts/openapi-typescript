@@ -1,12 +1,12 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { fireEvent, render, renderHook, screen, waitFor } from "@testing-library/react";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { server, baseUrl, useMockRequestHandler } from "./fixtures/mock-server.js";
+import type { paths } from "./fixtures/api.js";
+import createClient from "../src/index.js";
 import createFetchClient from "openapi-fetch";
+import { fireEvent, render, renderHook, screen, waitFor } from "@testing-library/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense, type ReactNode } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import createClient from "../src/index.js";
-import type { paths } from "./fixtures/api.js";
-import { baseUrl, server, useMockRequestHandler } from "./fixtures/mock-server.js";
 
 const queryClient = new QueryClient({
   defaultOptions: {
