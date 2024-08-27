@@ -14,7 +14,13 @@ import {
   useInfiniteQuery,
 } from "@tanstack/react-query";
 import type { ClientMethod, FetchResponse, MaybeOptionalInit, Client as FetchClient } from "openapi-fetch";
-import type { HttpMethod, MediaType, PathsWithMethod, RequiredKeysOf, ResponseObjectMap } from "openapi-typescript-helpers";
+import type {
+  HttpMethod,
+  MediaType,
+  PathsWithMethod,
+  RequiredKeysOf,
+  ResponseObjectMap,
+} from "openapi-typescript-helpers";
 
 export type UseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
@@ -146,9 +152,9 @@ export default function createClient<Paths extends {}, Media extends MediaType =
           queryFn: async ({ pageParam = 0 }) => {
             const mth = method.toUpperCase() as keyof typeof client;
             const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
-            
+
             const params = pageParam === 0 ? init : { ...init, page: pageParam };
-            
+
             const { data, error } = await fn(path, params as any); // TODO: find a way to avoid as any
             if (error || !data) {
               throw error;

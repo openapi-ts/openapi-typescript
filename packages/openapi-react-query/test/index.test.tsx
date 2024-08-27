@@ -467,7 +467,7 @@ describe("client", () => {
 
       const { result } = renderHook(
         () => client.useInfiniteQuery("get", "/paginated-data", { params: { query: { limit: 3 } } }),
-        { wrapper }
+        { wrapper },
       );
 
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
@@ -489,7 +489,7 @@ describe("client", () => {
 
       expect((result.current.data as any).pages).toHaveLength(2);
       expect((result.current.data as any).pages[1]).toEqual({ items: [4, 5, 6], nextPage: 2 });
-    });   
+    });
 
     it("should handle errors correctly", async () => {
       const fetchClient = createFetchClient<paths>({ baseUrl });
@@ -505,7 +505,7 @@ describe("client", () => {
 
       const { result } = renderHook(
         () => client.useInfiniteQuery("get", "/paginated-data", { params: { query: { limit: 3 } } }),
-        { wrapper }
+        { wrapper },
       );
 
       await waitFor(() => expect(result.current.isError).toBe(true));
