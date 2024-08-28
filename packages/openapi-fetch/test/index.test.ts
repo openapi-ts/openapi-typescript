@@ -981,9 +981,10 @@ describe("client", () => {
             },
           });
           // the fetch implementation won't allow sending a body without content-type,
-          // so it invents one up and sends it, hopefully this will be consistent across
-          // local environments and won't make the tests flaky
-          expect(contentType).toBe("text/plain;charset=UTF-8");
+          // and it defaults to `text/plain;charset=UTF-8`, however the actual default value
+          // is irrelevant and might be flaky across different fetch implementations
+          // for us, it's important that it's not `application/json`
+          expect(contentType).not.toBe("application/json");
         },
       );
 

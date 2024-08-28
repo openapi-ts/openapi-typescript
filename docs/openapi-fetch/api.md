@@ -188,8 +188,7 @@ for any request that provides value for the `body` parameter. When the `bodySeri
 `Content-Type` is omitted, allowing the browser to set it automatically with the correct message part boundary.
 
 You can also set `Content-Type` manually through `headers` object either in the fetch options,
-or when instantiating the client. Setting `Content-Type` to `null` will omit the header, however the native fetch API
-will likely set it to `text/plain` in this case.
+or when instantiating the client.
 
 :::
 
