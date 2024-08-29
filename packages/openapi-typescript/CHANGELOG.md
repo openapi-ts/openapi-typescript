@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.3.2
+
+### Patch Changes
+
+- [#1867](https://github.com/openapi-ts/openapi-typescript/pull/1867) [`21fb8b0`](https://github.com/openapi-ts/openapi-typescript/commit/21fb8b0febbae1a12dd1bb43eb9130422629409e) Thanks [@phk422](https://github.com/phk422)! - fix(openapi-typescript): type errors generated under `enumValues`
+
 ## 7.3.1
 
 ### Patch Changes
