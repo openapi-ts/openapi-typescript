@@ -1,5 +1,11 @@
 # openapi-typescript-helpers
 
+## 0.0.13
+
+### Patch Changes
+
+- [#1871](https://github.com/openapi-ts/openapi-typescript/pull/1871) [`bd88568`](https://github.com/openapi-ts/openapi-typescript/commit/bd8856854eaaf213b96d04b9eb130db1695bb1f1) Thanks [@brunolca](https://github.com/brunolca)! - fix SuccessResponseJSON and ErrorResponseJSON helpers
+
 ## 0.0.12
 
 ### Patch Changes
