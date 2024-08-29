@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.3.1
+
+### Patch Changes
+
+- [#1849](https://github.com/openapi-ts/openapi-typescript/pull/1849) [`08bde72`](https://github.com/openapi-ts/openapi-typescript/commit/08bde72cfeed14ecc3a15251a2f77d0770382442) Thanks [@liangskyli](https://github.com/liangskyli)! - fix: keyedParameters use unique key
+
 ## 7.3.0
 
 ### Minor Changes

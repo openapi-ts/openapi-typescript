@@ -1,5 +1,15 @@
 # openapi-fetch
 
+## 0.12.0
+
+### Minor Changes
+
+- [#1817](https://github.com/openapi-ts/openapi-typescript/pull/1817) [`2a4b067`](https://github.com/openapi-ts/openapi-typescript/commit/2a4b067f43f7e0b75aecbf5c2fb3013a4e96e591) Thanks [@Gruak](https://github.com/Gruak)! - Allow specifying baseUrl per request
+
+### Patch Changes
+
+- [#1842](https://github.com/openapi-ts/openapi-typescript/pull/1842) [`0e42cbb`](https://github.com/openapi-ts/openapi-typescript/commit/0e42cbb98e2a023c33685de65ab0b8dbf82cc4b3) Thanks [@gzm0](https://github.com/gzm0)! - fix: allow use of `PathBasedClient` with generated `paths`
+
 ## 0.11.1
 
 ### Patch Changes
