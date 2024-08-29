@@ -797,6 +797,11 @@ export interface components {
     pathItems: never;
 }
 export type $defs = Record<string, never>;
+type ReadonlyArray<T> = [
+    Exclude<T, undefined>
+] extends [
+    any[]
+] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
 export const pathsUrlGetParametersQueryStatusValues: ReadonlyArray<paths["/url"]["get"]["parameters"]["query"]["status"]> = ["active", "inactive"];
 export const statusValues: ReadonlyArray<components["schemas"]["Status"]> = ["active", "inactive"];
 export const errorCodeValues: ReadonlyArray<components["schemas"]["ErrorCode"]> = [100, 101, 102, 103, 104, 105];

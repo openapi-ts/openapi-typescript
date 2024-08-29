@@ -242,13 +242,13 @@ export function tsArrayLiteralExpression(
   name: string,
   elementType: ts.TypeNode,
   values: (string | number)[],
-  options?: { export?: boolean; readonly?: boolean },
+  options?: { export?: boolean; readonly?: boolean; injectFooter?: ts.Node[] },
 ) {
   let variableName = sanitizeMemberName(name);
   variableName = `${variableName[0].toLowerCase()}${variableName.substring(1)}`;
 
   const arrayType = options?.readonly
-    ? ts.factory.createTypeReferenceNode("ReadonlyArray", [elementType])
+    ? tsReadonlyArray(elementType, options.injectFooter)
     : ts.factory.createArrayTypeNode(elementType);
 
   return ts.factory.createVariableStatement(
@@ -489,4 +489,22 @@ export function tsWithRequired(
     type,
     tsUnion(keys.map((k) => tsLiteral(k))),
   ]);
+}
+
+/**
+ * Enhanced ReadonlyArray.
+ * eg: type Foo = ReadonlyArray<T>; type Bar = ReadonlyArray<T[]>
+ * Foo and Bar are both of type `readonly T[]`
+ */
+export function tsReadonlyArray(type: ts.TypeNode, injectFooter?: ts.Node[]): ts.TypeNode {
+  if (
+    injectFooter &&
+    !injectFooter.some((node) => ts.isTypeAliasDeclaration(node) && node?.name?.escapedText === "ReadonlyArray")
+  ) {
+    const helper = stringToAST(
+      "type ReadonlyArray<T> = [Exclude<T, undefined>] extends [any[]] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;",
+    )[0] as any;
+    injectFooter.push(helper);
+  }
+  return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("ReadonlyArray"), [type]);
 }
