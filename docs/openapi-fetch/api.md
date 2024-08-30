@@ -181,6 +181,17 @@ const { data, error } = await client.PUT("/submit", {
 });
 ```
 
+::: tip
+
+For convenience, `openapi-fetch` sets `Content-Type` to `application/json` automatically
+for any request that provides value for the `body` parameter. When the `bodySerializer` returns an instance of `FormData`,
+`Content-Type` is omitted, allowing the browser to set it automatically with the correct message part boundary.
+
+You can also set `Content-Type` manually through `headers` object either in the fetch options,
+or when instantiating the client.
+
+:::
+
 ## Path serialization
 
 openapi-fetch supports path serialization as [outlined in the 3.1 spec](https://swagger.io/docs/specification/serialization/#path). This happens automatically, based on the specific format in your OpenAPI schema:
