@@ -312,7 +312,9 @@ export function tsEnumMember(value: string | number, metadata: { name?: string; 
       if (invalidCharMatch[0] === name) {
         name = `"${name}"`;
       } else {
-        name = name.replace(JS_PROPERTY_INDEX_INVALID_CHARS_RE, (substring) => SPECIAL_CHARACTER_MAP[substring] || "_");
+        name = name.replace(JS_PROPERTY_INDEX_INVALID_CHARS_RE, (s) => {
+          return s in SPECIAL_CHARACTER_MAP ? SPECIAL_CHARACTER_MAP[s] : "_";
+        });
       }
     }
   }
