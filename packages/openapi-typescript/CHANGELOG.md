@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.3.3
+
+### Patch Changes
+
+- [#1877](https://github.com/openapi-ts/openapi-typescript/pull/1877) [`94592a4`](https://github.com/openapi-ts/openapi-typescript/commit/94592a494566255807a3fc9bc19369af86d7cb78) Thanks [@phk422](https://github.com/phk422)! - fix: replace special characters using `SPECIAL_CHARACTER_MAP` for duplicate-identifiers
+
 ## 7.3.2
 
 ### Patch Changes
