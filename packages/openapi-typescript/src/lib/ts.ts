@@ -4,6 +4,10 @@ import ts, { type LiteralTypeNode, type TypeLiteralNode } from "typescript";
 export const JS_PROPERTY_INDEX_RE = /^[A-Za-z_$][A-Za-z_$0-9]*$/;
 export const JS_ENUM_INVALID_CHARS_RE = /[^A-Za-z_$0-9]+(.)?/g;
 export const JS_PROPERTY_INDEX_INVALID_CHARS_RE = /[^A-Za-z_$0-9]+/g;
+export const SPECIAL_CHARACTER_MAP: Record<string, string> = {
+  "+": "Plus",
+  // Add more mappings as needed
+};
 
 export const BOOLEAN = ts.factory.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword);
 export const FALSE = ts.factory.createLiteralTypeNode(ts.factory.createFalse());
@@ -308,7 +312,9 @@ export function tsEnumMember(value: string | number, metadata: { name?: string; 
       if (invalidCharMatch[0] === name) {
         name = `"${name}"`;
       } else {
-        name = name.replace(JS_PROPERTY_INDEX_INVALID_CHARS_RE, "_");
+        name = name.replace(JS_PROPERTY_INDEX_INVALID_CHARS_RE, (s) => {
+          return s in SPECIAL_CHARACTER_MAP ? SPECIAL_CHARACTER_MAP[s] : "_";
+        });
       }
     }
   }
