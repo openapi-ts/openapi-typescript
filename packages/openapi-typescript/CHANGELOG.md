@@ -1,11 +1,5 @@
 # openapi-typescript
 
-## 7.3.3
-
-### Patch Changes
-
-- [#1825](https://github.com/openapi-ts/openapi-typescript/pull/1825) [`6038f8f`](https://github.com/openapi-ts/openapi-typescript/commit/6038f8fca09fa698c9dd9bc49349c49342c46ac2) Thanks [@goce-cz](https://github.com/goce-cz)! - Allow falsy values (except undefined) as a valid body
-
 ## 7.3.2
 
 ### Patch Changes
