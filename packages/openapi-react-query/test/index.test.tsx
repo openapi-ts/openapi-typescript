@@ -3,7 +3,7 @@ import { server, baseUrl, useMockRequestHandler } from "./fixtures/mock-server.j
 import type { paths } from "./fixtures/api.js";
 import createClient from "../src/index.js";
 import createFetchClient from "openapi-fetch";
-import { fireEvent, render, renderHook, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, renderHook, screen, waitFor, act } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense, type ReactNode } from "react";
 import { ErrorBoundary } from "react-error-boundary";
@@ -107,6 +107,26 @@ describe("client", () => {
 
       expectTypeOf(data).toEqualTypeOf<string[] | undefined>();
       expectTypeOf(error).toEqualTypeOf<{ code: number; message: string } | null>();
+    });
+
+    it("passes abort signal to fetch", async () => {
+      let signalPassedToFetch: AbortSignal | undefined;
+
+      const fetchClient = createFetchClient<paths>({
+        baseUrl,
+        fetch: async ({ signal }) => {
+          signalPassedToFetch = signal;
+          await new Promise(() => {});
+          return Response.error();
+        },
+      });
+      const client = createClient(fetchClient);
+
+      const { unmount } = renderHook(() => client.useQuery("get", "/string-array"), { wrapper });
+
+      unmount();
+
+      expect(signalPassedToFetch?.aborted).toBeTruthy();
     });
 
     describe("params", () => {
@@ -257,6 +277,29 @@ describe("client", () => {
       const rendered = render(<Page />);
 
       await waitFor(() => rendered.findByText("data: Hello"));
+    });
+
+    it("passes abort signal to fetch", async () => {
+      let signalPassedToFetch: AbortSignal | undefined;
+
+      const fetchClient = createFetchClient<paths>({
+        baseUrl,
+        fetch: async ({ signal }) => {
+          signalPassedToFetch = signal;
+          await new Promise(() => {});
+          return Response.error();
+        },
+      });
+      const client = createClient(fetchClient);
+      const queryClient = new QueryClient({});
+
+      const { unmount } = renderHook(() => client.useSuspenseQuery("get", "/string-array", {}, {}, queryClient));
+
+      unmount();
+
+      await act(() => queryClient.cancelQueries());
+
+      expect(signalPassedToFetch?.aborted).toBeTruthy();
     });
   });
 

@@ -70,10 +70,10 @@ export default function createClient<Paths extends {}, Media extends MediaType =
       return useQuery(
         {
           queryKey: [method, path, init],
-          queryFn: async () => {
+          queryFn: async ({ signal }) => {
             const mth = method.toUpperCase() as keyof typeof client;
             const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
-            const { data, error } = await fn(path, init as any); // TODO: find a way to avoid as any
+            const { data, error } = await fn(path, { signal, ...(init as any) }); // TODO: find a way to avoid as any
             if (error || !data) {
               throw error;
             }
@@ -88,10 +88,10 @@ export default function createClient<Paths extends {}, Media extends MediaType =
       return useSuspenseQuery(
         {
           queryKey: [method, path, init],
-          queryFn: async () => {
+          queryFn: async ({ signal }) => {
             const mth = method.toUpperCase() as keyof typeof client;
             const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
-            const { data, error } = await fn(path, init as any); // TODO: find a way to avoid as any
+            const { data, error } = await fn(path, { signal, ...(init as any) }); // TODO: find a way to avoid as any
             if (error || !data) {
               throw error;
             }
