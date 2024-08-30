@@ -4,7 +4,6 @@ import createClient, {
   type BodySerializer,
   type FetchOptions,
   type MethodResponse,
-  type FetchOptions,
   type HeadersOptions,
   type Middleware,
   type MiddlewareCallbackParams,
