@@ -859,9 +859,15 @@ export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
         Post: {
+            id: {
+                $read: string;
+            };
             title: string;
             body: string;
             publish_date?: number;
+            password: {
+                $write: string;
+            };
         };
         StringArray: string[];
         User: {

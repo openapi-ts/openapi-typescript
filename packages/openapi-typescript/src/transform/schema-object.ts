@@ -24,7 +24,7 @@ import {
   tsUnion,
   tsWithRequired,
 } from "../lib/ts.js";
-import { createDiscriminatorProperty, createRef, getEntries } from "../lib/utils.js";
+import { createDiscriminatorProperty, createReadOnly, createRef, createWriteOnly, getEntries } from "../lib/utils.js";
 import type { ReferenceObject, SchemaObject, TransformNodeOptions } from "../types.js";
 
 /**
@@ -465,13 +465,24 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
             !options.path?.includes("requestBodies")) // can’t be required, even with defaults
             ? undefined
             : QUESTION_TOKEN;
-        let type =
-          "$ref" in v
-            ? oapiRef(v.$ref)
-            : transformSchemaObject(v, {
-                ...options,
-                path: createRef([options.path, k]),
-              });
+
+        let type: ts.TypeNode;
+        if ("$ref" in v) {
+          type = oapiRef(v.$ref);
+        } else {
+          type = transformSchemaObject(v, {
+            ...options,
+            path: createRef([options.path, k]),
+          });
+
+          if (options.ctx.experimentalVisibility) {
+            if (v.readOnly && !v.writeOnly) {
+              type = createReadOnly(type);
+            } else if (v.writeOnly && !v.readOnly) {
+              type = createWriteOnly(type);
+            }
+          }
+        }
 
         if (typeof options.ctx.transform === "function") {
           const result = options.ctx.transform(v as SchemaObject, options);
@@ -487,7 +498,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
 
         const property = ts.factory.createPropertySignature(
           /* modifiers     */ tsModifiers({
-            readonly: options.ctx.immutable || ("readOnly" in v && !!v.readOnly),
+            readonly: options.ctx.immutable || (!options.ctx.experimentalVisibility && "readOnly" in v && !!v.readOnly),
           }),
           /* name          */ tsPropertyIndex(k),
           /* questionToken */ optional,
@@ -504,7 +515,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
       for (const [k, v] of Object.entries(schemaObject.$defs)) {
         const property = ts.factory.createPropertySignature(
           /* modifiers    */ tsModifiers({
-            readonly: options.ctx.immutable || ("readonly" in v && !!v.readOnly),
+            readonly: options.ctx.immutable || (!options.ctx.experimentalVisibility && "readonly" in v && !!v.readOnly),
           }),
           /* name          */ tsPropertyIndex(k),
           /* questionToken */ undefined,

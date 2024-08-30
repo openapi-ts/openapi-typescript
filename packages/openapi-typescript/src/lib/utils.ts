@@ -389,3 +389,11 @@ export function warn(msg: string, silent = false) {
     console.warn(c.yellow(` ⚠  ${msg}`));
   }
 }
+
+export function createReadOnly(type: ts.TypeNode): ts.TypeNode {
+  return ts.factory.createTypeLiteralNode([ts.factory.createPropertySignature(undefined, "$read", undefined, type)]);
+}
+
+export function createWriteOnly(type: ts.TypeNode): ts.TypeNode {
+  return ts.factory.createTypeLiteralNode([ts.factory.createPropertySignature(undefined, "$write", undefined, type)]);
+}

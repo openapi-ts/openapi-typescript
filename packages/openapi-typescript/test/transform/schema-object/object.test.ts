@@ -411,6 +411,45 @@ describe("transformSchemaObject > object", () => {
         },
       },
     ],
+    [
+      "options > experimentalVisibility",
+      {
+        given: {
+          type: "object",
+          required: ["id", "name", "password"],
+          properties: {
+            id: {
+              type: "string",
+              format: "uuid",
+              readOnly: true,
+            },
+            name: {
+              type: "string",
+            },
+            password: {
+              type: "string",
+              format: "password",
+              writeOnly: true,
+            },
+          },
+        },
+        want: `{
+    /** Format: uuid */
+    id: {
+        $read: string;
+    };
+    name: string;
+    /** Format: password */
+    password: {
+        $write: string;
+    };
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, experimentalVisibility: true },
+        },
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
