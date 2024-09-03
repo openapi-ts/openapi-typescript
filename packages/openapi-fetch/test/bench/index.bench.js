@@ -2,25 +2,27 @@ import axios from "axios";
 import { Fetcher } from "openapi-typescript-fetch";
 import { createApiFetchClient } from "feature-fetch";
 import superagent from "superagent";
-import { afterAll, beforeAll, bench, describe, vi } from "vitest";
-import createFetchMock from "vitest-fetch-mock";
-import createClient, { createPathBasedClient } from "../dist/index.js";
-import * as openapiTSCodegen from "./fixtures/openapi-typescript-codegen.min.js";
+import { afterAll, bench, describe, vi } from "vitest";
+import createClient, { createPathBasedClient } from "../../dist/index.js";
+import * as openapiTSCodegen from "./openapi-typescript-codegen.min.js";
 
 const BASE_URL = "https://api.test.local";
 
-const fetchMocker = createFetchMock(vi);
+const fetchMock = vi.fn(
+  () =>
+    new Promise((resolve) => {
+      process.nextTick(() => {
+        resolve(Response.json({}, { status: 200 }));
+      });
+    }),
+);
+vi.stubGlobal("fetch", fetchMock);
+
+afterAll(() => {
+  vi.unstubAllGlobals();
+});
 
 describe("setup", () => {
-  beforeAll(() => {
-    // mock global fetch in this benchmark, without any delaly, shared state or resources
-    fetchMocker.enableMocks();
-  });
-
-  afterAll(() => {
-    fetchMocker.disableMocks();
-  });
-
   bench("openapi-fetch", async () => {
     createClient({ baseUrl: BASE_URL });
   });

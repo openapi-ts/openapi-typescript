@@ -7,5 +7,6 @@ export default defineConfig({
       enabled: true,
       tsconfig: "./tsconfig.json",
     },
+    restoreMocks: true,
   },
 });

@@ -67,8 +67,7 @@
     "version": "pnpm run prepare && pnpm run build"
   },
   "dependencies": {
-    "openapi-typescript-helpers": "workspace:^",
-    "vitest-fetch-mock": "^0.3.0"
+    "openapi-typescript-helpers": "workspace:^"
   },
   "devDependencies": {
     "axios": "^1.7.7",
