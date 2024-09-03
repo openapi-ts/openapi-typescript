@@ -28,7 +28,7 @@ const transformers: Record<ComponentTransforms, (node: any, options: TransformNo
  */
 export default function transformComponentsObject(componentsObject: ComponentsObject, ctx: GlobalContext): ts.Node[] {
   const type: ts.TypeElement[] = [];
-  const rootType: ts.TypeAliasDeclaration[] = [];
+  const rootTypeAliases: { [key: string]: ts.TypeAliasDeclaration } = {};
 
   for (const key of Object.keys(transformers) as ComponentTransforms[]) {
     const componentT = performance.now();
@@ -67,14 +67,21 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
         items.push(property);
 
         if (ctx.rootTypes) {
+          let aliasName = changeCase.pascalCase(singularizeComponentKey(key)) + changeCase.pascalCase(name)
+          // Add counter suffix (e.g. "_2") if conflict in name
+          let conflictCounter = 1
+          while (rootTypeAliases[aliasName] !== undefined) {
+            conflictCounter++
+            aliasName = changeCase.pascalCase(singularizeComponentKey(key)) + changeCase.pascalCase(name) + '_' + conflictCounter
+          }
           const ref = ts.factory.createTypeReferenceNode(`components['${key}']['${name}']`);
           const typeAlias = ts.factory.createTypeAliasDeclaration(
             /* modifiers      */ tsModifiers({ export: true }),
-            /* name           */ changeCase.pascalCase(name) + changeCase.pascalCase(singularizeComponentKey(key)),
+            /* name           */ aliasName,
             /* typeParameters */ undefined,
             /* type           */ ref,
           );
-          rootType.push(typeAlias);
+          rootTypeAliases[aliasName] = typeAlias;
         }
       }
     }
@@ -90,7 +97,13 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
     debug(`Transformed components → ${key}`, "ts", performance.now() - componentT);
   }
 
-  return [ts.factory.createTypeLiteralNode(type), ...rootType];
+  // Extract root types
+  let rootTypes: ts.TypeAliasDeclaration[] = [];
+  if (ctx.rootTypes) {
+    rootTypes = Object.keys(rootTypeAliases).map((k) => rootTypeAliases[k])
+  }
+
+  return [ts.factory.createTypeLiteralNode(type), ...rootTypes];
 }
 
 export function singularizeComponentKey(

@@ -471,9 +471,41 @@ describe("transformComponentsObject", () => {
           schemas: {
             SomeType: {
               type: "object",
+              required: ["name", "url"],
               properties: {
                 name: { type: "string" },
                 url: { type: "string" },
+              },
+            },
+            'Some-Type': {
+              type: "object",
+              required: ["name", "url"],
+              properties: {
+                name: { type: "string" },
+                url: { type: "string" },
+              },
+            },
+            'Some.Type': {
+              type: "object",
+              required: ["name", "url"],
+              properties: {
+                name: { type: "string" },
+                url: { type: "string" },
+              },
+            },
+            'Some/Type': {
+              type: "object",
+              required: ["name", "url"],
+              properties: {
+                name: { type: "string" },
+                url: { type: "string" },
+              },
+            },
+            '1Type': {
+              type: "object",
+              required: ["value"],
+              properties: {
+                value: { type: "string" },
               },
             },
           },
@@ -481,8 +513,23 @@ describe("transformComponentsObject", () => {
         want: `{
     schemas: {
         SomeType: {
-            name?: string;
-            url?: string;
+            name: string;
+            url: string;
+        };
+        "Some-Type": {
+            name: string;
+            url: string;
+        };
+        "Some.Type": {
+            name: string;
+            url: string;
+        };
+        "Some/Type": {
+            name: string;
+            url: string;
+        };
+        "1Type": {
+            value: string;
         };
     };
     responses: never;
@@ -491,7 +538,11 @@ describe("transformComponentsObject", () => {
     headers: never;
     pathItems: never;
 }
-export type SomeTypeSchema = components['schemas']['SomeType'];`,
+export type SchemaSomeType = components['schemas']['SomeType'];
+export type SchemaSomeType_2 = components['schemas']['Some-Type'];
+export type SchemaSomeType_3 = components['schemas']['Some.Type'];
+export type SchemaSomeType_4 = components['schemas']['Some/Type'];
+export type Schema1Type = components['schemas']['1Type'];`,
         options: { ...DEFAULT_OPTIONS, rootTypes: true },
       },
     ],
