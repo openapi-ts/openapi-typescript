@@ -487,13 +487,6 @@ describe("client", () => {
       expect(error).toBeNull();
 
       const queryKey = client.getKey("get", "/string-array");
-      console.log({
-        key: [queryKey],
-        keys: queryClient
-          .getQueryCache()
-          .getAll()
-          .map((p) => p.queryKey),
-      });
 
       expect(
         queryClient
