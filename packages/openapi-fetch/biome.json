@@ -3,7 +3,7 @@
   "extends": ["../../biome.json"],
   "files": {
     "include": ["./src/", "./test/"],
-    "ignore": ["**/fixtures/**/*"]
+    "ignore": ["./test/**/schemas/**", "./test/bench/*.min.js"]
   },
   "linter": {
     "rules": {

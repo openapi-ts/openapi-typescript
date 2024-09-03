@@ -1,7 +1,7 @@
 {
   "name": "openapi-typescript",
   "description": "Convert OpenAPI 3.0 & 3.1 schemas to TypeScript",
-  "version": "7.3.0",
+  "version": "7.3.3",
   "author": {
     "name": "Drew Powers",
     "email": "drew@pow.rs"
@@ -75,7 +75,7 @@
     "esbuild": "^0.20.2",
     "execa": "^8.0.1",
     "strip-ansi": "^7.1.0",
-    "typescript": "^5.4.5",
+    "typescript": "^5.5.4",
     "vite-node": "^2.0.5"
   }
 }

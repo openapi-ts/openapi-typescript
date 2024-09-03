@@ -1,5 +1,25 @@
 # openapi-fetch
 
+## 0.12.0
+
+### Minor Changes
+
+- ⚠️ **Breaking Change** [#1826](https://github.com/openapi-ts/openapi-typescript/pull/1826) [`b893c44`](https://github.com/openapi-ts/openapi-typescript/commit/b893c44f4290917f24c2ef7cda106c540df9cb3d) Thanks [@goce-cz](https://github.com/goce-cz)! - Do not set content-type on body-less requests
+
+## 0.11.3
+
+### Patch Changes
+
+- [#1825](https://github.com/openapi-ts/openapi-typescript/pull/1825) [`6038f8f`](https://github.com/openapi-ts/openapi-typescript/commit/6038f8fca09fa698c9dd9bc49349c49342c46ac2) Thanks [@goce-cz](https://github.com/goce-cz)! - Allow falsy values (except undefined) as a valid body
+
+## 0.11.2
+
+### Patch Changes
+
+- [#1817](https://github.com/openapi-ts/openapi-typescript/pull/1817) [`2a4b067`](https://github.com/openapi-ts/openapi-typescript/commit/2a4b067f43f7e0b75aecbf5c2fb3013a4e96e591) Thanks [@Gruak](https://github.com/Gruak)! - Allow specifying baseUrl per request
+
+- [#1842](https://github.com/openapi-ts/openapi-typescript/pull/1842) [`0e42cbb`](https://github.com/openapi-ts/openapi-typescript/commit/0e42cbb98e2a023c33685de65ab0b8dbf82cc4b3) Thanks [@gzm0](https://github.com/gzm0)! - fix: allow use of `PathBasedClient` with generated `paths`
+
 ## 0.11.1
 
 ### Patch Changes
@@ -15,7 +35,7 @@
 
 ### Minor Changes
 
-- [#1791](https://github.com/openapi-ts/openapi-typescript/pull/1791) [`a956d5d`](https://github.com/openapi-ts/openapi-typescript/commit/a956d5d8480834402536283ee2f24ce8086698dc) Thanks [@gzm0](https://github.com/gzm0)! - Add support for `client["/endpoint"].GET()` style calls
+-- ⚠️ **Breaking Change** [#1791](https://github.com/openapi-ts/openapi-typescript/pull/1791) [`a956d5d`](https://github.com/openapi-ts/openapi-typescript/commit/a956d5d8480834402536283ee2f24ce8086698dc) Thanks [@gzm0](https://github.com/gzm0)! - Add support for `client["/endpoint"].GET()` style calls
 
 ## 0.10.6
 

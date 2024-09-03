@@ -1,0 +1,21 @@
+openapi: 3.1.0
+info:
+  title: openapi-fetch
+  version: "1.0"
+paths:
+  /resources:
+    options:
+      responses:
+        200:
+          description: OK
+          operationId: getResources
+          content:
+            text/html:
+              schema:
+                type: string
+        default:
+          description: Error
+          content:
+            text/html:
+              schema:
+                type: string

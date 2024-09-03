@@ -1,5 +1,23 @@
 # openapi-typescript
 
+## 7.3.3
+
+### Patch Changes
+
+- [#1877](https://github.com/openapi-ts/openapi-typescript/pull/1877) [`94592a4`](https://github.com/openapi-ts/openapi-typescript/commit/94592a494566255807a3fc9bc19369af86d7cb78) Thanks [@phk422](https://github.com/phk422)! - fix: replace special characters using `SPECIAL_CHARACTER_MAP` for duplicate-identifiers
+
+## 7.3.2
+
+### Patch Changes
+
+- [#1867](https://github.com/openapi-ts/openapi-typescript/pull/1867) [`21fb8b0`](https://github.com/openapi-ts/openapi-typescript/commit/21fb8b0febbae1a12dd1bb43eb9130422629409e) Thanks [@phk422](https://github.com/phk422)! - fix(openapi-typescript): type errors generated under `enumValues`
+
+## 7.3.1
+
+### Patch Changes
+
+- [#1849](https://github.com/openapi-ts/openapi-typescript/pull/1849) [`08bde72`](https://github.com/openapi-ts/openapi-typescript/commit/08bde72cfeed14ecc3a15251a2f77d0770382442) Thanks [@liangskyli](https://github.com/liangskyli)! - fix: keyedParameters use unique key
+
 ## 7.3.0
 
 ### Minor Changes

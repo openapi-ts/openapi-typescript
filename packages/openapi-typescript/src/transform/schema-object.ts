@@ -136,6 +136,7 @@ export function transformSchemaObjectWithComposition(
         {
           export: true,
           readonly: true,
+          injectFooter: options.ctx.injectFooter,
         },
       );
 
