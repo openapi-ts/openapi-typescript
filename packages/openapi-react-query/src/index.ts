@@ -54,7 +54,9 @@ export type UseMutationMethod<Paths extends Record<string, Record<HttpMethod, {}
   queryClient?: QueryClient,
 ) => UseMutationResult<Response["data"], Response["error"], Init>;
 
-export type GetKeyMethod<Paths extends Record<string, Record<HttpMethod, {}>> = Record<string, Record<HttpMethod, {}>>> = <
+export type GetKeyMethod<
+  Paths extends Record<string, Record<HttpMethod, {}>> = Record<string, Record<HttpMethod, {}>>,
+> = <
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
   Init extends MaybeOptionalInit<Paths[Path], Method>,

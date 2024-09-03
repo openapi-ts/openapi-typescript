@@ -488,16 +488,29 @@ describe("client", () => {
 
       const queryKey = client.getKey("get", "/string-array");
       console.log({
-        key: [queryKey], 
-        keys: queryClient.getQueryCache().getAll().map(p => p.queryKey)
+        key: [queryKey],
+        keys: queryClient
+          .getQueryCache()
+          .getAll()
+          .map((p) => p.queryKey),
       });
 
-      expect(queryClient.getQueryCache().getAll().map(p => p.queryKey)).toEqual([queryKey]);
+      expect(
+        queryClient
+          .getQueryCache()
+          .getAll()
+          .map((p) => p.queryKey),
+      ).toEqual([queryKey]);
 
       // Remove query
       await queryClient.removeQueries({ queryKey: queryKey });
 
-      expect(queryClient.getQueryCache().getAll().map(p => p.queryKey)).not.toEqual([queryKey]);
+      expect(
+        queryClient
+          .getQueryCache()
+          .getAll()
+          .map((p) => p.queryKey),
+      ).not.toEqual([queryKey]);
     });
   });
 });
