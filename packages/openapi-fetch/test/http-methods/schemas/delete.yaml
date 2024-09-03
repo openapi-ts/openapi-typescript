@@ -1,0 +1,33 @@
+openapi: 3.1.0
+info:
+  title: openapi-fetch
+  version: "1.0"
+paths:
+  /tags/{name}:
+    delete:
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: No Content
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+        message:
+          type: string

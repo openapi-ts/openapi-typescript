@@ -1,9 +1,55 @@
+# Note: add more schemas here!
+# each test folder can test multiple schemas if needed
 apis:
-  unit:
-    root: ./fixtures/api.yaml
+  common:
+    root: ./common/schemas/common.yaml
     x-openapi-ts:
-      output: ./fixtures/api.d.ts
-  e2e:
-    root: ./fixtures/e2e/e2e.yaml
+      output: ./common/schemas/common.d.ts
+  http-get:
+    root: ./http-methods/schemas/get.yaml
     x-openapi-ts:
-      output: ./fixtures/e2e/e2e.d.ts
+      output: ./http-methods/schemas/get.d.ts
+  http-put:
+    root: ./http-methods/schemas/put.yaml
+    x-openapi-ts:
+      output: ./http-methods/schemas/put.d.ts
+  http-post:
+    root: ./http-methods/schemas/post.yaml
+    x-openapi-ts:
+      output: ./http-methods/schemas/post.d.ts
+  http-delete:
+    root: ./http-methods/schemas/delete.yaml
+    x-openapi-ts:
+      output: ./http-methods/schemas/delete.d.ts
+  http-options:
+    root: ./http-methods/schemas/options.yaml
+    x-openapi-ts:
+      output: ./http-methods/schemas/options.d.ts
+  http-head:
+    root: ./http-methods/schemas/head.yaml
+    x-openapi-ts:
+      output: ./http-methods/schemas/head.d.ts
+  http-patch:
+    root: ./http-methods/schemas/patch.yaml
+    x-openapi-ts:
+      output: ./http-methods/schemas/patch.d.ts
+  http-trace:
+    root: ./http-methods/schemas/trace.yaml
+    x-openapi-ts:
+      output: ./http-methods/schemas/trace.d.ts
+  middleware:
+    root: ./middleware/schemas/middleware.yaml
+    x-openapi-ts:
+      output: ./middleware/schemas/middleware.d.ts
+  path-based-client:
+    root: ./path-based-client/schemas/path-based-client.yaml
+    x-openapi-ts:
+      output: ./path-based-client/schemas/path-based-client.d.ts
+  github:
+    root: ../../openapi-typescript/examples/github-api.yaml
+    x-openapi-ts:
+      output: ./examples/schemas/github.d.ts
+  stripe:
+    root: ../../openapi-typescript/examples/stripe-api.yaml
+    x-openapi-ts:
+      output: ./examples/schemas/stripe.d.ts

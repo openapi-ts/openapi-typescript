@@ -32,33 +32,36 @@ This library uses [Vitest](https://vitest.dev/) for testing. There’s a great [
 
 To run the entire test suite, run:
 
-```bash
+```sh
 pnpm test
 ```
 
 To run an individual test:
 
-```bash
+```sh
 pnpm test -- [partial filename]
 ```
 
 To start the entire test suite in watch mode:
 
-```bash
+```sh
 npx vitest
 ```
 
-#### TypeScript tests
+#### Important test-writing tips
 
-**Don’t neglect writing TS tests!** In the test suite, you’ll see `// @ts-expect-error` comments. These are critical tests in and of themselves—they are asserting that TypeScript throws an error when it should be throwing an error (the test suite will actually fail in places if a TS error is _not_ raised).
+All tests in this project should adhere to the following rules:
 
-As this is just a minimal fetch wrapper meant to provide deep type inference for API schemas, **testing TS types** is arguably more important than testing the runtime. So please make liberal use of `// @ts-expect-error`, and as a general rule of thumb, write more **unwanted** output tests than _wanted_ output tests.
+1. **Use `assertType<T>(…)`** ([docs](https://vitest.dev/guide/testing-types)). Don’t just check the _actual_ runtime value; check the _perceived_ type as well.
+2. **Testing TS errors is just as important as testing for expected types.** Use `// @ts-expected-error` liberally. this is discouraged because it’s hiding an error. But in our tests, we **want** to test that a TS error is thrown for invalid input.
+3. **Scope `// @ts-expect-error` as closely as possible.** Remember that JS largely ignores whitespace. When using `// @ts-expect-error`, try and break up an expression into as many lines as possible, so that the `// @ts-expect-error` is scoped to the right line. Otherwise it is possible a _different part of the expression_ is throwing the error!
+4. **Manually type out type tests.** Avoid using [test.each](https://vitest.dev/api/#test-each) for type tests, as it’s likely hiding errors.
 
-### Running linting
+### Linting
 
 Linting is handled via [Biome](https://biomejs.dev), a faster ESLint replacement. It was installed with `pnpm i` and can be run with:
 
-```bash
+```sh
 pnpm run lint
 ```
 
