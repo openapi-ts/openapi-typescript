@@ -477,7 +477,7 @@ describe("transformComponentsObject", () => {
                 url: { type: "string" },
               },
             },
-            'Some-Type': {
+            "Some-Type": {
               type: "object",
               required: ["name", "url"],
               properties: {
@@ -485,7 +485,7 @@ describe("transformComponentsObject", () => {
                 url: { type: "string" },
               },
             },
-            'Some.Type': {
+            "Some.Type": {
               type: "object",
               required: ["name", "url"],
               properties: {
@@ -493,7 +493,7 @@ describe("transformComponentsObject", () => {
                 url: { type: "string" },
               },
             },
-            'Some/Type': {
+            "Some/Type": {
               type: "object",
               required: ["name", "url"],
               properties: {
@@ -501,7 +501,7 @@ describe("transformComponentsObject", () => {
                 url: { type: "string" },
               },
             },
-            '1Type': {
+            "1Type": {
               type: "object",
               required: ["value"],
               properties: {
@@ -696,7 +696,7 @@ export type ParameterSearch = components['parameters']['Search'];
 export type RequestBodyUploadUser = components['requestBodies']['UploadUser'];
 export type HeaderAuth = components['headers']['Auth'];
 export type PathItemUploadUser = components['pathItems']['UploadUser'];`,
-options: { ...DEFAULT_OPTIONS, rootTypes: true },
+        options: { ...DEFAULT_OPTIONS, rootTypes: true },
       },
     ],
     [

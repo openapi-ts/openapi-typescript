@@ -67,12 +67,12 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
         items.push(property);
 
         if (ctx.rootTypes) {
-          let aliasName = changeCase.pascalCase(singularizeComponentKey(key)) + changeCase.pascalCase(name)
+          let aliasName = changeCase.pascalCase(singularizeComponentKey(key)) + changeCase.pascalCase(name);
           // Add counter suffix (e.g. "_2") if conflict in name
-          let conflictCounter = 1
+          let conflictCounter = 1;
           while (rootTypeAliases[aliasName] !== undefined) {
-            conflictCounter++
-            aliasName = changeCase.pascalCase(singularizeComponentKey(key)) + changeCase.pascalCase(name) + '_' + conflictCounter
+            conflictCounter++;
+            aliasName = `${changeCase.pascalCase(singularizeComponentKey(key))}${changeCase.pascalCase(name)}_${conflictCounter}`;
           }
           const ref = ts.factory.createTypeReferenceNode(`components['${key}']['${name}']`);
           const typeAlias = ts.factory.createTypeAliasDeclaration(
@@ -100,7 +100,7 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
   // Extract root types
   let rootTypes: ts.TypeAliasDeclaration[] = [];
   if (ctx.rootTypes) {
-    rootTypes = Object.keys(rootTypeAliases).map((k) => rootTypeAliases[k])
+    rootTypes = Object.keys(rootTypeAliases).map((k) => rootTypeAliases[k]);
   }
 
   return [ts.factory.createTypeLiteralNode(type), ...rootTypes];
