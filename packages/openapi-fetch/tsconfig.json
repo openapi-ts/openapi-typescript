@@ -5,14 +5,13 @@
     "downlevelIteration": false,
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "noUncheckedIndexedAccess": true,
     "outDir": "dist",
     "skipLibCheck": false,
     "strict": true,
-    "target": "ESNext",
-    "types": ["vitest/globals"]
+    "target": "ESNext"
   },
   "include": ["src", "test"],
   "exclude": ["examples", "node_modules", "test/no-strict-null-checks"]

@@ -1,42 +1,26 @@
 import axios from "axios";
-import { http, HttpResponse } from "msw";
-import { setupServer } from "msw/node";
 import { Fetcher } from "openapi-typescript-fetch";
+import { createApiFetchClient } from "feature-fetch";
 import superagent from "superagent";
-import { afterAll, bench, describe } from "vitest";
+import { afterAll, beforeAll, bench, describe, vi } from "vitest";
+import createFetchMock from "vitest-fetch-mock";
 import createClient, { createPathBasedClient } from "../dist/index.js";
 import * as openapiTSCodegen from "./fixtures/openapi-typescript-codegen.min.js";
-import { createApiFetchClient } from "feature-fetch";
 
 const BASE_URL = "https://api.test.local";
 
-const server = setupServer(
-  http.get(`${BASE_URL}/url`, () =>
-    HttpResponse.json({
-      message: "success",
-    }),
-  ),
-
-  // Used by openapi-typescript-codegen
-  http.get("https://api.github.com/repos/test1/test2/pulls/test3", () =>
-    HttpResponse.json({
-      message: "success",
-    }),
-  ),
-);
-
-// Ensure we are listening early enough so all the requests are intercepted
-server.listen({
-  onUnhandledRequest: (request) => {
-    throw new Error(`No request handler found for ${request.method} ${request.url}`);
-  },
-});
-
-afterAll(() => {
-  server.close();
-});
+const fetchMocker = createFetchMock(vi);
 
 describe("setup", () => {
+  beforeAll(() => {
+    // mock global fetch in this benchmark, without any delaly, shared state or resources
+    fetchMocker.enableMocks();
+  });
+
+  afterAll(() => {
+    fetchMocker.disableMocks();
+  });
+
   bench("openapi-fetch", async () => {
     createClient({ baseUrl: BASE_URL });
   });
