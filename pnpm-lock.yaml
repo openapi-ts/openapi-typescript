@@ -53,9 +53,6 @@ importers:
       openapi-typescript-helpers:
         specifier: workspace:^
         version: link:../openapi-typescript-helpers
-      vitest-fetch-mock:
-        specifier: ^0.3.0
-        version: 0.3.0(vitest@2.0.5(@types/node@22.5.2)(jsdom@20.0.3))
     devDependencies:
       axios:
         specifier: ^1.7.7
@@ -1947,9 +1944,6 @@ packages:
     resolution: {integrity: sha512-yCEafptTtb4bk7GLEQoM8KVJpxAfdBJYaXyzQEgQQQgYrZiDp8SJmGKlYza6CYjEDNstAdNdKA3UuoULlEbS6w==}
     engines: {node: '>=12.13'}
 
-  cross-fetch@4.0.0:
-    resolution: {integrity: sha512-e4a5N8lVvuLgAWgnCrLr2PP0YyDOTHa9H/Rj54dirp61qXnNq46m82bRhNqIA5VccJtWBvPTFRV3TtvHUKPB1g==}
-
   cross-spawn@5.1.0:
     resolution: {integrity: sha512-pTgQJ5KC0d2hcY8eyL1IzlBPYjTkyH72XRZPnLyKus2mBfNjQs3klqbJU2VILqZryAZUt9JOb3h/mWMy23/f5A==}
 
@@ -3527,12 +3521,6 @@ packages:
         optional: true
       postcss:
         optional: true
-
-  vitest-fetch-mock@0.3.0:
-    resolution: {integrity: sha512-g6upWcL8/32fXL43/5f4VHcocuwQIi9Fj5othcK9gPO8XqSEGtnIZdenr2IaipDr61ReRFt+vaOEgo8jiUUX5w==}
-    engines: {node: '>=14.14.0'}
-    peerDependencies:
-      vitest: '>=2.0.0'
 
   vitest@2.0.5:
     resolution: {integrity: sha512-8GUxONfauuIdeSl5f9GTgVEpg5BTOlplET4WEDaeY2QBiN8wSm68vxN/tb5z405OwppfoCavnwXafiaYBC/xOA==}
@@ -5326,12 +5314,6 @@ snapshots:
     dependencies:
       is-what: 4.1.16
 
-  cross-fetch@4.0.0:
-    dependencies:
-      node-fetch: 2.7.0
-    transitivePeerDependencies:
-      - encoding
-
   cross-spawn@5.1.0:
     dependencies:
       lru-cache: 4.1.5
@@ -5378,6 +5360,10 @@ snapshots:
       ms: 2.1.2
     optionalDependencies:
       supports-color: 9.4.0
+
+  debug@4.3.6:
+    dependencies:
+      ms: 2.1.2
 
   debug@4.3.6(supports-color@9.4.0):
     dependencies:
@@ -6634,7 +6620,7 @@ snapshots:
     dependencies:
       component-emitter: 1.3.1
       cookiejar: 2.1.4
-      debug: 4.3.6(supports-color@9.4.0)
+      debug: 4.3.6
       fast-safe-stringify: 2.1.1
       form-data: 4.0.0
       formidable: 3.5.1
@@ -6896,13 +6882,6 @@ snapshots:
       - terser
       - typescript
       - universal-cookie
-
-  vitest-fetch-mock@0.3.0(vitest@2.0.5(@types/node@22.5.2)(jsdom@20.0.3)):
-    dependencies:
-      cross-fetch: 4.0.0
-      vitest: 2.0.5(@types/node@22.5.2)(jsdom@20.0.3)
-    transitivePeerDependencies:
-      - encoding
 
   vitest@2.0.5(@types/node@22.5.2)(jsdom@20.0.3):
     dependencies:
