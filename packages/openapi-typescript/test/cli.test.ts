@@ -37,6 +37,14 @@ describe("CLI", () => {
       },
     ],
     [
+      "snapshot > GitHub API (root types)",
+      {
+        given: ["./examples/github-api.yaml", "--root-types"],
+        want: new URL("./examples/github-api-root-types.ts", root),
+        ci: { timeout: TIMEOUT },
+      },
+    ],
+    [
       "snapshot > GitHub API (next)",
       {
         given: ["./examples/github-api-next.yaml"],

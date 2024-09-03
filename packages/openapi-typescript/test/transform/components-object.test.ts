@@ -465,6 +465,241 @@ describe("transformComponentsObject", () => {
       },
     ],
     [
+      "options > rootTypes: true",
+      {
+        given: {
+          schemas: {
+            SomeType: {
+              type: "object",
+              required: ["name", "url"],
+              properties: {
+                name: { type: "string" },
+                url: { type: "string" },
+              },
+            },
+            "Some-Type": {
+              type: "object",
+              required: ["name", "url"],
+              properties: {
+                name: { type: "string" },
+                url: { type: "string" },
+              },
+            },
+            "Some.Type": {
+              type: "object",
+              required: ["name", "url"],
+              properties: {
+                name: { type: "string" },
+                url: { type: "string" },
+              },
+            },
+            "Some/Type": {
+              type: "object",
+              required: ["name", "url"],
+              properties: {
+                name: { type: "string" },
+                url: { type: "string" },
+              },
+            },
+            "1Type": {
+              type: "object",
+              required: ["value"],
+              properties: {
+                value: { type: "string" },
+              },
+            },
+            Error: {
+              type: "object",
+              required: ["code", "message"],
+              properties: {
+                code: { type: "string" },
+                message: { type: "string" },
+              },
+            },
+          },
+          responses: {
+            OK: {
+              description: "OK",
+              content: { "text/html": { schema: { type: "string" } } },
+            },
+            NoContent: { description: "No Content" },
+            ErrorResponse: {
+              content: {
+                "application/json": {
+                  schema: { $ref: "#/components/schemas/Error" },
+                },
+              },
+            },
+            SomeType: {
+              content: {
+                "application/json": {
+                  schema: { $ref: "#/components/schemas/SomeType" },
+                },
+              },
+            },
+          },
+          parameters: {
+            Search: {
+              name: "search",
+              in: "query",
+              required: true,
+              schema: { type: "string" },
+            },
+          },
+          requestBodies: {
+            UploadUser: {
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "object",
+                    properties: { email: { type: "string" } },
+                    required: ["email"],
+                  },
+                },
+              },
+            },
+          },
+          // "examples" should just be ignored
+          examples: {
+            ExampleObject: {
+              value: {
+                name: "Example",
+                $ref: "foo.yml#/components/schemas/Bar",
+              },
+            },
+          },
+          headers: { Auth: { schema: { type: "string" } } },
+          pathItems: {
+            UploadUser: {
+              get: {
+                requestBody: {
+                  $ref: "#/components/requestBodies/UploadUser",
+                },
+              },
+            },
+          },
+        },
+        want: `{
+    schemas: {
+        SomeType: {
+            name: string;
+            url: string;
+        };
+        "Some-Type": {
+            name: string;
+            url: string;
+        };
+        "Some.Type": {
+            name: string;
+            url: string;
+        };
+        "Some/Type": {
+            name: string;
+            url: string;
+        };
+        "1Type": {
+            value: string;
+        };
+        Error: {
+            code: string;
+            message: string;
+        };
+    };
+    responses: {
+        /** @description OK */
+        OK: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "text/html": string;
+            };
+        };
+        /** @description No Content */
+        NoContent: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content?: never;
+        };
+        ErrorResponse: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["Error"];
+            };
+        };
+        SomeType: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["SomeType"];
+            };
+        };
+    };
+    parameters: {
+        Search: string;
+    };
+    requestBodies: {
+        UploadUser: {
+            content: {
+                "application/json": {
+                    email: string;
+                };
+            };
+        };
+    };
+    headers: {
+        Auth: string;
+    };
+    pathItems: {
+        UploadUser: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            get: {
+                parameters: {
+                    query?: never;
+                    header?: never;
+                    path?: never;
+                    cookie?: never;
+                };
+                requestBody?: components["requestBodies"]["UploadUser"];
+                responses: never;
+            };
+            put?: never;
+            post?: never;
+            delete?: never;
+            options?: never;
+            head?: never;
+            patch?: never;
+            trace?: never;
+        };
+    };
+}
+export type SchemaSomeType = components['schemas']['SomeType'];
+export type SchemaSomeType_2 = components['schemas']['Some-Type'];
+export type SchemaSomeType_3 = components['schemas']['Some.Type'];
+export type SchemaSomeType_4 = components['schemas']['Some/Type'];
+export type Schema1Type = components['schemas']['1Type'];
+export type SchemaError = components['schemas']['Error'];
+export type ResponseOk = components['responses']['OK'];
+export type ResponseNoContent = components['responses']['NoContent'];
+export type ResponseErrorResponse = components['responses']['ErrorResponse'];
+export type ResponseSomeType = components['responses']['SomeType'];
+export type ParameterSearch = components['parameters']['Search'];
+export type RequestBodyUploadUser = components['requestBodies']['UploadUser'];
+export type HeaderAuth = components['headers']['Auth'];
+export type PathItemUploadUser = components['pathItems']['UploadUser'];`,
+        options: { ...DEFAULT_OPTIONS, rootTypes: true },
+      },
+    ],
+    [
       "transform > with transform object",
       {
         given: {

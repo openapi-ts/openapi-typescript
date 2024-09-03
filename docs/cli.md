@@ -104,21 +104,22 @@ The following flags are supported in the CLI:
 | `--help`                           |       |          | Display inline help message and exit                                                                                |
 | `--version`                        |       |          | Display this library’s version and exit                                                                             |
 | `--output [location]`              | `-o`  | (stdout) | Where should the output file be saved?                                                                              |
-| `--redocly [location]`               |       |          | Path to a `redocly.yaml` file (see [Multiple schemas](#multiple-schemas))                                           |
+| `--redocly [location]`             |       |          | Path to a `redocly.yaml` file (see [Multiple schemas](#multiple-schemas))                                           |
 | `--additional-properties`          |       | `false`  | Allow arbitrary properties for all schema objects without `additionalProperties: false`                             |
 | `--alphabetize`                    |       | `false`  | Sort types alphabetically                                                                                           |
 | `--array-length`                   |       | `false`  | Generate tuples using array `minItems` / `maxItems`                                                                 |
-| `--default-non-nullable`           |       | `true`   | Treat schema objects with default values as non-nullable (with the exception of parameters)                         |
+| `--default-non-nullable`           |       |  `true`  | Treat schema objects with default values as non-nullable (with the exception of parameters)                         |
 | `--properties-required-by-default` |       | `false`  | Treat schema objects without `required` as having all properties required.                                          |
 | `--empty-objects-unknown`          |       | `false`  | Allow arbitrary properties for schema objects with no specified properties, and no specified `additionalProperties` |
 | `--enum`                           |       | `false`  | Generate true [TS enums](https://www.typescriptlang.org/docs/handbook/enums.html) rather than string unions.        |
 | `--enum-values`                    |       | `false`  | Export enum values as arrays.                                                                                       |
 | `--dedupe-enums`                   |       | `false`  | Dedupe enum types when `--enum=true` is set                                                                         |
-| `--check`                    |     | `false`  | Check that the generated types are up-to-date.                                                                              |
+| `--check`                          |       | `false`  | Check that the generated types are up-to-date.                                                                      |
 | `--exclude-deprecated`             |       | `false`  | Exclude deprecated fields from types                                                                                |
 | `--export-type`                    | `-t`  | `false`  | Export `type` instead of `interface`                                                                                |
 | `--immutable`                      |       | `false`  | Generates immutable types (readonly properties and readonly array)                                                  |
 | `--path-params-as-types`           |       | `false`  | Allow dynamic string lookups on the `paths` object                                                                  |
+| `--root-types`                     |       | `false`  | Exports types from `components` as root level type aliases                                                          |
 
 ### pathParamsAsTypes
 
