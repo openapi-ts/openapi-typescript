@@ -451,4 +451,53 @@ describe("client", () => {
       });
     });
   });
+
+  describe("getKey", () => {
+    it("should return correct key", () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      const key = client.getKey("get", "/string-array", {});
+
+      expect(key).toEqual(["get", "/string-array", {}]);
+    });
+
+    it("should invalidate query", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/string-array",
+        status: 200,
+        body: ["one", "two", "three"],
+      });
+
+      const { result } = renderHook(() => client.useQuery("get", "/string-array"), {
+        wrapper,
+      });
+
+      await waitFor(() => expect(result.current.isFetching).toBe(false));
+
+      const { data, error } = result.current;
+
+      expect(data).toBeDefined();
+      data && expect(data[0]).toBe("one");
+      expect(error).toBeNull();
+
+      const queryKey = client.getKey("get", "/string-array");
+      console.log({
+        key: [queryKey], 
+        keys: queryClient.getQueryCache().getAll().map(p => p.queryKey)
+      });
+
+      expect(queryClient.getQueryCache().getAll().map(p => p.queryKey)).toEqual([queryKey]);
+
+      // Remove query
+      await queryClient.removeQueries({ queryKey: queryKey });
+
+      expect(queryClient.getQueryCache().getAll().map(p => p.queryKey)).not.toEqual([queryKey]);
+    });
+  });
 });
