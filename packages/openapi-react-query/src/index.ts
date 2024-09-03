@@ -54,7 +54,19 @@ export type UseMutationMethod<Paths extends Record<string, Record<HttpMethod, {}
   queryClient?: QueryClient,
 ) => UseMutationResult<Response["data"], Response["error"], Init>;
 
+export type GetKeyMethod<Paths extends Record<string, Record<HttpMethod, {}>> = Record<string, Record<HttpMethod, {}>>> = <
+  Method extends HttpMethod,
+  Path extends PathsWithMethod<Paths, Method>,
+  Init extends MaybeOptionalInit<Paths[Path], Method>,
+>(
+  method: Method,
+  url: Path,
+  init?: Init,
+) => [Method, Path, Init | undefined];
+
 export interface OpenapiQueryClient<Paths extends {}, Media extends MediaType = MediaType> {
+  client: FetchClient<Paths, Media>;
+  getKey: GetKeyMethod<Paths>;
   useQuery: UseQueryMethod<Paths, Media>;
   useSuspenseQuery: UseSuspenseQueryMethod<Paths, Media>;
   useMutation: UseMutationMethod<Paths, Media>;
@@ -66,6 +78,8 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   client: FetchClient<Paths, Media>,
 ): OpenapiQueryClient<Paths, Media> {
   return {
+    client,
+    getKey: (method, path, init) => [method, path, init],
     useQuery: (method, path, ...[init, options, queryClient]) => {
       return useQuery(
         {
