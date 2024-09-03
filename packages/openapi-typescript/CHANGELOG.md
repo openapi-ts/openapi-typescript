@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.4.0
+
+### Minor Changes
+
+- [#1876](https://github.com/openapi-ts/openapi-typescript/pull/1876) [`a9cd9aa`](https://github.com/openapi-ts/openapi-typescript/commit/a9cd9aa56dd9dec043a4e4fd85527acac227a142) Thanks [@BradHacker](https://github.com/BradHacker)! - Add option to export all root component types
+
 ## 7.3.3
 
 ### Patch Changes
