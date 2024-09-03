@@ -20,7 +20,7 @@ export const App = () => {
   const { mutate } = $api.useMutation("delete", "/users", {
     onSuccess: () => {
       const queryKey = $api.getKey("get", "/count-users");
-      $api.client.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries({ queryKey });
     },
   });
 

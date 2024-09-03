@@ -67,7 +67,6 @@ export type GetKeyMethod<
 ) => [Method, Path, Init | undefined];
 
 export interface OpenapiQueryClient<Paths extends {}, Media extends MediaType = MediaType> {
-  client: FetchClient<Paths, Media>;
   getKey: GetKeyMethod<Paths>;
   useQuery: UseQueryMethod<Paths, Media>;
   useSuspenseQuery: UseSuspenseQueryMethod<Paths, Media>;
@@ -80,7 +79,6 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   client: FetchClient<Paths, Media>,
 ): OpenapiQueryClient<Paths, Media> {
   return {
-    client,
     getKey: (method, path, init) => [method, path, init],
     useQuery: (method, path, ...[init, options, queryClient]) => {
       return useQuery(
