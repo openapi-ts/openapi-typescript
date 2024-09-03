@@ -530,6 +530,13 @@ describe("transformComponentsObject", () => {
                 },
               },
             },
+            SomeType: {
+              content: {
+                "application/json": {
+                  schema: { $ref: "#/components/schemas/SomeType" },
+                },
+              },
+            },
           },
           parameters: {
             Search: {
@@ -623,6 +630,14 @@ describe("transformComponentsObject", () => {
                 "application/json": components["schemas"]["Error"];
             };
         };
+        SomeType: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["SomeType"];
+            };
+        };
     };
     parameters: {
         Search: string;
@@ -676,6 +691,7 @@ export type SchemaError = components['schemas']['Error'];
 export type ResponseOk = components['responses']['OK'];
 export type ResponseNoContent = components['responses']['NoContent'];
 export type ResponseErrorResponse = components['responses']['ErrorResponse'];
+export type ResponseSomeType = components['responses']['SomeType'];
 export type ParameterSearch = components['parameters']['Search'];
 export type RequestBodyUploadUser = components['requestBodies']['UploadUser'];
 export type HeaderAuth = components['headers']['Auth'];
