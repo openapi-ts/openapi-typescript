@@ -17,6 +17,8 @@ export interface ClientOptions extends Omit<RequestInit, "headers"> {
   baseUrl?: string;
   /** custom fetch (defaults to globalThis.fetch) */
   fetch?: (input: Request) => Promise<Response>;
+  /** custom Request (defaults to globalThis.Request) */
+  Request?: typeof Request;
   /** global querySerializer */
   querySerializer?: QuerySerializer<unknown> | QuerySerializerOptions;
   /** global bodySerializer */
