@@ -286,9 +286,7 @@ describe("request", () => {
     // santity check to make sure the profided fetch function is actually called
     expect.assertions(1);
 
-    class SpecialRequestImplementation extends Request {
-      static special = "special";
-    }
+    class SpecialRequestImplementation extends Request {}
 
     const specialFetch = async (input: Request) => {
       // make sure that the request is actually an instance of the custom request we provided
