@@ -72,6 +72,7 @@
     "esbuild": "^0.20.2",
     "execa": "^8.0.1",
     "msw": "^2.4.1",
+    "openapi-fetch": "workspace:^",
     "openapi-typescript": "workspace:^",
     "react": "^18.3.1",
     "react-error-boundary": "^4.0.13"

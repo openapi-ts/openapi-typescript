@@ -59,4 +59,7 @@ properties:
     example: node-js
 
   log_destinations:
-    $ref: app_log_destination_definition.yml
+    type: array
+    items:
+      $ref: app_log_destination_definition.yml
+    description: A list of configured log forwarding destinations.

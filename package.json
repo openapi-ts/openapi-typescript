@@ -8,7 +8,7 @@
     "email": "drew@pow.rs"
   },
   "scripts": {
-    "build": "pnpm run -r --parallel --filter \"!*docs\" --aggregate-output build",
+    "build": "pnpm run -r --filter \"!*docs\" --aggregate-output build",
     "lint": "pnpm run -r --parallel --aggregate-output lint",
     "format": "pnpm run -r --parallel --aggregate-output format",
     "test": "pnpm run -r --parallel --aggregate-output test",
@@ -17,17 +17,17 @@
     "version": "pnpm run build && changeset version && pnpm i"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.8.3",
+    "@biomejs/biome": "^1.9.2",
     "@changesets/changelog-github": "^0.5.0",
-    "@changesets/cli": "^2.27.7",
-    "@playwright/test": "^1.46.1",
-    "@size-limit/preset-small-lib": "^11.1.4",
-    "@types/node": "^22.5.2",
+    "@changesets/cli": "^2.27.8",
+    "@playwright/test": "^1.47.1",
+    "@size-limit/preset-small-lib": "^11.1.5",
+    "@types/node": "^22.5.5",
     "del-cli": "^5.1.0",
     "prettier": "^3.3.3",
-    "size-limit": "^11.1.4",
-    "typescript": "^5.5.4",
-    "vitest": "^2.0.5"
+    "size-limit": "^11.1.5",
+    "typescript": "^5.6.2",
+    "vitest": "^2.1.1"
   },
   "size-limit": [
     {

@@ -16,6 +16,15 @@ app_id:
   schema:
     type: string
 
+load_balancer_id:
+  in: query
+  name: lb_id
+  description: A unique identifier for a load balancer.
+  required: true
+  schema:
+    type: string
+  example: 4de7ac8b-495b-4884-9a69-1050c6793cd6
+
 app_component:
   in: query
   name: app_component

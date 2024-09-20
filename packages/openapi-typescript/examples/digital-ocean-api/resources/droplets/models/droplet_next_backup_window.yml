@@ -1,0 +1,15 @@
+type: object
+nullable: true
+properties:
+  start:
+    type: string
+    format: date-time
+    example: '2019-12-04T00:00:00Z'
+    description: A time value given in ISO8601 combined date and time format
+      specifying the start of the Droplet's backup window.
+  end:
+    type: string
+    format: date-time
+    example: '2019-12-04T23:00:00Z'
+    description: A time value given in ISO8601 combined date and time format
+      specifying the end of the Droplet's backup window.

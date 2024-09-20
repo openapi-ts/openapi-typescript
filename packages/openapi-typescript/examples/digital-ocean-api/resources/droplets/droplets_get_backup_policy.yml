@@ -1,0 +1,39 @@
+operationId: droplets_get_backup_policy
+
+summary: Retrieve the Backup Policy for an Existing Droplet
+
+description: |
+  To show information about an individual Droplet's backup policy, send a GET
+  request to `/v2/droplets/$DROPLET_ID/backups/policy`.
+
+tags:
+  - Droplets
+
+parameters:
+  - $ref: 'parameters.yml#/droplet_id'
+
+responses:
+  '200':
+    $ref: 'responses/droplet_backup_policy.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/droplets_get_backup_policy.yml'
+
+security:
+  - bearer_auth:
+    - 'droplet:read'

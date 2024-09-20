@@ -5,4 +5,4 @@ source: |-
 
   client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
 
-  resp = client.image_actions.list()
+  resp = client.image_actions.list(image_id=7938269)

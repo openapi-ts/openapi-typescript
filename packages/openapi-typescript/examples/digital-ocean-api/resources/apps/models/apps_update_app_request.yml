@@ -2,5 +2,10 @@ type: object
 properties:
   spec:
     $ref: app_spec.yml
+  update_all_source_versions:
+    type: boolean
+    description: Whether or not to update the source versions (for example fetching a new commit or image digest) of all components. By default (when this is false) only newly added sources will be updated to avoid changes like updating the scale of a component from also updating the respective code.
+    example: true
+    default: false
 required:
 - spec
