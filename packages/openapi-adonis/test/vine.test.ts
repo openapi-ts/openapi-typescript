@@ -1,5 +1,12 @@
 import vine from "@vinejs/vine";
-import { enrichType, parseArrayNode, parseLiteralNode, parseObjectNode } from "../src/resolvers/vine-type.resolver";
+import {
+  VineTypeResolver,
+  enrichType,
+  parseArrayNode,
+  parseLiteralNode,
+  parseObjectNode,
+} from "../src/resolvers/vine-type.resolver";
+import { DocumentBuilder } from "openapi-metadata/builders";
 
 describe("parseLiteralNode", () => {
   // INFO: This test is not really necessary
@@ -27,13 +34,15 @@ describe("parseObjectNode", () => {
   it("should parse object", () => {
     const validator = vine.compile(
       vine.object({
-        example: vine.string(),
+        email: vine.string().email(),
+        password: vine.string(),
       }),
     );
     const json = validator.toJSON();
     const result: any = parseObjectNode(json.schema.schema as any, json.refs);
 
-    expect(result.properties.example).toBeDefined();
+    expect(result.properties.email).toBeDefined();
+    expect(result.properties.password).toBeDefined();
   });
 
   it("should parse nested object", () => {

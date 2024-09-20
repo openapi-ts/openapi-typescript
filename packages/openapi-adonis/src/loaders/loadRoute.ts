@@ -1,7 +1,7 @@
 import type { OpenAPIV3 } from "openapi-types";
 import { OperationBuilder, type DocumentBuilder } from "openapi-metadata/builders";
 import type { AdonisRoute } from "../types";
-import { loadApiOperation, loadControllerOperation } from "openapi-metadata/loaders";
+import { loadApiOperation, loadApiParam, loadControllerOperation } from "openapi-metadata/loaders";
 import { normalizeRoutePattern } from "../utils/normalizeRoutePattern";
 
 export async function loadRoute(document: DocumentBuilder, route: AdonisRoute) {
@@ -9,7 +9,9 @@ export async function loadRoute(document: DocumentBuilder, route: AdonisRoute) {
     return;
   }
 
-  const importer = route.handler.reference[0] as () => Promise<{ default: any }>;
+  const importer = route.handler.reference[0] as () => Promise<{
+    default: any;
+  }>;
   const propertyKey = route.handler.reference[1] as string;
 
   const target = (await importer().then((t: any) => t.default)) as any;
@@ -21,10 +23,16 @@ export async function loadRoute(document: DocumentBuilder, route: AdonisRoute) {
 
     const operation = new OperationBuilder();
 
+    const { params, pattern } = normalizeRoutePattern(route.pattern);
+
     loadApiOperation(operation, {
       method: method.toLowerCase() as `${OpenAPIV3.HttpMethods}`,
-      pattern: normalizeRoutePattern(route.pattern),
+      pattern,
     });
+
+    for (const name of params) {
+      loadApiParam(document, operation, { name, type: "string" });
+    }
 
     loadControllerOperation(document, operation, target.prototype, propertyKey);
 

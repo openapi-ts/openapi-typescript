@@ -16,7 +16,6 @@ export function apiProperty(options: ApiPropertyOptions = {}): PropertyDecorator
     }
 
     Reflect.defineMetadata(`${ApiPropertyMetadataKeyPrefix}${propertyKey.toString()}`, options, target);
-    return target;
   };
 }
 

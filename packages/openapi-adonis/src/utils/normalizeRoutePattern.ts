@@ -1,13 +1,18 @@
 export const normalizeRoutePattern = (pattern: string) => {
   const segments = pattern.split("/");
 
-  return segments
+  const params: string[] = [];
+  const path = segments
     .map((s) => {
       if (s.startsWith(":")) {
-        return `{${s.replace(":", "")}}`;
+        const param = s.replace(":", "");
+        params.push(param);
+        return `{${param}}`;
       }
 
       return s;
     })
     .join("/");
+
+  return { pattern: path, params };
 };

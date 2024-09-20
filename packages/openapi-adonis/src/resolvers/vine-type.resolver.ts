@@ -32,6 +32,11 @@ export class VineTypeResolver<
     return this.#name;
   }
 
+  public static supports(type: any): boolean {
+    // console.log(type);
+    return true;
+  }
+
   async schema(): Promise<OpenAPIV3.SchemaObject> {
     const validator = this.validator.toJSON();
     const node = validator.schema.schema;

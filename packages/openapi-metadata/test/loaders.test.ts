@@ -210,6 +210,11 @@ describe("loaders", () => {
       expect(await resolveType(document, Number)).toEqual({ type: "number" });
       expect(await resolveType(document, String)).toEqual({ type: "string" });
     });
+
+    it("should properly resolve array", async () => {
+      const document = new DocumentBuilder();
+      expect(await resolveType(document, [Boolean])).toEqual({ type: "array", items: { type: "boolean" } });
+    });
   });
 });
 

@@ -6,6 +6,13 @@ export async function resolveType(
   document: DocumentBuilder,
   type: SchemaType,
 ): Promise<OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject> {
+  if (Array.isArray(type)) {
+    return {
+      type: "array",
+      items: await resolveType(document, type[0]),
+    };
+  }
+
   if (typeof type === "string") {
     return {
       type: type as OpenAPIV3.NonArraySchemaObjectType, // TODO: Fix that
