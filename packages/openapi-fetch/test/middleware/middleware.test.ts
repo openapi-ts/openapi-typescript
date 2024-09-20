@@ -1,4 +1,4 @@
-import { expect, test } from "vitest";
+import { expect, test, expectTypeOf, assertType } from "vitest";
 import { createObservedClient } from "../helpers.js";
 import type { Middleware, MiddlewareCallbackParams } from "../../src/index.js";
 import type { paths } from "./schemas/middleware.js";
@@ -353,4 +353,13 @@ test("auth header", async () => {
     params: { path: { id: 123 } },
   });
   expect(headers.get("authorization")).toBe(`Bearer ${accessToken}`);
+});
+
+test("type error occurs only when neither onRequest nor onResponse is specified", async () => {
+  expectTypeOf<Middleware>().not.toEqualTypeOf({});
+  const onRequest = async ({ request }: MiddlewareCallbackParams) => request;
+  const onResponse = async ({ response }: MiddlewareCallbackParams & { response: Response }) => response;
+  assertType<Middleware>({ onRequest });
+  assertType<Middleware>({ onResponse });
+  assertType<Middleware>({ onRequest, onResponse });
 });
