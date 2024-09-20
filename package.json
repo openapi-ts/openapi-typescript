@@ -8,7 +8,7 @@
     "email": "drew@pow.rs"
   },
   "scripts": {
-    "build": "pnpm run -r --parallel --filter \"!*docs\" --aggregate-output build",
+    "build": "pnpm run -r --filter \"!*docs\" --aggregate-output build",
     "lint": "pnpm run -r --parallel --aggregate-output lint",
     "format": "pnpm run -r --parallel --aggregate-output format",
     "test": "pnpm run -r --parallel --aggregate-output test",
