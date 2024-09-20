@@ -144,12 +144,22 @@ export interface MiddlewareCallbackParams {
   readonly options: MergedOptions;
 }
 
-export interface Middleware {
-  onRequest?: (options: MiddlewareCallbackParams) => void | Request | undefined | Promise<Request | undefined | void>;
-  onResponse?: (
-    options: MiddlewareCallbackParams & { response: Response },
-  ) => void | Response | undefined | Promise<Response | undefined | void>;
-}
+type MiddlewareOnRequest = (
+  options: MiddlewareCallbackParams,
+) => void | Request | undefined | Promise<Request | undefined | void>;
+type MiddlewareOnResponse = (
+  options: MiddlewareCallbackParams & { response: Response },
+) => void | Response | undefined | Promise<Response | undefined | void>;
+
+export type Middleware =
+  | {
+      onRequest: MiddlewareOnRequest;
+      onResponse?: MiddlewareOnResponse;
+    }
+  | {
+      onRequest?: MiddlewareOnRequest;
+      onResponse: MiddlewareOnResponse;
+    };
 
 /** This type helper makes the 2nd function param required if params/requestBody are required; otherwise, optional */
 export type MaybeOptionalInit<Params, Location extends keyof Params> = RequiredKeysOf<
