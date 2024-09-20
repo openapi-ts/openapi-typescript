@@ -42,8 +42,16 @@ const { Layout } = DefaultTheme;
     <!-- Silver sponsor logos -->
     <template #sidebar-nav-after>
       <div class="sidenav-sponsors">
+        <h5>Gold Sponsors</h5>
+        <ul class="sponsor-list sponsor-list--gold">
+          <li v-for="sponsor in sponsors.gold" :key="sponsor.name">
+            <a :href="sponsor.url" target="_blank" :title="sponsor.name">
+              <img :src="sponsor.logo" :alt="sponsor.description" />
+            </a>
+          </li>
+        </ul>
         <h5>Silver Sponsors</h5>
-        <ul>
+        <ul class="sponsor-list sponsor-list--silver">
           <li v-for="sponsor in sponsors.silver" :key="sponsor.name">
             <a :href="sponsor.url" target="_blank" :title="sponsor.name">
               <img :src="sponsor.logo" :alt="sponsor.description" />
@@ -124,11 +132,18 @@ const { Layout } = DefaultTheme;
   flex-wrap: wrap;
   gap: 1.25rem;
   list-style: none;
-  margin: 1.5rem 0 0;
+  margin: 1rem 0;
   padding: 0;
 }
 
-.sidenav-sponsors img {
+.sponsor-list--gold {
+  img {
+    height: auto;
+    width: 100%;
+  }
+}
+
+.sponsor-list--silver img {
   height: 3rem;
   width: auto;
 }
