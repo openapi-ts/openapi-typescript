@@ -5,13 +5,22 @@ import {
   type UseQueryResult,
   type UseSuspenseQueryOptions,
   type UseSuspenseQueryResult,
+  type UseInfiniteQueryOptions,
+  type UseInfiniteQueryResult,
   type QueryClient,
   useMutation,
   useQuery,
   useSuspenseQuery,
+  useInfiniteQuery,
 } from "@tanstack/react-query";
 import type { ClientMethod, FetchResponse, MaybeOptionalInit, Client as FetchClient } from "openapi-fetch";
-import type { HttpMethod, MediaType, PathsWithMethod, RequiredKeysOf } from "openapi-typescript-helpers";
+import type {
+  HttpMethod,
+  MediaType,
+  PathsWithMethod,
+  RequiredKeysOf,
+  ResponseObjectMap,
+} from "openapi-typescript-helpers";
 
 export type UseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
@@ -54,10 +63,25 @@ export type UseMutationMethod<Paths extends Record<string, Record<HttpMethod, {}
   queryClient?: QueryClient,
 ) => UseMutationResult<Response["data"], Response["error"], Init>;
 
+export type UseInfinityQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
+  Method extends HttpMethod,
+  Path extends PathsWithMethod<Paths, Method>,
+  Init extends MaybeOptionalInit<Paths[Path], Method>,
+  Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>, // note: Required is used to avoid repeating NonNullable in UseQuery types
+  Options extends Omit<UseInfiniteQueryOptions<Response["data"], Response["error"]>, "queryKey" | "queryFn">,
+>(
+  method: Method,
+  url: Path,
+  ...[init, options, queryClient]: RequiredKeysOf<Init> extends never
+    ? [(Init & { [key: string]: unknown })?, Options?, QueryClient?]
+    : [Init & { [key: string]: unknown }, Options?, QueryClient?]
+) => UseInfiniteQueryResult<Response["data"], Response["error"]>;
+
 export interface OpenapiQueryClient<Paths extends {}, Media extends MediaType = MediaType> {
   useQuery: UseQueryMethod<Paths, Media>;
   useSuspenseQuery: UseSuspenseQueryMethod<Paths, Media>;
   useMutation: UseMutationMethod<Paths, Media>;
+  useInfiniteQuery: UseInfinityQueryMethod<Paths, Media>;
 }
 
 // TODO: Move the client[method]() fn outside for reusability
@@ -116,6 +140,29 @@ export default function createClient<Paths extends {}, Media extends MediaType =
             }
             return data;
           },
+          ...options,
+        },
+        queryClient,
+      );
+    },
+    useInfiniteQuery: (method, path, ...[init, options, queryClient]) => {
+      return useInfiniteQuery(
+        {
+          queryKey: [method, path, init],
+          queryFn: async ({ pageParam = 0 }) => {
+            const mth = method.toUpperCase() as keyof typeof client;
+            const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
+
+            const params = pageParam === 0 ? init : { ...init, page: pageParam };
+
+            const { data, error } = await fn(path, params as any); // TODO: find a way to avoid as any
+            if (error || !data) {
+              throw error;
+            }
+            return data;
+          },
+          getNextPageParam: (lastPage: ResponseObjectMap<any>) => lastPage.nextPage ?? false,
+          initialPageParam: 0,
           ...options,
         },
         queryClient,
