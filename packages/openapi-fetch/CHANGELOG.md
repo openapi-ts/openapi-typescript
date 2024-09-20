@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.12.1
+
+### Patch Changes
+
+- [#1907](https://github.com/openapi-ts/openapi-typescript/pull/1907) [`efaa1e2`](https://github.com/openapi-ts/openapi-typescript/commit/efaa1e23b9cb0901fe026e48fbb4b347f0c95507) Thanks [@tobiasdcl](https://github.com/tobiasdcl)! - allow usage of custom Request class
+
 ## 0.12.0
 
 ### Minor Changes
