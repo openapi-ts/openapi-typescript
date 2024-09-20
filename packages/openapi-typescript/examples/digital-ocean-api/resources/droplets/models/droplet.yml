@@ -76,24 +76,11 @@ properties:
       instance creation.
 
   next_backup_window:
-    type: object
-    description: The details of the Droplet's backups feature, if backups are
-      configured for the Droplet. This object contains keys for the start and
-      end times of the window during which the backup will start.
-    nullable: true
-    properties:
-      start:
-        type: string
-        format: date-time
-        example: '2019-12-04T00:00:00Z'
-        description: A time value given in ISO8601 combined date and time format
-          specifying the start of the Droplet's backup window.
-      end:
-        type: string
-        format: date-time
-        example: '2019-12-04T23:00:00Z'
-        description: A time value given in ISO8601 combined date and time format
-          specifying the end of the Droplet's backup window.
+    allOf:
+    - $ref: 'droplet_next_backup_window.yml'
+    - description: The details of the Droplet's backups feature, if backups are
+        configured for the Droplet. This object contains keys for the start and
+        end times of the window during which the backup will start.
 
   snapshot_ids:
     type: array

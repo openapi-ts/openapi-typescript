@@ -220,9 +220,6 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.0.0
         version: 5.53.3(react@18.3.1)
-      openapi-fetch:
-        specifier: workspace:^
-        version: link:../openapi-fetch
       openapi-typescript-helpers:
         specifier: workspace:^
         version: link:../openapi-typescript-helpers
@@ -248,6 +245,9 @@ importers:
       msw:
         specifier: ^2.4.1
         version: 2.4.1(graphql@16.8.2)(typescript@5.6.2)
+      openapi-fetch:
+        specifier: workspace:^
+        version: link:../openapi-fetch
       openapi-typescript:
         specifier: workspace:^
         version: link:../openapi-typescript

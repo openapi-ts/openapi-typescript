@@ -1,0 +1,53 @@
+description: A JSON object with an `supported_policies` key set to an array
+  of objects describing each supported backup policy.
+
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        supported_policies:
+          type: array
+          items:
+            $ref: '../models/supported_droplet_backup_policy.yml'
+
+    example:
+      supported_policies:
+      - name: "weekly"
+        possible_window_starts:
+        - 0
+        - 4
+        - 8
+        - 12
+        - 16
+        - 20
+        window_length_hours: 4
+        retention_period_days: 28
+        possible_days":
+        - "SUN"
+        - "MON"
+        - "TUE"
+        - "WED"
+        - "THU"
+        - "FRI"
+        - "SAT"
+      - name: "daily"
+        possible_window_starts:
+        - 0
+        - 4
+        - 8
+        - 12
+        - 16
+        - 20
+        window_length_hours: 4
+        retention_period_days: 7
+        possible_days: []

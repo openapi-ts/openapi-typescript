@@ -106,7 +106,7 @@ export interface paths {
          *
          *     <p>Test-mode accounts can be deleted at any time.</p>
          *
-         *     <p>Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all <a href="/api/balance/balanace_object">balances</a> are zero.</p>
+         *     <p>Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all <a href="/api/balance/balance_object">balances</a> are zero.</p>
          *
          *     <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/settings/account">account information tab in your account settings</a> instead.</p> */
         delete: operations["DeleteAccountsAccount"];
@@ -621,6 +621,92 @@ export interface paths {
         get: operations["GetBalanceTransactionsId"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/billing/alerts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description <p>Lists billing active and inactive alerts</p> */
+        get: operations["GetBillingAlerts"];
+        put?: never;
+        /** @description <p>Creates a billing alert</p> */
+        post: operations["PostBillingAlerts"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/billing/alerts/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description <p>Retrieves a billing alert given an ID</p> */
+        get: operations["GetBillingAlertsId"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/billing/alerts/{id}/activate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description <p>Reactivates this alert, allowing it to trigger again.</p> */
+        post: operations["PostBillingAlertsIdActivate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/billing/alerts/{id}/archive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description <p>Archives this alert, removing it from the list view and APIs. This is non-reversible.</p> */
+        post: operations["PostBillingAlertsIdArchive"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/billing/alerts/{id}/deactivate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description <p>Deactivates this alert, preventing it from triggering.</p> */
+        post: operations["PostBillingAlertsIdDeactivate"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2549,6 +2635,74 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/invoice_rendering_templates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description <p>List all templates, ordered by creation date, with the most recently created template appearing first.</p> */
+        get: operations["GetInvoiceRenderingTemplates"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/invoice_rendering_templates/{template}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description <p>Retrieves an invoice rendering template with the given ID. It by default returns the latest version of the template. Optionally, specify a version to see previous versions.</p> */
+        get: operations["GetInvoiceRenderingTemplatesTemplate"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/invoice_rendering_templates/{template}/archive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description <p>Updates the status of an invoice rendering template to ‘archived’ so no new Stripe objects (customers, invoices, etc.) can reference it. The template can also no longer be updated. However, if the template is already set on a Stripe object, it will continue to be applied on invoices generated by it.</p> */
+        post: operations["PostInvoiceRenderingTemplatesTemplateArchive"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/invoice_rendering_templates/{template}/unarchive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description <p>Unarchive an invoice rendering template so it can be used on new Stripe objects again.</p> */
+        post: operations["PostInvoiceRenderingTemplatesTemplateUnarchive"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/invoiceitems": {
         parameters: {
             query?: never;
@@ -3548,7 +3702,10 @@ export interface paths {
          *     return to the <code>requires_confirmation</code> state
          *     after those actions are completed. Your server needs to then
          *     explicitly re-confirm the PaymentIntent to initiate the next payment
-         *     attempt.</p> */
+         *     attempt.
+         *     There is a variable upper limit on how many times a PaymentIntent can be confirmed.
+         *     After this limit is reached, any further calls to this endpoint will
+         *     transition the PaymentIntent to the <code>canceled</code> state.</p> */
         post: operations["PostPaymentIntentsIntentConfirm"];
         delete?: never;
         options?: never;
@@ -4270,7 +4427,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Download the PDF for a finalized quote. Explanation for special handling can be found <a href="https://docs.corp.stripe.com/quotes/overview#quote_pdf">here</a></p> */
+        /** @description <p>Download the PDF for a finalized quote. Explanation for special handling can be found <a href="https://docs.stripe.com/quotes/overview#quote_pdf">here</a></p> */
         get: operations["GetQuotesQuotePdf"];
         put?: never;
         post?: never;
@@ -5164,6 +5321,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/tax/calculations/{calculation}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description <p>Retrieves a Tax <code>Calculation</code> object, if the calculation hasn’t expired.</p> */
+        get: operations["GetTaxCalculationsCalculation"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/tax/calculations/{calculation}/line_items": {
         parameters: {
             query?: never;
@@ -5874,6 +6048,23 @@ export interface paths {
         put?: never;
         /** @description <p>Updates the <code>status</code> of the specified testmode personalization design object to <code>rejected</code>.</p> */
         post: operations["PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/test_helpers/issuing/settlements": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description <p>Allows the user to create an Issuing settlement.</p> */
+        post: operations["PostTestHelpersIssuingSettlements"];
         delete?: never;
         options?: never;
         head?: never;
@@ -7378,13 +7569,13 @@ export interface components {
         account_payments_settings: {
             /** @description The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge. */
             statement_descriptor?: string | null;
-            /** @description The Kana variation of the default text that appears on credit card statements when a charge is made (Japan only) */
+            /** @description The Kana variation of `statement_descriptor` used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors). */
             statement_descriptor_kana?: string | null;
-            /** @description The Kanji variation of the default text that appears on credit card statements when a charge is made (Japan only) */
+            /** @description The Kanji variation of `statement_descriptor` used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors). */
             statement_descriptor_kanji?: string | null;
-            /** @description The Kana variation of the default text that appears on credit card statements when a charge is made (Japan only). This field prefixes any dynamic `statement_descriptor_suffix_kana` specified on the charge. `statement_descriptor_prefix_kana` is useful for maximizing descriptor space for the dynamic portion. */
+            /** @description The Kana variation of `statement_descriptor_prefix` used for card charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors). */
             statement_descriptor_prefix_kana?: string | null;
-            /** @description The Kanji variation of the default text that appears on credit card statements when a charge is made (Japan only). This field prefixes any dynamic `statement_descriptor_suffix_kanji` specified on the charge. `statement_descriptor_prefix_kanji` is useful for maximizing descriptor space for the dynamic portion. */
+            /** @description The Kanji variation of `statement_descriptor_prefix` used for card charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors). */
             statement_descriptor_prefix_kanji?: string | null;
         };
         /** AccountPayoutSettings */
@@ -7430,7 +7621,7 @@ export interface components {
              * @description The code for the type of error.
              * @enum {string}
              */
-            code: "invalid_address_city_state_postal_code" | "invalid_address_highway_contract_box" | "invalid_address_private_mailbox" | "invalid_business_profile_name" | "invalid_business_profile_name_denylisted" | "invalid_company_name_denylisted" | "invalid_dob_age_over_maximum" | "invalid_dob_age_under_18" | "invalid_dob_age_under_minimum" | "invalid_product_description_length" | "invalid_product_description_url_match" | "invalid_representative_country" | "invalid_statement_descriptor_business_mismatch" | "invalid_statement_descriptor_denylisted" | "invalid_statement_descriptor_length" | "invalid_statement_descriptor_prefix_denylisted" | "invalid_statement_descriptor_prefix_mismatch" | "invalid_street_address" | "invalid_tax_id" | "invalid_tax_id_format" | "invalid_tos_acceptance" | "invalid_url_denylisted" | "invalid_url_format" | "invalid_url_web_presence_detected" | "invalid_url_website_business_information_mismatch" | "invalid_url_website_empty" | "invalid_url_website_inaccessible" | "invalid_url_website_inaccessible_geoblocked" | "invalid_url_website_inaccessible_password_protected" | "invalid_url_website_incomplete" | "invalid_url_website_incomplete_cancellation_policy" | "invalid_url_website_incomplete_customer_service_details" | "invalid_url_website_incomplete_legal_restrictions" | "invalid_url_website_incomplete_refund_policy" | "invalid_url_website_incomplete_return_policy" | "invalid_url_website_incomplete_terms_and_conditions" | "invalid_url_website_incomplete_under_construction" | "invalid_url_website_other" | "invalid_value_other" | "verification_directors_mismatch" | "verification_document_address_mismatch" | "verification_document_address_missing" | "verification_document_corrupt" | "verification_document_country_not_supported" | "verification_document_directors_mismatch" | "verification_document_dob_mismatch" | "verification_document_duplicate_type" | "verification_document_expired" | "verification_document_failed_copy" | "verification_document_failed_greyscale" | "verification_document_failed_other" | "verification_document_failed_test_mode" | "verification_document_fraudulent" | "verification_document_id_number_mismatch" | "verification_document_id_number_missing" | "verification_document_incomplete" | "verification_document_invalid" | "verification_document_issue_or_expiry_date_missing" | "verification_document_manipulated" | "verification_document_missing_back" | "verification_document_missing_front" | "verification_document_name_mismatch" | "verification_document_name_missing" | "verification_document_nationality_mismatch" | "verification_document_not_readable" | "verification_document_not_signed" | "verification_document_not_uploaded" | "verification_document_photo_mismatch" | "verification_document_too_large" | "verification_document_type_not_supported" | "verification_extraneous_directors" | "verification_failed_address_match" | "verification_failed_business_iec_number" | "verification_failed_document_match" | "verification_failed_id_number_match" | "verification_failed_keyed_identity" | "verification_failed_keyed_match" | "verification_failed_name_match" | "verification_failed_other" | "verification_failed_representative_authority" | "verification_failed_residential_address" | "verification_failed_tax_id_match" | "verification_failed_tax_id_not_issued" | "verification_missing_directors" | "verification_missing_executives" | "verification_missing_owners" | "verification_requires_additional_memorandum_of_associations" | "verification_requires_additional_proof_of_registration";
+            code: "invalid_address_city_state_postal_code" | "invalid_address_highway_contract_box" | "invalid_address_private_mailbox" | "invalid_business_profile_name" | "invalid_business_profile_name_denylisted" | "invalid_company_name_denylisted" | "invalid_dob_age_over_maximum" | "invalid_dob_age_under_18" | "invalid_dob_age_under_minimum" | "invalid_product_description_length" | "invalid_product_description_url_match" | "invalid_representative_country" | "invalid_statement_descriptor_business_mismatch" | "invalid_statement_descriptor_denylisted" | "invalid_statement_descriptor_length" | "invalid_statement_descriptor_prefix_denylisted" | "invalid_statement_descriptor_prefix_mismatch" | "invalid_street_address" | "invalid_tax_id" | "invalid_tax_id_format" | "invalid_tos_acceptance" | "invalid_url_denylisted" | "invalid_url_format" | "invalid_url_web_presence_detected" | "invalid_url_website_business_information_mismatch" | "invalid_url_website_empty" | "invalid_url_website_inaccessible" | "invalid_url_website_inaccessible_geoblocked" | "invalid_url_website_inaccessible_password_protected" | "invalid_url_website_incomplete" | "invalid_url_website_incomplete_cancellation_policy" | "invalid_url_website_incomplete_customer_service_details" | "invalid_url_website_incomplete_legal_restrictions" | "invalid_url_website_incomplete_refund_policy" | "invalid_url_website_incomplete_return_policy" | "invalid_url_website_incomplete_terms_and_conditions" | "invalid_url_website_incomplete_under_construction" | "invalid_url_website_other" | "invalid_value_other" | "verification_directors_mismatch" | "verification_document_address_mismatch" | "verification_document_address_missing" | "verification_document_corrupt" | "verification_document_country_not_supported" | "verification_document_directors_mismatch" | "verification_document_dob_mismatch" | "verification_document_duplicate_type" | "verification_document_expired" | "verification_document_failed_copy" | "verification_document_failed_greyscale" | "verification_document_failed_other" | "verification_document_failed_test_mode" | "verification_document_fraudulent" | "verification_document_id_number_mismatch" | "verification_document_id_number_missing" | "verification_document_incomplete" | "verification_document_invalid" | "verification_document_issue_or_expiry_date_missing" | "verification_document_manipulated" | "verification_document_missing_back" | "verification_document_missing_front" | "verification_document_name_mismatch" | "verification_document_name_missing" | "verification_document_nationality_mismatch" | "verification_document_not_readable" | "verification_document_not_signed" | "verification_document_not_uploaded" | "verification_document_photo_mismatch" | "verification_document_too_large" | "verification_document_type_not_supported" | "verification_extraneous_directors" | "verification_failed_address_match" | "verification_failed_business_iec_number" | "verification_failed_document_match" | "verification_failed_id_number_match" | "verification_failed_keyed_identity" | "verification_failed_keyed_match" | "verification_failed_name_match" | "verification_failed_other" | "verification_failed_representative_authority" | "verification_failed_residential_address" | "verification_failed_tax_id_match" | "verification_failed_tax_id_not_issued" | "verification_missing_directors" | "verification_missing_executives" | "verification_missing_owners" | "verification_requires_additional_memorandum_of_associations" | "verification_requires_additional_proof_of_registration" | "verification_supportability";
             /** @description An informative message that indicates the error type and provides additional details about the error. */
             reason: string;
             /** @description The specific user onboarding requirement field (in the requirements hash) that needs to be resolved. */
@@ -8050,6 +8241,37 @@ export interface components {
             void_at?: number | null;
         };
         /**
+         * ThresholdsResourceAlert
+         * @description A billing alert is a resource that notifies you when a certain usage threshold on a meter is crossed. For example, you might create a billing alert to notify you when a certain user made 100 API requests.
+         */
+        "billing.alert": {
+            /**
+             * @description Defines the type of the alert.
+             * @enum {string}
+             */
+            alert_type: "usage_threshold";
+            /** @description Limits the scope of the alert to a specific [customer](https://stripe.com/docs/api/customers). */
+            filter?: components["schemas"]["thresholds_resource_alert_filter"] | null;
+            /** @description Unique identifier for the object. */
+            id: string;
+            /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
+            livemode: boolean;
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @enum {string}
+             */
+            object: "billing.alert";
+            /**
+             * @description Status of the alert. This can be active, inactive or archived.
+             * @enum {string|null}
+             */
+            status?: "active" | "archived" | "inactive" | null;
+            /** @description Title of the alert. */
+            title: string;
+            /** @description Encapsulates configuration of the alert to monitor usage on a specific [Billing Meter](https://stripe.com/docs/api/billing/meter). */
+            usage_threshold_config?: components["schemas"]["thresholds_resource_usage_threshold_config"] | null;
+        };
+        /**
          * BillingMeter
          * @description A billing meter is a resource that allows you to track usage of a particular event. For example, you might create a billing meter to track the number of API calls made by a particular user. You can then attach the billing meter to a price and attach the price to a subscription to charge the user for the number of API calls they make.
          */
@@ -8180,6 +8402,18 @@ export interface components {
              * @description Start timestamp for this event summary (inclusive). Must be aligned with minute boundaries.
              */
             start_time: number;
+        };
+        /** BillingClocksResourceStatusDetailsAdvancingStatusDetails */
+        billing_clocks_resource_status_details_advancing_status_details: {
+            /**
+             * Format: unix-time
+             * @description The `frozen_time` that the Test Clock is advancing towards.
+             */
+            target_frozen_time: number;
+        };
+        /** BillingClocksResourceStatusDetailsStatusDetails */
+        billing_clocks_resource_status_details_status_details: {
+            advancing?: components["schemas"]["billing_clocks_resource_status_details_advancing_status_details"];
         };
         /** billing_details */
         billing_details: {
@@ -8393,11 +8627,11 @@ export interface components {
             address_zip_check?: string | null;
             /** @description A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout. */
             available_payout_methods?: ("instant" | "standard")[] | null;
-            /** @description Card brand. Can be `American Express`, `Diners Club`, `Discover`, `Eftpos Australia`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`. */
+            /** @description Card brand. Can be `American Express`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`. */
             brand: string;
             /** @description Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
             country?: string | null;
-            /** @description Three-letter [ISO code for currency](https://stripe.com/docs/payouts). Only applicable on accounts (not customers or recipients). The card can be used as a transfer destination for funds in this currency. This property is only available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. */
+            /** @description Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies). Only applicable on accounts (not customers or recipients). The card can be used as a transfer destination for funds in this currency. This property is only available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. */
             currency?: string | null;
             /** @description The customer that this card belongs to. This attribute will not be in the card object if the card belongs to an account or recipient instead. */
             customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
@@ -8498,7 +8732,7 @@ export interface components {
             /** @description ID of the balance transaction that describes the impact of this charge on your account balance (not including refunds or disputes). */
             balance_transaction?: (string | components["schemas"]["balance_transaction"]) | null;
             billing_details: components["schemas"]["billing_details"];
-            /** @description The full statement descriptor that is passed to card networks, and that is displayed on your customers' credit card and bank statements. Allows you to see what the statement descriptor looks like after the static and dynamic portions are combined. This only works for card payments. */
+            /** @description The full statement descriptor that is passed to card networks, and that is displayed on your customers' credit card and bank statements. Allows you to see what the statement descriptor looks like after the static and dynamic portions are combined. This value only exists for card payments. */
             calculated_statement_descriptor?: string | null;
             /** @description If the charge was created without capturing, this Boolean represents whether it is still uncaptured or has since been captured. */
             captured: boolean;
@@ -8580,11 +8814,13 @@ export interface components {
             review?: (string | components["schemas"]["review"]) | null;
             /** @description Shipping information for the charge. */
             shipping?: components["schemas"]["shipping"] | null;
-            /** @description The transfer ID which created this charge. Only present if the charge came from another Stripe account. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details. */
+            /** @description The transfer ID which created this charge. Only present if the charge came from another Stripe account. [See the Connect documentation](https://docs.stripe.com/connect/destination-charges) for details. */
             source_transfer?: (string | components["schemas"]["transfer"]) | null;
-            /** @description For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
+            /** @description For a non-card charge, text that appears on the customer's statement as the statement descriptor. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+             *
+             *     For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix. */
             statement_descriptor?: string | null;
-            /** @description Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
+            /** @description Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor. */
             statement_descriptor_suffix?: string | null;
             /**
              * @description The status of the payment is either `succeeded`, `pending`, or `failed`.
@@ -8779,7 +9015,7 @@ export interface components {
             /** @description The ID of the original expired Checkout Session that triggered the recovery flow. */
             recovered_from?: string | null;
             /**
-             * @description This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://stripe.com/docs/payments/checkout/custom-redirect-behavior) of embedded sessions. Defaults to `always`.
+             * @description This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://stripe.com/docs/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
              * @enum {string}
              */
             redirect_on_completion?: "always" | "if_required" | "never";
@@ -8856,11 +9092,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session" | "on_session";
@@ -8875,11 +9111,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -8889,11 +9125,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -8903,11 +9139,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -8917,11 +9153,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session";
@@ -8931,11 +9167,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -8945,11 +9181,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session" | "on_session";
@@ -8959,11 +9195,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -8975,11 +9211,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session" | "on_session";
@@ -9000,11 +9236,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session" | "on_session";
@@ -9018,11 +9254,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -9051,11 +9287,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -9065,11 +9301,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -9079,11 +9315,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -9093,11 +9329,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -9107,11 +9343,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -9121,11 +9357,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -9135,11 +9371,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session" | "on_session";
@@ -9151,11 +9387,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -9165,11 +9401,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session";
@@ -9179,11 +9415,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -9193,11 +9429,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -9209,11 +9445,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -9223,11 +9459,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -9237,11 +9473,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -9260,11 +9496,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session";
@@ -9279,11 +9515,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session";
@@ -9293,11 +9529,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session" | "on_session";
@@ -9342,11 +9578,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -9362,11 +9598,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session" | "on_session";
@@ -10462,6 +10698,10 @@ export interface components {
          * CustomerSessionResourceCustomerSession
          * @description A Customer Session allows you to grant Stripe's frontend SDKs (like Stripe.js) client-side access
          *     control over a Customer.
+         *
+         *     Related guides: [Customer Session with the Payment Element](/payments/accept-a-payment-deferred?platform=web&type=payment#save-payment-methods),
+         *     [Customer Session with the Pricing Table](/payments/checkout/pricing-table#customer-session),
+         *     [Customer Session with the Buy Button](/payment-links/buy-button#pass-an-existing-customer).
          */
         customer_session: {
             /** @description The client secret of this Customer Session. Used on the client to set up secure access to the given `customer`.
@@ -10530,7 +10770,7 @@ export interface components {
              * @enum {string}
              */
             payment_method_redisplay: "disabled" | "enabled";
-            /** @description Determines the max number of saved payment methods for the Payment Element to display. This parameter defaults to `10`. */
+            /** @description Determines the max number of saved payment methods for the Payment Element to display. This parameter defaults to `3`. */
             payment_method_redisplay_limit?: number | null;
             /**
              * @description Controls whether the Payment Element displays the option to remove a saved payment method. This parameter defaults to `disabled`.
@@ -11158,6 +11398,7 @@ export interface components {
         };
         /** DisputePaymentMethodDetails */
         dispute_payment_method_details: {
+            amazon_pay?: components["schemas"]["dispute_payment_method_details_amazon_pay"];
             card?: components["schemas"]["dispute_payment_method_details_card"];
             klarna?: components["schemas"]["dispute_payment_method_details_klarna"];
             paypal?: components["schemas"]["dispute_payment_method_details_paypal"];
@@ -11165,7 +11406,15 @@ export interface components {
              * @description Payment method type.
              * @enum {string}
              */
-            type: "card" | "klarna" | "paypal";
+            type: "amazon_pay" | "card" | "klarna" | "paypal";
+        };
+        /** DisputePaymentMethodDetailsAmazonPay */
+        dispute_payment_method_details_amazon_pay: {
+            /**
+             * @description The AmazonPay dispute type, chargeback or claim
+             * @enum {string|null}
+             */
+            dispute_type?: "chargeback" | "claim" | null;
         };
         /** DisputePaymentMethodDetailsCard */
         dispute_payment_method_details_card: {
@@ -11487,7 +11736,7 @@ export interface components {
              * @description The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file.
              * @enum {string}
              */
-            purpose: "account_requirement" | "additional_verification" | "business_icon" | "business_logo" | "customer_signature" | "dispute_evidence" | "document_provider_identity_document" | "finance_report_run" | "identity_document" | "identity_document_downloadable" | "pci_document" | "selfie" | "sigma_scheduled_query" | "tax_document_user_upload" | "terminal_reader_splashscreen";
+            purpose: "account_requirement" | "additional_verification" | "business_icon" | "business_logo" | "customer_signature" | "dispute_evidence" | "document_provider_identity_document" | "finance_report_run" | "identity_document" | "identity_document_downloadable" | "issuing_regulatory_reporting" | "pci_document" | "selfie" | "sigma_scheduled_query" | "tax_document_user_upload" | "terminal_reader_splashscreen";
             /** @description The size of the file object in bytes. */
             size: number;
             /** @description A suitable title for the document. */
@@ -12413,6 +12662,8 @@ export interface components {
             provided_details?: components["schemas"]["gelato_provided_details"] | null;
             /** @description Redaction status of this VerificationSession. If the VerificationSession is not redacted, this field will be null. */
             redaction?: components["schemas"]["verification_session_redaction"] | null;
+            /** @description Token referencing a Customer resource. */
+            related_customer?: string | null;
             /**
              * @description Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
              * @enum {string}
@@ -12542,6 +12793,11 @@ export interface components {
             /** @description Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action. */
             auto_advance?: boolean;
             automatic_tax: components["schemas"]["automatic_tax"];
+            /**
+             * Format: unix-time
+             * @description The time when this invoice is currently scheduled to be automatically finalized. The field will be `null` if the invoice is not scheduled to finalize in the future. If the invoice is not in the draft state, this field will always be `null` - see `finalized_at` for the time when an already-finalized invoice was finalized.
+             */
+            automatically_finalizes_at?: number | null;
             /**
              * @description Indicates the reason why the invoice was created.
              *
@@ -12866,6 +13122,40 @@ export interface components {
              */
             page_size?: "a4" | "auto" | "letter" | null;
         };
+        /**
+         * InvoiceRenderingTemplate
+         * @description Invoice Rendering Templates are used to configure how invoices are rendered on surfaces like the PDF. Invoice Rendering Templates
+         *     can be created from within the Dashboard, and they can be used over the API when creating invoices.
+         */
+        invoice_rendering_template: {
+            /**
+             * Format: unix-time
+             * @description Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+            /** @description Unique identifier for the object. */
+            id: string;
+            /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
+            livemode: boolean;
+            /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
+            metadata?: {
+                [key: string]: string;
+            } | null;
+            /** @description A brief description of the template, hidden from customers */
+            nickname?: string | null;
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @enum {string}
+             */
+            object: "invoice_rendering_template";
+            /**
+             * @description The status of the template, one of `active` or `archived`.
+             * @enum {string}
+             */
+            status: "active" | "archived";
+            /** @description Version of this template; version increases by one when an update on the template changes any field that controls invoice rendering */
+            version: number;
+        };
         /** InvoiceSettingCustomField */
         invoice_setting_custom_field: {
             /** @description The name of the custom field. */
@@ -12877,6 +13167,8 @@ export interface components {
         invoice_setting_customer_rendering_options: {
             /** @description How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. */
             amount_tax_display?: string | null;
+            /** @description ID of the invoice rendering template to be used for this customer's invoices. If set, the template will be used on all invoices for this customer unless a template is set directly on the invoice. */
+            template?: string | null;
         };
         /** InvoiceSettingCustomerSetting */
         invoice_setting_customer_setting: {
@@ -13056,14 +13348,18 @@ export interface components {
             amount_tax_display?: string | null;
             /** @description Invoice pdf rendering options */
             pdf?: components["schemas"]["invoice_rendering_pdf"] | null;
+            /** @description ID of the rendering template that the invoice is formatted by. */
+            template?: string | null;
+            /** @description Version of the rendering template that the invoice is using. */
+            template_version?: number | null;
         };
         /** InvoicesResourceInvoiceTaxID */
         invoices_resource_invoice_tax_id: {
             /**
-             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, or `unknown`
+             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, or `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
             /** @description The value of the tax ID. */
             value?: string | null;
         };
@@ -13438,7 +13734,10 @@ export interface components {
         "issuing.settlement": {
             /** @description The Bank Identification Number reflecting this settlement record. */
             bin: string;
-            /** @description The date that the transactions are cleared and posted to user's accounts. */
+            /**
+             * Format: unix-time
+             * @description The date that the transactions are cleared and posted to user's accounts.
+             */
             clearing_date: number;
             /**
              * Format: unix-time
@@ -13460,10 +13759,10 @@ export interface components {
             /** @description The total net amount required to settle with the network. */
             net_total: number;
             /**
-             * @description The card network for this settlement report. One of ["visa"]
+             * @description The card network for this settlement report. One of ["visa", "maestro"]
              * @enum {string}
              */
-            network: "visa";
+            network: "maestro" | "visa";
             /** @description The total amount of fees owed to the network. */
             network_fees: number;
             /** @description The Settlement Identification Number assigned by the network. */
@@ -13475,6 +13774,11 @@ export interface components {
             object: "issuing.settlement";
             /** @description One of `international` or `uk_national_net`. */
             settlement_service: string;
+            /**
+             * @description The current processing status of this settlement.
+             * @enum {string}
+             */
+            status: "complete" | "pending";
             /** @description The total number of transactions reflected in this settlement. */
             transaction_count: number;
             /** @description The total transaction amount reflected in this settlement. */
@@ -13907,7 +14211,7 @@ export interface components {
              * @description The delivery status of the card.
              * @enum {string|null}
              */
-            status?: "canceled" | "delivered" | "failure" | "pending" | "returned" | "shipped" | null;
+            status?: "canceled" | "delivered" | "failure" | "pending" | "returned" | "shipped" | "submitted" | null;
             /** @description A tracking number for a card shipment. */
             tracking_number?: string | null;
             /** @description A link to the shipping carrier's site where you can view detailed information about a card shipment. */
@@ -14531,7 +14835,7 @@ export interface components {
             /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. Defaults to product name. */
-            description: string;
+            description?: string;
             /** @description The discounts applied to the line item. */
             discounts?: components["schemas"]["line_items_discount_amount"][];
             /** @description Unique identifier for the object. */
@@ -14547,6 +14851,16 @@ export interface components {
             quantity?: number | null;
             /** @description The taxes applied to the line item. */
             taxes?: components["schemas"]["line_items_tax_amount"][];
+        };
+        /** klarna_address */
+        klarna_address: {
+            /** @description The payer address country */
+            country?: string | null;
+        };
+        /** klarna_payer_details */
+        klarna_payer_details: {
+            /** @description The payer's address */
+            address?: components["schemas"]["klarna_address"] | null;
         };
         /** LegalEntityCompany */
         legal_entity_company: {
@@ -14665,7 +14979,12 @@ export interface components {
             /** @description The user-agent string from the browser where the beneficial owner attestation was made. */
             user_agent?: string | null;
         };
-        /** InvoiceLineItem */
+        /**
+         * InvoiceLineItem
+         * @description Invoice Line Items represent the individual lines within an [invoice](https://stripe.com/docs/api/invoices) and only exist within the context of an invoice.
+         *
+         *     Each line item is backed by either an [invoice item](https://stripe.com/docs/api/invoiceitems) or a [subscription item](https://stripe.com/docs/api/subscription_items).
+         */
         line_item: {
             /** @description The amount, in cents (or local equivalent). */
             amount: number;
@@ -14712,9 +15031,9 @@ export interface components {
             /** @description The subscription item that generated this line item. Left empty if the line item is not an explicit result of a subscription. */
             subscription_item?: string | components["schemas"]["subscription_item"];
             /** @description The amount of tax calculated per tax rate for this line item */
-            tax_amounts?: components["schemas"]["invoice_tax_amount"][];
+            tax_amounts: components["schemas"]["invoice_tax_amount"][];
             /** @description The tax rates which apply to the line item. */
-            tax_rates?: components["schemas"]["tax_rate"][];
+            tax_rates: components["schemas"]["tax_rate"][];
             /**
              * @description A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`.
              * @enum {string}
@@ -15111,6 +15430,14 @@ export interface components {
              */
             status: "available" | "unavailable";
         };
+        /** PaymentFlowsPrivatePaymentMethodsCardPresentCommonWallet */
+        payment_flows_private_payment_methods_card_present_common_wallet: {
+            /**
+             * @description The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
+             * @enum {string}
+             */
+            type: "apple_pay" | "google_pay" | "samsung_pay" | "unknown";
+        };
         /** PaymentFlowsPrivatePaymentMethodsKlarnaDOB */
         payment_flows_private_payment_methods_klarna_dob: {
             /** @description The day of birth, between 1 and 31. */
@@ -15190,7 +15517,7 @@ export interface components {
              *
              *     Payment methods attached to other Customers cannot be used with this PaymentIntent.
              *
-             *     If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead. */
+             *     If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead. */
             customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -15234,19 +15561,21 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string|null}
              */
             setup_future_usage?: "off_session" | "on_session" | null;
             /** @description Shipping information for this PaymentIntent. */
             shipping?: components["schemas"]["shipping"] | null;
-            /** @description For card charges, use [statement_descriptor_suffix](https://stripe.com/docs/payments/account/statement-descriptors#dynamic). Otherwise, you can use this value as the complete description of a charge on your customers' statements. It must contain at least one letter and be 1–22 characters long. */
+            /** @description Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+             *
+             *     Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead. */
             statement_descriptor?: string | null;
-            /** @description Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
+            /** @description Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. */
             statement_descriptor_suffix?: string | null;
             /**
              * @description Status of this PaymentIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `requires_capture`, `canceled`, or `succeeded`. Read more about each PaymentIntent [status](https://stripe.com/docs/payments/intents#intent-statuses).
@@ -15550,7 +15879,7 @@ export interface components {
             alipay?: components["schemas"]["payment_method_options_alipay"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             amazon_pay?: components["schemas"]["payment_method_options_amazon_pay"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             au_becs_debit?: components["schemas"]["payment_intent_payment_method_options_au_becs_debit"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
-            bacs_debit?: components["schemas"]["payment_method_options_bacs_debit"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
+            bacs_debit?: components["schemas"]["payment_intent_payment_method_options_bacs_debit"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             bancontact?: components["schemas"]["payment_method_options_bancontact"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             blik?: components["schemas"]["payment_intent_payment_method_options_blik"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             boleto?: components["schemas"]["payment_method_options_boleto"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
@@ -15590,11 +15919,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session" | "on_session";
@@ -15609,11 +15938,26 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+             * @enum {string}
+             */
+            setup_future_usage?: "none" | "off_session" | "on_session";
+        };
+        /** payment_intent_payment_method_options_bacs_debit */
+        payment_intent_payment_method_options_bacs_debit: {
+            mandate_options?: components["schemas"]["payment_intent_payment_method_options_mandate_options_bacs_debit"];
+            /**
+             * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
+             *
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+             *
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session" | "on_session";
@@ -15623,11 +15967,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -15649,7 +15993,7 @@ export interface components {
              * @description Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time.
              * @enum {string|null}
              */
-            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
+            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
             /**
              * @description Request ability to [capture beyond the standard authorization validity window](https://stripe.com/docs/payments/extended-authorization) for this PaymentIntent.
              * @enum {string}
@@ -15680,11 +16024,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session" | "on_session";
@@ -15698,11 +16042,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -15717,11 +16061,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session";
@@ -15743,6 +16087,8 @@ export interface components {
              */
             transaction_type?: "business" | "personal" | null;
         };
+        /** payment_intent_payment_method_options_mandate_options_bacs_debit */
+        payment_intent_payment_method_options_mandate_options_bacs_debit: Record<string, never>;
         /** payment_intent_payment_method_options_mandate_options_sepa_debit */
         payment_intent_payment_method_options_mandate_options_sepa_debit: Record<string, never>;
         /** payment_intent_payment_method_options_mobilepay */
@@ -15755,11 +16101,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -15770,11 +16116,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session" | "on_session";
@@ -15786,11 +16132,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -15807,11 +16153,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session" | "on_session";
@@ -15856,11 +16202,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session" | "on_session";
@@ -16134,9 +16480,9 @@ export interface components {
              * @enum {string|null}
              */
             setup_future_usage?: "off_session" | "on_session" | null;
-            /** @description Extra information about the payment. This will appear on your customer's statement when this payment succeeds in creating a charge. */
+            /** @description For a non-card payment, information about the charge that appears on the customer's statement when this payment succeeds in creating a charge. */
             statement_descriptor?: string | null;
-            /** @description Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
+            /** @description For a card payment, information about the charge that appears on the customer's statement when this payment succeeds in creating a charge. Concatenated with the account's statement descriptor prefix to form the complete statement descriptor. */
             statement_descriptor_suffix?: string | null;
             /** @description A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details. */
             transfer_group?: string | null;
@@ -16194,6 +16540,8 @@ export interface components {
         payment_links_resource_tax_id_collection: {
             /** @description Indicates whether tax ID collection is enabled for the session. */
             enabled: boolean;
+            /** @enum {string} */
+            required: "if_supported" | "never";
         };
         /** PaymentLinksResourceTransferData */
         payment_links_resource_transfer_data: {
@@ -16406,6 +16754,8 @@ export interface components {
             last4?: string | null;
             /** @description Contains information about card networks that can be used to process the payment. */
             networks?: components["schemas"]["payment_method_card_present_networks"] | null;
+            /** @description Details about payment methods collected offline. */
+            offline?: components["schemas"]["payment_method_details_card_present_offline"] | null;
             /** @description EMV tag 5F2D. Preferred languages specified by the integrated circuit chip. */
             preferred_locales?: string[] | null;
             /**
@@ -16413,6 +16763,7 @@ export interface components {
              * @enum {string|null}
              */
             read_method?: "contact_emv" | "contactless_emv" | "contactless_magstripe_mode" | "magnetic_stripe_fallback" | "magnetic_stripe_track2" | null;
+            wallet?: components["schemas"]["payment_flows_private_payment_methods_card_present_common_wallet"];
         };
         /** payment_method_card_present_networks */
         payment_method_card_present_networks: {
@@ -16753,6 +17104,8 @@ export interface components {
         payment_method_details_card: {
             /** @description The authorized amount. */
             amount_authorized?: number | null;
+            /** @description Authorization code on the charge. */
+            authorization_code?: string | null;
             /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             brand?: string | null;
             /**
@@ -16871,10 +17224,7 @@ export interface components {
             last4?: string | null;
             /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             network?: string | null;
-            /** @description This is used by the financial networks to identify a transaction.
-             *     Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data.
-             *     The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD).
-             *     This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands. */
+            /** @description This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD). This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands. */
             network_transaction_id?: string | null;
             /** @description Details about payments collected offline. */
             offline?: components["schemas"]["payment_method_details_card_present_offline"] | null;
@@ -16889,6 +17239,7 @@ export interface components {
             read_method?: "contact_emv" | "contactless_emv" | "contactless_magstripe_mode" | "magnetic_stripe_fallback" | "magnetic_stripe_track2" | null;
             /** @description A collection of fields required to be displayed on receipts. Only required for EMV transactions. */
             receipt?: components["schemas"]["payment_method_details_card_present_receipt"] | null;
+            wallet?: components["schemas"]["payment_flows_private_payment_methods_card_present_common_wallet"];
         };
         /** payment_method_details_card_present_offline */
         payment_method_details_card_present_offline: {
@@ -16897,6 +17248,11 @@ export interface components {
              * @description Time at which the payment was collected while offline
              */
             stored_at?: number | null;
+            /**
+             * @description The method used to process this payment method offline. Only deferred is allowed.
+             * @enum {string|null}
+             */
+            type?: "deferred" | null;
         };
         /** payment_method_details_card_present_receipt */
         payment_method_details_card_present_receipt: {
@@ -17072,10 +17428,7 @@ export interface components {
             last4?: string | null;
             /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             network?: string | null;
-            /** @description This is used by the financial networks to identify a transaction.
-             *     Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data.
-             *     The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD).
-             *     This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands. */
+            /** @description This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD). This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands. */
             network_transaction_id?: string | null;
             /** @description EMV tag 5F2D. Preferred languages specified by the integrated circuit chip. */
             preferred_locales?: string[] | null;
@@ -17113,6 +17466,8 @@ export interface components {
         };
         /** payment_method_details_klarna */
         payment_method_details_klarna: {
+            /** @description The payer details for this transaction. */
+            payer_details?: components["schemas"]["klarna_payer_details"] | null;
             /** @description The Klarna payment method used for this transaction.
              *     Can be one of `pay_later`, `pay_now`, `pay_with_financing`, or `pay_in_installments` */
             payment_method_category?: string | null;
@@ -17438,11 +17793,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -17460,11 +17815,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -17474,11 +17829,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session";
@@ -17493,28 +17848,14 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session";
-        };
-        /** payment_method_options_bacs_debit */
-        payment_method_options_bacs_debit: {
-            /**
-             * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
-             *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-             *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
-             *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-             * @enum {string}
-             */
-            setup_future_usage?: "none" | "off_session" | "on_session";
         };
         /** payment_method_options_bancontact */
         payment_method_options_bancontact: {
@@ -17526,11 +17867,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session";
@@ -17542,11 +17883,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session" | "on_session";
@@ -17619,11 +17960,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session" | "on_session";
@@ -17639,11 +17980,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -17674,11 +18015,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -17688,11 +18029,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -17702,11 +18043,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -17716,11 +18057,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session";
@@ -17739,11 +18080,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -17764,11 +18105,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -17778,11 +18119,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -17794,11 +18135,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -17808,11 +18149,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -17822,11 +18163,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -17845,11 +18186,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session";
@@ -17863,11 +18204,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -17877,11 +18218,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -17896,11 +18237,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session";
@@ -17915,11 +18256,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session";
@@ -17929,11 +18270,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -17958,11 +18299,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -17972,11 +18313,11 @@ export interface components {
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
-             *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
              *
-             *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
              *
-             *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
              * @enum {string}
              */
             setup_future_usage?: "none";
@@ -18340,10 +18681,10 @@ export interface components {
         /** PaymentPagesCheckoutSessionTaxID */
         payment_pages_checkout_session_tax_id: {
             /**
-             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, or `unknown`
+             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, or `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
             /** @description The value of the tax ID. */
             value?: string | null;
         };
@@ -18351,6 +18692,11 @@ export interface components {
         payment_pages_checkout_session_tax_id_collection: {
             /** @description Indicates whether tax ID collection is enabled for the session */
             enabled: boolean;
+            /**
+             * @description Indicates whether a tax ID is required on the payment page
+             * @enum {string}
+             */
+            required: "if_supported" | "never";
         };
         /** PaymentPagesCheckoutSessionTotalDetails */
         payment_pages_checkout_session_total_details: {
@@ -18561,7 +18907,8 @@ export interface components {
         };
         /** PersonAdditionalTOSAcceptances */
         person_additional_tos_acceptances: {
-            account: components["schemas"]["person_additional_tos_acceptance"];
+            /** @description Details on the legal guardian's acceptance of the main Stripe service agreement. */
+            account?: components["schemas"]["person_additional_tos_acceptance"] | null;
         };
         /** PersonFutureRequirements */
         person_future_requirements: {
@@ -20198,7 +20545,7 @@ export interface components {
             object: "setup_intent";
             /** @description The account (if any) for which the setup is intended. */
             on_behalf_of?: (string | components["schemas"]["account"]) | null;
-            /** @description ID of the payment method used with this SetupIntent. If the payment method is `card_present` and isn't a digital wallet, then the [generated_card](https://docs.corp.stripe.com/api/setup_attempts/object#setup_attempt_object-payment_method_details-card_present-generated_card) associated with the `latest_attempt` is attached to the Customer instead. */
+            /** @description ID of the payment method used with this SetupIntent. If the payment method is `card_present` and isn't a digital wallet, then the [generated_card](https://docs.stripe.com/api/setup_attempts/object#setup_attempt_object-payment_method_details-card_present-generated_card) associated with the `latest_attempt` is attached to the Customer instead. */
             payment_method?: (string | components["schemas"]["payment_method"]) | null;
             /** @description Information about the payment method configuration used for this Setup Intent. */
             payment_method_configuration_details?: components["schemas"]["payment_method_config_biz_payment_method_configuration_details"] | null;
@@ -20254,6 +20601,7 @@ export interface components {
         setup_intent_payment_method_options: {
             acss_debit?: components["schemas"]["setup_intent_payment_method_options_acss_debit"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
             amazon_pay?: components["schemas"]["setup_intent_payment_method_options_amazon_pay"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
+            bacs_debit?: components["schemas"]["setup_intent_payment_method_options_bacs_debit"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
             card?: components["schemas"]["setup_intent_payment_method_options_card"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
             card_present?: components["schemas"]["setup_intent_payment_method_options_card_present"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
             link?: components["schemas"]["setup_intent_payment_method_options_link"] | components["schemas"]["setup_intent_type_specific_payment_method_options_client"];
@@ -20277,6 +20625,10 @@ export interface components {
         };
         /** setup_intent_payment_method_options_amazon_pay */
         setup_intent_payment_method_options_amazon_pay: Record<string, never>;
+        /** setup_intent_payment_method_options_bacs_debit */
+        setup_intent_payment_method_options_bacs_debit: {
+            mandate_options?: components["schemas"]["setup_intent_payment_method_options_mandate_options_bacs_debit"];
+        };
         /** setup_intent_payment_method_options_card */
         setup_intent_payment_method_options_card: {
             /** @description Configuration options for setting up an eMandate for cards issued in India. */
@@ -20285,7 +20637,7 @@ export interface components {
              * @description Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the setup intent. Can be only set confirm-time.
              * @enum {string|null}
              */
-            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
+            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
             /**
              * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
              * @enum {string|null}
@@ -20350,6 +20702,8 @@ export interface components {
              */
             transaction_type?: "business" | "personal" | null;
         };
+        /** setup_intent_payment_method_options_mandate_options_bacs_debit */
+        setup_intent_payment_method_options_mandate_options_bacs_debit: Record<string, never>;
         /** setup_intent_payment_method_options_mandate_options_sepa_debit */
         setup_intent_payment_method_options_mandate_options_sepa_debit: Record<string, never>;
         /** setup_intent_payment_method_options_paypal */
@@ -21208,7 +21562,7 @@ export interface components {
              * @description Selected network to process this Subscription on. Depends on the available networks of the card attached to the Subscription. Can be only set confirm-time.
              * @enum {string|null}
              */
-            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
+            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
             /**
              * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
              * @enum {string|null}
@@ -21906,10 +22260,10 @@ export interface components {
             /** @description The account or customer the tax ID belongs to. */
             owner?: components["schemas"]["tax_i_ds_owner"] | null;
             /**
-             * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`. Note that some legacy tax IDs have type `unknown`
+             * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`. Note that some legacy tax IDs have type `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
             /** @description Value of the tax ID. */
             value: string;
             /** @description Tax ID verification information. */
@@ -22039,6 +22393,7 @@ export interface components {
             local_lease_tax?: components["schemas"]["tax_product_registrations_resource_country_options_us_local_lease_tax"];
             /** @description Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)). */
             state: string;
+            state_sales_tax?: components["schemas"]["tax_product_registrations_resource_country_options_us_state_sales_tax"];
             /**
              * @description Type of registration in the US.
              * @enum {string}
@@ -22054,6 +22409,21 @@ export interface components {
         tax_product_registrations_resource_country_options_us_local_lease_tax: {
             /** @description A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. */
             jurisdiction: string;
+        };
+        /** TaxProductRegistrationsResourceCountryOptionsUsStateSalesTax */
+        tax_product_registrations_resource_country_options_us_state_sales_tax: {
+            /** @description Elections for the state sales tax registration. */
+            elections?: components["schemas"]["tax_product_registrations_resource_country_options_us_state_sales_tax_election"][];
+        };
+        /** TaxProductRegistrationsResourceCountryOptionsUsStateSalesTaxElection */
+        tax_product_registrations_resource_country_options_us_state_sales_tax_election: {
+            /** @description A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. */
+            jurisdiction?: string;
+            /**
+             * @description The type of the election for the state sales tax registration.
+             * @enum {string}
+             */
+            type: "local_use_tax" | "simplified_sellers_use_tax" | "single_local_use_tax";
         };
         /** TaxProductResourceCustomerDetails */
         tax_product_resource_customer_details: {
@@ -22077,10 +22447,10 @@ export interface components {
         /** TaxProductResourceCustomerDetailsResourceTaxId */
         tax_product_resource_customer_details_resource_tax_id: {
             /**
-             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, or `unknown`
+             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, or `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
             /** @description The value of the tax ID. */
             value: string;
         };
@@ -22410,7 +22780,7 @@ export interface components {
             /** @description Serial number of the reader. */
             serial_number: string;
             /**
-             * @description The networking status of the reader.
+             * @description The networking status of the reader. We do not recommend using this field in flows that may block taking payments.
              * @enum {string|null}
              */
             status?: "offline" | "online" | null;
@@ -22642,6 +23012,7 @@ export interface components {
              * @enum {string}
              */
             status: "advancing" | "internal_failure" | "ready";
+            status_details: components["schemas"]["billing_clocks_resource_status_details_status_details"];
         };
         /** three_d_secure_details */
         three_d_secure_details: {
@@ -22723,6 +23094,26 @@ export interface components {
         three_d_secure_usage: {
             /** @description Whether 3D Secure is supported on this card. */
             supported: boolean;
+        };
+        /** ThresholdsResourceAlertFilter */
+        thresholds_resource_alert_filter: {
+            /** @description Limit the scope of the alert to this customer ID */
+            customer?: (string | components["schemas"]["customer"]) | null;
+        };
+        /**
+         * ThresholdsResourceUsageThresholdConfig
+         * @description The usage threshold alert configuration enables setting up alerts for when a certain usage threshold on a specific meter is crossed.
+         */
+        thresholds_resource_usage_threshold_config: {
+            /** @description The value at which this alert will trigger. */
+            gte: number;
+            /** @description The [Billing Meter](/api/billing/meter) ID whose usage is monitored. */
+            meter: string | components["schemas"]["billing.meter"];
+            /**
+             * @description Defines how the alert will behave.
+             * @enum {string}
+             */
+            recurrence: "one_time";
         };
         /**
          * Token
@@ -22894,7 +23285,7 @@ export interface components {
             };
             /** @description Whether the transfer has been fully reversed. If the transfer is only partially reversed, this attribute will still be false. */
             reversed: boolean;
-            /** @description ID of the charge or payment that was used to fund the transfer. If null, the transfer was funded from the available balance. */
+            /** @description ID of the charge that was used to fund the transfer. If null, the transfer was funded from the available balance. */
             source_transaction?: (string | components["schemas"]["charge"]) | null;
             /** @description The source balance this transfer came from. One of `card`, `fpx`, or `bank_account`. */
             source_type?: string;
@@ -23090,7 +23481,7 @@ export interface components {
          */
         "treasury.financial_account": {
             /** @description The array of paths to active Features in the Features hash. */
-            active_features?: ("card_issuing" | "deposit_insurance" | "financial_addresses.aba" | "inbound_transfers.ach" | "intra_stripe_flows" | "outbound_payments.ach" | "outbound_payments.us_domestic_wire" | "outbound_transfers.ach" | "outbound_transfers.us_domestic_wire" | "remote_deposit_capture")[];
+            active_features?: ("card_issuing" | "deposit_insurance" | "financial_addresses.aba" | "financial_addresses.aba.forwarding" | "inbound_transfers.ach" | "intra_stripe_flows" | "outbound_payments.ach" | "outbound_payments.us_domestic_wire" | "outbound_transfers.ach" | "outbound_transfers.us_domestic_wire" | "remote_deposit_capture")[];
             balance: components["schemas"]["treasury_financial_accounts_resource_balance"];
             /** @description Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)). */
             country: string;
@@ -23116,11 +23507,11 @@ export interface components {
              */
             object: "treasury.financial_account";
             /** @description The array of paths to pending Features in the Features hash. */
-            pending_features?: ("card_issuing" | "deposit_insurance" | "financial_addresses.aba" | "inbound_transfers.ach" | "intra_stripe_flows" | "outbound_payments.ach" | "outbound_payments.us_domestic_wire" | "outbound_transfers.ach" | "outbound_transfers.us_domestic_wire" | "remote_deposit_capture")[];
+            pending_features?: ("card_issuing" | "deposit_insurance" | "financial_addresses.aba" | "financial_addresses.aba.forwarding" | "inbound_transfers.ach" | "intra_stripe_flows" | "outbound_payments.ach" | "outbound_payments.us_domestic_wire" | "outbound_transfers.ach" | "outbound_transfers.us_domestic_wire" | "remote_deposit_capture")[];
             /** @description The set of functionalities that the platform can restrict on the FinancialAccount. */
             platform_restrictions?: components["schemas"]["treasury_financial_accounts_resource_platform_restrictions"] | null;
             /** @description The array of paths to restricted Features in the Features hash. */
-            restricted_features?: ("card_issuing" | "deposit_insurance" | "financial_addresses.aba" | "inbound_transfers.ach" | "intra_stripe_flows" | "outbound_payments.ach" | "outbound_payments.us_domestic_wire" | "outbound_transfers.ach" | "outbound_transfers.us_domestic_wire" | "remote_deposit_capture")[];
+            restricted_features?: ("card_issuing" | "deposit_insurance" | "financial_addresses.aba" | "financial_addresses.aba.forwarding" | "inbound_transfers.ach" | "intra_stripe_flows" | "outbound_payments.ach" | "outbound_payments.us_domestic_wire" | "outbound_transfers.ach" | "outbound_transfers.us_domestic_wire" | "remote_deposit_capture")[];
             /**
              * @description The enum specifying what state the account is in.
              * @enum {string}
@@ -23151,7 +23542,9 @@ export interface components {
         };
         /**
          * TreasuryInboundTransfersResourceInboundTransfer
-         * @description Use [InboundTransfers](https://stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://stripe.com/docs/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
+         * @description Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://stripe.com/docs/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
+         *
+         *     Related guide: [Moving money with Treasury using InboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers)
          */
         "treasury.inbound_transfer": {
             /** @description Amount (in cents) transferred. */
@@ -23206,9 +23599,11 @@ export interface components {
         };
         /**
          * TreasuryOutboundPaymentsResourceOutboundPayment
-         * @description Use OutboundPayments to send funds to another party's external bank account or [FinancialAccount](https://stripe.com/docs/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://stripe.com/docs/api#outbound_transfers).
+         * @description Use [OutboundPayments](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments) to send funds to another party's external bank account or [FinancialAccount](https://stripe.com/docs/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://stripe.com/docs/api#outbound_transfers).
          *
          *     Simulate OutboundPayment state changes with the `/v1/test_helpers/treasury/outbound_payments` endpoints. These methods can only be called on test mode objects.
+         *
+         *     Related guide: [Moving money with Treasury using OutboundPayment objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments)
          */
         "treasury.outbound_payment": {
             /** @description Amount (in cents) transferred. */
@@ -23271,9 +23666,11 @@ export interface components {
         };
         /**
          * TreasuryOutboundTransfersResourceOutboundTransfer
-         * @description Use OutboundTransfers to transfer funds from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts) to a PaymentMethod belonging to the same entity. To send funds to a different party, use [OutboundPayments](https://stripe.com/docs/api#outbound_payments) instead. You can send funds over ACH rails or through a domestic wire transfer to a user's own external bank account.
+         * @description Use [OutboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers) to transfer funds from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts) to a PaymentMethod belonging to the same entity. To send funds to a different party, use [OutboundPayments](https://stripe.com/docs/api#outbound_payments) instead. You can send funds over ACH rails or through a domestic wire transfer to a user's own external bank account.
          *
          *     Simulate OutboundTransfer state changes with the `/v1/test_helpers/treasury/outbound_transfers` endpoints. These methods can only be called on test mode objects.
+         *
+         *     Related guide: [Moving money with Treasury using OutboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers)
          */
         "treasury.outbound_transfer": {
             /** @description Amount (in cents) transferred. */
@@ -23400,7 +23797,7 @@ export interface components {
              * @description Reason for the failure. A ReceivedDebit might fail because the FinancialAccount doesn't have sufficient funds, is closed, or is frozen.
              * @enum {string|null}
              */
-            failure_code?: "account_closed" | "account_frozen" | "insufficient_funds" | "other" | null;
+            failure_code?: "account_closed" | "account_frozen" | "insufficient_funds" | "international_transaction" | "other" | null;
             /** @description The FinancialAccount that funds were pulled from. */
             financial_account?: string | null;
             /** @description A [hosted transaction receipt](https://stripe.com/docs/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses. */
@@ -23796,8 +24193,10 @@ export interface components {
         };
         /** TreasuryOutboundPaymentsResourceUSDomesticWireTrackingDetails */
         treasury_outbound_payments_resource_us_domestic_wire_tracking_details: {
+            /** @description CHIPS System Sequence Number (SSN) of the OutboundPayment for payments sent over the `us_domestic_wire` network. */
+            chips?: string | null;
             /** @description IMAD of the OutboundPayment for payments sent over the `us_domestic_wire` network. */
-            imad: string;
+            imad?: string | null;
             /** @description OMAD of the OutboundPayment for payments sent over the `us_domestic_wire` network. */
             omad?: string | null;
         };
@@ -23851,8 +24250,10 @@ export interface components {
         };
         /** TreasuryOutboundTransfersResourceUSDomesticWireTrackingDetails */
         treasury_outbound_transfers_resource_us_domestic_wire_tracking_details: {
+            /** @description CHIPS System Sequence Number (SSN) of the OutboundTransfer for transfers sent over the `us_domestic_wire` network. */
+            chips?: string | null;
             /** @description IMAD of the OutboundTransfer for transfers sent over the `us_domestic_wire` network. */
-            imad: string;
+            imad?: string | null;
             /** @description OMAD of the OutboundTransfer for transfers sent over the `us_domestic_wire` network. */
             omad?: string | null;
         };
@@ -24193,7 +24594,7 @@ export interface operations {
                      */
                     collection_options?: {
                         /** @enum {string} */
-                        fields: "currently_due" | "eventually_due";
+                        fields?: "currently_due" | "eventually_due";
                         /** @enum {string} */
                         future_requirements?: "include" | "omit";
                     };
@@ -26426,7 +26827,7 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /**
                      * person_additional_tos_acceptances_specs
-                     * @description Details on the legal guardian's acceptance of the required Stripe agreements.
+                     * @description Details on the legal guardian's or authorizer's acceptance of the required Stripe agreements.
                      */
                     additional_tos_acceptances?: {
                         /** settings_terms_of_service_specs */
@@ -26658,7 +27059,7 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /**
                      * person_additional_tos_acceptances_specs
-                     * @description Details on the legal guardian's acceptance of the required Stripe agreements.
+                     * @description Details on the legal guardian's or authorizer's acceptance of the required Stripe agreements.
                      */
                     additional_tos_acceptances?: {
                         /** settings_terms_of_service_specs */
@@ -26949,7 +27350,7 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /**
                      * person_additional_tos_acceptances_specs
-                     * @description Details on the legal guardian's acceptance of the required Stripe agreements.
+                     * @description Details on the legal guardian's or authorizer's acceptance of the required Stripe agreements.
                      */
                     additional_tos_acceptances?: {
                         /** settings_terms_of_service_specs */
@@ -27181,7 +27582,7 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /**
                      * person_additional_tos_acceptances_specs
-                     * @description Details on the legal guardian's acceptance of the required Stripe agreements.
+                     * @description Details on the legal guardian's or authorizer's acceptance of the required Stripe agreements.
                      */
                     additional_tos_acceptances?: {
                         /** settings_terms_of_service_specs */
@@ -28373,6 +28774,277 @@ export interface operations {
             };
         };
     };
+    GetBillingAlerts: {
+        parameters: {
+            query?: {
+                /** @description Filter results to only include this type of alert. */
+                alert_type?: "usage_threshold";
+                /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
+                ending_before?: string;
+                /** @description Specifies which fields in the response should be expanded. */
+                expand?: string[];
+                /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
+                limit?: number;
+                /** @description Filter results to only include alerts with the given meter. */
+                meter?: string;
+                /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
+                starting_after?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": Record<string, never>;
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["billing.alert"][];
+                        /** @description True if this list has another page of items after this one that can be fetched. */
+                        has_more: boolean;
+                        /**
+                         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+                         * @enum {string}
+                         */
+                        object: "list";
+                        /** @description The URL where this list can be accessed. */
+                        url: string;
+                    };
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    PostBillingAlerts: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /**
+                     * @description The type of alert to create.
+                     * @enum {string}
+                     */
+                    alert_type: "usage_threshold";
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                    /**
+                     * alert_filter
+                     * @description Filters to limit the scope of an alert.
+                     */
+                    filter?: {
+                        customer?: string;
+                        subscription?: string;
+                        subscription_item?: string;
+                    };
+                    /** @description The title of the alert. */
+                    title: string;
+                    /**
+                     * usage_threshold_config
+                     * @description The configuration of the usage threshold.
+                     */
+                    usage_threshold_config?: {
+                        gte: number;
+                        meter?: string;
+                        /** @enum {string} */
+                        recurrence: "one_time";
+                    };
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["billing.alert"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    GetBillingAlertsId: {
+        parameters: {
+            query?: {
+                /** @description Specifies which fields in the response should be expanded. */
+                expand?: string[];
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": Record<string, never>;
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["billing.alert"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    PostBillingAlertsIdActivate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["billing.alert"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    PostBillingAlertsIdArchive: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["billing.alert"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    PostBillingAlertsIdDeactivate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["billing.alert"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
     PostBillingMeterEventAdjustments: {
         parameters: {
             query?: never;
@@ -29241,7 +29913,7 @@ export interface operations {
                 payment_intent?: string;
                 /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
                 starting_after?: string;
-                /** @description Only return charges for this transfer group. */
+                /** @description Only return charges for this transfer group, limited to 100. */
                 transfer_group?: string;
             };
             header?: never;
@@ -29369,9 +30041,11 @@ export interface operations {
                     };
                     /** @description A payment source to be charged. This can be the ID of a [card](https://stripe.com/docs/api#cards) (i.e., credit or debit card), a [bank account](https://stripe.com/docs/api#bank_accounts), a [source](https://stripe.com/docs/api#sources), a [token](https://stripe.com/docs/api#tokens), or a [connected account](https://stripe.com/docs/connect/account-debits#charging-a-connected-account). For certain sources---namely, [cards](https://stripe.com/docs/api#cards), [bank accounts](https://stripe.com/docs/api#bank_accounts), and attached [sources](https://stripe.com/docs/api#sources)---you must also pass the ID of the associated customer. */
                     source?: string;
-                    /** @description For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
+                    /** @description For a non-card charge, text that appears on the customer's statement as the statement descriptor. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+                     *
+                     *     For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix. */
                     statement_descriptor?: string;
-                    /** @description Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
+                    /** @description Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor. */
                     statement_descriptor_suffix?: string;
                     /**
                      * transfer_data_specs
@@ -29598,9 +30272,11 @@ export interface operations {
                     expand?: string[];
                     /** @description The email address to send this charge's receipt to. This will override the previously-specified email address for this charge, if one was set. Receipts will not be sent in test mode. */
                     receipt_email?: string;
-                    /** @description For card charges, use `statement_descriptor_suffix` instead. Otherwise, you can use this value as the complete description of a charge on your customers’ statements. Must contain at least one letter, maximum 22 characters. */
+                    /** @description For a non-card charge, text that appears on the customer's statement as the statement descriptor. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+                     *
+                     *     For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix. */
                     statement_descriptor?: string;
-                    /** @description Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
+                    /** @description Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor. */
                     statement_descriptor_suffix?: string;
                     /**
                      * transfer_data_specs
@@ -30164,7 +30840,7 @@ export interface operations {
                      * @enum {string}
                      */
                     billing_address_collection?: "auto" | "required";
-                    /** @description If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. */
+                    /** @description If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded`. */
                     cancel_url?: string;
                     /** @description A unique string to reference the Checkout Session. This can be a
                      *     customer ID, a cart ID, or similar, and can be used to reconcile the
@@ -30687,7 +31363,7 @@ export interface operations {
                         enabled: boolean;
                     };
                     /**
-                     * @description This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://stripe.com/docs/payments/checkout/custom-redirect-behavior) of embedded sessions. Defaults to `always`.
+                     * @description This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://stripe.com/docs/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
                      * @enum {string}
                      */
                     redirect_on_completion?: "always" | "if_required" | "never";
@@ -30826,6 +31502,8 @@ export interface operations {
                      */
                     tax_id_collection?: {
                         enabled: boolean;
+                        /** @enum {string} */
+                        required?: "if_supported" | "never";
                     };
                     /**
                      * @description The UI mode of the Session. Defaults to `hosted`.
@@ -32541,6 +33219,7 @@ export interface operations {
                         rendering_options?: {
                             /** @enum {string} */
                             amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax";
+                            template?: string;
                         } | "";
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -32590,7 +33269,7 @@ export interface operations {
                     /** @description The customer's tax IDs. */
                     tax_id_data?: {
                         /** @enum {string} */
-                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
                         value: string;
                     }[];
                     /** @description ID of the test clock to attach to the customer. */
@@ -32811,6 +33490,7 @@ export interface operations {
                         rendering_options?: {
                             /** @enum {string} */
                             amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax";
+                            template?: string;
                         } | "";
                     };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -34723,7 +35403,7 @@ export interface operations {
                                     description?: string;
                                 };
                                 /** @enum {string} */
-                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
                                 /** @enum {string} */
                                 request_three_d_secure?: "any" | "automatic" | "challenge";
                             } | "";
@@ -34764,7 +35444,7 @@ export interface operations {
                         interval: "day" | "month" | "week" | "year";
                         interval_count?: number;
                     } | "";
-                    /** @description The ID of a promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead. */
+                    /** @description The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead. */
                     promotion_code?: string;
                     /**
                      * @description Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) resulting from the `billing_cycle_anchor`. If no value is passed, the default is `create_prorations`.
@@ -35056,7 +35736,7 @@ export interface operations {
                                     description?: string;
                                 };
                                 /** @enum {string} */
-                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
                                 /** @enum {string} */
                                 request_three_d_secure?: "any" | "automatic" | "challenge";
                             } | "";
@@ -35097,7 +35777,7 @@ export interface operations {
                         interval: "day" | "month" | "week" | "year";
                         interval_count?: number;
                     } | "";
-                    /** @description The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. */
+                    /** @description The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead. */
                     promotion_code?: string;
                     /**
                      * @description Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
@@ -35342,10 +36022,10 @@ export interface operations {
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     /**
-                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
+                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
                      * @enum {string}
                      */
-                    type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                    type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
                     /** @description Value of the tax ID. */
                     value: string;
                 };
@@ -36303,7 +36983,7 @@ export interface operations {
                      * @description The link isn't usable after this future timestamp.
                      */
                     expires_at?: number;
-                    /** @description The ID of the file. The file's `purpose` must be one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `identity_document_downloadable`, `pci_document`, `selfie`, `sigma_scheduled_query`, `tax_document_user_upload`, or `terminal_reader_splashscreen`. */
+                    /** @description The ID of the file. The file's `purpose` must be one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `identity_document_downloadable`, `issuing_regulatory_reporting`, `pci_document`, `selfie`, `sigma_scheduled_query`, `tax_document_user_upload`, or `terminal_reader_splashscreen`. */
                     file: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
@@ -36432,7 +37112,7 @@ export interface operations {
                 /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
                 limit?: number;
                 /** @description Filter queries by the file purpose. If you don't provide a purpose, the queries return unfiltered files. */
-                purpose?: "account_requirement" | "additional_verification" | "business_icon" | "business_logo" | "customer_signature" | "dispute_evidence" | "document_provider_identity_document" | "finance_report_run" | "identity_document" | "identity_document_downloadable" | "pci_document" | "selfie" | "sigma_scheduled_query" | "tax_document_user_upload" | "terminal_reader_splashscreen";
+                purpose?: "account_requirement" | "additional_verification" | "business_icon" | "business_logo" | "customer_signature" | "dispute_evidence" | "document_provider_identity_document" | "finance_report_run" | "identity_document" | "identity_document_downloadable" | "issuing_regulatory_reporting" | "pci_document" | "selfie" | "sigma_scheduled_query" | "tax_document_user_upload" | "terminal_reader_splashscreen";
                 /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
                 starting_after?: string;
             };
@@ -36510,7 +37190,7 @@ export interface operations {
                      * @description The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file.
                      * @enum {string}
                      */
-                    purpose: "account_requirement" | "additional_verification" | "business_icon" | "business_logo" | "customer_signature" | "dispute_evidence" | "identity_document" | "pci_document" | "tax_document_user_upload" | "terminal_reader_splashscreen";
+                    purpose: "account_requirement" | "additional_verification" | "business_icon" | "business_logo" | "customer_signature" | "dispute_evidence" | "identity_document" | "issuing_regulatory_reporting" | "pci_document" | "tax_document_user_upload" | "terminal_reader_splashscreen";
                 };
             };
         };
@@ -37366,6 +38046,7 @@ export interface operations {
                 expand?: string[];
                 /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
                 limit?: number;
+                related_customer?: string;
                 /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
                 starting_after?: string;
                 /** @description Only return VerificationSessions with this status. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work). */
@@ -37450,6 +38131,8 @@ export interface operations {
                         email?: string;
                         phone?: string;
                     };
+                    /** @description Token referencing a Customer resource. */
+                    related_customer?: string;
                     /** @description The URL that the user will be redirected to upon completing the verification flow. */
                     return_url?: string;
                     /**
@@ -37651,6 +38334,176 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["identity.verification_session"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    GetInvoiceRenderingTemplates: {
+        parameters: {
+            query?: {
+                /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
+                ending_before?: string;
+                /** @description Specifies which fields in the response should be expanded. */
+                expand?: string[];
+                /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
+                limit?: number;
+                /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
+                starting_after?: string;
+                status?: "active" | "archived";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": Record<string, never>;
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @description Details about each object. */
+                        data: components["schemas"]["invoice_rendering_template"][];
+                        /** @description True if this list has another page of items after this one that can be fetched. */
+                        has_more: boolean;
+                        /**
+                         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+                         * @enum {string}
+                         */
+                        object: "list";
+                        /** @description The URL where this list can be accessed. */
+                        url: string;
+                    };
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    GetInvoiceRenderingTemplatesTemplate: {
+        parameters: {
+            query?: {
+                /** @description Specifies which fields in the response should be expanded. */
+                expand?: string[];
+                version?: number;
+            };
+            header?: never;
+            path: {
+                template: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": Record<string, never>;
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["invoice_rendering_template"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    PostInvoiceRenderingTemplatesTemplateArchive: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                template: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["invoice_rendering_template"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    PostInvoiceRenderingTemplatesTemplateUnarchive: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                template: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["invoice_rendering_template"];
                 };
             };
             /** @description Error response. */
@@ -38202,9 +39055,9 @@ export interface operations {
                                 installments?: {
                                     enabled?: boolean;
                                     plan?: {
-                                        count: number;
+                                        count?: number;
                                         /** @enum {string} */
-                                        interval: "month";
+                                        interval?: "month";
                                         /** @enum {string} */
                                         type: "fixed_count";
                                     } | "";
@@ -38258,6 +39111,8 @@ export interface operations {
                             /** @enum {string} */
                             page_size?: "a4" | "auto" | "letter";
                         };
+                        template?: string;
+                        template_version?: number | "";
                     };
                     /**
                      * shipping_cost
@@ -38421,7 +39276,7 @@ export interface operations {
                         tax_exempt?: "" | "exempt" | "none" | "reverse";
                         tax_ids?: {
                             /** @enum {string} */
-                            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
                             value: string;
                         }[];
                     };
@@ -38433,7 +39288,7 @@ export interface operations {
                     }[] | "";
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
-                    /** @description List of invoice items to add or update in the upcoming invoice preview. */
+                    /** @description List of invoice items to add or update in the upcoming invoice preview (up to 250). */
                     invoice_items?: {
                         amount?: number;
                         currency?: string;
@@ -38797,7 +39652,7 @@ export interface operations {
                     tax_exempt?: "" | "exempt" | "none" | "reverse";
                     tax_ids?: {
                         /** @enum {string} */
-                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
                         value: string;
                     }[];
                 };
@@ -38809,7 +39664,7 @@ export interface operations {
                 }[] | "";
                 /** @description Specifies which fields in the response should be expanded. */
                 expand?: string[];
-                /** @description List of invoice items to add or update in the upcoming invoice preview. */
+                /** @description List of invoice items to add or update in the upcoming invoice preview (up to 250). */
                 invoice_items?: {
                     amount?: number;
                     currency?: string;
@@ -39170,7 +40025,7 @@ export interface operations {
                     tax_exempt?: "" | "exempt" | "none" | "reverse";
                     tax_ids?: {
                         /** @enum {string} */
-                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
                         value: string;
                     }[];
                 };
@@ -39184,7 +40039,7 @@ export interface operations {
                 ending_before?: string;
                 /** @description Specifies which fields in the response should be expanded. */
                 expand?: string[];
-                /** @description List of invoice items to add or update in the upcoming invoice preview. */
+                /** @description List of invoice items to add or update in the upcoming invoice preview (up to 250). */
                 invoice_items?: {
                     amount?: number;
                     currency?: string;
@@ -39660,9 +40515,9 @@ export interface operations {
                                 installments?: {
                                     enabled?: boolean;
                                     plan?: {
-                                        count: number;
+                                        count?: number;
                                         /** @enum {string} */
-                                        interval: "month";
+                                        interval?: "month";
                                         /** @enum {string} */
                                         type: "fixed_count";
                                     } | "";
@@ -39711,6 +40566,8 @@ export interface operations {
                             /** @enum {string} */
                             page_size?: "a4" | "auto" | "letter";
                         };
+                        template?: string;
+                        template_version?: number | "";
                     };
                     /** @description Settings for the cost of shipping for this invoice. */
                     shipping_cost?: {
@@ -42951,7 +43808,7 @@ export interface operations {
                      *
                      *     Payment methods attached to other Customers cannot be used with this PaymentIntent.
                      *
-                     *     If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead. */
+                     *     If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead. */
                     customer?: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -43192,6 +44049,8 @@ export interface operations {
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
                         } | "";
                         bacs_debit?: {
+                            /** payment_method_options_mandate_options_param */
+                            mandate_options?: Record<string, never>;
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
                         } | "";
@@ -43219,9 +44078,9 @@ export interface operations {
                             installments?: {
                                 enabled?: boolean;
                                 plan?: {
-                                    count: number;
+                                    count?: number;
                                     /** @enum {string} */
-                                    interval: "month";
+                                    interval?: "month";
                                     /** @enum {string} */
                                     type: "fixed_count";
                                 } | "";
@@ -43243,7 +44102,7 @@ export interface operations {
                                 supported_types?: "india"[];
                             };
                             /** @enum {string} */
-                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
                             request_extended_authorization?: "if_available" | "never";
                             /** @enum {string} */
@@ -43485,11 +44344,11 @@ export interface operations {
                     /**
                      * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
                      *
-                     *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+                     *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
                      *
-                     *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+                     *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
                      *
-                     *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+                     *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
                      * @enum {string}
                      */
                     setup_future_usage?: "off_session" | "on_session";
@@ -43512,9 +44371,11 @@ export interface operations {
                         phone?: string;
                         tracking_number?: string;
                     };
-                    /** @description For card charges, use [statement_descriptor_suffix](https://stripe.com/docs/payments/account/statement-descriptors#dynamic). Otherwise, you can use this value as the complete description of a charge on your customers' statements. It must contain at least one letter and be 1–22 characters long. */
+                    /** @description Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+                     *
+                     *     Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead. */
                     statement_descriptor?: string;
-                    /** @description Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. The concatenated descriptor must contain 1-22 characters. */
+                    /** @description Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. */
                     statement_descriptor_suffix?: string;
                     /**
                      * transfer_data_creation_params
@@ -43674,7 +44535,7 @@ export interface operations {
                      *
                      *     Payment methods attached to other Customers cannot be used with this PaymentIntent.
                      *
-                     *     If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead. */
+                     *     If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead. */
                     customer?: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -43888,6 +44749,8 @@ export interface operations {
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
                         } | "";
                         bacs_debit?: {
+                            /** payment_method_options_mandate_options_param */
+                            mandate_options?: Record<string, never>;
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
                         } | "";
@@ -43915,9 +44778,9 @@ export interface operations {
                             installments?: {
                                 enabled?: boolean;
                                 plan?: {
-                                    count: number;
+                                    count?: number;
                                     /** @enum {string} */
-                                    interval: "month";
+                                    interval?: "month";
                                     /** @enum {string} */
                                     type: "fixed_count";
                                 } | "";
@@ -43939,7 +44802,7 @@ export interface operations {
                                 supported_types?: "india"[];
                             };
                             /** @enum {string} */
-                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
                             request_extended_authorization?: "if_available" | "never";
                             /** @enum {string} */
@@ -44172,13 +45035,13 @@ export interface operations {
                     /**
                      * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
                      *
-                     *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+                     *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
                      *
-                     *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+                     *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
                      *
-                     *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+                     *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
                      *
-                     *     If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+                     *     If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
                      * @enum {string}
                      */
                     setup_future_usage?: "" | "off_session" | "on_session";
@@ -44198,9 +45061,11 @@ export interface operations {
                         phone?: string;
                         tracking_number?: string;
                     } | "";
-                    /** @description For card charges, use [statement_descriptor_suffix](https://stripe.com/docs/payments/account/statement-descriptors#dynamic). Otherwise, you can use this value as the complete description of a charge on your customers' statements. It must contain at least one letter and be 1–22 characters long. */
+                    /** @description Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+                     *
+                     *     Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead. */
                     statement_descriptor?: string;
-                    /** @description Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor. */
+                    /** @description Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. */
                     statement_descriptor_suffix?: string;
                     /**
                      * transfer_data_update_params
@@ -44350,9 +45215,11 @@ export interface operations {
                     metadata?: {
                         [key: string]: string;
                     } | "";
-                    /** @description For card charges, use [statement_descriptor_suffix](https://stripe.com/docs/payments/account/statement-descriptors#dynamic). Otherwise, you can use this value as the complete description of a charge on your customers' statements. It must contain at least one letter and be 1–22 characters long. */
+                    /** @description Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+                     *
+                     *     Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead. */
                     statement_descriptor?: string;
-                    /** @description Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. The concatenated descriptor must be 1-22 characters long. */
+                    /** @description Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. */
                     statement_descriptor_suffix?: string;
                     /**
                      * transfer_data_update_params
@@ -44646,6 +45513,8 @@ export interface operations {
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
                         } | "";
                         bacs_debit?: {
+                            /** payment_method_options_mandate_options_param */
+                            mandate_options?: Record<string, never>;
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
                         } | "";
@@ -44673,9 +45542,9 @@ export interface operations {
                             installments?: {
                                 enabled?: boolean;
                                 plan?: {
-                                    count: number;
+                                    count?: number;
                                     /** @enum {string} */
-                                    interval: "month";
+                                    interval?: "month";
                                     /** @enum {string} */
                                     type: "fixed_count";
                                 } | "";
@@ -44697,7 +45566,7 @@ export interface operations {
                                 supported_types?: "india"[];
                             };
                             /** @enum {string} */
-                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
                             request_extended_authorization?: "if_available" | "never";
                             /** @enum {string} */
@@ -44941,13 +45810,13 @@ export interface operations {
                     /**
                      * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
                      *
-                     *     Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+                     *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
                      *
-                     *     If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.corp.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+                     *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
                      *
-                     *     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+                     *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
                      *
-                     *     If `setup_future_usage` is already set and you are performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+                     *     If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
                      * @enum {string}
                      */
                     setup_future_usage?: "" | "off_session" | "on_session";
@@ -45017,7 +45886,7 @@ export interface operations {
                     metadata?: {
                         [key: string]: string;
                     };
-                    /** @description For card charges, use [statement_descriptor_suffix](https://stripe.com/docs/payments/account/statement-descriptors#dynamic). Otherwise, you can use this value as the complete description of a charge on your customers' statements. It must contain at least one letter and be 1–22 characters long. */
+                    /** @description Text that appears on the customer's statement as the statement descriptor for a non-card or card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors). */
                     statement_descriptor?: string;
                     /**
                      * transfer_data_update_params
@@ -45418,6 +46287,8 @@ export interface operations {
                      */
                     tax_id_collection?: {
                         enabled: boolean;
+                        /** @enum {string} */
+                        required?: "if_supported" | "never";
                     };
                     /**
                      * transfer_data_params
@@ -45707,6 +46578,8 @@ export interface operations {
                      */
                     tax_id_collection?: {
                         enabled: boolean;
+                        /** @enum {string} */
+                        required?: "if_supported" | "never";
                     };
                 };
             };
@@ -49562,7 +50435,7 @@ export interface operations {
                     default_tax_rates?: string[] | "";
                     /** @description A description that will be displayed on the quote PDF. If no value is passed, the default description configured in your [quote template settings](https://dashboard.stripe.com/settings/billing/quote) will be used. */
                     description?: string | "";
-                    /** @description The discounts applied to the quote. You can only set up to one discount. */
+                    /** @description The discounts applied to the quote. */
                     discounts?: {
                         coupon?: string;
                         discount?: string;
@@ -49755,7 +50628,7 @@ export interface operations {
                     default_tax_rates?: string[] | "";
                     /** @description A description that will be displayed on the quote PDF. */
                     description?: string | "";
-                    /** @description The discounts applied to the quote. You can only set up to one discount. */
+                    /** @description The discounts applied to the quote. */
                     discounts?: {
                         coupon?: string;
                         discount?: string;
@@ -51638,6 +52511,11 @@ export interface operations {
                         };
                         /** setup_intent_payment_method_options_param */
                         amazon_pay?: Record<string, never>;
+                        /** setup_intent_payment_method_options_param */
+                        bacs_debit?: {
+                            /** payment_method_options_mandate_options_param */
+                            mandate_options?: Record<string, never>;
+                        };
                         /** setup_intent_param */
                         card?: {
                             /** setup_intent_mandate_options_param */
@@ -51658,7 +52536,7 @@ export interface operations {
                                 supported_types?: "india"[];
                             };
                             /** @enum {string} */
-                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
                             request_three_d_secure?: "any" | "automatic" | "challenge";
                             /** setup_intent_payment_method_options_param */
@@ -52015,6 +52893,11 @@ export interface operations {
                         };
                         /** setup_intent_payment_method_options_param */
                         amazon_pay?: Record<string, never>;
+                        /** setup_intent_payment_method_options_param */
+                        bacs_debit?: {
+                            /** payment_method_options_mandate_options_param */
+                            mandate_options?: Record<string, never>;
+                        };
                         /** setup_intent_param */
                         card?: {
                             /** setup_intent_mandate_options_param */
@@ -52035,7 +52918,7 @@ export interface operations {
                                 supported_types?: "india"[];
                             };
                             /** @enum {string} */
-                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
                             request_three_d_secure?: "any" | "automatic" | "challenge";
                             /** setup_intent_payment_method_options_param */
@@ -52391,6 +53274,11 @@ export interface operations {
                         };
                         /** setup_intent_payment_method_options_param */
                         amazon_pay?: Record<string, never>;
+                        /** setup_intent_payment_method_options_param */
+                        bacs_debit?: {
+                            /** payment_method_options_mandate_options_param */
+                            mandate_options?: Record<string, never>;
+                        };
                         /** setup_intent_param */
                         card?: {
                             /** setup_intent_mandate_options_param */
@@ -52411,7 +53299,7 @@ export interface operations {
                                 supported_types?: "india"[];
                             };
                             /** @enum {string} */
-                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
                             request_three_d_secure?: "any" | "automatic" | "challenge";
                             /** setup_intent_payment_method_options_param */
@@ -54462,12 +55350,14 @@ export interface operations {
                     lt?: number;
                     lte?: number;
                 } | number;
+                /** @description Only return subscriptions whose current_period_end falls within the given date interval. */
                 current_period_end?: {
                     gt?: number;
                     gte?: number;
                     lt?: number;
                     lte?: number;
                 } | number;
+                /** @description Only return subscriptions whose current_period_start falls within the given date interval. */
                 current_period_start?: {
                     gt?: number;
                     gte?: number;
@@ -54738,7 +55628,7 @@ export interface operations {
                                     description?: string;
                                 };
                                 /** @enum {string} */
-                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
                                 /** @enum {string} */
                                 request_three_d_secure?: "any" | "automatic" | "challenge";
                             } | "";
@@ -54779,7 +55669,7 @@ export interface operations {
                         interval: "day" | "month" | "week" | "year";
                         interval_count?: number;
                     } | "";
-                    /** @description The ID of a promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead. */
+                    /** @description The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead. */
                     promotion_code?: string;
                     /**
                      * @description Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) resulting from the `billing_cycle_anchor`. If no value is passed, the default is `create_prorations`.
@@ -55127,7 +56017,7 @@ export interface operations {
                                     description?: string;
                                 };
                                 /** @enum {string} */
-                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
                                 /** @enum {string} */
                                 request_three_d_secure?: "any" | "automatic" | "challenge";
                             } | "";
@@ -55168,7 +56058,7 @@ export interface operations {
                         interval: "day" | "month" | "week" | "year";
                         interval_count?: number;
                     } | "";
-                    /** @description The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. */
+                    /** @description The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead. */
                     promotion_code?: string;
                     /**
                      * @description Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
@@ -55396,7 +56286,7 @@ export interface operations {
                         ip_address?: string;
                         tax_ids?: {
                             /** @enum {string} */
-                            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
                             value: string;
                         }[];
                         /** @enum {string} */
@@ -55443,6 +56333,44 @@ export interface operations {
                     /** @description Timestamp of date at which the tax rules and rates in effect applies for the calculation. Measured in seconds since the Unix epoch. Can be up to 48 hours in the past, and up to 48 hours in the future. */
                     tax_date?: number;
                 };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["tax.calculation"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    GetTaxCalculationsCalculation: {
+        parameters: {
+            query?: {
+                /** @description Specifies which fields in the response should be expanded. */
+                expand?: string[];
+            };
+            header?: never;
+            path: {
+                calculation: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": Record<string, never>;
             };
         };
         responses: {
@@ -56011,6 +56939,14 @@ export interface operations {
                                 jurisdiction: string;
                             };
                             state: string;
+                            /** state_sales_tax */
+                            state_sales_tax?: {
+                                elections: {
+                                    jurisdiction?: string;
+                                    /** @enum {string} */
+                                    type: "local_use_tax" | "simplified_sellers_use_tax" | "single_local_use_tax";
+                                }[];
+                            };
                             /** @enum {string} */
                             type: "local_amusement_tax" | "local_lease_tax" | "state_communications_tax" | "state_sales_tax";
                         };
@@ -56620,10 +57556,10 @@ export interface operations {
                         type: "account" | "application" | "customer" | "self";
                     };
                     /**
-                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
+                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
                      * @enum {string}
                      */
-                    type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                    type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
                     /** @description Value of the tax ID. */
                     value: string;
                 };
@@ -57494,7 +58430,7 @@ export interface operations {
                     };
                     /** @description The ID of a configuration that will be used to customize all readers in this location. */
                     configuration_overrides?: string;
-                    /** @description A name for the location. */
+                    /** @description A name for the location. Maximum length is 1000 characters. */
                     display_name: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -57985,7 +58921,7 @@ export interface operations {
             content: {
                 "application/x-www-form-urlencoded": {
                     /** @description Customer Consent Collected */
-                    customer_consent_collected: boolean;
+                    customer_consent_collected?: boolean;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     /**
@@ -59170,6 +60106,58 @@ export interface operations {
             };
         };
     };
+    PostTestHelpersIssuingSettlements: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /** @description The Bank Identification Number reflecting this settlement record. */
+                    bin: string;
+                    /** @description The date that the transactions are cleared and posted to user's accounts. */
+                    clearing_date: number;
+                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    currency: string;
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                    /** @description The total interchange received as reimbursement for the transactions. */
+                    interchange_fees?: number;
+                    /** @description The total net amount required to settle with the network. */
+                    net_total: number;
+                    /** @description The Settlement Identification Number assigned by the network. */
+                    network_settlement_identifier?: string;
+                    /** @description The total number of transactions reflected in this settlement. */
+                    transaction_count?: number;
+                    /** @description The total transaction amount reflected in this settlement. */
+                    transaction_volume?: number;
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["issuing.settlement"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
     PostTestHelpersIssuingTransactionsCreateForceCapture: {
         parameters: {
             query?: never;
@@ -59950,6 +60938,7 @@ export interface operations {
                         type: "ach" | "us_domestic_wire";
                         /** us_domestic_wire_tracking_details_params */
                         us_domestic_wire?: {
+                            chips?: string;
                             imad?: string;
                             omad?: string;
                         };
@@ -60127,6 +61116,7 @@ export interface operations {
                         type: "ach" | "us_domestic_wire";
                         /** us_domestic_wire_tracking_details_params */
                         us_domestic_wire?: {
+                            chips?: string;
                             imad?: string;
                             omad?: string;
                         };
@@ -61121,7 +62111,7 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description A positive integer in cents (or local equivalent) representing how much to transfer. */
                     amount?: number;
-                    /** @description 3-letter [ISO code for currency](https://stripe.com/docs/payouts). */
+                    /** @description Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies). */
                     currency: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;

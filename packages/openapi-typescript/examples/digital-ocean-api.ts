@@ -364,54 +364,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/v2/apps/tiers": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * List App Tiers
-         * @deprecated
-         * @description List all app tiers.
-         *     This endpoint has been deprecated because app tiers are not tied to instance sizes anymore.
-         *     The concept of tiers will be retired in the future.
-         *
-         */
-        get: operations["apps_list_tiers"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v2/apps/tiers/{slug}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Retrieve an App Tier
-         * @deprecated
-         * @description Retrieve information about a specific app tier.
-         *     This endpoint has been deprecated because app tiers are not tied to instance sizes anymore.
-         *     The concept of tiers will be retired in the future.
-         *
-         */
-        get: operations["apps_get_tier"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/v2/apps/tiers/instance_sizes": {
         parameters: {
             query?: never;
@@ -1245,6 +1197,27 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/databases/{database_cluster_uuid}/install_update": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Start Database Maintenance
+         * @description To start the installation of updates for a database cluster, send a PUT request to `/v2/databases/$DATABASE_ID/install_update`.
+         *     A successful request will receive a 204 No Content status code with no body in response.
+         */
+        put: operations["databases_install_update"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v2/databases/{database_cluster_uuid}/backups": {
         parameters: {
             query?: never;
@@ -1892,6 +1865,55 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/databases/{database_cluster_uuid}/indexes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Indexes for a OpenSearch Cluster
+         * @description To list all of a OpenSearch cluster's indexes, send a GET request to
+         *     `/v2/databases/$DATABASE_ID/indexes`.
+         *
+         *     The result will be a JSON object with a `indexes` key.
+         *
+         */
+        get: operations["databases_list_opeasearch_indexes"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/databases/{database_cluster_uuid}/indexes/{index_name}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete Index for OpenSearch Cluster
+         * @description To delete a single index within OpenSearch cluster, send a DELETE request
+         *     to `/v2/databases/$DATABASE_ID/indexes/$INDEX_NAME`.
+         *
+         *     A status of 204 will be given. This indicates that the request was
+         *     processed successfully, but that no response body is needed.
+         *
+         */
+        delete: operations["databases_delete_opensearch_index"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v2/domains": {
         parameters: {
             query?: never;
@@ -2156,6 +2178,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/droplets/{droplet_id}/backups/policy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve the Backup Policy for an Existing Droplet
+         * @description To show information about an individual Droplet's backup policy, send a GET
+         *     request to `/v2/droplets/$DROPLET_ID/backups/policy`.
+         *
+         */
+        get: operations["droplets_get_backup_policy"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/droplets/backups/policies": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Backup Policies for All Existing Droplets
+         * @description To list information about the backup policies for all Droplets in the account,
+         *     send a GET request to `/v2/droplets/backups/policies`.
+         *
+         */
+        get: operations["droplets_list_backup_policies"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/droplets/backups/supported_policies": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Supported Droplet Backup Policies
+         * @description To retrieve a list of all supported Droplet backup policies, send a GET
+         *     request to `/v2/droplets/backups/supported_policies`.
+         *
+         */
+        get: operations["droplets_list_supported_backup_policies"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v2/droplets/{droplet_id}/snapshots": {
         parameters: {
             query?: never;
@@ -2211,6 +2299,7 @@ export interface paths {
          *     | ---------------------------------------- | ----------- |
          *     | <nobr>`enable_backups`</nobr>            | Enables backups for a Droplet |
          *     | <nobr>`disable_backups`</nobr>           | Disables backups for a Droplet |
+         *     | <nobr>`change_backup_policy`</nobr>      | Update the backup policy for a Droplet |
          *     | <nobr>`reboot`</nobr>                    | Reboots a Droplet. A `reboot` action is an attempt to reboot the Droplet in a graceful way, similar to using the `reboot` command from the console. |
          *     | <nobr>`power_cycle`</nobr>               | Power cycles a Droplet. A `powercycle` action is similar to pushing the reset button on a physical machine, it's similar to booting from scratch. |
          *     | <nobr>`shutdown`</nobr>                  | Shutsdown a Droplet. A shutdown action is an attempt to shutdown the Droplet in a graceful way, similar to using the `shutdown` command from the console. Since a `shutdown` command can fail, this action guarantees that the command is issued, not that it succeeds. The preferred way to turn off a Droplet is to attempt a shutdown, with a reasonable timeout, followed by a `power_off` action to ensure the Droplet is off. |
@@ -4043,6 +4132,546 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/monitoring/metrics/load_balancer/frontend_connections_current": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Frontend Total Current Active Connections Metrics
+         * @description To retrieve frontend total current active connections for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/frontend_connections_current`.
+         */
+        get: operations["monitoring_get_lb_frontend_connections_current"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/frontend_connections_limit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Frontend Max Connections Limit Metrics
+         * @description To retrieve frontend max connections limit for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/frontend_connections_limit`.
+         */
+        get: operations["monitoring_get_lb_frontend_connections_limit"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/frontend_cpu_utilization": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Frontend Average Percentage CPU Utilization Metrics
+         * @description To retrieve frontend average percentage CPU utilization for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/frontend_cpu_utilization`.
+         */
+        get: operations["monitoring_get_lb_frontend_cpu_utilization"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/frontend_firewall_dropped_bytes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Frontend Firewall Dropped Bytes Metrics
+         * @description To retrieve firewall dropped bytes for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/frontend_firewall_dropped_bytes`. This is currently only supported for network load balancers.
+         */
+        get: operations["monitoring_get_lb_frontend_firewall_dropped_bytes"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/frontend_firewall_dropped_packets": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Frontend Firewall Dropped Packets Metrics
+         * @description To retrieve firewall dropped packets per second for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/frontend_firewall_dropped_packets`. This is currently only supported for network load balancers.
+         */
+        get: operations["monitoring_get_lb_frontend_firewall_dropped_packets"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/frontend_http_responses": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Frontend HTTP Rate Of Response Code Metrics
+         * @description To retrieve frontend HTTP rate of response code for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/frontend_http_responses`.
+         */
+        get: operations["monitoring_get_lb_frontend_http_responses"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/frontend_http_requests_per_second": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Frontend HTTP Requests Metrics
+         * @description To retrieve frontend HTTP requests per second for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/frontend_http_requests_per_second`.
+         */
+        get: operations["monitoring_get_lb_frontend_http_requests_per_second"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/frontend_network_throughput_http": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Frontend HTTP Throughput Metrics
+         * @description To retrieve frontend HTTP throughput in bytes per second for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/frontend_network_throughput_http`.
+         */
+        get: operations["monitoring_get_lb_frontend_network_throughput_http"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/frontend_network_throughput_udp": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Frontend UDP Throughput Metrics
+         * @description To retrieve frontend UDP throughput in bytes per second for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/frontend_network_throughput_udp`.
+         */
+        get: operations["monitoring_get_lb_frontend_network_throughput_udp"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/frontend_network_throughput_tcp": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Frontend TCP Throughput Metrics
+         * @description To retrieve frontend TCP throughput in bytes per second for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/frontend_network_throughput_tcp`.
+         */
+        get: operations["monitoring_get_lb_frontend_network_throughput_tcp"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/frontend_nlb_tcp_network_throughput": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Network Load Balancer Frontend TCP Throughput Metrics
+         * @description To retrieve frontend TCP throughput in bytes per second for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/frontend_nlb_tcp_network_throughput`.
+         */
+        get: operations["monitoring_get_lb_frontend_nlb_tcp_network_throughput"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/frontend_nlb_udp_network_throughput": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Network Load Balancer Frontend UDP Throughput Metrics
+         * @description To retrieve frontend UDP throughput in bytes per second for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/frontend_nlb_udp_network_throughput`.
+         */
+        get: operations["monitoring_get_lb_frontend_nlb_udp_network_throughput"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/frontend_tls_connections_current": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Frontend Current TLS Connections Rate Metrics
+         * @description To retrieve frontend current TLS connections rate for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/frontend_tls_connections_current`.
+         */
+        get: operations["monitoring_get_lb_frontend_tls_connections_current"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/frontend_tls_connections_limit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Frontend Max TLS Connections Limit Metrics
+         * @description To retrieve frontend max TLS connections limit for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/frontend_tls_connections_limit`.
+         */
+        get: operations["monitoring_get_lb_frontend_tls_connections_limit"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/frontend_tls_connections_exceeding_rate_limit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Frontend Closed TLS Connections For Exceeded Rate Limit Metrics
+         * @description To retrieve frontend closed TLS connections for exceeded rate limit for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/frontend_tls_connections_exceeding_rate_limit`.
+         */
+        get: operations["monitoring_get_lb_frontend_tls_connections_exceeding_rate_limit"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/droplets_http_session_duration_avg": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Droplets Average HTTP Session Duration Metrics
+         * @description To retrieve Droplets average HTTP session duration in seconds for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/droplets_http_session_duration_avg`.
+         */
+        get: operations["monitoring_get_lb_droplets_http_session_duration_avg"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/droplets_http_session_duration_50p": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Droplets 50th Percentile HTTP Session Duration Metrics
+         * @description To retrieve Droplets 50th percentile HTTP session duration in seconds for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/droplets_http_session_duration_50p`.
+         */
+        get: operations["monitoring_get_lb_droplets_http_session_duration_50p"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/droplets_http_session_duration_95p": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Droplets 95th Percentile HTTP Session Duration Metrics
+         * @description To retrieve Droplets 95th percentile HTTP session duration in seconds for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/droplets_http_session_duration_95p`.
+         */
+        get: operations["monitoring_get_lb_droplets_http_session_duration_95p"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/droplets_http_response_time_avg": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Droplets Average HTTP Response Time Metrics
+         * @description To retrieve Droplets average HTTP response time in seconds for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/droplets_http_response_time_avg`.
+         */
+        get: operations["monitoring_get_lb_droplets_http_response_time_avg"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/droplets_http_response_time_50p": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Droplets 50th Percentile HTTP Response Time Metrics
+         * @description To retrieve Droplets 50th percentile HTTP response time in seconds for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/droplets_http_response_time_50p`.
+         */
+        get: operations["monitoring_get_lb_droplets_http_response_time_50p"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/droplets_http_response_time_95p": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Droplets 95th Percentile HTTP Response Time Metrics
+         * @description To retrieve Droplets 95th percentile HTTP response time in seconds for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/droplets_http_response_time_95p`.
+         */
+        get: operations["monitoring_get_lb_droplets_http_response_time_95p"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/droplets_http_response_time_99p": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Droplets 99th Percentile HTTP Response Time Metrics
+         * @description To retrieve Droplets 99th percentile HTTP response time in seconds for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/droplets_http_response_time_99p`.
+         */
+        get: operations["monitoring_get_lb_droplets_http_response_time_99p"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/droplets_queue_size": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Droplets Queue Size Metrics
+         * @description To retrieve Droplets queue size for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/droplets_queue_size`.
+         */
+        get: operations["monitoring_get_lb_droplets_queue_size"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/droplets_http_responses": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Droplets HTTP Rate Of Response Code Metrics
+         * @description To retrieve Droplets HTTP rate of response code for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/droplets_http_responses`.
+         */
+        get: operations["monitoring_get_lb_droplets_http_responses"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/droplets_connections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Droplets Active Connections Metrics
+         * @description To retrieve Droplets active connections for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/droplets_connections`.
+         */
+        get: operations["monitoring_get_lb_droplets_connections"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/droplets_health_checks": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Droplets Health Check Status Metrics
+         * @description To retrieve Droplets health check status for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/droplets_health_checks`.
+         */
+        get: operations["monitoring_get_lb_droplets_health_checks"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/load_balancer/droplets_downtime": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Load Balancer Droplets Downtime Status Metrics
+         * @description To retrieve Droplets downtime status for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/droplets_downtime`.
+         */
+        get: operations["monitoring_get_lb_droplets_downtime"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v2/projects": {
         parameters: {
             query?: never;
@@ -4970,7 +5599,7 @@ export interface paths {
          *     | droplet_id  | Set to the Droplet's ID                                             |
          *     | region      | Set to the slug representing the region where the volume is located |
          *
-         *     Each volume may only be attached to a single Droplet. However, up to five
+         *     Each volume may only be attached to a single Droplet. However, up to fifteen
          *     volumes may be attached to a Droplet at a time. Pre-formatted volumes will be
          *     automatically mounted to Ubuntu, Debian, Fedora, Fedora Atomic, and CentOS
          *     Droplets created on or after April 26, 2018 when attached. On older Droplets,
@@ -5083,7 +5712,7 @@ export interface paths {
          *     | droplet_id | Set to the Droplet's ID                                             |
          *     | region     | Set to the slug representing the region where the volume is located |
          *
-         *     Each volume may only be attached to a single Droplet. However, up to seven
+         *     Each volume may only be attached to a single Droplet. However, up to fifteen
          *     volumes may be attached to a Droplet at a time. Pre-formatted volumes will be
          *     automatically mounted to Ubuntu, Debian, Fedora, Fedora Atomic, and CentOS
          *     Droplets created on or after April 26, 2018 when attached. On older Droplets,
@@ -6094,7 +6723,8 @@ export interface components {
              * @example node-js
              */
             environment_slug?: string;
-            log_destinations?: components["schemas"]["app_log_destination_definition"];
+            /** @description A list of configured log forwarding destinations. */
+            log_destinations?: components["schemas"]["app_log_destination_definition"][];
         };
         app_component_instance_base: {
             /**
@@ -6424,7 +7054,8 @@ export interface components {
             git?: components["schemas"]["apps_git_source_spec"];
             github?: components["schemas"]["apps_github_source_spec"];
             gitlab?: components["schemas"]["apps_gitlab_source_spec"];
-            log_destinations?: components["schemas"]["app_log_destination_definition"];
+            /** @description A list of configured log forwarding destinations. */
+            log_destinations?: components["schemas"]["app_log_destination_definition"][];
         };
         app_database_spec: {
             /**
@@ -6856,6 +7487,12 @@ export interface components {
         };
         apps_update_app_request: {
             spec: components["schemas"]["app_spec"];
+            /**
+             * @description Whether or not to update the source versions (for example fetching a new commit or image digest) of all components. By default (when this is false) only newly added sources will be updated to avoid changes like updating the scale of a component from also updating the respective code.
+             * @default false
+             * @example true
+             */
+            update_all_source_versions: boolean;
         };
         apps_delete_app_response: {
             /**
@@ -6886,42 +7523,6 @@ export interface components {
         };
         apps_deployment_response: {
             deployment?: components["schemas"]["apps_deployment"];
-        };
-        apps_tier: {
-            /**
-             * The amount of included build time in seconds
-             * Format: int64
-             * @example 233
-             */
-            build_seconds?: string;
-            /**
-             * The amount of included outbound bandwidth in bytes
-             * Format: int64
-             * @example 123
-             */
-            egress_bandwidth_bytes?: string;
-            /**
-             * A human-readable name of the tier
-             * @example test
-             */
-            name?: string;
-            /**
-             * The slug of the tier
-             * @example test
-             */
-            slug?: string;
-            /**
-             * The allotted disk space in bytes
-             * Format: int64
-             * @example 10000000
-             */
-            storage_bytes?: string;
-        };
-        apps_list_tiers_response: {
-            tiers?: components["schemas"]["apps_tier"][];
-        };
-        apps_get_tier_response: {
-            tier?: components["schemas"]["apps_tier"];
         };
         /**
          * - SHARED: Shared vCPU cores
@@ -7889,7 +8490,7 @@ export interface components {
         opensearch_connection: {
             /**
              * @description This is provided as a convenience and should be able to be constructed by the other attributes.
-             * @example opensearch://doadmin:wv78n3zpz42xezdk@backend-do-user-19081923-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require
+             * @example https://doadmin:wv78n3zpz42xezdk@backend-do-user-19081923-0.db.ondigitalocean.com:25060
              */
             readonly uri?: string;
             /**
@@ -7976,6 +8577,20 @@ export interface components {
              * @example true
              */
             pg_allow_replication?: boolean;
+            /** @description ACLs (Access Control Lists) specifying permissions on index within a OpenSearch cluster. */
+            opensearch_acl?: {
+                /**
+                 * @description A regex for matching the indexes that this ACL should apply to.
+                 * @example index-abc.*
+                 */
+                index?: string;
+                /**
+                 * @description Permission set applied to the ACL. 'read' allows user to read from the index. 'write' allows for user to write to the index. 'readwrite' allows for both 'read' and 'write' permission. 'deny'(default) restricts user from performing any operation over an index. 'admin' allows for 'readwrite' as well as any operations to administer the index.
+                 * @example read
+                 * @enum {string}
+                 */
+                permission?: "deny" | "admin" | "read" | "readwrite" | "write";
+            }[];
             /** @description ACLs (Access Control Lists) specifying permissions on topics within a Kafka cluster. */
             acl?: {
                 /**
@@ -9961,6 +10576,48 @@ export interface components {
         database_metrics_credentials: {
             credentials?: components["schemas"]["databases_basic_auth_credentials"];
         };
+        opensearch_index_base: {
+            /**
+             * @description The name of the opensearch index.
+             * @example events
+             */
+            index_name?: string;
+            /**
+             * @description The number of shards for the index.
+             * @example 2
+             */
+            number_of_shards?: number;
+            /**
+             * @description The number of replicas for the index.
+             * @example 3
+             */
+            number_of_replicas?: number;
+            /**
+             * @description The size of the index.
+             * @example 208
+             */
+            size?: number;
+            /**
+             * Format: date-time
+             * @description The date and time the index was created.
+             * @example 2021-01-01T00:00:00Z
+             */
+            created_time?: string;
+        };
+        opensearch_index: components["schemas"]["opensearch_index_base"] & {
+            /**
+             * @description The status of the OpenSearch index.
+             * @example open
+             * @enum {string}
+             */
+            status?: "unknown" | "open" | "close" | "none";
+            /**
+             * @description The health of the OpenSearch index.
+             * @example green
+             * @enum {string}
+             */
+            health?: "unknown" | "green" | "yellow" | "red" | "red*";
+        };
         domain: {
             /**
              * @description The name of the domain itself. This should follow the standard domain format of domain.TLD. For instance, `example.com` is a valid domain name.
@@ -10077,6 +10734,20 @@ export interface components {
              * @example 2016.07.13-DigitalOcean_loader_Ubuntu
              */
             version?: string;
+        } | null;
+        droplet_next_backup_window: {
+            /**
+             * Format: date-time
+             * @description A time value given in ISO8601 combined date and time format specifying the start of the Droplet's backup window.
+             * @example 2019-12-04T00:00:00Z
+             */
+            start?: string;
+            /**
+             * Format: date-time
+             * @description A time value given in ISO8601 combined date and time format specifying the end of the Droplet's backup window.
+             * @example 2019-12-04T23:00:00Z
+             */
+            end?: string;
         } | null;
         /**
          * @description The display name that has been given to an image.  This is what is shown in the control panel and is generally a descriptive title for the image in question.
@@ -10361,21 +11032,7 @@ export interface components {
              *     ]
              */
             backup_ids: number[];
-            /** @description The details of the Droplet's backups feature, if backups are configured for the Droplet. This object contains keys for the start and end times of the window during which the backup will start. */
-            next_backup_window: {
-                /**
-                 * Format: date-time
-                 * @description A time value given in ISO8601 combined date and time format specifying the start of the Droplet's backup window.
-                 * @example 2019-12-04T00:00:00Z
-                 */
-                start?: string;
-                /**
-                 * Format: date-time
-                 * @description A time value given in ISO8601 combined date and time format specifying the end of the Droplet's backup window.
-                 * @example 2019-12-04T23:00:00Z
-                 */
-                end?: string;
-            } | null;
+            next_backup_window: components["schemas"]["droplet_next_backup_window"] & unknown;
             /**
              * @description An array of snapshot IDs of any snapshots created from the Droplet instance.
              * @example [
@@ -10417,6 +11074,36 @@ export interface components {
              */
             vpc_uuid?: string;
         };
+        droplet_backup_policy: {
+            /**
+             * @description The backup plan used for the Droplet. The plan can be either `daily` or `weekly`.
+             * @example daily
+             * @enum {string}
+             */
+            plan?: "daily" | "weekly";
+            /**
+             * @description The day of the week on which the backup will occur.
+             * @example SUN
+             * @enum {string}
+             */
+            weekday?: "SUN" | "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT";
+            /**
+             * @description The hour of the day that the backup window will start.
+             * @example 0
+             * @enum {integer}
+             */
+            hour?: 0 | 4 | 8 | 12 | 16 | 20;
+            /**
+             * @description The length of the backup window starting from `hour`.
+             * @example 4
+             */
+            readonly window_length_hours?: number;
+            /**
+             * @description The number of days the backup will be retained.
+             * @example 7
+             */
+            readonly retention_period_days?: number;
+        };
         droplet_create: {
             /**
              * @description The slug identifier for the region that you wish to deploy the Droplet in. If the specific datacenter is not not important, a slug prefix (e.g. `nyc`) can be used to deploy the Droplet in any of the that region's locations (`nyc1`, `nyc2`, or `nyc3`). If the region is omitted from the create request completely, the Droplet may deploy in any region.
@@ -10448,6 +11135,7 @@ export interface components {
              * @example true
              */
             backups: boolean;
+            backup_policy?: components["schemas"]["droplet_backup_policy"] & unknown;
             /**
              * @description A boolean indicating whether to enable IPv6 on the Droplet.
              * @default false
@@ -10587,6 +11275,64 @@ export interface components {
              */
             type: "snapshot" | "backup";
         };
+        droplet_backup_policy_record: {
+            /**
+             * @description The unique identifier for the Droplet.
+             * @example 7101383
+             */
+            droplet_id?: number;
+            /**
+             * @description A boolean value indicating whether backups are enabled for the Droplet.
+             * @example true
+             */
+            backup_enabled?: boolean;
+            backup_policy?: components["schemas"]["droplet_backup_policy"] & unknown;
+            next_backup_window?: components["schemas"]["droplet_next_backup_window"] & unknown;
+        };
+        supported_droplet_backup_policy: {
+            /**
+             * @description The name of the Droplet backup plan.
+             * @example daily
+             */
+            name?: string;
+            /**
+             * @description An array of integers representing the hours of the day that a backup can
+             *     start.
+             *
+             * @example [
+             *       0,
+             *       4,
+             *       8,
+             *       12,
+             *       16,
+             *       20
+             *     ]
+             */
+            possible_window_starts?: number[];
+            /**
+             * @description The number of hours that a backup window is open.
+             * @example 4
+             */
+            window_length_hours?: number;
+            /**
+             * @description The number of days that a backup will be kept.
+             * @example 7
+             */
+            retention_period_days?: number;
+            /**
+             * @description The day of the week the backup will occur.
+             * @example [
+             *       "SUN",
+             *       "MON",
+             *       "TUE",
+             *       "WED",
+             *       "THU",
+             *       "FRI",
+             *       "SAT"
+             *     ]
+             */
+            possible_days?: string[];
+        };
         /** @description Specifies the action that will be taken on the Droplet. */
         droplet_action: {
             /**
@@ -10594,6 +11340,27 @@ export interface components {
              * @enum {string}
              */
             type: "enable_backups" | "disable_backups" | "power_cycle" | "shutdown" | "power_off" | "power_on" | "enable_ipv6";
+        };
+        /** @example {
+         *       "type": "enable_backups",
+         *       "backup_policy": {
+         *         "plan": "daily",
+         *         "hour": 20
+         *       }
+         *     } */
+        droplet_action_enable_backups: components["schemas"]["droplet_action"] & {
+            backup_policy?: components["schemas"]["droplet_backup_policy"] & unknown;
+        };
+        /** @example {
+         *       "type": "enable_backups",
+         *       "backup_policy": {
+         *         "plan": "weekly",
+         *         "day": "SUN",
+         *         "hour": 20
+         *       }
+         *     } */
+        droplet_action_change_backup_policy: components["schemas"]["droplet_action"] & {
+            backup_policy: components["schemas"]["droplet_backup_policy"] & unknown;
         };
         droplet_action_restore: components["schemas"]["droplet_action"] & {
             /**
@@ -12070,7 +12837,7 @@ export interface components {
         };
         metrics_result: {
             /**
-             * @description An object containing the metric labels.
+             * @description An object containing the metric's labels. These labels are key/value pairs that vary depending on the metric being queried. For example, load balancer metrics contain a `lb_id` label, while Droplet metrics contain a `host_id` label, and App Platform metrics contain a `app_component` label.
              * @example {
              *       "host_id": "19201920"
              *     }
@@ -12078,7 +12845,9 @@ export interface components {
             metric: {
                 [key: string]: string;
             };
-            /** @example [
+            /**
+             * @description An array of values for the metric.
+             * @example [
              *       [
              *         1435781430,
              *         "1"
@@ -12087,7 +12856,8 @@ export interface components {
              *         1435781445,
              *         "1"
              *       ]
-             *     ] */
+             *     ]
+             */
             values: (number | string)[][];
         };
         metrics_data: {
@@ -13409,30 +14179,6 @@ export interface components {
                 "application/json": components["schemas"]["apps_deployment_response"];
             };
         };
-        /** @description A JSON object with a `tiers` key. This will be a list of all app tiers */
-        all_tiers: {
-            headers: {
-                "ratelimit-limit": components["headers"]["ratelimit-limit"];
-                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
-                "ratelimit-reset": components["headers"]["ratelimit-reset"];
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": components["schemas"]["apps_list_tiers_response"];
-            };
-        };
-        /** @description A JSON with the key `tier` */
-        get_tier: {
-            headers: {
-                "ratelimit-limit": components["headers"]["ratelimit-limit"];
-                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
-                "ratelimit-reset": components["headers"]["ratelimit-reset"];
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": components["schemas"]["apps_get_tier_response"];
-            };
-        };
         /** @description A JSON with key `instance_sizes` */
         list_instance: {
             headers: {
@@ -14031,7 +14777,9 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                "application/json": components["schemas"]["logsink_verbose"];
+                "application/json": {
+                    sink?: components["schemas"]["logsink_verbose"];
+                };
             };
         };
         /** @description A JSON object with a key of `credentials`. */
@@ -14045,6 +14793,20 @@ export interface components {
             content: {
                 "application/json": {
                     credentials?: components["schemas"]["database_metrics_credentials"];
+                };
+            };
+        };
+        /** @description A JSON object with a key of `indexes`. */
+        opensearch_indexes: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    indexes?: components["schemas"]["opensearch_index"][];
                 };
             };
         };
@@ -14208,6 +14970,55 @@ export interface components {
                 "application/json": {
                     backups?: components["schemas"]["droplet_snapshot"][];
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
+            };
+        };
+        /** @description The response will be a JSON object with a key called `policy`. This will be
+         *     set to a JSON object that contains the standard Droplet backup policy attributes.
+         *      */
+        droplet_backup_policy: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    policy?: components["schemas"]["droplet_backup_policy_record"];
+                };
+            };
+        };
+        /** @description A JSON object with a `policies` key set to a map. The keys are Droplet IDs and the values are objects containing the backup policy information for each Droplet. */
+        all_droplet_backup_policies: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    /** @description A map where the keys are the Droplet IDs and the values are
+                     *     objects containing the backup policy information for each Droplet.
+                     *      */
+                    policies?: {
+                        [key: string]: components["schemas"]["droplet_backup_policy_record"];
+                    };
+                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
+            };
+        };
+        /** @description A JSON object with an `supported_policies` key set to an array of objects describing each supported backup policy. */
+        droplets_supported_backup_policies: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    supported_policies?: components["schemas"]["supported_droplet_backup_policy"][];
+                };
             };
         };
         /** @description A JSON object with an `snapshots` key. */
@@ -15870,11 +16681,6 @@ export interface components {
          */
         deployment_id: string;
         /**
-         * @description The slug of the tier
-         * @example basic
-         */
-        slug_tier: string;
-        /**
          * @description The slug of the instance size
          * @example apps-s-1vcpu-0.5gb
          */
@@ -15949,6 +16755,11 @@ export interface components {
          * @example 50484ec3-19d6-4cd3-b56f-3b0381c289a6
          */
         logsink_id: string;
+        /**
+         * @description The name of the OpenSearch index.
+         * @example logs-*
+         */
+        opensearch_index_name: string;
         /**
          * @description The name of the domain itself.
          * @example example.com
@@ -16114,6 +16925,11 @@ export interface components {
          * @example sample-application
          */
         app_component: string;
+        /**
+         * @description A unique identifier for a load balancer.
+         * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+         */
+        parameters_load_balancer_id: string;
         /**
          * @description A unique identifier for a project.
          * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
@@ -16965,45 +17781,6 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: components["responses"]["list_logs"];
-            401: components["responses"]["unauthorized"];
-            404: components["responses"]["not_found"];
-            429: components["responses"]["too_many_requests"];
-            500: components["responses"]["server_error"];
-            default: components["responses"]["unexpected_error"];
-        };
-    };
-    apps_list_tiers: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: components["responses"]["all_tiers"];
-            401: components["responses"]["unauthorized"];
-            429: components["responses"]["too_many_requests"];
-            500: components["responses"]["server_error"];
-            default: components["responses"]["unexpected_error"];
-        };
-    };
-    apps_get_tier: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /**
-                 * @description The slug of the tier
-                 * @example basic
-                 */
-                slug: components["parameters"]["slug_tier"];
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: components["responses"]["get_tier"];
             401: components["responses"]["unauthorized"];
             404: components["responses"]["not_found"];
             429: components["responses"]["too_many_requests"];
@@ -18170,6 +18947,29 @@ export interface operations {
             default: components["responses"]["unexpected_error"];
         };
     };
+    databases_install_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
     databases_list_backups: {
         parameters: {
             query?: never;
@@ -19285,6 +20085,57 @@ export interface operations {
             default: components["responses"]["unexpected_error"];
         };
     };
+    databases_list_opeasearch_indexes: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["opensearch_indexes"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    databases_delete_opensearch_index: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a database cluster.
+                 * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+                 */
+                database_cluster_uuid: components["parameters"]["database_cluster_uuid"];
+                /**
+                 * @description The name of the OpenSearch index.
+                 * @example logs-*
+                 */
+                index_name: components["parameters"]["opensearch_index_name"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
     domains_list: {
         parameters: {
             query?: {
@@ -19751,6 +20602,74 @@ export interface operations {
             default: components["responses"]["unexpected_error"];
         };
     };
+    droplets_get_backup_policy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a Droplet instance.
+                 * @example 3164444
+                 */
+                droplet_id: components["parameters"]["droplet_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["droplet_backup_policy"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    droplets_list_backup_policies: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Number of items returned per page
+                 * @example 2
+                 */
+                per_page?: components["parameters"]["per_page"];
+                /**
+                 * @description Which 'page' of paginated results to return.
+                 * @example 1
+                 */
+                page?: components["parameters"]["page"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["all_droplet_backup_policies"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    droplets_list_supported_backup_policies: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["droplets_supported_backup_policies"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
     droplets_list_snapshots: {
         parameters: {
             query?: {
@@ -19838,7 +20757,7 @@ export interface operations {
          *      */
         requestBody?: {
             content: {
-                "application/json": components["schemas"]["droplet_action"] | components["schemas"]["droplet_action_restore"] | components["schemas"]["droplet_action_resize"] | components["schemas"]["droplet_action_rebuild"] | components["schemas"]["droplet_action_rename"] | components["schemas"]["droplet_action_change_kernel"] | components["schemas"]["droplet_action_snapshot"];
+                "application/json": components["schemas"]["droplet_action"] | components["schemas"]["droplet_action_enable_backups"] | components["schemas"]["droplet_action_change_backup_policy"] | components["schemas"]["droplet_action_restore"] | components["schemas"]["droplet_action_resize"] | components["schemas"]["droplet_action_rebuild"] | components["schemas"]["droplet_action_rename"] | components["schemas"]["droplet_action_change_kernel"] | components["schemas"]["droplet_action_snapshot"];
             };
         };
         responses: {
@@ -22780,6 +23699,870 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: components["responses"]["app_metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_frontend_connections_current: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_frontend_connections_limit: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_frontend_cpu_utilization: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_frontend_firewall_dropped_bytes: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_frontend_firewall_dropped_packets: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_frontend_http_responses: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_frontend_http_requests_per_second: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_frontend_network_throughput_http: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_frontend_network_throughput_udp: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_frontend_network_throughput_tcp: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_frontend_nlb_tcp_network_throughput: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_frontend_nlb_udp_network_throughput: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_frontend_tls_connections_current: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_frontend_tls_connections_limit: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_frontend_tls_connections_exceeding_rate_limit: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_droplets_http_session_duration_avg: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_droplets_http_session_duration_50p: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_droplets_http_session_duration_95p: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_droplets_http_response_time_avg: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_droplets_http_response_time_50p: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_droplets_http_response_time_95p: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_droplets_http_response_time_99p: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_droplets_queue_size: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_droplets_http_responses: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_droplets_connections: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_droplets_health_checks: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_lb_droplets_downtime: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
             401: components["responses"]["unauthorized"];
             429: components["responses"]["too_many_requests"];
             500: components["responses"]["server_error"];

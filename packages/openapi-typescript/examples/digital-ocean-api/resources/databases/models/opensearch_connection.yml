@@ -5,7 +5,7 @@ properties:
     type: string
     description: >-
      This is provided as a convenience and should be able to be constructed by the other attributes.
-    example: opensearch://doadmin:wv78n3zpz42xezdk@backend-do-user-19081923-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require
+    example: https://doadmin:wv78n3zpz42xezdk@backend-do-user-19081923-0.db.ondigitalocean.com:25060
     readOnly: true
   host:
     type: string
