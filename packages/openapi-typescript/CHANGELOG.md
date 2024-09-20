@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.4.1
+
+### Patch Changes
+
+- [#1917](https://github.com/openapi-ts/openapi-typescript/pull/1917) [`4a59124`](https://github.com/openapi-ts/openapi-typescript/commit/4a591248175f918369a9713dea0856b12dca16c3) Thanks [@drwpow](https://github.com/drwpow)! - Bump Redocly Core
+
 ## 7.4.0
 
 ### Minor Changes

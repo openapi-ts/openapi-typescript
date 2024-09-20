@@ -1,5 +1,14 @@
 # openapi-react-query
 
+## 0.1.5
+
+### Patch Changes
+
+- [#1864](https://github.com/openapi-ts/openapi-typescript/pull/1864) [`899b157`](https://github.com/openapi-ts/openapi-typescript/commit/899b1575968334bc55aa402ea1419bc5db801391) Thanks [@zsugabubus](https://github.com/zsugabubus)! - Pass down signal to fetch function this way `useQuery` and `useSuspenseQuery` can cancel queries.
+
+- Updated dependencies []:
+  - openapi-fetch@0.12.0
+
 ## 0.1.4
 
 ### Patch Changes
