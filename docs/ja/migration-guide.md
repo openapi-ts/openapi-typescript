@@ -53,4 +53,4 @@ await openapiTS(input);
 
 ---
 
-[完全な変更履歴はこちら](https://github.com/openapi-ts/openapi-typescript/blob/6.x/packages/openapi-typescript/CHANGELOG.md)
+[完全な変更履歴はこちら](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/CHANGELOG.md)
