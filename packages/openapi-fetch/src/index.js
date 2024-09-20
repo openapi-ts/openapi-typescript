@@ -1,20 +1,6 @@
 // settings & const
 const PATH_PARAM_RE = /\{[^{}]+\}/g;
 
-/** Add custom parameters to Request object */
-class CustomRequest extends Request {
-  constructor(input, init) {
-    super(input, init);
-
-    // add custom parameters
-    for (const key in init) {
-      if (!(key in this)) {
-        this[key] = init[key];
-      }
-    }
-  }
-}
-
 /**
  * Returns a cheap, non-cryptographically-secure random ID
  * Courtesy of @imranbarbhuiya (https://github.com/imranbarbhuiya)
@@ -30,6 +16,7 @@ export function randomID() {
 export default function createClient(clientOptions) {
   let {
     baseUrl = "",
+    Request: CustomRequest = globalThis.Request,
     fetch: baseFetch = globalThis.fetch,
     querySerializer: globalQuerySerializer,
     bodySerializer: globalBodySerializer,
@@ -48,6 +35,7 @@ export default function createClient(clientOptions) {
     const {
       baseUrl: localBaseUrl,
       fetch = baseFetch,
+      Request = CustomRequest,
       headers,
       params = {},
       parseAs = "json",
@@ -98,6 +86,13 @@ export default function createClient(clientOptions) {
     let options;
     let request = new CustomRequest(createFinalURL(schemaPath, { baseUrl, params, querySerializer }), requestInit);
 
+    /** Add custom parameters to Request object */
+    for (const key in init) {
+      if (!(key in request)) {
+        request[key] = init[key];
+      }
+    }
+
     if (middlewares.length) {
       id = randomID();
 
@@ -119,7 +114,7 @@ export default function createClient(clientOptions) {
             id,
           });
           if (result) {
-            if (!(result instanceof Request)) {
+            if (!(result instanceof CustomRequest)) {
               throw new Error("onRequest: must return new Request() when modifying the request");
             }
             request = result;
