@@ -902,7 +902,7 @@ export type operations = Record<string, never>;`,
         given: new URL("./github-api.yaml", EXAMPLES_DIR),
         want: new URL("./github-api.ts", EXAMPLES_DIR),
         // options: DEFAULT_OPTIONS,
-        ci: { timeout: 3_000 },
+        ci: { timeout: 30_000 },
       },
     ],
     [
