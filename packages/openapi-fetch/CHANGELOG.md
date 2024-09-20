@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.12.2
+
+### Patch Changes
+
+- [#1918](https://github.com/openapi-ts/openapi-typescript/pull/1918) [`e39d11e`](https://github.com/openapi-ts/openapi-typescript/commit/e39d11e5ac4e7f5fc2ce81e8a6d7792f91a6551a) Thanks [@yicrotkd](https://github.com/yicrotkd)! - Improve `Middleware` type definition to require either onRequest or onResponse
+
 ## 0.12.1
 
 ### Patch Changes
