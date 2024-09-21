@@ -142,6 +142,82 @@ try {
 
 </details>
 
+<details>
+<summary><a href="https://www.npmjs.com/package/@web-bee-ru/openapi-axios" target="_blank" rel="noreferrer">openapi-axios</a> by <a href="https://github.com/web-bee-ru" target="_blank" rel="noreferrer">@web-bee-ru</a></summary>
+
+::: code-group
+
+```ts [test/my-project.ts]
+import { OpenApiAxios } from "@web-bee-ru/openapi-axios";
+import type { paths } from "./my-openapi-3-schema"; // openapi-typescriptで生成された型
+import Axios from "axios";
+
+const axios = Axios.create({
+  baseURL: "https://myapi.dev/v1",
+  adapter: "fetch", // 強く推奨 (axios@1.7.0 から利用可能)
+});
+
+// 例1. "axios"（デフォルト）のステータス処理方法での使用 (validStatus: 'axios')
+
+// axiosのようにエラーを投げる（例：status >= 400、ネットワークエラー、インターセプターエラー）
+const api = new OpenApiAxios<paths, "axios">(axios, { validStatus: "axios" });
+
+// const api =  new OpenApiAxios<paths>(axios) // 同じ結果になる
+
+try {
+  const { status, data, response } = await api.get("/users");
+} catch (err) {
+  if (api.isAxiosError(err)) {
+    if (typeof err.status === "number") {
+      // status >= 400
+    }
+    // リクエスト失敗（例：ネットワークエラー）
+  }
+  throw err; // axios.interceptors のエラー
+}
+
+// 例2. "fetch" ステータス処理方法での使用 (validStatus: 'fetch')
+
+// ブラウザのfetch()のようにエラーを投げる（例：ネットワークエラー、インターセプターエラー）
+const fetchApi = new OpenApiAxios<paths, "fetch">(axios, {
+  validStatus: "fetch",
+});
+
+try {
+  const { status, data, error, response } = await api.get("/users");
+
+  if (error) {
+    // status >= 400
+  }
+} catch (err) {
+  if (api.isAxiosError(err)) {
+    // リクエスト失敗（例：ネットワークエラー）
+  }
+  throw err; // axios.interceptors のエラー
+}
+
+// 例3. "safe" ステータス処理方法での使用 (validStatus: 'all')
+// （try/catch は不要）
+
+// エラーは投げない
+const safeApi = new OpenApiAxios<paths, "all">(axios, { validStatus: "all" });
+
+const { status, data, error, response } = await api.get("/users");
+
+if (error) {
+  if (typeof status === "number") {
+    // status >= 400
+  } else if (api.isAxiosError(error)) {
+    // リクエスト失敗（例：ネットワークエラー
+  }
+  throw error; // axios.interceptors のエラー
+}
+```
+
+:::
+
+</details>
+
 ::: tip
 
 良い fetch ラッパーは**ジェネリクスの使用は避ける**べきです。ジェネリクスは多くのタイプ指定が必要で、エラーを隠してしまう可能性があります！
