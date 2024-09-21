@@ -119,6 +119,7 @@ CLI は以下のフラグをサポートしています：
 | `--export-type`                    | `-t`       |  `false`   | `interface` の代わりに `type` をエクスポートします                                                       |
 | `--immutable`                      |            |  `false`   | 不変の型（readonlyプロパティおよびreadonly配列）を生成します                                             |
 | `--path-params-as-types`           |            |  `false`   | `paths` オブジェクトで動的な文字列の参照を許可します                                                     |
+| `--root-types`                     |            |  `false`   | `components` から型をルートレベルの型エイリアスとしてエクスポートする                                        |
 
 ### pathParamsAsTypes
 
