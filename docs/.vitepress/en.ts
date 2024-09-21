@@ -76,6 +76,7 @@ export default defineConfig({
             { text: "useQuery", link: "/openapi-react-query/use-query" },
             { text: "useMutation", link: "/openapi-react-query/use-mutation" },
             { text: "useSuspenseQuery", link: "/openapi-react-query/use-suspense-query" },
+            { text: "queryOptions", link: "/openapi-react-query/query-options" },
             { text: "About", link: "/openapi-react-query/about" },
           ],
         },
