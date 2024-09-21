@@ -159,7 +159,7 @@ const axios = Axios.create({
 
 // 例1. "axios"（デフォルト）のステータス処理方法での使用 (validStatus: 'axios')
 
-// axiosのようにエラーを投げる（例：status >= 400、ネットワークエラー、インターセプターエラー）
+// axiosのようにエラーをスローする（例：status >= 400、ネットワークエラー、インターセプターエラー）
 const api = new OpenApiAxios<paths, "axios">(axios, { validStatus: "axios" });
 
 // const api =  new OpenApiAxios<paths>(axios) // 同じ結果になる
@@ -178,7 +178,7 @@ try {
 
 // 例2. "fetch" ステータス処理方法での使用 (validStatus: 'fetch')
 
-// ブラウザのfetch()のようにエラーを投げる（例：ネットワークエラー、インターセプターエラー）
+// ブラウザのfetch()のようにエラーをスローする（例：ネットワークエラー、インターセプターエラー）
 const fetchApi = new OpenApiAxios<paths, "fetch">(axios, {
   validStatus: "fetch",
 });
@@ -208,7 +208,7 @@ if (error) {
   if (typeof status === "number") {
     // status >= 400
   } else if (api.isAxiosError(error)) {
-    // リクエスト失敗（例：ネットワークエラー
+    // リクエスト失敗（例：ネットワークエラー)
   }
   throw error; // axios.interceptors のエラー
 }
