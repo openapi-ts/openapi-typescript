@@ -180,6 +180,15 @@ const { data, error } = await client.PUT("/submit", {
 });
 ```
 
+::: tip
+
+便宜上、 `openapi-fetch` は `body` パラメーターに値が指定されたリクエストに対して、`Content-Type` を自動的に `application/json` に設定します。
+`bodySerializer` が `FormData` のインスタンスを返す場合、`Content-Type` ヘッダーは省略され、ブラウザがメッセージの複数のパートを正しく区切るboundaryを含む `Content-Type` を自動的に設定します。
+
+また、fetch オプションやクライアントのインスタンス化時に、`headers` オブジェクトを通じて `Content-Type` を手動で設定することもできます。
+
+:::
+
 ## Pathのシリアライズ
 
 openapi-fetchは、[3.1仕様書に記載されている](https://swagger.io/docs/specification/serialization/#path)ように、pathのシリアライズをサポートしています。これは、OpenAPIスキーマ内の特定のフォーマットに基づいて自動的に行われます。
