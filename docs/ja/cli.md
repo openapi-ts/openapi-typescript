@@ -175,7 +175,7 @@ _ありがとう, [@Powell-v2](https://github.com/Powell-v2)!_
 ```yaml [my-openapi-3-schema.yaml]
 components:
   schemas:
-    TupleType
+    TupleType:
       type: array
       items:
         type: string
