@@ -5,7 +5,19 @@ import sponsors from "../../data/sponsors.json";
 <template>
   <ul class="sponsors-list">
     <li
-      v-for="sponsor in [...sponsors.gold, ...sponsors.silver]"
+      v-for="sponsor in sponsors.gold"
+      class="sponsor sponsor--gold"
+      :key="sponsor.name"
+    >
+      <a :href="sponsor.url" target="_blank" :title="sponsor.name">
+        <img :src="sponsor.logo" :alt="sponsor.description" />
+      </a>
+    </li>
+  </ul>
+  <ul class="sponsors-list">
+    <li
+      v-for="sponsor in sponsors.silver"
+      class="sponsor sponsor--silver"
       :key="sponsor.name"
     >
       <a :href="sponsor.url" target="_blank" :title="sponsor.name">
@@ -23,17 +35,22 @@ import sponsors from "../../data/sponsors.json";
   list-style: none;
   justify-content: center;
   gap: 1.5rem;
-  margin: 0;
+  margin: 0 auto 3rem;
   padding: 0;
+}
+
+.sponsor--gold img {
+  height: 8rem;
+  width: auto;
+}
+
+.sponsor--silver img {
+  height: 3rem;
+  width: auto;
 }
 
 .sponsors-list li {
   margin: 0;
   padding: 0;
-}
-
-.sponsors-list img {
-  height: 3rem;
-  width: auto;
 }
 </style>

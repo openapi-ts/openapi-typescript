@@ -16,7 +16,10 @@ Ultra-fast fetching for TypeScript generated automatically from your OpenAPI sch
 
 ### 🥇 Gold Sponsors
 
-<p align="center"><a href="https://zuplo.link/openapi-ts-gh"><img width="128" height="128" alt="Zuplo" src="https://avatars.githubusercontent.com/u/85497839?s=200&v=4"></a></p>
+<p align="center">
+  <a href="https://zuplo.link/openapi-ts-gh"><img width="120" height="120" alt="Zuplo" src="https://avatars.githubusercontent.com/u/85497839?s=200&v=4"></a>
+  <a href="https://www.speakeasy.com/product/sdk-generation?utm_source=pow_openapi_ts" target="_blank"><img width="276" height="120" src="./docs/public/assets/speakeasy.svg" /></a>
+</p>
 
 ### 🥈 Silver Sponsors
 
@@ -24,8 +27,12 @@ Ultra-fast fetching for TypeScript generated automatically from your OpenAPI sch
 
 ### Backers
 
-<p align="center"><a href="https://github.com/customerio"><img width="64" height="64" alt="@customerio on GitHub" src="https://avatars.githubusercontent.com/u/1152079?s=200&v=4"></a>
-<a href="https://github.com/shaunpersad"><img width="64" height="64" alt="@shaunpersad on GitHub" src="https://avatars.githubusercontent.com/u/1702976?s=52&v=4"></a><a href="https://github.com/yoshi2no"><img width="64" height="64" alt="@yoshi2no on GitHub" src="https://avatars.githubusercontent.com/u/57059705?v=4"></a></p>
+<p align="center">
+  <a href="https://github.com/customerio"><img width="64" height="64" alt="@customerio on GitHub" src="https://avatars.githubusercontent.com/u/1152079?s=200&v=4"></a>
+  <a href="https://github.com/shaunpersad"><img width="64" height="64" alt="@shaunpersad on GitHub" src="https://avatars.githubusercontent.com/u/1702976?s=52&v=4"></a>
+  <a href="https://github.com/yoshi2no"><img width="64" height="64" alt="@yoshi2no on GitHub" src="https://avatars.githubusercontent.com/u/57059705?v=4"></a>
+  <a href="https://github.com/siketyan"><img width="64" height="64" alt="@siketyan on GitHub" src="https://avatars.githubusercontent.com/u/12772118?v=4"></a>
+</p>
 
 Become a sponsor by supporting this project on [OpenCollective](https://opencollective.com/openapi-ts)!
 
