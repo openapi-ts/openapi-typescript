@@ -4,7 +4,7 @@ import type { paths } from "./fixtures/api.js";
 import createClient from "../src/index.js";
 import createFetchClient from "openapi-fetch";
 import { fireEvent, render, renderHook, screen, waitFor, act } from "@testing-library/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider, useQueries } from "@tanstack/react-query";
 import { Suspense, type ReactNode } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -19,6 +19,11 @@ const queryClient = new QueryClient({
 const wrapper = ({ children }: { children: ReactNode }) => (
   <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 );
+
+const fetchInfinite = async () => {
+  await new Promise(() => {});
+  return Response.error();
+};
 
 beforeAll(() => {
   server.listen({
@@ -39,13 +44,117 @@ describe("client", () => {
   it("generates all proper functions", () => {
     const fetchClient = createFetchClient<paths>({ baseUrl });
     const client = createClient<paths>(fetchClient);
+    expect(client).toHaveProperty("queryOptions");
     expect(client).toHaveProperty("useQuery");
     expect(client).toHaveProperty("useSuspenseQuery");
     expect(client).toHaveProperty("useMutation");
   });
 
+  describe("queryOptions", () => {
+    it("has correct parameter types", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      client.queryOptions("get", "/string-array");
+      // @ts-expect-error: Wrong method.
+      client.queryOptions("put", "/string-array");
+      // @ts-expect-error: Wrong path.
+      client.queryOptions("get", "/string-arrayX");
+      // @ts-expect-error: Missing 'post_id' param.
+      client.queryOptions("get", "/blogposts/{post_id}", {});
+    });
+
+    it("returns query options that can resolve data correctly with fetchQuery", async () => {
+      const response = { title: "title", body: "body" };
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/blogposts/1",
+        status: 200,
+        body: response,
+      });
+
+      const data = await queryClient.fetchQuery(
+        client.queryOptions("get", "/blogposts/{post_id}", {
+          params: {
+            path: {
+              post_id: "1",
+            },
+          },
+        }),
+      );
+
+      expectTypeOf(data).toEqualTypeOf<{
+        title: string;
+        body: string;
+        publish_date?: number;
+      }>();
+
+      expect(data).toEqual(response);
+    });
+
+    it("returns query options that can be passed to useQueries and have correct types inferred", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl, fetch: fetchInfinite });
+      const client = createClient(fetchClient);
+
+      const { result } = renderHook(
+        () =>
+          useQueries(
+            {
+              queries: [
+                client.queryOptions("get", "/string-array"),
+                client.queryOptions("get", "/string-array", {}),
+                client.queryOptions("get", "/blogposts/{post_id}", {
+                  params: {
+                    path: {
+                      post_id: "1",
+                    },
+                  },
+                }),
+                client.queryOptions("get", "/blogposts/{post_id}", {
+                  params: {
+                    path: {
+                      post_id: "2",
+                    },
+                  },
+                }),
+              ],
+            },
+            queryClient,
+          ),
+        {
+          wrapper,
+        },
+      );
+
+      expectTypeOf(result.current[0].data).toEqualTypeOf<string[] | undefined>();
+      expectTypeOf(result.current[0].error).toEqualTypeOf<{ code: number; message: string } | null>();
+
+      expectTypeOf(result.current[1]).toEqualTypeOf<(typeof result.current)[0]>();
+
+      expectTypeOf(result.current[2].data).toEqualTypeOf<
+        | {
+            title: string;
+            body: string;
+            publish_date?: number;
+          }
+        | undefined
+      >();
+      expectTypeOf(result.current[2].error).toEqualTypeOf<{ code: number; message: string } | null>();
+
+      expectTypeOf(result.current[3]).toEqualTypeOf<(typeof result.current)[2]>();
+
+      // Generated different queryKey for each query.
+      expect(queryClient.isFetching()).toBe(4);
+    });
+  });
+
   describe("useQuery", () => {
     it("should resolve data properly and have error as null when successfull request", async () => {
+      const response = ["one", "two", "three"];
       const fetchClient = createFetchClient<paths>({ baseUrl });
       const client = createClient(fetchClient);
 
@@ -54,7 +163,7 @@ describe("client", () => {
         method: "get",
         path: "/string-array",
         status: 200,
-        body: ["one", "two", "three"],
+        body: response,
       });
 
       const { result } = renderHook(() => client.useQuery("get", "/string-array"), {
@@ -65,9 +174,7 @@ describe("client", () => {
 
       const { data, error } = result.current;
 
-      // … is initially possibly undefined
-      // @ts-expect-error
-      expect(data[0]).toBe("one");
+      expect(data).toEqual(response);
       expect(error).toBeNull();
     });
 
@@ -116,8 +223,7 @@ describe("client", () => {
         baseUrl,
         fetch: async ({ signal }) => {
           signalPassedToFetch = signal;
-          await new Promise(() => {});
-          return Response.error();
+          return await fetchInfinite();
         },
       });
       const client = createClient(fetchClient);
@@ -184,6 +290,22 @@ describe("client", () => {
       const rendered = render(<Page />);
 
       await waitFor(() => expect(rendered.getByText("data: hello")));
+    });
+
+    it("uses provided options", async () => {
+      const initialData = ["initial", "data"];
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      const { result } = renderHook(
+        () => client.useQuery("get", "/string-array", {}, { enabled: false, initialData }),
+        { wrapper },
+      );
+
+      const { data, error } = result.current;
+
+      expect(data).toBe(initialData);
+      expect(error).toBeNull();
     });
   });
 
