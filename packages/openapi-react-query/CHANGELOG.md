@@ -1,5 +1,11 @@
 # openapi-react-query
 
+## 0.2.0
+
+### Minor Changes
+
+- [#1858](https://github.com/openapi-ts/openapi-typescript/pull/1858) [`29bd162`](https://github.com/openapi-ts/openapi-typescript/commit/29bd162dccf441abbb33f07c6158410fd81a85d7) Thanks [@zsugabubus](https://github.com/zsugabubus)! - Introduce `queryOptions` that can be used as a building block to integrate with `useQueries`/`fetchQueries`/`prefetchQueries`… etc.
+
 ## 0.1.7
 
 ### Patch Changes
