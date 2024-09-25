@@ -176,7 +176,7 @@ For example, given the following schema:
 ```yaml [my-openapi-3-schema.yaml]
 components:
   schemas:
-    TupleType
+    TupleType:
       type: array
       items:
         type: string
