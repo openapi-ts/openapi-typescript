@@ -27,7 +27,10 @@
     "client",
     "fetch"
   ],
-  "funding": "https://github.com/sponsors/htunnicliff",
+  "funding": {
+    "type": "buymeacoffee",
+    "url": "https://buymeacoffee.com/htunnicliff"
+  },
   "bugs": {
     "url": "https://github.com/openapi-ts/openapi-typescript/issues"
   },
