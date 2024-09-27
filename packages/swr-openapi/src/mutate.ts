@@ -35,51 +35,53 @@ export type CompareFn = (init: any, partialInit: any) => boolean;
  * );
  * ```
  */
-export function createMutateHook<
-  Paths extends {},
-  IMediaType extends MediaType,
->(client: Client<Paths, IMediaType>, prefix: string, compare: CompareFn) {
+export function createMutateHook<Paths extends {}, IMediaType extends MediaType>(
+  client: Client<Paths, IMediaType>,
+  prefix: string,
+  compare: CompareFn,
+) {
   return function useMutate() {
     const { mutate: swrMutate } = useSWRConfig();
 
     useDebugValue(prefix);
 
-    function mutate<
-      Path extends PathsWithMethod<Paths, "get">,
-      R extends TypesForGetRequest<Paths, Path>,
-      Init extends R["Init"],
-    >(
-      [path, init]: [Path, PartialDeep<Init>?],
-      data?: R["Data"] | Promise<R["Data"]> | MutatorCallback<R["Data"]>,
-      opts?: boolean | MutatorOptions<R["Data"]>,
-    ) {
-      return swrMutate<R["Data"], R["Data"]>(
-        (key) => {
-          if (
-            // Must be array
-            !Array.isArray(key) ||
-            // Must have 2 or 3 elements (prefix, path, optional init)
-            ![2, 3].includes(key.length)
-          ) {
-            return false;
-          }
+    return useCallback(
+      function mutate<
+        Path extends PathsWithMethod<Paths, "get">,
+        R extends TypesForGetRequest<Paths, Path>,
+        Init extends R["Init"],
+      >(
+        [path, init]: [Path, PartialDeep<Init>?],
+        data?: R["Data"] | Promise<R["Data"]> | MutatorCallback<R["Data"]>,
+        opts?: boolean | MutatorOptions<R["Data"]>,
+      ) {
+        return swrMutate<R["Data"], R["Data"]>(
+          (key) => {
+            if (
+              // Must be array
+              !Array.isArray(key) ||
+              // Must have 2 or 3 elements (prefix, path, optional init)
+              ![2, 3].includes(key.length)
+            ) {
+              return false;
+            }
 
-          const [keyPrefix, keyPath, keyOptions] = key as unknown[];
+            const [keyPrefix, keyPath, keyOptions] = key as unknown[];
 
-          return (
-            // Matching prefix
-            keyPrefix === prefix &&
-            // Matching path
-            keyPath === path &&
-            // Matching options
-            (init ? compare(keyOptions, init) : true)
-          );
-        },
-        data,
-        opts,
-      );
-    }
-
-    return useCallback(mutate, [swrMutate, prefix, compare]);
+            return (
+              // Matching prefix
+              keyPrefix === prefix &&
+              // Matching path
+              keyPath === path &&
+              // Matching options
+              (init ? compare(keyOptions, init) : true)
+            );
+          },
+          data,
+          opts,
+        );
+      },
+      [swrMutate, prefix, compare],
+    );
   };
 }

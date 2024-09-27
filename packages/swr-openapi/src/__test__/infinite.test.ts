@@ -78,42 +78,28 @@ describe("createInfiniteHook", () => {
       error: new Error("Yikes"),
     });
 
-    await expect(() =>
-      fetcher!(["some-key", "any-path", { some: "init" }]),
-    ).rejects.toThrow(new Error("Yikes"));
+    await expect(() => fetcher!(["some-key", "any-path", { some: "init" }])).rejects.toThrow(new Error("Yikes"));
   });
 
   it("passes correct config to useSWRInfinite", () => {
     useInfinite("/pet/{petId}", vi.fn(), { initialSize: 5000 });
 
-    expect(useSWRInfinite).toHaveBeenLastCalledWith(
-      expect.any(Function),
-      expect.any(Function),
-      { initialSize: 5000 },
-    );
+    expect(useSWRInfinite).toHaveBeenLastCalledWith(expect.any(Function), expect.any(Function), { initialSize: 5000 });
 
     useInfinite("/pet/{petId}", vi.fn());
 
-    expect(useSWRInfinite).toHaveBeenLastCalledWith(
-      expect.any(Function),
-      expect.any(Function),
-      undefined,
-    );
+    expect(useSWRInfinite).toHaveBeenLastCalledWith(expect.any(Function), expect.any(Function), undefined);
   });
 
   it("invokes debug value hook with path", () => {
     useInfinite("/pet/findByStatus", () => null);
 
-    expect(useDebugValue).toHaveBeenLastCalledWith(
-      "<unique-key> - /pet/findByStatus",
-    );
+    expect(useDebugValue).toHaveBeenLastCalledWith("<unique-key> - /pet/findByStatus");
 
     useInfinite("/pet/findByTags", () => ({
       params: { query: { tags: ["tag1"] } },
     }));
 
-    expect(useDebugValue).toHaveBeenLastCalledWith(
-      "<unique-key> - /pet/findByTags",
-    );
+    expect(useDebugValue).toHaveBeenLastCalledWith("<unique-key> - /pet/findByTags");
   });
 });

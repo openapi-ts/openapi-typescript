@@ -1,17 +1,10 @@
 import type { FetchResponse, MaybeOptionalInit } from "openapi-fetch";
-import type {
-  HttpMethod,
-  MediaType,
-  PathsWithMethod,
-  RequiredKeysOf,
-} from "openapi-typescript-helpers";
+import type { HttpMethod, MediaType, PathsWithMethod, RequiredKeysOf } from "openapi-typescript-helpers";
 import type { SWRConfiguration, SWRResponse } from "swr";
 
 type MaybeRequired<T> = RequiredKeysOf<T> extends never ? T | undefined : T;
 
-type TryKey<T, K extends PropertyKey> = T extends { [Key in K]?: unknown }
-  ? T[K]
-  : undefined;
+type TryKey<T, K extends PropertyKey> = T extends { [Key in K]?: unknown } ? T[K] : undefined;
 
 /**
  * Provides specific types used within a given request

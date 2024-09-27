@@ -268,13 +268,10 @@ describe("types", () => {
 
     describe("useMutate -> mutate", () => {
       it("returns correct data", async () => {
-        const data = await mutate(
-          ["/pet/{petId}", { params: { path: { petId: 5 } } }],
-          {
-            name: "Fido",
-            photoUrls: ["https://example.com"],
-          },
-        );
+        const data = await mutate(["/pet/{petId}", { params: { path: { petId: 5 } } }], {
+          name: "Fido",
+          photoUrls: ["https://example.com"],
+        });
 
         expectTypeOf(data).toEqualTypeOf<Array<Pet | undefined>>();
       });
@@ -291,9 +288,7 @@ describe("types", () => {
       });
 
       it("accepts promises in data argument", async () => {
-        const data = Promise.resolve([
-          { name: "doggie", photoUrls: ["https://example.com"] },
-        ]);
+        const data = Promise.resolve([{ name: "doggie", photoUrls: ["https://example.com"] }]);
 
         const result = await mutate(["/pet/findByStatus"], data);
 
@@ -433,15 +428,9 @@ describe("TypesForRequest", () => {
   });
 
   it("returns correct SWR config", () => {
-    expectTypeOf<GetPet["SWRConfig"]>().toEqualTypeOf<
-      SWR.SWRConfiguration<Pet, PetInvalid>
-    >();
-    expectTypeOf<FindPetsByStatus["SWRConfig"]>().toEqualTypeOf<
-      SWR.SWRConfiguration<Pet[], PetStatusInvalid>
-    >();
-    expectTypeOf<FindPetsByTags["SWRConfig"]>().toEqualTypeOf<
-      SWR.SWRConfiguration<Pet[], never>
-    >();
+    expectTypeOf<GetPet["SWRConfig"]>().toEqualTypeOf<SWR.SWRConfiguration<Pet, PetInvalid>>();
+    expectTypeOf<FindPetsByStatus["SWRConfig"]>().toEqualTypeOf<SWR.SWRConfiguration<Pet[], PetStatusInvalid>>();
+    expectTypeOf<FindPetsByTags["SWRConfig"]>().toEqualTypeOf<SWR.SWRConfiguration<Pet[], never>>();
   });
 
   it("returns correct SWR response", () => {
@@ -449,11 +438,7 @@ describe("TypesForRequest", () => {
       SWR.SWRResponse<Pet, PetInvalid, SWR.SWRConfiguration<Pet, PetInvalid>>
     >();
     expectTypeOf<FindPetsByStatus["SWRResponse"]>().toEqualTypeOf<
-      SWR.SWRResponse<
-        Pet[],
-        PetStatusInvalid,
-        SWR.SWRConfiguration<Pet[], PetStatusInvalid>
-      >
+      SWR.SWRResponse<Pet[], PetStatusInvalid, SWR.SWRConfiguration<Pet[], PetStatusInvalid>>
     >();
     expectTypeOf<FindPetsByTags["SWRResponse"]>().toEqualTypeOf<
       SWR.SWRResponse<Pet[], never, SWR.SWRConfiguration<Pet[], never>>

@@ -1,9 +1,5 @@
 import type { Client } from "openapi-fetch";
-import type {
-  MediaType,
-  PathsWithMethod,
-  RequiredKeysOf,
-} from "openapi-typescript-helpers";
+import type { MediaType, PathsWithMethod, RequiredKeysOf } from "openapi-typescript-helpers";
 import type { Fetcher, SWRHook } from "swr";
 import type { TypesForGetRequest } from "./types.js";
 import { useCallback, useDebugValue, useMemo } from "react";
@@ -12,11 +8,10 @@ import { useCallback, useDebugValue, useMemo } from "react";
  * @private
  */
 export function configureBaseQueryHook(useHook: SWRHook) {
-  return function createQueryBaseHook<
-    Paths extends {},
-    IMediaType extends MediaType,
-    Prefix extends string,
-  >(client: Client<Paths, IMediaType>, prefix: Prefix) {
+  return function createQueryBaseHook<Paths extends {}, IMediaType extends MediaType, Prefix extends string>(
+    client: Client<Paths, IMediaType>,
+    prefix: Prefix,
+  ) {
     return function useQuery<
       Path extends PathsWithMethod<Paths, "get">,
       R extends TypesForGetRequest<Paths, Path>,
@@ -26,16 +21,11 @@ export function configureBaseQueryHook(useHook: SWRHook) {
       Config extends R["SWRConfig"],
     >(
       path: Path,
-      ...[init, config]: RequiredKeysOf<Init> extends never
-        ? [(Init | null)?, Config?]
-        : [Init | null, Config?]
+      ...[init, config]: RequiredKeysOf<Init> extends never ? [(Init | null)?, Config?] : [Init | null, Config?]
     ) {
       useDebugValue(`${prefix} - ${path as string}`);
 
-      const key = useMemo(
-        () => (init !== null ? ([prefix, path, init] as const) : null),
-        [prefix, path, init],
-      );
+      const key = useMemo(() => (init !== null ? ([prefix, path, init] as const) : null), [prefix, path, init]);
 
       type Key = typeof key;
 

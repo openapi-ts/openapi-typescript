@@ -38,11 +38,7 @@ describe("configureBaseQueryHook", () => {
   it("passes correct key to useSWR", () => {
     useQuery("/store/inventory", {});
 
-    expect(useSWR).toHaveBeenLastCalledWith(
-      ["<unique-key>", "/store/inventory", {}],
-      expect.any(Function),
-      undefined,
-    );
+    expect(useSWR).toHaveBeenLastCalledWith(["<unique-key>", "/store/inventory", {}], expect.any(Function), undefined);
 
     useQuery("/pet/findByTags", {
       params: {
@@ -99,32 +95,24 @@ describe("configureBaseQueryHook", () => {
       error: new Error("Yikes"),
     });
 
-    await expect(() =>
-      fetcher!(["some-key", "any-path", { some: "init" }]),
-    ).rejects.toThrow(new Error("Yikes"));
+    await expect(() => fetcher!(["some-key", "any-path", { some: "init" }])).rejects.toThrow(new Error("Yikes"));
   });
 
   it("passes correct config to useSWR", () => {
     useQuery("/pet/findByStatus", {}, { errorRetryCount: 56 });
 
-    expect(useSWR).toHaveBeenLastCalledWith(
-      ["<unique-key>", "/pet/findByStatus", {}],
-      expect.any(Function),
-      { errorRetryCount: 56 },
-    );
+    expect(useSWR).toHaveBeenLastCalledWith(["<unique-key>", "/pet/findByStatus", {}], expect.any(Function), {
+      errorRetryCount: 56,
+    });
   });
 
   it("invokes debug value hook with path", () => {
     useQuery("/pet/findByStatus");
 
-    expect(useDebugValue).toHaveBeenLastCalledWith(
-      "<unique-key> - /pet/findByStatus",
-    );
+    expect(useDebugValue).toHaveBeenLastCalledWith("<unique-key> - /pet/findByStatus");
 
     useQuery("/pet/{petId}", { params: { path: { petId: 4 } } });
 
-    expect(useDebugValue).toHaveBeenLastCalledWith(
-      "<unique-key> - /pet/{petId}",
-    );
+    expect(useDebugValue).toHaveBeenLastCalledWith("<unique-key> - /pet/{petId}");
   });
 });

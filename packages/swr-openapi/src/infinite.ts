@@ -33,11 +33,10 @@ import { useCallback, useDebugValue } from "react";
  * });
  * ```
  */
-export function createInfiniteHook<
-  Paths extends {},
-  IMediaType extends MediaType,
-  Prefix extends string,
->(client: Client<Paths, IMediaType>, prefix: Prefix) {
+export function createInfiniteHook<Paths extends {}, IMediaType extends MediaType, Prefix extends string>(
+  client: Client<Paths, IMediaType>,
+  prefix: Prefix,
+) {
   return function useInfinite<
     Path extends PathsWithMethod<Paths, "get">,
     R extends TypesForGetRequest<Paths, Path>,
@@ -45,11 +44,7 @@ export function createInfiniteHook<
     Data extends R["Data"],
     Error extends R["Error"],
     Config extends SWRInfiniteConfiguration<Data, Error>,
-  >(
-    path: Path,
-    getInit: SWRInfiniteKeyLoader<Data, Init | null>,
-    config?: Config,
-  ) {
+  >(path: Path, getInit: SWRInfiniteKeyLoader<Data, Init | null>, config?: Config) {
     type Key = [Prefix, Path, Init | undefined] | null;
     type KeyLoader = SWRInfiniteKeyLoader<Data, Key>;
 

@@ -114,14 +114,10 @@ describe("createMutateHook", () => {
       expect(keyMatcher(["<unique-key>", "/pet/findByStatus"])).toBe(true);
 
       // Same path, init ignored
-      expect(
-        keyMatcher(["<unique-key>", "/pet/findByStatus", { some: "init" }]),
-      ).toBe(true);
+      expect(keyMatcher(["<unique-key>", "/pet/findByStatus", { some: "init" }])).toBe(true);
 
       // Same path, undefined init ignored
-      expect(keyMatcher(["<unique-key>", "/pet/findByStatus", undefined])).toBe(
-        true,
-      );
+      expect(keyMatcher(["<unique-key>", "/pet/findByStatus", undefined])).toBe(true);
     });
 
     it("returns compare result when prefix and path are equal and init is given", async () => {
