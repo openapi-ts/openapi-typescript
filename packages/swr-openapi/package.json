@@ -1,0 +1,88 @@
+{
+  "name": "swr-openapi",
+  "type": "module",
+  "version": "5.0.0",
+  "description": "Generate SWR hooks from OpenAPI schemas",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/htunnicliff/swr-openapi.git"
+  },
+  "funding": "https://github.com/sponsors/htunnicliff",
+  "author": {
+    "name": "Hunter Tunnicliff"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": "./dist/index.js",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "src",
+    "!src/__test__",
+    "LICENSE",
+    "README.md"
+  ],
+  "keywords": [
+    "swr",
+    "openapi",
+    "rest",
+    "generator",
+    "client",
+    "fetch"
+  ],
+  "scripts": {
+    "prepare": "husky",
+    "prepublishOnly": "npm run build && npm run exports:check && npm run types:check && npm run format:check && npm test",
+    "build": "del ./dist && tsc --project tsconfig.build.json",
+    "test": "vitest run --typecheck",
+    "dev": "vitest --typecheck",
+    "lint": "eslint './src/**/*'",
+    "types:check": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "exports:check": "attw --pack . --ignore-rules=cjs-resolves-to-esm"
+  },
+  "dependencies": {
+    "openapi-typescript-helpers": "0.0.13",
+    "type-fest": "4.26.1"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "0.16.2",
+    "@eslint/js": "9.10.0",
+    "@types/eslint__js": "8.42.3",
+    "@types/eslint-config-prettier": "6.11.3",
+    "@types/lodash": "4.17.7",
+    "@types/react": "18.3.5",
+    "@vitest/eslint-plugin": "1.1.0",
+    "del-cli": "5.1.0",
+    "eslint": "9.10.0",
+    "eslint-config-prettier": "9.1.0",
+    "husky": "9.1.5",
+    "lint-staged": "15.2.10",
+    "lodash": "4.17.21",
+    "openapi-fetch": "0.12.0",
+    "openapi-typescript": "7.4.0",
+    "prettier": "3.3.3",
+    "react": "18.3.1",
+    "swr": "2.2.5",
+    "typescript": "5.5.4",
+    "typescript-eslint": "8.5.0",
+    "vitest": "2.0.5"
+  },
+  "peerDependencies": {
+    "openapi-fetch": "0.12",
+    "openapi-typescript": "7",
+    "react": "18 || 19",
+    "swr": "2"
+  },
+  "peerDependenciesMeta": {
+    "openapi-typescript": {
+      "optional": true
+    }
+  }
+}
