@@ -434,6 +434,9 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
 
   if (
     ("properties" in schemaObject && schemaObject.properties && Object.keys(schemaObject.properties).length) ||
+    ("patternProperties" in schemaObject &&
+      schemaObject.patternProperties &&
+      Object.keys(schemaObject.patternProperties).length) ||
     ("additionalProperties" in schemaObject && schemaObject.additionalProperties) ||
     ("$defs" in schemaObject && schemaObject.$defs)
   ) {
@@ -526,13 +529,23 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
       );
     }
 
-    // additionalProperties
-    if (schemaObject.additionalProperties || options.ctx.additionalProperties) {
+    // additionalProperties / patternProperties
+    if (schemaObject.additionalProperties || options.ctx.additionalProperties || schemaObject.patternProperties) {
+      const addlTypes = [];
+
       const hasExplicitAdditionalProperties =
         typeof schemaObject.additionalProperties === "object" && Object.keys(schemaObject.additionalProperties).length;
-      const addlType = hasExplicitAdditionalProperties
-        ? transformSchemaObject(schemaObject.additionalProperties as SchemaObject, options)
-        : UNKNOWN;
+
+      if (hasExplicitAdditionalProperties) {
+        addlTypes.push(transformSchemaObject(schemaObject.additionalProperties as SchemaObject, options));
+      }
+
+      for (const [_, v] of getEntries(schemaObject.patternProperties ?? {}, options.ctx)) {
+        addlTypes.push(transformSchemaObject(v, options));
+      }
+
+      const addlType = addlTypes ? tsUnion(addlTypes) : UNKNOWN;
+
       return tsIntersection([
         ...(coreObjectType.length ? [ts.factory.createTypeLiteralNode(coreObjectType)] : []),
         ts.factory.createTypeLiteralNode([
