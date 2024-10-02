@@ -53,7 +53,7 @@ describe("GET", () => {
       params: { path: { id: 123 } },
     });
 
-    assertType<components['schemas']['Post'] | undefined>(data);
+    assertType<components["schemas"]["Post"] | undefined>(data);
 
     // assert correct URL was called
     expect(actualPathname).toBe("/posts/123");
@@ -120,7 +120,7 @@ describe("GET", () => {
 
     const { data } = await client.GET("/posts", { params: {} });
 
-    assertType<components['schemas']['Post'][] | unknown[] | undefined>(data);
+    assertType<components["schemas"]["Post"][] | unknown[] | undefined>(data);
 
     // assert correct URL was called
     expect(actualPathname).toBe("/posts");
