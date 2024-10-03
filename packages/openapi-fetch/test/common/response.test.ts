@@ -49,8 +49,8 @@ describe("response", () => {
         {},
       );
 
-      assertType<undefined>(result.data);
-      // @ts-expect-error: FIXME when #1723 is resolved; this shouldn’t throw an error
+      //@ts-expect-error impossible to determine data type for invalid path
+      assertType<never>(result.data);
       assertType<undefined>(result.error);
     });
 
@@ -74,7 +74,7 @@ describe("response", () => {
       } else {
         expectTypeOf(result.data).toBeUndefined();
         expectTypeOf(result.error).extract<{ code: number }>().toEqualTypeOf<{ code: number; message: string }>();
-        expectTypeOf(result.error).exclude<{ code: number }>().toEqualTypeOf<never>();
+        expectTypeOf(result.error).exclude<{ code: number }>().toEqualTypeOf(undefined);
       }
     });
 
