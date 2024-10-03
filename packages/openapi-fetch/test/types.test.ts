@@ -90,6 +90,24 @@ describe("types", () => {
         // @ts-expect-error
         assertType<Response>({ error: "500 application/json" });
       });
+
+      test("non existent media type", () => {
+        type Response = GetResponseContent<MixedResponses, "I/DO NOT EXIST">;
+        // @ts-expect-error
+        assertType<Response>({ data: "200 application/json" });
+        // @ts-expect-error
+        assertType<Response>({ data: "200 but different string" });
+        // @ts-expect-error
+        assertType<Response>("200 text/plain");
+        // @ts-expect-error
+        assertType<Response>("206 text/plain");
+        // @ts-expect-error
+        assertType<Response>("404 text/plain");
+        // @ts-expect-error
+        assertType<Response>({ error: "500 application/json" });
+        // @ts-expect-error 204 never does not become undefined
+        assertType<Response>(undefined);
+      });
     });
 
     test("picks undefined over never", () => {
