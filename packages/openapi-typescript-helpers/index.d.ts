@@ -117,24 +117,42 @@ export type OperationRequestBodyContent<T> = FilterKeys<OperationRequestBodyMedi
   : FilterKeys<OperationRequestBodyMediaContent<T>, MediaType>;
 
 /** Return all 2XX responses from a Response Object Map */
-export type SuccessResponse<T extends Record<string|number, any>, Media extends MediaType = MediaType> = GetResponseContent<T, Media, OkStatus>;
+export type SuccessResponse<
+  T extends Record<string | number, any>,
+  Media extends MediaType = MediaType,
+> = GetResponseContent<T, Media, OkStatus>;
 
-type GetResponseContent<T extends Record<string|number, any>, Media extends MediaType = MediaType, ResponseCode extends keyof T = keyof T> = {
-  [K in ResponseCode]: T[K]['content'] extends Record<string, any>
-      ? FilterKeys<T[K]['content'], Media> extends never ? T[K]['content'] : FilterKeys<T[K]['content'], Media>
-      : K extends keyof T ? T[K]['content'] : never
+type GetResponseContent<
+  T extends Record<string | number, any>,
+  Media extends MediaType = MediaType,
+  ResponseCode extends keyof T = keyof T,
+> = {
+  [K in ResponseCode]: T[K]["content"] extends Record<string, any>
+    ? FilterKeys<T[K]["content"], Media> extends never
+      ? T[K]["content"]
+      : FilterKeys<T[K]["content"], Media>
+    : K extends keyof T
+      ? T[K]["content"]
+      : never;
 }[ResponseCode];
 
 /**
  * Return all 5XX and 4XX responses (in that order) from a Response Object Map
  */
-export type ErrorResponse<T extends Record<string|number, any>, Media extends MediaType = MediaType> = GetResponseContent<T, Media, ErrorStatus>;
+export type ErrorResponse<
+  T extends Record<string | number, any>,
+  Media extends MediaType = MediaType,
+> = GetResponseContent<T, Media, ErrorStatus>;
 
 /** Return first JSON-like 2XX response from a path + HTTP method */
-export type SuccessResponseJSON<PathMethod extends Record<string|number, any>> = SuccessResponse<ResponseObjectMap<PathMethod>>;
+export type SuccessResponseJSON<PathMethod extends Record<string | number, any>> = SuccessResponse<
+  ResponseObjectMap<PathMethod>
+>;
 
 /** Return first JSON-like 5XX or 4XX response from a path + HTTP method */
-export type ErrorResponseJSON<PathMethod extends Record<string|number, any>> = ErrorResponse<ResponseObjectMap<PathMethod>>;
+export type ErrorResponseJSON<PathMethod extends Record<string | number, any>> = ErrorResponse<
+  ResponseObjectMap<PathMethod>
+>;
 
 /** Return JSON-like request body from a path + HTTP method */
 export type RequestBodyJSON<PathMethod> = FilterKeys<OperationRequestBody<PathMethod>, "content">;
