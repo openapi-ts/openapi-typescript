@@ -65,7 +65,7 @@ In previous versions globbing was supported, but that has been **deprecated** in
 
 ## Redocly config
 
-A `redocly.yaml` file isn’t required to use openapi-typescript. By default it extends the `"minimal"` built-in config. But it is recommended if you want to have custom validation rules (or build types for [multiple schemas](#multiple-schemas)). The CLI will try to automatically find a `redocly.yaml` in the root of your project, but you can also provide its location with the `--redoc` flag:
+A `redocly.yaml` file isn’t required to use openapi-typescript. By default it extends the `"minimal"` built-in config. But it is recommended if you want to have custom validation rules (or build types for [multiple schemas](#multiple-schemas)). The CLI will try to automatically find a `redocly.yaml` in the root of your project, but you can also provide its location with the `--redocly` flag:
 
 ```bash
 npx openapi-typescript --redocly ./path/to/redocly.yaml
