@@ -65,7 +65,7 @@ npx openapi-typescript
 
 ## Redoc 配置
 
-使用 openapi-typescript 不需要 `redocly.yaml` 文件。默认情况下，它扩展了内置配置中的 `"minimal"`。但如果您想要自定义验证规则（或构建[多个模式](#multiple-schemas)的类型），建议使用它。CLI 将尝试在项目根目录自动找到 `redocly.yaml`，但您也可以使用 `--redoc` 标志提供其位置：
+使用 openapi-typescript 不需要 `redocly.yaml` 文件。默认情况下，它扩展了内置配置中的 `"minimal"`。但如果您想要自定义验证规则（或构建[多个模式](#multiple-schemas)的类型），建议使用它。CLI 将尝试在项目根目录自动找到 `redocly.yaml`，但您也可以使用 `--redocly` 标志提供其位置：
 
 ```bash
 npx openapi-typescript --redocly ./path/to/redocly.yaml
