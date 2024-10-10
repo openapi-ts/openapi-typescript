@@ -44,6 +44,7 @@ describe("transformOperationObject", () => {
     path?: never;
     cookie?: never;
 };
+security?: never;
 requestBody?: never;
 responses: {
     /** @description OK */
@@ -105,6 +106,7 @@ responses: {
     path?: never;
     cookie?: never;
 };
+security?: never;
 requestBody?: never;
 responses: {
     /** @description OK */
@@ -144,6 +146,7 @@ responses: {
     };
     cookie?: never;
 };
+security?: never;
 requestBody?: never;
 responses: {
     /** @description OK */
@@ -159,7 +162,7 @@ responses: {
       },
     ],
     [
-      "defaultNonNullable > parameters aren’t required even with defaults",
+      "defaultNonNullable > parameters aren't required even with defaults",
       {
         given: {
           parameters: [
@@ -199,6 +202,7 @@ responses: {
     path?: never;
     cookie?: never;
 };
+security?: never;
 requestBody?: never;
 responses: {
     /** @description OK */
@@ -266,6 +270,7 @@ responses: {
     };
     cookie?: never;
 };
+security?: never;
 requestBody?: never;
 responses: {
     /** @description OK */

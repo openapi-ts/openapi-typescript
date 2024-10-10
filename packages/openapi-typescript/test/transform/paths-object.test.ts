@@ -76,6 +76,7 @@ describe("transformPathsObject", () => {
                 };
                 cookie?: never;
             };
+            security?: never;
             requestBody?: never;
             responses: {
                 /** @description OK */
@@ -335,6 +336,7 @@ describe("transformPathsObject", () => {
                 path?: never;
                 cookie?: never;
             };
+            security?: never;
             requestBody?: never;
             responses: {
                 /** @description OK */

@@ -51,6 +51,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
@@ -61,6 +62,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description OK */
@@ -124,6 +126,13 @@ export interface components {
             trace?: never;
         };
     };
+    securitySchemes: {
+        bearerAuth: {
+            type: "http";
+            scheme: "bearer";
+            bearerFormat: "JWT";
+        };
+    };
 }
 export type $defs = Record<string, never>;
 export interface operations {
@@ -134,6 +143,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         /** @description The user to create */
         requestBody?: {
             content: {

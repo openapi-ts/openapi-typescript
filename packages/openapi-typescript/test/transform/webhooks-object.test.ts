@@ -64,6 +64,7 @@ describe("transformWebhooksObject", () => {
                 path?: never;
                 cookie?: never;
             };
+            security?: never;
             requestBody?: {
                 content: {
                     "application/json": {

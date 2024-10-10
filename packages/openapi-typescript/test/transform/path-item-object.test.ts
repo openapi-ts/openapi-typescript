@@ -125,6 +125,7 @@ describe("transformPathItemObject", () => {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description OK */
@@ -161,6 +162,7 @@ describe("transformPathItemObject", () => {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             200: components["responses"]["AllGood"];
@@ -175,6 +177,7 @@ describe("transformPathItemObject", () => {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: {
             content: {
                 "application/json": components["schemas"]["User"];
@@ -193,6 +196,7 @@ describe("transformPathItemObject", () => {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             200: components["responses"]["AllGood"];
@@ -207,6 +211,7 @@ describe("transformPathItemObject", () => {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             200: components["responses"]["AllGood"];
@@ -220,6 +225,7 @@ describe("transformPathItemObject", () => {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             200: components["responses"]["AllGood"];
@@ -233,6 +239,7 @@ describe("transformPathItemObject", () => {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             200: components["responses"]["AllGood"];
@@ -247,6 +254,7 @@ describe("transformPathItemObject", () => {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             200: components["responses"]["AllGood"];
@@ -406,6 +414,7 @@ describe("transformPathItemObject", () => {
                 param1: string;
             };
         };
+        security?: never;
         requestBody?: never;
         responses: never;
     };

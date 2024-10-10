@@ -226,6 +226,11 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: {
+        mtls: {
+            type: "mutualTLS";
+        };
+    };
 }
 export type $defs = Record<string, never>;
 export interface operations {
@@ -236,6 +241,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description 200 */
@@ -268,6 +274,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description A paged array of pets */
@@ -298,6 +305,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description A paged array of model */
@@ -328,6 +336,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description A paged array of person */
@@ -355,6 +364,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: never;
     };
@@ -365,6 +375,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description OK */
@@ -396,6 +407,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: {
             content: {
                 "application/octet-stream": unknown;
@@ -425,6 +437,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         /** @description Information about a new pet in the system */
         requestBody?: {
             content: {

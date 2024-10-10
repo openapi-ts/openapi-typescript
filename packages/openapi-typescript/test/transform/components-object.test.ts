@@ -145,6 +145,7 @@ describe("transformComponentsObject", () => {
                     path?: never;
                     cookie?: never;
                 };
+                security?: never;
                 requestBody?: components["requestBodies"]["UploadUser"];
                 responses: never;
             };
@@ -157,6 +158,7 @@ describe("transformComponentsObject", () => {
             trace?: never;
         };
     };
+    securitySchemes: never;
 }`,
         options: {
           ...DEFAULT_OPTIONS,
@@ -211,6 +213,7 @@ describe("transformComponentsObject", () => {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }`,
       },
       // options: DEFAULT_OPTIONS,
@@ -267,6 +270,7 @@ describe("transformComponentsObject", () => {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }`,
         options: { ...DEFAULT_OPTIONS, alphabetize: true },
       },
@@ -396,6 +400,7 @@ describe("transformComponentsObject", () => {
                     readonly path?: never;
                     readonly cookie?: never;
                 };
+                readonly security?: never;
                 readonly requestBody?: components["requestBodies"]["UploadUser"];
                 readonly responses: never;
             };
@@ -408,6 +413,7 @@ describe("transformComponentsObject", () => {
             readonly trace?: never;
         };
     };
+    securitySchemes: never;
 }`,
         options: {
           ...DEFAULT_OPTIONS,
@@ -460,6 +466,7 @@ describe("transformComponentsObject", () => {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }`,
         options: { ...DEFAULT_OPTIONS, excludeDeprecated: true },
       },
@@ -669,6 +676,7 @@ describe("transformComponentsObject", () => {
                     path?: never;
                     cookie?: never;
                 };
+                security?: never;
                 requestBody?: components["requestBodies"]["UploadUser"];
                 responses: never;
             };
@@ -681,6 +689,7 @@ describe("transformComponentsObject", () => {
             trace?: never;
         };
     };
+    securitySchemes: never;
 }
 export type SchemaSomeType = components['schemas']['SomeType'];
 export type SchemaSomeType_2 = components['schemas']['Some-Type'];
@@ -724,6 +733,7 @@ export type PathItemUploadUser = components['pathItems']['UploadUser'];`,
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }`,
         options: {
           ...DEFAULT_OPTIONS,
@@ -789,6 +799,7 @@ export type PathItemUploadUser = components['pathItems']['UploadUser'];`,
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }`,
       },
     ],
