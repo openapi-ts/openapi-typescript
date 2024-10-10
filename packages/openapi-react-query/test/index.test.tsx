@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { server, baseUrl, useMockRequestHandler } from "./fixtures/mock-server.js";
 import type { paths } from "./fixtures/api.js";
-import createClient from "../src/index.js";
+import createClient, { type MethodResponse } from "../src/index.js";
 import createFetchClient from "openapi-fetch";
 import { fireEvent, render, renderHook, screen, waitFor, act } from "@testing-library/react";
 import { QueryClient, QueryClientProvider, useQueries } from "@tanstack/react-query";
@@ -212,6 +212,7 @@ describe("client", () => {
 
       const { data, error } = result.current;
 
+      expectTypeOf(data).toEqualTypeOf<MethodResponse<typeof client, "get", "/string-array"> | undefined>();      
       expectTypeOf(data).toEqualTypeOf<string[] | undefined>();
       expectTypeOf(error).toEqualTypeOf<{ code: number; message: string } | null>();
     });
