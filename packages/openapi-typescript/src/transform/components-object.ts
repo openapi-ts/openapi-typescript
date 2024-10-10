@@ -109,7 +109,15 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
 }
 
 export function singularizeComponentKey(
-  key: `x-${string}` | "schemas" | "responses" | "parameters" | "requestBodies" | "headers" | "pathItems" | "securitySchemes",
+  key:
+    | `x-${string}`
+    | "schemas"
+    | "responses"
+    | "parameters"
+    | "requestBodies"
+    | "headers"
+    | "pathItems"
+    | "securitySchemes",
 ): string {
   switch (key) {
     // Handle special singular case
