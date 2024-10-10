@@ -4,7 +4,7 @@ import openapiTS, { astToString } from "../src/index.js";
 import type { OpenAPI3, OpenAPITSOptions } from "../src/types.js";
 import type { TestCase } from "./test-helpers.js";
 
-// prevent process.exit(1) from truly firing, as it will bypass Vitest’s error catching (throw new Error() will work as-expected)
+// prevent process.exit(1) from truly firing, as it will bypass Vitest's error catching (throw new Error() will work as-expected)
 beforeAll(() => {
   vi.spyOn(process, "exit").mockImplementation(((code: number) => {
     throw new Error(`Process exited with error code ${code}`);
@@ -67,6 +67,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -117,6 +118,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -161,6 +163,7 @@ export type operations = Record<string, never>;`,
                 };
                 cookie?: never;
             };
+            security?: never;
             requestBody?: never;
             responses: never;
         };
@@ -188,6 +191,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -213,6 +217,7 @@ export type operations = Record<string, never>;`,
                 path?: never;
                 cookie?: never;
             };
+            security?: never;
             requestBody?: never;
             responses: {
                 /** @description OK */
@@ -248,6 +253,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -272,6 +278,7 @@ export type operations = Record<string, never>;`,
                 path?: never;
                 cookie?: never;
             };
+            security?: never;
             requestBody?: never;
             responses: {
                 /** @description OK */
@@ -308,6 +315,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -402,6 +410,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
@@ -417,6 +426,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description OK */
@@ -475,6 +485,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -532,6 +543,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
@@ -542,6 +554,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description OK */
@@ -593,6 +606,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -659,6 +673,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 type WithRequired<T, K extends keyof T> = T & {
@@ -686,6 +701,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
