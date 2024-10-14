@@ -65,7 +65,7 @@ npx openapi-typescript
 
 ## Redocly config
 
-openapi-typescript を使用するには `redocly.yaml` ファイルは必須ではありません。デフォルトでは、組み込みの `"minimal"` 設定を拡張します。ただし、カスタム検証ルールや[複数のスキーマ](#複数のスキーマ)の型を構築したい場合には使用をお勧めします。CLI はプロジェクトのルートディレクトリで `redocly.yaml` を自動的に見つけようとしますが、`--redoc` フラグを使用してその場所を指定することもできます：
+openapi-typescript を使用するには `redocly.yaml` ファイルは必須ではありません。デフォルトでは、組み込みの `"minimal"` 設定を拡張します。ただし、カスタム検証ルールや[複数のスキーマ](#複数のスキーマ)の型を構築したい場合には使用をお勧めします。CLI はプロジェクトのルートディレクトリで `redocly.yaml` を自動的に見つけようとしますが、`--redocly` フラグを使用してその場所を指定することもできます：
 
 ```bash
 npx openapi-typescript --redocly ./path/to/redocly.yaml
