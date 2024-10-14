@@ -11,7 +11,7 @@ import {
   useQuery,
   useSuspenseQuery,
 } from "@tanstack/react-query";
-import type { ClientMethod, FetchResponse, MaybeOptionalInit, Client as FetchClient, ClientPathsWithMethod } from "openapi-fetch";
+import type { ClientMethod, FetchResponse, MaybeOptionalInit, Client as FetchClient } from "openapi-fetch";
 import type { HttpMethod, MediaType, PathsWithMethod, RequiredKeysOf } from "openapi-typescript-helpers";
 
 type InitWithUnknowns<Init> = Init & { [key: string]: unknown };
@@ -96,12 +96,13 @@ export interface OpenapiQueryClient<Paths extends {}, Media extends MediaType = 
 export type MethodResponse<
   CreatedClient extends OpenapiQueryClient<any, any>,
   Method extends HttpMethod,
-  Path extends ClientPathsWithMethod<FetchClient<any, any>, Method>,
-  Options = {}
-> =
-  CreatedClient extends OpenapiQueryClient<infer Paths extends { [key: string]: any }, infer Media extends MediaType>
-    ? NonNullable<FetchResponse<Paths[Path][Method], Options, Media>["data"]>
-    : never
+  Path extends CreatedClient extends OpenapiQueryClient<infer Paths, infer _Media>
+    ? PathsWithMethod<Paths, Method>
+    : never,
+  Options = object,
+> = CreatedClient extends OpenapiQueryClient<infer Paths extends { [key: string]: any }, infer Media extends MediaType>
+  ? NonNullable<FetchResponse<Paths[Path][Method], Options, Media>["data"]>
+  : never;
 
 // TODO: Add the ability to bring queryClient as argument
 export default function createClient<Paths extends {}, Media extends MediaType = MediaType>(
@@ -151,4 +152,3 @@ export default function createClient<Paths extends {}, Media extends MediaType =
       ),
   };
 }
-

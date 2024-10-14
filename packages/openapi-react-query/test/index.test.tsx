@@ -212,7 +212,7 @@ describe("client", () => {
 
       const { data, error } = result.current;
 
-      expectTypeOf(data).toEqualTypeOf<MethodResponse<typeof client, "get", "/string-array"> | undefined>();      
+      expectTypeOf(data).toEqualTypeOf<MethodResponse<typeof client, "get", "/string-array"> | undefined>();
       expectTypeOf(data).toEqualTypeOf<string[] | undefined>();
       expectTypeOf(error).toEqualTypeOf<{ code: number; message: string } | null>();
     });
