@@ -64,6 +64,29 @@ describe("client", () => {
       client.queryOptions("get", "/blogposts/{post_id}", {});
     });
 
+    it("correctly infers return type from query key", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      const data = queryClient.getQueryData(
+        client.queryOptions("get", "/blogposts/{post_id}", {
+          params: {
+            path: {
+              post_id: "1",
+            },
+          },
+        }).queryKey
+      );
+
+      expectTypeOf(data).toEqualTypeOf<{
+        title: string;
+        body: string;
+        publish_date?: number;
+      } | undefined>();
+
+      
+    });
+
     it("returns query options that can resolve data correctly with fetchQuery", async () => {
       const response = { title: "title", body: "body" };
       const fetchClient = createFetchClient<paths>({ baseUrl });
