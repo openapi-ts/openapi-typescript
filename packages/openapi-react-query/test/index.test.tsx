@@ -70,26 +70,34 @@ describe("client", () => {
 
       const initialData = { title: "Initial data", body: "Initial data" };
 
-      const options = client.queryOptions("get", "/blogposts/{post_id}", {
-        params: {
-          path: {
-            post_id: "1",
+      const options = client.queryOptions(
+        "get",
+        "/blogposts/{post_id}",
+        {
+          params: {
+            path: {
+              post_id: "1",
+            },
           },
         },
-      },{
-        initialData: () => initialData
-      })
+        {
+          initialData: () => initialData,
+        },
+      );
 
-      const data = queryClient.getQueryData( options.queryKey );
-      
-      expectTypeOf(data).toEqualTypeOf<{
-        title: string;
-        body: string;
-        publish_date?: number;
-      } | undefined>();
+      const data = queryClient.getQueryData(options.queryKey);
+
+      expectTypeOf(data).toEqualTypeOf<
+        | {
+            title: string;
+            body: string;
+            publish_date?: number;
+          }
+        | undefined
+      >();
       expect(data).toEqual(undefined);
 
-      const { result } = renderHook(() => useQuery({...options, enabled: false}), {
+      const { result } = renderHook(() => useQuery({ ...options, enabled: false }), {
         wrapper,
       });
 
@@ -97,9 +105,6 @@ describe("client", () => {
 
       expect(result.current.data).toEqual(initialData);
       expect(result.current.error).toBeNull();
-
-
-      
     });
 
     it("returns query options that can resolve data correctly with fetchQuery", async () => {
