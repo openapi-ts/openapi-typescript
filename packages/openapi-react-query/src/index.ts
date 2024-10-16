@@ -10,6 +10,10 @@ import {
   useMutation,
   useQuery,
   useSuspenseQuery,
+  queryOptions,
+  type DataTag,
+  type DefinedInitialDataOptions,
+  type UndefinedInitialDataOptions,
 } from "@tanstack/react-query";
 import type { ClientMethod, FetchResponse, MaybeOptionalInit, Client as FetchClient } from "openapi-fetch";
 import type { HttpMethod, MediaType, PathsWithMethod, RequiredKeysOf } from "openapi-typescript-helpers";
@@ -22,14 +26,14 @@ export type QueryKey<
   Path extends PathsWithMethod<Paths, Method>,
 > = readonly [Method, Path, MaybeOptionalInit<Paths[Path], Method>];
 
-export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
+export type QueryOptionsObject<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
   Init extends MaybeOptionalInit<Paths[Path], Method>,
   Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>, // note: Required is used to avoid repeating NonNullable in UseQuery types
   Options extends Omit<
     UseQueryOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path>>,
-    "queryKey" | "queryFn"
+    "queryKey" | "queryFn" | "initialData"
   >,
 >(
   method: Method,
@@ -37,7 +41,12 @@ export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod,
   ...[init, options]: RequiredKeysOf<Init> extends never
     ? [InitWithUnknowns<Init>?, Options?]
     : [InitWithUnknowns<Init>, Options?]
-) => UseQueryOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path>>;
+) => (
+  | DefinedInitialDataOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path>>
+  | UndefinedInitialDataOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path>>
+) & {
+  queryKey: DataTag<QueryKey<Paths, Method, Path>, Response["data"]>;
+};
 
 export type UseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
@@ -87,7 +96,7 @@ export type UseMutationMethod<Paths extends Record<string, Record<HttpMethod, {}
 ) => UseMutationResult<Response["data"], Response["error"], Init>;
 
 export interface OpenapiQueryClient<Paths extends {}, Media extends MediaType = MediaType> {
-  queryOptions: QueryOptionsFunction<Paths, Media>;
+  queryOptions: QueryOptionsObject<Paths, Media>;
   useQuery: UseQueryMethod<Paths, Media>;
   useSuspenseQuery: UseSuspenseQueryMethod<Paths, Media>;
   useMutation: UseMutationMethod<Paths, Media>;
@@ -110,18 +119,19 @@ export default function createClient<Paths extends {}, Media extends MediaType =
     return data;
   };
 
-  const queryOptions: QueryOptionsFunction<Paths, Media> = (method, path, ...[init, options]) => ({
-    queryKey: [method, path, init as InitWithUnknowns<typeof init>] as const,
-    queryFn,
-    ...options,
-  });
+  const queryOptionsObject: QueryOptionsObject<Paths, Media> = (method, path, ...[init, options]) =>
+    queryOptions({
+      queryKey: [method, path, init as InitWithUnknowns<typeof init>] as const,
+      queryFn,
+      ...options,
+    });
 
   return {
-    queryOptions,
+    queryOptions: queryOptionsObject,
     useQuery: (method, path, ...[init, options, queryClient]) =>
-      useQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
+      useQuery(queryOptionsObject(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
     useSuspenseQuery: (method, path, ...[init, options, queryClient]) =>
-      useSuspenseQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
+      useSuspenseQuery(queryOptionsObject(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
     useMutation: (method, path, options, queryClient) =>
       useMutation(
         {
