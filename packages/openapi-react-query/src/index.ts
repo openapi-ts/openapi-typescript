@@ -7,34 +7,27 @@ import {
   type UseSuspenseQueryResult,
   type QueryClient,
   type QueryFunctionContext,
+  type DataTag,
   useMutation,
   useQuery,
-  useSuspenseQuery,
-  queryOptions,
+  useSuspenseQuery,  
+  dataTagSymbol,
 } from "@tanstack/react-query";
 import type { ClientMethod, FetchResponse, MaybeOptionalInit, Client as FetchClient } from "openapi-fetch";
 import type { HttpMethod, MediaType, PathsWithMethod, RequiredKeysOf } from "openapi-typescript-helpers";
 
 type InitWithUnknowns<Init> = Init & { [key: string]: unknown };
 
-// biome-ignore lint/suspicious/noRedeclare: <https://stackoverflow.com/questions/52760509/typescript-returntype-of-overloaded-function>
-type OverloadedReturnType<T> = T extends { (...args: any[]): infer R; (...args: any[]): infer R }
-  ? R
-  : T extends (...args: any[]) => infer R
-    ? R
-    : any;
-
-type OverloadedParameters<T> = T extends { (...args: infer P1): any; (...args: infer P2): any }
-  ? P1
-  : T extends (...args: infer P) => any
-    ? P
-    : never;
-
 export type QueryKey<
   Paths extends Record<string, Record<HttpMethod, {}>>,
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
-> = readonly [Method, Path, MaybeOptionalInit<Paths[Path], Method>];
+  Media extends MediaType,
+  Init extends MaybeOptionalInit<Paths[Path], Method> = MaybeOptionalInit<Paths[Path], Method>,
+  Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>> = Required<
+    FetchResponse<Paths[Path][Method], Init, Media>
+  >,
+> = DataTag<readonly [Method, Path, Init], Response["data"]>;
 
 export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
@@ -42,7 +35,7 @@ export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod,
   Init extends MaybeOptionalInit<Paths[Path], Method>,
   Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>, // note: Required is used to avoid repeating NonNullable in UseQuery types
   Options extends Omit<
-    UseQueryOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path>>,
+    UseQueryOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path, Media>>,
     "queryKey" | "queryFn"
   >,
 >(
@@ -51,28 +44,7 @@ export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod,
   ...[init, options]: RequiredKeysOf<Init> extends never
     ? [InitWithUnknowns<Init>?, Options?]
     : [InitWithUnknowns<Init>, Options?]
-) => UseQueryOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path>>;
-
-export type QueryOptionsObject<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
-  Method extends HttpMethod,
-  Path extends PathsWithMethod<Paths, Method>,
-  Init extends MaybeOptionalInit<Paths[Path], Method>,
-  Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>, // note: Required is used to avoid repeating NonNullable in UseQuery types
-  Options extends Omit<
-    OverloadedParameters<
-      typeof queryOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path>>
-    >[0],
-    "queryKey" | "queryFn"
-  >,
->(
-  method: Method,
-  path: Path,
-  ...[init, options]: RequiredKeysOf<Init> extends never
-    ? [InitWithUnknowns<Init>?, Options?]
-    : [InitWithUnknowns<Init>, Options?]
-) => OverloadedReturnType<
-  typeof queryOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path>>
->;
+) => UseQueryOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path, Media>>;
 
 export type UseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
@@ -80,7 +52,7 @@ export type UseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>,
   Init extends MaybeOptionalInit<Paths[Path], Method>,
   Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>, // note: Required is used to avoid repeating NonNullable in UseQuery types
   Options extends Omit<
-    UseQueryOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path>>,
+    UseQueryOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path, Media>>,
     "queryKey" | "queryFn"
   >,
 >(
@@ -97,7 +69,12 @@ export type UseSuspenseQueryMethod<Paths extends Record<string, Record<HttpMetho
   Init extends MaybeOptionalInit<Paths[Path], Method>,
   Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>, // note: Required is used to avoid repeating NonNullable in UseQuery types
   Options extends Omit<
-    UseSuspenseQueryOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path>>,
+    UseSuspenseQueryOptions<
+      Response["data"],
+      Response["error"],
+      Response["data"],
+      QueryKey<Paths, Method, Path, Media>
+    >,
     "queryKey" | "queryFn"
   >,
 >(
@@ -122,7 +99,7 @@ export type UseMutationMethod<Paths extends Record<string, Record<HttpMethod, {}
 ) => UseMutationResult<Response["data"], Response["error"], Init>;
 
 export interface OpenapiQueryClient<Paths extends {}, Media extends MediaType = MediaType> {
-  queryOptions: QueryOptionsObject<Paths, Media>;
+  queryOptions: QueryOptionsFunction<Paths, Media>;
   useQuery: UseQueryMethod<Paths, Media>;
   useSuspenseQuery: UseSuspenseQueryMethod<Paths, Media>;
   useMutation: UseMutationMethod<Paths, Media>;
@@ -135,7 +112,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   const queryFn = async <Method extends HttpMethod, Path extends PathsWithMethod<Paths, Method>>({
     queryKey: [method, path, init],
     signal,
-  }: QueryFunctionContext<QueryKey<Paths, Method, Path>>) => {
+  }: QueryFunctionContext<QueryKey<Paths, Method, Path, Media>>) => {
     const mth = method.toUpperCase() as Uppercase<typeof method>;
     const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
     const { data, error } = await fn(path, { signal, ...(init as any) }); // TODO: find a way to avoid as any
@@ -145,24 +122,22 @@ export default function createClient<Paths extends {}, Media extends MediaType =
     return data;
   };
 
-  const queryOptionsParams: QueryOptionsFunction<Paths, Media> = (method, path, ...[init, options]) => ({
-    queryKey: [method, path, init as InitWithUnknowns<typeof init>] as const,
-    queryFn,
-    ...options,
-  });
+  const queryOptions: QueryOptionsFunction<Paths, Media> = (method, path, ...[init, options]) => {
+    return {
+      queryKey: Object.assign([method, path, init as InitWithUnknowns<typeof init>] as const, {
+        [dataTagSymbol]: {} as any,
+      }),
+      queryFn,
+      ...options,
+    };
+  };
 
   return {
-    queryOptions: (method, path, ...[init, options]) =>
-      queryOptions({
-        queryKey: [method, path, init as InitWithUnknowns<typeof init>] as const,
-        queryFn,
-        // TODO: find a way to avoid as any
-        ...(options as any),
-      }),
+    queryOptions,
     useQuery: (method, path, ...[init, options, queryClient]) =>
-      useQuery(queryOptionsParams(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
+      useQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
     useSuspenseQuery: (method, path, ...[init, options, queryClient]) =>
-      useSuspenseQuery(queryOptionsParams(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
+      useSuspenseQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
     useMutation: (method, path, options, queryClient) =>
       useMutation(
         {
