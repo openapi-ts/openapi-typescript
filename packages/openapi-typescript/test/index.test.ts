@@ -694,6 +694,61 @@ export type operations = Record<string, never>;`,
         },
       },
     ],
+    [
+      "nullable schemas are supported",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
+          components: {
+            schemas: {
+              "NullableEmptyObject": {
+                "nullable": true,
+                "properties": {},
+                "title": "NullableEmptyObject",
+                "type": "object"
+              },
+              "NullableObject": {
+                  "nullable": true,
+                  "properties": {
+                      "name": {
+                          "type": "string"
+                      }
+                  },
+                  "title": "NullableObject",
+                  "type": "object"
+              },
+              "NullableString": {
+                  "nullable": true,
+                  "title": "NullableString",
+                  "type": "string"
+              }
+            }
+          }
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        /** NullableEmptyObject */
+        NullableEmptyObject: Record<string, never> | null;
+        /** NullableObject */
+        NullableObject: {
+            name?: string;
+        } | null;
+        /** NullableString */
+        NullableString: string | null;
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options, ci }] of tests) {
