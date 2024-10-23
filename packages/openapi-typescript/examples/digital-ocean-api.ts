@@ -11634,7 +11634,7 @@ export interface components {
              * @description The Droplet that the floating IP has been assigned to. When you query a floating IP, if it is assigned to a Droplet, the entire Droplet object will be returned. If it is not assigned, the value will be null.
              * @example null
              */
-            droplet?: Record<string, never> | components["schemas"]["droplet"];
+            droplet?: (Record<string, never> | null) | components["schemas"]["droplet"];
             /**
              * @description A boolean value indicating whether or not the floating IP has pending actions preventing new ones from being submitted.
              * @example true
@@ -11975,7 +11975,7 @@ export interface components {
              * @description An object of key/value mappings specifying labels to apply to all nodes in a pool. Labels will automatically be applied to all existing nodes and any subsequent nodes added to the pool. Note that when a label is removed, it is not deleted from the nodes in the pool.
              * @example null
              */
-            labels?: Record<string, never>;
+            labels?: Record<string, never> | null;
             /** @description An array of taints to apply to all nodes in a pool. Taints will automatically be applied to all existing nodes and any subsequent nodes added to the pool. When a taint is removed, it is deleted from all nodes in the pool. */
             taints?: components["schemas"]["kubernetes_node_pool_taint"][];
             /**
@@ -13337,7 +13337,7 @@ export interface components {
              * @description The Droplet that the reserved IP has been assigned to. When you query a reserved IP, if it is assigned to a Droplet, the entire Droplet object will be returned. If it is not assigned, the value will be null.
              * @example null
              */
-            droplet?: Record<string, never> | components["schemas"]["droplet"];
+            droplet?: (Record<string, never> | null) | components["schemas"]["droplet"];
             /**
              * @description A boolean value indicating whether or not the reserved IP has pending actions preventing new ones from being submitted.
              * @example true
