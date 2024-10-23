@@ -701,9 +701,11 @@ export interface paths {
          *     `/v2/cdn/endpoints/$ENDPOINT_ID/cache`. The body of the request should include
          *     a `files` attribute containing a list of cached file paths to be purged. A
          *     path may be for a single file or may contain a wildcard (`*`) to recursively
-         *     purge all files under a directory. When only a wildcard is provided, all
-         *     cached files will be purged. There is a rate limit of 50 files per 20 seconds
-         *     that can be purged.
+         *     purge all files under a directory. When only a wildcard is provided, all cached
+         *     files will be purged. There is a rate limit of 50 files per 20 seconds that can
+         *     be purged. CDN endpoints have a rate limit of 5 requests per 10 seconds.
+         *     Purging files using a wildcard path counts as a single request against the API's
+         *     rate limit. Two identical purge requests cannot be sent at the same time.
          *
          */
         delete: operations["cdn_purge_cache"];
@@ -1165,7 +1167,7 @@ export interface paths {
         get: operations["databases_list_firewall_rules"];
         /**
          * Update Firewall Rules (Trusted Sources) for a Database
-         * @description To update a database cluster's firewall rules (known as "trusted sources" in the control panel), send a PUT request to `/v2/databases/$DATABASE_ID/firewall` specifying which resources should be able to open connections to the database. You may limit connections to specific Droplets, Kubernetes clusters, or IP addresses. When a tag is provided, any Droplet or Kubernetes node with that tag applied to it will have access. The firewall is limited to 100 rules (or trusted sources). When possible, we recommend [placing your databases into a VPC network](https://www.digitalocean.com/docs/networking/vpc/) to limit access to them instead of using a firewall.
+         * @description To update a database cluster's firewall rules (known as "trusted sources" in the control panel), send a PUT request to `/v2/databases/$DATABASE_ID/firewall` specifying which resources should be able to open connections to the database. You may limit connections to specific Droplets, Kubernetes clusters, or IP addresses. When a tag is provided, any Droplet or Kubernetes node with that tag applied to it will have access. The firewall is limited to 100 rules (or trusted sources). When possible, we recommend [placing your databases into a VPC network](https://docs.digitalocean.com/products/networking/vpc/) to limit access to them instead of using a firewall.
          *     A successful
          */
         put: operations["databases_update_firewall_rules"];
@@ -1578,7 +1580,7 @@ export interface paths {
          * Add a New Connection Pool (PostgreSQL)
          * @description For PostgreSQL database clusters, connection pools can be used to allow a
          *     database to share its idle connections. The popular PostgreSQL connection
-         *     pooling utility PgBouncer is used to provide this service. [See here for more information](https://www.digitalocean.com/docs/databases/postgresql/how-to/manage-connection-pools/)
+         *     pooling utility PgBouncer is used to provide this service. [See here for more information](https://docs.digitalocean.com/products/databases/postgresql/how-to/manage-connection-pools/)
          *     about how and why to use PgBouncer connection pooling including
          *     details about the available transaction modes.
          *
@@ -2072,6 +2074,11 @@ export interface paths {
          *     To only list Droplets assigned to a specific tag, include the `tag_name` query
          *     parameter set to the name of the tag in your GET request. For example,
          *     `/v2/droplets?tag_name=$TAG_NAME`.
+         *
+         *     ### GPU Droplets
+         *
+         *     By default, only non-GPU Droplets are returned. To list only GPU Droplets, set
+         *     the `type` query parameter to `gpus`. For example, `/v2/droplets?type=gpus`.
          *
          */
         get: operations["droplets_list"];
@@ -3164,7 +3171,7 @@ export interface paths {
          *     The request may contain a maintenance window policy describing a time period
          *     when disruptive maintenance tasks may be carried out. Omitting the policy
          *     implies that a window will be chosen automatically. See
-         *     [here](https://www.digitalocean.com/docs/kubernetes/how-to/upgrade-cluster/)
+         *     [here](https://docs.digitalocean.com/products/kubernetes/how-to/upgrade-cluster/)
          *     for details.
          *
          */
@@ -3302,7 +3309,7 @@ export interface paths {
          *     The resulting kubeconfig file uses token-based authentication for clusters
          *     supporting it, and certificate-based authentication otherwise. For a list of
          *     supported versions and more information, see "[How to Connect to a DigitalOcean
-         *     Kubernetes Cluster with kubectl](https://www.digitalocean.com/docs/kubernetes/how-to/connect-with-kubectl/)".
+         *     Kubernetes Cluster](https://docs.digitalocean.com/products/kubernetes/how-to/connect-to-cluster/)".
          *
          *     To retrieve a kubeconfig file for use with a Kubernetes cluster, send a GET
          *     request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/kubeconfig`.
@@ -3338,7 +3345,7 @@ export interface paths {
          *     The resulting JSON object contains token-based authentication for clusters
          *     supporting it, and certificate-based authentication otherwise. For a list of
          *     supported versions and more information, see "[How to Connect to a DigitalOcean
-         *     Kubernetes Cluster with kubectl](https://www.digitalocean.com/docs/kubernetes/how-to/connect-with-kubectl/)".
+         *     Kubernetes Cluster](https://docs.digitalocean.com/products/kubernetes/how-to/connect-to-cluster/)".
          *
          *     To retrieve credentials for accessing a Kubernetes cluster, send a GET
          *     request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/credentials`.
@@ -5134,7 +5141,7 @@ export interface paths {
          *     manifest data) after deleting one or more manifests from a repository. If
          *     there are no unreferenced blobs resulting from the deletion of one or more
          *     manifests, garbage collection is effectively a noop.
-         *     [See here for more information](https://www.digitalocean.com/docs/container-registry/how-to/clean-up-container-registry/)
+         *     [See here for more information](https://docs.digitalocean.com/products/container-registry/how-to/clean-up-container-registry/)
          *     about how and why you should clean up your container registry periodically.
          *
          *     To request a garbage collection run on your registry, send a POST request to
@@ -5603,7 +5610,7 @@ export interface paths {
          *     volumes may be attached to a Droplet at a time. Pre-formatted volumes will be
          *     automatically mounted to Ubuntu, Debian, Fedora, Fedora Atomic, and CentOS
          *     Droplets created on or after April 26, 2018 when attached. On older Droplets,
-         *     [additional configuration](https://www.digitalocean.com/community/tutorials/how-to-partition-and-format-digitalocean-block-storage-volumes-in-linux#mounting-the-filesystems)
+         *     [additional configuration](https://docs.digitalocean.com/products/volumes/how-to/mount/)
          *     is required.
          *
          *     ## Remove a Block Storage Volume from a Droplet
@@ -5716,7 +5723,7 @@ export interface paths {
          *     volumes may be attached to a Droplet at a time. Pre-formatted volumes will be
          *     automatically mounted to Ubuntu, Debian, Fedora, Fedora Atomic, and CentOS
          *     Droplets created on or after April 26, 2018 when attached. On older Droplets,
-         *     [additional configuration](https://www.digitalocean.com/community/tutorials/how-to-partition-and-format-digitalocean-block-storage-volumes-in-linux#mounting-the-filesystems)
+         *     [additional configuration](https://docs.digitalocean.com/products/volumes/how-to/mount/)
          *     is required.
          *
          *     ## Remove a Block Storage Volume from a Droplet
@@ -5889,6 +5896,116 @@ export interface paths {
         options?: never;
         head?: never;
         patch?: never;
+        trace?: never;
+    };
+    "/v2/vpcs/{vpc_id}/peerings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List the Peerings of a VPC
+         * @description To list all of a VPC's peerings, send a GET request to
+         *     `/v2/vpcs/$VPC_ID/peerings`.
+         *
+         */
+        get: operations["vpcs_list_peerings"];
+        put?: never;
+        /**
+         * Create a Peering with a VPC
+         * @description To create a new VPC peering for a given VPC, send a POST request to
+         *     `/v2/vpcs/$VPC_ID/peerings`.
+         *
+         */
+        post: operations["vpcs_create_peerings"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/vpcs/{vpc_id}/peerings/{vpc_peering_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update a VPC Peering
+         * @description To update the name of a VPC peering in a particular VPC, send a PATCH request
+         *     to `/v2/vpcs/$VPC_ID/peerings/$VPC_PEERING_ID` with the new `name` in the
+         *     request body.
+         *
+         */
+        patch: operations["vpcs_patch_peerings"];
+        trace?: never;
+    };
+    "/v2/vpc_peerings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List All VPC Peerings
+         * @description To list all of the VPC peerings on your account, send a GET request to `/v2/vpc_peerings`.
+         */
+        get: operations["vpcPeerings_list"];
+        put?: never;
+        /**
+         * Create a New VPC Peering
+         * @description To create a new VPC Peering, send a POST request to `/v2/vpc_peerings`
+         *     specifying a name and a list of two VPC IDs to peer. The response code, 202
+         *     Accepted, does not indicate the success or failure of the operation, just
+         *     that the request has been accepted for processing.
+         *
+         */
+        post: operations["vpcPeerings_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/vpc_peerings/{vpc_peering_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve an Existing VPC Peering
+         * @description To show information about an existing VPC Peering, send a GET request to `/v2/vpc_peerings/$VPC_PEERING_ID`.
+         *
+         */
+        get: operations["vpcPeerings_get"];
+        put?: never;
+        post?: never;
+        /**
+         * Delete a VPC peering
+         * @description To delete a VPC peering, send a DELETE request to `/v2/vpc_peerings/$VPC_PEERING_ID`.
+         *
+         */
+        delete: operations["vpcPeerings_delete"];
+        options?: never;
+        head?: never;
+        /**
+         * Update a VPC peering
+         * @description To update the name of a VPC peering, send a PATCH request to `/v2/vpc_peerings/$VPC_PEERING_ID` with the new `name` in the request body.
+         *
+         */
+        patch: operations["vpcPeerings_patch"];
         trace?: never;
     };
     "/v2/uptime/checks": {
@@ -6267,11 +6384,6 @@ export interface components {
              */
             sizes: unknown;
         };
-        /**
-         * @description A human-readable string that is used as a unique identifier for each region.
-         * @example nyc3
-         */
-        slug: string;
         action: {
             /**
              * @description A unique numeric ID that can be used to identify and reference an action.
@@ -6313,7 +6425,11 @@ export interface components {
              */
             resource_type?: string;
             region?: components["schemas"]["region"];
-            region_slug?: components["schemas"]["slug"] & (string | null);
+            /**
+             * @description A human-readable string that is used as a unique identifier for each region.
+             * @example nyc3
+             */
+            region_slug?: string | null;
         };
         apps_deployment_job: {
             /**
@@ -6719,7 +6835,7 @@ export interface components {
             /** @description A list of environment variables made available to the component. */
             envs?: components["schemas"]["app_variable_definition"][];
             /**
-             * @description An environment slug describing the type of this app. For a full list, please refer to [the product documentation](https://www.digitalocean.com/docs/app-platform/).
+             * @description An environment slug describing the type of this app. For a full list, please refer to [the product documentation](https://docs.digitalocean.com/products/app-platform/).
              * @example node-js
              */
             environment_slug?: string;
@@ -6913,6 +7029,16 @@ export interface components {
         app_service_spec: components["schemas"]["app_component_base"] & components["schemas"]["app_component_instance_base"] & {
             cors?: components["schemas"]["apps_cors_policy"] & unknown & unknown;
             health_check?: components["schemas"]["app_service_spec_health_check"];
+            /**
+             * @description The protocol which the service uses to serve traffic on the http_port.
+             *
+             *     - `HTTP`: The app is serving the HTTP protocol. Default.
+             *     - `HTTP2`: The app is serving the HTTP/2 protocol. Currently, this needs to be implemented in the service by serving HTTP/2 cleartext (h2c).
+             *
+             * @example HTTP
+             * @enum {string}
+             */
+            protocol?: "HTTP" | "HTTP2";
             /**
              * Format: int64
              * @description The internal port on which this service's run command will listen. Default: 8080
@@ -7183,6 +7309,14 @@ export interface components {
         app_egress_spec: {
             type?: components["schemas"]["app_egress_type_spec"];
         };
+        /** @description Specification to configure maintenance settings for the app, such as maintenance mode. */
+        app_maintenance_spec: {
+            /**
+             * @description Indicates whether maintenance mode should be enabled for the app.
+             * @example true
+             */
+            enabled?: boolean;
+        };
         /**
          * AppSpec
          * @description The desired configuration of an application.
@@ -7216,6 +7350,7 @@ export interface components {
             databases?: components["schemas"]["app_database_spec"][];
             ingress?: components["schemas"]["app_ingress_spec"];
             egress?: components["schemas"]["app_egress_spec"];
+            maintenance?: components["schemas"]["app_maintenance_spec"];
         };
         apps_deployment_static_site: {
             /**
@@ -9882,6 +10017,12 @@ export interface components {
              *     ]
              */
             reindex_remote_whitelist?: string[];
+            /**
+             * @description Enable or disable filtering of alerting by backend roles.
+             * @default false
+             * @example false
+             */
+            plugins_alerting_filter_by_backend_roles_enabled: boolean;
         };
         mongo_advanced_config: {
             /**
@@ -10708,12 +10849,32 @@ export interface components {
         domain_record_soa: components["schemas"]["domain_record"] & unknown;
         domain_record_srv: components["schemas"]["domain_record"] & unknown;
         domain_record_txt: components["schemas"]["domain_record"] & unknown;
+        disk_info: {
+            /**
+             * @description The type of disk. All Droplets contain a `local` disk. Additionally, GPU Droplets can also have a `scratch` disk for non-persistent data.
+             * @example local
+             * @enum {string}
+             */
+            type?: "local" | "scratch";
+            size?: {
+                /**
+                 * @description The amount of space allocated to the disk.
+                 * @example 25
+                 */
+                amount?: number;
+                /**
+                 * @description The unit of measure for the disk size.
+                 * @example gib
+                 */
+                unit?: string;
+            };
+        };
         /**
          * @deprecated
          * @description **Note**: All Droplets created after March 2017 use internal kernels by default.
          *     These Droplets will have this attribute set to `null`.
          *
-         *     The current [kernel](https://www.digitalocean.com/docs/droplets/how-to/kernel/)
+         *     The current [kernel](https://docs.digitalocean.com/products/droplets/how-to/kernel/)
          *     for Droplets with externally managed kernels. This will initially be set to
          *     the kernel of the base image when the Droplet is created.
          *
@@ -10765,7 +10926,7 @@ export interface components {
          * @example nyc3
          * @enum {string}
          */
-        region_slug: "ams1" | "ams2" | "ams3" | "blr1" | "fra1" | "lon1" | "nyc1" | "nyc2" | "nyc3" | "sfo1" | "sfo2" | "sfo3" | "sgp1" | "tor1";
+        region_slug: "ams1" | "ams2" | "ams3" | "blr1" | "fra1" | "lon1" | "nyc1" | "nyc2" | "nyc3" | "sfo1" | "sfo2" | "sfo3" | "sgp1" | "tor1" | "syd1";
         /**
          * @description This attribute is an array of the regions that the image is available in. The regions are represented by their identifying slug values.
          * @example [
@@ -10845,6 +11006,31 @@ export interface components {
              */
             error_message?: string;
         };
+        /** @description An object containing information about the GPU capabilities of Droplets created with this size. */
+        gpu_info: {
+            /**
+             * @description The number of GPUs allocated to the Droplet.
+             * @example 1
+             */
+            count?: number;
+            /**
+             * @description The model of the GPU.
+             * @example nvidia_h100
+             */
+            model?: string;
+            vram?: {
+                /**
+                 * @description The amount of VRAM allocated to the GPU.
+                 * @example 25
+                 */
+                amount?: number;
+                /**
+                 * @description The unit of measure for the VRAM.
+                 * @example gib
+                 */
+                unit?: string;
+            };
+        };
         size: {
             /**
              * @description A human-readable string that is used to uniquely identify each size.
@@ -10857,7 +11043,7 @@ export interface components {
              */
             memory: number;
             /**
-             * @description The integer of number CPUs allocated to Droplets of this size.
+             * @description The number of CPUs allocated to Droplets of this size.
              * @example 1
              */
             vcpus: number;
@@ -10914,6 +11100,9 @@ export interface components {
              * @example Basic
              */
             description: string;
+            /** @description An array of objects containing information about the disks available to Droplets created with this size. */
+            disk_info?: components["schemas"]["disk_info"][];
+            gpu_info?: components["schemas"]["gpu_info"];
         };
         network_v4: {
             /**
@@ -10998,6 +11187,8 @@ export interface components {
              * @example 25
              */
             disk: number;
+            /** @description An array of objects containing information about the disks available to the Droplet. */
+            disk_info?: components["schemas"]["disk_info"][];
             /**
              * @description A boolean value indicating whether the Droplet has been locked, preventing actions by users.
              * @example false
@@ -11073,6 +11264,7 @@ export interface components {
              * @example 760e09ef-dc84-11e8-981e-3cfdfeaae000
              */
             vpc_uuid?: string;
+            gpu_info?: components["schemas"]["gpu_info"];
         };
         droplet_backup_policy: {
             /**
@@ -12056,15 +12248,16 @@ export interface components {
             version: string;
             /**
              * Format: cidr
-             * @description The range of IP addresses in the overlay network of the Kubernetes cluster in CIDR notation.
-             * @example 10.244.0.0/16
+             * @description The range of IP addresses for the overlay network of the Kubernetes cluster in CIDR notation.
+             * @example 192.168.0.0/20
              */
-            readonly cluster_subnet?: string;
+            cluster_subnet?: string;
             /**
+             * Format: cidr
              * @description The range of assignable IP addresses for services running in the Kubernetes cluster in CIDR notation.
-             * @example 10.245.0.0/16
+             * @example 192.168.16.0/24
              */
-            readonly service_subnet?: string;
+            service_subnet?: string;
             /**
              * Format: uuid
              * @description A string specifying the UUID of the VPC to which the Kubernetes cluster is assigned.
@@ -12273,7 +12466,7 @@ export interface components {
              *
              *     Newly created Kubernetes clusters do not return credentials using
              *     certificate-based authentication. For additional information,
-             *     [see here](https://www.digitalocean.com/docs/kubernetes/how-to/connect-to-cluster/#authenticate).
+             *     [see here](https://docs.digitalocean.com/products/kubernetes/how-to/connect-to-cluster/#authenticate).
              *
              * @example null
              */
@@ -12287,7 +12480,7 @@ export interface components {
              *
              *     Newly created Kubernetes clusters do not return credentials using
              *     certificate-based authentication. For additional information,
-             *     [see here](https://www.digitalocean.com/docs/kubernetes/how-to/connect-to-cluster/#authenticate).
+             *     [see here](https://docs.digitalocean.com/products/kubernetes/how-to/connect-to-cluster/#authenticate).
              *
              * @example null
              */
@@ -12698,6 +12891,13 @@ export interface components {
              */
             disable_lets_encrypt_dns_records: boolean;
             firewall?: components["schemas"]["lb_firewall"];
+            /**
+             * @description A string indicating whether the load balancer should be external or internal. Internal load balancers have no public IPs and are only accessible to resources on the same VPC network. This property cannot be updated after creating the load balancer.
+             * @default EXTERNAL
+             * @example EXTERNAL
+             * @enum {string}
+             */
+            network: "EXTERNAL" | "INTERNAL";
         };
         load_balancer: components["schemas"]["load_balancer_base"] & {
             region?: unknown & components["schemas"]["region"];
@@ -13730,6 +13930,44 @@ export interface components {
              */
             created_at?: string;
         };
+        vpc_peering_base: {
+            /**
+             * Format: uuid
+             * @description A unique ID that can be used to identify and reference the VPC peering.
+             * @example 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+             */
+            readonly id?: string;
+            /**
+             * Format: date-time
+             * @description A time value given in ISO8601 combined date and time format.
+             * @example 2020-03-13T19:20:47.442049222Z
+             */
+            readonly created_at?: string;
+            /**
+             * @description The current status of the VPC peering.
+             * @example ACTIVE
+             * @enum {string}
+             */
+            readonly status?: "PROVISIONING" | "ACTIVE" | "DELETING";
+        };
+        vpc_peering_create: {
+            /**
+             * @description An array of the two peered VPCs IDs.
+             * @example [
+             *       "c140286f-e6ce-4131-8b7b-df4590ce8d6a",
+             *       "994a2735-dc84-11e8-80bc-3cfdfea9fba1"
+             *     ]
+             */
+            vpc_ids?: string[];
+        };
+        vpc_peering_updatable: {
+            /**
+             * @description The name of the VPC peering. Must be unique within the team and may only contain alphanumeric characters and dashes.
+             * @example nyc1-blr1-peering
+             */
+            name?: string;
+        };
+        vpc_peering: components["schemas"]["vpc_peering_base"] & components["schemas"]["vpc_peering_create"] & components["schemas"]["vpc_peering_updatable"];
         check_base: {
             /**
              * Format: uuid
@@ -16524,6 +16762,90 @@ export interface components {
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
             };
         };
+        /** @description The response will be a JSON object with a key called `peerings`. This  will be set to an array of objects, each of which will contain the standard  attributes associated with a VPC peering. */
+        vpc_peerings: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    peerings?: components["schemas"]["vpc_peering"][];
+                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
+            };
+        };
+        /** @description The response will be a JSON object with a key called `peering`, containing  the standard attributes associated with a VPC peering. */
+        vpc_peering: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    peering?: components["schemas"]["vpc_peering"];
+                };
+            };
+        };
+        /** @description The response will be a JSON object with a key called `vpc_peerings`. This  will be set to an array of objects, each of which will contain the standard  attributes associated with a VPC peering. */
+        all_vpc_peerings: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    vpc_peerings?: components["schemas"]["vpc_peering"][];
+                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
+            };
+        };
+        /** @description The response will be a JSON object with a key called `vpc_peering`. The value of this will be an object that contains the standard attributes associated with a VPC peering. */
+        provisioning_vpc_peering: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    vpc_peering?: components["schemas"]["vpc_peering"];
+                };
+            };
+        };
+        /** @description The response will be a JSON object with a key called `vpc_peering`. The value of this will be an object that contains the standard attributes associated with a VPC peering. */
+        active_vpc_peering: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    vpc_peering?: components["schemas"]["vpc_peering"];
+                };
+            };
+        };
+        /** @description The response will be a JSON object with a key called `vpc_peering`. The value of this will be an object that contains the standard attributes associated with a VPC peering. */
+        deleting_vpc_peering: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    vpc_peering?: components["schemas"]["vpc_peering"];
+                };
+            };
+        };
         /** @description The response will be a JSON object with a key called `checks`. This will be set to an array of objects, each of which will contain the standard attributes associated with an uptime check */
         all_checks: {
             headers: {
@@ -16781,7 +17103,7 @@ export interface components {
          */
         domain_record_id: number;
         /**
-         * @description Used to filter Droplets by a specific tag. Can not be combined with `name`.
+         * @description Used to filter Droplets by a specific tag. Can not be combined with `name` or `type`.
          * @example env:prod
          */
         droplet_tag_name: string;
@@ -16790,6 +17112,11 @@ export interface components {
          * @example web-01
          */
         droplet_name: string;
+        /**
+         * @description When `type` is set to `gpus`, only GPU Droplets will be returned. By default, only non-GPU Droplets are returned. Can not be combined with `tag_name`.
+         * @example droplets
+         */
+        droplet_type: "droplets" | "gpus";
         /**
          * @description Specifies Droplets to be deleted by tag.
          * @example env:test
@@ -17030,6 +17357,11 @@ export interface components {
          * @example droplet
          */
         vpc_resource_type: string;
+        /**
+         * @description A unique identifier for a VPC peering.
+         * @example 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+         */
+        vpc_peering_id: string;
         /**
          * @description A unique identifier for a check.
          * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
@@ -20456,7 +20788,7 @@ export interface operations {
                  */
                 page?: components["parameters"]["page"];
                 /**
-                 * @description Used to filter Droplets by a specific tag. Can not be combined with `name`.
+                 * @description Used to filter Droplets by a specific tag. Can not be combined with `name` or `type`.
                  * @example env:prod
                  */
                 tag_name?: components["parameters"]["droplet_tag_name"];
@@ -20465,6 +20797,11 @@ export interface operations {
                  * @example web-01
                  */
                 name?: components["parameters"]["droplet_name"];
+                /**
+                 * @description When `type` is set to `gpus`, only GPU Droplets will be returned. By default, only non-GPU Droplets are returned. Can not be combined with `tag_name`.
+                 * @example droplets
+                 */
+                type?: components["parameters"]["droplet_type"];
             };
             header?: never;
             path?: never;
@@ -20773,7 +21110,7 @@ export interface operations {
         parameters: {
             query?: {
                 /**
-                 * @description Used to filter Droplets by a specific tag. Can not be combined with `name`.
+                 * @description Used to filter Droplets by a specific tag. Can not be combined with `name` or `type`.
                  * @example env:prod
                  */
                 tag_name?: components["parameters"]["droplet_tag_name"];
@@ -23099,7 +23436,7 @@ export interface operations {
          *     `v1/insights/lbaas/avg_cpu_utilization_percent`|alert on the percent of CPU utilization|load balancer ID
          *     `v1/insights/lbaas/connection_utilization_percent`|alert on the percent of connection utilization|load balancer ID
          *     `v1/insights/lbaas/droplet_health`|alert on Droplet health status changes|load balancer ID
-         *     `v1/insights/lbaas/tls_connections_per_second_utilization_percent`|alert on the percent of TLS connections per second utilization|load balancer ID
+         *     `v1/insights/lbaas/tls_connections_per_second_utilization_percent`|alert on the percent of TLS connections per second utilization (requires at least one HTTPS forwarding rule)|load balancer ID
          *     `v1/insights/lbaas/increase_in_http_error_rate_percentage_5xx`|alert on the percent increase of 5xx level http errors over 5m|load balancer ID
          *     `v1/insights/lbaas/increase_in_http_error_rate_percentage_4xx`|alert on the percent increase of 4xx level http errors over 5m|load balancer ID
          *     `v1/insights/lbaas/increase_in_http_error_rate_count_5xx`|alert on the count of 5xx level http errors over 5m|load balancer ID
@@ -23181,7 +23518,7 @@ export interface operations {
          *     `v1/insights/lbaas/avg_cpu_utilization_percent`|alert on the percent of CPU utilization|load balancer ID
          *     `v1/insights/lbaas/connection_utilization_percent`|alert on the percent of connection utilization|load balancer ID
          *     `v1/insights/lbaas/droplet_health`|alert on Droplet health status changes|load balancer ID
-         *     `v1/insights/lbaas/tls_connections_per_second_utilization_percent`|alert on the percent of TLS connections per second utilization|load balancer ID
+         *     `v1/insights/lbaas/tls_connections_per_second_utilization_percent`|alert on the percent of TLS connections per second utilization (requires at least one HTTPS forwarding rule)|load balancer ID
          *     `v1/insights/lbaas/increase_in_http_error_rate_percentage_5xx`|alert on the percent increase of 5xx level http errors over 5m|load balancer ID
          *     `v1/insights/lbaas/increase_in_http_error_rate_percentage_4xx`|alert on the percent increase of 4xx level http errors over 5m|load balancer ID
          *     `v1/insights/lbaas/increase_in_http_error_rate_count_5xx`|alert on the count of 5xx level http errors over 5m|load balancer ID
@@ -26418,6 +26755,237 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: components["responses"]["vpc_members"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    vpcs_list_peerings: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Number of items returned per page
+                 * @example 2
+                 */
+                per_page?: components["parameters"]["per_page"];
+                /**
+                 * @description Which 'page' of paginated results to return.
+                 * @example 1
+                 */
+                page?: components["parameters"]["page"];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a VPC.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                vpc_id: components["parameters"]["vpc_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["vpc_peerings"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    vpcs_create_peerings: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a VPC.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                vpc_id: components["parameters"]["vpc_id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /**
+                     * @description The name of the VPC peering. Must be unique and may only contain alphanumeric characters, dashes, and periods.
+                     * @example nyc1-blr1-peering
+                     */
+                    name: string;
+                    /**
+                     * Format: uuid
+                     * @description The ID of the VPC to peer with.
+                     * @example c140286f-e6ce-4131-8b7b-df4590ce8d6a
+                     */
+                    vpc_id: string;
+                };
+            };
+        };
+        responses: {
+            202: components["responses"]["vpc_peering"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    vpcs_patch_peerings: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a VPC.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                vpc_id: components["parameters"]["vpc_id"];
+                /**
+                 * @description A unique identifier for a VPC peering.
+                 * @example 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+                 */
+                vpc_peering_id: components["parameters"]["vpc_peering_id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": WithRequired<components["schemas"]["vpc_peering_updatable"], "name">;
+            };
+        };
+        responses: {
+            200: components["responses"]["vpc_peering"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    vpcPeerings_list: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Number of items returned per page
+                 * @example 2
+                 */
+                per_page?: components["parameters"]["per_page"];
+                /**
+                 * @description Which 'page' of paginated results to return.
+                 * @example 1
+                 */
+                page?: components["parameters"]["page"];
+                /**
+                 * @description The slug identifier for the region where the resource is available.
+                 * @example nyc3
+                 */
+                region?: components["parameters"]["region"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["all_vpc_peerings"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    vpcPeerings_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": WithRequired<components["schemas"]["vpc_peering_updatable"], "name"> & WithRequired<components["schemas"]["vpc_peering_create"], "vpc_ids">;
+            };
+        };
+        responses: {
+            202: components["responses"]["provisioning_vpc_peering"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    vpcPeerings_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a VPC peering.
+                 * @example 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+                 */
+                vpc_peering_id: components["parameters"]["vpc_peering_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["active_vpc_peering"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    vpcPeerings_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a VPC peering.
+                 * @example 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+                 */
+                vpc_peering_id: components["parameters"]["vpc_peering_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            202: components["responses"]["deleting_vpc_peering"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    vpcPeerings_patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a VPC peering.
+                 * @example 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+                 */
+                vpc_peering_id: components["parameters"]["vpc_peering_id"];
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": WithRequired<components["schemas"]["vpc_peering_updatable"], "name">;
+            };
+        };
+        responses: {
+            200: components["responses"]["active_vpc_peering"];
             401: components["responses"]["unauthorized"];
             404: components["responses"]["not_found"];
             429: components["responses"]["too_many_requests"];

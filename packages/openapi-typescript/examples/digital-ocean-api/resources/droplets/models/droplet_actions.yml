@@ -34,7 +34,7 @@ droplet_action_enable_backups:
         allOf:
         - $ref: 'droplet_backup_policy.yml'
         - description: An object specifying the backup policy for the Droplet. If
-            omitted, the default backup policy will be used.
+            omitted, the backup plan will default to daily.
 
   example:
     type: enable_backups

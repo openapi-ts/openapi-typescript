@@ -49,7 +49,7 @@ properties:
     allOf:
       - $ref: 'droplet_backup_policy.yml'
       - description: An object specifying the backup policy for the Droplet. If
-          omitted and `backups` is `true`, the default backup policy will be used.
+          omitted and `backups` is `true`, the backup plan will default to daily.
 
   ipv6:
     type: boolean
