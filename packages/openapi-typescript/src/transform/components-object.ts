@@ -70,9 +70,15 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
           let aliasName = changeCase.pascalCase(singularizeComponentKey(key)) + changeCase.pascalCase(name);
           // Add counter suffix (e.g. "_2") if conflict in name
           let conflictCounter = 1;
+
+          let rootTypePrefix = changeCase.pascalCase(singularizeComponentKey(key));
+          if (ctx.rootTypesNoSchemaPrefix && key.toLowerCase() == "schemas") {
+            rootTypePrefix = "";
+          }
+
           while (rootTypeAliases[aliasName] !== undefined) {
             conflictCounter++;
-            aliasName = `${changeCase.pascalCase(singularizeComponentKey(key))}${changeCase.pascalCase(name)}_${conflictCounter}`;
+            aliasName = `${rootTypePrefix}${changeCase.pascalCase(name)}_${conflictCounter}`;
           }
           const ref = ts.factory.createTypeReferenceNode(`components['${key}']['${name}']`);
           const typeAlias = ts.factory.createTypeAliasDeclaration(
