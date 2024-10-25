@@ -58,8 +58,8 @@ describe("GET", () => {
     // assert correct URL was called
     expect(actualPathname).toBe("/posts/123");
 
-    // assert 204 to be transformed to empty object
-    expect(data).toEqual({});
+    // assert 204 to be transformed to be undefined
+    expect(data).toEqual(undefined);
     expect(response.status).toBe(204);
 
     // assert error is empty
@@ -128,8 +128,8 @@ describe("GET", () => {
     // assert correct method was called
     expect(method).toBe("GET");
 
-    // assert 204 to be transformed to empty object
-    expect(data).toEqual({});
+    // assert 204 to be transformed to undefined
+    expect(data).toEqual(undefined);
   });
 
   test("gracefully handles invalid JSON for errors", async () => {

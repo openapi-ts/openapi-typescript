@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, assertType } from "vitest";
 import { createObservedClient } from "../helpers.js";
 import type { paths } from "./schemas/delete.js";
 
@@ -10,7 +10,8 @@ describe("DELETE", () => {
     });
 
     // assert correct data was returned
-    expect(data).toEqual({});
+    assertType<undefined>(data);
+    expect(data).toEqual(undefined);
     expect(response.status).toBe(204);
 
     // assert error is empty
@@ -27,7 +28,7 @@ describe("DELETE", () => {
     expect(method).toBe("DELETE");
   });
 
-  test("returns empty object on Content-Length: 0", async () => {
+  test("returns undefined on Content-Length: 0", async () => {
     const client = createObservedClient<paths>(
       {},
       async () => new Response(null, { status: 200, headers: { "Content-Length": "0" } }),
@@ -39,7 +40,8 @@ describe("DELETE", () => {
     });
 
     // assert correct data was returned
-    expect(data).toEqual({});
+    assertType<undefined>(data);
+    expect(data).toEqual(undefined);
 
     // assert error is empty
     expect(error).toBeUndefined();
