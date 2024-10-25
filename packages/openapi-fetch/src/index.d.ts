@@ -114,10 +114,10 @@ export type FetchResponse<
   } & (S extends OkStatus
     ? {
         data: ParseAsResponse<GetResponseContent<ResponseObjectMap<T>, Media, S>, Options>;
-        error: never;
+        error?: never;
       }
     : {
-        data: never;
+        data?: never;
         error: GetResponseContent<ResponseObjectMap<T>, Media, S>;
       });
 }[TStatus];
