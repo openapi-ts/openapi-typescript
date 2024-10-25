@@ -7,9 +7,11 @@ import {
   type UseSuspenseQueryResult,
   type QueryClient,
   type QueryFunctionContext,
+  type DataTag,
   useMutation,
   useQuery,
-  useSuspenseQuery,
+  useSuspenseQuery,  
+  dataTagSymbol,
 } from "@tanstack/react-query";
 import type { ClientMethod, FetchResponse, MaybeOptionalInit, Client as FetchClient } from "openapi-fetch";
 import type { HttpMethod, MediaType, PathsWithMethod, RequiredKeysOf } from "openapi-typescript-helpers";
@@ -20,7 +22,12 @@ export type QueryKey<
   Paths extends Record<string, Record<HttpMethod, {}>>,
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
-> = readonly [Method, Path, MaybeOptionalInit<Paths[Path], Method>];
+  Media extends MediaType,
+  Init extends MaybeOptionalInit<Paths[Path], Method> = MaybeOptionalInit<Paths[Path], Method>,
+  Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>> = Required<
+    FetchResponse<Paths[Path][Method], Init, Media>
+  >,
+> = DataTag<readonly [Method, Path, Init], Response["data"]>;
 
 export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
@@ -28,7 +35,7 @@ export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod,
   Init extends MaybeOptionalInit<Paths[Path], Method>,
   Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>, // note: Required is used to avoid repeating NonNullable in UseQuery types
   Options extends Omit<
-    UseQueryOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path>>,
+    UseQueryOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path, Media>>,
     "queryKey" | "queryFn"
   >,
 >(
@@ -37,7 +44,7 @@ export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod,
   ...[init, options]: RequiredKeysOf<Init> extends never
     ? [InitWithUnknowns<Init>?, Options?]
     : [InitWithUnknowns<Init>, Options?]
-) => UseQueryOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path>>;
+) => UseQueryOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path, Media>>;
 
 export type UseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
@@ -45,7 +52,7 @@ export type UseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>,
   Init extends MaybeOptionalInit<Paths[Path], Method>,
   Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>, // note: Required is used to avoid repeating NonNullable in UseQuery types
   Options extends Omit<
-    UseQueryOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path>>,
+    UseQueryOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path, Media>>,
     "queryKey" | "queryFn"
   >,
 >(
@@ -62,7 +69,12 @@ export type UseSuspenseQueryMethod<Paths extends Record<string, Record<HttpMetho
   Init extends MaybeOptionalInit<Paths[Path], Method>,
   Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>, // note: Required is used to avoid repeating NonNullable in UseQuery types
   Options extends Omit<
-    UseSuspenseQueryOptions<Response["data"], Response["error"], Response["data"], QueryKey<Paths, Method, Path>>,
+    UseSuspenseQueryOptions<
+      Response["data"],
+      Response["error"],
+      Response["data"],
+      QueryKey<Paths, Method, Path, Media>
+    >,
     "queryKey" | "queryFn"
   >,
 >(
@@ -100,7 +112,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   const queryFn = async <Method extends HttpMethod, Path extends PathsWithMethod<Paths, Method>>({
     queryKey: [method, path, init],
     signal,
-  }: QueryFunctionContext<QueryKey<Paths, Method, Path>>) => {
+  }: QueryFunctionContext<QueryKey<Paths, Method, Path, Media>>) => {
     const mth = method.toUpperCase() as Uppercase<typeof method>;
     const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
     const { data, error } = await fn(path, { signal, ...(init as any) }); // TODO: find a way to avoid as any
@@ -110,11 +122,15 @@ export default function createClient<Paths extends {}, Media extends MediaType =
     return data;
   };
 
-  const queryOptions: QueryOptionsFunction<Paths, Media> = (method, path, ...[init, options]) => ({
-    queryKey: [method, path, init as InitWithUnknowns<typeof init>] as const,
-    queryFn,
-    ...options,
-  });
+  const queryOptions: QueryOptionsFunction<Paths, Media> = (method, path, ...[init, options]) => {
+    return {
+      queryKey: Object.assign([method, path, init as InitWithUnknowns<typeof init>] as const, {
+        [dataTagSymbol]: {} as any,
+      }),
+      queryFn,
+      ...options,
+    };
+  };
 
   return {
     queryOptions,

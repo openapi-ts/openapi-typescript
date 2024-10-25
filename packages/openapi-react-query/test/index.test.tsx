@@ -4,7 +4,7 @@ import type { paths } from "./fixtures/api.js";
 import createClient from "../src/index.js";
 import createFetchClient from "openapi-fetch";
 import { fireEvent, render, renderHook, screen, waitFor, act } from "@testing-library/react";
-import { QueryClient, QueryClientProvider, useQueries } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider, useQueries, useQuery } from "@tanstack/react-query";
 import { Suspense, type ReactNode } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -62,6 +62,49 @@ describe("client", () => {
       client.queryOptions("get", "/string-arrayX");
       // @ts-expect-error: Missing 'post_id' param.
       client.queryOptions("get", "/blogposts/{post_id}", {});
+    });
+
+    it("correctly infers return type from query key", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      const initialData = { title: "Initial data", body: "Initial data" };
+
+      const options = client.queryOptions(
+        "get",
+        "/blogposts/{post_id}",
+        {
+          params: {
+            path: {
+              post_id: "1",
+            },
+          },
+        },
+        {
+          initialData: () => initialData,
+        },
+      );
+
+      const data = queryClient.getQueryData(options.queryKey);
+
+      expectTypeOf(data).toEqualTypeOf<
+        | {
+            title: string;
+            body: string;
+            publish_date?: number;
+          }
+        | undefined
+      >();
+      expect(data).toEqual(undefined);
+
+      const { result } = renderHook(() => useQuery({ ...options, enabled: false }), {
+        wrapper,
+      });
+
+      await waitFor(() => expect(result.current.isFetching).toBe(false));
+
+      expect(result.current.data).toEqual(initialData);
+      expect(result.current.error).toBeNull();
     });
 
     it("returns query options that can resolve data correctly with fetchQuery", async () => {
