@@ -12,8 +12,8 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/react": "^18.3.8",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
     "openapi-typescript": "workspace:^",
     "typescript": "5.4.5"
   }
