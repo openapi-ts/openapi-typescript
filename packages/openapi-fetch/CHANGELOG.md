@@ -1,5 +1,12 @@
 # openapi-fetch
 
+## 0.12.4
+
+### Patch Changes
+
+- Updated dependencies [[`abfad56`](https://github.com/openapi-ts/openapi-typescript/commit/abfad5659183f95f705598dc52ae2dfe7a18ec04)]:
+  - openapi-typescript-helpers@0.0.14
+
 ## 0.12.3
 
 ### Patch Changes
