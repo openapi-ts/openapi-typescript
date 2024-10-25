@@ -1,5 +1,14 @@
 # openapi-fetch
 
+## 0.12.5
+
+### Patch Changes
+
+- [#1937](https://github.com/openapi-ts/openapi-typescript/pull/1937) [`06163a2`](https://github.com/openapi-ts/openapi-typescript/commit/06163a2030eaf8d0579f624d86481e1205aef396) Thanks [@DjordyKoert](https://github.com/DjordyKoert)! - client data & error now return a union of possible types
+
+- Updated dependencies [[`06163a2`](https://github.com/openapi-ts/openapi-typescript/commit/06163a2030eaf8d0579f624d86481e1205aef396)]:
+  - openapi-typescript-helpers@0.0.15
+
 ## 0.12.4
 
 ### Patch Changes
