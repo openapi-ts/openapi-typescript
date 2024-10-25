@@ -152,16 +152,16 @@ export default function createClient(clientOptions) {
 
     // handle empty content
     if (response.status === 204 || response.headers.get("Content-Length") === "0") {
-      return response.ok ? { data: undefined, response } : { error: undefined, response };
+      return response.ok ? { data: undefined, response, status: response.status  } : { error: undefined, response, status: response.status };
     }
 
     // parse response (falling back to .text() when necessary)
     if (response.ok) {
       // if "stream", skip parsing entirely
       if (parseAs === "stream") {
-        return { data: response.body, response };
+        return { data: response.body, response, status: response.status };
       }
-      return { data: await response[parseAs](), response };
+      return { data: await response[parseAs](), response, status: response.status };
     }
 
     // handle errors
@@ -171,7 +171,7 @@ export default function createClient(clientOptions) {
     } catch {
       // noop
     }
-    return { error, response };
+    return { error, response, status: response.status };
   }
 
   return {
