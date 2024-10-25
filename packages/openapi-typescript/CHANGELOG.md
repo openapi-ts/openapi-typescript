@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.4.2
+
+### Patch Changes
+
+- [#1873](https://github.com/openapi-ts/openapi-typescript/pull/1873) [`c2c396d`](https://github.com/openapi-ts/openapi-typescript/commit/c2c396d8282692f3ac2df50656ebcd9e8615a685) Thanks [@DanDeMicco](https://github.com/DanDeMicco)! - Support for generating enums when enums definition has null value
+
 ## 7.4.1
 
 ### Patch Changes
