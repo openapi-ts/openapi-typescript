@@ -264,6 +264,23 @@ describe("params", () => {
         expect(actualURL.search).toBe("");
       });
 
+      test("array params (empty, multiple)", async () => {
+        let actualURL = new URL("https://fakeurl.example");
+        const client = createObservedClient<paths>({}, async (req) => {
+          actualURL = new URL(req.url);
+          return Response.json({});
+        });
+
+        await client.GET("/query-params", {
+          params: {
+            query: { array: [], second_array: [], third_array: [] },
+          },
+        });
+
+        expect(actualURL.pathname).toBe("/query-params");
+        expect(actualURL.search).toBe("");
+      });
+
       test("empty/null params", async () => {
         let actualURL = new URL("https://fakeurl.example");
         const client = createObservedClient<paths>({}, async (req) => {
