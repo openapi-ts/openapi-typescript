@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.13.0
+
+### Minor Changes
+
+- [#1968](https://github.com/openapi-ts/openapi-typescript/pull/1968) [`267977e`](https://github.com/openapi-ts/openapi-typescript/commit/267977e369f7a84c5d828023e6175729e4dd4c22) Thanks [@DjordyKoert](https://github.com/DjordyKoert)! - 204 responses or response with a Content-Length of 0 will now return undefined instead of an empty object
+
 ## 0.12.5
 
 ### Patch Changes
