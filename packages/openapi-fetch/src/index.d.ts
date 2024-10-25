@@ -9,6 +9,10 @@ import type {
   ResponseObjectMap,
   RequiredKeysOf,
   SuccessResponse,
+  GetResponseContent,
+  ErrorStatus,
+  OkStatus,
+  OpenApiStatusToHttpStatus,
 } from "openapi-typescript-helpers";
 
 /** Options for each client instance */
@@ -98,17 +102,25 @@ export type RequestBodyOption<T> = OperationRequestBodyContent<T> extends never
 
 export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body" | "headers">;
 
-export type FetchResponse<T extends Record<string | number, any>, Options, Media extends MediaType> =
-  | {
-      data: ParseAsResponse<SuccessResponse<ResponseObjectMap<T>, Media>, Options>;
-      error?: never;
-      response: Response;
-    }
-  | {
-      data?: never;
-      error: ErrorResponse<ResponseObjectMap<T>, Media>;
-      response: Response;
-    };
+export type FetchResponse<
+  T extends Record<string | number, any>,
+  Options,
+  Media extends MediaType,
+  TStatus extends keyof ResponseObjectMap<T> = keyof ResponseObjectMap<T>,
+> = {
+  [S in TStatus]: {
+    response: Response;
+    status: OpenApiStatusToHttpStatus<S>;
+  } & (S extends OkStatus
+    ? {
+        data: ParseAsResponse<GetResponseContent<ResponseObjectMap<T>, Media, S>, Options>;
+        error: never;
+      }
+    : {
+        data: never;
+        error: GetResponseContent<ResponseObjectMap<T>, Media, S>;
+      });
+}[TStatus];
 
 export type RequestOptions<T> = ParamsOption<T> &
   RequestBodyOption<T> & {
