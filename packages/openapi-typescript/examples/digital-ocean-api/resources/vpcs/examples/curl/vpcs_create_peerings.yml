@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name":"example-vpc-peering", "vpc_id": "e51aed59-3bb1-4a6a-8de0-9d1329e9c997"}' \
+    "https://api.digitalocean.com/v2/vpcs/5a4981aa-9653-4bd1-bef5-d6bff52042e4/peerings"

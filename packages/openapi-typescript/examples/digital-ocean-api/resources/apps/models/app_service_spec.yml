@@ -13,6 +13,18 @@ allOf:
     health_check:
       $ref: app_service_spec_health_check.yml
 
+    protocol:
+      type: string
+      description: |
+        The protocol which the service uses to serve traffic on the http_port.
+
+        - `HTTP`: The app is serving the HTTP protocol. Default.
+        - `HTTP2`: The app is serving the HTTP/2 protocol. Currently, this needs to be implemented in the service by serving HTTP/2 cleartext (h2c).
+      enum:
+      - HTTP
+      - HTTP2
+      example: HTTP
+
     http_port:
       type: integer
       description: |-

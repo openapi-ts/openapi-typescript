@@ -1,0 +1,29 @@
+description: >-
+  The response will be a JSON object with a key called `peering`, containing 
+  the standard attributes associated with a VPC peering.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        peering:
+          $ref: '../../vpc_peerings/models/vpc_peering.yml#/vpc_peering'
+
+      example:
+        peering:
+          id: 6b5c619c-359c-44ca-87e2-47e98170c01d
+          name: example-vpc-peering
+          vpc_ids:
+          - 997615ce-132d-4bae-9270-9ee21b395e5d
+          - e51aed59-3bb1-4a6a-8de0-9d1329e9c997
+          created_at: '2024-01-09T20:44:32Z'
+          status: PROVISIONING

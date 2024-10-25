@@ -7,9 +7,11 @@ description: |
   `/v2/cdn/endpoints/$ENDPOINT_ID/cache`. The body of the request should include
   a `files` attribute containing a list of cached file paths to be purged. A
   path may be for a single file or may contain a wildcard (`*`) to recursively
-  purge all files under a directory. When only a wildcard is provided, all
-  cached files will be purged. There is a rate limit of 50 files per 20 seconds 
-  that can be purged.
+  purge all files under a directory. When only a wildcard is provided, all cached 
+  files will be purged. There is a rate limit of 50 files per 20 seconds that can 
+  be purged. CDN endpoints have a rate limit of 5 requests per 10 seconds. 
+  Purging files using a wildcard path counts as a single request against the API's 
+  rate limit. Two identical purge requests cannot be sent at the same time.
 
 tags:
   - CDN Endpoints
