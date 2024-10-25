@@ -36,6 +36,7 @@ client.GET("/my-url", options);
 | `querySerializer` | QuerySerializer                                                   | (任意) [querySerializer](#queryserializer) を提供します                                                                                                                                                                                    |
 | `bodySerializer`  | BodySerializer                                                    | (任意) [bodySerializer](#bodyserializer) を提供します                                                                                                                                                                                      |
 | `parseAs`         | `"json"` \| `"text"` \| `"arrayBuffer"` \| `"blob"` \| `"stream"` | (任意) [組み込みのインスタンスメソッド](https://developer.mozilla.org/en-US/docs/Web/API/Response#instance_methods) を使用してレスポンスを解析します (デフォルト: `"json"`). `"stream"` は解析をスキップし、未処理のストリームを返します。 |
+| `baseUrl`         | `string`                                                          | fetch URL にこのオプションで指定されたプレフィックスを付与します (e.g. `"https://myapi.dev/v1/"`)                                                                                                                                          |
 | `fetch`           | `fetch`                                                           | リクエストに使用する Fetch インスタンス (デフォルト: `createClient` で指定された fetch )                                                                                                                                                   |
 | `middleware`      | `Middleware[]`                                                    | [ドキュメントを参照](/openapi-fetch/middleware-auth)                                                                                                                                                                                       |
 | (Fetch options)   |                                                                   | 有効なすべての fetch オプション(`headers`, `mode`, `cache`, `signal`など) ([ドキュメント](https://developer.mozilla.org/en-US/docs/Web/API/fetch#options))                                                                                 |
@@ -179,6 +180,15 @@ const { data, error } = await client.PUT("/submit", {
   },
 });
 ```
+
+::: tip
+
+便宜上、`openapi-fetch` は `body` パラメーターに値が指定されたリクエストに対して、`Content-Type` を `application/json` に自動で設定します。
+`bodySerializer` が `FormData` のインスタンスを返す場合、`Content-Type` ヘッダーは省略され、ブラウザがメッセージの複数のパートを正しく区切るboundaryを含む `Content-Type` を自動的に設定します。
+
+また、fetch オプションやクライアントのインスタンス化時に、`headers` オブジェクトを通じて `Content-Type` を手動で設定することもできます。
+
+:::
 
 ## Pathのシリアライズ
 

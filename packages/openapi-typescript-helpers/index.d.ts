@@ -149,15 +149,15 @@ export type ErrorResponse<
 /** Return first JSON-like 2XX response from a path + HTTP method */
 export type SuccessResponseJSON<PathMethod extends Record<string | number, any>> = SuccessResponse<
   ResponseObjectMap<PathMethod>
->;
+, `${string}/json`>;
 
 /** Return first JSON-like 5XX or 4XX response from a path + HTTP method */
 export type ErrorResponseJSON<PathMethod extends Record<string | number, any>> = ErrorResponse<
   ResponseObjectMap<PathMethod>
->;
+, `${string}/json`>;
 
 /** Return JSON-like request body from a path + HTTP method */
-export type RequestBodyJSON<PathMethod> = FilterKeys<OperationRequestBody<PathMethod>, "content">;
+export type RequestBodyJSON<PathMethod> = JSONLike<FilterKeys<OperationRequestBody<PathMethod>, "content">>;
 
 // Generic TS utils
 

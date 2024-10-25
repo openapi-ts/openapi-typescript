@@ -1,5 +1,18 @@
 # openapi-fetch
 
+## 0.12.4
+
+### Patch Changes
+
+- Updated dependencies [[`abfad56`](https://github.com/openapi-ts/openapi-typescript/commit/abfad5659183f95f705598dc52ae2dfe7a18ec04)]:
+  - openapi-typescript-helpers@0.0.14
+
+## 0.12.3
+
+### Patch Changes
+
+- [#1936](https://github.com/openapi-ts/openapi-typescript/pull/1936) [`d14aa65`](https://github.com/openapi-ts/openapi-typescript/commit/d14aa65207b8abd1f369965bbd32ebb581e8d741) Thanks [@BlakeSzabo](https://github.com/BlakeSzabo)! - Fix multiple empty arrays in query params appending extra ampersands
+
 ## 0.12.2
 
 ### Patch Changes

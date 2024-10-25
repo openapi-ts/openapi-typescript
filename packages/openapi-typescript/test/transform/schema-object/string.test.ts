@@ -85,6 +85,13 @@ describe("transformSchemaObject > string", () => {
       },
     ],
     [
+      "enum + nullable + null value",
+      {
+        given: { type: ["string", "null"], enum: ["A", "B", "C", null] },
+        want: '"A" | "B" | "C" | null',
+      },
+    ],
+    [
       "enum + nullable (deprecated syntax)",
       {
         given: { type: "string", enum: ["A", "B", "C"], nullable: true },

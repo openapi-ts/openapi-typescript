@@ -65,7 +65,7 @@ npx openapi-typescript
 
 ## Redocly config
 
-openapi-typescript を使用するには `redocly.yaml` ファイルは必須ではありません。デフォルトでは、組み込みの `"minimal"` 設定を拡張します。ただし、カスタム検証ルールや[複数のスキーマ](#複数のスキーマ)の型を構築したい場合には使用をお勧めします。CLI はプロジェクトのルートディレクトリで `redocly.yaml` を自動的に見つけようとしますが、`--redoc` フラグを使用してその場所を指定することもできます：
+openapi-typescript を使用するには `redocly.yaml` ファイルは必須ではありません。デフォルトでは、組み込みの `"minimal"` 設定を拡張します。ただし、カスタム検証ルールや[複数のスキーマ](#複数のスキーマ)の型を構築したい場合には使用をお勧めします。CLI はプロジェクトのルートディレクトリで `redocly.yaml` を自動的に見つけようとしますが、`--redocly` フラグを使用してその場所を指定することもできます：
 
 ```bash
 npx openapi-typescript --redocly ./path/to/redocly.yaml
@@ -119,6 +119,7 @@ CLI は以下のフラグをサポートしています：
 | `--export-type`                    | `-t`       |  `false`   | `interface` の代わりに `type` をエクスポートします                                                       |
 | `--immutable`                      |            |  `false`   | 不変の型（readonlyプロパティおよびreadonly配列）を生成します                                             |
 | `--path-params-as-types`           |            |  `false`   | `paths` オブジェクトで動的な文字列の参照を許可します                                                     |
+| `--root-types`                     |            |  `false`   | `components` から型をルートレベルの型エイリアスとしてエクスポートする                                        |
 
 ### pathParamsAsTypes
 
@@ -175,7 +176,7 @@ _ありがとう, [@Powell-v2](https://github.com/Powell-v2)!_
 ```yaml [my-openapi-3-schema.yaml]
 components:
   schemas:
-    TupleType
+    TupleType:
       type: array
       items:
         type: string
