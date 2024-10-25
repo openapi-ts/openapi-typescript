@@ -5,6 +5,7 @@ import type { OperationObject, RequestBodyObject, TransformNodeOptions } from ".
 import { transformParametersArray } from "./parameters-array.js";
 import transformRequestBodyObject from "./request-body-object.js";
 import transformResponsesObject from "./responses-object.js";
+import transformSecurityArray from "./security-array.js";
 
 /**
  * Transform OperationObject nodes (4.8.10)
@@ -18,6 +19,9 @@ export default function transformOperationObject(
 
   // parameters
   type.push(...transformParametersArray(operationObject.parameters ?? [], options));
+
+  // security
+  type.push(...transformSecurityArray(operationObject.security ?? [], options));
 
   // requestBody
   if (operationObject.requestBody) {

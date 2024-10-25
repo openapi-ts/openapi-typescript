@@ -110,6 +110,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -179,6 +180,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -227,6 +229,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -242,7 +245,7 @@ export type operations = Record<string, never>;`,
           components: {
             schemas: {
               Pet: {
-                type: "object", // note: this is “wrong” but added because this should be ignored (fixes a bug)
+                type: "object", // note: this is "wrong" but added because this should be ignored (fixes a bug)
                 required: ["petType"],
                 oneOf: [
                   { $ref: "#/components/schemas/Cat" },
@@ -313,6 +316,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -408,6 +412,7 @@ export type operations = Record<string, never>;`,
                 path?: never;
                 cookie?: never;
             };
+            security?: never;
             requestBody?: never;
             responses: {
                 /** @description OK */
@@ -457,6 +462,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -568,6 +574,7 @@ export type operations = Record<string, never>;`,
                 path?: never;
                 cookie?: never;
             };
+            security?: never;
             requestBody?: never;
             responses: {
                 /** @description OK */
@@ -622,6 +629,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,

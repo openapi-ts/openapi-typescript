@@ -7137,6 +7137,7 @@ export interface components {
         "x-rate-limit-reset": number;
     };
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
@@ -7152,6 +7153,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -7173,6 +7175,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -7221,6 +7224,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -7244,6 +7248,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -7265,6 +7270,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: {
             content: {
                 "application/json": {
@@ -7311,6 +7317,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -7339,6 +7346,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -7363,6 +7371,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -7384,6 +7393,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -7414,6 +7424,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -7439,6 +7450,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -7469,6 +7481,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -7491,6 +7504,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -7525,6 +7539,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -7563,6 +7578,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -7583,6 +7599,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -7615,6 +7632,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -7638,6 +7656,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -7675,6 +7694,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: {
             content: {
                 "application/json": {
@@ -7723,6 +7743,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -7762,6 +7783,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -7791,6 +7813,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -7811,6 +7834,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -7855,6 +7879,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -7878,6 +7903,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -7899,6 +7925,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: {
             content: {
                 "application/json": {
@@ -7945,6 +7972,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -7969,6 +7997,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -7987,6 +8016,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -8021,6 +8051,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8042,6 +8073,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -8075,6 +8107,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -8114,6 +8147,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8140,6 +8174,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description The permissions the installation has are included under the `permissions` key. */
@@ -8164,6 +8199,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8188,6 +8224,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: {
             content: {
                 "application/json": {
@@ -8234,6 +8271,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8262,6 +8300,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8288,6 +8327,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8312,6 +8352,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -8344,6 +8385,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -8375,6 +8417,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -8436,6 +8479,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8461,6 +8505,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: {
             content: {
                 "application/json": {
@@ -8517,6 +8562,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -8582,6 +8628,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -8641,6 +8688,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8667,6 +8715,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8691,6 +8740,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: {
             content: {
                 "application/json": {
@@ -8738,6 +8788,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8758,6 +8809,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8776,6 +8828,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": components["schemas"]["announcement"];
@@ -8800,6 +8853,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8820,6 +8874,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8840,6 +8895,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8860,6 +8916,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8880,6 +8937,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8900,6 +8958,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8920,6 +8979,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8940,6 +9000,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8960,6 +9021,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -8980,6 +9042,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9000,6 +9063,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9020,6 +9084,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9043,6 +9108,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9067,6 +9133,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": components["schemas"]["actions-cache-usage-policy-enterprise"];
@@ -9092,6 +9159,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9115,6 +9183,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": components["schemas"]["selected-actions"];
@@ -9163,6 +9232,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9205,6 +9275,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9228,6 +9299,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9252,6 +9324,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response - list of custom role names */
@@ -9282,6 +9355,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9306,6 +9380,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: {
             content: {
                 "application/json": {
@@ -9402,6 +9477,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9425,6 +9501,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: {
             content: {
                 "application/json": components["schemas"]["selected-actions"];
@@ -9473,6 +9550,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9498,6 +9576,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9528,6 +9607,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9553,6 +9633,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9581,6 +9662,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9617,6 +9699,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9642,6 +9725,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9667,6 +9751,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9692,6 +9777,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: {
             content: {
                 "application/json": {
@@ -9741,6 +9827,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9767,6 +9854,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -9829,6 +9917,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9854,6 +9943,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9877,6 +9967,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -9907,6 +9998,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9937,6 +10029,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -9962,6 +10055,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": components["schemas"]["actions-cache-usage-policy-for-repository"];
@@ -9989,6 +10083,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -10014,6 +10109,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: {
             content: {
                 "application/json": components["schemas"]["selected-actions"];
@@ -10060,6 +10156,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -10094,6 +10191,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -10126,6 +10224,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -10172,6 +10271,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -10204,6 +10304,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -10229,6 +10330,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -10273,6 +10375,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -10312,6 +10415,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -10349,6 +10453,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -10378,6 +10483,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description if user has admin permissions */
@@ -10409,6 +10515,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -10437,6 +10544,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: {
             content: {
                 "application/json": {
@@ -10473,6 +10581,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -10505,6 +10614,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -10531,6 +10641,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -10574,6 +10685,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -10608,6 +10720,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -10635,6 +10748,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -10662,6 +10776,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Responds with effective values inherited from owner and/or global level. */
@@ -10689,6 +10804,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: {
             content: {
                 "application/json": {
@@ -10729,6 +10845,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -10756,6 +10873,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -10812,6 +10930,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -10839,6 +10958,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -10867,6 +10987,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description **Note:** This returns an `upload_url` key corresponding to the endpoint for uploading release assets. This key is a [hypermedia resource](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#hypermedia). */
@@ -10895,6 +11016,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: {
             content: {
                 "application/json": {
@@ -10942,6 +11064,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Status information for cache replicas */
@@ -10996,6 +11119,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -11031,6 +11155,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -11067,6 +11192,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -11114,6 +11240,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -11150,6 +11277,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -11173,6 +11301,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -11214,6 +11343,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -11239,6 +11369,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -11277,6 +11408,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -11300,6 +11432,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -11345,6 +11478,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -11368,6 +11502,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -11421,6 +11556,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -11446,6 +11582,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -11499,6 +11636,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -11522,6 +11660,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/json": {
@@ -11551,6 +11690,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -11571,6 +11711,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -11589,6 +11730,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -11609,6 +11751,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/x-www-form-urlencoded": {
@@ -11640,6 +11783,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -11660,6 +11804,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/x-www-form-urlencoded": {
@@ -11685,6 +11830,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -11705,6 +11851,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/x-www-form-urlencoded": {
@@ -11732,6 +11879,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/x-www-form-urlencoded": {
@@ -11759,6 +11907,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody: {
             content: {
                 "application/x-www-form-urlencoded": {
@@ -11788,6 +11937,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: {
             content: {
                 "application/x-www-form-urlencoded": {
@@ -11818,6 +11968,7 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description You can find the permissions for the installation under the `permissions` key. */
@@ -11848,6 +11999,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -11871,6 +12023,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -11892,6 +12045,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: never;
         responses: {
             /** @description Response */
@@ -11913,6 +12067,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: {
             content: {
                 "application/json": {
@@ -11941,6 +12096,7 @@ export interface operations {
             };
             cookie?: never;
         };
+        security?: never;
         requestBody?: {
             content: {
                 "application/json": {

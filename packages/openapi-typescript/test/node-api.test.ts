@@ -27,6 +27,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -49,6 +50,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -95,6 +97,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -117,6 +120,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -157,6 +161,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -196,6 +201,7 @@ export type components = {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 };
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -236,6 +242,7 @@ export type operations = Record<string, never>;`,
                 };
                 cookie?: never;
             };
+            security?: never;
             requestBody?: never;
             responses: never;
         };
@@ -248,6 +255,7 @@ export type operations = Record<string, never>;`,
                 };
                 cookie?: never;
             };
+            security?: never;
             requestBody?: never;
             responses: never;
         };
@@ -267,6 +275,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -307,6 +316,7 @@ export type operations = Record<string, never>;`,
                 };
                 cookie?: never;
             };
+            security?: never;
             requestBody?: never;
             responses: never;
         };
@@ -319,6 +329,7 @@ export type operations = Record<string, never>;`,
                 };
                 cookie?: never;
             };
+            security?: never;
             requestBody?: never;
             responses: never;
         };
@@ -338,6 +349,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -368,6 +380,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -409,6 +422,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -460,6 +474,7 @@ export interface components {
     };
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -513,6 +528,7 @@ export interface components {
     };
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -552,6 +568,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
@@ -641,6 +658,7 @@ export type operations = Record<string, never>;`,
                 path?: never;
                 cookie?: never;
             };
+            security?: never;
             requestBody?: never;
             responses: never;
         };
@@ -672,6 +690,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export enum PathsUrlGetParametersQueryStatus {
@@ -770,6 +789,7 @@ export type operations = Record<string, never>;`,
                 path?: never;
                 cookie?: never;
             };
+            security?: never;
             requestBody?: never;
             responses: never;
         };
@@ -795,6 +815,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 type ReadonlyArray<T> = [
@@ -861,6 +882,7 @@ export type operations = Record<string, never>;`,
                 path?: never;
                 cookie?: never;
             };
+            security?: never;
             requestBody?: never;
             responses: never;
         };
@@ -886,6 +908,7 @@ export interface components {
     requestBodies: never;
     headers: never;
     pathItems: never;
+    securitySchemes: never;
 }
 export type $defs = Record<string, never>;
 export enum PathsUrlGetParametersQueryStatus {
