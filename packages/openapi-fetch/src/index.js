@@ -151,9 +151,8 @@ export default function createClient(clientOptions) {
     }
 
     // handle empty content
-    // note: we return `{}` because we want user truthy checks for `.data` or `.error` to succeed
     if (response.status === 204 || response.headers.get("Content-Length") === "0") {
-      return response.ok ? { data: {}, response } : { error: {}, response };
+      return response.ok ? { data: undefined, response } : { error: undefined, response };
     }
 
     // parse response (falling back to .text() when necessary)
