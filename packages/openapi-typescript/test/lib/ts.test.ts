@@ -100,7 +100,9 @@ describe("tsEnum", () => {
   });
 
   test("name from path", () => {
-    expect(astToString(tsEnum("#/paths/url/get/parameters/query/status", ["active", "inactive"])).trim()).toBe(`enum PathsUrlGetParametersQueryStatus {
+    expect(
+      astToString(tsEnum("#/paths/url/get/parameters/query/status", ["active", "inactive"])).trim(),
+    ).toBe(`enum PathsUrlGetParametersQueryStatus {
     active = "active",
     inactive = "inactive"
 }`);

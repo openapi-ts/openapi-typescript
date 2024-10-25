@@ -121,7 +121,11 @@ export default function createClient<Paths extends {}, Media extends MediaType =
     useQuery: (method, path, ...[init, options, queryClient]) =>
       useQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
     useSuspenseQuery: (method, path, ...[init, options, queryClient]) =>
-      useSuspenseQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
+      useSuspenseQuery(
+        // @ts-expect-error TODO: fix minor type mismatch between useQuery and useSuspenseQuery
+        queryOptions(method, path, init as InitWithUnknowns<typeof init>, options),
+        queryClient,
+      ),
     useMutation: (method, path, options, queryClient) =>
       useMutation(
         {
