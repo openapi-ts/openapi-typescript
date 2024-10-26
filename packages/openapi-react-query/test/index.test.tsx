@@ -4,9 +4,38 @@ import type { paths } from "./fixtures/api.js";
 import createClient from "../src/index.js";
 import createFetchClient from "openapi-fetch";
 import { fireEvent, render, renderHook, screen, waitFor, act } from "@testing-library/react";
-import { QueryClient, QueryClientProvider, useQueries } from "@tanstack/react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQueries,
+  useQuery,
+  useSuspenseQuery,
+  skipToken,
+} from "@tanstack/react-query";
 import { Suspense, type ReactNode } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+
+type minimalGetPaths = {
+  // Without parameters.
+  "/foo": {
+    get: {
+      responses: {
+        200: { content: { "application/json": true } };
+        500: { content: { "application/json": false } };
+      };
+    };
+  };
+  // With some parameters (makes init required) and different responses.
+  "/bar": {
+    get: {
+      parameters: { query: {} };
+      responses: {
+        200: { content: { "application/json": "bar 200" } };
+        500: { content: { "application/json": "bar 500" } };
+      };
+    };
+  };
+};
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,9 +56,7 @@ const fetchInfinite = async () => {
 
 beforeAll(() => {
   server.listen({
-    onUnhandledRequest: (request) => {
-      throw new Error(`No request handler found for ${request.method} ${request.url}`);
-    },
+    onUnhandledRequest: "error",
   });
 });
 
@@ -96,7 +123,7 @@ describe("client", () => {
       expect(data).toEqual(response);
     });
 
-    it("returns query options that can be passed to useQueries and have correct types inferred", async () => {
+    it("returns query options that can be passed to useQueries", async () => {
       const fetchClient = createFetchClient<paths>({ baseUrl, fetch: fetchInfinite });
       const client = createClient(fetchClient);
 
@@ -149,6 +176,60 @@ describe("client", () => {
 
       // Generated different queryKey for each query.
       expect(queryClient.isFetching()).toBe(4);
+    });
+
+    it("returns query options that can be passed to useQuery", async () => {
+      const SKIP = { queryKey: [] as any, queryFn: skipToken } as const;
+
+      const fetchClient = createFetchClient<minimalGetPaths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      const { result } = renderHook(
+        () =>
+          useQuery(
+            // biome-ignore lint/correctness/noConstantCondition: it's just here to test types
+            false
+              ? {
+                  ...client.queryOptions("get", "/foo"),
+                  select: (data) => {
+                    expectTypeOf(data).toEqualTypeOf<true>();
+
+                    return "select(true)" as const;
+                  },
+                }
+              : SKIP,
+          ),
+        { wrapper },
+      );
+
+      expectTypeOf(result.current.data).toEqualTypeOf<"select(true)" | undefined>();
+      expectTypeOf(result.current.error).toEqualTypeOf<false | null>();
+    });
+
+    it("returns query options that can be passed to useSuspenseQuery", async () => {
+      const fetchClient = createFetchClient<minimalGetPaths>({
+        baseUrl,
+        fetch: () => Promise.resolve(Response.json(true)),
+      });
+      const client = createClient(fetchClient);
+
+      const { result } = renderHook(
+        () =>
+          useSuspenseQuery({
+            ...client.queryOptions("get", "/foo"),
+            select: (data) => {
+              expectTypeOf(data).toEqualTypeOf<true>();
+
+              return "select(true)" as const;
+            },
+          }),
+        { wrapper },
+      );
+
+      await waitFor(() => expect(result.current).not.toBeNull());
+
+      expectTypeOf(result.current.data).toEqualTypeOf<"select(true)">();
+      expectTypeOf(result.current.error).toEqualTypeOf<false | null>();
     });
   });
 
@@ -203,7 +284,7 @@ describe("client", () => {
     });
 
     it("should infer correct data and error type", async () => {
-      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const fetchClient = createFetchClient<paths>({ baseUrl, fetch: fetchInfinite });
       const client = createClient(fetchClient);
 
       const { result } = renderHook(() => client.useQuery("get", "/string-array"), {
