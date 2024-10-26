@@ -165,6 +165,7 @@ const CONTRIBUTORS = {
     "illright",
   ]),
   "openapi-react-query": new Set(["drwpow", "kerwanp", "yoshi2no"]),
+  "swr-openapi": new Set(["htunnicliff"])
 };
 
 async function main() {
@@ -172,6 +173,7 @@ async function main() {
   const total = Object.values(CONTRIBUTORS).reduce((total, next) => total + next.size, 0);
   await Promise.all(
     Object.entries(CONTRIBUTORS).map(async ([repo, contributors]) => {
+      data[repo] ??= [];
       for (const username of [...contributors]) {
         i++;
         // skip profiles that have been updated within the past week

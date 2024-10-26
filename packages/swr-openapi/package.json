@@ -1,0 +1,89 @@
+{
+  "name": "swr-openapi",
+  "description": "Generate SWR hooks from OpenAPI schemas",
+  "version": "5.0.0",
+  "author": {
+    "name": "Hunter Tunnicliff",
+    "email": "hunter@tunnicliff.co"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "exports": {
+    "import": "./dist/index.js",
+    "types": "./dist/index.d.ts"
+  },
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openapi-ts/openapi-typescript",
+    "directory": "packages/swr-openapi"
+  },
+  "keywords": [
+    "swr",
+    "openapi",
+    "rest",
+    "generator",
+    "client",
+    "fetch"
+  ],
+  "funding": {
+    "type": "buymeacoffee",
+    "url": "https://buymeacoffee.com/htunnicliff"
+  },
+  "bugs": {
+    "url": "https://github.com/openapi-ts/openapi-typescript/issues"
+  },
+  "files": [
+    "dist",
+    "src",
+    "!src/__test__",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "pnpm run build:clean && pnpm run build:esm",
+    "build:clean": "del-cli dist",
+    "build:esm": "tsc -p tsconfig.build.json",
+    "dev": "vitest --typecheck",
+    "format": "biome format . --write",
+    "lint": "biome check .",
+    "test": "pnpm run --sequential \"/^test:/\"",
+    "test:js": "vitest run --typecheck",
+    "test:ts": "tsc --noEmit",
+    "test:exports": "pnpm run build && attw --pack . --ignore-rules=cjs-resolves-to-esm",
+    "prepublish": "pnpm run build",
+    "version": "pnpm run build"
+  },
+  "peerDependencies": {
+    "openapi-fetch": "0.12",
+    "openapi-typescript": "7",
+    "react": "18 || 19",
+    "swr": "2",
+    "typescript": "^5.x"
+  },
+  "peerDependenciesMeta": {
+    "openapi-typescript": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "openapi-typescript-helpers": "0.0.13",
+    "type-fest": "4.26.1"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "0.16.2",
+    "@types/lodash": "4.17.7",
+    "@types/react": "18.3.5",
+    "del-cli": "5.1.0",
+    "husky": "9.1.5",
+    "lint-staged": "15.2.10",
+    "lodash": "4.17.21",
+    "openapi-fetch": "0.12.0",
+    "openapi-typescript": "7.4.0",
+    "react": "18.3.1",
+    "swr": "2.2.5",
+    "typescript": "5.5.4",
+    "vitest": "2.0.5"
+  }
+}
