@@ -44,7 +44,7 @@ requestBody:
     `v1/insights/lbaas/avg_cpu_utilization_percent`|alert on the percent of CPU utilization|load balancer ID
     `v1/insights/lbaas/connection_utilization_percent`|alert on the percent of connection utilization|load balancer ID
     `v1/insights/lbaas/droplet_health`|alert on Droplet health status changes|load balancer ID
-    `v1/insights/lbaas/tls_connections_per_second_utilization_percent`|alert on the percent of TLS connections per second utilization|load balancer ID
+    `v1/insights/lbaas/tls_connections_per_second_utilization_percent`|alert on the percent of TLS connections per second utilization (requires at least one HTTPS forwarding rule)|load balancer ID
     `v1/insights/lbaas/increase_in_http_error_rate_percentage_5xx`|alert on the percent increase of 5xx level http errors over 5m|load balancer ID
     `v1/insights/lbaas/increase_in_http_error_rate_percentage_4xx`|alert on the percent increase of 4xx level http errors over 5m|load balancer ID
     `v1/insights/lbaas/increase_in_http_error_rate_count_5xx`|alert on the count of 5xx level http errors over 5m|load balancer ID

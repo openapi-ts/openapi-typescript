@@ -18,7 +18,7 @@ properties:
   vcpus:
     type: integer
     example: 1
-    description: The integer of number CPUs allocated to Droplets of this size.
+    description: The number of CPUs allocated to Droplets of this size.
 
   disk:
     type: integer
@@ -84,6 +84,16 @@ properties:
       A string describing the class of Droplets created from this size. For
       example: Basic, General Purpose, CPU-Optimized, Memory-Optimized, or
       Storage-Optimized.
+
+  disk_info:
+    type: array
+    description: An array of objects containing information about the disks
+      available to Droplets created with this size.
+    items:
+      $ref: './disk_info.yml'
+
+  gpu_info:
+    $ref: './gpu_info.yml'
 
 required:
   - available

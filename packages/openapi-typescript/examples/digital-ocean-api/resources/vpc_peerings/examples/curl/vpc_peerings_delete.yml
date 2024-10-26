@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X DELETE \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/vpc_peerings/6b5c619c-359c-44ca-87e2-47e98170c01d"
+

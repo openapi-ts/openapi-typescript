@@ -25,3 +25,5 @@ content:
         $ref: 'examples.yml#/droplets_all'
       Droplets Filtered By Tag:
         $ref: 'examples.yml#/droplets_tagged'
+      GPU Droplets:
+        $ref: 'examples.yml#/gpu_droplets'
