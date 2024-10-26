@@ -43,7 +43,7 @@
   ],
   "scripts": {
     "build": "pnpm run build:clean && pnpm run build:esm",
-    "build:clean": "del dist",
+    "build:clean": "del-cli dist",
     "build:esm": "tsc -p tsconfig.build.json",
     "dev": "vitest --typecheck",
     "format": "biome format . --write",
