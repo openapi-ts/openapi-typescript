@@ -140,4 +140,36 @@ describe("GET", () => {
     expect(data).toBeUndefined();
     expect(error).toBe("Unauthorized");
   });
+
+  test("type narrowing on status", async () => {
+    const mockData = {
+      id: 123,
+      title: "My Post",
+    };
+
+    let actualPathname = "";
+    const client = createObservedClient<paths>({}, async (req) => {
+      actualPathname = new URL(req.url).pathname;
+      return Response.json(mockData);
+    });
+
+    const { data, error, response, status } = await client.GET("/posts/{id}", {
+      params: { path: { id: 123 } },
+    });
+
+    if (status === 200) {
+      // @ts-expect-error FIXME: The '200' will never be undefined
+      assertType<typeof mockData>(data);
+    } else if (status === 204) {
+      assertType<undefined>(data);
+    } else if (status === 400) {
+      assertType<components["schemas"]["Error"]>(error);
+    } else if (status === 500) {
+      // @ts-expect-error FIXME: The 'default' response should be excluded
+      assertType<undefined>(error);
+    } else {
+      // @ts-expect-error FIXME: The '500' has already been caught so the undefined should be excluded
+      assertType<components["schemas"]["Error"]>(error);
+    }
+  });
 });

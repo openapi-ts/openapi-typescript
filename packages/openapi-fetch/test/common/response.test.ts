@@ -65,7 +65,7 @@ describe("response", () => {
       }
     });
 
-    test("returns union for mismatched errors", async () => {
+    test("returns union for mismatched errors", async () => {
       const client = createObservedClient<paths>();
       const result = await client.GET("/mismatched-errors");
       if (result.data) {
