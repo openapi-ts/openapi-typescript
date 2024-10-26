@@ -1,5 +1,13 @@
 # openapi-react-query
 
+## 0.2.4
+
+### Patch Changes
+
+- [#1952](https://github.com/openapi-ts/openapi-typescript/pull/1952) [`455b735`](https://github.com/openapi-ts/openapi-typescript/commit/455b73527c788918d665a3d607e8ac240a4e5e52) Thanks [@zsugabubus](https://github.com/zsugabubus)! - Fix return type inference for `queryOptions()` when used inside `useQuery` or `useSuspenseQuery`.
+
+- [#1952](https://github.com/openapi-ts/openapi-typescript/pull/1952) [`455b735`](https://github.com/openapi-ts/openapi-typescript/commit/455b73527c788918d665a3d607e8ac240a4e5e52) Thanks [@zsugabubus](https://github.com/zsugabubus)! - Narrow `queryFn` returned by `queryOptions()` to be a function.
+
 ## 0.2.3
 
 ### Patch Changes
