@@ -8,7 +8,7 @@
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[typescript]": {
+  "[typescript][typescriptreact]": {
     "editor.defaultFormatter": "biomejs.biome"
   }
 }
