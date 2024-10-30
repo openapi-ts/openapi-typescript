@@ -1,18 +1,16 @@
-import {
-  type UseMutationOptions,
-  type UseMutationResult,
-  type UseQueryOptions,
-  type UseQueryResult,
-  type UseSuspenseQueryOptions,
-  type UseSuspenseQueryResult,
-  type QueryClient,
-  type QueryFunctionContext,
-  type SkipToken,
-  useMutation,
-  useQuery,
-  useSuspenseQuery,
+import type {
+  QueryClient,
+  QueryFunctionContext,
+  SkipToken,
+  UseMutationOptions,
+  UseMutationResult,
+  UseQueryOptions,
+  UseQueryResult,
+  UseSuspenseQueryOptions,
+  UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import type { ClientMethod, FetchResponse, MaybeOptionalInit, Client as FetchClient } from "openapi-fetch";
+import { useMutation, useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import type { ClientMethod, Client as FetchClient, FetchResponse, MaybeOptionalInit } from "openapi-fetch";
 import type { HttpMethod, MediaType, PathsWithMethod, RequiredKeysOf } from "openapi-typescript-helpers";
 
 type InitWithUnknowns<Init> = Init & { [key: string]: unknown };
@@ -21,7 +19,7 @@ export type QueryKey<
   Paths extends Record<string, Record<HttpMethod, {}>>,
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
-> = readonly [Method, Path, MaybeOptionalInit<Paths[Path], Method>];
+> = readonly [FetchClient<Paths>, Method, Path, MaybeOptionalInit<Paths[Path], Method>];
 
 export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
@@ -109,7 +107,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   client: FetchClient<Paths, Media>,
 ): OpenapiQueryClient<Paths, Media> {
   const queryFn = async <Method extends HttpMethod, Path extends PathsWithMethod<Paths, Method>>({
-    queryKey: [method, path, init],
+    queryKey: [client, method, path, init],
     signal,
   }: QueryFunctionContext<QueryKey<Paths, Method, Path>>) => {
     const mth = method.toUpperCase() as Uppercase<typeof method>;
@@ -122,7 +120,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   };
 
   const queryOptions: QueryOptionsFunction<Paths, Media> = (method, path, ...[init, options]) => ({
-    queryKey: [method, path, init as InitWithUnknowns<typeof init>] as const,
+    queryKey: [client, method, path, init as InitWithUnknowns<typeof init>] as const,
     queryFn,
     ...options,
   });
