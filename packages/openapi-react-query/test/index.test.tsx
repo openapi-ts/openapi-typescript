@@ -628,7 +628,7 @@ describe("client", () => {
         expect(error).toBeNull();
       });
 
-      it("should resolve data properly and have error as null when mutationFn returns undefined", async () => {
+      it("should resolve error properly and have undefined data when mutationFn returns undefined", async () => {
         const fetchClient = createFetchClient<paths>({ baseUrl });
         const client = createClient(fetchClient);
 
@@ -648,7 +648,7 @@ describe("client", () => {
 
         const { data, error } = result.current;
 
-        expect(error).toBeNull();
+        expect(error).toBeInstanceOf(Error);
         expect(data).toBeUndefined();
       });
 
