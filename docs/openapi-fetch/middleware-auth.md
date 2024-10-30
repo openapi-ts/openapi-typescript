@@ -64,8 +64,9 @@ Middleware can also be used to throw an error that `fetch()` wouldn’t normally
 
 ```ts
 onResponse({ response }) {
-  if (response.error) {
-    throw new Error(response.error.message);
+  if (!response.ok) {
+    // Will produce error messages like "https://example.org/api/v1/example: 404 Not Found".
+    throw new Error(`${response.url}: ${response.status} ${response.statusText}`)
   }
 }
 ```
