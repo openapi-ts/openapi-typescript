@@ -115,9 +115,10 @@ export default function createClient<Paths extends {}, Media extends MediaType =
     const mth = method.toUpperCase() as Uppercase<typeof method>;
     const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
     const { data, error } = await fn(path, { signal, ...(init as any) }); // TODO: find a way to avoid as any
-    if (error || data === undefined) {
+    if (error) {
       throw error;
     }
+
     return data;
   };
 
@@ -141,9 +142,14 @@ export default function createClient<Paths extends {}, Media extends MediaType =
             const mth = method.toUpperCase() as Uppercase<typeof method>;
             const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
             const { data, error } = await fn(path, init as InitWithUnknowns<typeof init>);
-            if (error || data === undefined) {
+            if (error) {
               throw error;
             }
+
+            if (data === undefined) {
+              throw new Error("Unexpected undefined response");
+            }
+
             return data;
           },
           ...options,
