@@ -80,6 +80,19 @@ export default defineConfig({
             { text: "About", link: "/openapi-react-query/about" },
           ],
         },
+        {
+          text: "swr-openapi",
+          base: "/swr-openapi",
+          items: [
+            { text: "Getting Started", link: "/" },
+            { text: "Hook Builders", link: "/hook-builders" },
+            { text: "useQuery", link: "/use-query" },
+            { text: "useImmutable", link: "/use-immutable" },
+            { text: "useInfinite", link: "/use-infinite" },
+            { text: "useMutate", link: "/use-mutate" },
+            { text: "About", link: "/about" },
+          ],
+        },
       ],
     },
     search: {
