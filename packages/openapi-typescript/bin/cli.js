@@ -11,27 +11,28 @@ const HELP = `Usage
   $ openapi-typescript [input] [options]
 
 Options
-  --help                                      Display this
-  --version                                   Display the version
-  --redocly [path], -c                        Specify path to Redocly config (default: redocly.yaml)
-  --output, -o                                Specify output file (if not specified in redocly.yaml)
-  --enum                                      Export true TS enums instead of unions
-  --enum-values                               Export enum values as arrays
-  --dedupe-enums                              Dedupe enum types when \`--enum=true\` is set
-  --check                                     Check that the generated types are up-to-date. (default: false)
-  --export-type, -t                           Export top-level \`type\` instead of \`interface\`
-  --immutable                                 Generate readonly types
-  --additional-properties                     Treat schema objects as if \`additionalProperties: true\` is set
-  --empty-objects-unknown                     Generate \`unknown\` instead of \`Record<string, never>\` for empty objects
-  --default-non-nullable                      Set to \`false\` to ignore default values when generating non-nullable types
+  --help                     Display this
+  --version                  Display the version
+  --redocly [path], -c       Specify path to Redocly config (default: redocly.yaml)
+  --output, -o               Specify output file (if not specified in redocly.yaml)
+  --enum                     Export true TS enums instead of unions
+  --enum-values              Export enum values as arrays
+  --dedupe-enums             Dedupe enum types when \`--enum=true\` is set
+  --check                    Check that the generated types are up-to-date. (default: false)
+  --export-type, -t          Export top-level \`type\` instead of \`interface\`
+  --immutable                Generate readonly types
+  --additional-properties    Treat schema objects as if \`additionalProperties: true\` is set
+  --empty-objects-unknown    Generate \`unknown\` instead of \`Record<string, never>\` for empty objects
+  --default-non-nullable     Set to \`false\` to ignore default values when generating non-nullable types
   --properties-required-by-default
-                                              Treat schema objects as if \`required\` is set to all properties by default
-  --array-length                              Generate tuples using array minItems / maxItems
-  --path-params-as-types                      Convert paths to template literal types
-  --alphabetize                               Sort object keys alphabetically
-  --exclude-deprecated                        Exclude deprecated types
-  --root-types (optional)                     Export schemas types at root level
-  --root-types-no-schema-prefix (optional)    Do not add "Schema" prefix to types at the root level (should be used with --root-types)
+                             Treat schema objects as if \`required\` is set to all properties by default
+  --array-length             Generate tuples using array minItems / maxItems
+  --path-params-as-types     Convert paths to template literal types
+  --alphabetize              Sort object keys alphabetically
+  --exclude-deprecated       Exclude deprecated types
+  --root-types (optional)    Export schemas types at root level
+  --root-types-no-schema-prefix (optional)
+                             Do not add "Schema" prefix to types at the root level (should be used with --root-types)
 `;
 
 const OUTPUT_FILE = "FILE";
