@@ -29,7 +29,6 @@ const transformers: Record<ComponentTransforms, (node: any, options: TransformNo
 export default function transformComponentsObject(componentsObject: ComponentsObject, ctx: GlobalContext): ts.Node[] {
   const type: ts.TypeElement[] = [];
   const rootTypeAliases: { [key: string]: ts.TypeAliasDeclaration } = {};
-
   for (const key of Object.keys(transformers) as ComponentTransforms[]) {
     const componentT = performance.now();
 
@@ -67,20 +66,20 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
         items.push(property);
 
         if (ctx.rootTypes) {
-          let aliasName = changeCase.pascalCase(singularizeComponentKey(key)) + changeCase.pascalCase(name);
+          let componentKey = changeCase.pascalCase(singularizeComponentKey(key));
+          let aliasName = `${componentKey}${changeCase.pascalCase(name)}`;
+
           // Add counter suffix (e.g. "_2") if conflict in name
           let conflictCounter = 1;
 
-          let rootTypePrefix = changeCase.pascalCase(singularizeComponentKey(key));
-          if (ctx.rootTypesNoSchemaPrefix && key.toLowerCase() == "schemas") {
-            rootTypePrefix = "";
-          }
-
           while (rootTypeAliases[aliasName] !== undefined) {
             conflictCounter++;
-            aliasName = `${rootTypePrefix}${changeCase.pascalCase(name)}_${conflictCounter}`;
+            aliasName = `${componentKey}${changeCase.pascalCase(name)}_${conflictCounter}`
           }
           const ref = ts.factory.createTypeReferenceNode(`components['${key}']['${name}']`);
+          if (ctx.rootTypesNoSchemaPrefix && key === "schemas") {
+            aliasName = aliasName.replace(componentKey, "")
+          }
           const typeAlias = ts.factory.createTypeAliasDeclaration(
             /* modifiers      */ tsModifiers({ export: true }),
             /* name           */ aliasName,
