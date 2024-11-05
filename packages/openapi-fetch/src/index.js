@@ -152,8 +152,12 @@ export default function createClient(clientOptions) {
 
     const resultKey = response.ok ? "data" : "error";
 
-    // handle empty content
-    if (response.status === 204 || response.headers.get("Content-Length") === "0") {
+    /**
+     * handle empty content
+     * NOTE: Current browsers don't actually conform to the spec requirement to set the body property to null for responses with no body
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Response/body
+     */
+    if (response.body === null || response.headers.get("Content-Length") === "0") {
       return { [resultKey]: undefined, response };
     }
 
@@ -172,7 +176,10 @@ export default function createClient(clientOptions) {
       try {
         data = JSON.parse(data); // attempt to parse as JSON
       } catch {
-        // noop
+        // Handle empty content
+        if (data === "") {
+          data = undefined;
+        }
       }
 
       return { [resultKey]: data, response };

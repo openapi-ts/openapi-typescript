@@ -123,6 +123,14 @@ describe("response", () => {
         assertType<Error>(error);
       }
     });
+
+    test("fallback on empty response", async () => {
+      const client = createObservedClient<paths>({}, async () => new Response(undefined, { status: 200 }));
+
+      const { data, error } = await client.GET("/error-empty-response");
+      expect(data).toBe(undefined);
+      expect(error).toBe(undefined);
+    });
   });
 
   describe("response object", () => {
