@@ -6,6 +6,11 @@ droplets_all:
       memory: 1024
       vcpus: 1
       disk: 25
+      disk_info:
+      - type: "local"
+        size:
+          amount: 25
+          unit: "gib"
       locked: false
       status: active
       kernel: null
@@ -126,6 +131,11 @@ droplets_all:
       memory: 1024
       vcpus: 1
       disk: 25
+      disk_info:
+      - type: "local"
+        size:
+          amount: 25
+          unit: "gib"
       locked: false
       status: active
       kernel: null
@@ -239,6 +249,11 @@ droplets_all:
       memory: 1024
       vcpus: 1
       disk: 25
+      disk_info:
+      - type: "local"
+        size:
+          amount: 25
+          unit: "gib"
       locked: false
       status: active
       kernel: null
@@ -360,6 +375,11 @@ droplets_tagged:
       memory: 1024
       vcpus: 1
       disk: 25
+      disk_info:
+      - type: "local"
+        size:
+          amount: 25
+          unit: "gib"
       locked: false
       status: active
       kernel: null
@@ -480,6 +500,11 @@ droplets_tagged:
       memory: 1024
       vcpus: 1
       disk: 25
+      disk_info:
+      - type: "local"
+        size:
+          amount: 25
+          unit: "gib"
       locked: false
       status: active
       kernel: null
@@ -594,6 +619,143 @@ droplets_tagged:
       total:
         2
 
+gpu_droplets:
+  value:
+    droplets:
+    - id: 448543583
+      name: ml-ai-ubuntu-gpu-h100x1-80gb-tor1
+      memory: 245760
+      vcpus: 20
+      disk: 720
+      disk_info:
+      - type: local
+        size:
+          amount: 720
+          unit: gib
+      - type: scratch
+        size:
+          amount: 5120
+          unit: gib
+      locked: false
+      status: active
+      kernel: null
+      created_at: 2024-09-30T15:23:36Z
+      features:
+        - droplet_agent
+        - private_networking
+      backup_ids: []
+      next_backup_window: null
+      snapshot_ids: []
+      image:
+        id: 166407044
+        name: AI/ML Ready H100x1
+        distribution: Ubuntu
+        slug: gpu-h100x1-base
+        public: true
+        regions:
+          - nyc3
+          - nyc1
+          - sfo1
+          - nyc2
+          - ams2
+          - sgp1
+          - lon1
+          - ams3
+          - fra1
+          - tor1
+          - sfo2
+          - blr1
+          - sfo3
+          - syd1
+        created_at: 2024-09-27T15:35:19Z
+        min_disk_size: 25
+        type: base
+        size_gigabytes: 18.47
+        description: GPU H100 1x Base Image
+        tags: []
+        status: available
+      volume_ids: []
+      size:
+        slug: gpu-h100x1-80gb
+        memory: 245760
+        vcpus: 20
+        disk: 720
+        transfer: 15
+        price_monthly: 4529.3
+        price_hourly: 6.74
+        regions:
+          - tor1
+        available: true
+        description: H100 GPU - 1X
+        gpu_info:
+          count: 1
+          vram:
+            amount: 80
+            unit: gib
+          model: nvidia_h100
+        disk_info:
+          - type: local
+            size:
+              amount: 720
+              unit: gib
+          - type: scratch
+            size:
+              amount: 5120
+              unit: gib
+      size_slug: gpu-h100x1-80gb
+      networks:
+        v4:
+        - ip_address: '10.128.192.124'
+          netmask: '255.255.0.0'
+          gateway: nil
+          type: private
+        - ip_address: '192.241.165.154'
+          netmask: '255.255.255.0'
+          gateway: '192.241.165.1'
+          type: public
+        v6: []
+      region:
+        name: Toronto 1
+        slug: tor1
+        features:
+          - backups
+          - ipv6
+          - metadata
+          - install_agent
+          - storage
+          - image_transfer
+          - server_id
+          - management_networking
+        available: true
+        sizes:
+        - s-1vcpu-1gb
+        - s-1vcpu-2gb
+        - s-1vcpu-3gb
+        - s-2vcpu-2gb
+        - s-3vcpu-1gb
+        - s-2vcpu-4gb
+        - s-4vcpu-8gb
+        - s-6vcpu-16gb
+        - s-8vcpu-32gb
+        - s-12vcpu-48gb
+        - s-16vcpu-64gb
+        - s-20vcpu-96gb
+        - s-24vcpu-128gb
+        - s-32vcpu-192g
+        - gpu-h100x1-80gb
+        - gpu-h100x8-640gb
+      tags: []
+      vpc_uuid: e2fdd15c-6ae6-4c11-8c5d-72dae2ba1ad1
+      gpu_info:
+        count: 1
+        vram:
+          amount: 80
+          unit: gib
+        model: nvidia_h100
+    links: {}
+    meta:
+      total: 1
+
 droplet_single:
   value:
     droplet:
@@ -602,6 +764,11 @@ droplet_single:
       memory: 1024
       vcpus: 1
       disk: 25
+      disk_info:
+      - type: "local"
+        size:
+          amount: 25
+          unit: "gib"
       locked: false
       status: active
       kernel: null
@@ -726,6 +893,11 @@ droplet_create_response:
       memory: 1024
       vcpus: 1
       disk: 25
+      disk_info:
+      - type: "local"
+        size:
+          amount: 25
+          unit: "gib"
       locked: false
       status: new
       kernel: null
@@ -839,6 +1011,11 @@ droplet_multi_create_response:
       memory: 1024
       vcpus: 1
       disk: 25
+      disk_info:
+      - type: "local"
+        size:
+          amount: 25
+          unit: "gib"
       locked: false
       status: new
       kernel: null
@@ -943,6 +1120,11 @@ droplet_multi_create_response:
       memory: 1024
       vcpus: 1
       disk: 25
+      disk_info:
+      - type: "local"
+        size:
+          amount: 25
+          unit: "gib"
       locked: false
       status: new
       kernel: null

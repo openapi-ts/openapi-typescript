@@ -23,7 +23,7 @@ tags:
     description: |-
       1-Click applications are pre-built Droplet images or Kubernetes apps with software,
       features, and configuration details already set up for you. They can be found in the
-      [DigitalOcean Marketplace](https://www.digitalocean.com/docs/marketplace).
+      [DigitalOcean Marketplace](https://marketplace.digitalocean.com/).
 
   - name: Account
     description: Provides information about your current account.
@@ -66,7 +66,7 @@ tags:
       **Balance:** By sending requests to the `/v2/customers/my/balance` endpoint, you can
       retrieve the balance information for the requested customer account.
 
-      **Invoices:** [Invoices](https://www.digitalocean.com/docs/accounts/billing/invoices/)
+      **Invoices:** [Invoices](https://docs.digitalocean.com/platform/billing/invoices/)
       are generated on the first of each month for every DigitalOcean
       customer. An invoice preview is generated daily, which can be accessed
       with the `preview` keyword in place of `$INVOICE_UUID`. To interact with
@@ -81,7 +81,7 @@ tags:
 
   - name: Block Storage
     description: |-
-      [DigitalOcean Block Storage Volumes](https://www.digitalocean.com/docs/volumes/)
+      [DigitalOcean Block Storage Volumes](https://docs.digitalocean.com/products/volumes/)
       provide expanded storage capacity for your Droplets and can be moved
       between Droplets within a specific region.
 
@@ -106,18 +106,20 @@ tags:
   - name: CDN Endpoints
     description: |-
       Content hosted in DigitalOcean's object storage solution,
-      [Spaces](https://www.digitalocean.com/docs/spaces/overview/),
+      [Spaces](https://docs.digitalocean.com/products/spaces/),
       can optionally be served by our globally distributed Content Delivery
       Network (CDN). By sending requests to `/v2/cdn/endpoints`, you can list,
       create, or delete CDN Endpoints as well as purge cached content. To use a
       custom subdomain to access the CDN Endpoint, provide the ID of a
       DigitalOcean managed TLS certificate and the fully qualified domain name
-      for the custom subdomain.
+      for the custom subdomain. 
+
+      CDN endpoints have a rate limit of five requests per 10 seconds.
 
   - name: Certificates
     description: |-
       In order to perform SSL termination on load balancers, DigitalOcean offers
-      two types of [SSL certificate management](https://www.digitalocean.com/docs/accounts/security/#certificates):
+      two types of [SSL certificate management](https://docs.digitalocean.com/platform/teams/manage-certificates):
 
       * **Custom**: User-generated certificates may be uploaded to DigitalOcean
       where they will be placed in a fully encrypted and isolated storage system.
@@ -130,7 +132,7 @@ tags:
   - name: Container Registry
     description: |-
       DigitalOcean offers the ability for you to create a
-      [private container registry](https://www.digitalocean.com/docs/images/container-registry/quickstart/)
+      [private container registry](https://docs.digitalocean.com/products/container-registry/)
       to store your Docker images for use with your Kubernetes clusters. This
       container registry runs inside the same datacenters as your cluster,
       ensuring reliable and performant rollout of image deployments.
@@ -140,12 +142,12 @@ tags:
 
   - name: Databases
     description: |-
-      DigitalOcean's [managed database service](https://www.digitalocean.com/docs/databases)
+      DigitalOcean's [managed database service](https://docs.digitalocean.com/products/databases)
       simplifies the creation and management of highly available database clusters. Currently, it
-      offers support for [PostgreSQL](http://www.digitalocean.com/docs/databases/postgresql/),
-      [Redis](https://www.digitalocean.com/docs/databases/redis/),
-      [MySQL](https://www.digitalocean.com/docs/databases/mysql/), 
-      [MongoDB](https://www.digitalocean.com/docs/databases/mongodb/), and
+      offers support for [PostgreSQL](http://docs.digitalocean.com/products/databases/postgresql/),
+      [Redis](https://docs.digitalocean.com/products/databases/redis/),
+      [MySQL](https://docs.digitalocean.com/products/databases/mysql/), 
+      [MongoDB](https://docs.digitalocean.com/products/databases/mongodb/), and
       [OpenSearch](https://docs.digitalocean.com/products/databases/opensearch/).
 
       By sending requests to the `/v2/databases` endpoint, you can list, create, or delete
@@ -170,7 +172,7 @@ tags:
       and manage DNS zone files by adding and modifying individual records for a
       domain.
 
-      The [DigitalOcean DNS management interface](https://www.digitalocean.com/docs/networking/dns/)
+      The [DigitalOcean DNS management interface](https://docs.digitalocean.com/products/networking/dns/)
       allows you to configure the following DNS records:
 
       Name  | Description                                                                                                                                        |
@@ -189,7 +191,7 @@ tags:
     description: |-
       Domain resources are domain names that you have purchased from a domain
       name registrar that you are managing through the
-      [DigitalOcean DNS interface](https://www.digitalocean.com/docs/networking/dns/).
+      [DigitalOcean DNS interface](https://docs.digitalocean.com/products/networking/dns/).
 
       This resource establishes top-level control over each domain. Actions that
       affect individual domain records should be taken on the
@@ -217,7 +219,7 @@ tags:
 
   - name: Droplets
     description: |-
-      A [Droplet](https://www.digitalocean.com/docs/droplets/) is a DigitalOcean
+      A [Droplet](https://docs.digitalocean.com/products/droplets/) is a DigitalOcean
       virtual machine. By sending requests to the Droplet endpoint, you can
       list, create, or delete Droplets.
 
@@ -228,7 +230,7 @@ tags:
 
   - name: Firewalls
     description: |-
-      [DigitalOcean Cloud Firewalls](https://www.digitalocean.com/docs/networking/firewalls/)
+      [DigitalOcean Cloud Firewalls](https://docs.digitalocean.com/products/networking/firewalls/)
       provide the ability to restrict network access to and from a Droplet
       allowing you to define which ports will accept inbound or outbound
       connections. By sending requests to the `/v2/firewalls` endpoint, you can
@@ -271,7 +273,7 @@ tags:
       will contain the field `reserved_ips` in addition to the `floating_ips` field.
       Floating IPs retrieved using the Projects API will retain the original name.
 
-      [DigitalOcean Floating IPs](https://www.digitalocean.com/docs/networking/floating-ips/)
+      [DigitalOcean Floating IPs](https://docs.digitalocean.com/products/networking/reserved-ips/)
       are publicly-accessible static IP addresses that can be mapped to one of
       your Droplets. They can be used to create highly available setups or other
       configurations requiring movable addresses.
@@ -296,26 +298,26 @@ tags:
 
   - name: Images
     description: |-
-      A DigitalOcean [image](https://www.digitalocean.com/docs/images/) can be
+      A DigitalOcean [image](https://docs.digitalocean.com/products/images/) can be
       used to create a Droplet and may come in a number of flavors. Currently,
       there are five types of images: snapshots, backups, applications,
       distributions, and custom images.
 
-      * [Snapshots](https://www.digitalocean.com/docs/images/snapshots/) provide
+      * [Snapshots](https://docs.digitalocean.com/products/snapshots/) provide
       a full copy of an existing Droplet instance taken on demand.
 
-      * [Backups](https://www.digitalocean.com/docs/images/backups/) are similar
+      * [Backups](https://docs.digitalocean.com/products/backups/) are similar
       to snapshots but are created automatically at regular intervals when
       enabled for a Droplet.
 
-      * [Custom images](https://www.digitalocean.com/docs/images/custom-images/)
+      * [Custom images](https://docs.digitalocean.com/products/custom-images/)
       are Linux-based virtual machine images (raw, qcow2, vhdx, vdi, and vmdk
       formats are supported) that you may upload for use on DigitalOcean.
 
       * Distributions are the public Linux distributions that are available to
       be used as a base to create Droplets.
 
-      * Applications, or [1-Click Apps](https://www.digitalocean.com/docs/one-clicks/),
+      * Applications, or [1-Click Apps](https://docs.digitalocean.com/products/marketplace/),
       are distributions pre-configured with additional software.
 
       To interact with images, you will generally send requests to the images
@@ -323,7 +325,7 @@ tags:
 
   - name: Kubernetes
     description: |-
-      [DigitalOcean Kubernetes](https://www.digitalocean.com/docs/kubernetes/)
+      [DigitalOcean Kubernetes](https://docs.digitalocean.com/products/kubernetes/)
       allows you to quickly deploy scalable and secure Kubernetes clusters. By
       sending requests to the `/v2/kubernetes/clusters` endpoint, you can list,
       create, or delete clusters as well as scale node pools up and down,
@@ -332,7 +334,7 @@ tags:
 
   - name: Load Balancers
     description: |-
-      [DigitalOcean Load Balancers](https://www.digitalocean.com/docs/networking/load-balancers/)
+      [DigitalOcean Load Balancers](https://docs.digitalocean.com/products/networking/load-balancers/)
       provide a way to distribute traffic across multiple Droplets. By sending
       requests to the `/v2/load_balancers` endpoint, you can list, create, or
       delete load balancers as well as add or remove Droplets, forwarding rules,
@@ -449,7 +451,7 @@ tags:
 
   - name: Snapshots
     description: |-
-      [Snapshots](https://www.digitalocean.com/docs/images/snapshots/) are saved
+      [Snapshots](https://docs.digitalocean.com/products/snapshots/) are saved
       instances of a Droplet or a block storage volume, which is reflected in
       the `resource_type` attribute. In order to avoid problems with compressing
       filesystems, each defines a `min_disk_size` attribute which is the minimum
@@ -478,9 +480,16 @@ tags:
 
         To interact with Uptime, you will generally send requests to the Uptime endpoint at `/v2/uptime/`.
 
+  - name: VPC Peerings
+    description: |-
+      [VPC Peerings](https://docs.digitalocean.com/products/networking/vpc/how-to/create-peering/) 
+      join two VPC networks with a secure, private connection. This allows 
+      resources in those networks to connect to each other's private IP addresses 
+      as if they were in the same network.
+
   - name: VPCs
     description: |-
-      [VPCs (virtual private clouds)](https://www.digitalocean.com/docs/networking/vpc/)
+      [VPCs (virtual private clouds)](https://docs.digitalocean.com/products/networking/vpc/)
       allow you to create virtual networks containing resources that can
       communicate with each other in full isolation using private IP addresses.
 
@@ -1393,6 +1402,32 @@ paths:
     get:
       $ref: 'resources/monitoring/monitoring_get_lb_droplets_downtime.yml'
 
+  /v2/monitoring/sinks/destinations:
+    post:
+      $ref: 'resources/monitoring/monitoring_create_destination.yml'
+    get:
+      $ref: 'resources/monitoring/monitoring_list_destinations.yml'
+
+  /v2/monitoring/sinks/destinations/{destination_uuid}:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_destination.yml'
+    post:
+      $ref: 'resources/monitoring/monitoring_update_destination.yml'
+    delete:
+      $ref: 'resources/monitoring/monitoring_delete_destination.yml'
+
+  /v2/monitoring/sinks:
+    post:
+      $ref: 'resources/monitoring/monitoring_create_sink.yml'
+    get:
+      $ref: 'resources/monitoring/monitoring_list_sinks.yml'
+
+  /v2/monitoring/sinks/{sink_uuid}:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_sink.yml'
+    delete:
+      $ref: 'resources/monitoring/monitoring_delete_sink.yml'
+
   /v2/projects:
     get:
       $ref: 'resources/projects/projects_list.yml'
@@ -1635,6 +1670,33 @@ paths:
     get:
       $ref: 'resources/vpcs/vpcs_list_members.yml'
 
+  /v2/vpcs/{vpc_id}/peerings:
+    get:
+      $ref: 'resources/vpcs/vpcs_list_peerings.yml'
+
+    post:
+      $ref: 'resources/vpcs/vpcs_create_peerings.yml'
+
+  /v2/vpcs/{vpc_id}/peerings/{vpc_peering_id}:
+    patch:
+      $ref: 'resources/vpcs/vpcs_update_peerings.yml'
+
+  /v2/vpc_peerings:
+    get:
+      $ref: 'resources/vpc_peerings/vpc_peerings_list.yml'
+
+    post:
+      $ref: 'resources/vpc_peerings/vpc_peerings_create.yml'
+
+  /v2/vpc_peerings/{vpc_peering_id}:
+    get:
+      $ref: 'resources/vpc_peerings/vpc_peerings_get.yml'
+
+    patch:
+      $ref: 'resources/vpc_peerings/vpc_peerings_update.yml'
+
+    delete:
+      $ref: 'resources/vpc_peerings/vpc_peerings_delete.yml'
 
   /v2/uptime/checks:
     get:

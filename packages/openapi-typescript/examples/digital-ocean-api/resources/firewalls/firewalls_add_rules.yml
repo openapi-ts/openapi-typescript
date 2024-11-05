@@ -76,4 +76,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'firewall:create'
+    - 'firewall:update'
