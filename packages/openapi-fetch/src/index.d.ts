@@ -102,25 +102,23 @@ export type RequestBodyOption<T> = OperationRequestBodyContent<T> extends never
 
 export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body" | "headers">;
 
-export type FetchResponse<
-  T extends Record<string | number, any>,
-  Options,
-  Media extends MediaType,
-  TStatus extends keyof ResponseObjectMap<T> = keyof ResponseObjectMap<T>,
-> = {
-  [S in TStatus]: {
+export type FetchResponse<T extends Record<string | number, any>, Options, Media extends MediaType> = {
+  [S in keyof ResponseObjectMap<T>]: {
     response: Response;
-    status: OpenApiStatusToHttpStatus<S>;
-  } & (S extends OkStatus
-    ? {
-        data: ParseAsResponse<GetResponseContent<ResponseObjectMap<T>, Media, S>, Options>;
-        error?: never;
+    status: OpenApiStatusToHttpStatus<S, keyof ResponseObjectMap<T>>;
+  } & (
+    | {
+        error: never;
+        data: S extends OkStatus ? ParseAsResponse<GetResponseContent<ResponseObjectMap<T>, Media, S>, Options> : never;
       }
-    : {
-        data?: never;
-        error: GetResponseContent<ResponseObjectMap<T>, Media, S>;
-      });
-}[TStatus];
+    | {
+        error: S extends ErrorStatus
+          ? ParseAsResponse<GetResponseContent<ResponseObjectMap<T>, Media, S>, Options>
+          : never;
+        data: never;
+      }
+  );
+}[keyof ResponseObjectMap<T>];
 
 export type RequestOptions<T> = ParamsOption<T> &
   RequestBodyOption<T> & {

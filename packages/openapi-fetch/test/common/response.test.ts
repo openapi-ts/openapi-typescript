@@ -20,22 +20,24 @@ describe("response", () => {
       // 2. assert data is not undefined inside condition block
       if (result.data) {
         assertType<NonNullable<Resource[]>>(result.data);
-        assertType<undefined>(result.error);
+        // @ts-expect-error FIXME: This is a limitation within Typescript
+        assertType<never>(result.error);
       }
       // 2b. inverse should work, too
       if (!result.error) {
         assertType<NonNullable<Resource[]>>(result.data);
-        assertType<undefined>(result.error);
+        assertType<never>(result.error);
       }
 
       // 3. assert error is not undefined inside condition block
       if (result.error) {
-        assertType<undefined>(result.data);
+        // @ts-expect-error FIXME: This is a limitation within Typescript
+        assertType<never>(result.data);
         assertType<NonNullable<Error>>(result.error);
       }
       // 3b. inverse should work, too
       if (!result.data) {
-        assertType<undefined>(result.data);
+        assertType<never>(result.data);
         assertType<NonNullable<Error>>(result.error);
       }
     });
@@ -49,9 +51,8 @@ describe("response", () => {
         {},
       );
 
-      //@ts-expect-error impossible to determine data type for invalid path
       assertType<never>(result.data);
-      assertType<undefined>(result.error);
+      assertType<never>(result.error);
     });
 
     test("returns union for mismatched response", async () => {
@@ -72,7 +73,7 @@ describe("response", () => {
         expectTypeOf(result.data).toEqualTypeOf<Resource>();
         expectTypeOf(result.data).toEqualTypeOf<MethodResponse<typeof client, "get", "/mismatched-errors">>();
       } else {
-        expectTypeOf(result.data).toBeUndefined();
+        expectTypeOf(result.data).toBeNever();
         expectTypeOf(result.error).extract<{ code: number }>().toEqualTypeOf<{ code: number; message: string }>();
         expectTypeOf(result.error).exclude<{ code: number }>().toEqualTypeOf(undefined);
       }
