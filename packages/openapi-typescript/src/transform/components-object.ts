@@ -66,7 +66,7 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
         items.push(property);
 
         if (ctx.rootTypes) {
-          let componentKey = changeCase.pascalCase(singularizeComponentKey(key));
+          const componentKey = changeCase.pascalCase(singularizeComponentKey(key));
           let aliasName = `${componentKey}${changeCase.pascalCase(name)}`;
 
           // Add counter suffix (e.g. "_2") if conflict in name
@@ -74,11 +74,11 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
 
           while (rootTypeAliases[aliasName] !== undefined) {
             conflictCounter++;
-            aliasName = `${componentKey}${changeCase.pascalCase(name)}_${conflictCounter}`
+            aliasName = `${componentKey}${changeCase.pascalCase(name)}_${conflictCounter}`;
           }
           const ref = ts.factory.createTypeReferenceNode(`components['${key}']['${name}']`);
           if (ctx.rootTypesNoSchemaPrefix && key === "schemas") {
-            aliasName = aliasName.replace(componentKey, "")
+            aliasName = aliasName.replace(componentKey, "");
           }
           const typeAlias = ts.factory.createTypeAliasDeclaration(
             /* modifiers      */ tsModifiers({ export: true }),

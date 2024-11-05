@@ -699,7 +699,8 @@ export type PathItemUploadUser = components['pathItems']['UploadUser'];`,
         options: { ...DEFAULT_OPTIONS, rootTypes: true },
       },
     ],
-    ["options > rootTypes: true and rootTypesNoSchemaPrefix: true",
+    [
+      "options > rootTypes: true and rootTypesNoSchemaPrefix: true",
       {
         given: {
           schemas: {
@@ -711,7 +712,7 @@ export type PathItemUploadUser = components['pathItems']['UploadUser'];`,
                 url: { type: "string" },
               },
             },
-            "Document": {
+            Document: {
               type: "object",
               required: ["name", "size", "url"],
               properties: {
@@ -850,7 +851,7 @@ export type Error = components['schemas']['Error'];
     headers: never;
     pathItems: never;
 }`,
-        options: DEFAULT_OPTIONS
+        options: DEFAULT_OPTIONS,
       },
     ],
   ];
