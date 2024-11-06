@@ -14,6 +14,25 @@ if (!GITHUB_TOKEN) {
   );
 }
 
+class UserFetchError extends Error {
+  /**
+   * @param {string} message
+   * @param {Response} response
+   */
+  constructor(message, response) {
+    super(message);
+    this.name = "UserFetchError";
+    this.response = response;
+  }
+
+  /**
+   * @returns {boolean}
+   */
+  get notFound() {
+    return this.response.status === 404;
+  }
+}
+
 async function fetchUserInfo(username) {
   const res = await fetch(`https://api.github.com/users/${username}`, {
     headers: {
@@ -23,7 +42,7 @@ async function fetchUserInfo(username) {
     },
   });
   if (!res.ok) {
-    throw new Error(`${res.url} responded with ${res.status}`);
+    throw new UserFetchError(`${res.url} responded with ${res.status}`, res);
   }
   return await res.json();
 }
@@ -165,7 +184,7 @@ const CONTRIBUTORS = {
     "illright",
   ]),
   "openapi-react-query": new Set(["drwpow", "kerwanp", "yoshi2no", "elaygelbart"]),
-  "swr-openapi": new Set(["htunnicliff"])
+  "swr-openapi": new Set(["htunnicliff"]),
 };
 
 async function main() {
@@ -197,6 +216,11 @@ async function main() {
           console.log(`[${i}/${total}] Updated for ${username}`);
           fs.writeFileSync(new URL("../data/contributors.json", import.meta.url), JSON.stringify(data)); // update file while fetching (sync happens safely in between fetches)
         } catch (err) {
+          if (err instanceof UserFetchError && err.notFound) {
+            console.warn(`[${i}/${total}] (Skipped ${username}, not found)`);
+            continue;
+          }
+
           throw new Error(err);
         }
       }
