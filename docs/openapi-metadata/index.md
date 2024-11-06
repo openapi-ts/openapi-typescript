@@ -13,12 +13,12 @@ import { ApiOperation, ApiResponse } from "openapi-metadata/decorators";
 import User from "./user";
 
 class UsersController {
-  @apiOperation({
+  @ApiOperation({
     method: "get",
     pattern: "/users",
     summary: "List users"
   })
-  @apiResponse({ type: [User] })
+  @ApiResponse({ type: [User] })
   async list() {
     ...
   }
@@ -29,13 +29,13 @@ class UsersController {
 import { ApiProperty } from "openapi-metadata/decorators";
 
 class User {
-  @apiProperty()
+  @ApiProperty()
   declare id: number;
 
-  @apiProperty()
+  @ApiProperty()
   declare name: string;
 
-  @apiProperty({ required: false })
+  @ApiProperty({ required: false })
   declare mobile?: string;
 }
 ```
