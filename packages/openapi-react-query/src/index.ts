@@ -146,11 +146,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
               throw error;
             }
 
-            if (data === undefined) {
-              throw new Error("Unexpected undefined response");
-            }
-
-            return data;
+            return data as Exclude<typeof data, undefined>;
           },
           ...options,
         },
