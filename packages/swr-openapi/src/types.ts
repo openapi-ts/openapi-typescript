@@ -10,7 +10,7 @@ type TryKey<T, K extends PropertyKey> = T extends { [Key in K]?: unknown } ? T[K
  * Provides specific types used within a given request
  */
 export type TypesForRequest<
-  Paths extends {},
+  Paths extends Record<string | number, any>,
   Method extends Extract<HttpMethod, keyof Paths[keyof Paths]>,
   Path extends PathsWithMethod<Paths, Method>,
   // ---
@@ -42,6 +42,6 @@ export type TypesForRequest<
  * Uses {@link TypesForRequest}
  */
 export type TypesForGetRequest<
-  Paths extends {},
+  Paths extends Record<string | number, any>,
   Path extends PathsWithMethod<Paths, Extract<"get", keyof Paths[keyof Paths]>>,
 > = TypesForRequest<Paths, Extract<"get", keyof Paths[keyof Paths]>, Path>;

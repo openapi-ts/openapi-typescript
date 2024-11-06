@@ -22,7 +22,7 @@ type Pet = components["schemas"]["Pet"];
 type PetInvalid = ErrorResponseJSON<paths["/pet/{petId}"]["get"]>;
 type PetStatusInvalid = ErrorResponseJSON<paths["/pet/findByStatus"]["get"]>;
 expectTypeOf<Pet>().toMatchTypeOf<{ name: string }>();
-expectTypeOf<PetInvalid>().toMatchTypeOf<{ message: string }>();
+expectTypeOf<PetInvalid>().toMatchTypeOf<{ message: string } | undefined>();
 expectTypeOf<PetStatusInvalid>().toMatchTypeOf<{ message: string }>();
 
 // Set up hooks
@@ -383,7 +383,7 @@ describe("TypesForRequest", () => {
   it("returns correct error", () => {
     expectTypeOf<GetPet["Error"]>().toEqualTypeOf<PetInvalid>();
     expectTypeOf<FindPetsByStatus["Error"]>().toEqualTypeOf<PetStatusInvalid>();
-    expectTypeOf<FindPetsByTags["Error"]>().toEqualTypeOf<never>();
+    expectTypeOf<FindPetsByTags["Error"]>().toEqualTypeOf<undefined>();
   });
 
   it("returns correct path params", () => {
@@ -430,7 +430,7 @@ describe("TypesForRequest", () => {
   it("returns correct SWR config", () => {
     expectTypeOf<GetPet["SWRConfig"]>().toEqualTypeOf<SWR.SWRConfiguration<Pet, PetInvalid>>();
     expectTypeOf<FindPetsByStatus["SWRConfig"]>().toEqualTypeOf<SWR.SWRConfiguration<Pet[], PetStatusInvalid>>();
-    expectTypeOf<FindPetsByTags["SWRConfig"]>().toEqualTypeOf<SWR.SWRConfiguration<Pet[], never>>();
+    expectTypeOf<FindPetsByTags["SWRConfig"]>().toEqualTypeOf<SWR.SWRConfiguration<Pet[], undefined>>();
   });
 
   it("returns correct SWR response", () => {
@@ -441,7 +441,7 @@ describe("TypesForRequest", () => {
       SWR.SWRResponse<Pet[], PetStatusInvalid, SWR.SWRConfiguration<Pet[], PetStatusInvalid>>
     >();
     expectTypeOf<FindPetsByTags["SWRResponse"]>().toEqualTypeOf<
-      SWR.SWRResponse<Pet[], never, SWR.SWRConfiguration<Pet[], never>>
+      SWR.SWRResponse<Pet[], undefined, SWR.SWRConfiguration<Pet[], undefined>>
     >();
   });
 });
