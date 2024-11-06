@@ -1,12 +1,7 @@
-export const ApiTagsMetadataKey = Symbol("ApiTags");
+import { OperationMetadataStorage } from "../metadata/operation.js";
 
-export function apiTags(...tags: string[]): ClassDecorator & MethodDecorator {
-  return Reflect.metadata(ApiTagsMetadataKey, tags);
-}
-
-export function getApiTags(target: any, propertyKey?: string): string[] | undefined {
-  if (propertyKey) {
-    return Reflect.getMetadata(ApiTagsMetadataKey, target, propertyKey);
-  }
-  return Reflect.getMetadata(ApiTagsMetadataKey, target);
+export function ApiTags(...tags: string[]) {
+  return (target: Object, propertyKey?: string | symbol) => {
+    OperationMetadataStorage.mergeMetadata(target, { tags }, propertyKey);
+  };
 }

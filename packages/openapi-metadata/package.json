@@ -12,17 +12,17 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./builders": {
-      "types": "./dist/builders/index.d.ts",
-      "import": "./dist/builders/index.js"
+    "./decorators": {
+      "types": "./dist/decorators/index.d.ts",
+      "import": "./dist/decorators/index.js"
     },
-    "./loaders": {
-      "types": "./dist/loaders/index.d.ts",
-      "import": "./dist/loaders/index.js"
+    "./metadata": {
+      "types": "./dist/metadata/index.d.ts",
+      "import": "./dist/metadata/index.js"
     },
-    "./resolvers": {
-      "types": "./dist/resolvers/index.d.ts",
-      "import": "./dist/resolvers/index.js"
+    "./errors": {
+      "types": "./dist/errors/index.d.ts",
+      "import": "./dist/errors/index.js"
     },
     "./ui": {
       "types": "./dist/ui/index.d.ts",
@@ -57,9 +57,10 @@
     "version": "pnpm run prepare && pnpm run build"
   },
   "dependencies": {
-    "@fastify/deepmerge": "^2.0.0",
-    "lodash": "^4.17.21",
-    "openapi-types": "^12.1.3",
+    "deepmerge": "^4.3.1",
+    "openapi-types": "^12.1.3"
+  },
+  "peerDependencies": {
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
@@ -69,7 +70,9 @@
     "del-cli": "^5.1.0",
     "esbuild": "^0.20.2",
     "execa": "^8.0.1",
+    "reflect-metadata": "^0.2.2",
     "tsup": "^8.2.4",
+    "type-fest": "^4.26.1",
     "typescript": "^5.4.5",
     "unplugin-swc": "^1.5.1"
   }

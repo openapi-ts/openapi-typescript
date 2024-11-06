@@ -182,20 +182,26 @@ const CONTRIBUTORS = {
     "armandabric",
     "illright",
   ]),
-  "openapi-react-query": new Set(["drwpow", "kerwanp", "yoshi2no", "elaygelbart"]),
+  "openapi-react-query": new Set(["drwpow", "kerwanp", "yoshi2no"]),
   "swr-openapi": new Set(["htunnicliff"]),
+  "openapi-metadata": new Set(["kerwanp", "drwpow"]),
 };
 
 async function main() {
   let i = 0;
-  const total = Object.values(CONTRIBUTORS).reduce((total, next) => total + next.size, 0);
+  const total = Object.values(CONTRIBUTORS).reduce(
+    (total, next) => total + next.size,
+    0,
+  );
   await Promise.all(
     Object.entries(CONTRIBUTORS).map(async ([repo, contributors]) => {
       data[repo] ??= [];
       for (const username of [...contributors]) {
         i++;
         // skip profiles that have been updated within the past week
-        const { lastFetch } = data[repo].find((u) => u.username === username) ?? { lastFetch: 0 };
+        const { lastFetch } = data[repo].find(
+          (u) => u.username === username,
+        ) ?? { lastFetch: 0 };
         if (Date.now() - lastFetch < ONE_WEEK) {
           // biome-ignore lint/suspicious/noConsoleLog: this is a script
           console.log(`[${i}/${total}] (Skipped ${username})`);
@@ -213,7 +219,10 @@ async function main() {
           upsert(data[repo], userData);
           // biome-ignore lint/suspicious/noConsoleLog: this is a script
           console.log(`[${i}/${total}] Updated for ${username}`);
-          fs.writeFileSync(new URL("../data/contributors.json", import.meta.url), JSON.stringify(data)); // update file while fetching (sync happens safely in between fetches)
+          fs.writeFileSync(
+            new URL("../data/contributors.json", import.meta.url),
+            JSON.stringify(data),
+          ); // update file while fetching (sync happens safely in between fetches)
         } catch (err) {
           if (err instanceof UserFetchError && err.notFound) {
             console.warn(`[${i}/${total}] (Skipped ${username}, not found)`);

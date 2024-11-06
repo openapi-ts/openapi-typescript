@@ -1,18 +1,31 @@
 import type { OpenAPIV3 } from "openapi-types";
-import type { TypeResolver } from "./resolvers";
+import type { Context } from "./context";
 
-export interface Type<T = unknown> extends Function {
-  new (...args: any[]): T;
-}
+export type HttpMethods = `${OpenAPIV3.HttpMethods}`;
 
-export type MetadataKey = string | Symbol;
+export type PrimitiveType = OpenAPIV3.NonArraySchemaObjectType;
 
-export type SchemaType =
-  | Type<unknown>
-  | TypeResolver
-  | OpenAPIV3.NonArraySchemaObjectType
-  | OpenAPIV3.ReferenceObject
-  | any
-  | {};
+export type TypeValue = Function | PrimitiveType;
+export type Thunk<T> = (context: Context) => T;
+export type EnumTypeValue = string[] | number[] | Record<number, string>;
 
-export type Resolver = (target: any) => OpenAPIV3.SchemaObject | false;
+export type Logger = {
+  warn: (typeof console)["warn"];
+};
+
+export type TypeOptions =
+  | {
+      type: Thunk<TypeValue> | TypeValue;
+    }
+  | {
+      schema: OpenAPIV3.SchemaObject;
+    }
+  | {
+      enum: EnumTypeValue;
+    };
+
+export type TypeLoaderFn = (
+  context: Context,
+  value: TypeValue,
+  original: Thunk<TypeValue> | TypeValue,
+) => Promise<OpenAPIV3.SchemaObject | OpenAPIV3.ReferenceObject | undefined>;

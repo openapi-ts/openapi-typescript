@@ -1,19 +1,20 @@
-import type { OpenAPIV3 } from "openapi-types";
-import type { SchemaType } from "../types";
+import type { SetOptional } from "type-fest";
+import {
+  type OperationBodyMetadata,
+  OperationBodyMetadataStorage,
+} from "../metadata/operation-body";
 
-export const ApiBodyMetadataKey = Symbol("apiBodyKey");
+export type ApiBodyOptions = SetOptional<OperationBodyMetadata, "mediaType">;
 
-export type ApiBodyMetadata = Omit<OpenAPIV3.RequestBodyObject, "content"> & {
-  type?: SchemaType;
-  isArray?: boolean;
-};
-
-export type ApiBodyOptions = ApiBodyMetadata;
-
-export function apiBody(options: ApiBodyMetadata): MethodDecorator {
-  return Reflect.metadata(ApiBodyMetadataKey, options);
-}
-
-export function getApiBody(target: any, propertyKey: string): ApiBodyMetadata | undefined {
-  return Reflect.getMetadata(ApiBodyMetadataKey, target, propertyKey);
+export function ApiBody(options: ApiBodyOptions): MethodDecorator {
+  return (target, propertyKey) => {
+    OperationBodyMetadataStorage.defineMetadata(
+      target,
+      {
+        mediaType: "application/json",
+        ...options,
+      },
+      propertyKey,
+    );
+  };
 }

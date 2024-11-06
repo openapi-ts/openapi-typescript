@@ -1,34 +1,62 @@
-import type { MetadataKey, SchemaType } from "../types";
-import type { OpenAPIV3 } from "openapi-types";
-import { getMetadataPropertyType } from "../utils/metadata";
+import type { Context } from "../context";
+import { SymbolKeysNotSupportedError } from "../errors/symbol-keys-not-supported";
+import {
+  type PropertyMetadata,
+  PropertyMetadataStorage,
+} from "../metadata/property";
+import { findType } from "../utils/metadata";
 
-export type ApiPropertyOptions = Omit<OpenAPIV3.SchemaObject, "name" | "required" | "type"> & {
-  type?: SchemaType;
-  required?: boolean;
-};
+export type ApiPropertyOptions = Partial<PropertyMetadata>;
 
-const ApiPropertyMetadataKeyPrefix = "__api_property_";
+export function ApiProperty(options?: ApiPropertyOptions): PropertyDecorator;
+export function ApiProperty(options?: ApiPropertyOptions): MethodDecorator;
+export function ApiProperty(
+  options?: ApiPropertyOptions,
+): PropertyDecorator | MethodDecorator {
+  return (prototype, propertyKey, descriptor) => {
+    const isMethod = Boolean(descriptor?.value);
 
-export function apiProperty(options: ApiPropertyOptions = {}): PropertyDecorator {
-  return (target: any, propertyKey: string | symbol, descriptor?: PropertyDescriptor) => {
-    if (!options.type) {
-      options.type = getMetadataPropertyType(target, propertyKey, descriptor);
+    if (typeof propertyKey === "symbol") {
+      throw new SymbolKeysNotSupportedError();
     }
 
-    Reflect.defineMetadata(`${ApiPropertyMetadataKeyPrefix}${propertyKey.toString()}`, options, target);
+    const metadata = {
+      name: options?.name ?? propertyKey,
+      required: true,
+      ...options,
+    } as PropertyMetadata;
+
+    if (
+      !("type" in metadata) &&
+      !("schema" in metadata) &&
+      !("enum" in metadata)
+    ) {
+      (metadata as any).type = (context: Context) =>
+        findType({
+          context,
+          metadataKey: isMethod ? "design:returntype" : "design:type",
+          prototype,
+          propertyKey,
+        });
+    }
+
+    PropertyMetadataStorage.mergeMetadata(prototype, {
+      [metadata.name]: metadata as PropertyMetadata,
+    });
   };
 }
 
-export function getApiProperties(target: any) {
-  const keys = Reflect.getMetadataKeys(target) as MetadataKey[];
-  const properties: Record<string, ApiPropertyOptions> = {};
-
-  for (const key of keys.filter(
-    (k) => typeof k === "string" && k.startsWith(ApiPropertyMetadataKeyPrefix),
-  ) as string[]) {
-    const propertyKey = key.replace(ApiPropertyMetadataKeyPrefix, "");
-    properties[propertyKey] = Reflect.getMetadata(key, target);
-  }
-
-  return properties;
+export function ApiPropertyOptional(
+  options?: Omit<ApiPropertyOptions, "required">,
+): PropertyDecorator;
+export function ApiPropertyOptional(
+  options?: Omit<ApiPropertyOptions, "required">,
+): MethodDecorator;
+export function ApiPropertyOptional(
+  options?: Omit<ApiPropertyOptions, "required">,
+): PropertyDecorator | MethodDecorator {
+  return ApiProperty({
+    ...options,
+    required: false,
+  });
 }

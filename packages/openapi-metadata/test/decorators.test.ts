@@ -1,132 +1,233 @@
 import "reflect-metadata";
 import {
-  apiBody,
-  apiOperation,
-  apiParam,
-  apiProperty,
-  apiQuery,
-  apiResponse,
-  apiTags,
-  getApiBody,
-  getApiOperation,
-  getApiParams,
-  getApiProperties,
-  getApiQueries,
-  getApiResponses,
-  getApiTags,
+  ApiBody,
+  ApiCookie,
+  ApiExcludeController,
+  ApiExcludeOperation,
+  ApiExtraModels,
+  ApiHeader,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+  ApiSecurity,
+  ApiTags,
 } from "../src/decorators";
+import {
+  ExcludeMetadataStorage,
+  ExtraModelsMetadataStorage,
+  OperationBodyMetadataStorage,
+  OperationMetadataStorage,
+  OperationParameterMetadataStorage,
+  OperationResponseMetadataStorage,
+  OperationSecurityMetadataStorage,
+} from "../src/metadata";
+import {
+  ApiBasicAuth,
+  ApiBearerAuth,
+  ApiCookieAuth,
+  ApiOauth2,
+} from "../src/decorators/api-security";
 
-describe("decorators", () => {
-  describe("apiBody", () => {
-    it("should apply decorator properly", () => {
-      class TestController {
-        @apiBody({ type: "string" })
-        public index() {}
-      }
+test("@ApiOperation", () => {
+  class MyController {
+    @ApiOperation({ summary: "Hello", path: "/test", methods: ["get"] })
+    operation() {}
+  }
 
-      expect(getApiBody(TestController.prototype, "index")).toEqual({ type: "string" });
-    });
+  const metadata = OperationMetadataStorage.getMetadata(
+    MyController.prototype,
+    "operation",
+  );
+
+  expect(metadata).toEqual({
+    summary: "Hello",
+    path: "/test",
+    methods: ["get"],
   });
+});
 
-  describe("apiOperation", () => {
-    it("should apply decorator properly", () => {
-      class TestController {
-        @apiOperation({ summary: "TEST", tags: ["Test"] })
-        public index() {}
-      }
+test("@ApiBody", () => {
+  class MyController {
+    @ApiBody({ type: "string" })
+    operation() {}
+  }
 
-      expect(getApiOperation(TestController.prototype, "index")).toEqual({ summary: "TEST", tags: ["Test"] });
-    });
+  const metadata = OperationBodyMetadataStorage.getMetadata(
+    MyController.prototype,
+    "operation",
+  );
+
+  expect(metadata).toEqual({
+    type: "string",
+    mediaType: "application/json",
   });
+});
 
-  describe("apiParam", () => {
-    it("should apply decorator properly", () => {
-      class TestController {
-        @apiParam({ name: "test", type: "string" })
-        @apiParam({ name: "hello" })
-        public index() {}
-      }
+test("@ApiParam", () => {
+  @ApiParam({ name: "test" })
+  class MyController {
+    @ApiParam({ name: "hello" })
+    operation() {}
+  }
 
-      const apiParams = getApiParams(TestController.prototype, "index");
-      expect(apiParams).toContainEqual({ name: "test", type: "string" });
-      expect(apiParams).toContainEqual({ name: "hello" });
-    });
+  const metadata = OperationParameterMetadataStorage.getMetadata(
+    MyController.prototype,
+    "operation",
+    true,
+  );
+
+  expect(metadata).toEqual([
+    { in: "path", name: "test" },
+    { in: "path", name: "hello" },
+  ]);
+});
+
+test("@ApiHeader", () => {
+  @ApiHeader({ name: "test" })
+  class MyController {
+    @ApiHeader({ name: "hello" })
+    operation() {}
+  }
+
+  const metadata = OperationParameterMetadataStorage.getMetadata(
+    MyController.prototype,
+    "operation",
+    true,
+  );
+
+  expect(metadata).toEqual([
+    { in: "header", name: "test" },
+    { in: "header", name: "hello" },
+  ]);
+});
+
+test("@ApiCookie", () => {
+  @ApiCookie({ name: "test" })
+  class MyController {
+    @ApiCookie({ name: "hello" })
+    operation() {}
+  }
+
+  const metadata = OperationParameterMetadataStorage.getMetadata(
+    MyController.prototype,
+    "operation",
+    true,
+  );
+
+  expect(metadata).toEqual([
+    { in: "cookie", name: "test" },
+    { in: "cookie", name: "hello" },
+  ]);
+});
+
+test("@ApiQuery", () => {
+  @ApiQuery({ name: "test" })
+  class MyController {
+    @ApiQuery({ name: "hello" })
+    operation() {}
+  }
+
+  const metadata = OperationParameterMetadataStorage.getMetadata(
+    MyController.prototype,
+    "operation",
+    true,
+  );
+
+  expect(metadata).toEqual([
+    { in: "query", name: "test" },
+    { in: "query", name: "hello" },
+  ]);
+});
+
+test("@ApiResponse", () => {
+  @ApiResponse({ type: "string", mediaType: "text/html" })
+  class MyController {
+    @ApiResponse({ status: 404, type: "number" })
+    operation() {}
+  }
+
+  const metadata = OperationResponseMetadataStorage.getMetadata(
+    MyController.prototype,
+    "operation",
+    true,
+  );
+
+  expect(metadata).toEqual({
+    default: { status: "default", mediaType: "text/html", type: "string" },
+    "404": { status: 404, mediaType: "application/json", type: "number" },
   });
+});
 
-  describe("apiProperty", () => {
-    it("should apply decorator properly", () => {
-      class User {
-        @apiProperty({ type: String })
-        exampleProperty = "test";
+test("@ApiTags", () => {
+  @ApiTags("Root")
+  class MyController {
+    @ApiTags("Hello", "World")
+    operation() {}
+  }
 
-        @apiProperty()
-        declare exampleDeclared: number;
+  const metadata = OperationMetadataStorage.getMetadata(
+    MyController.prototype,
+    "operation",
+    true,
+  );
 
-        @apiProperty()
-        public exampleMethod(): string {
-          return this.exampleProperty;
-        }
+  expect(metadata.tags).toEqual(["Root", "Hello", "World"]);
+});
 
-        @apiProperty()
-        public get exampleGetter(): number {
-          return this.exampleDeclared;
-        }
-      }
+test("@ApiSecurity", () => {
+  @ApiBasicAuth()
+  @ApiCookieAuth()
+  class MyController {
+    @ApiSecurity("custom")
+    @ApiBearerAuth()
+    @ApiOauth2("pets:write")
+    operation() {}
+  }
 
-      expect(getApiProperties(User.prototype)).toEqual({
-        exampleProperty: { type: String },
-        exampleDeclared: { type: Number },
-        exampleMethod: { type: String },
-        exampleGetter: { type: Number },
-      });
-    });
+  const metadata = OperationSecurityMetadataStorage.getMetadata(
+    MyController.prototype,
+    "operation",
+    true,
+  );
+
+  expect(metadata).toEqual({
+    custom: [],
+    cookie: [],
+    basic: [],
+    bearer: [],
+    oauth2: ["pets:write"],
   });
+});
 
-  describe("apiQuery", () => {
-    it("should apply decorator properly", () => {
-      class TestController {
-        @apiQuery({ name: "query" })
-        @apiQuery({ name: "filter" })
-        public index() {}
-      }
+test("@ApiExcludeController", () => {
+  @ApiExcludeController()
+  class MyController {}
 
-      const apiQueries = getApiQueries(TestController.prototype, "index");
-      expect(apiQueries).toContainEqual({ name: "query" });
-      expect(apiQueries).toContainEqual({ name: "filter" });
-    });
-  });
+  const metadata = ExcludeMetadataStorage.getMetadata(MyController);
+  expect(metadata).toBe(true);
+});
 
-  describe("apiResponse", () => {
-    it("should apply decorator properly", () => {
-      class TestController {
-        @apiResponse({ status: 200, type: String })
-        @apiResponse({ status: 400 })
-        public index() {}
-      }
+test("@ApiExcludeOperation", () => {
+  class MyController {
+    @ApiExcludeOperation()
+    operation() {}
+  }
 
-      const apiResponses = getApiResponses(TestController.prototype, "index");
-      expect(apiResponses).toContainEqual({ status: 200, type: String });
-      expect(apiResponses).toContainEqual({ status: 400 });
-    });
-  });
+  const metadata = ExcludeMetadataStorage.getMetadata(
+    MyController.prototype,
+    "operation",
+  );
+  expect(metadata).toBe(true);
+});
 
-  describe("apiTags", () => {
-    it("should apply decorator on methods", () => {
-      class TestController {
-        @apiTags("test")
-        public index() {}
-      }
+test("@ApiExtraModels", () => {
+  @ApiExtraModels("string")
+  class MyController {
+    operation() {}
+  }
 
-      expect(getApiTags(TestController.prototype, "index")).toContainEqual("test");
-    });
+  const metadata = ExtraModelsMetadataStorage.getMetadata(MyController);
 
-    it("should apply decorator on classes", () => {
-      @apiTags("test")
-      class TestController {
-        public index() {}
-      }
-
-      expect(getApiTags(TestController)).toContainEqual("test");
-    });
-  });
+  expect(metadata).toEqual(["string"]);
 });

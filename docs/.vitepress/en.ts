@@ -75,8 +75,14 @@ export default defineConfig({
             { text: "Getting Started", link: "/openapi-react-query/" },
             { text: "useQuery", link: "/openapi-react-query/use-query" },
             { text: "useMutation", link: "/openapi-react-query/use-mutation" },
-            { text: "useSuspenseQuery", link: "/openapi-react-query/use-suspense-query" },
-            { text: "queryOptions", link: "/openapi-react-query/query-options" },
+            {
+              text: "useSuspenseQuery",
+              link: "/openapi-react-query/use-suspense-query",
+            },
+            {
+              text: "queryOptions",
+              link: "/openapi-react-query/query-options",
+            },
             { text: "About", link: "/openapi-react-query/about" },
           ],
         },
@@ -94,10 +100,15 @@ export default defineConfig({
           ],
         },
         {
-          text: "openapi-decorators",
+          text: "openapi-metadata",
           items: [
-            { text: "Getting Started", link: "/openapi-decorators/" },
-            { text: "Decorators", link: "/openapi-decorators/decorators" },
+            { text: "Getting Started", link: "/openapi-metadata/" },
+            { text: "Decorators", link: "/openapi-metadata/decorators" },
+            { text: "Metadata", link: "/openapi-metadata/metadata" },
+            { text: "Type loader", link: "/openapi-metadata/type-loader" },
+            { text: "UI Integrations", link: "/openapi-metadata/ui" },
+            { text: "Examples", link: "/openapi-metadata/examples" },
+            { text: "About", link: "/openapi-metadata/about" },
           ],
         },
       ],
@@ -110,6 +121,12 @@ export default defineConfig({
         indexName: "openapi-ts",
       },
     },
+    socialLinks: [
+      {
+        icon: "github",
+        link: "https://github.com/openapi-ts/openapi-typescript",
+      },
+    ],
     footer: {
       message:
         'Released under the <a href="https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE">MIT License</a>.',
