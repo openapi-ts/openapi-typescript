@@ -164,7 +164,7 @@ const CONTRIBUTORS = {
     "armandabric",
     "illright",
   ]),
-  "openapi-react-query": new Set(["drwpow", "kerwanp", "yoshi2no"]),
+  "openapi-react-query": new Set(["drwpow", "kerwanp", "yoshi2no", "elaygelbart"]),
   "swr-openapi": new Set(["htunnicliff"])
 };
 
