@@ -22,12 +22,7 @@ import {
   OperationResponseMetadataStorage,
   OperationSecurityMetadataStorage,
 } from "../src/metadata";
-import {
-  ApiBasicAuth,
-  ApiBearerAuth,
-  ApiCookieAuth,
-  ApiOauth2,
-} from "../src/decorators/api-security";
+import { ApiBasicAuth, ApiBearerAuth, ApiCookieAuth, ApiOauth2 } from "../src/decorators/api-security";
 
 test("@ApiOperation", () => {
   class MyController {
@@ -35,10 +30,7 @@ test("@ApiOperation", () => {
     operation() {}
   }
 
-  const metadata = OperationMetadataStorage.getMetadata(
-    MyController.prototype,
-    "operation",
-  );
+  const metadata = OperationMetadataStorage.getMetadata(MyController.prototype, "operation");
 
   expect(metadata).toEqual({
     summary: "Hello",
@@ -53,10 +45,7 @@ test("@ApiBody", () => {
     operation() {}
   }
 
-  const metadata = OperationBodyMetadataStorage.getMetadata(
-    MyController.prototype,
-    "operation",
-  );
+  const metadata = OperationBodyMetadataStorage.getMetadata(MyController.prototype, "operation");
 
   expect(metadata).toEqual({
     type: "string",
@@ -71,11 +60,7 @@ test("@ApiParam", () => {
     operation() {}
   }
 
-  const metadata = OperationParameterMetadataStorage.getMetadata(
-    MyController.prototype,
-    "operation",
-    true,
-  );
+  const metadata = OperationParameterMetadataStorage.getMetadata(MyController.prototype, "operation", true);
 
   expect(metadata).toEqual([
     { in: "path", name: "test" },
@@ -90,11 +75,7 @@ test("@ApiHeader", () => {
     operation() {}
   }
 
-  const metadata = OperationParameterMetadataStorage.getMetadata(
-    MyController.prototype,
-    "operation",
-    true,
-  );
+  const metadata = OperationParameterMetadataStorage.getMetadata(MyController.prototype, "operation", true);
 
   expect(metadata).toEqual([
     { in: "header", name: "test" },
@@ -109,11 +90,7 @@ test("@ApiCookie", () => {
     operation() {}
   }
 
-  const metadata = OperationParameterMetadataStorage.getMetadata(
-    MyController.prototype,
-    "operation",
-    true,
-  );
+  const metadata = OperationParameterMetadataStorage.getMetadata(MyController.prototype, "operation", true);
 
   expect(metadata).toEqual([
     { in: "cookie", name: "test" },
@@ -128,11 +105,7 @@ test("@ApiQuery", () => {
     operation() {}
   }
 
-  const metadata = OperationParameterMetadataStorage.getMetadata(
-    MyController.prototype,
-    "operation",
-    true,
-  );
+  const metadata = OperationParameterMetadataStorage.getMetadata(MyController.prototype, "operation", true);
 
   expect(metadata).toEqual([
     { in: "query", name: "test" },
@@ -147,11 +120,7 @@ test("@ApiResponse", () => {
     operation() {}
   }
 
-  const metadata = OperationResponseMetadataStorage.getMetadata(
-    MyController.prototype,
-    "operation",
-    true,
-  );
+  const metadata = OperationResponseMetadataStorage.getMetadata(MyController.prototype, "operation", true);
 
   expect(metadata).toEqual({
     default: { status: "default", mediaType: "text/html", type: "string" },
@@ -166,11 +135,7 @@ test("@ApiTags", () => {
     operation() {}
   }
 
-  const metadata = OperationMetadataStorage.getMetadata(
-    MyController.prototype,
-    "operation",
-    true,
-  );
+  const metadata = OperationMetadataStorage.getMetadata(MyController.prototype, "operation", true);
 
   expect(metadata.tags).toEqual(["Root", "Hello", "World"]);
 });
@@ -185,11 +150,7 @@ test("@ApiSecurity", () => {
     operation() {}
   }
 
-  const metadata = OperationSecurityMetadataStorage.getMetadata(
-    MyController.prototype,
-    "operation",
-    true,
-  );
+  const metadata = OperationSecurityMetadataStorage.getMetadata(MyController.prototype, "operation", true);
 
   expect(metadata).toEqual({
     custom: [],
@@ -214,10 +175,7 @@ test("@ApiExcludeOperation", () => {
     operation() {}
   }
 
-  const metadata = ExcludeMetadataStorage.getMetadata(
-    MyController.prototype,
-    "operation",
-  );
+  const metadata = ExcludeMetadataStorage.getMetadata(MyController.prototype, "operation");
   expect(metadata).toBe(true);
 });
 

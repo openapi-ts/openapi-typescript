@@ -1,13 +1,7 @@
 import type { SetOptional } from "type-fest";
-import {
-  type OperationResponseMetadata,
-  OperationResponseMetadataStorage,
-} from "../metadata/operation-response";
+import { type OperationResponseMetadata, OperationResponseMetadataStorage } from "../metadata/operation-response";
 
-export type ApiResponseOptions = SetOptional<
-  OperationResponseMetadata,
-  "status" | "mediaType"
->;
+export type ApiResponseOptions = SetOptional<OperationResponseMetadata, "status" | "mediaType">;
 
 export function ApiResponse(options: ApiResponseOptions) {
   return function (target: Object, propertyKey?: string | symbol) {

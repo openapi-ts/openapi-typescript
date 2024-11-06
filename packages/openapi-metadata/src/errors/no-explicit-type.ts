@@ -1,13 +1,7 @@
 export class NoExplicitTypeError extends Error {
-  constructor(
-    typeName: string,
-    propertyKey: string,
-    parameterIndex?: number,
-    argName?: string,
-  ) {
+  constructor(typeName: string, propertyKey: string, parameterIndex?: number, argName?: string) {
     let errorMessage =
-      "Unable to infer OpenAPI type from TypeScript reflection system. " +
-      "You need to provide explicit type for ";
+      "Unable to infer OpenAPI type from TypeScript reflection system. " + "You need to provide explicit type for ";
     if (argName) {
       errorMessage += `argument named '${argName}' of `;
     } else if (parameterIndex !== undefined) {

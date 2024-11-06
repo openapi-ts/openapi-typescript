@@ -40,9 +40,7 @@ export type GenerateDocumentOptions = {
 /**
  * Generates a compliant OpenAPIV3 schema.
  */
-export async function generateDocument(
-  options: GenerateDocumentOptions,
-): Promise<OpenAPIDocument> {
+export async function generateDocument(options: GenerateDocumentOptions): Promise<OpenAPIDocument> {
   const context = new Context(options.customLogger, options.loaders);
 
   return deepmerge(options.document, {

@@ -30,33 +30,18 @@ export async function generateOperation(
     operation.requestBody = await generateOperationBody(context, body);
   }
 
-  const parameters = OperationParameterMetadataStorage.getMetadata(
-    target,
-    propertyKey,
-  );
+  const parameters = OperationParameterMetadataStorage.getMetadata(target, propertyKey);
   operation.parameters = [];
   for (const parameter of parameters) {
-    operation.parameters.push(
-      await generateOperationParameters(context, parameter),
-    );
+    operation.parameters.push(await generateOperationParameters(context, parameter));
   }
 
-  const responses = OperationResponseMetadataStorage.getMetadata(
-    target,
-    propertyKey,
-  );
+  const responses = OperationResponseMetadataStorage.getMetadata(target, propertyKey);
   for (const [status, response] of Object.entries(responses)) {
-    operation.responses[status] = await generateOperationResponse(
-      context,
-      response,
-    );
+    operation.responses[status] = await generateOperationResponse(context, response);
   }
 
-  const security = OperationSecurityMetadataStorage.getMetadata(
-    target,
-    propertyKey,
-    true,
-  );
+  const security = OperationSecurityMetadataStorage.getMetadata(target, propertyKey, true);
 
   operation.security = [security];
 

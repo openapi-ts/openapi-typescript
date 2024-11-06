@@ -3,10 +3,7 @@ import type { Context } from "../context";
 import { generateOperation } from "./operation";
 import { ExcludeMetadataStorage, OperationMetadataStorage } from "../metadata";
 
-export async function generatePaths(
-  context: Context,
-  controllers: Function[],
-): Promise<OpenAPIV3.PathsObject> {
+export async function generatePaths(context: Context, controllers: Function[]): Promise<OpenAPIV3.PathsObject> {
   const paths: OpenAPIV3.PathsObject = {};
 
   for (const controller of controllers) {
@@ -28,10 +25,7 @@ export async function generatePaths(
       }
 
       for (const method of metadata.methods) {
-        const excludeOperation = ExcludeMetadataStorage.getMetadata(
-          target,
-          key,
-        );
+        const excludeOperation = ExcludeMetadataStorage.getMetadata(target, key);
 
         if (excludeOperation === true) {
           continue;
