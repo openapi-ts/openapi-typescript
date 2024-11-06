@@ -15,8 +15,9 @@ import { generateScalarUI } from "openapi-metadata/ui";
 
 const app = express();
 
+const document = await generateDocument(yourConfiguration);
+
 app.get("/api", async (req, res) => {
-  const document = await generateDocument(yourConfiguration);
   res.send(JSON.stringify(document));
 });
 
@@ -35,8 +36,9 @@ import { generateScalarUI } from "openapi-metadata/ui";
 
 const app = Fastify();
 
+const document = await generateDocument(yourConfiguration);
+
 app.get("/api", async () => {
-  const document = await generateDocument(yourConfiguration);
   return document;
 });
 
