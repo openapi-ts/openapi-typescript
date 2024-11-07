@@ -6,7 +6,6 @@ import type { PartialDeep } from "type-fest";
 import type { TypesForGetRequest } from "./types.js";
 
 // Types are loose here to support ecosystem utilities like `_.isMatch`
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type CompareFn = (init: any, partialInit: any) => boolean;
 
 /**
