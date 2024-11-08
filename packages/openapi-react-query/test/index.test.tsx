@@ -232,16 +232,28 @@ describe("client", () => {
       expectTypeOf(result.current.error).toEqualTypeOf<false | null>();
     });
 
-    it("discriminates different fetch clients", async () => {
-      const createNewClient = () =>
-        createClient(
-          createFetchClient<minimalGetPaths>({ baseUrl, fetch: () => Promise.resolve(Response.json(true)) }),
-        );
-      const client1 = createNewClient();
-      const client2 = createNewClient();
+    it("should treat different fetch clients as separate instances", async () => {
+      const fetchClient1 = createFetchClient<minimalGetPaths>({ baseUrl, fetch: fetchInfinite });
+      const fetchClient2 = createFetchClient<minimalGetPaths>({ baseUrl, fetch: fetchInfinite });
+      const client1 = createClient(fetchClient1);
+      const client11 = createClient(fetchClient1);
+      const client2 = createClient(fetchClient2);
 
-      expect(client1.queryOptions("get", "/foo").queryKey).toEqual(client1.queryOptions("get", "/foo").queryKey);
-      expect(client1.queryOptions("get", "/foo").queryKey).not.toEqual(client2.queryOptions("get", "/foo").queryKey);
+      renderHook(
+        () => {
+          useQueries({
+            queries: [
+              client1.queryOptions("get", "/foo"),
+              client11.queryOptions("get", "/foo"),
+              client2.queryOptions("get", "/foo"),
+            ],
+          });
+        },
+        { wrapper },
+      );
+
+      // client1 and client11 have the same fetch client, so they share the same query key
+      expect(queryClient.isFetching()).toBe(2);
     });
   });
 

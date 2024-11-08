@@ -19,7 +19,7 @@ export type QueryKey<
   Paths extends Record<string, Record<HttpMethod, {}>>,
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
-> = readonly [FetchClient<Paths>, Method, Path, MaybeOptionalInit<Paths[Path], Method>];
+> = readonly [number, Method, Path, MaybeOptionalInit<Paths[Path], Method>];
 
 export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
@@ -102,12 +102,18 @@ export interface OpenapiQueryClient<Paths extends {}, Media extends MediaType = 
   useMutation: UseMutationMethod<Paths, Media>;
 }
 
+const clientIds = new WeakMap<FetchClient<object, MediaType>, number>();
+let lastId = 0;
+
 // TODO: Add the ability to bring queryClient as argument
 export default function createClient<Paths extends {}, Media extends MediaType = MediaType>(
   client: FetchClient<Paths, Media>,
 ): OpenapiQueryClient<Paths, Media> {
+  const clientId = clientIds.get(client) ?? lastId++;
+  clientIds.set(client, clientId);
+
   const queryFn = async <Method extends HttpMethod, Path extends PathsWithMethod<Paths, Method>>({
-    queryKey: [client, method, path, init],
+    queryKey: [_clientId, method, path, init],
     signal,
   }: QueryFunctionContext<QueryKey<Paths, Method, Path>>) => {
     const mth = method.toUpperCase() as Uppercase<typeof method>;
@@ -120,7 +126,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   };
 
   const queryOptions: QueryOptionsFunction<Paths, Media> = (method, path, ...[init, options]) => ({
-    queryKey: [client, method, path, init as InitWithUnknowns<typeof init>] as const,
+    queryKey: [clientId, method, path, init as InitWithUnknowns<typeof init>] as const,
     queryFn,
     ...options,
   });
