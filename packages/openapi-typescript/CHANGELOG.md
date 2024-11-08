@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.4.3
+
+### Patch Changes
+
+- [#1982](https://github.com/openapi-ts/openapi-typescript/pull/1982) [`8d00218`](https://github.com/openapi-ts/openapi-typescript/commit/8d00218aaaa65bd175a2538f60cb508a1219a415) Thanks [@prewk](https://github.com/prewk)! - Make pathParamsAsTypes work with integer/boolean types
+
 ## 7.4.2
 
 ### Patch Changes
