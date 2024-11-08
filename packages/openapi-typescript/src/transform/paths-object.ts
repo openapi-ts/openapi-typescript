@@ -52,10 +52,17 @@ export default function transformPathsObject(pathsObject: PathsObject, ctx: Glob
           for (const match of matches) {
             const paramName = match.slice(1, -1);
             const param = pathParams[paramName];
-            if (!param) {
-              rawPath = rawPath.replace(match, "${string}");
-            } else {
-              rawPath = rawPath.replace(match, `$\{${(param.schema as any)?.type ?? "string"}}`);
+            switch (param?.schema?.type) {
+              case "number":
+              case "integer":
+                rawPath = rawPath.replace(match, "${number}");
+                break;
+              case "boolean":
+                rawPath = rawPath.replace(match, "${boolean}");
+                break;
+              default:
+                rawPath = rawPath.replace(match, "${string}");
+                break;
             }
           }
           // note: creating a string template literal’s AST manually is hard!
