@@ -1,4 +1,7 @@
-import { type OperationMetadata, OperationMetadataStorage } from "../metadata/operation";
+import {
+  type OperationMetadata,
+  OperationMetadataStorage,
+} from "../metadata/operation.js";
 
 export type ApiOperationOptions = OperationMetadata;
 

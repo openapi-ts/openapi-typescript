@@ -1,4 +1,4 @@
-import { ExcludeMetadataStorage } from "../metadata/exclude";
+import { ExcludeMetadataStorage } from "../metadata/exclude.js";
 
 export function ApiExcludeController(): ClassDecorator {
   return (target) => {

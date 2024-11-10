@@ -1,3 +1,3 @@
-export { generateScalarUI } from "./scalar";
-export { generateSwaggerUI } from "./swagger";
-export { generateRapidocUI } from "./rapidoc";
+export { generateScalarUI } from "./scalar.js";
+export { generateSwaggerUI } from "./swagger.js";
+export { generateRapidocUI } from "./rapidoc.js";

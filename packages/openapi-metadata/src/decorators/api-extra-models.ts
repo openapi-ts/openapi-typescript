@@ -1,5 +1,5 @@
-import { ExtraModelsMetadataStorage } from "../metadata/extra-models";
-import type { Thunk, TypeValue } from "../types";
+import { ExtraModelsMetadataStorage } from "../metadata/extra-models.js";
+import type { Thunk, TypeValue } from "../types.js";
 
 export function ApiExtraModels(...models: (TypeValue | Thunk<TypeValue>)[]) {
   return (target: Object) => {

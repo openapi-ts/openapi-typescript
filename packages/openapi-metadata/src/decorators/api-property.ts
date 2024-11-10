@@ -1,13 +1,18 @@
-import type { Context } from "../context";
-import { SymbolKeysNotSupportedError } from "../errors/symbol-keys-not-supported";
-import { type PropertyMetadata, PropertyMetadataStorage } from "../metadata/property";
-import { findType } from "../utils/metadata";
+import type { Context } from "../context.js";
+import { SymbolKeysNotSupportedError } from "../errors/symbol-keys-not-supported.js";
+import {
+  type PropertyMetadata,
+  PropertyMetadataStorage,
+} from "../metadata/property.js";
+import { findType } from "../utils/metadata.js";
 
 export type ApiPropertyOptions = Partial<PropertyMetadata>;
 
 export function ApiProperty(options?: ApiPropertyOptions): PropertyDecorator;
 export function ApiProperty(options?: ApiPropertyOptions): MethodDecorator;
-export function ApiProperty(options?: ApiPropertyOptions): PropertyDecorator | MethodDecorator {
+export function ApiProperty(
+  options?: ApiPropertyOptions,
+): PropertyDecorator | MethodDecorator {
   return (prototype, propertyKey, descriptor) => {
     const isMethod = Boolean(descriptor?.value);
 
@@ -21,7 +26,7 @@ export function ApiProperty(options?: ApiPropertyOptions): PropertyDecorator | M
       ...options,
     } as PropertyMetadata;
 
-    if (!("type" in metadata) && !("schema" in metadata) && !("enum" in metadata)) {
+    if (!metadata.type && !metadata.schema && !metadata.enum) {
       (metadata as any).type = (context: Context) =>
         findType({
           context,
@@ -37,8 +42,12 @@ export function ApiProperty(options?: ApiPropertyOptions): PropertyDecorator | M
   };
 }
 
-export function ApiPropertyOptional(options?: Omit<ApiPropertyOptions, "required">): PropertyDecorator;
-export function ApiPropertyOptional(options?: Omit<ApiPropertyOptions, "required">): MethodDecorator;
+export function ApiPropertyOptional(
+  options?: Omit<ApiPropertyOptions, "required">,
+): PropertyDecorator;
+export function ApiPropertyOptional(
+  options?: Omit<ApiPropertyOptions, "required">,
+): MethodDecorator;
 export function ApiPropertyOptional(
   options?: Omit<ApiPropertyOptions, "required">,
 ): PropertyDecorator | MethodDecorator {

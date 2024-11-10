@@ -1,9 +1,9 @@
 import type { OpenAPIV3 } from "openapi-types";
-import type { OpenAPIDocument, TypeLoaderFn } from "../index";
-import type { Logger } from "../types";
+import type { OpenAPIDocument, TypeLoaderFn } from "../index.js";
+import type { Logger } from "../types.js";
 import type { SetOptional } from "type-fest";
-import { Context } from "../context";
-import { generatePaths } from "./paths";
+import { Context } from "../context.js";
+import { generatePaths } from "./paths.js";
 import deepmerge from "deepmerge";
 
 export type GenerateDocumentOptions = {
@@ -40,7 +40,9 @@ export type GenerateDocumentOptions = {
 /**
  * Generates a compliant OpenAPIV3 schema.
  */
-export async function generateDocument(options: GenerateDocumentOptions): Promise<OpenAPIDocument> {
+export async function generateDocument(
+  options: GenerateDocumentOptions,
+): Promise<OpenAPIDocument> {
   const context = new Context(options.customLogger, options.loaders);
 
   return deepmerge(options.document, {

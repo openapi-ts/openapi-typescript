@@ -1,11 +1,11 @@
 import type { OpenAPIV3 } from "openapi-types";
-import type { Context } from "../context";
-import type { TypeLoaderFn, TypeOptions } from "../types";
+import type { Context } from "../context.js";
+import type { TypeLoaderFn, TypeOptions } from "../types.js";
 import type { SetRequired } from "type-fest";
-import { getEnumType, getEnumValues } from "../utils/enum";
-import { PropertyMetadataStorage } from "../metadata/property";
-import { schemaPath } from "../utils/schema";
-import { isThunk } from "../utils/metadata";
+import { getEnumType, getEnumValues } from "../utils/enum.js";
+import { PropertyMetadataStorage } from "../metadata/property.js";
+import { schemaPath } from "../utils/schema.js";
+import { isThunk } from "../utils/metadata.js";
 
 const PrimitiveTypeLoader: TypeLoaderFn = async (_context, value) => {
   if (typeof value === "string") {
@@ -39,16 +39,19 @@ const ClassTypeLoader: TypeLoaderFn = async (context, value) => {
     return { $ref: schemaPath(model) };
   }
 
-  const schema: SetRequired<OpenAPIV3.SchemaObject, "properties" | "required"> = {
-    type: "object",
-    properties: {},
-    required: [],
-  };
+  const schema: SetRequired<OpenAPIV3.SchemaObject, "properties" | "required"> =
+    {
+      type: "object",
+      properties: {},
+      required: [],
+    };
 
   const properties = PropertyMetadataStorage.getMetadata(value.prototype);
 
   if (!properties) {
-    context.logger.warn(`You tried to use '${model}' as a type but it does not contain any ApiProperty.`);
+    context.logger.warn(
+      `You tried to use '${model}' as a type but it does not contain any ApiProperty.`,
+    );
 
     return;
   }
@@ -56,7 +59,14 @@ const ClassTypeLoader: TypeLoaderFn = async (context, value) => {
   context.schemas[model] = schema;
 
   for (const [key, property] of Object.entries(properties)) {
-    const { required, type, name, enum: e, schema: s, ...metadata } = property as any;
+    const {
+      required,
+      type,
+      name,
+      enum: e,
+      schema: s,
+      ...metadata
+    } = property as any;
     schema.properties[key] = {
       ...(await loadType(context, property)),
       ...metadata,
@@ -74,11 +84,11 @@ export async function loadType(
   context: Context,
   options: TypeOptions,
 ): Promise<OpenAPIV3.SchemaObject | OpenAPIV3.ReferenceObject | undefined> {
-  if ("schema" in options) {
+  if (options.schema) {
     return options.schema;
   }
 
-  if ("enum" in options) {
+  if (options.enum) {
     const enumValues = getEnumValues(options.enum);
     const enumType = getEnumType(enumValues);
 
@@ -88,15 +98,26 @@ export async function loadType(
     };
   }
 
+  if (!options.type) {
+    context.logger.warn("Failed to infer type from property");
+    return;
+  }
+
   const thunk = isThunk(options.type);
   const value = thunk ? (options.type as Function)(context) : options.type;
 
-  for (const loader of [PrimitiveTypeLoader, ...context.typeLoaders, ClassTypeLoader]) {
+  for (const loader of [
+    PrimitiveTypeLoader,
+    ...context.typeLoaders,
+    ClassTypeLoader,
+  ]) {
     const result = await loader(context, value, options.type);
     if (result) {
       return result;
     }
   }
 
-  context.logger.warn(`You tried to use '${options.type.toString()}' as a type but no loader supports it ${thunk}`);
+  context.logger.warn(
+    `You tried to use '${options.type.toString()}' as a type but no loader supports it ${thunk}`,
+  );
 }

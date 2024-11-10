@@ -1,5 +1,5 @@
 import type { OpenAPIV3 } from "openapi-types";
-import type { Logger, TypeLoaderFn } from "./types";
+import type { Logger, TypeLoaderFn } from "./types.js";
 
 export class Context {
   schemas: Record<string, OpenAPIV3.SchemaObject> = {};

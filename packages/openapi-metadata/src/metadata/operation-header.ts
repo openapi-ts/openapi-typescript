@@ -1,6 +1,6 @@
 import type { OpenAPIV3 } from "openapi-types";
-import type { TypeOptions } from "../types";
-import { createMetadataStorage } from "./factory";
+import type { TypeOptions } from "../types.js";
+import { createMetadataStorage } from "./factory.js";
 
 export type OperationHeaderMetadata = Omit<OpenAPIV3.HeaderObject, "schema"> & {
   name: string;
@@ -8,5 +8,6 @@ export type OperationHeaderMetadata = Omit<OpenAPIV3.HeaderObject, "schema"> & {
 
 export const OperationHeaderSymbol = Symbol("OperationHeader");
 
-export const OperationHeaderMetadataStorage =
-  createMetadataStorage<Record<string, OperationHeaderMetadata>>(OperationHeaderSymbol);
+export const OperationHeaderMetadataStorage = createMetadataStorage<
+  Record<string, OperationHeaderMetadata>
+>(OperationHeaderSymbol);

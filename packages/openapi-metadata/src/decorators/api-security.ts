@@ -1,4 +1,4 @@
-import { OperationSecurityMetadataStorage } from "../metadata/operation-security";
+import { OperationSecurityMetadataStorage } from "../metadata/operation-security.js";
 
 export function ApiSecurity(name: string, ...scopes: string[]) {
   return (target: Object, propertyKey?: string | symbol) => {

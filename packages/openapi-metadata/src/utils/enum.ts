@@ -1,4 +1,4 @@
-import type { EnumTypeValue } from "../types";
+import type { EnumTypeValue } from "../types.js";
 
 export function getEnumType(values: (string | number)[]): "string" | "number" {
   return values.some((v) => typeof v === "string") ? "string" : "number";

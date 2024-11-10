@@ -1,7 +1,7 @@
 {
   "name": "openapi-metadata",
   "description": "Auto-Generate OpenAPI specifications from Typescript decorators",
-  "version": "0.0.0-20240826235548",
+  "version": "0.0.0-rc-4",
   "author": {
     "name": "Martin PAUCOT",
     "email": "contact@martin-paucot.Fr"
@@ -48,8 +48,10 @@
     "typescript"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "pnpm run build:clean && pnpm run build:esm",
+    "build:clean": "del-cli dist",
+    "build:esm": "tsc -p tsconfig.build.json",
+    "dev": "tsc -p tsconfig.build.json --watch",
     "format": "biome format . --write",
     "lint": "biome check .",
     "test": "vitest run",

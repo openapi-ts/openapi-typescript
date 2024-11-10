@@ -1,7 +1,7 @@
 import type { OpenAPIV3 } from "openapi-types";
-import type { Context } from "../context";
-import type { OperationBodyMetadata } from "../metadata/operation-body";
-import { loadType } from "../loaders/type";
+import type { Context } from "../context.js";
+import type { OperationBodyMetadata } from "../metadata/operation-body.js";
+import { loadType } from "../loaders/type.js";
 
 export async function generateOperationBody(
   context: Context,

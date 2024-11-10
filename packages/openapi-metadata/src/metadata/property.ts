@@ -1,5 +1,5 @@
-import type { TypeOptions } from "../types";
-import { createMetadataStorage } from "./factory";
+import type { TypeOptions } from "../types.js";
+import { createMetadataStorage } from "./factory.js";
 
 export type PropertyMetadata = {
   name: string;
@@ -8,4 +8,5 @@ export type PropertyMetadata = {
 
 export const PropertyMetadataKey = Symbol("Property");
 
-export const PropertyMetadataStorage = createMetadataStorage<Record<string, PropertyMetadata>>(PropertyMetadataKey);
+export const PropertyMetadataStorage =
+  createMetadataStorage<Record<string, PropertyMetadata>>(PropertyMetadataKey);
