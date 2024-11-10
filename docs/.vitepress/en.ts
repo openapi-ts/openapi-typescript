@@ -71,12 +71,19 @@ export default defineConfig({
         },
         {
           text: "openapi-react-query",
+          base: "/openapi-react-query",
           items: [
-            { text: "Getting Started", link: "/openapi-react-query/" },
-            { text: "useQuery", link: "/openapi-react-query/use-query" },
-            { text: "useMutation", link: "/openapi-react-query/use-mutation" },
-            { text: "useSuspenseQuery", link: "/openapi-react-query/use-suspense-query" },
-            { text: "queryOptions", link: "/openapi-react-query/query-options" },
+            { text: "Getting Started", link: "/" },
+            { text: "useQuery", link: "/use-query" },
+            { text: "useMutation", link: "/use-mutation" },
+            {
+              text: "useSuspenseQuery",
+              link: "/use-suspense-query",
+            },
+            {
+              text: "queryOptions",
+              link: "/query-options",
+            },
             { text: "About", link: "/openapi-react-query/about" },
           ],
         },
@@ -93,6 +100,19 @@ export default defineConfig({
             { text: "About", link: "/about" },
           ],
         },
+        {
+          text: "openapi-metadata",
+          base: "/openapi-metadata",
+          items: [
+            { text: "Getting Started", link: "/" },
+            { text: "Decorators", link: "/decorators" },
+            { text: "Metadata", link: "/metadata" },
+            { text: "Type loader", link: "/type-loader" },
+            { text: "UI Integrations", link: "/ui" },
+            { text: "Examples", link: "/examples" },
+            { text: "About", link: "/about" },
+          ],
+        },
       ],
     },
     search: {
@@ -103,6 +123,12 @@ export default defineConfig({
         indexName: "openapi-ts",
       },
     },
+    socialLinks: [
+      {
+        icon: "github",
+        link: "https://github.com/openapi-ts/openapi-typescript",
+      },
+    ],
     footer: {
       message:
         'Released under the <a href="https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE">MIT License</a>.',
