@@ -5,8 +5,7 @@ export type OperationSecurityMetadata = OpenAPIV3.SecurityRequirementObject;
 
 export const OperationSecurityMetadataKey = Symbol("OperationSecurity");
 
-export const OperationSecurityMetadataStorage =
-  createMetadataStorage<OpenAPIV3.SecurityRequirementObject>(
-    OperationSecurityMetadataKey,
-    {},
-  );
+export const OperationSecurityMetadataStorage = createMetadataStorage<OpenAPIV3.SecurityRequirementObject>(
+  OperationSecurityMetadataKey,
+  {},
+);

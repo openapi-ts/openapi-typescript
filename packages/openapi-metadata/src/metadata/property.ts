@@ -8,5 +8,4 @@ export type PropertyMetadata = {
 
 export const PropertyMetadataKey = Symbol("Property");
 
-export const PropertyMetadataStorage =
-  createMetadataStorage<Record<string, PropertyMetadata>>(PropertyMetadataKey);
+export const PropertyMetadataStorage = createMetadataStorage<Record<string, PropertyMetadata>>(PropertyMetadataKey);

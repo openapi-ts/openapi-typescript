@@ -9,5 +9,4 @@ export type OperationMetadata = Omit<OpenAPIV3.OperationObject, "responses"> & {
 
 export const OperationMetadataKey = Symbol("Operation");
 
-export const OperationMetadataStorage =
-  createMetadataStorage<OperationMetadata>(OperationMetadataKey, {});
+export const OperationMetadataStorage = createMetadataStorage<OperationMetadata>(OperationMetadataKey, {});

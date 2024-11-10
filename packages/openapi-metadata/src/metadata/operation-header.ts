@@ -8,6 +8,5 @@ export type OperationHeaderMetadata = Omit<OpenAPIV3.HeaderObject, "schema"> & {
 
 export const OperationHeaderSymbol = Symbol("OperationHeader");
 
-export const OperationHeaderMetadataStorage = createMetadataStorage<
-  Record<string, OperationHeaderMetadata>
->(OperationHeaderSymbol);
+export const OperationHeaderMetadataStorage =
+  createMetadataStorage<Record<string, OperationHeaderMetadata>>(OperationHeaderSymbol);

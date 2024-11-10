@@ -1,8 +1,5 @@
 import type { SetOptional } from "type-fest";
-import {
-  type OperationBodyMetadata,
-  OperationBodyMetadataStorage,
-} from "../metadata/operation-body.js";
+import { type OperationBodyMetadata, OperationBodyMetadataStorage } from "../metadata/operation-body.js";
 
 export type ApiBodyOptions = SetOptional<OperationBodyMetadata, "mediaType">;
 
