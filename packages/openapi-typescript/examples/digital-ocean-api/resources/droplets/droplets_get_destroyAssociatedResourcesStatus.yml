@@ -38,4 +38,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'droplet:read'
+    - 'droplet:delete'

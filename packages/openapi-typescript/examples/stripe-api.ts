@@ -932,7 +932,7 @@ export interface paths {
         };
         /**
          * List credit grants
-         * @description <p>Retrieve a list of credit grants</p>
+         * @description <p>Retrieve a list of credit grants.</p>
          */
         get: operations["GetBillingCreditGrants"];
         put?: never;
@@ -982,7 +982,7 @@ export interface paths {
         put?: never;
         /**
          * Expire a credit grant
-         * @description <p>Expires a credit grant</p>
+         * @description <p>Expires a credit grant.</p>
          */
         post: operations["PostBillingCreditGrantsIdExpire"];
         delete?: never;
@@ -1002,7 +1002,7 @@ export interface paths {
         put?: never;
         /**
          * Void a credit grant
-         * @description <p>Voids a credit grant</p>
+         * @description <p>Voids a credit grant.</p>
          */
         post: operations["PostBillingCreditGrantsIdVoid"];
         delete?: never;
@@ -6553,7 +6553,7 @@ export interface paths {
          *     <li>A trial starts or ends.</li>
          *     </ul>
          *
-         *     <p>In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date. Learn about how <a href="/billing/subscriptions/upgrade-downgrade#immediate-payment">Stripe immediately attempts payment for subscription changes</a>.</p>
+         *     <p>In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date. Learn about how <a href="/docs/billing/subscriptions/upgrade-downgrade#immediate-payment">Stripe immediately attempts payment for subscription changes</a>.</p>
          *
          *     <p>If you want to charge for an upgrade immediately, pass <code>proration_behavior</code> as <code>always_invoice</code> to create prorations, automatically invoice the customer for those proration adjustments, and attempt to collect payment. If you pass <code>create_prorations</code>, the prorations are created but not automatically invoiced. If you want to bill the customer for the prorations before the subscription’s renewal date, you need to manually <a href="/docs/api/invoices/create">invoice the customer</a>.</p>
          *
@@ -7357,6 +7357,26 @@ export interface paths {
          * @description <p>Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.</p>
          */
         post: operations["PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/test_helpers/issuing/authorizations/{authorization}/fraud_challenges/respond": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Respond to fraud challenge
+         * @description <p>Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.</p>
+         */
+        post: operations["PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond"];
         delete?: never;
         options?: never;
         head?: never;
@@ -9285,8 +9305,11 @@ export interface components {
             current_deadline?: number | null;
             /** @description Fields that need to be collected to keep the account enabled. If not collected by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash. */
             currently_due?: string[] | null;
-            /** @description This is typed as a string for consistency with `requirements.disabled_reason`. */
-            disabled_reason?: string | null;
+            /**
+             * @description This is typed as an enum for consistency with `requirements.disabled_reason`.
+             * @enum {string|null}
+             */
+            disabled_reason?: "action_required.requested_capabilities" | "listed" | "other" | "platform_paused" | "rejected.fraud" | "rejected.incomplete_verification" | "rejected.listed" | "rejected.other" | "rejected.platform_fraud" | "rejected.platform_other" | "rejected.platform_terms_of_service" | "rejected.terms_of_service" | "requirements.past_due" | "requirements.pending_verification" | "under_review" | null;
             /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
             errors?: components["schemas"]["account_requirements_error"][] | null;
             /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well. */
@@ -9371,8 +9394,11 @@ export interface components {
             current_deadline?: number | null;
             /** @description Fields that need to be collected to keep the account enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the account is disabled. */
             currently_due?: string[] | null;
-            /** @description If the account is disabled, this string describes why. [Learn more about handling verification issues](https://stripe.com/docs/connect/handling-api-verification). Can be `action_required.requested_capabilities`, `requirements.past_due`, `requirements.pending_verification`, `listed`, `platform_paused`, `rejected.fraud`, `rejected.incomplete_verification`, `rejected.listed`, `rejected.other`, `rejected.terms_of_service`, `under_review`, or `other`. */
-            disabled_reason?: string | null;
+            /**
+             * @description If the account is disabled, this enum describes why. [Learn more about handling verification issues](https://stripe.com/docs/connect/handling-api-verification).
+             * @enum {string|null}
+             */
+            disabled_reason?: "action_required.requested_capabilities" | "listed" | "other" | "platform_paused" | "rejected.fraud" | "rejected.incomplete_verification" | "rejected.listed" | "rejected.other" | "rejected.platform_fraud" | "rejected.platform_other" | "rejected.platform_terms_of_service" | "rejected.terms_of_service" | "requirements.past_due" | "requirements.pending_verification" | "under_review" | null;
             /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
             errors?: components["schemas"]["account_requirements_error"][] | null;
             /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set. */
@@ -10103,13 +10129,12 @@ export interface components {
          * @description A credit grant is an API resource that documents the allocation of some billing credits to a customer.
          *
          *     Related guide: [Billing credits](https://docs.stripe.com/billing/subscriptions/usage-based/billing-credits)
-         *     end
          */
         "billing.credit_grant": {
             amount: components["schemas"]["billing_credit_grants_resource_amount"];
             applicability_config: components["schemas"]["billing_credit_grants_resource_applicability_config"];
             /**
-             * @description The category of this credit grant. This is for tracking purposes and will not be displayed to the customer.
+             * @description The category of this credit grant. This is for tracking purposes and isn't displayed to the customer.
              * @enum {string}
              */
             category: "paid" | "promotional";
@@ -10118,16 +10143,16 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description ID of the customer to whom the billing credits are granted. */
+            /** @description ID of the customer receiving the billing credits. */
             customer: string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"];
             /**
              * Format: unix-time
-             * @description The time when the billing credits become effective i.e when they are eligible to be used.
+             * @description The time when the billing credits become effective—when they're eligible for use.
              */
             effective_at?: number | null;
             /**
              * Format: unix-time
-             * @description The time when the billing credits will expire. If not present, the billing credits will never expire.
+             * @description The time when the billing credits expire. If not present, the billing credits don't expire.
              */
             expires_at?: number | null;
             /** @description Unique identifier for the object. */
@@ -10355,7 +10380,7 @@ export interface components {
         /** BillingCreditGrantsResourceScope */
         billing_credit_grants_resource_scope: {
             /**
-             * @description The price type to which credit grants can apply to. We currently only support `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
+             * @description The price type for which credit grants can apply. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
              * @enum {string}
              */
             price_type: "metered";
@@ -10828,6 +10853,8 @@ export interface components {
          *     Related guide: [Checkout quickstart](https://stripe.com/docs/checkout/quickstart)
          */
         "checkout.session": {
+            /** @description Settings for price localization with [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing). */
+            adaptive_pricing?: components["schemas"]["payment_pages_checkout_session_adaptive_pricing"] | null;
             /** @description When set, provides configuration for actions to take if this Checkout Session expires. */
             after_expiration?: components["schemas"]["payment_pages_checkout_session_after_expiration"] | null;
             /** @description Enables user redeemable promotion codes. */
@@ -10989,7 +11016,7 @@ export interface components {
              *     specified on Checkout Sessions in `payment` mode. If blank or `auto`, `pay` is used.
              * @enum {string|null}
              */
-            submit_type?: "auto" | "book" | "donate" | "pay" | null;
+            submit_type?: "auto" | "book" | "donate" | "pay" | "subscribe" | null;
             /** @description The ID of the subscription for Checkout Sessions in `subscription` mode. */
             subscription?: (string | components["schemas"]["subscription"]) | null;
             /** @description The URL the customer will be directed to after the payment or
@@ -11123,6 +11150,7 @@ export interface components {
         };
         /** CheckoutBacsDebitPaymentMethodOptions */
         checkout_bacs_debit_payment_method_options: {
+            mandate_options?: components["schemas"]["checkout_payment_method_options_mandate_options_bacs_debit"];
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
@@ -11173,6 +11201,26 @@ export interface components {
         /** CheckoutCardPaymentMethodOptions */
         checkout_card_payment_method_options: {
             installments?: components["schemas"]["checkout_card_installments_options"];
+            /**
+             * @description Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
+             * @enum {string}
+             */
+            request_extended_authorization?: "if_available" | "never";
+            /**
+             * @description Request ability to [increment the authorization](/payments/incremental-authorization) for this CheckoutSession.
+             * @enum {string}
+             */
+            request_incremental_authorization?: "if_available" | "never";
+            /**
+             * @description Request ability to make [multiple captures](/payments/multicapture) for this CheckoutSession.
+             * @enum {string}
+             */
+            request_multicapture?: "if_available" | "never";
+            /**
+             * @description Request ability to [overcapture](/payments/overcapture) for this CheckoutSession.
+             * @enum {string}
+             */
+            request_overcapture?: "if_available" | "never";
             /**
              * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
              * @enum {string}
@@ -11467,6 +11515,10 @@ export interface components {
              */
             capture_method?: "manual";
         };
+        /** checkout_payment_method_options_mandate_options_bacs_debit */
+        checkout_payment_method_options_mandate_options_bacs_debit: Record<string, never>;
+        /** checkout_payment_method_options_mandate_options_sepa_debit */
+        checkout_payment_method_options_mandate_options_sepa_debit: Record<string, never>;
         /** CheckoutPaynowPaymentMethodOptions */
         checkout_paynow_payment_method_options: {
             /**
@@ -11533,6 +11585,7 @@ export interface components {
         };
         /** CheckoutSepaDebitPaymentMethodOptions */
         checkout_sepa_debit_payment_method_options: {
+            mandate_options?: components["schemas"]["checkout_payment_method_options_mandate_options_sepa_debit"];
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
@@ -12021,7 +12074,7 @@ export interface components {
         /** ConnectEmbeddedAccountFeaturesClaim */
         connect_embedded_account_features_claim: {
             /** @description Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise. */
-            disable_stripe_user_authentication?: boolean;
+            disable_stripe_user_authentication: boolean;
             /** @description Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`. */
             external_account_collection: boolean;
         };
@@ -12073,7 +12126,7 @@ export interface components {
         /** ConnectEmbeddedPayoutsFeatures */
         connect_embedded_payouts_features: {
             /** @description Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise. */
-            disable_stripe_user_authentication?: boolean;
+            disable_stripe_user_authentication: boolean;
             /** @description Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise. */
             edit_payout_schedule: boolean;
             /** @description Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`. */
@@ -13491,7 +13544,7 @@ export interface components {
         };
         /** DisputePaymentMethodDetailsCard */
         dispute_payment_method_details_card: {
-            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             brand: string;
             /**
              * @description The type of dispute opened. Different case types may have varying fees and financial impact.
@@ -13865,7 +13918,7 @@ export interface components {
              * @description The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file.
              * @enum {string}
              */
-            purpose: "account_requirement" | "additional_verification" | "business_icon" | "business_logo" | "customer_signature" | "dispute_evidence" | "document_provider_identity_document" | "finance_report_run" | "identity_document" | "identity_document_downloadable" | "issuing_regulatory_reporting" | "pci_document" | "selfie" | "sigma_scheduled_query" | "tax_document_user_upload" | "terminal_reader_splashscreen";
+            purpose: "account_requirement" | "additional_verification" | "business_icon" | "business_logo" | "customer_signature" | "dispute_evidence" | "document_provider_identity_document" | "finance_report_run" | "financial_account_statement" | "identity_document" | "identity_document_downloadable" | "issuing_regulatory_reporting" | "pci_document" | "selfie" | "sigma_scheduled_query" | "tax_document_user_upload" | "terminal_reader_splashscreen";
             /** @description The size of the file object in bytes. */
             size: number;
             /** @description A suitable title for the document. */
@@ -14296,8 +14349,14 @@ export interface components {
          * @description ABA Records contain U.S. bank account details per the ABA format.
          */
         funding_instructions_bank_transfer_aba_record: {
+            account_holder_address: components["schemas"]["address"];
+            /** @description The account holder name */
+            account_holder_name: string;
             /** @description The ABA account number */
             account_number: string;
+            /** @description The account type */
+            account_type: string;
+            bank_address: components["schemas"]["address"];
             /** @description The bank name */
             bank_name: string;
             /** @description The ABA routing number */
@@ -14365,8 +14424,14 @@ export interface components {
          * @description SWIFT Records contain U.S. bank account details per the SWIFT format.
          */
         funding_instructions_bank_transfer_swift_record: {
+            account_holder_address: components["schemas"]["address"];
+            /** @description The account holder name */
+            account_holder_name: string;
             /** @description The account number */
             account_number: string;
+            /** @description The account type */
+            account_type: string;
+            bank_address: components["schemas"]["address"];
             /** @description The bank name */
             bank_name: string;
             /** @description The SWIFT code */
@@ -14743,7 +14808,7 @@ export interface components {
              * @enum {string}
              */
             type: "document" | "id_number" | "verification_flow";
-            /** @description The configuration token of a Verification Flow from the dashboard. */
+            /** @description The configuration token of a verification flow from the dashboard. */
             verification_flow?: string;
             /** @description ID of the VerificationSession that created this report. */
             verification_session?: string | null;
@@ -14809,7 +14874,7 @@ export interface components {
             type: "document" | "id_number" | "verification_flow";
             /** @description The short-lived URL that you use to redirect a user to Stripe to submit their identity information. This URL expires after 48 hours and can only be used once. Don’t store it, log it, send it in emails or expose it to anyone other than the user. Refer to our docs on [verifying identity documents](https://stripe.com/docs/identity/verify-identity-documents?platform=web&type=redirect) to learn how to redirect users to Stripe. */
             url?: string | null;
-            /** @description The configuration token of a Verification Flow from the dashboard. */
+            /** @description The configuration token of a verification flow from the dashboard. */
             verification_flow?: string;
             /** @description The user’s verified data. */
             verified_outputs?: components["schemas"]["gelato_verified_outputs"] | null;
@@ -15491,10 +15556,10 @@ export interface components {
         /** InvoicesResourceInvoiceTaxID */
         invoices_resource_invoice_tax_id: {
             /**
-             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, or `unknown`
+             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, or `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
             /** @description The value of the tax ID. */
             value?: string | null;
         };
@@ -15594,6 +15659,8 @@ export interface components {
             currency: string;
             /** @description Fleet-specific information for authorizations using Fleet cards. */
             fleet?: components["schemas"]["issuing_authorization_fleet_data"] | null;
+            /** @description Fraud challenges sent to the cardholder, if this authorization was declined for fraud risk reasons. */
+            fraud_challenges?: components["schemas"]["issuing_authorization_fraud_challenge"][] | null;
             /** @description Information about fuel that was purchased with this transaction. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed. */
             fuel?: components["schemas"]["issuing_authorization_fuel_data"] | null;
             /** @description Unique identifier for the object. */
@@ -15632,12 +15699,14 @@ export interface components {
             /** @description [Treasury](https://stripe.com/docs/api/treasury) details related to this authorization if it was created on a [FinancialAccount](https://stripe.com/docs/api/treasury/financial_accounts). */
             treasury?: components["schemas"]["issuing_authorization_treasury"] | null;
             verification_data: components["schemas"]["issuing_authorization_verification_data"];
+            /** @description Whether the authorization bypassed fraud risk checks because the cardholder has previously completed a fraud challenge on a similar high-risk authorization from the same merchant. */
+            verified_by_fraud_challenge?: boolean | null;
             /** @description The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`. Will populate as `null` when no digital wallet was utilized. */
             wallet?: string | null;
         };
         /**
          * IssuingCard
-         * @description You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders.
+         * @description You can [create physical or virtual cards](https://stripe.com/docs/issuing) that are issued to cardholders.
          */
         "issuing.card": {
             /** @description The brand of the card. */
@@ -15711,7 +15780,7 @@ export interface components {
          * IssuingCardholder
          * @description An Issuing `Cardholder` object represents an individual or business entity who is [issued](https://stripe.com/docs/issuing) cards.
          *
-         *     Related guide: [How to create a cardholder](https://stripe.com/docs/issuing/cards#create-cardholder)
+         *     Related guide: [How to create a cardholder](https://stripe.com/docs/issuing/cards/virtual/issue-cards#create-cardholder)
          */
         "issuing.cardholder": {
             billing: components["schemas"]["issuing_cardholder_address"];
@@ -16136,6 +16205,24 @@ export interface components {
              * @description Amount of national Sales Tax or VAT included in the transaction amount. `null` if not reported by merchant or not subject to tax.
              */
             national_amount_decimal?: string | null;
+        };
+        /** IssuingAuthorizationFraudChallenge */
+        issuing_authorization_fraud_challenge: {
+            /**
+             * @description The method by which the fraud challenge was delivered to the cardholder.
+             * @enum {string}
+             */
+            channel: "sms";
+            /**
+             * @description The status of the fraud challenge.
+             * @enum {string}
+             */
+            status: "expired" | "pending" | "rejected" | "undeliverable" | "verified";
+            /**
+             * @description If the challenge is not deliverable, the reason why.
+             * @enum {string|null}
+             */
+            undeliverable_reason?: "no_phone_number" | "unsupported_phone_number" | null;
         };
         /** IssuingAuthorizationFuelData */
         issuing_authorization_fuel_data: {
@@ -17506,10 +17593,14 @@ export interface components {
         };
         /** PaymentFlowsAmountDetails */
         payment_flows_amount_details: {
-            tip?: components["schemas"]["payment_flows_amount_details_resource_tip"];
+            tip?: components["schemas"]["payment_flows_amount_details_client_resource_tip"];
         };
-        /** PaymentFlowsAmountDetailsResourceTip */
-        payment_flows_amount_details_resource_tip: {
+        /** PaymentFlowsAmountDetailsClient */
+        payment_flows_amount_details_client: {
+            tip?: components["schemas"]["payment_flows_amount_details_client_resource_tip"];
+        };
+        /** PaymentFlowsAmountDetailsClientResourceTip */
+        payment_flows_amount_details_client_resource_tip: {
             /** @description Portion of the amount that corresponds to a tip. */
             amount?: number;
         };
@@ -17671,7 +17762,7 @@ export interface components {
             amount: number;
             /** @description Amount that can be captured from this PaymentIntent. */
             amount_capturable?: number;
-            amount_details?: components["schemas"]["payment_flows_amount_details"];
+            amount_details?: components["schemas"]["payment_flows_amount_details"] | components["schemas"]["payment_flows_amount_details_client"];
             /** @description Amount that this PaymentIntent collects. */
             amount_received?: number;
             /** @description ID of the Connect application that created the PaymentIntent. */
@@ -17746,7 +17837,7 @@ export interface components {
             on_behalf_of?: (string | components["schemas"]["account"]) | null;
             /** @description ID of the payment method used in this PaymentIntent. */
             payment_method?: (string | components["schemas"]["payment_method"]) | null;
-            /** @description Information about the payment method configuration used for this PaymentIntent. */
+            /** @description Information about the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) used for this PaymentIntent. */
             payment_method_configuration_details?: components["schemas"]["payment_method_config_biz_payment_method_configuration_details"] | null;
             /** @description Payment-method-specific configuration for this PaymentIntent. */
             payment_method_options?: components["schemas"]["payment_intent_payment_method_options"] | null;
@@ -18199,7 +18290,7 @@ export interface components {
              * @description Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time.
              * @enum {string|null}
              */
-            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
+            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
             /**
              * @description Request ability to [capture beyond the standard authorization validity window](https://stripe.com/docs/payments/extended-authorization) for this PaymentIntent.
              * @enum {string}
@@ -18516,7 +18607,7 @@ export interface components {
              * @description Indicates the type of transaction being performed which customizes relevant text on the page, such as the submit button.
              * @enum {string}
              */
-            submit_type: "auto" | "book" | "donate" | "pay";
+            submit_type: "auto" | "book" | "donate" | "pay" | "subscribe";
             /** @description When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`. */
             subscription_data?: components["schemas"]["payment_links_resource_subscription_data"] | null;
             tax_id_collection: components["schemas"]["payment_links_resource_tax_id_collection"];
@@ -18893,7 +18984,7 @@ export interface components {
         };
         /** payment_method_card */
         payment_method_card: {
-            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             brand: string;
             /** @description Checks on Card address and CVC if provided. */
             checks?: components["schemas"]["payment_method_card_checks"] | null;
@@ -18942,7 +19033,7 @@ export interface components {
         };
         /** payment_method_card_present */
         payment_method_card_present: {
-            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             brand?: string | null;
             /** @description The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. */
             brand_product?: string | null;
@@ -19329,7 +19420,7 @@ export interface components {
             amount_authorized?: number | null;
             /** @description Authorization code on the charge. */
             authorization_code?: string | null;
-            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             brand?: string | null;
             /**
              * Format: unix-time
@@ -19361,7 +19452,7 @@ export interface components {
             /** @description ID of the mandate used to make this payment or created by it. */
             mandate?: string | null;
             multicapture?: components["schemas"]["payment_flows_private_payment_methods_card_details_api_resource_multicapture"];
-            /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             network?: string | null;
             /** @description If this card has network token credentials, this contains the details of the network token credentials. */
             network_token?: components["schemas"]["payment_method_details_card_network_token"] | null;
@@ -19410,7 +19501,7 @@ export interface components {
         payment_method_details_card_present: {
             /** @description The authorized amount */
             amount_authorized?: number | null;
-            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             brand?: string | null;
             /** @description The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. */
             brand_product?: string | null;
@@ -19445,7 +19536,7 @@ export interface components {
             issuer?: string | null;
             /** @description The last four digits of the card. */
             last4?: string | null;
-            /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             network?: string | null;
             /** @description This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD). This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands. */
             network_transaction_id?: string | null;
@@ -19649,7 +19740,7 @@ export interface components {
             issuer?: string | null;
             /** @description The last four digits of the card. */
             last4?: string | null;
-            /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             network?: string | null;
             /** @description This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD). This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands. */
             network_transaction_id?: string | null;
@@ -20727,6 +20818,11 @@ export interface components {
         payment_method_wechat_pay: Record<string, never>;
         /** payment_method_zip */
         payment_method_zip: Record<string, never>;
+        /** PaymentPagesCheckoutSessionAdaptivePricing */
+        payment_pages_checkout_session_adaptive_pricing: {
+            /** @description Whether Adaptive Pricing is enabled. */
+            enabled: boolean;
+        };
         /** PaymentPagesCheckoutSessionAfterExpiration */
         payment_pages_checkout_session_after_expiration: {
             /** @description When set, configuration used to recover the Checkout Session on expiry. */
@@ -20988,10 +21084,10 @@ export interface components {
         /** PaymentPagesCheckoutSessionTaxID */
         payment_pages_checkout_session_tax_id: {
             /**
-             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, or `unknown`
+             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, or `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
             /** @description The value of the tax ID. */
             value?: string | null;
         };
@@ -21098,11 +21194,20 @@ export interface components {
             statement_descriptor?: string | null;
             /** @description Current status of the payout: `paid`, `pending`, `in_transit`, `canceled` or `failed`. A payout is `pending` until it's submitted to the bank, when it becomes `in_transit`. The status changes to `paid` if the transaction succeeds, or to `failed` or `canceled` (within 5 business days). Some payouts that fail might initially show as `paid`, then change to `failed`. */
             status: string;
+            /** @description A value that generates from the beneficiary's bank that allows users to track payouts with their bank. Banks might call this a "reference number" or something similar. */
+            trace_id?: components["schemas"]["payouts_trace_id"] | null;
             /**
              * @description Can be `bank_account` or `card`.
              * @enum {string}
              */
             type: "bank_account" | "card";
+        };
+        /** PayoutsTraceID */
+        payouts_trace_id: {
+            /** @description Possible values are `pending`, `supported`, and `unsupported`. When `payout.status` is `pending` or `in_transit`, this will be `pending`. When the payout transitions to `paid`, `failed`, or `canceled`, this status will become `supported` or `unsupported` shortly after in most cases. In some cases, this may appear as `pending` for up to 10 days after `arrival_date` until transitioning to `supported` or `unsupported`. */
+            status: string;
+            /** @description The trace ID value if `trace_id.status` is `supported`, otherwise `nil`. */
+            value?: string | null;
         };
         /** paypal_seller_protection */
         paypal_seller_protection: {
@@ -22277,33 +22382,49 @@ export interface components {
             alma?: components["schemas"]["destination_details_unimplemented"];
             amazon_pay?: components["schemas"]["destination_details_unimplemented"];
             au_bank_transfer?: components["schemas"]["destination_details_unimplemented"];
-            blik?: components["schemas"]["refund_destination_details_generic"];
-            br_bank_transfer?: components["schemas"]["refund_destination_details_generic"];
+            blik?: components["schemas"]["refund_destination_details_blik"];
+            br_bank_transfer?: components["schemas"]["refund_destination_details_br_bank_transfer"];
             card?: components["schemas"]["refund_destination_details_card"];
             cashapp?: components["schemas"]["destination_details_unimplemented"];
             customer_cash_balance?: components["schemas"]["destination_details_unimplemented"];
             eps?: components["schemas"]["destination_details_unimplemented"];
-            eu_bank_transfer?: components["schemas"]["refund_destination_details_generic"];
-            gb_bank_transfer?: components["schemas"]["refund_destination_details_generic"];
+            eu_bank_transfer?: components["schemas"]["refund_destination_details_eu_bank_transfer"];
+            gb_bank_transfer?: components["schemas"]["refund_destination_details_gb_bank_transfer"];
             giropay?: components["schemas"]["destination_details_unimplemented"];
             grabpay?: components["schemas"]["destination_details_unimplemented"];
-            jp_bank_transfer?: components["schemas"]["refund_destination_details_generic"];
+            jp_bank_transfer?: components["schemas"]["refund_destination_details_jp_bank_transfer"];
             klarna?: components["schemas"]["destination_details_unimplemented"];
-            multibanco?: components["schemas"]["refund_destination_details_generic"];
-            mx_bank_transfer?: components["schemas"]["refund_destination_details_generic"];
-            p24?: components["schemas"]["refund_destination_details_generic"];
+            multibanco?: components["schemas"]["refund_destination_details_multibanco"];
+            mx_bank_transfer?: components["schemas"]["refund_destination_details_mx_bank_transfer"];
+            p24?: components["schemas"]["refund_destination_details_p24"];
             paynow?: components["schemas"]["destination_details_unimplemented"];
             paypal?: components["schemas"]["destination_details_unimplemented"];
             pix?: components["schemas"]["destination_details_unimplemented"];
             revolut?: components["schemas"]["destination_details_unimplemented"];
             sofort?: components["schemas"]["destination_details_unimplemented"];
-            swish?: components["schemas"]["refund_destination_details_generic"];
-            th_bank_transfer?: components["schemas"]["refund_destination_details_generic"];
+            swish?: components["schemas"]["refund_destination_details_swish"];
+            th_bank_transfer?: components["schemas"]["refund_destination_details_th_bank_transfer"];
             /** @description The type of transaction-specific details of the payment method used in the refund (e.g., `card`). An additional hash is included on `destination_details` with a name matching this value. It contains information specific to the refund transaction. */
             type: string;
-            us_bank_transfer?: components["schemas"]["refund_destination_details_generic"];
+            us_bank_transfer?: components["schemas"]["refund_destination_details_us_bank_transfer"];
             wechat_pay?: components["schemas"]["destination_details_unimplemented"];
             zip?: components["schemas"]["destination_details_unimplemented"];
+        };
+        /** refund_destination_details_blik */
+        refund_destination_details_blik: {
+            /** @description For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed. */
+            network_decline_code?: string | null;
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
+        };
+        /** refund_destination_details_br_bank_transfer */
+        refund_destination_details_br_bank_transfer: {
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
         };
         /** refund_destination_details_card */
         refund_destination_details_card: {
@@ -22319,8 +22440,66 @@ export interface components {
              */
             type: "pending" | "refund" | "reversal";
         };
-        /** refund_destination_details_generic */
-        refund_destination_details_generic: {
+        /** refund_destination_details_eu_bank_transfer */
+        refund_destination_details_eu_bank_transfer: {
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
+        };
+        /** refund_destination_details_gb_bank_transfer */
+        refund_destination_details_gb_bank_transfer: {
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
+        };
+        /** refund_destination_details_jp_bank_transfer */
+        refund_destination_details_jp_bank_transfer: {
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
+        };
+        /** refund_destination_details_multibanco */
+        refund_destination_details_multibanco: {
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
+        };
+        /** refund_destination_details_mx_bank_transfer */
+        refund_destination_details_mx_bank_transfer: {
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
+        };
+        /** refund_destination_details_p24 */
+        refund_destination_details_p24: {
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
+        };
+        /** refund_destination_details_swish */
+        refund_destination_details_swish: {
+            /** @description For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed. */
+            network_decline_code?: string | null;
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
+        };
+        /** refund_destination_details_th_bank_transfer */
+        refund_destination_details_th_bank_transfer: {
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
+        };
+        /** refund_destination_details_us_bank_transfer */
+        refund_destination_details_us_bank_transfer: {
             /** @description The reference assigned to the refund. */
             reference?: string | null;
             /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
@@ -22677,7 +22856,7 @@ export interface components {
         setup_attempt_payment_method_details_boleto: Record<string, never>;
         /** setup_attempt_payment_method_details_card */
         setup_attempt_payment_method_details_card: {
-            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             brand?: string | null;
             /** @description Check results by Card networks on Card address and CVC at the time of authorization */
             checks?: components["schemas"]["setup_attempt_payment_method_details_card_checks"] | null;
@@ -22695,7 +22874,7 @@ export interface components {
             funding?: string | null;
             /** @description The last four digits of the card. */
             last4?: string | null;
-            /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             network?: string | null;
             /** @description Populated if this authorization used 3D Secure authentication. */
             three_d_secure?: components["schemas"]["three_d_secure_details"] | null;
@@ -22874,7 +23053,7 @@ export interface components {
             on_behalf_of?: (string | components["schemas"]["account"]) | null;
             /** @description ID of the payment method used with this SetupIntent. If the payment method is `card_present` and isn't a digital wallet, then the [generated_card](https://docs.stripe.com/api/setup_attempts/object#setup_attempt_object-payment_method_details-card_present-generated_card) associated with the `latest_attempt` is attached to the Customer instead. */
             payment_method?: (string | components["schemas"]["payment_method"]) | null;
-            /** @description Information about the payment method configuration used for this Setup Intent. */
+            /** @description Information about the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) used for this Setup Intent. */
             payment_method_configuration_details?: components["schemas"]["payment_method_config_biz_payment_method_configuration_details"] | null;
             /** @description Payment method-specific configuration for this SetupIntent. */
             payment_method_options?: components["schemas"]["setup_intent_payment_method_options"] | null;
@@ -22964,7 +23143,7 @@ export interface components {
              * @description Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the setup intent. Can be only set confirm-time.
              * @enum {string|null}
              */
-            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
+            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
             /**
              * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
              * @enum {string|null}
@@ -23775,7 +23954,7 @@ export interface components {
             object: "subscription";
             /** @description The account (if any) the charge was made on behalf of for charges associated with this subscription. See the Connect documentation for details. */
             on_behalf_of?: (string | components["schemas"]["account"]) | null;
-            /** @description If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](/billing/subscriptions/pause-payment). */
+            /** @description If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment). */
             pause_collection?: components["schemas"]["subscriptions_resource_pause_collection"] | null;
             /** @description Payment settings passed on to invoices created by the subscription. */
             payment_settings?: components["schemas"]["subscriptions_resource_payment_settings"] | null;
@@ -23799,7 +23978,7 @@ export interface components {
              *
              *     A subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.
              *
-             *     A subscription can only enter a `paused` status [when a trial ends without a payment method](/billing/subscriptions/trials#create-free-trials-without-payment). A `paused` subscription doesn't generate invoices and can be resumed after your customer adds their payment method. The `paused` status is different from [pausing collection](/billing/subscriptions/pause-payment), which still generates invoices and leaves the subscription's status unchanged.
+             *     A subscription can only enter a `paused` status [when a trial ends without a payment method](https://stripe.com/docs/billing/subscriptions/trials#create-free-trials-without-payment). A `paused` subscription doesn't generate invoices and can be resumed after your customer adds their payment method. The `paused` status is different from [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment), which still generates invoices and leaves the subscription's status unchanged.
              *
              *     If subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings).
              *
@@ -23889,7 +24068,7 @@ export interface components {
              * @description Selected network to process this Subscription on. Depends on the available networks of the card attached to the Subscription. Can be only set confirm-time.
              * @enum {string|null}
              */
-            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
+            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
             /**
              * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
              * @enum {string|null}
@@ -24587,10 +24766,10 @@ export interface components {
             /** @description The account or customer the tax ID belongs to. */
             owner?: components["schemas"]["tax_i_ds_owner"] | null;
             /**
-             * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `ma_vat`, `md_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, or `za_vat`. Note that some legacy tax IDs have type `unknown`
+             * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, or `za_vat`. Note that some legacy tax IDs have type `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
             /** @description Value of the tax ID. */
             value: string;
             /** @description Tax ID verification information. */
@@ -24783,10 +24962,10 @@ export interface components {
         /** TaxProductResourceCustomerDetailsResourceTaxId */
         tax_product_resource_customer_details_resource_tax_id: {
             /**
-             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, or `unknown`
+             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, or `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
             /** @description The value of the tax ID. */
             value: string;
         };
@@ -24834,7 +25013,7 @@ export interface components {
              * @description The tax type, such as `vat` or `sales_tax`.
              * @enum {string}
              */
-            tax_type: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "vat";
+            tax_type: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "service_tax" | "vat";
         };
         /** TaxProductResourcePostalAddress */
         tax_product_resource_postal_address: {
@@ -24907,7 +25086,7 @@ export interface components {
              * @description The tax type, such as `vat` or `sales_tax`.
              * @enum {string|null}
              */
-            tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "vat" | null;
+            tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "service_tax" | "vat" | null;
         };
         /** TaxProductResourceTaxSettingsDefaults */
         tax_product_resource_tax_settings_defaults: {
@@ -25022,7 +25201,7 @@ export interface components {
              * @description The high-level tax type, such as `vat` or `sales_tax`.
              * @enum {string|null}
              */
-            tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "vat" | null;
+            tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "service_tax" | "vat" | null;
         };
         /**
          * TaxRateFlatAmount
@@ -25946,7 +26125,7 @@ export interface components {
              */
             object: "treasury.inbound_transfer";
             /** @description The origin payment method to be debited for an InboundTransfer. */
-            origin_payment_method: string;
+            origin_payment_method?: string | null;
             /** @description Details about the PaymentMethod for an InboundTransfer. */
             origin_payment_method_details?: components["schemas"]["inbound_transfers"] | null;
             /** @description Returns `true` if the funds for an InboundTransfer were returned after the InboundTransfer went to the `succeeded` state. */
@@ -31715,25 +31894,25 @@ export interface operations {
                      * @enum {string}
                      */
                     category: "paid" | "promotional";
-                    /** @description ID of the customer to whom the billing credits should be granted. */
+                    /** @description ID of the customer to receive the billing credits. */
                     customer: string;
                     /**
                      * Format: unix-time
-                     * @description The time when the billing credits become effective i.e when they are eligible to be used. Defaults to the current timestamp if not specified.
+                     * @description The time when the billing credits become effective—when they're eligible for use. Defaults to the current timestamp if not specified.
                      */
                     effective_at?: number;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     /**
                      * Format: unix-time
-                     * @description The time when the billing credits will expire. If not specified, the billing credits will never expire.
+                     * @description The time when the billing credits will expire. If not specified, the billing credits don't expire.
                      */
                     expires_at?: number;
-                    /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object (ex: cost basis) in a structured format. */
+                    /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object (for example, cost basis) in a structured format. */
                     metadata?: {
                         [key: string]: string;
                     };
-                    /** @description A descriptive name shown in dashboard. */
+                    /** @description A descriptive name shown in the Dashboard. */
                     name?: string;
                 };
             };
@@ -31813,9 +31992,9 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
-                    /** @description The time when the billing credits created by this credit grant will expire. If set to empty, the billing credits will never expire. */
+                    /** @description The time when the billing credits created by this credit grant expire. If set to empty, the billing credits never expire. */
                     expires_at?: number | "";
-                    /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object (ex: cost basis) in a structured format. */
+                    /** @description Set of key-value pairs you can attach to an object. This can be useful for storing additional information about the object (for example, cost basis) in a structured format. */
                     metadata?: {
                         [key: string]: string;
                     };
@@ -31985,7 +32164,7 @@ export interface operations {
                     event_name: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
-                    /** @description A unique identifier for the event. If not provided, one will be generated. We recommend using a globally unique identifier for this. We'll enforce uniqueness within a rolling 24 hour period. */
+                    /** @description A unique identifier for the event. If not provided, one will be generated. We strongly advise using UUID-like identifiers. We will enforce uniqueness within a rolling period of at least 24 hours. The enforcement of uniqueness primarily addresses issues arising from accidental retries or other problems occurring within extremely brief time intervals. This approach helps prevent duplicate entries and ensures data integrity in high-frequency operations. */
                     identifier?: string;
                     /** @description The payload of the event. This must contain the fields corresponding to a meter's `customer_mapping.event_payload_key` (default is `stripe_customer_id`) and `value_settings.event_payload_key` (default is `value`). Read more about the [payload](https://docs.stripe.com/billing/subscriptions/usage-based/recording-usage#payload-key-overrides). */
                     payload: {
@@ -33743,6 +33922,13 @@ export interface operations {
             content: {
                 "application/x-www-form-urlencoded": {
                     /**
+                     * adaptive_pricing_params
+                     * @description Settings for price localization with [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing).
+                     */
+                    adaptive_pricing?: {
+                        enabled?: boolean;
+                    };
+                    /**
                      * after_expiration_params
                      * @description Configure actions after a Checkout Session has expired.
                      */
@@ -34101,6 +34287,8 @@ export interface operations {
                         };
                         /** payment_method_options_param */
                         bacs_debit?: {
+                            /** payment_method_options_mandate_options_param */
+                            mandate_options?: Record<string, never>;
                             /** @enum {string} */
                             setup_future_usage?: "none" | "off_session" | "on_session";
                         };
@@ -34121,6 +34309,14 @@ export interface operations {
                             installments?: {
                                 enabled?: boolean;
                             };
+                            /** @enum {string} */
+                            request_extended_authorization?: "if_available" | "never";
+                            /** @enum {string} */
+                            request_incremental_authorization?: "if_available" | "never";
+                            /** @enum {string} */
+                            request_multicapture?: "if_available" | "never";
+                            /** @enum {string} */
+                            request_overcapture?: "if_available" | "never";
                             /** @enum {string} */
                             request_three_d_secure?: "any" | "automatic" | "challenge";
                             /** @enum {string} */
@@ -34178,6 +34374,8 @@ export interface operations {
                         /** payment_method_options_param */
                         kakao_pay?: {
                             /** @enum {string} */
+                            capture_method?: "manual";
+                            /** @enum {string} */
                             setup_future_usage?: "none" | "off_session";
                         };
                         /** payment_method_options_param */
@@ -34193,6 +34391,8 @@ export interface operations {
                         };
                         /** payment_method_options_param */
                         kr_card?: {
+                            /** @enum {string} */
+                            capture_method?: "manual";
                             /** @enum {string} */
                             setup_future_usage?: "none" | "off_session";
                         };
@@ -34214,6 +34414,8 @@ export interface operations {
                         /** payment_method_options_param */
                         naver_pay?: {
                             /** @enum {string} */
+                            capture_method?: "manual";
+                            /** @enum {string} */
                             setup_future_usage?: "none" | "off_session";
                         };
                         /** payment_method_options_param */
@@ -34229,7 +34431,10 @@ export interface operations {
                             tos_shown_and_accepted?: boolean;
                         };
                         /** payment_method_options_param */
-                        payco?: Record<string, never>;
+                        payco?: {
+                            /** @enum {string} */
+                            capture_method?: "manual";
+                        };
                         /** payment_method_options_param */
                         paynow?: {
                             /** @enum {string} */
@@ -34256,9 +34461,14 @@ export interface operations {
                             setup_future_usage?: "none" | "off_session";
                         };
                         /** payment_method_options_param */
-                        samsung_pay?: Record<string, never>;
+                        samsung_pay?: {
+                            /** @enum {string} */
+                            capture_method?: "manual";
+                        };
                         /** payment_method_options_param */
                         sepa_debit?: {
+                            /** payment_method_options_mandate_options_param */
+                            mandate_options?: Record<string, never>;
                             /** @enum {string} */
                             setup_future_usage?: "none" | "off_session" | "on_session";
                         };
@@ -34399,7 +34609,7 @@ export interface operations {
                      *     specified on Checkout Sessions in `payment` mode. If blank or `auto`, `pay` is used.
                      * @enum {string}
                      */
-                    submit_type?: "auto" | "book" | "donate" | "pay";
+                    submit_type?: "auto" | "book" | "donate" | "pay" | "subscribe";
                     /**
                      * subscription_data_params
                      * @description A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
@@ -36221,7 +36431,7 @@ export interface operations {
                     /** @description The customer's tax IDs. */
                     tax_id_data?: {
                         /** @enum {string} */
-                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
                         value: string;
                     }[];
                     /** @description ID of the test clock to attach to the customer. */
@@ -38355,7 +38565,7 @@ export interface operations {
                                     description?: string;
                                 };
                                 /** @enum {string} */
-                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                                 /** @enum {string} */
                                 request_three_d_secure?: "any" | "automatic" | "challenge";
                             } | "";
@@ -38641,7 +38851,7 @@ export interface operations {
                     } | "";
                     /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. Defaults to `false` (on-session). */
                     off_session?: boolean;
-                    /** @description If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](/billing/subscriptions/pause-payment). */
+                    /** @description If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment). */
                     pause_collection?: {
                         /** @enum {string} */
                         behavior: "keep_as_draft" | "mark_uncollectible" | "void";
@@ -38688,7 +38898,7 @@ export interface operations {
                                     description?: string;
                                 };
                                 /** @enum {string} */
-                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                                 /** @enum {string} */
                                 request_three_d_secure?: "any" | "automatic" | "challenge";
                             } | "";
@@ -38974,10 +39184,10 @@ export interface operations {
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     /**
-                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `ma_vat`, `md_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, or `za_vat`
+                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, or `za_vat`
                      * @enum {string}
                      */
-                    type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+                    type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
                     /** @description Value of the tax ID. */
                     value: string;
                 };
@@ -39978,7 +40188,7 @@ export interface operations {
                      * @description The link isn't usable after this future timestamp.
                      */
                     expires_at?: number;
-                    /** @description The ID of the file. The file's `purpose` must be one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `identity_document_downloadable`, `issuing_regulatory_reporting`, `pci_document`, `selfie`, `sigma_scheduled_query`, `tax_document_user_upload`, or `terminal_reader_splashscreen`. */
+                    /** @description The ID of the file. The file's `purpose` must be one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `financial_account_statement`, `identity_document_downloadable`, `issuing_regulatory_reporting`, `pci_document`, `selfie`, `sigma_scheduled_query`, `tax_document_user_upload`, or `terminal_reader_splashscreen`. */
                     file: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
@@ -40107,7 +40317,7 @@ export interface operations {
                 /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
                 limit?: number;
                 /** @description Filter queries by the file purpose. If you don't provide a purpose, the queries return unfiltered files. */
-                purpose?: "account_requirement" | "additional_verification" | "business_icon" | "business_logo" | "customer_signature" | "dispute_evidence" | "document_provider_identity_document" | "finance_report_run" | "identity_document" | "identity_document_downloadable" | "issuing_regulatory_reporting" | "pci_document" | "selfie" | "sigma_scheduled_query" | "tax_document_user_upload" | "terminal_reader_splashscreen";
+                purpose?: "account_requirement" | "additional_verification" | "business_icon" | "business_logo" | "customer_signature" | "dispute_evidence" | "document_provider_identity_document" | "finance_report_run" | "financial_account_statement" | "identity_document" | "identity_document_downloadable" | "issuing_regulatory_reporting" | "pci_document" | "selfie" | "sigma_scheduled_query" | "tax_document_user_upload" | "terminal_reader_splashscreen";
                 /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
                 starting_after?: string;
             };
@@ -41139,7 +41349,7 @@ export interface operations {
                      * @enum {string}
                      */
                     type?: "document" | "id_number";
-                    /** @description The ID of a Verification Flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows. */
+                    /** @description The ID of a verification flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows. */
                     verification_flow?: string;
                 };
             };
@@ -42280,7 +42490,7 @@ export interface operations {
                         tax_exempt?: "" | "exempt" | "none" | "reverse";
                         tax_ids?: {
                             /** @enum {string} */
-                            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+                            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
                             value: string;
                         }[];
                     };
@@ -42656,7 +42866,7 @@ export interface operations {
                     tax_exempt?: "" | "exempt" | "none" | "reverse";
                     tax_ids?: {
                         /** @enum {string} */
-                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
                         value: string;
                     }[];
                 };
@@ -43029,7 +43239,7 @@ export interface operations {
                     tax_exempt?: "" | "exempt" | "none" | "reverse";
                     tax_ids?: {
                         /** @enum {string} */
-                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
                         value: string;
                     }[];
                 };
@@ -43774,7 +43984,7 @@ export interface operations {
                                 percentage: number;
                                 state?: string;
                                 /** @enum {string} */
-                                tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "vat";
+                                tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "service_tax" | "vat";
                             };
                             taxable_amount: number;
                         }[] | "";
@@ -43983,7 +44193,7 @@ export interface operations {
                             percentage: number;
                             state?: string;
                             /** @enum {string} */
-                            tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "vat";
+                            tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "service_tax" | "vat";
                         };
                         taxable_amount: number;
                     }[] | "";
@@ -44262,7 +44472,7 @@ export interface operations {
                                 percentage: number;
                                 state?: string;
                                 /** @enum {string} */
-                                tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "vat";
+                                tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "service_tax" | "vat";
                             };
                             taxable_amount: number;
                         }[] | "";
@@ -46856,7 +47066,7 @@ export interface operations {
                      *
                      *     If you omit this parameter with `confirm=true`, `customer.default_source` attaches as this PaymentIntent's payment instrument to improve migration for users of the Charges API. We recommend that you explicitly provide the `payment_method` moving forward. */
                     payment_method?: string;
-                    /** @description The ID of the payment method configuration to use with this PaymentIntent. */
+                    /** @description The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this PaymentIntent. */
                     payment_method_configuration?: string;
                     /**
                      * payment_method_data_params
@@ -47130,7 +47340,7 @@ export interface operations {
                                 supported_types?: "india"[];
                             };
                             /** @enum {string} */
-                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
                             request_extended_authorization?: "if_available" | "never";
                             /** @enum {string} */
@@ -47380,7 +47590,7 @@ export interface operations {
                             setup_future_usage?: "none";
                         } | "";
                     };
-                    /** @description The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, it defaults to ["card"]. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). */
+                    /** @description The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
                     payment_method_types?: string[];
                     /**
                      * radar_options_with_hidden_options
@@ -47599,7 +47809,7 @@ export interface operations {
                     } | "";
                     /** @description ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent. To unset this field to null, pass in an empty string. */
                     payment_method?: string;
-                    /** @description The ID of the payment method configuration to use with this PaymentIntent. */
+                    /** @description The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this PaymentIntent. */
                     payment_method_configuration?: string;
                     /**
                      * payment_method_data_params
@@ -47873,7 +48083,7 @@ export interface operations {
                                 supported_types?: "india"[];
                             };
                             /** @enum {string} */
-                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
                             request_extended_authorization?: "if_available" | "never";
                             /** @enum {string} */
@@ -48678,7 +48888,7 @@ export interface operations {
                                 supported_types?: "india"[];
                             };
                             /** @enum {string} */
-                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
                             request_extended_authorization?: "if_available" | "never";
                             /** @enum {string} */
@@ -49388,7 +49598,7 @@ export interface operations {
                      * @description Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
                      * @enum {string}
                      */
-                    submit_type?: "auto" | "book" | "donate" | "pay";
+                    submit_type?: "auto" | "book" | "donate" | "pay" | "subscribe";
                     /**
                      * subscription_data_params
                      * @description When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
@@ -49683,6 +49893,11 @@ export interface operations {
                     shipping_address_collection?: {
                         allowed_countries: ("AC" | "AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CV" | "CW" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MK" | "ML" | "MM" | "MN" | "MO" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SZ" | "TA" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VN" | "VU" | "WF" | "WS" | "XK" | "YE" | "YT" | "ZA" | "ZM" | "ZW" | "ZZ")[];
                     } | "";
+                    /**
+                     * @description Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
+                     * @enum {string}
+                     */
+                    submit_type?: "auto" | "book" | "donate" | "pay" | "subscribe";
                     /**
                      * subscription_data_update_params
                      * @description When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
@@ -55543,7 +55758,7 @@ export interface operations {
                     on_behalf_of?: string;
                     /** @description ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
                     payment_method?: string;
-                    /** @description The ID of the payment method configuration to use with this SetupIntent. */
+                    /** @description The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this SetupIntent. */
                     payment_method_configuration?: string;
                     /**
                      * payment_method_data_params
@@ -55759,7 +55974,7 @@ export interface operations {
                                 supported_types?: "india"[];
                             };
                             /** @enum {string} */
-                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
                             request_three_d_secure?: "any" | "automatic" | "challenge";
                             /** setup_intent_payment_method_options_param */
@@ -55823,7 +56038,7 @@ export interface operations {
                             verification_method?: "automatic" | "instant" | "microdeposits";
                         };
                     };
-                    /** @description The list of payment method types (for example, card) that this SetupIntent can use. If you don't provide this, it defaults to ["card"]. */
+                    /** @description The list of payment method types (for example, card) that this SetupIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
                     payment_method_types?: string[];
                     /** @description The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. To redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm). */
                     return_url?: string;
@@ -55940,7 +56155,7 @@ export interface operations {
                     } | "";
                     /** @description ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. To unset this field to null, pass in an empty string. */
                     payment_method?: string;
-                    /** @description The ID of the payment method configuration to use with this SetupIntent. */
+                    /** @description The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this SetupIntent. */
                     payment_method_configuration?: string;
                     /**
                      * payment_method_data_params
@@ -56156,7 +56371,7 @@ export interface operations {
                                 supported_types?: "india"[];
                             };
                             /** @enum {string} */
-                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
                             request_three_d_secure?: "any" | "automatic" | "challenge";
                             /** setup_intent_payment_method_options_param */
@@ -56220,7 +56435,7 @@ export interface operations {
                             verification_method?: "automatic" | "instant" | "microdeposits";
                         };
                     };
-                    /** @description The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this array, it defaults to ["card"]. */
+                    /** @description The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
                     payment_method_types?: string[];
                 };
             };
@@ -56552,7 +56767,7 @@ export interface operations {
                                 supported_types?: "india"[];
                             };
                             /** @enum {string} */
-                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
                             request_three_d_secure?: "any" | "automatic" | "challenge";
                             /** setup_intent_payment_method_options_param */
@@ -58881,7 +59096,7 @@ export interface operations {
                                     description?: string;
                                 };
                                 /** @enum {string} */
-                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                                 /** @enum {string} */
                                 request_three_d_secure?: "any" | "automatic" | "challenge";
                             } | "";
@@ -59223,7 +59438,7 @@ export interface operations {
                     off_session?: boolean;
                     /** @description The account on behalf of which to charge, for each of the subscription's invoices. */
                     on_behalf_of?: string | "";
-                    /** @description If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](/billing/subscriptions/pause-payment). */
+                    /** @description If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment). */
                     pause_collection?: {
                         /** @enum {string} */
                         behavior: "keep_as_draft" | "mark_uncollectible" | "void";
@@ -59270,7 +59485,7 @@ export interface operations {
                                     description?: string;
                                 };
                                 /** @enum {string} */
-                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                                 /** @enum {string} */
                                 request_three_d_secure?: "any" | "automatic" | "challenge";
                             } | "";
@@ -59539,7 +59754,7 @@ export interface operations {
                         ip_address?: string;
                         tax_ids?: {
                             /** @enum {string} */
-                            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+                            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
                             value: string;
                         }[];
                         /** @enum {string} */
@@ -60854,10 +61069,10 @@ export interface operations {
                         type: "account" | "application" | "customer" | "self";
                     };
                     /**
-                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `ma_vat`, `md_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, or `za_vat`
+                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, or `za_vat`
                      * @enum {string}
                      */
-                    type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+                    type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
                     /** @description Value of the tax ID. */
                     value: string;
                 };
@@ -61057,7 +61272,7 @@ export interface operations {
                      * @description The high-level tax type, such as `vat` or `sales_tax`.
                      * @enum {string}
                      */
-                    tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "vat";
+                    tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "service_tax" | "vat";
                 };
             };
         };
@@ -61154,7 +61369,7 @@ export interface operations {
                      * @description The high-level tax type, such as `vat` or `sales_tax`.
                      * @enum {string}
                      */
-                    tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "vat";
+                    tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "service_tax" | "vat";
                 };
             };
         };
@@ -62671,7 +62886,7 @@ export interface operations {
             content: {
                 "application/x-www-form-urlencoded": {
                     /** @description The total amount to attempt to authorize. This amount is in the provided currency, or defaults to the card's currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
-                    amount: number;
+                    amount?: number;
                     /**
                      * amount_details_specs
                      * @description Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
@@ -62746,6 +62961,10 @@ export interface operations {
                     };
                     /** @description If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization. */
                     is_amount_controllable?: boolean;
+                    /** @description The total amount to attempt to authorize. This amount is in the provided merchant currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
+                    merchant_amount?: number;
+                    /** @description The currency of the authorization. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    merchant_currency?: string;
                     /**
                      * merchant_data_specs
                      * @description Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
@@ -63056,6 +63275,46 @@ export interface operations {
                         /** Format: decimal */
                         unit_cost_decimal?: string;
                     };
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["issuing.authorization"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                authorization: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /** @description Whether to simulate the user confirming that the transaction was legitimate (true) or telling Stripe that it was fraudulent (false). */
+                    confirmed: boolean;
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
                 };
             };
         };
@@ -64172,7 +64431,7 @@ export interface operations {
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     /**
-                     * failure_details_params
+                     * failure_details_param
                      * @description Details about a failed InboundTransfer.
                      */
                     failure_details?: {
