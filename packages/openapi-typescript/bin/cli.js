@@ -32,7 +32,7 @@ Options
   --exclude-deprecated       Exclude deprecated types
   --root-types (optional)    Export schemas types at root level
   --root-types-no-schema-prefix (optional)
-                             Do not add "Schema" prefix to types at the root level (should be used with --root-types)
+                             Do not add "Schema" prefix to types at the root level (should only be used with --root-types)
 `;
 
 const OUTPUT_FILE = "FILE";

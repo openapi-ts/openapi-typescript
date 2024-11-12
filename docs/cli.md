@@ -120,6 +120,7 @@ The following flags are supported in the CLI:
 | `--immutable`                      |       | `false`  | Generates immutable types (readonly properties and readonly array)                                                  |
 | `--path-params-as-types`           |       | `false`  | Allow dynamic string lookups on the `paths` object                                                                  |
 | `--root-types`                     |       | `false`  | Exports types from `components` as root level type aliases                                                          |
+| `--root-types-no-schema-prefix`    |       | `false`  | Do not add "Schema" prefix to types at the root level (should only be used with --root-types)                       |
 
 ### pathParamsAsTypes
 
