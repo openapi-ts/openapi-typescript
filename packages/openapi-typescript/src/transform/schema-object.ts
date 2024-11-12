@@ -66,7 +66,9 @@ export function transformSchemaObjectWithComposition(
   }
   // for any other unexpected type, throw error
   if (Array.isArray(schemaObject) || typeof schemaObject !== "object") {
-    throw new Error(`Expected SchemaObject, received ${Array.isArray(schemaObject) ? "Array" : typeof schemaObject}`);
+    throw new Error(
+      `Expected SchemaObject, received ${Array.isArray(schemaObject) ? "Array" : typeof schemaObject} at ${options.path}`,
+    );
   }
 
   /**

@@ -6,6 +6,7 @@ import {
   Source,
   type Document,
   lintDocument,
+  type NormalizedProblem,
 } from "@redocly/openapi-core";
 import { performance } from "node:perf_hooks";
 import { Readable } from "node:stream";
@@ -81,6 +82,25 @@ export async function parseSchema(schema: unknown, { absoluteRef, resolver }: Pa
   throw new Error(`Expected string, object, or Buffer. Got ${Array.isArray(schema) ? "Array" : typeof schema}`);
 }
 
+function _processProblems(problems: NormalizedProblem[], options: { silent: boolean }) {
+  if (problems.length) {
+    let errorMessage: string | undefined = undefined;
+    for (const problem of problems) {
+      const problemLocation = problem.location?.[0].pointer;
+      const problemMessage = problemLocation ? `${problem.message} at ${problemLocation}` : problem.message;
+      if (problem.severity === "error") {
+        errorMessage = problemMessage;
+        error(problemMessage);
+      } else {
+        warn(problemMessage, options.silent);
+      }
+    }
+    if (errorMessage) {
+      throw new Error(errorMessage);
+    }
+  }
+}
+
 /**
  * Validate an OpenAPI schema and flatten into a single schema using Redocly CLI
  */
@@ -127,20 +147,7 @@ export async function validateAndBundle(
     config: options.redoc.styleguide,
     externalRefResolver: resolver,
   });
-  if (problems.length) {
-    let errorMessage: string | undefined = undefined;
-    for (const problem of problems) {
-      if (problem.severity === "error") {
-        errorMessage = problem.message;
-        error(problem.message);
-      } else {
-        warn(problem.message, options.silent);
-      }
-    }
-    if (errorMessage) {
-      throw new Error(errorMessage);
-    }
-  }
+  _processProblems(problems, options);
   debug("Linted schema", "lint", performance.now() - redocLintT);
 
   // 3. bundle
@@ -150,21 +157,7 @@ export async function validateAndBundle(
     dereference: false,
     doc: document,
   });
-  if (bundled.problems.length) {
-    let errorMessage: string | undefined = undefined;
-    for (const problem of bundled.problems) {
-      if (problem.severity === "error") {
-        errorMessage = problem.message;
-        error(problem.message);
-        throw new Error(problem.message);
-      } else {
-        warn(problem.message, options.silent);
-      }
-    }
-    if (errorMessage) {
-      throw new Error(errorMessage);
-    }
-  }
+  _processProblems(bundled.problems, options);
   debug("Bundled schema", "bundle", performance.now() - redocBundleT);
 
   return bundled.bundle.parsed;
