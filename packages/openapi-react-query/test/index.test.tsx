@@ -283,6 +283,50 @@ describe("client", () => {
       expect(data).toBeUndefined();
     });
 
+    it("should resolve data properly and have error as null when queryFn returns null", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/string-array",
+        status: 200,
+        body: null,
+      });
+
+      const { result } = renderHook(() => client.useQuery("get", "/string-array"), { wrapper });
+
+      await waitFor(() => expect(result.current.isFetching).toBe(false));
+
+      const { data, error } = result.current;
+
+      expect(data).toBeNull();
+      expect(error).toBeNull();
+    });
+
+    it("should resolve error properly and have undefined data when queryFn returns undefined", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/string-array",
+        status: 200,
+        body: undefined,
+      });
+
+      const { result } = renderHook(() => client.useQuery("get", "/string-array"), { wrapper });
+
+      await waitFor(() => expect(result.current.isFetching).toBe(false));
+
+      const { data, error } = result.current;
+
+      expect(error).toBeInstanceOf(Error);
+      expect(data).toBeUndefined();
+    });
+
     it("should infer correct data and error type", async () => {
       const fetchClient = createFetchClient<paths>({ baseUrl, fetch: fetchInfinite });
       const client = createClient(fetchClient);
@@ -558,6 +602,54 @@ describe("client", () => {
 
         expect(data).toBeUndefined();
         expect(error?.message).toBe("Something went wrong");
+      });
+
+      it("should resolve data properly and have error as null when mutationFn returns null", async () => {
+        const fetchClient = createFetchClient<paths>({ baseUrl });
+        const client = createClient(fetchClient);
+
+        useMockRequestHandler({
+          baseUrl,
+          method: "put",
+          path: "/comment",
+          status: 200,
+          body: null,
+        });
+
+        const { result } = renderHook(() => client.useMutation("put", "/comment"), { wrapper });
+
+        result.current.mutate({ body: { message: "Hello", replied_at: 0 } });
+
+        await waitFor(() => expect(result.current.isPending).toBe(false));
+
+        const { data, error } = result.current;
+
+        expect(data).toBeNull();
+        expect(error).toBeNull();
+      });
+
+      it("should resolve data properly and have error as null when mutationFn returns undefined", async () => {
+        const fetchClient = createFetchClient<paths>({ baseUrl });
+        const client = createClient(fetchClient);
+
+        useMockRequestHandler({
+          baseUrl,
+          method: "put",
+          path: "/comment",
+          status: 200,
+          body: undefined,
+        });
+
+        const { result } = renderHook(() => client.useMutation("put", "/comment"), { wrapper });
+
+        result.current.mutate({ body: { message: "Hello", replied_at: 0 } });
+
+        await waitFor(() => expect(result.current.isPending).toBe(false));
+
+        const { data, error } = result.current;
+
+        expect(error).toBeNull();
+        expect(data).toBeUndefined();
       });
 
       it("should use provided custom queryClient", async () => {

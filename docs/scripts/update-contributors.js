@@ -182,7 +182,7 @@ const CONTRIBUTORS = {
     "armandabric",
     "illright",
   ]),
-  "openapi-react-query": new Set(["drwpow", "kerwanp", "yoshi2no"]),
+  "openapi-react-query": new Set(["drwpow", "kerwanp", "yoshi2no", "HugeLetters"]),
   "swr-openapi": new Set(["htunnicliff"]),
   "openapi-metadata": new Set(["kerwanp", "drwpow"]),
 };
