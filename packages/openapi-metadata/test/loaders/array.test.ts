@@ -24,15 +24,11 @@ test("simple array", async () => {
 test("empty array should warn", async () => {
   // @ts-expect-error
   expect(await ArrayTypeLoader(context, [])).toEqual(undefined);
-  expect(error).toContain(
-    "You tried to specify an array type without any item",
-  );
+  expect(error).toContain("You tried to specify an array type without any item");
 });
 
 test("array with multiple items should warn", async () => {
   // @ts-expect-error
   expect(await ArrayTypeLoader(context, [String, Number])).toEqual(undefined);
-  expect(error).toContain(
-    "You tried to specify an array type with multiple items.",
-  );
+  expect(error).toContain("You tried to specify an array type with multiple items.");
 });
