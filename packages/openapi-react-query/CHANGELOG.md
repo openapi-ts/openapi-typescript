@@ -1,5 +1,12 @@
 # openapi-react-query
 
+## 0.2.5
+
+### Patch Changes
+
+- [#1975](https://github.com/openapi-ts/openapi-typescript/pull/1975) [`621792f`](https://github.com/openapi-ts/openapi-typescript/commit/621792f23b0b8830949f3c1e25fe480557016b9a) Thanks [@HugeLetters](https://github.com/HugeLetters)! - - Fixed empty value check in queryFn: only throws error for undefined, other falsy values are allowed
+  - Fixed empty value check in mutationFn: allow falsy values
+
 ## 0.2.4
 
 ### Patch Changes
