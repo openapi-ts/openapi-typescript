@@ -1,7 +1,7 @@
 {
   "name": "openapi-metadata",
   "description": "Auto-Generate OpenAPI specifications from Typescript decorators",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": {
     "name": "Martin PAUCOT",
     "email": "contact@martin-paucot.Fr"
