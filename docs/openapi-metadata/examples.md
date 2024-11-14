@@ -8,7 +8,8 @@ This library is made to be used through an integration with your favorite framew
 
 ## Express
 
-```ts
+```ts twoslash
+// @noErrors
 import express from "express";
 import { generateDocument } from "openapi-metadata";
 import { generateScalarUI } from "openapi-metadata/ui";
@@ -29,7 +30,8 @@ app.get("/api/docs", (req, res) => {
 
 ## Fastify
 
-```ts
+```ts twoslash
+// @noErrors
 import fastify from "fastify";
 import { generateDocument } from "openapi-metadata";
 import { generateScalarUI } from "openapi-metadata/ui";

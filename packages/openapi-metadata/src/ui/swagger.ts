@@ -2,7 +2,15 @@ export type GenerateSwaggerUIOptions = {
   persistAuthorization?: boolean;
 };
 
-export function generateSwaggerUI(url: string, options?: GenerateSwaggerUIOptions) {
+/**
+ * Generates HTML to display Swagger UI.
+ *
+ * @see https://swagger.io/tools/swagger-ui/
+ */
+export function generateSwaggerUI(
+  url: string,
+  options?: GenerateSwaggerUIOptions,
+) {
   const swaggerOptions = {
     url,
     ...options,

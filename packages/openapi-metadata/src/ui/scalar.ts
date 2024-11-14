@@ -1,3 +1,8 @@
+/**
+ * Generates HTML to display Scalar UI.
+ *
+ * @see https://scalar.com/
+ */
 export function generateScalarUI(url: string) {
   return `
       <!doctype html>

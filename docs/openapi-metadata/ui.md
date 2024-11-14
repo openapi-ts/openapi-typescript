@@ -8,7 +8,7 @@ title: UI integrations
 
 ## [Scalar](https://scalar.com)
 
-```ts
+```ts twoslash
 import { generateScalarUI } from "openapi-metadata/ui";
 
 generateScalarUI("http://localhost:3000/api");
@@ -16,7 +16,7 @@ generateScalarUI("http://localhost:3000/api");
 
 ## [Swagger UI](https://swagger.io/tools/swagger-ui/)
 
-```ts
+```ts twoslash
 import { generateSwaggerUI } from "openapi-metadata/ui";
 
 generateSwaggerUI("http://localhost:3000/api");
@@ -24,7 +24,7 @@ generateSwaggerUI("http://localhost:3000/api");
 
 ## [Rapidoc](https://rapidocweb.com/)
 
-```ts
+```ts twoslash
 import { generateRapidocUI } from "openapi-metadata/ui";
 
 generateRapidocUI("http://localhost:3000/api");

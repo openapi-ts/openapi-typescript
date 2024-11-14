@@ -102,15 +102,23 @@ export default defineConfig({
         },
         {
           text: "openapi-metadata",
-          base: "/openapi-metadata",
           items: [
-            { text: "Getting Started", link: "/" },
-            { text: "Decorators", link: "/decorators" },
-            { text: "Metadata", link: "/metadata" },
-            { text: "Type loader", link: "/type-loader" },
-            { text: "UI Integrations", link: "/ui" },
-            { text: "Examples", link: "/examples" },
-            { text: "About", link: "/about" },
+            { text: "Getting Started", link: "/openapi-metadata" },
+            { text: "Decorators", link: "/openapi-metadata/decorators" },
+            { text: "Metadata", link: "/openapi-metadata/metadata" },
+            { text: "Type loader", link: "/openapi-metadata/type-loader" },
+            { text: "UI Integrations", link: "/openapi-metadata/ui" },
+            {
+              text: "Integrations",
+              items: [
+                {
+                  text: "AdonisJS",
+                  link: "https://friendsofadonis.com/docs/openapi",
+                },
+              ],
+            },
+            { text: "Examples", link: "/openapi-metadata/examples" },
+            { text: "About", link: "/openapi-metadata/about" },
           ],
         },
       ],
