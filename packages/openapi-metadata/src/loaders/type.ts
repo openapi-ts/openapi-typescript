@@ -7,7 +7,7 @@ import { PropertyMetadataStorage } from "../metadata/property.js";
 import { schemaPath } from "../utils/schema.js";
 import { isThunk } from "../utils/metadata.js";
 
-const PrimitiveTypeLoader: TypeLoaderFn = async (_context, value) => {
+export const PrimitiveTypeLoader: TypeLoaderFn = async (_context, value) => {
   if (typeof value === "string") {
     return { type: value };
   }
@@ -28,7 +28,38 @@ const PrimitiveTypeLoader: TypeLoaderFn = async (_context, value) => {
   }
 };
 
-const ClassTypeLoader: TypeLoaderFn = async (context, value) => {
+export const ArrayTypeLoader: TypeLoaderFn = async (context, value) => {
+  if (!Array.isArray(value)) {
+    return;
+  }
+
+  if (value.length <= 0) {
+    context.logger.warn("You tried to specify an array type without any item");
+    return;
+  }
+
+  if (value.length > 1) {
+    context.logger.warn(
+      "You tried to specify an array type with multiple items. Please use the 'enum' option if you want to specify an enum.",
+    );
+    return;
+  }
+
+  const itemsSchema = await loadType(context, { type: value[0] });
+
+  // TODO: Better warn stack trace
+  if (!itemsSchema) {
+    context.logger.warn("You tried to specify an array type with an item that resolves to undefined.");
+    return;
+  }
+
+  return {
+    type: "array",
+    items: itemsSchema,
+  };
+};
+
+export const ClassTypeLoader: TypeLoaderFn = async (context, value) => {
   if (typeof value !== "function" || !value.prototype) {
     return;
   }
@@ -49,8 +80,6 @@ const ClassTypeLoader: TypeLoaderFn = async (context, value) => {
 
   if (!properties) {
     context.logger.warn(`You tried to use '${model}' as a type but it does not contain any ApiProperty.`);
-
-    return;
   }
 
   context.schemas[model] = schema;

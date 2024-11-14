@@ -5,7 +5,7 @@ export type HttpMethods = `${OpenAPIV3.HttpMethods}`;
 
 export type PrimitiveType = OpenAPIV3.NonArraySchemaObjectType;
 
-export type TypeValue = Function | PrimitiveType;
+export type TypeValue = Function | PrimitiveType | [PrimitiveType | Function];
 export type Thunk<T> = (context: Context) => T;
 export type EnumTypeValue = string[] | number[] | Record<number, string>;
 
