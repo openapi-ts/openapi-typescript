@@ -7,10 +7,7 @@ export type GenerateSwaggerUIOptions = {
  *
  * @see https://swagger.io/tools/swagger-ui/
  */
-export function generateSwaggerUI(
-  url: string,
-  options?: GenerateSwaggerUIOptions,
-) {
+export function generateSwaggerUI(url: string, options?: GenerateSwaggerUIOptions) {
   const swaggerOptions = {
     url,
     ...options,

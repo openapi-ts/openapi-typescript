@@ -7,18 +7,12 @@ import { ReflectMetadataMissingError } from "../errors/reflect-metadata-missing.
  * Asserts that `reflect-metadata` exists.
  */
 export function assertReflectMetadata() {
-  if (
-    typeof Reflect !== "object" ||
-    typeof Reflect.getMetadata !== "function"
-  ) {
+  if (typeof Reflect !== "object" || typeof Reflect.getMetadata !== "function") {
     throw new ReflectMetadataMissingError();
   }
 }
 
-export type MetadataKey =
-  | "design:type"
-  | "design:returntype"
-  | "design:paramtypes";
+export type MetadataKey = "design:type" | "design:returntype" | "design:paramtypes";
 
 export type FindTypeOptions = {
   context: Context;
@@ -30,17 +24,9 @@ export type FindTypeOptions = {
 /**
  * Returns the type inferred from class member.
  */
-export function findType({
-  metadataKey,
-  prototype,
-  propertyKey,
-}: FindTypeOptions) {
+export function findType({ metadataKey, prototype, propertyKey }: FindTypeOptions) {
   assertReflectMetadata();
-  const reflectedType: Function | undefined = Reflect.getMetadata(
-    metadataKey,
-    prototype,
-    propertyKey,
-  );
+  const reflectedType: Function | undefined = Reflect.getMetadata(metadataKey, prototype, propertyKey);
 
   if (!reflectedType) {
     throw new NoExplicitTypeError(prototype.constructor.name, propertyKey);
