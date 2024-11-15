@@ -1,4 +1,6 @@
+import "reflect-metadata";
 import type { Context } from "../../src/context.js";
+import { ApiProperty } from "../../src/decorators/api-property.js";
 import { ArrayTypeLoader } from "../../src/loaders/type.js";
 
 let error: string | undefined = undefined;
@@ -17,6 +19,20 @@ test("simple array", async () => {
     type: "array",
     items: {
       type: "string",
+    },
+  });
+});
+
+test("model", async () => {
+  class User {
+    @ApiProperty()
+    declare id: string;
+  }
+
+  expect(await ArrayTypeLoader(context, [User])).toEqual({
+    type: "array",
+    items: {
+      $ref: "#/components/schemas/User",
     },
   });
 });

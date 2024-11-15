@@ -137,7 +137,7 @@ export async function loadType(
   const thunk = isThunk(options.type);
   const value = thunk ? (options.type as Function)(context) : options.type;
 
-  for (const loader of [PrimitiveTypeLoader, ...context.typeLoaders, ClassTypeLoader]) {
+  for (const loader of [PrimitiveTypeLoader, ArrayTypeLoader, ...context.typeLoaders, ClassTypeLoader]) {
     const result = await loader(context, value, options.type);
     if (result) {
       return result;
