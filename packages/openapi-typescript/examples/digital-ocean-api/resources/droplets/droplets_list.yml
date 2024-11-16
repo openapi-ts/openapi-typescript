@@ -16,6 +16,11 @@ description: |
   parameter set to the name of the tag in your GET request. For example,
   `/v2/droplets?tag_name=$TAG_NAME`.
 
+  ### GPU Droplets
+
+  By default, only non-GPU Droplets are returned. To list only GPU Droplets, set
+  the `type` query parameter to `gpus`. For example, `/v2/droplets?type=gpus`.
+
 tags:
   - Droplets
 
@@ -24,6 +29,7 @@ parameters:
   - $ref: '../../shared/parameters.yml#/page'
   - $ref: 'parameters.yml#/droplet_tag_name'
   - $ref: 'parameters.yml#/droplet_name'
+  - $ref: 'parameters.yml#/droplet_type'
 
 responses:
   '200':

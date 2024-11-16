@@ -77,5 +77,8 @@ properties:
   egress:
     $ref: app_egress_spec.yml
 
+  maintenance:
+    $ref: app_maintenance_spec.yml
+
 required:
 - name

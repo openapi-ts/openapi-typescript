@@ -1,0 +1,51 @@
+operationId: vpcPeerings_create
+
+summary: Create a New VPC Peering
+
+description: |
+  To create a new VPC Peering, send a POST request to `/v2/vpc_peerings` 
+  specifying a name and a list of two VPC IDs to peer. The response code, 202 
+  Accepted, does not indicate the success or failure of the operation, just 
+  that the request has been accepted for processing.
+
+tags:
+  - VPC Peerings
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        type: object
+        allOf:
+        - $ref: 'models/vpc_peering.yml#/vpc_peering_updatable'
+        - $ref: 'models/vpc_peering.yml#/vpc_peering_create'
+
+        required:
+        - name
+        - vpc_ids
+
+
+responses:
+  '202':
+    $ref: 'responses/provisioning_vpc_peering.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/vpc_peerings_create.yml'
+
+security:
+  - bearer_auth:
+    - 'vpc_peering:create'

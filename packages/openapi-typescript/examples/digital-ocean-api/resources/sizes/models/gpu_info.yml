@@ -1,0 +1,25 @@
+type: object
+description: >-
+  An object containing information about the GPU capabilities of Droplets
+  created with this size.
+
+properties:
+  count:
+    type: integer
+    description: The number of GPUs allocated to the Droplet.
+    example: 1
+  model:
+    type: string
+    description: The model of the GPU.
+    example: nvidia_h100
+  vram:
+    type: object
+    properties:
+      amount:
+        type: integer
+        description: The amount of VRAM allocated to the GPU.
+        example: 25
+      unit:
+        type: string
+        description: The unit of measure for the VRAM.
+        example: gib

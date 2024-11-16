@@ -11,7 +11,7 @@ description: >-
   provided, any Droplet or Kubernetes node with that tag applied to it will
   have access. The firewall is limited to 100 rules (or trusted sources). When
   possible, we recommend
-  [placing your databases into a VPC network](https://www.digitalocean.com/docs/networking/vpc/)
+  [placing your databases into a VPC network](https://docs.digitalocean.com/products/networking/vpc/)
   to limit access to them instead of using a firewall.
 
   A successful
