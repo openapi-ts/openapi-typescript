@@ -84,6 +84,9 @@ importers:
       typescript:
         specifier: ^5.6.3
         version: 5.6.3
+      undici:
+        specifier: ^6.21.0
+        version: 6.21.0
       vite:
         specifier: ^5.4.10
         version: 5.4.10(@types/node@22.8.0)
@@ -4232,6 +4235,10 @@ packages:
 
   undici-types@6.19.8:
     resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
+
+  undici@6.21.0:
+    resolution: {integrity: sha512-BUgJXc752Kou3oOIuU1i+yZZypyZRqNPW0vqoMPl8VaoalSfeR0D8/t4iAS3yirs79SSMTxTag+ZC86uswv+Cw==}
+    engines: {node: '>=18.17'}
 
   unicode-emoji-modifier-base@1.0.0:
     resolution: {integrity: sha512-yLSH4py7oFH3oG/9K+XWrz1pSi3dfUrWEnInbxMfArOfc1+33BlGPQtLsOYwvdMy11AwUBetYuaRxSPqgkq+8g==}
@@ -8382,6 +8389,8 @@ snapshots:
     optional: true
 
   undici-types@6.19.8: {}
+
+  undici@6.21.0: {}
 
   unicode-emoji-modifier-base@1.0.0: {}
 

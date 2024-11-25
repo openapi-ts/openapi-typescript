@@ -1,7 +1,8 @@
 import { describe, expect, test } from "vitest";
 import { createObservedClient } from "../helpers.js";
-import type { FetchOptions, HeadersOptions } from "../../src/index.js";
+import createClient, { FetchOptions, HeadersOptions } from "../../src/index.js";
 import type { paths } from "./schemas/common.js";
+import { Agent } from "undici";
 
 describe("createClient options", () => {
   test("baseUrl", async () => {
@@ -36,6 +37,18 @@ describe("createClient options", () => {
 
     // assert baseUrl and path mesh as expected
     expect(actualURL.href).toBe("https://api.foo.bar/v3/resources");
+  });
+
+  test("requestInitExt", async () => {
+    const dispatcher = new Agent({
+      connect: {
+        rejectUnauthorized: false,
+      }
+    });
+    const client = createClient({ requestInitExt: { dispatcher } });
+    // @ts-ignore
+    const fetchResponse = await client.GET("https://self-signed.badssl.com/", { parseAs: 'text' });
+    expect(fetchResponse.response.ok).toBe(true);
   });
 
   describe("content-type", () => {
