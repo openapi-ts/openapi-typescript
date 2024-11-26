@@ -25,7 +25,7 @@ export interface ClientOptions extends Omit<RequestInit, "headers"> {
   bodySerializer?: BodySerializer<unknown>;
   headers?: HeadersOptions;
   /** RequestInit extension object to pass as 2nd argument to fetch when supported (defaults to undefined) */
-  requestInitExt?: Record<string, unknown>
+  requestInitExt?: Record<string, unknown>;
 }
 
 export type HeadersOptions =

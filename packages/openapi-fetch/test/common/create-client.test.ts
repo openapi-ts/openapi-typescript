@@ -43,11 +43,11 @@ describe("createClient options", () => {
     const dispatcher = new Agent({
       connect: {
         rejectUnauthorized: false,
-      }
+      },
     });
     const client = createClient({ requestInitExt: { dispatcher } });
     // @ts-ignore
-    const fetchResponse = await client.GET("https://self-signed.badssl.com/", { parseAs: 'text' });
+    const fetchResponse = await client.GET("https://self-signed.badssl.com/", { parseAs: "text" });
     expect(fetchResponse.response.ok).toBe(true);
   });
 

@@ -1,9 +1,9 @@
 // settings & const
 const PATH_PARAM_RE = /\{[^{}]+\}/g;
 
-const supportsRequestInitExt  = () => {
-  return parseInt(process?.versions?.node?.substring(0,2)) >= 18 && process.versions.undici;
-}
+const supportsRequestInitExt = () => {
+  return parseInt(process?.versions?.node?.substring(0, 2)) >= 18 && process.versions.undici;
+};
 
 /**
  * Returns a cheap, non-cryptographically-secure random ID
