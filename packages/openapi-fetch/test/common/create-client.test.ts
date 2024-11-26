@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { createObservedClient } from "../helpers.js";
-import createClient, { FetchOptions, HeadersOptions } from "../../src/index.js";
+import createClient, { type FetchOptions, type HeadersOptions } from "../../src/index.js";
 import type { paths } from "./schemas/common.js";
 import { Agent } from "undici";
 
