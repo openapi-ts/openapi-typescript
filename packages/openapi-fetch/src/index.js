@@ -2,7 +2,11 @@
 const PATH_PARAM_RE = /\{[^{}]+\}/g;
 
 const supportsRequestInitExt = () => {
-  return Number.parseInt(process?.versions?.node?.substring(0, 2)) >= 18 && process.versions.undici;
+  return (
+    typeof process === "object" &&
+    Number.parseInt(process?.versions?.node?.substring(0, 2)) >= 18 &&
+    process.versions.undici
+  );
 };
 
 /**
