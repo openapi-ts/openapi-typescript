@@ -12,11 +12,25 @@ droplet_tag_name:
   in: query
   name: tag_name
   description: Used to filter Droplets by a specific tag. Can not be combined
-    with `name`.
+    with `name` or `type`.
   required: false
   schema:
     type: string
   example: env:prod
+
+droplet_type:
+  in: query
+  name: type
+  description: When `type` is set to `gpus`, only GPU Droplets will be returned.
+    By default, only non-GPU Droplets are returned. Can not be combined with
+    `tag_name`.
+  required: false
+  schema:
+    type: string
+    enum:
+    - droplets
+    - gpus
+  example: droplets
 
 droplet_delete_tag_name:
   in: query

@@ -212,8 +212,8 @@ describe("transformComponentsObject", () => {
     headers: never;
     pathItems: never;
 }`,
+        options: DEFAULT_OPTIONS,
       },
-      // options: DEFAULT_OPTIONS,
     ],
     [
       "options > alphabetize: true",
@@ -700,6 +700,67 @@ export type PathItemUploadUser = components['pathItems']['UploadUser'];`,
       },
     ],
     [
+      "options > rootTypes: true and rootTypesNoSchemaPrefix: true",
+      {
+        given: {
+          schemas: {
+            Item: {
+              type: "object",
+              required: ["name", "url"],
+              properties: {
+                name: { type: "string" },
+                url: { type: "string" },
+              },
+            },
+            Document: {
+              type: "object",
+              required: ["name", "size", "url"],
+              properties: {
+                name: { type: "string" },
+                size: { type: "number" },
+                url: { type: "string" },
+              },
+            },
+            Error: {
+              type: "object",
+              required: ["code", "message"],
+              properties: {
+                code: { type: "string" },
+                message: { type: "string" },
+              },
+            },
+          },
+        },
+        want: `{
+    schemas: {
+        Item: {
+            name: string;
+            url: string;
+        };
+        Document: {
+            name: string;
+            size: number;
+            url: string;
+        };
+        Error: {
+            code: string;
+            message: string;
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type Item = components['schemas']['Item'];
+export type Document = components['schemas']['Document'];
+export type Error = components['schemas']['Error'];
+`,
+        options: { ...DEFAULT_OPTIONS, rootTypes: true, rootTypesNoSchemaPrefix: true },
+      },
+    ],
+    [
       "transform > with transform object",
       {
         given: {
@@ -790,11 +851,12 @@ export type PathItemUploadUser = components['pathItems']['UploadUser'];`,
     headers: never;
     pathItems: never;
 }`,
+        options: DEFAULT_OPTIONS,
       },
     ],
   ];
 
-  for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
+  for (const [testName, { given, want, options, ci }] of tests) {
     test.skipIf(ci?.skipIf)(
       testName,
       async () => {
@@ -802,7 +864,7 @@ export type PathItemUploadUser = components['pathItems']['UploadUser'];`,
         if (want instanceof URL) {
           expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {
-          expect(result).toBe(`${want}\n`);
+          expect(result.trim()).toBe(want.trim());
         }
       },
       ci?.timeout,

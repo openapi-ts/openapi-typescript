@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X PATCH \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/monitoring/sinks/destinations/01f30bfa-319a-4769-ba95-9d43971fb514" \
+    --data '{"index_name": "logs", "retention_days": 30}'
