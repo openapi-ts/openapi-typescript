@@ -39,18 +39,6 @@ describe("createClient options", () => {
     expect(actualURL.href).toBe("https://api.foo.bar/v3/resources");
   });
 
-  test("requestInitExt", async () => {
-    const dispatcher = new Agent({
-      connect: {
-        rejectUnauthorized: false,
-      },
-    });
-    const client = createClient({ requestInitExt: { dispatcher } });
-    // @ts-ignore
-    const fetchResponse = await client.GET("https://self-signed.badssl.com/", { parseAs: "text" });
-    expect(fetchResponse.response.ok).toBe(true);
-  });
-
   describe("content-type", () => {
     const BODY_ACCEPTING_METHODS = [["PUT"], ["POST"], ["DELETE"], ["OPTIONS"], ["PATCH"]] as const;
     const ALL_METHODS = [...BODY_ACCEPTING_METHODS, ["GET"], ["HEAD"]] as const;
