@@ -167,12 +167,12 @@ All methods return an object with **data**, **error**, **status** and **response
 const { data, error, status, response } = await client.GET("/url");
 ```
 
-| Object     | Response                                                                                                                    |
-| :--------- | :-------------------------------------------------------------------------------------------------------------------------- |
-| `data`     | `2xx` response if OK; otherwise `undefined`                                                                                 |
-| `error`    | `5xx`, `4xx`, or `default` response if not OK; otherwise `undefined`                                                        |
-| `status`   | HTTP status code of the response (`response.status`)                                                                        |
-| `response` | [The original Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) which contains `status`, `headers`, etc. |
+| Object     | Response                                                                                                                      |
+|:-----------|:------------------------------------------------------------------------------------------------------------------------------|
+| `data`     | `2xx` response if OK; otherwise `undefined`                                                                                   |
+| `error`    | `5xx`, `4xx`, or `default` response if not OK; otherwise `undefined`                                                          |
+| `status`   | The HTTP response status code of [the original response](https://developer.mozilla.org/en-US/docs/Web/API/Response/status)    |
+| `response` | [The original Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) which contains `status`, `headers`, etc.   |
 
 ### Path-property style
 
