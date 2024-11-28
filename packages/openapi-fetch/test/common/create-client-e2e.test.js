@@ -4,28 +4,30 @@ import * as https from "node:https";
 import { Agent } from "undici";
 import createClient from "../../src/index.js";
 import * as forge from "node-forge";
-import * as crypto from "crypto";
-import httpServer from "express/lib/application.js";
+import * as crypto from "node:crypto";
 
 const pki = forge.pki;
 
-const genCACert = async (options = {}) => {
-  options = {
+const genCACert = async (opts = {}) => {
+  const options = {
     ...{
       commonName: "Testing CA - DO NOT TRUST",
       bits: 2048,
     },
-    ...options,
+    ...opts,
   };
 
-  let keyPair = await new Promise((res, rej) => {
+  const keyPair = await new Promise((res, rej) => {
     pki.rsa.generateKeyPair({ bits: options.bits }, (error, pair) => {
-      if (error) rej(error);
-      else res(pair);
+      if (error) {
+        rej(error);
+      } else {
+        res(pair);
+      }
     });
   });
 
-  let cert = pki.createCertificate();
+  const cert = pki.createCertificate();
   cert.publicKey = keyPair.publicKey;
   cert.serialNumber = crypto.randomUUID().replace(/-/g, "");
 
@@ -70,9 +72,9 @@ app.get("/v1/foo", (req, res) => {
 });
 
 test("requestInitExt", async () => {
-  let cert = await genCACert();
-  let buffers = caToBuffer(cert.ca);
-  let options = {};
+  const cert = await genCACert();
+  const buffers = caToBuffer(cert.ca);
+  const options = {};
   options.key = buffers.key;
   options.cert = buffers.cert;
   const httpsServer = https.createServer(options, app);

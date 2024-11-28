@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { createObservedClient } from "../helpers.js";
-import { type FetchOptions, type HeadersOptions } from "../../src/index.js";
+import type { FetchOptions, HeadersOptions } from "../../src/index.js";
 import type { paths } from "./schemas/common.js";
 
 describe("createClient options", () => {
