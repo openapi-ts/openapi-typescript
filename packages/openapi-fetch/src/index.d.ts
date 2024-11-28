@@ -105,7 +105,7 @@ export type FetchResponse<T extends Record<string | number, any>, Options, Media
     response: Response;
     status: OpenApiStatusToHttpStatus<S, keyof ResponseObjectMap<T>>;
     data: S extends OkStatus ? ParseAsResponse<GetResponseContent<ResponseObjectMap<T>, Media, S>, Options> : never;
-    error: S extends ErrorStatus ? ParseAsResponse<GetResponseContent<ResponseObjectMap<T>, Media, S>, Options> : never;
+    error: S extends ErrorStatus ? GetResponseContent<ResponseObjectMap<T>, Media, S> : never;
   };
 }[keyof ResponseObjectMap<T>];
 
