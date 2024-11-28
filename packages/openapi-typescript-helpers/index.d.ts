@@ -142,17 +142,15 @@ type GetResponseContent<
   T extends Record<string | number, any>,
   Media extends MediaType = MediaType,
   ResponseCode extends keyof T = keyof T,
-> = OpenApiStatusToHttpStatus<ResponseCode, keyof T> extends number
-  ? {
-      [K in ResponseCode]: T[K]["content"] extends Record<string, any>
-        ? FilterKeys<T[K]["content"], Media> extends never
-          ? T[K]["content"]
-          : FilterKeys<T[K]["content"], Media>
-        : K extends keyof T
-          ? T[K]["content"]
-          : never;
-    }[ResponseCode]
-  : never;
+> = {
+  [K in ResponseCode]: T[K]["content"] extends Record<string, any>
+    ? FilterKeys<T[K]["content"], Media> extends never
+      ? T[K]["content"]
+      : FilterKeys<T[K]["content"], Media>
+    : K extends keyof T
+      ? T[K]["content"]
+      : never;
+}[ResponseCode];
 
 /**
  * Return all 5XX and 4XX responses (in that order) from a Response Object Map
