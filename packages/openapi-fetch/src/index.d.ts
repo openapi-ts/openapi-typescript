@@ -1,5 +1,4 @@
 import type {
-  ErrorResponse,
   FilterKeys,
   HttpMethod,
   IsOperationRequestBodyOptional,
@@ -8,7 +7,6 @@ import type {
   PathsWithMethod,
   ResponseObjectMap,
   RequiredKeysOf,
-  SuccessResponse,
   GetResponseContent,
   ErrorStatus,
   OkStatus,
