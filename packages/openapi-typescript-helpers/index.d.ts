@@ -138,7 +138,7 @@ export type SuccessResponse<
   Media extends MediaType = MediaType,
 > = GetResponseContent<T, Media, OkStatus>;
 
-type GetResponseContent<
+export type GetResponseContent<
   T extends Record<string | number, any>,
   Media extends MediaType = MediaType,
   ResponseCode extends keyof T = keyof T,
