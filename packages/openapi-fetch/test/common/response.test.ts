@@ -29,6 +29,20 @@ describe("response", () => {
         assertType<never>(result.error);
       }
 
+      if (result.status === 200) {
+        assertType<NonNullable<Resource[]>>(result.data);
+        assertType<never>(result.error);
+      }
+
+      if (result.status === 500) {
+        assertType<never>(result.data);
+        assertType<Error>(result.error);
+      }
+
+      // @ts-expect-error 204 is not defined in the schema
+      if (result.status === 204) {
+      }
+
       // 3. assert error is not undefined inside condition block
       if (result.error) {
         // @ts-expect-error FIXME: This is a limitation within Typescript
