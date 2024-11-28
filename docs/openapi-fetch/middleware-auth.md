@@ -4,11 +4,11 @@ title: Middleware & Auth
 
 # Middleware & Auth
 
-Middleware allows you to modify either the request, response, or both for all fetches. One of the most common usecases is authentication, but can also be used for logging/telemetry, throwing errors, or handling specific edge cases.
+Middleware allows you to modify either the request, response, or both for all fetches as well as handling errors thrown by `fetch`. One of the most common usecases is authentication, but can also be used for logging/telemetry, throwing errors, or handling specific edge cases.
 
 ## Middleware
 
-Each middleware can provide `onRequest()` and `onResponse()` callbacks, which can observe and/or mutate requests and responses.
+Each middleware can provide `onRequest()`, `onResponse()` and `onError` callbacks, which can observe and/or mutate requests, responses and `fetch` errors.
 
 ::: code-group
 
@@ -26,6 +26,12 @@ const myMiddleware: Middleware = {
     const { body, ...resOptions } = response;
     // change status of response
     return new Response(body, { ...resOptions, status: 200 });
+  },
+  async onError({ error }) {
+    // wrap errors thrown by fetch
+    onError({ error }) {
+      return new Error("Oops, fetch failed", { cause: error });
+    },
   },
 };
 
@@ -70,6 +76,44 @@ onResponse({ response }) {
   }
 }
 ```
+
+### Error Handling
+
+The `onError` callback allows you to handle errors thrown by `fetch`. Common errors are `TypeError`s which can occur when there is a network or CORS error or `DOMException`s when the request is aborted using an `AbortController`.
+
+Depending on the return value, `onError` can handle errors in three different ways:
+
+**Return nothing** which means that the error will still be thrown. This is useful for logging.
+
+```ts
+onError({ error }) {
+  console.error(error);
+  return;
+},
+```
+
+**Return another instance of `Error`** which is thrown instead of the original error.
+
+```ts
+onError({ error }) {
+  return new Error("Oops", { cause: error });
+},
+```
+
+**Return a new instance of `Response`** which means that the `fetch` call will proceed as successful.
+
+```ts
+onError({ error }) {
+  return Response.json({ message: 'nothing to see' });
+},
+```
+
+::: tip
+
+`onError` _does not_ handle error responses with `4xx` or `5xx` HTTP status codes, since these are considered "successful" responses but with a bad status code. In these cases you need to check the response's  status property or `ok()` method via the `onResponse` callback.
+
+:::
+
 
 ### Ejecting middleware
 
