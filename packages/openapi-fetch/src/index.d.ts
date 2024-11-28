@@ -106,18 +106,9 @@ export type FetchResponse<T extends Record<string | number, any>, Options, Media
   [S in keyof ResponseObjectMap<T>]: {
     response: Response;
     status: OpenApiStatusToHttpStatus<S, keyof ResponseObjectMap<T>>;
-  } & (
-    | {
-        error: never;
-        data: S extends OkStatus ? ParseAsResponse<GetResponseContent<ResponseObjectMap<T>, Media, S>, Options> : never;
-      }
-    | {
-        error: S extends ErrorStatus
-          ? ParseAsResponse<GetResponseContent<ResponseObjectMap<T>, Media, S>, Options>
-          : never;
-        data: never;
-      }
-  );
+    data: S extends OkStatus ? ParseAsResponse<GetResponseContent<ResponseObjectMap<T>, Media, S>, Options> : never;
+    error: S extends ErrorStatus ? ParseAsResponse<GetResponseContent<ResponseObjectMap<T>, Media, S>, Options> : never;
+  };
 }[keyof ResponseObjectMap<T>];
 
 export type RequestOptions<T> = ParamsOption<T> &
