@@ -6,8 +6,8 @@ import type {
   MediaType,
   OperationRequestBodyContent,
   PathsWithMethod,
-  ResponseObjectMap,
   RequiredKeysOf,
+  ResponseObjectMap,
   SuccessResponse,
 } from "openapi-typescript-helpers";
 
@@ -152,15 +152,25 @@ type MiddlewareOnRequest = (
 type MiddlewareOnResponse = (
   options: MiddlewareCallbackParams & { response: Response },
 ) => void | Response | undefined | Promise<Response | undefined | void>;
+type MiddlewareOnError = (
+  options: MiddlewareCallbackParams & { error: unknown },
+) => void | Response | Error | Promise<void | Response | Error>;
 
 export type Middleware =
   | {
       onRequest: MiddlewareOnRequest;
       onResponse?: MiddlewareOnResponse;
+      onError?: MiddlewareOnError;
     }
   | {
       onRequest?: MiddlewareOnRequest;
       onResponse: MiddlewareOnResponse;
+      onError?: MiddlewareOnError;
+    }
+  | {
+      onRequest?: MiddlewareOnRequest;
+      onResponse?: MiddlewareOnResponse;
+      onError: MiddlewareOnError;
     };
 
 /** This type helper makes the 2nd function param required if params/requestBody are required; otherwise, optional */
