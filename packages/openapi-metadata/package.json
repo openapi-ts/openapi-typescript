@@ -66,16 +66,16 @@
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.7",
-    "@types/node": "^22.1.0",
-    "@vitest/coverage-v8": "^2.0.5",
+    "@types/lodash": "^4.17.13",
+    "@types/node": "^22.10.1",
+    "@vitest/coverage-v8": "^2.1.6",
     "del-cli": "^5.1.0",
     "esbuild": "^0.20.2",
     "execa": "^8.0.1",
     "reflect-metadata": "^0.2.2",
-    "tsup": "^8.2.4",
-    "type-fest": "^4.26.1",
-    "typescript": "^5.4.5",
+    "tsup": "^8.3.5",
+    "type-fest": "^4.29.0",
+    "typescript": "^5.7.2",
     "unplugin-swc": "^1.5.1"
   }
 }
