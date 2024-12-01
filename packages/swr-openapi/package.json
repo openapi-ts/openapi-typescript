@@ -56,8 +56,8 @@
     "version": "pnpm run build"
   },
   "peerDependencies": {
-    "openapi-fetch": "workspace:*",
-    "openapi-typescript": "workspace:7.x",
+    "openapi-fetch": "workspace:^",
+    "openapi-typescript": "workspace:^",
     "react": "18 || 19",
     "swr": "2",
     "typescript": "^5.x"
@@ -68,7 +68,7 @@
     }
   },
   "dependencies": {
-    "openapi-typescript-helpers": "workspace:*",
+    "openapi-typescript-helpers": "workspace:^",
     "type-fest": "4.26.1"
   },
   "devDependencies": {
@@ -79,11 +79,11 @@
     "husky": "9.1.5",
     "lint-staged": "15.2.10",
     "lodash": "4.17.21",
-    "openapi-fetch": "workspace:*",
-    "openapi-typescript": "workspace:7.x",
+    "openapi-fetch": "workspace:^",
+    "openapi-typescript": "workspace:^",
     "react": "18.3.1",
     "swr": "2.2.5",
-    "typescript": "5.5.4",
-    "vitest": "2.0.5"
+    "typescript": "5.6.3",
+    "vitest": "2.1.3"
   }
 }
