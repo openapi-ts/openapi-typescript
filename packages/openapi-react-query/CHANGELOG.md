@@ -1,5 +1,12 @@
 # openapi-react-query
 
+## 0.2.6
+
+### Patch Changes
+
+- Updated dependencies [[`35c576c`](https://github.com/openapi-ts/openapi-typescript/commit/35c576c8b2852f66e641014d13ffcfdeb21e98a1)]:
+  - openapi-fetch@0.13.1
+
 ## 0.2.5
 
 ### Patch Changes
