@@ -70,7 +70,7 @@
     "@types/react": "18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
     "del-cli": "^5.1.0",
-    "esbuild": "^0.20.2",
+    "esbuild": "^0.24.0",
     "execa": "^8.0.1",
     "msw": "^2.6.6",
     "openapi-fetch": "workspace:^",

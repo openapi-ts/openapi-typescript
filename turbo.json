@@ -1,0 +1,25 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": ["GITHUB_TOKEN"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"]
+    },
+    "format": {
+      "dependsOn": ["^format"]
+    },
+    "lint": {
+      "inputs": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.css", "**/biome.json"],
+      "dependsOn": ["build"]
+    },
+    "size-limit": {
+      "dependsOn": ["build"]
+    },
+    "test": {
+      "dependsOn": ["build"]
+    },
+    "test-e2e": {
+      "dependsOn": ["build"]
+    }
+  }
+}
