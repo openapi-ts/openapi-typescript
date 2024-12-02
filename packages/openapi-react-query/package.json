@@ -1,7 +1,7 @@
 {
   "name": "openapi-react-query",
   "description": "Fast, type-safe @tanstack/react-query client to work with your OpenAPI schema.",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "author": {
     "name": "Martin Paucot",
     "email": "contact@martin-paucot.fr"
