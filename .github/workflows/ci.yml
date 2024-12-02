@@ -6,9 +6,6 @@ on:
       - main
   pull_request:
 
-env:
-  GITHUB_TOKEN: ${{ secrets.OPENAPI_TS_BOT_GITHUB_TOKEN }}
-
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true

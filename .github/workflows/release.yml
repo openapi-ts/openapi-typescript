@@ -31,4 +31,5 @@ jobs:
           commit: "[ci] release"
           title: "[ci] release"
         env:
+          GITHUB_TOKEN: ${{ secrets.OPENAPI_TS_BOT_GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

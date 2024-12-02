@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "pnpm run update-contributors && vitepress build && cp _redirects .vitepress/dist",
-    "dev": "pnpm run update-contributors && vitepress dev",
+    "build-docs": "pnpm run update-contributors && vitepress build && cp _redirects .vitepress/dist",
+    "dev": "vitepress dev",
     "update-contributors": "node scripts/update-contributors.js"
   },
   "devDependencies": {
