@@ -1,6 +1,14 @@
 // settings & const
 const PATH_PARAM_RE = /\{[^{}]+\}/g;
 
+const supportsRequestInitExt = () => {
+  return (
+    typeof process === "object" &&
+    Number.parseInt(process?.versions?.node?.substring(0, 2)) >= 18 &&
+    process.versions.undici
+  );
+};
+
 /**
  * Returns a cheap, non-cryptographically-secure random ID
  * Courtesy of @imranbarbhuiya (https://github.com/imranbarbhuiya)
@@ -21,8 +29,10 @@ export default function createClient(clientOptions) {
     querySerializer: globalQuerySerializer,
     bodySerializer: globalBodySerializer,
     headers: baseHeaders,
+    requestInitExt = undefined,
     ...baseOptions
   } = { ...clientOptions };
+  requestInitExt = supportsRequestInitExt() ? requestInitExt : undefined;
   baseUrl = removeTrailingSlash(baseUrl);
   const middlewares = [];
 
@@ -126,7 +136,7 @@ export default function createClient(clientOptions) {
     // fetch!
     let response;
     try {
-      response = await fetch(request);
+      response = await fetch(request, requestInitExt);
     } catch (error) {
       let errorAfterMiddleware = error;
       // middleware (error)
