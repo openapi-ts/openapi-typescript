@@ -1,7 +1,7 @@
 {
   "name": "swr-openapi",
   "description": "Generate SWR hooks from OpenAPI schemas",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "author": {
     "name": "Hunter Tunnicliff",
     "email": "hunter@tunnicliff.co"
@@ -56,8 +56,8 @@
     "version": "pnpm run build"
   },
   "peerDependencies": {
-    "openapi-fetch": "workspace:*",
-    "openapi-typescript": "workspace:7.x",
+    "openapi-fetch": "workspace:^",
+    "openapi-typescript": "workspace:^",
     "react": "18 || 19",
     "swr": "2",
     "typescript": "^5.x"
@@ -68,22 +68,22 @@
     }
   },
   "dependencies": {
-    "openapi-typescript-helpers": "workspace:*",
-    "type-fest": "4.26.1"
+    "openapi-typescript-helpers": "workspace:^",
+    "type-fest": "^4.26.1"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "0.16.2",
-    "@types/lodash": "4.17.7",
-    "@types/react": "18.3.5",
-    "del-cli": "5.1.0",
-    "husky": "9.1.5",
+    "@arethetypeswrong/cli": "^0.16.2",
+    "@types/lodash": "^4.17.7",
+    "@types/react": "^18.3.5",
+    "del-cli": "^5.1.0",
+    "husky": "^9.1.5",
     "lint-staged": "15.2.10",
-    "lodash": "4.17.21",
-    "openapi-fetch": "workspace:*",
-    "openapi-typescript": "workspace:7.x",
+    "lodash": "^4.17.21",
+    "openapi-fetch": "workspace:^",
+    "openapi-typescript": "workspace:^",
     "react": "18.3.1",
     "swr": "2.2.5",
-    "typescript": "5.5.4",
-    "vitest": "2.0.5"
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.6"
   }
 }

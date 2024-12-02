@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.13.1
+
+### Patch Changes
+
+- [#1974](https://github.com/openapi-ts/openapi-typescript/pull/1974) [`35c576c`](https://github.com/openapi-ts/openapi-typescript/commit/35c576c8b2852f66e641014d13ffcfdeb21e98a1) Thanks [@luchsamapparat](https://github.com/luchsamapparat)! - add onError handler to middleware
+
 ## 0.13.0
 
 ### Minor Changes

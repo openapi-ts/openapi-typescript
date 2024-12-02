@@ -28,6 +28,13 @@ properties:
     example: 25
     description: The size of the Droplet's disk in gigabytes.
 
+  disk_info:
+    type: array
+    description: An array of objects containing information about the disks
+      available to the Droplet.
+    items:
+      $ref: '../../sizes/models/disk_info.yml'
+
   locked:
     type: boolean
     example: false
@@ -146,6 +153,9 @@ properties:
     example: '760e09ef-dc84-11e8-981e-3cfdfeaae000'
     description: A string specifying the UUID of the VPC to which the Droplet
       is assigned.
+
+  gpu_info:
+    $ref: '../../sizes/models/gpu_info.yml'
 
 required:
   - id

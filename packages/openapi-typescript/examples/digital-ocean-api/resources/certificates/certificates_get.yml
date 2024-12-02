@@ -39,5 +39,5 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'cdn:read'
+    - 'certificate:read'
 

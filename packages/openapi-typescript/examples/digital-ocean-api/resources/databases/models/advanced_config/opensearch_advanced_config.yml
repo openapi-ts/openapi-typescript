@@ -205,7 +205,7 @@ properties:
     type: integer
     example: 2500000
     minimum: 1
-    maximum: 9223372036854776000
+    maximum: 9223372036854775807
     default: 2500000
   ism_history_rollover_check_period_hours:
     description: >-
@@ -269,7 +269,7 @@ properties:
     default: use-context
   cluster_routing_allocation_node_concurrent_recoveries:
     description: >-
-      Maximum concurrent incoming/outgoing shard recoveries (normally replicas) are allowed to happen per node . 
+      Maximum concurrent incoming/outgoing shard recoveries (normally replicas) are allowed to happen per node .
     type: integer
     example: 2
     minimum: 2
@@ -279,6 +279,12 @@ properties:
     description: >-
       Allowlist of remote IP addresses for reindexing. Changing this value will cause all OpenSearch instances to restart.
     type: array
-    items: 
+    items:
       type: string
     example: ["255.255.223.233:9200", "222.33.222.222:6300"]
+  plugins_alerting_filter_by_backend_roles_enabled:
+    description: >-
+      Enable or disable filtering of alerting by backend roles.
+    type: boolean
+    example: false
+    default: false

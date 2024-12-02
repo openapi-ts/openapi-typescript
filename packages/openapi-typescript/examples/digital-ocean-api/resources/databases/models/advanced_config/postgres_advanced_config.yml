@@ -407,3 +407,10 @@ properties:
       Enable the pg_stat_monitor extension. <b>Enabling this extension will cause the cluster to be restarted.</b> When this extension is enabled, pg_stat_statements results for utility commands are unreliable.
     type: boolean
     example: false
+  max_failover_replication_time_lag:
+    description: >-
+      Number of seconds of master unavailability before triggering database failover to standby. The default value is 60.
+    type: integer
+    minimum: 10
+    maximum: 9223372036854776000
+    example: 50

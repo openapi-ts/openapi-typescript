@@ -49,7 +49,8 @@ properties:
       $ref: '../../regions/models/region.yml'
 
   region_slug:
-    allOf:
-      - $ref: '../../regions/models/region.yml#/properties/slug'
-      - type: string
-        nullable: true
+    type: string
+    nullable: true
+    description: A human-readable string that is used as a unique identifier
+      for each region.
+    example: nyc3

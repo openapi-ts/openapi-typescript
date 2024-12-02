@@ -16,11 +16,11 @@
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
-    "@vitejs/plugin-vue": "^5.1.4",
+    "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.5.1",
     "openapi-typescript": "workspace:^",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.10",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.1",
     "vue-tsc": "^2.1.6"
   }
 }

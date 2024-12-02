@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.4.4
+
+### Patch Changes
+
+- [#1999](https://github.com/openapi-ts/openapi-typescript/pull/1999) [`e2d8541`](https://github.com/openapi-ts/openapi-typescript/commit/e2d854131a1dc11d3b8e8513d3e0ce1f04ea1211) Thanks [@patzick](https://github.com/patzick)! - Improved error messages to contain locations.
+
 ## 7.4.3
 
 ### Patch Changes

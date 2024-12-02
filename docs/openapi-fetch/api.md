@@ -207,7 +207,7 @@ openapi-fetch supports path serialization as [outlined in the 3.1 spec](https://
 
 ## Middleware
 
-Middleware is an object with `onRequest()` and `onResponse()` callbacks that can observe and modify requests and responses.
+Middleware is an object with `onRequest()`, `onResponse()` and `onError()` callbacks that can observe and modify requests, responses and errors.
 
 ```ts
 import createClient from "openapi-fetch";
@@ -224,6 +224,12 @@ const myMiddleware: Middleware = {
     // change status of response
     return new Response(body, { ...resOptions, status: 200 });
   },
+  async onError({ error }) {
+    // wrap errors thrown by fetch
+    onError({ error }) {
+      return new Error("Oops, fetch failed", { cause: error });
+    },
+  },
 };
 
 const client = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
@@ -238,21 +244,33 @@ client.use(myMiddleware);
 
 Each middleware callback receives the following `options` object with the following:
 
-| Name         | Type            | Description                                                                                 |
-| :----------- | :-------------- | :------------------------------------------------------------------------------------------ |
-| `request`    | `Request`       | The current `Request` to be sent to the endpoint.                                           |
-| `response`   | `Response`      | The `Response` returned from the endpoint (note: this will be `undefined` for `onRequest`). |
-| `schemaPath` | `string`        | The original OpenAPI path called (e.g. `/users/{user_id}`)                                  |
-| `params`     | `Object`        | The original `params` object passed to `GET()` / `POST()` / etc.                            |
-| `id`         | `string`        | A random, unique ID for this request.                                                       |
-| `options`    | `ClientOptions` | The readonly options passed to `createClient()`.                                            |
+| Name         | Type            | Description                                                      |
+| :----------- | :-------------- | :----------------------------------------------------------------|
+| `request`    | `Request`       | The current `Request` to be sent to the endpoint.                |
+| `schemaPath` | `string`        | The original OpenAPI path called (e.g. `/users/{user_id}`)       |
+| `params`     | `Object`        | The original `params` object passed to `GET()` / `POST()` / etc. |
+| `id`         | `string`        | A random, unique ID for this request.                            |
+| `options`    | `ClientOptions` | The readonly options passed to `createClient()`.                 |
+
+In addition to these, the `onResponse` callback receives an additional `response` property:
+
+| Name         | Type            | Description                                |
+| :----------- | :-------------- | :------------------------------------------|
+| `response`   | `Response`      | The `Response` returned from the endpoint. |
+
+And the `onError` callback receives an additional `error` property:
+
+| Name         | Type            | Description                                                              |
+| :----------- | :-------------- | :------------------------------------------------------------------------|
+| `error`      | `unknown`       | The error thrown by `fetch`, probably a `TypeError` or a `DOMException`. |
 
 #### Response
 
 Each middleware callback can return:
 
 - **onRequest**: Either a `Request` to modify the request, or `undefined` to leave it untouched (skip)
-- **onResponse** Either a `Response` to modify the response, or `undefined` to leave it untouched (skip)
+- **onResponse**: Either a `Response` to modify the response, or `undefined` to leave it untouched (skip)
+- **onError**: Either an `Error` to modify the error that is thrown, a `Response` which means that the `fetch` call will proceed as successful, or `undefined` to leave the error untouched (skip)
 
 ### Ejecting middleware
 

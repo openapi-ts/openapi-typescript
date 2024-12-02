@@ -6,6 +6,9 @@ on:
       - main
   pull_request:
 
+env:
+  GITHUB_TOKEN: ${{ secrets.OPENAPI_TS_BOT_GITHUB_TOKEN }}
+
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
@@ -20,7 +23,7 @@ jobs:
           node-version: 22
       - uses: pnpm/action-setup@v4
         with:
-          version: latest
+          version: 9.14.4
           run_install: true
       - run: pnpm run lint
   test-node-versions:
@@ -35,9 +38,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - uses: pnpm/action-setup@v4
         with:
-          version: latest
+          version: 9.14.4
           run_install: true
-      - run: pnpm run build
       - run: pnpm test
   test-e2e:
     runs-on: ubuntu-latest
@@ -48,7 +50,7 @@ jobs:
           node-version: 22
       - uses: pnpm/action-setup@v4
         with:
-          version: latest
+          version: 9.14.4
           run_install: true
       - run: pnpm exec playwright install --with-deps
       - run: pnpm run test-e2e
@@ -61,9 +63,8 @@ jobs:
           node-version: 22
       - uses: pnpm/action-setup@v4
         with:
-          version: latest
+          version: 9.14.4
           run_install: true
-      - run: pnpm run build
       - run: pnpm test
   test-windows:
     runs-on: windows-latest
@@ -74,7 +75,6 @@ jobs:
           node-version: 22
       - uses: pnpm/action-setup@v4
         with:
-          version: latest
+          version: 9.14.4
           run_install: true
-      - run: pnpm run build
       - run: pnpm test

@@ -2,7 +2,7 @@ type: object
 
 properties:
   redis_maxmemory_policy:
-    $ref: '../eviction_policy_model.yml'
+    $ref: "../eviction_policy_model.yml"
   redis_pubsub_client_output_buffer_limit:
     description: >-
       Set output buffer limit for pub / sub clients in MB. The value is the hard
@@ -43,7 +43,10 @@ properties:
     default: 1
     example: 1
   redis_ssl:
-    description: Require SSL to access Redis
+    description: |
+      Require SSL to access Redis.
+      - When enabled, Redis accepts only SSL connections on port `25061`.
+      - When disabled, port `25060` is opened for non-SSL connections, while port `25061` remains available for SSL connections.
     type: boolean
     default: true
     example: true
@@ -74,13 +77,13 @@ properties:
       - `A` &mdash; Alias for `"g$lshztxed"`
     type: string
     pattern: ^[KEg\$lshzxeA]*$
-    default: ''
+    default: ""
     maxLength: 32
     example: K
   redis_persistence:
     type: string
     enum:
-      - 'off'
+      - "off"
       - rdb
     description: >-
       When persistence is 'rdb', Redis does RDB dumps each 10 minutes if any key
