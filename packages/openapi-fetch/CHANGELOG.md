@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.13.2
+
+### Patch Changes
+
+- [#2020](https://github.com/openapi-ts/openapi-typescript/pull/2020) [`7081842`](https://github.com/openapi-ts/openapi-typescript/commit/70818420c1cd6ca2ad2529bf2d7936bd01f3ef42) Thanks [@mellster2012](https://github.com/mellster2012)! - Add client option to pass custom RequestInit object into fetch requests for supported implementations
+
 ## 0.13.1
 
 ### Patch Changes
