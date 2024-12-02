@@ -70,7 +70,7 @@
     "openapi-typescript-helpers": "workspace:^"
   },
   "devDependencies": {
-    "axios": "^1.7.7",
+    "axios": "^1.7.8",
     "del-cli": "^5.1.0",
     "esbuild": "^0.23.1",
     "execa": "^8.0.1",
@@ -79,7 +79,7 @@
     "openapi-typescript-codegen": "^0.25.0",
     "openapi-typescript-fetch": "^2.0.0",
     "superagent": "^10.1.1",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.10"
+    "typescript": "^5.7.2",
+    "vite": "^6.0.1"
   }
 }
