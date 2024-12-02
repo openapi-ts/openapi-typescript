@@ -72,7 +72,7 @@
   "devDependencies": {
     "axios": "^1.7.8",
     "del-cli": "^5.1.0",
-    "esbuild": "^0.23.1",
+    "esbuild": "^0.24.0",
     "execa": "^8.0.1",
     "feature-fetch": "^0.0.15",
     "openapi-typescript": "workspace:^",
