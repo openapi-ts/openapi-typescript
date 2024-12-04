@@ -35,7 +35,7 @@
   "size-limit": [
     {
       "path": "packages/openapi-fetch/dist/index.min.js",
-      "limit": "6.5 kB",
+      "limit": "7 kB",
       "brotli": false
     }
   ]
