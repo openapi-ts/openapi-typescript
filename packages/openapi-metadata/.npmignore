@@ -1,3 +1,4 @@
+.turbo
 test
 tsconfig*.json
 vitest.config.ts
