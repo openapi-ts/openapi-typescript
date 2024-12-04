@@ -1,5 +1,11 @@
 # openapi-react-query
 
+## 0.2.8
+
+### Patch Changes
+
+Refresh of 0.2.7; corrupted package
+
 ## 0.2.7
 
 ### Patch Changes
