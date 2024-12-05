@@ -56,15 +56,6 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
           }
         }
 
-        const property = ts.factory.createPropertySignature(
-          /* modifiers     */ tsModifiers({ readonly: ctx.immutable }),
-          /* name          */ tsPropertyIndex(name),
-          /* questionToken */ hasQuestionToken ? QUESTION_TOKEN : undefined,
-          /* type          */ subType,
-        );
-        addJSDocComment(item as unknown as any, property);
-        items.push(property);
-
         if (ctx.rootTypes) {
           const componentKey = changeCase.pascalCase(singularizeComponentKey(key));
           let aliasName = `${componentKey}${changeCase.pascalCase(name)}`;
@@ -76,27 +67,47 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
             conflictCounter++;
             aliasName = `${componentKey}${changeCase.pascalCase(name)}_${conflictCounter}`;
           }
-          const ref = ts.factory.createTypeReferenceNode(`components['${key}']['${name}']`);
           if (ctx.rootTypesNoSchemaPrefix && key === "schemas") {
             aliasName = aliasName.replace(componentKey, "");
           }
           const typeAlias = ts.factory.createTypeAliasDeclaration(
-            /* modifiers      */ tsModifiers({ export: true }),
-            /* name           */ aliasName,
-            /* typeParameters */ undefined,
-            /* type           */ ref,
+              /* modifiers      */ tsModifiers({ export: true }),
+              /* name          */ aliasName,
+              /* typeParameters */ undefined,
+              subType,
           );
+
           rootTypeAliases[aliasName] = typeAlias;
+
+          const property = ts.factory.createPropertySignature(
+              /* modifiers     */ tsModifiers({ readonly: ctx.immutable }),
+              /* name          */ tsPropertyIndex(name),
+              /* typeParameters */ undefined,
+              /* type          */ ts.factory.createTypeReferenceNode(aliasName),
+          );
+
+          addJSDocComment(item as unknown as any, property);
+          items.push(property);
+
+        } else {
+          const property = ts.factory.createPropertySignature(
+              /* modifiers     */ tsModifiers({ readonly: ctx.immutable }),
+              /* name          */ tsPropertyIndex(name),
+              /* questionToken */ hasQuestionToken ? QUESTION_TOKEN : undefined,
+              /* type          */ subType,
+          );
+          addJSDocComment(item as unknown as any, property);
+          items.push(property);
         }
       }
     }
     type.push(
-      ts.factory.createPropertySignature(
-        /* modifiers     */ undefined,
-        /* name          */ tsPropertyIndex(key),
-        /* questionToken */ undefined,
-        /* type          */ items.length ? ts.factory.createTypeLiteralNode(items) : NEVER,
-      ),
+        ts.factory.createPropertySignature(
+            /* modifiers     */ undefined,
+            /* name          */ tsPropertyIndex(key),
+            /* questionToken */ undefined,
+            /* type          */ items.length ? ts.factory.createTypeLiteralNode(items) : NEVER,
+        ),
     );
 
     debug(`Transformed components → ${key}`, "ts", performance.now() - componentT);
@@ -112,13 +123,13 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
 }
 
 export function singularizeComponentKey(
-  key: `x-${string}` | "schemas" | "responses" | "parameters" | "requestBodies" | "headers" | "pathItems",
+    key: `x-${string}` | "schemas" | "responses" | "parameters" | "requestBodies" | "headers" | "pathItems",
 ): string {
   switch (key) {
-    // Handle special singular case
+      // Handle special singular case
     case "requestBodies":
       return "requestBody";
-    // Default to removing the "s"
+      // Default to removing the "s"
     default:
       return key.slice(0, -1);
   }

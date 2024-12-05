@@ -581,121 +581,121 @@ describe("transformComponentsObject", () => {
         },
         want: `{
     schemas: {
-        SomeType: {
-            name: string;
-            url: string;
-        };
-        "Some-Type": {
-            name: string;
-            url: string;
-        };
-        "Some.Type": {
-            name: string;
-            url: string;
-        };
-        "Some/Type": {
-            name: string;
-            url: string;
-        };
-        "1Type": {
-            value: string;
-        };
-        Error: {
-            code: string;
-            message: string;
-        };
+        SomeType: SchemaSomeType;
+        "Some-Type": SchemaSomeType_2;
+        "Some.Type": SchemaSomeType_3;
+        "Some/Type": SchemaSomeType_4;
+        "1Type": Schema1Type;
+        Error: SchemaError;
     };
     responses: {
         /** @description OK */
-        OK: {
-            headers: {
-                [name: string]: unknown;
-            };
-            content: {
-                "text/html": string;
-            };
-        };
+        OK: ResponseOk;
         /** @description No Content */
-        NoContent: {
-            headers: {
-                [name: string]: unknown;
-            };
-            content?: never;
-        };
-        ErrorResponse: {
-            headers: {
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": components["schemas"]["Error"];
-            };
-        };
-        SomeType: {
-            headers: {
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": components["schemas"]["SomeType"];
-            };
-        };
+        NoContent: ResponseNoContent;
+        ErrorResponse: ResponseErrorResponse;
+        SomeType: ResponseSomeType;
     };
     parameters: {
-        Search: string;
+        Search: ParameterSearch;
     };
     requestBodies: {
-        UploadUser: {
-            content: {
-                "application/json": {
-                    email: string;
-                };
-            };
-        };
+        UploadUser: RequestBodyUploadUser;
     };
     headers: {
-        Auth: string;
+        Auth: HeaderAuth;
     };
     pathItems: {
-        UploadUser: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            get: {
-                parameters: {
-                    query?: never;
-                    header?: never;
-                    path?: never;
-                    cookie?: never;
-                };
-                requestBody?: components["requestBodies"]["UploadUser"];
-                responses: never;
-            };
-            put?: never;
-            post?: never;
-            delete?: never;
-            options?: never;
-            head?: never;
-            patch?: never;
-            trace?: never;
-        };
+        UploadUser: PathItemUploadUser;
     };
 }
-export type SchemaSomeType = components['schemas']['SomeType'];
-export type SchemaSomeType_2 = components['schemas']['Some-Type'];
-export type SchemaSomeType_3 = components['schemas']['Some.Type'];
-export type SchemaSomeType_4 = components['schemas']['Some/Type'];
-export type Schema1Type = components['schemas']['1Type'];
-export type SchemaError = components['schemas']['Error'];
-export type ResponseOk = components['responses']['OK'];
-export type ResponseNoContent = components['responses']['NoContent'];
-export type ResponseErrorResponse = components['responses']['ErrorResponse'];
-export type ResponseSomeType = components['responses']['SomeType'];
-export type ParameterSearch = components['parameters']['Search'];
-export type RequestBodyUploadUser = components['requestBodies']['UploadUser'];
-export type HeaderAuth = components['headers']['Auth'];
-export type PathItemUploadUser = components['pathItems']['UploadUser'];`,
+export type SchemaSomeType = {
+    name: string;
+    url: string;
+};
+export type SchemaSomeType_2 = {
+    name: string;
+    url: string;
+};
+export type SchemaSomeType_3 = {
+    name: string;
+    url: string;
+};
+export type SchemaSomeType_4 = {
+    name: string;
+    url: string;
+};
+export type Schema1Type = {
+    value: string;
+};
+export type SchemaError = {
+    code: string;
+    message: string;
+};
+export type ResponseOk = {
+    headers: {
+        [name: string]: unknown;
+    };
+    content: {
+        "text/html": string;
+    };
+};
+export type ResponseNoContent = {
+    headers: {
+        [name: string]: unknown;
+    };
+    content?: never;
+};
+export type ResponseErrorResponse = {
+    headers: {
+        [name: string]: unknown;
+    };
+    content: {
+        "application/json": components["schemas"]["Error"];
+    };
+};
+export type ResponseSomeType = {
+    headers: {
+        [name: string]: unknown;
+    };
+    content: {
+        "application/json": components["schemas"]["SomeType"];
+    };
+};
+export type ParameterSearch = string;
+export type RequestBodyUploadUser = {
+    content: {
+        "application/json": {
+            email: string;
+        };
+    };
+};
+export type HeaderAuth = string;
+export type PathItemUploadUser = {
+    parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+    };
+    get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: components["requestBodies"]["UploadUser"];
+        responses: never;
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+};`,
         options: { ...DEFAULT_OPTIONS, rootTypes: true },
       },
     ],
@@ -733,19 +733,9 @@ export type PathItemUploadUser = components['pathItems']['UploadUser'];`,
         },
         want: `{
     schemas: {
-        Item: {
-            name: string;
-            url: string;
-        };
-        Document: {
-            name: string;
-            size: number;
-            url: string;
-        };
-        Error: {
-            code: string;
-            message: string;
-        };
+        Item: Item;
+        Document: Document;
+        Error: Error;
     };
     responses: never;
     parameters: never;
@@ -753,9 +743,19 @@ export type PathItemUploadUser = components['pathItems']['UploadUser'];`,
     headers: never;
     pathItems: never;
 }
-export type Item = components['schemas']['Item'];
-export type Document = components['schemas']['Document'];
-export type Error = components['schemas']['Error'];
+export type Item = {
+    name: string;
+    url: string;
+};
+export type Document = {
+    name: string;
+    size: number;
+    url: string;
+};
+export type Error = {
+    code: string;
+    message: string;
+};
 `,
         options: { ...DEFAULT_OPTIONS, rootTypes: true, rootTypesNoSchemaPrefix: true },
       },
@@ -858,16 +858,16 @@ export type Error = components['schemas']['Error'];
 
   for (const [testName, { given, want, options, ci }] of tests) {
     test.skipIf(ci?.skipIf)(
-      testName,
-      async () => {
-        const result = astToString(transformComponentsObject(given, options ?? DEFAULT_OPTIONS));
-        if (want instanceof URL) {
-          expect(result).toMatchFileSnapshot(fileURLToPath(want));
-        } else {
-          expect(result.trim()).toBe(want.trim());
-        }
-      },
-      ci?.timeout,
+        testName,
+        async () => {
+          const result = astToString(transformComponentsObject(given, options ?? DEFAULT_OPTIONS));
+          if (want instanceof URL) {
+            expect(result).toMatchFileSnapshot(fileURLToPath(want));
+          } else {
+            expect(result.trim()).toBe(want.trim());
+          }
+        },
+        ci?.timeout,
     );
   }
 });
