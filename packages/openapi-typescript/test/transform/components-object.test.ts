@@ -858,16 +858,16 @@ export type Error = {
 
   for (const [testName, { given, want, options, ci }] of tests) {
     test.skipIf(ci?.skipIf)(
-        testName,
-        async () => {
-          const result = astToString(transformComponentsObject(given, options ?? DEFAULT_OPTIONS));
-          if (want instanceof URL) {
-            expect(result).toMatchFileSnapshot(fileURLToPath(want));
-          } else {
-            expect(result.trim()).toBe(want.trim());
-          }
-        },
-        ci?.timeout,
+      testName,
+      async () => {
+        const result = astToString(transformComponentsObject(given, options ?? DEFAULT_OPTIONS));
+        if (want instanceof URL) {
+          expect(result).toMatchFileSnapshot(fileURLToPath(want));
+        } else {
+          expect(result.trim()).toBe(want.trim());
+        }
+      },
+      ci?.timeout,
     );
   }
 });
