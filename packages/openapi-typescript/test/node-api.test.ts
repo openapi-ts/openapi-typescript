@@ -538,7 +538,7 @@ export type operations = Record<string, never>;`,
             schemas: {
               Date: { type: "string", format: "date-time" },
               Set: {
-                ["x-string-enum-to-set"]: true,
+                "x-string-enum-to-set": true,
                 type: "string",
                 enum: ["low", "medium", "high"],
               },
@@ -592,18 +592,13 @@ export type operations = Record<string, never>;`,
                 return typeof enumMember === "string";
               })
             ) {
-              return ts.factory.createTypeReferenceNode(
-                ts.factory.createIdentifier("Set"),
-                [
-                  ts.factory.createUnionTypeNode(
-                    schema.enum.map((value) => {
-                      return ts.factory.createLiteralTypeNode(
-                        ts.factory.createStringLiteral(value)
-                      );
-                    })
-                  ),
-                ]
-              );
+              return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Set"), [
+                ts.factory.createUnionTypeNode(
+                  schema.enum.map((value) => {
+                    return ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(value));
+                  }),
+                ),
+              ]);
             }
           },
         },
