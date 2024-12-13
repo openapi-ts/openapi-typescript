@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
 import openapiTS, { COMMENT_HEADER, astToString } from "../src/index.js";
-import type { OpenAPITSOptions } from "../src/types.js";
+import type { OpenAPITSOptions, ReferenceObject, SchemaObject } from "../src/types.js";
 import type { TestCase } from "./test-helpers.js";
 
 const EXAMPLES_DIR = new URL("../examples/", import.meta.url);
@@ -537,6 +537,11 @@ export type operations = Record<string, never>;`,
           components: {
             schemas: {
               Date: { type: "string", format: "date-time" },
+              Set: {
+                ["x-string-enum-to-set"]: true,
+                type: "string",
+                enum: ["low", "medium", "high"],
+              },
             },
           },
         },
@@ -546,6 +551,8 @@ export interface components {
     schemas: {
         /** Format: date-time */
         Date: DateOrTime;
+        /** @enum {string} */
+        Set: Set<"low" | "medium" | "high">;
     };
     responses: never;
     parameters: never;
@@ -563,7 +570,40 @@ export type operations = Record<string, never>;`,
                * then use the `typescript` parser and it will tell you the desired
                * AST
                */
-              return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("DateOrTime"));
+              return ts.factory.createTypeReferenceNode(
+                ts.factory.createIdentifier("DateOrTime")
+              );
+            }
+
+            // Previously, in order to access the schema in postTransform,
+            // you could resolve the schema using the path.
+            // Now, the schema is made available directly on the options.
+            // const schema = options.path
+            //   ? options.ctx.resolve<ReferenceObject | SchemaObject>(options.path)
+            //   : undefined;
+            const schema = options.schema;
+
+            if (
+              schema &&
+              !("$ref" in schema) &&
+              Object.hasOwn(schema, "x-string-enum-to-set") &&
+              schema.type === "string" &&
+              schema.enum?.every((enumMember) => {
+                return typeof enumMember === "string";
+              })
+            ) {
+              return ts.factory.createTypeReferenceNode(
+                ts.factory.createIdentifier("Set"),
+                [
+                  ts.factory.createUnionTypeNode(
+                    schema.enum.map((value) => {
+                      return ts.factory.createLiteralTypeNode(
+                        ts.factory.createStringLiteral(value)
+                      );
+                    })
+                  ),
+                ]
+              );
             }
           },
         },

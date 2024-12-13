@@ -707,5 +707,6 @@ export type $defs = Record<string, SchemaObject>;
 /** generic options for most internal transform* functions */
 export interface TransformNodeOptions {
   path?: string;
+  schema?: SchemaObject | ReferenceObject;
   ctx: GlobalContext;
 }
