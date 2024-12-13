@@ -19,7 +19,7 @@ export const DEFAULT_CTX: GlobalContext = {
   excludeDeprecated: false,
   exportType: false,
   immutable: false,
-  injectFooter: [],
+  injectNodes: [],
   pathParamsAsTypes: false,
   postTransform: undefined,
   propertiesRequiredByDefault: false,

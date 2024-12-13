@@ -81,7 +81,7 @@ export default async function openapiTS(
     immutable: options.immutable ?? false,
     rootTypes: options.rootTypes ?? false,
     rootTypesNoSchemaPrefix: options.rootTypesNoSchemaPrefix ?? false,
-    injectFooter: [],
+    injectNodes: [],
     pathParamsAsTypes: options.pathParamsAsTypes ?? false,
     postTransform: typeof options.postTransform === "function" ? options.postTransform : undefined,
     propertiesRequiredByDefault: options.propertiesRequiredByDefault ?? false,

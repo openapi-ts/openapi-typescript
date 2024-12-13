@@ -14,7 +14,7 @@ describe("CJS bundle", () => {
  */
 
 ${astToString(await openapiTS(new URL("../examples/stripe-api.yaml", import.meta.url)))}`;
-      expect(output).toMatchFileSnapshot(fileURLToPath(new URL("../examples/stripe-api.ts", import.meta.url)));
+      await expect(output).toMatchFileSnapshot(fileURLToPath(new URL("../examples/stripe-api.ts", import.meta.url)));
     },
     { timeout: TIMEOUT },
   );

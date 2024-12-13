@@ -636,7 +636,10 @@ export type operations = Record<string, never>;`,
             },
           },
         },
-        want: `export type paths = Record<string, never>;
+        want: `type WithRequired<T, K extends keyof T> = T & {
+    [P in K]-?: T[P];
+};
+export type paths = Record<string, never>;
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
@@ -661,9 +664,6 @@ export interface components {
     pathItems: never;
 }
 export type $defs = Record<string, never>;
-type WithRequired<T, K extends keyof T> = T & {
-    [P in K]-?: T[P];
-};
 export type operations = Record<string, never>;`,
         // options: DEFAULT_OPTIONS,
       },

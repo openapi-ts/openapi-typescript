@@ -84,7 +84,7 @@ describe("CLI", () => {
       async () => {
         const { stdout } = await execa(cmd, given, { cwd });
         if (want instanceof URL) {
-          expect(stdout).toMatchFileSnapshot(fileURLToPath(want));
+          await expect(stdout).toMatchFileSnapshot(fileURLToPath(want));
         } else {
           expect(stdout).toBe(`${want}\n`);
         }
@@ -145,7 +145,7 @@ describe("CLI", () => {
         cwd,
       });
       for (const schema of ["a", "b", "c"]) {
-        expect(
+        await expect(
           fs.readFileSync(new URL(`./test/fixtures/redocly-flag/output/${schema}.ts`, root), "utf8"),
         ).toMatchFileSnapshot(fileURLToPath(new URL("./examples/simple-example.ts", root)));
       }

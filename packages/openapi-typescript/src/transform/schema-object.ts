@@ -2,6 +2,7 @@ import { parseRef } from "@redocly/openapi-core/lib/ref-utils.js";
 import ts from "typescript";
 import {
   BOOLEAN,
+  type EnumMemberMetadata,
   NEVER,
   NULL,
   NUMBER,
@@ -12,6 +13,7 @@ import {
   addJSDocComment,
   astToString,
   oapiRef,
+  sanitizeMemberName,
   tsArrayLiteralExpression,
   tsEnum,
   tsIntersection,
@@ -37,13 +39,135 @@ export default function transformSchemaObject(
   options: TransformNodeOptions,
 ): ts.TypeNode {
   const type = transformSchemaObjectWithComposition(schemaObject, options);
-  if (typeof options.ctx.postTransform === "function") {
-    const postTransformResult = options.ctx.postTransform(type, options);
-    if (postTransformResult) {
-      return postTransformResult;
+  const postTransformType =
+    typeof options.ctx.postTransform === "function" ? options.ctx.postTransform(type, options) : undefined;
+
+  return postTransformType ?? type;
+}
+
+function isEnumMemberLiteral(value: any): value is string | number | null {
+  return value === null || typeof value === "number" || typeof value === "string";
+}
+type EnumSchemaMember = Exclude<SchemaObject["enum"], undefined>;
+type EnumSchemaObject = SchemaObject & {
+  readonly additionalProperties: never;
+  readonly enum: readonly EnumSchemaMember[];
+  readonly properties: never;
+};
+
+function isEnumSchemaObject(schemaObject: SchemaObject): schemaObject is EnumSchemaObject {
+  return (
+    Array.isArray(schemaObject.enum) &&
+    schemaObject.enum.length > 0 &&
+    (!("type" in schemaObject) || schemaObject.type !== "object") &&
+    !("properties" in schemaObject) &&
+    !("additionalProperties" in schemaObject)
+  );
+}
+
+function schemaObjectToEnumMemberMetadata(schemaObject: EnumSchemaObject): EnumMemberMetadata[] {
+  return schemaObject.enum.map((_, index) => {
+    return {
+      name: schemaObject["x-enum-varnames"]?.[index] ?? schemaObject["x-enumNames"]?.[index],
+      description: schemaObject["x-enum-descriptions"]?.[index] ?? schemaObject["x-enumDescriptions"]?.[index],
+    };
+  });
+}
+
+function transformEnumSchemaObjectToUnion(schemaObject: EnumSchemaObject) {
+  const isNullable =
+    ((Array.isArray(schemaObject.type) && schemaObject.type.includes("null")) || schemaObject.nullable) &&
+    !schemaObject.default;
+
+  const enumType = schemaObject.enum.map(tsLiteral);
+
+  return tsUnion(isNullable ? enumType.concat(NULL) : enumType);
+}
+
+function transformEnumSchemaObject(schemaObject: EnumSchemaObject, options: TransformNodeOptions) {
+  // If the `enum` or `enumValues` options are enabled, create and hoist the declarations
+  // for the enum and array, so long as all enum members are string or number literals.
+  const enumMembers = schemaObject.enum;
+  // First filter the enum members down to just the literals; this aids in narrowing the type
+  // of the values.
+  const initialEnumMemberLiterals = enumMembers.filter(isEnumMemberLiteral);
+  // After filtering & narrowing, ensure that all the members are literals by comparing the lengths
+  // of the filtered and unfiltered lists.
+  // If the lengths differ, this enum is not valid for transformation.
+  const enumMemberLiterals =
+    initialEnumMemberLiterals.length === enumMembers.length ? initialEnumMemberLiterals : undefined;
+
+  if (!(enumMemberLiterals?.length && (options.ctx.enum || options.ctx.enumValues))) {
+    return transformEnumSchemaObjectToUnion(schemaObject);
+  }
+
+  // The enum qualifies for extraction at this point, either as a TypeScript enum
+  // or as an array of values.
+  // Allow #/components/schemas to have simpler names
+  const enumName = parseRef(options.path ?? "")
+    .pointer.join("/")
+    .replace("components/schemas", "");
+
+  const metadata = schemaObjectToEnumMemberMetadata(schemaObject);
+
+  // OpenAPI enums can contain null values, but we don't want to output them
+  const hasNull = enumMembers.some((enumValue) => enumValue === null);
+  const members = enumMembers.filter(isEnumMemberLiteral).filter((enumValue) => enumValue !== null);
+
+  const enumType = options.ctx.enum
+    ? tsEnum(
+        // tsEnum performs its own sanitization on enumName
+        enumName,
+        members,
+        metadata,
+        // TS enum do not support the readonly modifier
+        { shouldCache: options.ctx.dedupeEnums, export: true },
+      )
+    : undefined;
+
+  const constTypeName = options.ctx.enumValues ? sanitizeMemberName(enumName) : undefined;
+  const constName = options.ctx.enumValues && constTypeName ? `${constTypeName}Values` : undefined;
+
+  const constExpression =
+    options.ctx.enumValues && constName
+      ? tsArrayLiteralExpression(
+          /* name        */ constName,
+          /* elementType */ undefined,
+          /* members     */ members,
+          /* metadata    */ metadata,
+          /* options     */ { shouldCache: options.ctx.dedupeEnums, export: true },
+        )
+      : undefined;
+
+  const constMemberType =
+    options.ctx.enumValues && constName && constTypeName
+      ? ts.factory.createTypeAliasDeclaration(
+          /* modifiers      */ tsModifiers({ export: true }),
+          /* name           */ constTypeName,
+          /* typeParameters */ undefined,
+          /* type           */ ts.factory.createIndexedAccessTypeNode(
+            ts.factory.createTypeQueryNode(ts.factory.createIdentifier(constName)),
+            ts.factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword),
+          ),
+        )
+      : undefined;
+
+  // Add declarations for all selected output types.
+  for (const node of [enumType, constExpression, constMemberType]) {
+    if (node && !options.ctx.injectNodes.includes(node)) {
+      options.ctx.injectNodes.push(node);
     }
   }
-  return type;
+
+  const refName = (enumType ? enumType.name : undefined) ?? (constMemberType ? constMemberType.name : undefined);
+
+  const ref = refName ? ts.factory.createTypeReferenceNode(refName) : undefined;
+
+  if (!ref) {
+    return NULL;
+  }
+
+  return hasNull ? tsUnion([ref, NULL].filter((node) => node !== undefined)) : ref;
 }
 
 /**
@@ -90,78 +214,9 @@ export function transformSchemaObjectWithComposition(
    * enum (non-objects)
    * note: enum is valid for any type, but for objects, handle in oneOf below
    */
-  if (
-    Array.isArray(schemaObject.enum) &&
-    (!("type" in schemaObject) || schemaObject.type !== "object") &&
-    !("properties" in schemaObject) &&
-    !("additionalProperties" in schemaObject)
-  ) {
-    // hoist enum to top level if string/number enum and option is enabled
-    if (
-      options.ctx.enum &&
-      schemaObject.enum.every((v) => typeof v === "string" || typeof v === "number" || v === null)
-    ) {
-      let enumName = parseRef(options.path ?? "").pointer.join("/");
-      // allow #/components/schemas to have simpler names
-      enumName = enumName.replace("components/schemas", "");
-      const metadata = schemaObject.enum.map((_, i) => ({
-        name: schemaObject["x-enum-varnames"]?.[i] ?? schemaObject["x-enumNames"]?.[i],
-        description: schemaObject["x-enum-descriptions"]?.[i] ?? schemaObject["x-enumDescriptions"]?.[i],
-      }));
-
-      // enums can contain null values, but dont want to output them
-      let hasNull = false;
-      const validSchemaEnums = schemaObject.enum.filter((enumValue) => {
-        if (enumValue === null) {
-          hasNull = true;
-          return false;
-        }
-
-        return true;
-      });
-      const enumType = tsEnum(enumName, validSchemaEnums as (string | number)[], metadata, {
-        shouldCache: options.ctx.dedupeEnums,
-        export: true,
-        // readonly: TS enum do not support the readonly modifier
-      });
-      if (!options.ctx.injectFooter.includes(enumType)) {
-        options.ctx.injectFooter.push(enumType);
-      }
-      const ref = ts.factory.createTypeReferenceNode(enumType.name);
-      return hasNull ? tsUnion([ref, NULL]) : ref;
-    }
-    const enumType = schemaObject.enum.map(tsLiteral);
-    if (
-      ((Array.isArray(schemaObject.type) && schemaObject.type.includes("null")) || schemaObject.nullable) &&
-      !schemaObject.default
-    ) {
-      enumType.push(NULL);
-    }
-
-    const unionType = tsUnion(enumType);
-
-    // hoist array with valid enum values to top level if string/number enum and option is enabled
-    if (options.ctx.enumValues && schemaObject.enum.every((v) => typeof v === "string" || typeof v === "number")) {
-      let enumValuesVariableName = parseRef(options.path ?? "").pointer.join("/");
-      // allow #/components/schemas to have simpler names
-      enumValuesVariableName = enumValuesVariableName.replace("components/schemas", "");
-      enumValuesVariableName = `${enumValuesVariableName}Values`;
-
-      const enumValuesArray = tsArrayLiteralExpression(
-        enumValuesVariableName,
-        oapiRef(options.path ?? ""),
-        schemaObject.enum as (string | number)[],
-        {
-          export: true,
-          readonly: true,
-          injectFooter: options.ctx.injectFooter,
-        },
-      );
-
-      options.ctx.injectFooter.push(enumValuesArray);
-    }
-
-    return unionType;
+  const enumSchemaObject = isEnumSchemaObject(schemaObject) ? schemaObject : undefined;
+  if (enumSchemaObject) {
+    return transformEnumSchemaObject(enumSchemaObject, options);
   }
 
   /**
@@ -169,13 +224,15 @@ export function transformSchemaObjectWithComposition(
    */
 
   /** Collect oneOf/anyOf */
-  function collectUnionCompositions(items: (SchemaObject | ReferenceObject)[]) {
-    const output: ts.TypeNode[] = [];
-    for (const item of items) {
-      output.push(transformSchemaObject(item, options));
-    }
+  function collectUnionCompositions(schemaObject: SchemaObject, items: (SchemaObject | ReferenceObject)[]) {
+    const compositionType =
+      (schemaObject.allOf ? "allOf" : undefined) ??
+      (schemaObject.anyOf ? "anyOf" : undefined) ??
+      (schemaObject.oneOf ? "oneOf" : undefined);
 
-    return output;
+    return items.map((item, index) =>
+      transformSchemaObject(item, { ...options, path: createRef([options.path, compositionType, index]) }),
+    );
   }
 
   /** Collect allOf with Omit<> for discriminators */
@@ -201,7 +258,7 @@ export function transformSchemaObjectWithComposition(
           // add WithRequired<X, Y> if necessary
           const validRequired = (required ?? []).filter((key) => !!resolved.properties?.[key]);
           if (validRequired.length) {
-            itemType = tsWithRequired(itemType, validRequired, options.ctx.injectFooter);
+            itemType = tsWithRequired(itemType, validRequired, options.ctx.injectNodes);
           }
         }
       }
@@ -237,12 +294,13 @@ export function transformSchemaObjectWithComposition(
   }
   // anyOf: union
   // (note: this may seem counterintuitive, but as TypeScript’s unions are not true XORs, they mimic behavior closer to anyOf than oneOf)
-  const anyOfType = collectUnionCompositions(schemaObject.anyOf ?? []);
+  const anyOfType = collectUnionCompositions(schemaObject, schemaObject.anyOf ?? []);
   if (anyOfType.length) {
     finalType = tsUnion([...(finalType ? [finalType] : []), ...anyOfType]);
   }
   // oneOf: union (within intersection with other types, if any)
   const oneOfType = collectUnionCompositions(
+    schemaObject,
     schemaObject.oneOf ||
       ("type" in schemaObject &&
         schemaObject.type === "object" &&
