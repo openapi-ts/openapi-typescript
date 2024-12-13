@@ -570,9 +570,7 @@ export type operations = Record<string, never>;`,
                * then use the `typescript` parser and it will tell you the desired
                * AST
                */
-              return ts.factory.createTypeReferenceNode(
-                ts.factory.createIdentifier("DateOrTime")
-              );
+              return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("DateOrTime"));
             }
 
             // Previously, in order to access the schema in postTransform,
