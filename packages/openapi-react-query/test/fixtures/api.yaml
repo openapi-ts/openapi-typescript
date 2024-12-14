@@ -3,6 +3,39 @@ info:
   title: Test Specification
   version: "1.0"
 paths:
+  /paginated-data:
+    get:
+      parameters:
+        - in: query
+          name: limit
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: integer
+                  nextPage:
+                    type: integer
+        '500':
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
   /comment:
     put:
       requestBody:
