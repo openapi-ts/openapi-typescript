@@ -100,7 +100,7 @@ Refer to the [Redocly docs](https://redocly.com/docs/cli/configuration/#resolve-
 The following flags are supported in the CLI:
 
 | Flag                               | Alias | Default  | Description                                                                                                         |
-| :--------------------------------- | :---- | :------: | :------------------------------------------------------------------------------------------------------------------ |
+|:-----------------------------------| :---- | :------: |:--------------------------------------------------------------------------------------------------------------------|
 | `--help`                           |       |          | Display inline help message and exit                                                                                |
 | `--version`                        |       |          | Display this library’s version and exit                                                                             |
 | `--output [location]`              | `-o`  | (stdout) | Where should the output file be saved?                                                                              |
@@ -121,6 +121,7 @@ The following flags are supported in the CLI:
 | `--path-params-as-types`           |       | `false`  | Allow dynamic string lookups on the `paths` object                                                                  |
 | `--root-types`                     |       | `false`  | Exports types from `components` as root level type aliases                                                          |
 | `--root-types-no-schema-prefix`    |       | `false`  | Do not add "Schema" prefix to types at the root level (should only be used with --root-types)                       |
+| `--make-paths-enum `               |       | `false`  | Generate ApiPaths enum for all paths                                                                                |
 
 ### pathParamsAsTypes
 
@@ -207,3 +208,22 @@ This results in more explicit typechecking of array lengths.
 _Note: this has a reasonable limit, so for example `maxItems: 100` would simply flatten back down to `string[];`_
 
 _Thanks, [@kgtkr](https://github.com/kgtkr)!_
+
+### makePathsEnum
+
+This option is useful for generating an enum for all paths in the schema. This can be useful to use the paths from the schema in your code.
+
+Enabling `--make-paths-enum` will add an `ApiPaths` enum like this to the generated types:
+
+::: code-group
+
+```ts [my-openapi-3-schema.d.ts]
+export enum ApiPaths {
+  "/user/{user_id}" = "/user/{user_id}",
+  "/user" = "/user",
+  "/user/{user_id}/pets" = "/user/{user_id}/pets",
+  "/user/{user_id}/pets/{pet_id}" = "/user/{user_id}/pets/{pet_id}",
+}
+```
+
+:::
