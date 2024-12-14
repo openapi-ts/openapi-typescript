@@ -84,6 +84,130 @@ function transformEnumSchemaObjectToUnion(schemaObject: EnumSchemaObject) {
   return tsUnion(isNullable ? enumType.concat(NULL) : enumType);
 }
 
+const createTypePredicateHelper = ts.factory.createFunctionDeclaration(
+  /* modifiers */ undefined,
+  /* asteriskToken */ undefined,
+  /* name */ ts.factory.createIdentifier("get_is"),
+  /* typeParameters */ [
+    ts.factory.createTypeParameterDeclaration(
+      /* modifiers   */ undefined,
+      /* name        */ ts.factory.createIdentifier("TItem"),
+      /* constraint  */ tsUnion([NUMBER, STRING]),
+      /* defaultType */ undefined,
+    ),
+  ],
+  /* parameters */ [
+    ts.factory.createParameterDeclaration(
+      /* modifiers      */ undefined,
+      /* dotDotDotToken */ undefined,
+      /* name           */ ts.factory.createIdentifier("items"),
+      /* questionToken  */ undefined,
+      /* type           */ ts.factory.createTypeOperatorNode(
+        /* operator */ ts.SyntaxKind.ReadonlyKeyword,
+        /* type     */ ts.factory.createArrayTypeNode(
+          /* elementType */ ts.factory.createTypeReferenceNode(
+            /* typeName      */ ts.factory.createIdentifier("TItem"),
+            /* typeArguments */ undefined,
+          ),
+        ),
+      ),
+      /* initializer    */ undefined,
+    ),
+  ],
+  /* type */ undefined,
+  /* body */ ts.factory.createBlock(
+    /* statements */ [
+      ts.factory.createReturnStatement(
+        ts.factory.createArrowFunction(
+          /* modifiers              */ undefined,
+          /* typeParameters         */ undefined,
+          /* parameters             */ [
+            ts.factory.createParameterDeclaration(
+              /* modifiers      */ undefined,
+              /* dotDotDotToken */ undefined,
+              /* name           */ ts.factory.createIdentifier("value"),
+              /* questionToken  */ undefined,
+              /* type           */ tsUnion([NULL, NUMBER, STRING, UNDEFINED]),
+              /* initializer    */ undefined,
+            ),
+          ],
+          /* type                   */ ts.factory.createTypePredicateNode(
+            /* assertsModifier */ undefined,
+            /* parameterName   */ ts.factory.createIdentifier("value"),
+            /* type            */ ts.factory.createTypeReferenceNode("TItem"),
+          ),
+          /* equalsGreaterThanToken */ ts.factory.createToken(ts.SyntaxKind.EqualsGreaterThanToken),
+          /* body                   */ ts.factory.createBlock(
+            /* statements */ [
+              ts.factory.createReturnStatement(
+                /* expression */ ts.factory.createBinaryExpression(
+                  /* left      */ ts.factory.createBinaryExpression(
+                    /* left     */ ts.factory.createBinaryExpression(
+                      /* left    */ ts.factory.createIdentifier("value"),
+                      /* operator*/ ts.SyntaxKind.ExclamationEqualsEqualsToken,
+                      /* right   */ ts.factory.createIdentifier("null"),
+                    ),
+                    /* operator */ ts.SyntaxKind.AmpersandAmpersandToken,
+                    /* right    */ ts.factory.createBinaryExpression(
+                      /* left     */ ts.factory.createIdentifier("value"),
+                      /* operator */ ts.SyntaxKind.ExclamationEqualsEqualsToken,
+                      /* right    */ ts.factory.createIdentifier("undefined"),
+                    ),
+                  ),
+                  /* operator  */ ts.SyntaxKind.AmpersandAmpersandToken,
+                  /* right */ ts.factory.createCallExpression(
+                    /* expression     */ ts.factory.createPropertyAccessExpression(
+                      /* expression */ ts.factory.createIdentifier("items"),
+                      /* name       */ ts.factory.createIdentifier("includes"),
+                    ),
+                    /* typeArguments  */ undefined,
+                    /* argumentsArray */ [
+                      ts.factory.createAsExpression(
+                        /* expression */ ts.factory.createIdentifier("value"),
+                        /* type       */ ts.factory.createTypeReferenceNode(
+                          /* typeName      */ ts.factory.createIdentifier("TItem"),
+                          /* typeArguments */ undefined,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+            /* multiLine  */ true,
+          ),
+        ),
+      ),
+    ],
+    /* multiline */ true,
+  ),
+);
+
+function getTypePredicate(constName: string, constTypeName: string, options: TransformNodeOptions) {
+  if (!options.ctx.injectNodes.includes(createTypePredicateHelper)) {
+    options.ctx.injectNodes.push(createTypePredicateHelper);
+  }
+
+  return ts.factory.createVariableStatement(
+    /* modifiers       */ tsModifiers({ export: true }),
+    /* declarationList */ ts.factory.createVariableDeclarationList(
+      /* declarations */ [
+        ts.factory.createVariableDeclaration(
+          /* name             */ ts.factory.createIdentifier(`is_${constTypeName}`),
+          /* exclamationToken */ undefined,
+          /* type             */ undefined,
+          /* initializer      */ ts.factory.createCallExpression(
+            /* expression */ ts.factory.createIdentifier("get_is"),
+            /* typeArguments */ [ts.factory.createTypeReferenceNode(ts.factory.createIdentifier(constTypeName))],
+            /* argumentsArray */ [ts.factory.createIdentifier(constName)],
+          ),
+        ),
+      ],
+      /* flags */ ts.NodeFlags.Const,
+    ),
+  );
+}
+
 function transformEnumSchemaObject(schemaObject: EnumSchemaObject, options: TransformNodeOptions) {
   // If the `enum` or `enumValues` options are enabled, create and hoist the declarations
   // for the enum and array, so long as all enum members are string or number literals.
@@ -152,8 +276,13 @@ function transformEnumSchemaObject(schemaObject: EnumSchemaObject, options: Tran
         )
       : undefined;
 
+  const constTypePredicate =
+    options.ctx.enumValues && constName && constTypeName
+      ? getTypePredicate(constName, constTypeName, options)
+      : undefined;
+
   // Add declarations for all selected output types.
-  for (const node of [enumType, constExpression, constMemberType]) {
+  for (const node of [enumType, constExpression, constMemberType, constTypePredicate]) {
     if (node && !options.ctx.injectNodes.includes(node)) {
       options.ctx.injectNodes.push(node);
     }

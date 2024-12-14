@@ -888,18 +888,29 @@ export type operations = Record<string, never>;`,
             },
           },
         },
-        want: `export const pathsUrlGetParametersQueryStatusValues = ["active", "inactive"] as const;
+        want: `function get_is<TItem extends number | string>(items: readonly TItem[]) {
+    return (value: null | number | string | undefined): value is TItem => {
+        return value !== null && value !== undefined && items.includes(value as TItem);
+    };
+}
+export const pathsUrlGetParametersQueryStatusValues = ["active", "inactive"] as const;
 export type pathsUrlGetParametersQueryStatus = (typeof pathsUrlGetParametersQueryStatusValues)[number];
+export const is_pathsUrlGetParametersQueryStatus = get_is<pathsUrlGetParametersQueryStatus>(pathsUrlGetParametersQueryStatusValues);
 export const pathsUrl2GetParametersQueryStatusAnyOf0Values = ["approved", "rejected"] as const;
 export type pathsUrl2GetParametersQueryStatusAnyOf0 = (typeof pathsUrl2GetParametersQueryStatusAnyOf0Values)[number];
+export const is_pathsUrl2GetParametersQueryStatusAnyOf0 = get_is<pathsUrl2GetParametersQueryStatusAnyOf0>(pathsUrl2GetParametersQueryStatusAnyOf0Values);
 export const pathsUrl2GetParametersQueryStatusAnyOf1Values = ["appealed"] as const;
 export type pathsUrl2GetParametersQueryStatusAnyOf1 = (typeof pathsUrl2GetParametersQueryStatusAnyOf1Values)[number];
+export const is_pathsUrl2GetParametersQueryStatusAnyOf1 = get_is<pathsUrl2GetParametersQueryStatusAnyOf1>(pathsUrl2GetParametersQueryStatusAnyOf1Values);
 export const StatusAnyOf0Values = ["active", "inactive"] as const;
 export type StatusAnyOf0 = (typeof StatusAnyOf0Values)[number];
+export const is_StatusAnyOf0 = get_is<StatusAnyOf0>(StatusAnyOf0Values);
 export const StatusAnyOf1Values = ["pending"] as const;
 export type StatusAnyOf1 = (typeof StatusAnyOf1Values)[number];
+export const is_StatusAnyOf1 = get_is<StatusAnyOf1>(StatusAnyOf1Values);
 export const ErrorCodeValues = [100, 101, 102, 103, 104, 105] as const;
 export type ErrorCode = (typeof ErrorCodeValues)[number];
+export const is_ErrorCode = get_is<ErrorCode>(ErrorCodeValues);
 export interface paths {
     "/url": {
         parameters: {
