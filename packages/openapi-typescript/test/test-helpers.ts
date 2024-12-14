@@ -31,6 +31,7 @@ export const DEFAULT_CTX: GlobalContext = {
   },
   silent: true,
   transform: undefined,
+  makePathsEnum: false,
 };
 
 /** Generic test case */
