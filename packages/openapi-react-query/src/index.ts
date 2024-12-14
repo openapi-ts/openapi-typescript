@@ -1,21 +1,21 @@
 import {
+  type UseMutationOptions,
+  type UseMutationResult,
+  type UseQueryOptions,
+  type UseQueryResult,
+  type UseSuspenseQueryOptions,
+  type UseSuspenseQueryResult,
+  type UseInfiniteQueryOptions,
+  type UseInfiniteQueryResult,
   type QueryClient,
   type QueryFunctionContext,
   type SkipToken,
-  useInfiniteQuery,
-  type UseInfiniteQueryOptions,
-  type UseInfiniteQueryResult,
   useMutation,
-  type UseMutationOptions,
-  type UseMutationResult,
   useQuery,
-  type UseQueryOptions,
-  type UseQueryResult,
   useSuspenseQuery,
-  type UseSuspenseQueryOptions,
-  type UseSuspenseQueryResult
+  useInfiniteQuery,
 } from "@tanstack/react-query";
-import type { ClientMethod, Client as FetchClient, FetchResponse, MaybeOptionalInit } from "openapi-fetch";
+import type { ClientMethod, FetchResponse, MaybeOptionalInit, Client as FetchClient } from "openapi-fetch";
 import type { HttpMethod, MediaType, PathsWithMethod, RequiredKeysOf } from "openapi-typescript-helpers";
 
 type InitWithUnknowns<Init> = Init & { [key: string]: unknown };
