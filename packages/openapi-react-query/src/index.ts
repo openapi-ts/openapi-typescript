@@ -96,8 +96,34 @@ export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMetho
   method: Method,
   url: Path,
   ...[init, options, queryClient]: RequiredKeysOf<Init> extends never
-    ? [InitWithUnknowns<Init>?, Omit<UseInfiniteQueryOptions<Response["data"], Response["error"], Response["data"], number, QueryKey<Paths, Method, Path>>, "queryKey" | "queryFn">?, QueryClient?]
-    : [InitWithUnknowns<Init>, Omit<UseInfiniteQueryOptions<Response["data"], Response["error"], Response["data"], number, QueryKey<Paths, Method, Path>>, "queryKey" | "queryFn">?, QueryClient?]
+    ? [
+        InitWithUnknowns<Init>?,
+        Omit<
+          UseInfiniteQueryOptions<
+            Response["data"],
+            Response["error"],
+            Response["data"],
+            number,
+            QueryKey<Paths, Method, Path>
+          >,
+          "queryKey" | "queryFn"
+        >?,
+        QueryClient?,
+      ]
+    : [
+        InitWithUnknowns<Init>,
+        Omit<
+          UseInfiniteQueryOptions<
+            Response["data"],
+            Response["error"],
+            Response["data"],
+            number,
+            QueryKey<Paths, Method, Path>
+          >,
+          "queryKey" | "queryFn"
+        >?,
+        QueryClient?,
+      ]
 ) => UseInfiniteQueryResult<Response["data"], Response["error"]>;
 
 export type UseMutationMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
@@ -145,22 +171,30 @@ export default function createClient<Paths extends {}, Media extends MediaType =
     ...options,
   });
 
- 
   const infiniteQueryOptions = <
-  Method extends HttpMethod,
-  Path extends PathsWithMethod<Paths, Method>,
-  Init extends MaybeOptionalInit<Paths[Path], Method & keyof Paths[Path]>,
-  Response extends Required<FetchResponse<any, Init, Media>>,
->(
-  method: Method,
-  path: Path,
-  init?: InitWithUnknowns<Init>,
-  options?: Omit<UseInfiniteQueryOptions<Response["data"], Response["error"], Response["data"], number, QueryKey<Paths, Method, Path>>, "queryKey" | "queryFn">
-) => ({
-  queryKey: [method, path, init] as const,
-  queryFn,
-  ...options,
-});
+    Method extends HttpMethod,
+    Path extends PathsWithMethod<Paths, Method>,
+    Init extends MaybeOptionalInit<Paths[Path], Method & keyof Paths[Path]>,
+    Response extends Required<FetchResponse<any, Init, Media>>,
+  >(
+    method: Method,
+    path: Path,
+    init?: InitWithUnknowns<Init>,
+    options?: Omit<
+      UseInfiniteQueryOptions<
+        Response["data"],
+        Response["error"],
+        Response["data"],
+        number,
+        QueryKey<Paths, Method, Path>
+      >,
+      "queryKey" | "queryFn"
+    >,
+  ) => ({
+    queryKey: [method, path, init] as const,
+    queryFn,
+    ...options,
+  });
 
   return {
     queryOptions,
@@ -170,12 +204,15 @@ export default function createClient<Paths extends {}, Media extends MediaType =
       useSuspenseQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
     useInfiniteQuery: (method, path, ...[init, options, queryClient]) => {
       const baseOptions = infiniteQueryOptions(method, path, init as InitWithUnknowns<typeof init>, options as any); // TODO: find a way to avoid as any
-      return useInfiniteQuery({
-        ...baseOptions,
-        initialPageParam: 0,
-        getNextPageParam: (lastPage: any, allPages: any[], lastPageParam: number, allPageParams: number[]) => 
-          options?.getNextPageParam?.(lastPage, allPages, lastPageParam, allPageParams) ?? allPages.length,
-      } as any, queryClient);
+      return useInfiniteQuery(
+        {
+          ...baseOptions,
+          initialPageParam: 0,
+          getNextPageParam: (lastPage: any, allPages: any[], lastPageParam: number, allPageParams: number[]) =>
+            options?.getNextPageParam?.(lastPage, allPages, lastPageParam, allPageParams) ?? allPages.length,
+        } as any,
+        queryClient,
+      );
     },
     useMutation: (method, path, options, queryClient) =>
       useMutation(
