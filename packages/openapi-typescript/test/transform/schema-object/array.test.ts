@@ -136,6 +136,22 @@ describe("transformSchemaObject > array", () => {
       },
     ],
     [
+      "options > arrayLength: true > minItems: 1, maxItems: 2",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 1, maxItems: 2 },
+        want: `[
+    string
+] | [
+    string,
+    string
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
       "options > arrayLength: true > maxItems: 20",
       {
         given: { type: "array", items: { type: "string" }, maxItems: 20 },

@@ -339,40 +339,26 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
         typeof schemaObject.maxItems === "number" && schemaObject.maxItems >= 0 && min <= schemaObject.maxItems
           ? schemaObject.maxItems
           : undefined;
-      const estimateCodeSize = typeof max !== "number" ? min : (max * (max + 1) - min * (min - 1)) / 2;
+      const estimateCodeSize = max === undefined ? min : (max * (max + 1) - min * (min - 1)) / 2;
       if (
         options.ctx.arrayLength &&
         (min !== 0 || max !== undefined) &&
         estimateCodeSize < 30 // "30" is an arbitrary number but roughly around when TS starts to struggle with tuple inference in practice
       ) {
-        if (min === max) {
-          const elements: ts.TypeNode[] = [];
-          for (let i = 0; i < min; i++) {
-            elements.push(itemType);
-          }
-          return tsUnion([ts.factory.createTupleTypeNode(elements)]);
-        } else if ((schemaObject.maxItems as number) > 0) {
-          // if maxItems is set, then return a union of all permutations of possible tuple types
-          const members: ts.TypeNode[] = [];
-          // populate 1 short of min …
-          for (let i = 0; i <= (max ?? 0) - min; i++) {
-            const elements: ts.TypeNode[] = [];
-            for (let j = min; j < i + min; j++) {
-              elements.push(itemType);
-            }
-            members.push(ts.factory.createTupleTypeNode(elements));
-          }
-          return tsUnion(members);
-        }
         // if maxItems not set, then return a simple tuple type the length of `min`
-        else {
-          const elements: ts.TypeNode[] = [];
-          for (let i = 0; i < min; i++) {
-            elements.push(itemType);
-          }
-          elements.push(ts.factory.createRestTypeNode(ts.factory.createArrayTypeNode(itemType)));
-          return ts.factory.createTupleTypeNode(elements);
+        if (max === undefined) {
+          return ts.factory.createTupleTypeNode([
+            ...Array.from({ length: min }).map(() => itemType),
+            ts.factory.createRestTypeNode(ts.factory.createArrayTypeNode(itemType)),
+          ]);
         }
+
+        // if maxItems is set, then return a union of all permutations of possible tuple types
+        return tsUnion(
+          Array.from({ length: max === undefined ? min : max - min + 1 }).map((_, index) =>
+            ts.factory.createTupleTypeNode(Array.from({ length: index + min }).map(() => itemType)),
+          ),
+        );
       }
 
       const finalType =
