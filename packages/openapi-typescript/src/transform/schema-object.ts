@@ -340,31 +340,33 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
           ? schemaObject.maxItems
           : undefined;
       const estimateCodeSize = max === undefined ? min : (max * (max + 1) - min * (min - 1)) / 2;
-      if (
-        options.ctx.arrayLength &&
-        (min !== 0 || max !== undefined) &&
-        estimateCodeSize < 30 // "30" is an arbitrary number but roughly around when TS starts to struggle with tuple inference in practice
-      ) {
-        // if maxItems not set, then return a simple tuple type the length of `min`
-        if (max === undefined) {
-          return ts.factory.createTupleTypeNode([
-            ...Array.from({ length: min }).map(() => itemType),
-            ts.factory.createRestTypeNode(ts.factory.createArrayTypeNode(itemType)),
-          ]);
-        }
 
-        // if maxItems is set, then return a union of all permutations of possible tuple types
+      // "30" is an arbitrary number but roughly around when TS starts to struggle with tuple inference in practice
+      const MAX_CODE_SIZE = 30;
+      const shouldGeneratePermutations =
+        options.ctx.arrayLength && (min !== 0 || max !== undefined) && estimateCodeSize < MAX_CODE_SIZE;
+
+      if (shouldGeneratePermutations && max !== undefined) {
         return tsUnion(
-          Array.from({ length: max === undefined ? min : max - min + 1 }).map((_, index) =>
-            ts.factory.createTupleTypeNode(Array.from({ length: index + min }).map(() => itemType)),
-          ),
+          Array.from({ length: max === undefined ? min : max - min + 1 }).map((_, index) => {
+            const tupleType = ts.factory.createTupleTypeNode(Array.from({ length: index + min }).map(() => itemType));
+            return options.ctx.immutable
+              ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, tupleType)
+              : tupleType;
+          }),
         );
       }
 
-      const finalType =
-        ts.isTupleTypeNode(itemType) || ts.isArrayTypeNode(itemType)
+      const finalType = shouldGeneratePermutations
+        ? // if maxItems not set, then return a simple tuple type the length of `min`
+          ts.factory.createTupleTypeNode([
+            ...Array.from({ length: min }).map(() => itemType),
+            ts.factory.createRestTypeNode(ts.factory.createArrayTypeNode(itemType)),
+          ])
+        : // wrap itemType in array type, but only if not a tuple or array already
+          ts.isTupleTypeNode(itemType) || ts.isArrayTypeNode(itemType)
           ? itemType
-          : ts.factory.createArrayTypeNode(itemType); // wrap itemType in array type, but only if not a tuple or array already
+          : ts.factory.createArrayTypeNode(itemType);
 
       return options.ctx.immutable
         ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, finalType)

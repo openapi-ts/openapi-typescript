@@ -105,6 +105,28 @@ describe("transformSchemaObject > array", () => {
       },
     ],
     [
+      "options > arrayLength: true > minItems: 0",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 0 },
+        want: "string[]",
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, immutable: true > minItems: 0",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 0 },
+        want: "readonly string[]",
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
+        },
+      },
+    ],
+    [
       "options > arrayLength: true > minItems: 1",
       {
         given: { type: "array", items: { type: "string" }, minItems: 1 },
@@ -115,6 +137,50 @@ describe("transformSchemaObject > array", () => {
         options: {
           ...DEFAULT_OPTIONS,
           ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, immutable: true > minItems: 1",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 1 },
+        want: `readonly [
+    string,
+    ...string[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > minItems: 2",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 2 },
+        want: `[
+    string,
+    string,
+    ...string[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, immutable: true > minItems: 2",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 2 },
+        want: `readonly [
+    string,
+    string,
+    ...string[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
         },
       },
     ],
@@ -136,6 +202,23 @@ describe("transformSchemaObject > array", () => {
       },
     ],
     [
+      "options > arrayLength: true, immutable: true > maxItems: 2",
+      {
+        given: { type: "array", items: { type: "string" }, maxItems: 2 },
+        want: `readonly [
+] | readonly [
+    string
+] | readonly [
+    string,
+    string
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
+        },
+      },
+    ],
+    [
       "options > arrayLength: true > minItems: 1, maxItems: 2",
       {
         given: { type: "array", items: { type: "string" }, minItems: 1, maxItems: 2 },
@@ -152,6 +235,22 @@ describe("transformSchemaObject > array", () => {
       },
     ],
     [
+      "options > arrayLength: true, immutable: true > minItems: 1, maxItems: 2",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 1, maxItems: 2 },
+        want: `readonly [
+    string
+] | readonly [
+    string,
+    string
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
+        },
+      },
+    ],
+    [
       "options > arrayLength: true > maxItems: 20",
       {
         given: { type: "array", items: { type: "string" }, maxItems: 20 },
@@ -159,6 +258,17 @@ describe("transformSchemaObject > array", () => {
         options: {
           ...DEFAULT_OPTIONS,
           ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, immutable: true > maxItems: 20",
+      {
+        given: { type: "array", items: { type: "string" }, maxItems: 20 },
+        want: "readonly string[]",
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
         },
       },
     ],
