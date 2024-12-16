@@ -346,6 +346,27 @@ describe("transformSchemaObject > array", () => {
       },
     ],
     [
+      "options > arrayLength: false, immutable: true > prefixItems, minItems: 3, maxItems: 5",
+      {
+        given: {
+          type: "array",
+          items: { type: "string" },
+          prefixItems: [{ type: "string" }, { type: "number" }],
+          minItems: 3,
+          maxItems: 5,
+        },
+        want: `readonly [
+    string,
+    number,
+    ...readonly string[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: false, immutable: true },
+        },
+      },
+    ],
+    [
       "options > immutable: true",
       {
         given: {
@@ -404,7 +425,7 @@ describe("transformSchemaObject > array", () => {
           type: "array",
           items: [{ type: "number" }, { type: "string" }],
         },
-        want: '#/components/schemas/schema-object: invalid property items. Expected Schema Object, got Array',
+        want: "#/components/schemas/schema-object: invalid property items. Expected Schema Object, got Array",
       },
     ],
   ];

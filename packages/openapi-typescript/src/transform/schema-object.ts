@@ -313,7 +313,10 @@ function transformArraySchemaObject(schemaObject: ArraySchemaObject, options: Tr
     prefixTypes.length,
   );
   const max: number | undefined =
-    typeof schemaObject.maxItems === "number" && schemaObject.maxItems >= 0 && min <= schemaObject.maxItems
+    options.ctx.arrayLength &&
+    typeof schemaObject.maxItems === "number" &&
+    schemaObject.maxItems >= 0 &&
+    min <= schemaObject.maxItems
       ? schemaObject.maxItems
       : undefined;
 
