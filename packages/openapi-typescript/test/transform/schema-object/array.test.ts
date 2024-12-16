@@ -146,7 +146,7 @@ describe("transformSchemaObject > array", () => {
         given: { type: "array", items: { type: "string" }, minItems: 1 },
         want: `readonly [
     string,
-    ...string[]
+    ...readonly string[]
 ]`,
         options: {
           ...DEFAULT_OPTIONS,
@@ -176,7 +176,7 @@ describe("transformSchemaObject > array", () => {
         want: `readonly [
     string,
     string,
-    ...string[]
+    ...readonly string[]
 ]`,
         options: {
           ...DEFAULT_OPTIONS,

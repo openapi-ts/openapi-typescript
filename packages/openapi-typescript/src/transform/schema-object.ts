@@ -357,16 +357,22 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
         );
       }
 
+      // if maxItems not set, then return a simple tuple type the length of `min`
+      const restType = ts.factory.createArrayTypeNode(itemType);
+
       const finalType = shouldGeneratePermutations
-        ? // if maxItems not set, then return a simple tuple type the length of `min`
-          ts.factory.createTupleTypeNode([
+        ? ts.factory.createTupleTypeNode([
             ...Array.from({ length: min }).map(() => itemType),
-            ts.factory.createRestTypeNode(ts.factory.createArrayTypeNode(itemType)),
+            ts.factory.createRestTypeNode(
+              options.ctx.immutable
+                ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, restType)
+                : restType,
+            ),
           ])
         : // wrap itemType in array type, but only if not a tuple or array already
           ts.isTupleTypeNode(itemType) || ts.isArrayTypeNode(itemType)
           ? itemType
-          : ts.factory.createArrayTypeNode(itemType);
+          : restType;
 
       return options.ctx.immutable
         ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, finalType)
