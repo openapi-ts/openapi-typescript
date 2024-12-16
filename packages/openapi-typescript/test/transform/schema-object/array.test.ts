@@ -19,19 +19,13 @@ describe("transformSchemaObject > array", () => {
       },
     ],
     [
-      "tuple > tuple items",
+      "array > heterogeneous items",
       {
         given: {
           type: "array",
-          items: [{ type: "string" }, { type: "number" }],
-          minItems: 2,
-          maxItems: 2,
+          items: [{ type: "number" }, { type: "string" }],
         },
-        want: `[
-    string,
-    number
-]`,
-        // options: DEFAULT_OPTIONS,
+        want: "(number | string)[]",
       },
     ],
     [
@@ -45,7 +39,8 @@ describe("transformSchemaObject > array", () => {
         want: `[
     number,
     number,
-    number
+    number,
+    ...number[]
 ]`,
         // options: DEFAULT_OPTIONS,
       },
@@ -287,6 +282,48 @@ describe("transformSchemaObject > array", () => {
       },
     ],
     [
+      "options > arrayLength: true, immutable: true > prefixItems, minItems: 3",
+      {
+        given: {
+          type: "array",
+          items: { type: "string" },
+          prefixItems: [{ type: "string" }, { type: "number" }],
+          minItems: 3,
+        },
+        want: `readonly [
+    string,
+    number,
+    string,
+    ...readonly string[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, immutable: true > prefixItems, minItems: 3, maxItems: 3",
+      {
+        given: {
+          type: "array",
+          items: { type: "string" },
+          prefixItems: [{ type: "string" }, { type: "number" }],
+          minItems: 3,
+          maxItems: 3,
+        },
+        want: `readonly [
+    string,
+    number,
+    string
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
+        },
+      },
+    ],
+    [
       "options > immutable: true",
       {
         given: {
@@ -311,7 +348,8 @@ describe("transformSchemaObject > array", () => {
         want: `readonly [
     number,
     number,
-    number
+    number,
+    ...readonly number[]
 ]`,
         options: {
           ...DEFAULT_OPTIONS,
