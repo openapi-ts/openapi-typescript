@@ -348,7 +348,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
 
       if (shouldGeneratePermutations && max !== undefined) {
         return tsUnion(
-          Array.from({ length: max === undefined ? min : max - min + 1 }).map((_, index) => {
+          Array.from({ length: max - min + 1 }).map((_, index) => {
             const tupleType = ts.factory.createTupleTypeNode(Array.from({ length: index + min }).map(() => itemType));
             return options.ctx.immutable
               ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, tupleType)
