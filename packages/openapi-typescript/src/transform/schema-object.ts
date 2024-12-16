@@ -282,6 +282,12 @@ function isArraySchemaObject(schemaObject: SchemaObject | ArraySchemaObject): sc
   return schemaObject.type === "array";
 }
 
+function padTupleMembers(length: number, itemType: ts.TypeNode, prefixTypes: readonly ts.TypeNode[]) {
+  return Array.from({ length }).map((_, index2) => {
+    return prefixTypes[index2] ?? itemType;
+  });
+}
+
 /* Transform Array schema object */
 function transformArraySchemaObject(schemaObject: ArraySchemaObject, options: TransformNodeOptions): ts.TypeNode {
   const prefixTypes = (schemaObject.prefixItems ?? []).map((item) => transformSchemaObject(item, options));
@@ -310,12 +316,7 @@ function transformArraySchemaObject(schemaObject: ArraySchemaObject, options: Tr
   if (shouldGeneratePermutations && max !== undefined) {
     return tsUnion(
       Array.from({ length: max - min + 1 }).map((_, index1) => {
-        const tupleType = ts.factory.createTupleTypeNode(
-          Array.from({ length: index1 + min }).map((_, index2) => {
-            return prefixTypes[index2] ?? itemType;
-          }),
-        );
-
+        const tupleType = ts.factory.createTupleTypeNode(padTupleMembers(index1 + min, itemType, prefixTypes));
         return options.ctx.immutable
           ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, tupleType)
           : tupleType;
@@ -327,9 +328,7 @@ function transformArraySchemaObject(schemaObject: ArraySchemaObject, options: Tr
   const spreadType = ts.factory.createArrayTypeNode(itemType);
   const tupleType = shouldGeneratePermutations
     ? ts.factory.createTupleTypeNode([
-        ...Array.from({ length: min }).map((_, index) => {
-          return prefixTypes[index] ?? itemType;
-        }),
+        ...padTupleMembers(min, itemType, prefixTypes),
         ts.factory.createRestTypeNode(
           options.ctx.immutable
             ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, spreadType)
