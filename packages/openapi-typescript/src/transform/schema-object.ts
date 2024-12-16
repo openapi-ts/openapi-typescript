@@ -303,7 +303,7 @@ function transformArraySchemaObject(schemaObject: ArraySchemaObject, options: Tr
     throw new Error(`${options.path}: invalid property items. Expected Schema Object, got Array`);
   }
 
-  const itemType = (schemaObject.items ? transformSchemaObject(schemaObject.items, options) : undefined) ?? UNKNOWN;
+  const itemType = schemaObject.items ? transformSchemaObject(schemaObject.items, options) : UNKNOWN;
 
   // The minimum number of tuple members to return
   const min: number = Math.max(

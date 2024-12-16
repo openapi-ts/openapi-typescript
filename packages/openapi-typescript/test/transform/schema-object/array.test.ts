@@ -367,6 +367,20 @@ describe("transformSchemaObject > array", () => {
       },
     ],
     [
+      "options > arrayLength: false > prefixItems, items: false",
+      {
+        given: {
+          type: "array",
+          items: false,
+          prefixItems: [{ type: "string", enum: ["professor"] }],
+        },
+        want: `[
+    "professor",
+    ...unknown[]
+]`,
+      },
+    ],
+    [
       "options > immutable: true",
       {
         given: {
