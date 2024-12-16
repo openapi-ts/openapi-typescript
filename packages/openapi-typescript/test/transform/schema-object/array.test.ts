@@ -23,7 +23,7 @@ describe("transformSchemaObject > array", () => {
       {
         given: {
           type: "array",
-          items: [{ type: "number" }, { type: "string" }],
+          items: { anyOf: [{ type: "number" }, { type: "string" }] },
         },
         want: "(number | string)[]",
       },
@@ -372,5 +372,26 @@ describe("transformSchemaObject > array", () => {
       },
       ci?.timeout,
     );
+  }
+
+  const invalidTests: TestCase[] = [
+    [
+      "error > items is array",
+      {
+        given: {
+          type: "array",
+          items: [{ type: "number" }, { type: "string" }],
+        },
+        want: '#/components/schemas/schema-object: invalid property items. Expected Schema Object, got Array',
+      },
+    ],
+  ];
+
+  for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of invalidTests) {
+    test.skipIf(ci?.skipIf)(testName, () => {
+      expect(() => {
+        transformSchemaObject(given, options);
+      }).toThrowError(want.toString());
+    });
   }
 });

@@ -286,12 +286,11 @@ function isArraySchemaObject(schemaObject: SchemaObject | ArraySchemaObject): sc
 function transformArraySchemaObject(schemaObject: ArraySchemaObject, options: TransformNodeOptions): ts.TypeNode {
   const prefixTypes = (schemaObject.prefixItems ?? []).map((item) => transformSchemaObject(item, options));
 
-  const itemType =
-    (Array.isArray(schemaObject.items)
-      ? tsUnion(schemaObject.items.map((item) => transformSchemaObject(item, options)))
-      : schemaObject.items
-        ? transformSchemaObject(schemaObject.items, options)
-        : undefined) ?? UNKNOWN;
+  if (Array.isArray(schemaObject.items)) {
+    throw new Error(`${options.path}: invalid property items. Expected Schema Object, got Array`);
+  }
+
+  const itemType = (schemaObject.items ? transformSchemaObject(schemaObject.items, options) : undefined) ?? UNKNOWN;
 
   const min: number = Math.max(
     typeof schemaObject.minItems === "number" && schemaObject.minItems >= 0 ? schemaObject.minItems : 0,
@@ -326,14 +325,18 @@ function transformArraySchemaObject(schemaObject: ArraySchemaObject, options: Tr
 
   // if maxItems not set, then return a simple tuple type the length of `min`
   const spreadType = ts.factory.createArrayTypeNode(itemType);
-  const tupleType = shouldGeneratePermutations ? ts.factory.createTupleTypeNode([
-    ...Array.from({ length: min }).map((_, index) => {
-      return prefixTypes[index] ?? itemType;
-    }),
-    ts.factory.createRestTypeNode(
-      options.ctx.immutable ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, spreadType) : spreadType,
-    ),
-  ]) : spreadType;
+  const tupleType = shouldGeneratePermutations
+    ? ts.factory.createTupleTypeNode([
+        ...Array.from({ length: min }).map((_, index) => {
+          return prefixTypes[index] ?? itemType;
+        }),
+        ts.factory.createRestTypeNode(
+          options.ctx.immutable
+            ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, spreadType)
+            : spreadType,
+        ),
+      ])
+    : spreadType;
 
   return options.ctx.immutable
     ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, tupleType)
