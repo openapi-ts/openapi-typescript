@@ -283,9 +283,16 @@ function isArraySchemaObject(schemaObject: SchemaObject | ArraySchemaObject): sc
 }
 
 function padTupleMembers(length: number, itemType: ts.TypeNode, prefixTypes: readonly ts.TypeNode[]) {
-  return Array.from({ length }).map((_, index2) => {
-    return prefixTypes[index2] ?? itemType;
+  return Array.from({ length }).map((_, index) => {
+    return prefixTypes[index] ?? itemType;
   });
+}
+
+function toOptionsReadonly<TMembers extends ts.ArrayTypeNode | ts.TupleTypeNode>(
+  members: TMembers,
+  options: TransformNodeOptions,
+): TMembers | ts.TypeOperatorNode {
+  return options.ctx.immutable ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, members) : members;
 }
 
 /* Transform Array schema object */
@@ -298,8 +305,11 @@ function transformArraySchemaObject(schemaObject: ArraySchemaObject, options: Tr
 
   const itemType = (schemaObject.items ? transformSchemaObject(schemaObject.items, options) : undefined) ?? UNKNOWN;
 
+  // The minimum number of tuple members to return
   const min: number = Math.max(
-    typeof schemaObject.minItems === "number" && schemaObject.minItems >= 0 ? schemaObject.minItems : 0,
+    options.ctx.arrayLength && typeof schemaObject.minItems === "number" && schemaObject.minItems >= 0
+      ? schemaObject.minItems
+      : 0,
     prefixTypes.length,
   );
   const max: number | undefined =
@@ -315,12 +325,9 @@ function transformArraySchemaObject(schemaObject: ArraySchemaObject, options: Tr
   // if maxItems is set, then return a union of all permutations of possible tuple types
   if (shouldGeneratePermutations && max !== undefined) {
     return tsUnion(
-      Array.from({ length: max - min + 1 }).map((_, index1) => {
-        const tupleType = ts.factory.createTupleTypeNode(padTupleMembers(index1 + min, itemType, prefixTypes));
-        return options.ctx.immutable
-          ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, tupleType)
-          : tupleType;
-      }),
+      Array.from({ length: max - min + 1 }).map((_, index) =>
+        toOptionsReadonly(ts.factory.createTupleTypeNode(padTupleMembers(index + min, itemType, prefixTypes)), options),
+      ),
     );
   }
 
@@ -329,17 +336,11 @@ function transformArraySchemaObject(schemaObject: ArraySchemaObject, options: Tr
   const tupleType = shouldGeneratePermutations
     ? ts.factory.createTupleTypeNode([
         ...padTupleMembers(min, itemType, prefixTypes),
-        ts.factory.createRestTypeNode(
-          options.ctx.immutable
-            ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, spreadType)
-            : spreadType,
-        ),
+        ts.factory.createRestTypeNode(toOptionsReadonly(spreadType, options)),
       ])
     : spreadType;
 
-  return options.ctx.immutable
-    ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, tupleType)
-    : tupleType;
+  return toOptionsReadonly(tupleType, options);
 }
 
 /**

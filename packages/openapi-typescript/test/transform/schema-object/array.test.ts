@@ -89,6 +89,28 @@ describe("transformSchemaObject > array", () => {
       },
     ],
     [
+      "options > arrayLength: false > minItems: 0",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 0 },
+        want: "string[]",
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: false },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: false > minItems: 1",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 1 },
+        want: "string[]",
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: false },
+        },
+      },
+    ],
+    [
       "options > arrayLength: true > default",
       {
         given: { type: "array", items: { type: "string" } },
