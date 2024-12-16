@@ -25,7 +25,7 @@ import {
   tsWithRequired,
 } from "../lib/ts.js";
 import { createDiscriminatorProperty, createRef, getEntries } from "../lib/utils.js";
-import type { ReferenceObject, SchemaObject, TransformNodeOptions } from "../types.js";
+import type { ArraySubtype, ReferenceObject, SchemaObject, TransformNodeOptions } from "../types.js";
 
 /**
  * Transform SchemaObject nodes (4.8.24)
@@ -277,6 +277,72 @@ export function transformSchemaObjectWithComposition(
   }
 }
 
+type ArraySchemaObject = SchemaObject & ArraySubtype;
+function isArraySchemaObject(schemaObject: SchemaObject | ArraySchemaObject): schemaObject is ArraySchemaObject {
+  return schemaObject.type === "array";
+}
+
+function transformArraySchemaObject(schemaObject: ArraySchemaObject, options: TransformNodeOptions): ts.TypeNode {
+  // default to `unknown[]`
+  let itemType: ts.TypeNode = UNKNOWN;
+  // tuple type
+  if (schemaObject.prefixItems || Array.isArray(schemaObject.items)) {
+    const prefixItems = schemaObject.prefixItems ?? (schemaObject.items as (SchemaObject | ReferenceObject)[]);
+    itemType = ts.factory.createTupleTypeNode(prefixItems.map((item) => transformSchemaObject(item, options)));
+  }
+  // standard array type
+  else if (schemaObject.items) {
+    if ("type" in schemaObject.items && schemaObject.items.type === "array") {
+      itemType = ts.factory.createArrayTypeNode(transformSchemaObject(schemaObject.items, options));
+    } else {
+      itemType = transformSchemaObject(schemaObject.items, options);
+    }
+  }
+
+  const min: number =
+    typeof schemaObject.minItems === "number" && schemaObject.minItems >= 0 ? schemaObject.minItems : 0;
+  const max: number | undefined =
+    typeof schemaObject.maxItems === "number" && schemaObject.maxItems >= 0 && min <= schemaObject.maxItems
+      ? schemaObject.maxItems
+      : undefined;
+  const estimateCodeSize = max === undefined ? min : (max * (max + 1) - min * (min - 1)) / 2;
+
+  // "30" is an arbitrary number but roughly around when TS starts to struggle with tuple inference in practice
+  const MAX_CODE_SIZE = 30;
+  const shouldGeneratePermutations =
+    options.ctx.arrayLength && (min !== 0 || max !== undefined) && estimateCodeSize < MAX_CODE_SIZE;
+
+  if (shouldGeneratePermutations && max !== undefined) {
+    return tsUnion(
+      Array.from({ length: max - min + 1 }).map((_, index) => {
+        const tupleType = ts.factory.createTupleTypeNode(Array.from({ length: index + min }).map(() => itemType));
+        return options.ctx.immutable
+          ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, tupleType)
+          : tupleType;
+      }),
+    );
+  }
+
+  // if maxItems not set, then return a simple tuple type the length of `min`
+  const restType = ts.factory.createArrayTypeNode(itemType);
+
+  const finalType = shouldGeneratePermutations
+    ? ts.factory.createTupleTypeNode([
+        ...Array.from({ length: min }).map(() => itemType),
+        ts.factory.createRestTypeNode(
+          options.ctx.immutable ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, restType) : restType,
+        ),
+      ])
+    : // wrap itemType in array type, but only if not a tuple or array already
+      ts.isTupleTypeNode(itemType) || ts.isArrayTypeNode(itemType)
+      ? itemType
+      : restType;
+
+  return options.ctx.immutable
+    ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, finalType)
+    : finalType;
+}
+
 /**
  * Handle SchemaObject minus composition (anyOf/allOf/oneOf)
  */
@@ -316,67 +382,8 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
     }
 
     // type: array (with support for tuples)
-    if (schemaObject.type === "array") {
-      // default to `unknown[]`
-      let itemType: ts.TypeNode = UNKNOWN;
-      // tuple type
-      if (schemaObject.prefixItems || Array.isArray(schemaObject.items)) {
-        const prefixItems = schemaObject.prefixItems ?? (schemaObject.items as (SchemaObject | ReferenceObject)[]);
-        itemType = ts.factory.createTupleTypeNode(prefixItems.map((item) => transformSchemaObject(item, options)));
-      }
-      // standard array type
-      else if (schemaObject.items) {
-        if ("type" in schemaObject.items && schemaObject.items.type === "array") {
-          itemType = ts.factory.createArrayTypeNode(transformSchemaObject(schemaObject.items, options));
-        } else {
-          itemType = transformSchemaObject(schemaObject.items, options);
-        }
-      }
-
-      const min: number =
-        typeof schemaObject.minItems === "number" && schemaObject.minItems >= 0 ? schemaObject.minItems : 0;
-      const max: number | undefined =
-        typeof schemaObject.maxItems === "number" && schemaObject.maxItems >= 0 && min <= schemaObject.maxItems
-          ? schemaObject.maxItems
-          : undefined;
-      const estimateCodeSize = max === undefined ? min : (max * (max + 1) - min * (min - 1)) / 2;
-
-      // "30" is an arbitrary number but roughly around when TS starts to struggle with tuple inference in practice
-      const MAX_CODE_SIZE = 30;
-      const shouldGeneratePermutations =
-        options.ctx.arrayLength && (min !== 0 || max !== undefined) && estimateCodeSize < MAX_CODE_SIZE;
-
-      if (shouldGeneratePermutations && max !== undefined) {
-        return tsUnion(
-          Array.from({ length: max - min + 1 }).map((_, index) => {
-            const tupleType = ts.factory.createTupleTypeNode(Array.from({ length: index + min }).map(() => itemType));
-            return options.ctx.immutable
-              ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, tupleType)
-              : tupleType;
-          }),
-        );
-      }
-
-      // if maxItems not set, then return a simple tuple type the length of `min`
-      const restType = ts.factory.createArrayTypeNode(itemType);
-
-      const finalType = shouldGeneratePermutations
-        ? ts.factory.createTupleTypeNode([
-            ...Array.from({ length: min }).map(() => itemType),
-            ts.factory.createRestTypeNode(
-              options.ctx.immutable
-                ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, restType)
-                : restType,
-            ),
-          ])
-        : // wrap itemType in array type, but only if not a tuple or array already
-          ts.isTupleTypeNode(itemType) || ts.isArrayTypeNode(itemType)
-          ? itemType
-          : restType;
-
-      return options.ctx.immutable
-        ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, finalType)
-        : finalType;
+    if (isArraySchemaObject(schemaObject)) {
+      return transformArraySchemaObject(schemaObject, options);
     }
 
     // polymorphic, or 3.1 nullable
