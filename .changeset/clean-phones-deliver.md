@@ -2,8 +2,10 @@
 "openapi-typescript": major
 ---
 
-Generate heterogeneous array types.
-Generate readonly tuple spread when.
-Generate tuple types with prefix items.
-Stop generating fixed-length tuple types when no minItems or maxItems is present.
-Stop generating empty tuple type when arrayLength: true and minItems: 1.
+Extract types generation for Array-type schemas to `transformArraySchemaObject` method.
+Throw error when OpenAPI `items` is array.
+Generate correct number of union members for `minItems` * `maxItems` unions.
+Generate readonly tuple members for `minItems` & `maxItems` unions.
+Generate readonly spread member for `prefixItems` tuple.
+Preserve `prefixItems` type members in `minItems` & `maxItems` tuples.
+Generate spread member for `prefixItems` tuple with no `minItems` / `maxItems` constraints.
