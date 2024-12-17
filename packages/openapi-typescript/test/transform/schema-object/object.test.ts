@@ -376,7 +376,7 @@ describe("transformSchemaObject > object", () => {
       },
     ],
     [
-      "options > two-dimensional array",
+      "options > array of tuples",
       {
         given: {
           type: "object",
@@ -384,7 +384,7 @@ describe("transformSchemaObject > object", () => {
             array: {
               type: "array",
               items: {
-                items: [
+                prefixItems: [
                   {
                     type: "string",
                   },
@@ -407,7 +407,7 @@ describe("transformSchemaObject > object", () => {
 }`,
         options: {
           ...DEFAULT_OPTIONS,
-          ctx: { ...DEFAULT_OPTIONS.ctx },
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
         },
       },
     ],

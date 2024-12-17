@@ -304,6 +304,116 @@ describe("transformSchemaObject > array", () => {
       },
     ],
     [
+      "options > arrayLength: true > prefixItems, minItems: 2, maxItems: 2",
+      {
+        given: {
+          type: "array",
+          items: { type: "string" },
+          prefixItems: [
+            { type: "string", enum: ["calcium"] },
+            { type: "string", enum: ["magnesium"] },
+          ],
+          minItems: 2,
+          maxItems: 2,
+        },
+        want: `[
+    "calcium",
+    "magnesium"
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > no items, prefixItems, minItems: 2, maxItems: 3",
+      {
+        given: {
+          type: "array",
+          prefixItems: [
+            { type: "string", enum: ["calcium"] },
+            { type: "string", enum: ["magnesium"] },
+          ],
+          minItems: 2,
+          maxItems: 3,
+        },
+        want: `[
+    "calcium",
+    "magnesium"
+] | [
+    "calcium",
+    "magnesium",
+    unknown
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > no items, prefixItems, minItems: 3",
+      {
+        given: {
+          type: "array",
+          prefixItems: [
+            { type: "string", enum: ["calcium"] },
+            { type: "string", enum: ["magnesium"] },
+          ],
+          minItems: 3,
+        },
+        want: `[
+    "calcium",
+    "magnesium",
+    unknown,
+    ...unknown[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > no items, prefixItems, minItems: 2, maxItems: 5",
+      {
+        given: {
+          type: "array",
+          prefixItems: [
+            { type: "string", enum: ["calcium"] },
+            { type: "string", enum: ["magnesium"] },
+            { type: "string", enum: ["tungsten"] },
+          ],
+          minItems: 2,
+          maxItems: 5,
+        },
+        want: `[
+    "calcium",
+    "magnesium"
+] | [
+    "calcium",
+    "magnesium",
+    "tungsten"
+] | [
+    "calcium",
+    "magnesium",
+    "tungsten",
+    unknown
+] | [
+    "calcium",
+    "magnesium",
+    "tungsten",
+    unknown,
+    unknown
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
       "options > arrayLength: true, immutable: true > prefixItems, minItems: 3",
       {
         given: {
@@ -421,6 +531,7 @@ describe("transformSchemaObject > array", () => {
       testName,
       async () => {
         const result = astToString(transformSchemaObject(given, options));
+        // console.log(result);
         if (want instanceof URL) {
           expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {

@@ -10,6 +10,7 @@ import {
   UNDEFINED,
   UNKNOWN,
   addJSDocComment,
+  astToString,
   oapiRef,
   tsArrayLiteralExpression,
   tsEnum,
@@ -306,12 +307,10 @@ function transformArraySchemaObject(schemaObject: ArraySchemaObject, options: Tr
   const itemType = schemaObject.items ? transformSchemaObject(schemaObject.items, options) : UNKNOWN;
 
   // The minimum number of tuple members to return
-  const min: number = Math.max(
+  const min: number =
     options.ctx.arrayLength && typeof schemaObject.minItems === "number" && schemaObject.minItems >= 0
       ? schemaObject.minItems
-      : 0,
-    prefixTypes.length,
-  );
+      : 0;
   const max: number | undefined =
     options.ctx.arrayLength &&
     typeof schemaObject.maxItems === "number" &&
@@ -336,12 +335,13 @@ function transformArraySchemaObject(schemaObject: ArraySchemaObject, options: Tr
 
   // if maxItems not set, then return a simple tuple type the length of `min`
   const spreadType = ts.factory.createArrayTypeNode(itemType);
-  const tupleType = shouldGeneratePermutations
-    ? ts.factory.createTupleTypeNode([
-        ...padTupleMembers(min, itemType, prefixTypes),
-        ts.factory.createRestTypeNode(toOptionsReadonly(spreadType, options)),
-      ])
-    : spreadType;
+  const tupleType =
+    shouldGeneratePermutations || prefixTypes.length
+      ? ts.factory.createTupleTypeNode([
+          ...padTupleMembers(Math.max(min, prefixTypes.length), itemType, prefixTypes),
+          ts.factory.createRestTypeNode(toOptionsReadonly(spreadType, options)),
+        ])
+      : spreadType;
 
   return toOptionsReadonly(tupleType, options);
 }
