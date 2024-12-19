@@ -22,9 +22,6 @@ body:
   - type: checkboxes
     id: checklist
     attributes:
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com).
       options:
-        - label: I agree to follow this project's [Code of Conduct](https://github.com/openapi-ts/openapi-typescript/blob/main/CODE_OF_CONDUCT.md)
-          required: true
         - label: I’m willing to open a PR (see [CONTRIBUTING.md](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-react-query/CONTRIBUTING.md))
 ---
