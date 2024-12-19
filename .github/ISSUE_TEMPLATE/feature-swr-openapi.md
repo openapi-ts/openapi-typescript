@@ -16,7 +16,7 @@ body:
     id: proposal
     attributes:
       label: Proposal
-      description: Write out the proposed syntax change. Please reference any prior art or similar examples.
+      description: Describe the proposed syntax change. Please reference any prior art or similar examples.
     validations:
       required: true
   - type: checkboxes
