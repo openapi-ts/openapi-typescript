@@ -1,5 +1,5 @@
 ---
-name: "Bug report: openapi-fetch"
+name: "Bug report: openapi-react-query"
 about: For the openapi-react-query library
 title: ""
 labels: openapi-react-query, bug
