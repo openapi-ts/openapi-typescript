@@ -65,14 +65,14 @@
     "openapi-typescript-helpers": "workspace:^"
   },
   "devDependencies": {
-    "@tanstack/react-query": "^5.62.0",
-    "@testing-library/react": "^16.0.1",
+    "@tanstack/react-query": "^5.62.8",
+    "@testing-library/react": "^16.1.0",
     "@types/react": "18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
     "del-cli": "^5.1.0",
     "esbuild": "^0.24.0",
     "execa": "^8.0.1",
-    "msw": "^2.6.6",
+    "msw": "^2.7.0",
     "openapi-fetch": "workspace:^",
     "openapi-typescript": "workspace:^",
     "react": "^18.3.1",

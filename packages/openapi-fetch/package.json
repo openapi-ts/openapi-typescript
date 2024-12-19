@@ -83,6 +83,6 @@
     "superagent": "^10.1.1",
     "typescript": "^5.7.2",
     "undici": "^6.21.0",
-    "vite": "^6.0.1"
+    "vite": "^6.0.4"
   }
 }

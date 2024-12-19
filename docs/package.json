@@ -4,13 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build-docs": "pnpm run update-contributors && vitepress build && cp _redirects .vitepress/dist",
+    "build-docs": "pnpm run update-contributors && pnpm run -w build && vitepress build && cp _redirects .vitepress/dist",
     "dev": "vitepress dev",
     "update-contributors": "node scripts/update-contributors.js"
   },
   "devDependencies": {
-    "vitepress": "1.5.0",
-    "@shikijs/vitepress-twoslash": "^1.22.2",
-    "openapi-metadata": "workspace:*"
+    "@shikijs/vitepress-twoslash": "^1.24.3",
+    "openapi-metadata": "workspace:*",
+    "vite": "^6.0.4",
+    "vitepress": "1.5.0"
   }
 }
