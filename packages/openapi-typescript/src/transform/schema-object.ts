@@ -257,24 +257,20 @@ export function transformSchemaObjectWithComposition(
     }
   }
 
-  // if final type could be generated, return intersection of all members
-  if (finalType) {
-    // deprecated nullable
-    if (schemaObject.nullable && !schemaObject.default) {
-      return tsNullable([finalType]);
+  // When no final type can be generated, fall back to unknown type (or related variants)
+  if (!finalType) {
+    if ("type" in schemaObject) {
+      finalType = tsRecord(STRING, options.ctx.emptyObjectsUnknown ? UNKNOWN : NEVER);
+    } else {
+      finalType = UNKNOWN;
     }
-    return finalType;
   }
-  // otherwise fall back to unknown type (or related variants)
-  else {
-    // fallback: unknown
-    if (!("type" in schemaObject)) {
-      return UNKNOWN;
-    }
 
-    // if no type could be generated, fall back to “empty object” type
-    return tsRecord(STRING, options.ctx.emptyObjectsUnknown ? UNKNOWN : NEVER);
+  if (finalType !== UNKNOWN && schemaObject.nullable && !schemaObject.default) {
+    finalType = tsNullable([finalType]);
   }
+
+  return finalType;
 }
 
 /**
