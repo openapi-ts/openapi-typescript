@@ -8,8 +8,6 @@ import { generateOperationParameters } from "./operation-parameters.js";
 import { OperationResponseMetadataStorage } from "../metadata/operation-response.js";
 import { generateOperationResponse } from "./operation-response.js";
 import { OperationSecurityMetadataStorage } from "../metadata/operation-security.js";
-import { ExtraModelsMetadataStorage } from "../metadata/extra-models.js";
-import { loadType } from "../loaders/type.js";
 
 export async function generateOperation(
   context: Context,
@@ -21,29 +19,26 @@ export async function generateOperation(
 
   const target = controller.prototype;
 
-  const extraModels = ExtraModelsMetadataStorage.getMetadata(target);
-
-  await Promise.all(extraModels.map((m) => loadType(context, { type: m })));
-
   const body = OperationBodyMetadataStorage.getMetadata(target, propertyKey);
   if (body) {
     operation.requestBody = await generateOperationBody(context, body);
   }
 
-  const parameters = OperationParameterMetadataStorage.getMetadata(target, propertyKey);
+  const parameters = OperationParameterMetadataStorage.getMetadata(target, propertyKey, true);
   operation.parameters = [];
   for (const parameter of parameters) {
     operation.parameters.push(await generateOperationParameters(context, parameter));
   }
 
-  const responses = OperationResponseMetadataStorage.getMetadata(target, propertyKey);
+  const responses = OperationResponseMetadataStorage.getMetadata(target, propertyKey, true);
   for (const [status, response] of Object.entries(responses)) {
     operation.responses[status] = await generateOperationResponse(context, response);
   }
 
   const security = OperationSecurityMetadataStorage.getMetadata(target, propertyKey, true);
 
-  operation.security = [security];
+  // TODO: Check what the difference between `[{ auth1: {} }, {auth2: {} }]` and `[{ auth1: {}, auth2: {}}]`
+  operation.security = Object.keys(security).length > 0 ? [security] : [];
 
   return operation;
 }

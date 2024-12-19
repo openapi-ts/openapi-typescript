@@ -7,13 +7,13 @@ export async function generateOperationResponse(
   context: Context,
   metadata: OperationResponseMetadata,
 ): Promise<OpenAPIV3.ResponseObject> {
-  const { type, schema: s, enum: e, ...response } = metadata as any;
+  const { type, schema: s, enum: e, mediaType, status, ...response } = metadata;
 
   return {
     description: "",
     ...response,
     content: {
-      [metadata.mediaType]: {
+      [mediaType]: {
         schema: await loadType(context, metadata),
       },
     },

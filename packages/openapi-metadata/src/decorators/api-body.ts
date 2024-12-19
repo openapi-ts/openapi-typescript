@@ -3,6 +3,12 @@ import { type OperationBodyMetadata, OperationBodyMetadataStorage } from "../met
 
 export type ApiBodyOptions = SetOptional<OperationBodyMetadata, "mediaType">;
 
+/**
+ * Configures the request body.
+ * Can be applied to Controllers and Operations.
+ *
+ * @see https://swagger.io/specification/#request-body-object
+ */
 export function ApiBody(options: ApiBodyOptions): MethodDecorator {
   return (target, propertyKey) => {
     OperationBodyMetadataStorage.defineMetadata(

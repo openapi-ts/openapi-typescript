@@ -1,9 +1,15 @@
 import type { EnumTypeValue } from "../types.js";
 
+/**
+ * Returns primitive type from values of an enum.
+ */
 export function getEnumType(values: (string | number)[]): "string" | "number" {
   return values.some((v) => typeof v === "string") ? "string" : "number";
 }
 
+/**
+ * Returns values of an enum.
+ */
 export function getEnumValues(enumType: EnumTypeValue) {
   if (Array.isArray(enumType)) {
     return enumType;

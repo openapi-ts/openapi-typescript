@@ -4,9 +4,12 @@ import type { TypeLoaderFn, TypeOptions } from "../types.js";
 import type { SetRequired } from "type-fest";
 import { getEnumType, getEnumValues } from "../utils/enum.js";
 import { PropertyMetadataStorage } from "../metadata/property.js";
-import { schemaPath } from "../utils/schema.js";
+import { getSchemaPath } from "../utils/schema.js";
 import { isThunk } from "../utils/metadata.js";
 
+/**
+ * Type loader to load primitive types.
+ */
 export const PrimitiveTypeLoader: TypeLoaderFn = async (_context, value) => {
   if (typeof value === "string") {
     return { type: value };
@@ -28,6 +31,9 @@ export const PrimitiveTypeLoader: TypeLoaderFn = async (_context, value) => {
   }
 };
 
+/**
+ * Type loader to load array types.
+ */
 export const ArrayTypeLoader: TypeLoaderFn = async (context, value) => {
   if (!Array.isArray(value)) {
     return;
@@ -59,6 +65,9 @@ export const ArrayTypeLoader: TypeLoaderFn = async (context, value) => {
   };
 };
 
+/**
+ * Type loader to load classes as SchemaObject.
+ */
 export const ClassTypeLoader: TypeLoaderFn = async (context, value) => {
   if (typeof value !== "function" || !value.prototype) {
     return;
@@ -67,7 +76,7 @@ export const ClassTypeLoader: TypeLoaderFn = async (context, value) => {
   const model = value.name;
 
   if (context.schemas[model]) {
-    return { $ref: schemaPath(model) };
+    return { $ref: getSchemaPath(model) };
   }
 
   const schema: SetRequired<OpenAPIV3.SchemaObject, "properties" | "required"> = {
@@ -96,9 +105,12 @@ export const ClassTypeLoader: TypeLoaderFn = async (context, value) => {
     }
   }
 
-  return { $ref: schemaPath(model) };
+  return { $ref: getSchemaPath(model) };
 };
 
+/**
+ * Transforms a type option into a SchemaObject or ReferenceObject.
+ */
 export async function loadType(
   context: Context,
   options: TypeOptions,
@@ -125,7 +137,7 @@ export async function loadType(
   const thunk = isThunk(options.type);
   const value = thunk ? (options.type as Function)(context) : options.type;
 
-  for (const loader of [PrimitiveTypeLoader, ...context.typeLoaders, ClassTypeLoader]) {
+  for (const loader of [PrimitiveTypeLoader, ArrayTypeLoader, ...context.typeLoaders, ClassTypeLoader]) {
     const result = await loader(context, value, options.type);
     if (result) {
       return result;

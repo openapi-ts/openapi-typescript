@@ -8,14 +8,15 @@ title: "Getting started"
 
 ::: code-group
 
-```ts [users_controller.ts]
+```ts [users_controller.ts] twoslash
+// @noErrors
 import { ApiOperation, ApiResponse } from "openapi-metadata/decorators";
 import User from "./user";
 
 class UsersController {
   @ApiOperation({
-    method: "get",
-    pattern: "/users",
+    methods: ["get"],
+    path: "/users",
     summary: "List users"
   })
   @ApiResponse({ type: [User] })
@@ -25,7 +26,7 @@ class UsersController {
 }
 ```
 
-```ts [user.ts]
+```ts [user.ts] twoslash
 import { ApiProperty } from "openapi-metadata/decorators";
 
 class User {
@@ -40,7 +41,8 @@ class User {
 }
 ```
 
-```ts [index.ts]
+```ts [index.ts] twoslash
+// @noErrors
 import "reflect-metadata";
 import { generateDocument } from "openapi-metadata";
 import UsersController from "./users_controller";
@@ -49,7 +51,7 @@ const document = await generateDocument({
   controllers: [UsersController],
   document: {
     info: {
-      name: "My Api",
+      title: "My Api",
       version: "1.0.0",
     },
   },
@@ -109,21 +111,21 @@ To get started, you can use the `generateDocument` function to create an (almost
 
 ::: code-group
 
-```ts [index.ts]
+```ts [index.ts] twoslash
 import "reflect-metadata";
 import { generateDocument } from "openapi-metadata";
 
-const builder = await generateDocument({
+const document = await generateDocument({
   controllers: [],
   document: {
     info: {
-      name: "My API",
+      title: "My API",
       version: "1.0.0",
     },
   },
 });
 
-console.log(document.build()); // <- Your generated OpenAPI specifications
+console.log(document); // <- Your generated OpenAPI specifications
 ```
 
 :::
@@ -135,14 +137,15 @@ In the following example we have a `UsersController` which declares an operation
 
 ::: code-group
 
-```ts [controllers/users_controller.ts]
+```ts [controllers/users_controller.ts] twoslash
+// @noErrors
 import { ApiOperation, ApiResponse } from "openapi-metadata/decorators";
 import User from "../schemas/user";
 
 export default class UsersController {
   @ApiOperation({
-    method: "get",
-    pattern: "/users",
+    methods: ["get"],
+    path: "/users",
     summary: "List users",
   })
   @ApiResponse({ type: [User] })
@@ -164,7 +167,7 @@ By using the `@ApiProperty` decorator on class we can define the properties of o
 
 ::: code-group
 
-```ts [schemas/user.ts]
+```ts [schemas/user.ts] twoslash
 import { ApiProperty } from "openapi-metadata/decorators";
 
 export default class User {
@@ -184,18 +187,19 @@ export default class User {
 
 :::
 
-### Add the controller to the generated document
+### Register your controller
 
-Now that we have our controller ready, we can use it to generate our document.
+Now that we have our controller ready, we can include it when generating our document.
 
 ::: code-group
 
-```ts [index.ts]
+```ts [index.ts] twoslash
+// @noErrors
 import "reflect-metadata";
 import { generateDocument } from "openapi-metadata";
 import UsersController from "./controllers/users_controller.ts";
 
-const builder = await generateDocument({
+const document = await generateDocument({
   controllers: [UsersController],
   document: {
     info: {
@@ -205,9 +209,7 @@ const builder = await generateDocument({
   },
 });
 
-console.log(document.build()); // <- Your generated OpenAPI specifications
+console.log(document); // <- Your generated OpenAPI specifications
 ```
 
 :::
-
-### Going further

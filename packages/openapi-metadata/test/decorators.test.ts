@@ -134,12 +134,13 @@ test("@ApiTags", () => {
   @ApiTags("Root")
   class MyController {
     @ApiTags("Hello", "World")
+    @ApiTags("Foo", "Bar")
     operation() {}
   }
 
   const metadata = OperationMetadataStorage.getMetadata(MyController.prototype, "operation", true);
 
-  expect(metadata.tags).toEqual(["Root", "Hello", "World"]);
+  expect(metadata.tags).toEqual(["Root", "Foo", "Bar", "Hello", "World"]);
 });
 
 test("@ApiSecurity", () => {

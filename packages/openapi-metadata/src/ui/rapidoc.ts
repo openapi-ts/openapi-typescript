@@ -1,3 +1,8 @@
+/**
+ * Generates HTML to display Rapidoc UI.
+ *
+ * @see https://rapidocweb.com/
+ */
 export function generateRapidocUI(url: string) {
   return `
 <!doctype html>

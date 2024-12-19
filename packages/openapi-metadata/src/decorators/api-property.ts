@@ -5,6 +5,12 @@ import { findType } from "../utils/metadata.js";
 
 export type ApiPropertyOptions = Partial<PropertyMetadata>;
 
+/**
+ * Configures this class member as a property of the schema.
+ * Can be applied to properties, getters and methods.
+ *
+ * @see https://swagger.io/specification/#schema-object
+ */
 export function ApiProperty(options?: ApiPropertyOptions): PropertyDecorator;
 export function ApiProperty(options?: ApiPropertyOptions): MethodDecorator;
 export function ApiProperty(options?: ApiPropertyOptions): PropertyDecorator | MethodDecorator {
@@ -37,6 +43,12 @@ export function ApiProperty(options?: ApiPropertyOptions): PropertyDecorator | M
   };
 }
 
+/**
+ * Configures this class member as an optional property of the schema.
+ * Can be applied to properties, getters and methods.
+ *
+ * @see https://swagger.io/specification/#schema-object
+ */
 export function ApiPropertyOptional(options?: Omit<ApiPropertyOptions, "required">): PropertyDecorator;
 export function ApiPropertyOptional(options?: Omit<ApiPropertyOptions, "required">): MethodDecorator;
 export function ApiPropertyOptional(
