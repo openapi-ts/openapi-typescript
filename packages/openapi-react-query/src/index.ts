@@ -21,7 +21,8 @@ export type QueryKey<
   Paths extends Record<string, Record<HttpMethod, {}>>,
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
-> = readonly [Method, Path, MaybeOptionalInit<Paths[Path], Method>];
+  Init = MaybeOptionalInit<Paths[Path], Method>,
+> = Init extends undefined ? readonly [Method, Path] : readonly [Method, Path, Init];
 
 export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
@@ -123,7 +124,11 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   };
 
   const queryOptions: QueryOptionsFunction<Paths, Media> = (method, path, ...[init, options]) => ({
-    queryKey: [method, path, init as InitWithUnknowns<typeof init>] as const,
+    queryKey: (init === undefined ? ([method, path] as const) : ([method, path, init] as const)) as QueryKey<
+      Paths,
+      typeof method,
+      typeof path
+    >,
     queryFn,
     ...options,
   });
