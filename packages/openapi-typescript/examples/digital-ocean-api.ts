@@ -220,6 +220,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/apps/{app_id}/restart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Restart an App
+         * @description Perform a rolling restart of all or specific components in an app.
+         */
+        post: operations["apps_restart"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v2/apps/{app_id}/components/{component_name}/logs": {
         parameters: {
             query?: never;
@@ -232,6 +252,26 @@ export interface paths {
          * @description Retrieve the logs of the active deployment if one exists. The response will include links to either real-time logs of an in-progress or active deployment or archived logs of a past deployment. Note log_type=BUILD logs will return logs associated with the current active deployment (being served). To view build logs associated with in-progress build, the query must explicitly reference the deployment id.
          */
         get: operations["apps_get_logs_active_deployment"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/apps/{app_id}/components/{component_name}/exec": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve Exec URL
+         * @description Returns a websocket URL that allows sending/receiving console input and output to a component of the active deployment if one exists.
+         */
+        get: operations["apps_get_exec_active_deployment"];
         put?: never;
         post?: never;
         delete?: never;
@@ -336,6 +376,26 @@ export interface paths {
          * @description Retrieve the logs of a past, in-progress, or active deployment. If a component name is specified, the logs will be limited to only that component. The response will include links to either real-time logs of an in-progress or active deployment or archived logs of a past deployment.
          */
         get: operations["apps_get_logs_aggregate"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/apps/{app_id}/deployments/{deployment_id}/components/{component_name}/exec": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve Exec URL for Deployment
+         * @description Returns a websocket URL that allows sending/receiving console input and output to a component of the specified deployment if one exists.
+         */
+        get: operations["apps_get_exec"];
         put?: never;
         post?: never;
         delete?: never;
@@ -2601,6 +2661,142 @@ export interface paths {
          *
          */
         post: operations["droplets_destroy_retryWithAssociatedResources"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/droplets/autoscale": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List All Autoscale Pools
+         * @description To list all autoscale pools in your team, send a GET request to `/v2/droplets/autoscale`.
+         *     The response body will be a JSON object with a key of `autoscale_pools` containing an array of autoscale pool objects.
+         *     These each contain the standard autoscale pool attributes.
+         *
+         */
+        get: operations["autoscalepools_list"];
+        put?: never;
+        /**
+         * Create a New Autoscale Pool
+         * @description To create a new autoscale pool, send a POST request to `/v2/droplets/autoscale` setting the required attributes.
+         *
+         *     The response body will contain a JSON object with a key called `autoscale_pool` containing the standard attributes for the new autoscale pool.
+         *
+         */
+        post: operations["autoscalepools_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/droplets/autoscale/{autoscale_pool_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve an Existing Autoscale Pool
+         * @description To show information about an individual autoscale pool, send a GET request to
+         *     `/v2/droplets/autoscale/$AUTOSCALE_POOL_ID`.
+         *
+         */
+        get: operations["autoscalepools_get"];
+        /**
+         * Update Autoscale Pool
+         * @description To update the configuration of an existing autoscale pool, send a PUT request to
+         *     `/v2/droplets/autoscale/$AUTOSCALE_POOL_ID`. The request must contain a full representation
+         *     of the autoscale pool including existing attributes.
+         *
+         */
+        put: operations["autoscalepools_update"];
+        post?: never;
+        /**
+         * Delete autoscale pool
+         * @description To destroy an autoscale pool, send a DELETE request to the `/v2/droplets/autoscale/$AUTOSCALE_POOL_ID` endpoint.
+         *
+         *     A successful response will include a 202 response code and no content.
+         *
+         */
+        delete: operations["autoscalepools_delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/droplets/autoscale/{autoscale_pool_id}/dangerous": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete autoscale pool and resources
+         * @description To destroy an autoscale pool and its associated resources (Droplets),
+         *     send a DELETE request to the `/v2/droplets/autoscale/$AUTOSCALE_POOL_ID/dangerous` endpoint.
+         *
+         */
+        delete: operations["autoscalepools_delete_dangerous"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/droplets/autoscale/{autoscale_pool_id}/members": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List members
+         * @description To list the Droplets in an autoscale pool, send a GET request to `/v2/droplets/autoscale/$AUTOSCALE_POOL_ID/members`.
+         *
+         *     The response body will be a JSON object with a key of `droplets`. This will be
+         *     set to an array containing information about each of the Droplets in the autoscale pool.
+         *
+         */
+        get: operations["autoscalepools_list_members"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/droplets/autoscale/{autoscale_pool_id}/history": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List history events
+         * @description To list all of the scaling history events of an autoscale pool, send a GET request to `/v2/droplets/autoscale/$AUTOSCALE_POOL_ID/history`.
+         *
+         *     The response body will be a JSON object with a key of `history`. This will be
+         *     set to an array containing objects each representing a history event.
+         *
+         */
+        get: operations["autoscalepools_list_history"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -6755,6 +6951,23 @@ export interface components {
              */
             repo?: string;
         };
+        apps_bitbucket_source_spec: {
+            /**
+             * @description The name of the branch to use
+             * @example main
+             */
+            branch?: string;
+            /**
+             * @description Whether to automatically deploy new commits made to the repo
+             * @example true
+             */
+            deploy_on_push?: boolean;
+            /**
+             * @description The name of the repo in the format owner/repo. Example: `digitalocean/sample-golang`
+             * @example digitalocean/sample-golang
+             */
+            repo?: string;
+        };
         apps_image_source_spec: {
             /**
              * @description The registry name. Must be left empty for the `DOCR` registry type.
@@ -6913,6 +7126,7 @@ export interface components {
             git?: components["schemas"]["apps_git_source_spec"];
             github?: components["schemas"]["apps_github_source_spec"];
             gitlab?: components["schemas"]["apps_gitlab_source_spec"];
+            bitbucket?: components["schemas"]["apps_bitbucket_source_spec"];
             image?: components["schemas"]["apps_image_source_spec"];
             /**
              * @description The path to the Dockerfile relative to the root of the repo. If set, it will be used to build this component. Otherwise, App Platform will attempt to build it using buildpacks.
@@ -7280,6 +7494,7 @@ export interface components {
             git?: components["schemas"]["apps_git_source_spec"];
             github?: components["schemas"]["apps_github_source_spec"];
             gitlab?: components["schemas"]["apps_gitlab_source_spec"];
+            bitbucket?: components["schemas"]["apps_bitbucket_source_spec"];
             /** @description A list of configured log forwarding destinations. */
             log_destinations?: components["schemas"]["app_log_destination_definition"][];
         };
@@ -7741,6 +7956,19 @@ export interface components {
              */
             id?: string;
         };
+        apps_restart_request: {
+            /**
+             * Optional list of components to restart. If not provided, all components will be restarted.
+             * @example [
+             *       "component1",
+             *       "component2"
+             *     ]
+             */
+            components?: string[];
+        };
+        apps_deployment_response: {
+            deployment?: components["schemas"]["apps_deployment"];
+        };
         apps_get_logs_response: {
             /** A list of URLs to archived log files */
             historic_urls?: string[];
@@ -7749,6 +7977,13 @@ export interface components {
              * @example ws://logs/build
              */
             live_url?: string;
+        };
+        apps_get_exec_response: {
+            /**
+             * @description A websocket URL that allows sending/receiving console input and receiving console output.
+             * @example wss://exec/?token=xxx
+             */
+            url?: string;
         };
         apps_deployments_response: {
             /** A list of deployments */
@@ -7760,9 +7995,6 @@ export interface components {
              * @example true
              */
             force_build?: boolean;
-        };
-        apps_deployment_response: {
-            deployment?: components["schemas"]["apps_deployment"];
         };
         /**
          * - SHARED: Shared vCPU cores
@@ -8974,7 +9206,7 @@ export interface components {
              * @description A unique ID for the database cluster to which the rule is applied.
              * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
              */
-            cluster_uuid?: string;
+            readonly cluster_uuid?: string;
             /**
              * @description The type of resource that the firewall rule allows to access the database cluster.
              * @example droplet
@@ -9296,6 +9528,13 @@ export interface components {
              * @example 4096
              */
             net_buffer_length?: number;
+            /**
+             * @description Defines the destination for logs. Can be `INSIGHTS`, `TABLE`, or both (`INSIGHTS,TABLE`), or `NONE` to disable logs. To specify both destinations, use `INSIGHTS,TABLE` (order matters). Default is NONE.
+             * @default NONE
+             * @example INSIGHTS
+             * @enum {string}
+             */
+            log_output: "INSIGHTS" | "TABLE" | "INSIGHTS,TABLE" | "NONE";
         };
         /** @description PGBouncer connection pooling settings */
         pgbouncer_advanced_config: {
@@ -9708,7 +9947,7 @@ export interface components {
              */
             redis_notify_keyspace_events: string;
             /**
-             * @description When persistence is 'rdb', Redis does RDB dumps each 10 minutes if any key is changed. Also RDB dumps are done according to backup schedule for backup purposes. When persistence is 'off', no RDB dumps and backups are done, so data can be lost at any moment if service is restarted for any reason, or if service is powered off. Also service can't be forked.
+             * @description Creates an RDB dump of the database every 10 minutes that can be used  to recover data after a node crash. The database does not create the  dump if no keys have changed since the last dump. When set to `off`,  the database cannot fork services, and data can be lost if a service  is restarted or powered off. DigitalOcean Managed Caching databases  do not support the Append Only File (AOF) persistence method.
              * @example rdb
              * @enum {string}
              */
@@ -11720,6 +11959,14 @@ export interface components {
              */
             type: "snapshot";
         };
+        /**
+         * @description A flat array of tag names as strings to be applied to the resource. Tag names must exist in order to be referenced in a request.
+         * @example [
+         *       "base-image",
+         *       "prod"
+         *     ]
+         */
+        existing_tags_array: string[] | null;
         firewall_rule_base: {
             /**
              * @description The type of traffic to be allowed. This may be one of `tcp`, `udp`, or `icmp`.
@@ -11763,7 +12010,7 @@ export interface components {
              *     ]
              */
             kubernetes_ids?: string[];
-            tags?: components["schemas"]["tags_array"] & unknown;
+            tags?: components["schemas"]["existing_tags_array"] & unknown;
         };
         firewall_rules: {
             inbound_rules?: (components["schemas"]["firewall_rule_base"] & {
@@ -11821,7 +12068,7 @@ export interface components {
              *     ]
              */
             droplet_ids?: number[] | null;
-            tags?: components["schemas"]["tags_array"] & unknown;
+            tags?: components["schemas"]["existing_tags_array"] & unknown;
         } & components["schemas"]["firewall_rules"];
         /** @description An objects containing information about a resource associated with a Droplet. */
         associated_resource: {
@@ -11926,6 +12173,259 @@ export interface components {
              * @example 0
              */
             failures?: number;
+        };
+        autoscale_pool_static_config: {
+            /**
+             * static config
+             * @description Fixed number of instances in an autoscale pool.
+             * @example 3
+             */
+            target_number_instances: number;
+        };
+        autoscale_pool_dynamic_config: {
+            /**
+             * @description The minimum number of Droplets in an autoscale pool.
+             * @example 5
+             */
+            min_instances: number;
+            /**
+             * @description The maximum number of Droplets in an autoscale pool.
+             * @example 10
+             */
+            max_instances: number;
+            /**
+             * Format: float
+             * @description Target CPU utilization as a decimal.
+             * @example 0.6
+             */
+            target_cpu_utilization?: number;
+            /**
+             * Format: float
+             * @description Target memory utilization as a decimal.
+             * @example 0.6
+             */
+            target_memory_utilization?: number;
+            /**
+             * @description The number of minutes to wait between scaling events in an autoscale pool. Defaults to 10 minutes.
+             * @example 5
+             */
+            cooldown_minutes?: number;
+        };
+        autoscale_pool_droplet_template: {
+            /**
+             * @description The name(s) to be applied to all Droplets in the autoscale pool.
+             * @example my-droplet-name
+             */
+            name?: string;
+            /**
+             * @description The datacenter in which all of the Droplets will be created.
+             * @example tor1
+             * @enum {string}
+             */
+            region: "nyc1" | "nyc2" | "nyc3" | "ams2" | "ams3" | "sfo1" | "sfo2" | "sfo3" | "sgp1" | "lon1" | "fra1" | "tor1" | "blr1" | "syd1";
+            /**
+             * @description The Droplet size to be used for all Droplets in the autoscale pool.
+             * @example c-2
+             */
+            size: string;
+            /**
+             * @description The Droplet image to be used for all Droplets in the autoscale pool. You may specify the slug or the image ID.
+             * @example ubuntu-20-04-x64
+             */
+            image: string;
+            /**
+             * @description The SSH keys to be installed on the Droplets in the autoscale pool. You can either specify the key ID or the fingerprint.
+             * @example [
+             *       "88:66:90:d2:68:d5:b5:85:e3:26:26:11:31:57:e6:f8"
+             *     ]
+             */
+            ssh_keys: string[];
+            /**
+             * @description The tags to apply to each of the Droplets in the autoscale pool.
+             * @example [
+             *       "my-tag"
+             *     ]
+             */
+            tags?: string[];
+            /**
+             * @description The VPC where the Droplets in the autoscale pool will be created. The VPC must be in the region where you want to create the Droplets.
+             * @example 760e09ef-dc84-11e8-981e-3cfdfeaae000
+             */
+            vpc_uuid?: string;
+            /**
+             * @description Installs the Droplet agent. This must be set to true to monitor Droplets for resource utilization scaling.
+             * @example true
+             */
+            with_droplet_agent?: boolean;
+            /**
+             * @description The project that the Droplets in the autoscale pool will belong to.
+             * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
+             */
+            project_id?: string;
+            /**
+             * @description Assigns a unique IPv6 address to each of the Droplets in the autoscale pool.
+             * @example true
+             */
+            ipv6?: boolean;
+            /**
+             * @description A string containing user data that cloud-init consumes to configure a Droplet on first boot. User data is often a cloud-config file or Bash script. It must be plain text and may not exceed 64 KiB in size.
+             * @example #cloud-config
+             *     runcmd:
+             *       - touch /test.txt
+             *
+             */
+            user_data?: string;
+        };
+        current_utilization: {
+            /**
+             * Format: float
+             * @description The average memory utilization of the autoscale pool.
+             * @example 0.3588531587713522
+             */
+            memory?: number;
+            /**
+             * Format: float
+             * @description The average CPU utilization of the autoscale pool.
+             * @example 0.0007338008770232183
+             */
+            cpu?: number;
+        };
+        autoscale_pool: {
+            /**
+             * @description A unique identifier for each autoscale pool instance. This is automatically generated upon autoscale pool creation.
+             * @example 0d3db13e-a604-4944-9827-7ec2642d32ac
+             */
+            id: string;
+            /**
+             * @description The human-readable name set for the autoscale pool.
+             * @example my-autoscale-pool
+             */
+            name: string;
+            /** @description The scaling configuration for an autoscale pool, which is how the pool scales up and down (either by resource utilization or static configuration). */
+            config: components["schemas"]["autoscale_pool_static_config"] | components["schemas"]["autoscale_pool_dynamic_config"];
+            droplet_template: components["schemas"]["autoscale_pool_droplet_template"];
+            current_utilization?: components["schemas"]["current_utilization"];
+            /**
+             * The creation time of the autoscale pool
+             * Format: date-time
+             * @description A time value given in ISO8601 combined date and time format that represents when the autoscale pool was created.
+             * @example 2020-07-28T18:00:00Z
+             */
+            created_at: string;
+            /**
+             * When the autoscale pool was last updated
+             * Format: date-time
+             * @description A time value given in ISO8601 combined date and time format that represents when the autoscale pool was last updated.
+             * @example 2020-07-28T18:00:00Z
+             */
+            updated_at: string;
+            /**
+             * @description The current status of the autoscale pool.
+             * @example active
+             * @enum {string}
+             */
+            status: "active" | "deleting" | "error";
+            /**
+             * @description The number of active Droplets in the autoscale pool.
+             * @example 1
+             */
+            active_resources_count: number;
+        };
+        autoscale_pool_create: {
+            /**
+             * @description The human-readable name of the autoscale pool. This field cannot be updated
+             * @example my-autoscale-pool
+             */
+            name: string;
+            /** @description The scaling configuration for an autoscale pool, which is how the pool scales up and down (either by resource utilization or static configuration). */
+            config: components["schemas"]["autoscale_pool_static_config"] | components["schemas"]["autoscale_pool_dynamic_config"];
+            droplet_template: components["schemas"]["autoscale_pool_droplet_template"];
+        };
+        member_current_utilization: {
+            /**
+             * Format: float
+             * @description The memory utilization average of the individual Droplet.
+             * @example 0.3588531587713522
+             */
+            memory?: number;
+            /**
+             * Format: float
+             * @description The CPU utilization average of the individual Droplet.
+             * @example 0.0007338008770232183
+             */
+            cpu?: number;
+        };
+        member: {
+            /**
+             * @description The unique identifier of the Droplet.
+             * @example 459903570
+             */
+            droplet_id: number;
+            /**
+             * Format: date-time
+             * @description The creation time of the Droplet in ISO8601 combined date and time format.
+             * @example 2020-07-28T18:00:00Z
+             */
+            created_at: string;
+            /**
+             * Format: date-time
+             * @description The last updated time of the Droplet in ISO8601 combined date and time format.
+             * @example 2020-07-28T18:00:00Z
+             */
+            updated_at: string;
+            /**
+             * @description The health status of the Droplet.
+             * @example active
+             */
+            health_status: string;
+            /**
+             * @description The power status of the Droplet.
+             * @example active
+             * @enum {string}
+             */
+            status: "provisioning" | "active" | "deleting" | "off";
+            current_utilization: components["schemas"]["member_current_utilization"];
+        };
+        history: {
+            /**
+             * @description The unique identifier of the history event.
+             * @example 01936530-4471-7b86-9634-32d8fcfecbc6
+             */
+            history_event_id: string;
+            /**
+             * @description The current number of Droplets in the autoscale pool.
+             * @example 2
+             */
+            current_instance_count: number;
+            /**
+             * @description The target number of Droplets for the autoscale pool after the scaling event.
+             * @example 2
+             */
+            desired_instance_count: number;
+            /**
+             * @description The reason for the scaling event.
+             * @example CONFIGURATION_CHANGE
+             * @enum {string}
+             */
+            reason: "CONFIGURATION_CHANGE" | "SCALE_UP" | "SCALE_DOWN";
+            /**
+             * @description The status of the scaling event.
+             * @example success
+             * @enum {string}
+             */
+            status: "in_progress" | "success" | "error";
+            /**
+             * Format: date-time
+             * @description The creation time of the history event in ISO8601 combined date and time format.
+             * @example 2020-07-28T18:00:00Z
+             */
+            created_at: string;
+            /**
+             * Format: date-time
+             * @description The last updated time of the history event in ISO8601 combined date and time format.
+             * @example 2020-07-28T18:00:00Z
+             */
+            updated_at: string;
         };
         floating_ip: {
             /**
@@ -13011,6 +13511,13 @@ export interface components {
              * @enum {string}
              */
             network: "EXTERNAL" | "INTERNAL";
+            /**
+             * @description A string indicating whether the load balancer should be a standard regional HTTP load balancer, a regional network load balancer that routes traffic at the TCP/UDP transport layer, or a global load balancer.
+             * @default REGIONAL
+             * @example REGIONAL
+             * @enum {string}
+             */
+            type: "REGIONAL" | "REGIONAL_NETWORK" | "GLOBAL";
         };
         load_balancer: components["schemas"]["load_balancer_base"] & {
             region?: unknown & components["schemas"]["region"];
@@ -14652,6 +15159,18 @@ export interface components {
                 "application/json": components["schemas"]["apps_delete_app_response"];
             };
         };
+        /** @description A JSON object with a `deployment` key. */
+        new_app_deployment: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["apps_deployment_response"];
+            };
+        };
         /** @description A JSON object with urls that point to archived logs */
         list_logs: {
             headers: {
@@ -14664,6 +15183,18 @@ export interface components {
                 "application/json": components["schemas"]["apps_get_logs_response"];
             };
         };
+        /** @description A JSON object with a websocket URL that allows sending/receiving console input and output. */
+        get_exec: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["apps_get_exec_response"];
+            };
+        };
         /** @description A JSON object with a `deployments` key. This will be a list of all app deployments */
         existing_deployments: {
             headers: {
@@ -14674,18 +15205,6 @@ export interface components {
             };
             content: {
                 "application/json": components["schemas"]["apps_deployments_response"];
-            };
-        };
-        /** @description A JSON object with a `deployment` key. */
-        new_app_deployment: {
-            headers: {
-                "ratelimit-limit": components["headers"]["ratelimit-limit"];
-                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
-                "ratelimit-reset": components["headers"]["ratelimit-reset"];
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": components["schemas"]["apps_deployment_response"];
             };
         };
         /** @description A JSON of the requested deployment */
@@ -15692,6 +16211,78 @@ export interface components {
             };
             content: {
                 "application/json": components["schemas"]["error"];
+            };
+        };
+        /** @description A JSON object with a key of `autoscale_pools`. */
+        all_autoscale_pools: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    autoscale_pools?: components["schemas"]["autoscale_pool"][];
+                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
+            };
+        };
+        /** @description Accepted */
+        autoscale_pool_create: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    autoscale_pool?: components["schemas"]["autoscale_pool"];
+                };
+            };
+        };
+        /** @description The response will be a JSON object with a key called `autoscale_pool`. This will be
+         *     set to a JSON object that contains the standard autoscale pool attributes.
+         *      */
+        existing_autoscale_pool: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    autoscale_pool?: components["schemas"]["autoscale_pool"];
+                };
+            };
+        };
+        /** @description A JSON object with a key of `droplets`. */
+        all_members: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    droplets?: components["schemas"]["member"][];
+                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
+            };
+        };
+        /** @description A JSON object with a key of `history`. */
+        history_events: {
+            headers: {
+                "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": {
+                    history?: components["schemas"]["history"][];
+                } & components["schemas"]["pagination"] & components["schemas"]["meta"];
             };
         };
         /** @description To list all of the firewalls available on your account, send a GET request to `/v2/firewalls`. */
@@ -17485,6 +18076,21 @@ export interface components {
          */
         x_dangerous: boolean;
         /**
+         * @description The name of the autoscale pool
+         * @example my-autoscale-pool
+         */
+        autoscale_pool_name: string;
+        /**
+         * @description A unique identifier for an autoscale pool.
+         * @example 0d3db13e-a604-4944-9827-7ec2642d32ac
+         */
+        autoscale_pool_id: string;
+        /**
+         * @description Acknowledge this action will destroy the autoscale pool and its associated resources and _can not_ be reversed.
+         * @example true
+         */
+        parameters_x_dangerous: boolean;
+        /**
          * @description A unique ID that can be used to identify and reference a firewall.
          * @example bb4b2611-3d72-467b-8602-280330ecd65c
          */
@@ -18178,6 +18784,33 @@ export interface operations {
             default: components["responses"]["unexpected_error"];
         };
     };
+    apps_restart: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The app ID
+                 * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+                 */
+                app_id: components["parameters"]["app_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apps_restart_request"];
+            };
+        };
+        responses: {
+            200: components["responses"]["new_app_deployment"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
     apps_get_logs_active_deployment: {
         parameters: {
             query: {
@@ -18219,6 +18852,34 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: components["responses"]["list_logs"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    apps_get_exec_active_deployment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The app ID
+                 * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+                 */
+                app_id: components["parameters"]["app_id"];
+                /**
+                 * @description An optional component name. If set, logs will be limited to this component only.
+                 * @example component
+                 */
+                component_name: components["parameters"]["component"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["get_exec"];
             401: components["responses"]["unauthorized"];
             404: components["responses"]["not_found"];
             429: components["responses"]["too_many_requests"];
@@ -18437,6 +19098,39 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: components["responses"]["list_logs"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    apps_get_exec: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The app ID
+                 * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+                 */
+                app_id: components["parameters"]["app_id"];
+                /**
+                 * @description The deployment ID
+                 * @example 3aa4d20e-5527-4c00-b496-601fbd22520a
+                 */
+                deployment_id: components["parameters"]["deployment_id"];
+                /**
+                 * @description An optional component name. If set, logs will be limited to this component only.
+                 * @example component
+                 */
+                component_name: components["parameters"]["component"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["get_exec"];
             401: components["responses"]["unauthorized"];
             404: components["responses"]["not_found"];
             429: components["responses"]["too_many_requests"];
@@ -21759,6 +22453,228 @@ export interface operations {
             default: components["responses"]["unexpected_error"];
         };
     };
+    autoscalepools_list: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Number of items returned per page
+                 * @example 2
+                 */
+                per_page?: components["parameters"]["per_page"];
+                /**
+                 * @description Which 'page' of paginated results to return.
+                 * @example 1
+                 */
+                page?: components["parameters"]["page"];
+                /**
+                 * @description The name of the autoscale pool
+                 * @example my-autoscale-pool
+                 */
+                name?: components["parameters"]["autoscale_pool_name"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["all_autoscale_pools"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    autoscalepools_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["autoscale_pool_create"];
+            };
+        };
+        responses: {
+            202: components["responses"]["autoscale_pool_create"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    autoscalepools_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for an autoscale pool.
+                 * @example 0d3db13e-a604-4944-9827-7ec2642d32ac
+                 */
+                autoscale_pool_id: components["parameters"]["autoscale_pool_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["existing_autoscale_pool"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    autoscalepools_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for an autoscale pool.
+                 * @example 0d3db13e-a604-4944-9827-7ec2642d32ac
+                 */
+                autoscale_pool_id: components["parameters"]["autoscale_pool_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["autoscale_pool_create"];
+            };
+        };
+        responses: {
+            200: components["responses"]["autoscale_pool_create"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    autoscalepools_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for an autoscale pool.
+                 * @example 0d3db13e-a604-4944-9827-7ec2642d32ac
+                 */
+                autoscale_pool_id: components["parameters"]["autoscale_pool_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            202: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    autoscalepools_delete_dangerous: {
+        parameters: {
+            query?: never;
+            header: {
+                /**
+                 * @description Acknowledge this action will destroy the autoscale pool and its associated resources and _can not_ be reversed.
+                 * @example true
+                 */
+                "X-Dangerous": components["parameters"]["parameters_x_dangerous"];
+            };
+            path: {
+                /**
+                 * @description A unique identifier for an autoscale pool.
+                 * @example 0d3db13e-a604-4944-9827-7ec2642d32ac
+                 */
+                autoscale_pool_id: components["parameters"]["autoscale_pool_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            202: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    autoscalepools_list_members: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Number of items returned per page
+                 * @example 2
+                 */
+                per_page?: components["parameters"]["per_page"];
+                /**
+                 * @description Which 'page' of paginated results to return.
+                 * @example 1
+                 */
+                page?: components["parameters"]["page"];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for an autoscale pool.
+                 * @example 0d3db13e-a604-4944-9827-7ec2642d32ac
+                 */
+                autoscale_pool_id: components["parameters"]["autoscale_pool_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["all_members"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    autoscalepools_list_history: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Number of items returned per page
+                 * @example 2
+                 */
+                per_page?: components["parameters"]["per_page"];
+                /**
+                 * @description Which 'page' of paginated results to return.
+                 * @example 1
+                 */
+                page?: components["parameters"]["page"];
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for an autoscale pool.
+                 * @example 0d3db13e-a604-4944-9827-7ec2642d32ac
+                 */
+                autoscale_pool_id: components["parameters"]["autoscale_pool_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["history_events"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
     firewalls_list: {
         parameters: {
             query?: {
@@ -22069,7 +22985,7 @@ export interface operations {
                  *       ]
                  *     } */
                 "application/json": {
-                    tags: components["schemas"]["tags_array"] & unknown;
+                    tags: components["schemas"]["existing_tags_array"] & unknown;
                 };
             };
         };
@@ -22104,7 +23020,7 @@ export interface operations {
                  *       ]
                  *     } */
                 "application/json": {
-                    tags: components["schemas"]["tags_array"] & unknown;
+                    tags: components["schemas"]["existing_tags_array"] & unknown;
                 };
             };
         };

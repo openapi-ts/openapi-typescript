@@ -8,13 +8,16 @@ source: |-
   )
 
   func main() {
-      token := os.Getenv("DIGITALOCEAN_TOKEN")
+    token := os.Getenv("DIGITALOCEAN_TOKEN")
 
-      client := godo.NewFromToken(token)
-      ctx := context.TODO()
+    client := godo.NewFromToken(token)
+    ctx := context.TODO()
 
-      createRequest := &godo.ReservedIPCreateRequest{
-          DropletID: 123456,
+    createRequest := &godo.ReservedIPCreateRequest{
+        DropletID: 123456,
+        Region:    "nyc3",
+        ProjectID: "1234a77a-12cd-11ed-909f-43c99lbf6030",
+    }
 
-      }
+    reservedIP, _, err := client.ReservedIPs.Create(ctx, createRequest)
   }

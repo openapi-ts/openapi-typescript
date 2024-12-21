@@ -18,6 +18,9 @@ properties:
   gitlab:
     $ref: apps_gitlab_source_spec.yml
 
+  bitbucket:
+    $ref: apps_bitbucket_source_spec.yml
+
   image:
     $ref: apps_image_source_spec.yml
 

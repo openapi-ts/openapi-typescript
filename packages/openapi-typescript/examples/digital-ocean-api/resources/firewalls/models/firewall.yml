@@ -28,7 +28,7 @@ allOf:
           A time value given in ISO8601 combined date and time format that
           represents when the firewall was created.
         readOnly: true
-        example: '2020-05-23T21:24:00Z'
+        example: "2020-05-23T21:24:00Z"
 
       pending_changes:
         type: array
@@ -78,9 +78,9 @@ allOf:
 
       tags:
         allOf:
-          - $ref: '../../../shared/attributes/tags_array.yml'
+          - $ref: "../../../shared/attributes/existing_tags_array.yml"
           - description: >-
               An array containing the names of the Tags assigned to the firewall.
             example: gateway
 
-  - $ref: 'firewall_rule.yml#/firewall_rules'
+  - $ref: "firewall_rule.yml#/firewall_rules"

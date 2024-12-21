@@ -68,7 +68,7 @@
   "devDependencies": {
     "@types/lodash": "^4.17.13",
     "@types/node": "^22.10.1",
-    "@vitest/coverage-v8": "^2.1.6",
+    "@vitest/coverage-v8": "^2.1.8",
     "del-cli": "^5.1.0",
     "esbuild": "^0.24.0",
     "execa": "^8.0.1",

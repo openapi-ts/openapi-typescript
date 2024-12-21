@@ -17,5 +17,5 @@ source: |-
       action, _, err := client.ReservedIPActions.Assign(ctx, "45.55.96.47", 8219222)
 
     // Unassign a Reserved IP
-    // action, _, err := client.ReservedIPActions.Unassign(ctx, "45.55.96.47")  
+    action, _, err := client.ReservedIPActions.Unassign(ctx, "45.55.96.47")  
   }

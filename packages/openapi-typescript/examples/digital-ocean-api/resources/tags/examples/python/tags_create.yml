@@ -5,28 +5,6 @@ source: |-
 
   client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
 
-  req = {
-    "tag": {
-      "name": "extra-awesome",
-      "resources": {
-        "count": 0,
-        "droplets": {
-          "count": 0
-        },
-        "images": {
-          "count": 0
-        },
-        "volumes": {
-          "count": 0
-        },
-        "volume_snapshots": {
-          "count": 0
-        },
-        "databases": {
-          "count": 0
-        }
-      }
-    }
-  }
+  req = {"name": "extra-awesome"}
 
   resp = client.tags.create(body=req)
