@@ -1,5 +1,13 @@
 # openapi-metadata
 
+## 0.1.1
+
+### Patch Changes
+
+- [#2006](https://github.com/openapi-ts/openapi-typescript/pull/2006) [`ca68475`](https://github.com/openapi-ts/openapi-typescript/commit/ca684756ac8ea45bf59f585d5f974f0102a6d28e) Thanks [@kerwanp](https://github.com/kerwanp)! - Add comments for better documentation and add new exports
+
+- [#2006](https://github.com/openapi-ts/openapi-typescript/pull/2006) [`ca68475`](https://github.com/openapi-ts/openapi-typescript/commit/ca684756ac8ea45bf59f585d5f974f0102a6d28e) Thanks [@kerwanp](https://github.com/kerwanp)! - Merge properly operations together
+
 ## 0.1.0
 
 ### Minor Changes
