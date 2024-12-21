@@ -235,3 +235,25 @@ code {
 .home-sponsor .donate {
   display: inline-block;
 }
+
+/* Home footer */
+.VPFooter .container .message {
+  --badge-width: 8rem;
+
+  align-items: center;
+  display: grid;
+  justify-items: center;
+  gap: 1.5rem;
+  text-align: center;
+
+  @media (width >= 600px) {
+    grid-template-columns: var(--badge-width) auto var(--badge-width);
+    gap: 0;
+  }
+}
+
+.footer-hosting {
+  display: inline-block;
+  height: 2rem;
+  width: 8rem;
+}

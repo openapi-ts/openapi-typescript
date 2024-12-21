@@ -138,8 +138,9 @@ export default defineConfig({
       },
     ],
     footer: {
-      message:
-        'Released under the <a href="https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE">MIT License</a>.',
+      message: `<div class="footer-spacer"></div>
+<div class="footer-license">Released under the <a href="https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE">MIT License</a>.</div>
+<a class="footer-hosting" href="https://www.netlify.com"><img src="https://www.netlify.com/v3/img/components/netlify-color-bg.svg" alt="Deploys by Netlify" /></a>`,
     },
   },
 });

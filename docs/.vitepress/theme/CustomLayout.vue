@@ -58,6 +58,16 @@ const { Layout } = DefaultTheme;
             </a>
           </li>
         </ul>
+        <h5 style="margin-block-start: 4rem">Hosting</h5>
+        <div class="sidebar-hosting">
+          <a href="https://www.netlify.com"
+            ><img
+              width="73"
+              height="32"
+              src="https://www.netlify.com/v3/img/components/netlify-color-bg.svg"
+              alt="Deploys by Netlify"
+          /></a>
+        </div>
       </div>
     </template>
   </Layout>
@@ -146,6 +156,14 @@ const { Layout } = DefaultTheme;
 .sponsor-list--silver img {
   height: 3rem;
   width: auto;
+}
+
+.sidebar-hosting {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-block-start: 1rem;
+  text-align: center;
 }
 </style>
 
