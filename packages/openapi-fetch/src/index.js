@@ -227,6 +227,9 @@ export default function createClient(clientOptions) {
   }
 
   return {
+    request(method, url, init) {
+      return coreFetch(url, { ...init, method: method.toUpperCase() });
+    },
     /** Call a GET endpoint */
     GET(url, init) {
       return coreFetch(url, { ...init, method: "GET" });

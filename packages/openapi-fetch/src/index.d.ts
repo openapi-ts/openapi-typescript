@@ -199,6 +199,16 @@ export type ClientMethod<
   ...init: InitParam<Init>
 ) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
 
+export type ClientRequestMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
+  Method extends HttpMethod,
+  Path extends PathsWithMethod<Paths, Method>,
+  Init extends MaybeOptionalInit<Paths[Path], Method>,
+>(
+  method: Method,
+  url: Path,
+  ...init: InitParam<Init>
+) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
+
 export type ClientForPath<PathInfo extends Record<string | number, any>, Media extends MediaType> = {
   [Method in keyof PathInfo as Uppercase<string & Method>]: <Init extends MaybeOptionalInit<PathInfo, Method>>(
     ...init: InitParam<Init>
@@ -206,6 +216,7 @@ export type ClientForPath<PathInfo extends Record<string | number, any>, Media e
 };
 
 export interface Client<Paths extends {}, Media extends MediaType = MediaType> {
+  request: ClientRequestMethod<Paths, Media>;
   /** Call a GET endpoint */
   GET: ClientMethod<Paths, "get", Media>;
   /** Call a PUT endpoint */
