@@ -228,6 +228,10 @@ tags:
       types. Find more information about each of these objects in their
       respective sections.
 
+  - name: Droplet Autoscale Pools
+    description: |-
+      Droplet autoscale pools manage automatic horizontal scaling for your applications based on resource usage (CPU, memory, or both) or a static configuration.
+
   - name: Firewalls
     description: |-
       [DigitalOcean Cloud Firewalls](https://docs.digitalocean.com/products/networking/firewalls/)
@@ -549,9 +553,17 @@ paths:
     put:
       $ref: 'resources/apps/apps_update.yml'
 
+  /v2/apps/{app_id}/restart:
+    post:
+      $ref: 'resources/apps/apps_restart.yml'
+
   /v2/apps/{app_id}/components/{component_name}/logs:
     get:
       $ref: 'resources/apps/apps_get_logs_active_deployment.yml'
+
+  /v2/apps/{app_id}/components/{component_name}/exec:
+    get:
+      $ref: 'resources/apps/apps_get_exec_active_deployment.yml'
 
   /v2/apps/{app_id}/deployments:
     get:
@@ -574,6 +586,10 @@ paths:
   /v2/apps/{app_id}/deployments/{deployment_id}/logs:
     get:
       $ref: 'resources/apps/apps_get_logs_aggregate.yml'
+
+  /v2/apps/{app_id}/deployments/{deployment_id}/components/{component_name}/exec:
+    get:
+      $ref: 'resources/apps/apps_get_exec.yml'
 
   /v2/apps/{app_id}/logs:
     get:
@@ -985,6 +1001,32 @@ paths:
   /v2/droplets/{droplet_id}/destroy_with_associated_resources/retry:
     post:
       $ref: 'resources/droplets/droplets_destroy_retryWithAssociatedResources.yml'
+
+  /v2/droplets/autoscale:
+    get:
+      $ref: 'resources/autoscale_pools/autoscale_pool_list.yml'
+    post:
+      $ref: 'resources/autoscale_pools/autoscale_pool_create.yml'
+
+  /v2/droplets/autoscale/{autoscale_pool_id}:
+    get:
+      $ref: 'resources/autoscale_pools/autoscale_pool_get.yml'
+    put:
+      $ref: 'resources/autoscale_pools/autoscale_pool_update.yml'
+    delete:
+      $ref: 'resources/autoscale_pools/autoscale_pool_delete.yml'
+
+  /v2/droplets/autoscale/{autoscale_pool_id}/dangerous:
+    delete:
+      $ref: 'resources/autoscale_pools/autoscale_pool_delete_dangerous.yml'
+
+  /v2/droplets/autoscale/{autoscale_pool_id}/members:
+    get:
+      $ref: 'resources/autoscale_pools/autoscale_pool_list_members.yml'
+
+  /v2/droplets/autoscale/{autoscale_pool_id}/history:
+    get:
+      $ref: 'resources/autoscale_pools/autoscale_pool_list_history.yml'
 
   /v2/firewalls:
     get:

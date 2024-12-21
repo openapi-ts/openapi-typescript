@@ -599,6 +599,10 @@ logs:
     historic_logs:
       - https://logs-example/archive/build.log
 
+exec:
+  value:
+    url: wss://exec/?token=xxx
+
 regions:
   value:
     regions:

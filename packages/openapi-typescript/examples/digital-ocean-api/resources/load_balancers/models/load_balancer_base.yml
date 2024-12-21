@@ -169,5 +169,17 @@ properties:
       to resources on the same VPC network. This property cannot be updated after
       creating the load balancer.
 
+  type:
+    type: string
+    example: REGIONAL
+    enum:
+      - REGIONAL
+      - REGIONAL_NETWORK
+      - GLOBAL
+    default: REGIONAL
+    description: A string indicating whether the load balancer should be a standard
+      regional HTTP load balancer, a regional network load balancer that routes traffic
+      at the TCP/UDP transport layer, or a global load balancer.
+
 required:
   - forwarding_rules

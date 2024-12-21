@@ -1,0 +1,68 @@
+type: object
+
+properties:
+  id:
+    type: string
+    example: 0d3db13e-a604-4944-9827-7ec2642d32ac
+    description: A unique identifier for each autoscale pool instance. This is
+      automatically generated upon autoscale pool creation.
+
+  name:
+    type: string
+    example: my-autoscale-pool
+    description: The human-readable name set for the autoscale pool.
+
+  config:
+    oneOf:
+      - $ref: ../models/autoscale_pool_static_config.yml
+      - $ref: ../models/autoscale_pool_dynamic_config.yml
+    type: object
+    description: The scaling configuration for an autoscale pool, which
+      is how the pool scales up and down (either by resource utilization
+      or static configuration).
+
+  droplet_template:
+    $ref: ../models/autoscale_pool_droplet_template.yml
+
+  current_utilization:
+    $ref: ../models/current_utilization.yml
+ 
+  created_at:
+    format: date-time
+    title: The creation time of the autoscale pool
+    type: string
+    example: 2020-07-28T18:00:00Z  
+    description: A time value given in ISO8601 combined date and time format
+      that represents when the autoscale pool was created.
+
+  updated_at:
+    format: date-time
+    title: When the autoscale pool was last updated
+    type: string
+    example: 2020-07-28T18:00:00Z
+    description: A time value given in ISO8601 combined date and time format
+      that represents when the autoscale pool was last updated.
+
+  status:
+    type: string
+    enum:
+      - active
+      - deleting
+      - error
+    description: The current status of the autoscale pool.
+    example: active
+
+  active_resources_count:
+    type: integer
+    example: 1
+    description: The number of active Droplets in the autoscale pool.
+
+required:
+  - id
+  - name
+  - config
+  - droplet_template
+  - created_at
+  - updated_at
+  - status
+  - active_resources_count

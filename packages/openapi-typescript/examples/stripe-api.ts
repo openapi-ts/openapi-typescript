@@ -872,7 +872,7 @@ export interface paths {
         };
         /**
          * Retrieve the credit balance summary for a customer
-         * @description <p>Retrieves the credit balance summary for a customer</p>
+         * @description <p>Retrieves the credit balance summary for a customer.</p>
          */
         get: operations["GetBillingCreditBalanceSummary"];
         put?: never;
@@ -892,7 +892,7 @@ export interface paths {
         };
         /**
          * List credit balance transactions
-         * @description <p>Retrieve a list of credit balance transactions</p>
+         * @description <p>Retrieve a list of credit balance transactions.</p>
          */
         get: operations["GetBillingCreditBalanceTransactions"];
         put?: never;
@@ -912,7 +912,7 @@ export interface paths {
         };
         /**
          * Retrieve a credit balance transaction
-         * @description <p>Retrieves a credit balance transaction</p>
+         * @description <p>Retrieves a credit balance transaction.</p>
          */
         get: operations["GetBillingCreditBalanceTransactionsId"];
         put?: never;
@@ -938,7 +938,7 @@ export interface paths {
         put?: never;
         /**
          * Create a credit grant
-         * @description <p>Creates a credit grant</p>
+         * @description <p>Creates a credit grant.</p>
          */
         post: operations["PostBillingCreditGrants"];
         delete?: never;
@@ -956,13 +956,13 @@ export interface paths {
         };
         /**
          * Retrieve a credit grant
-         * @description <p>Retrieves a credit grant</p>
+         * @description <p>Retrieves a credit grant.</p>
          */
         get: operations["GetBillingCreditGrantsId"];
         put?: never;
         /**
          * Update a credit grant
-         * @description <p>Updates a credit grant</p>
+         * @description <p>Updates a credit grant.</p>
          */
         post: operations["PostBillingCreditGrantsId"];
         delete?: never;
@@ -1022,7 +1022,7 @@ export interface paths {
         put?: never;
         /**
          * Create a billing meter event adjustment
-         * @description <p>Creates a billing meter event adjustment</p>
+         * @description <p>Creates a billing meter event adjustment.</p>
          */
         post: operations["PostBillingMeterEventAdjustments"];
         delete?: never;
@@ -1042,7 +1042,7 @@ export interface paths {
         put?: never;
         /**
          * Create a billing meter event
-         * @description <p>Creates a billing meter event</p>
+         * @description <p>Creates a billing meter event.</p>
          */
         post: operations["PostBillingMeterEvents"];
         delete?: never;
@@ -1066,7 +1066,7 @@ export interface paths {
         put?: never;
         /**
          * Create a billing meter
-         * @description <p>Creates a billing meter</p>
+         * @description <p>Creates a billing meter.</p>
          */
         post: operations["PostBillingMeters"];
         delete?: never;
@@ -1084,13 +1084,13 @@ export interface paths {
         };
         /**
          * Retrieve a billing meter
-         * @description <p>Retrieves a billing meter given an ID</p>
+         * @description <p>Retrieves a billing meter given an ID.</p>
          */
         get: operations["GetBillingMetersId"];
         put?: never;
         /**
          * Update a billing meter
-         * @description <p>Updates a billing meter</p>
+         * @description <p>Updates a billing meter.</p>
          */
         post: operations["PostBillingMetersId"];
         delete?: never;
@@ -1110,7 +1110,7 @@ export interface paths {
         put?: never;
         /**
          * Deactivate a billing meter
-         * @description <p>Deactivates a billing meter</p>
+         * @description <p>When a meter is deactivated, no more meter events will be accepted for this meter. You can’t attach a deactivated meter to a price.</p>
          */
         post: operations["PostBillingMetersIdDeactivate"];
         delete?: never;
@@ -1150,7 +1150,7 @@ export interface paths {
         put?: never;
         /**
          * Reactivate a billing meter
-         * @description <p>Reactivates a billing meter</p>
+         * @description <p>When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.</p>
          */
         post: operations["PostBillingMetersIdReactivate"];
         delete?: never;
@@ -8901,7 +8901,10 @@ export interface components {
         account_annual_revenue: {
             /** @description A non-negative integer representing the amount in the [smallest currency unit](/currencies#zero-decimal). */
             amount?: number | null;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency?: string | null;
             /** @description The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023. */
             fiscal_year_end?: string | null;
@@ -9222,7 +9225,7 @@ export interface components {
             alternatives?: components["schemas"]["account_requirements_alternative"][] | null;
             /**
              * Format: unix-time
-             * @description Date on which `future_requirements` merges with the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on the capability's enablement state prior to transitioning.
+             * @description Date on which `future_requirements` becomes the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on the capability's enablement state prior to transitioning.
              */
             current_deadline?: number | null;
             /** @description Fields that need to be collected to keep the capability enabled. If not collected by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash. */
@@ -9234,7 +9237,7 @@ export interface components {
             disabled_reason?: "other" | "paused.inactivity" | "pending.onboarding" | "pending.review" | "platform_disabled" | "platform_paused" | "rejected.inactivity" | "rejected.other" | "rejected.unsupported_business" | "requirements.fields_needed" | null;
             /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
             errors: components["schemas"]["account_requirements_error"][];
-            /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well. */
+            /** @description Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well. */
             eventually_due: string[];
             /** @description Fields that weren't collected by `requirements.current_deadline`. These fields need to be collected to enable the capability on the account. New fields will never appear here; `future_requirements.past_due` will always be a subset of `requirements.past_due`. */
             past_due: string[];
@@ -9259,7 +9262,7 @@ export interface components {
             disabled_reason?: "other" | "paused.inactivity" | "pending.onboarding" | "pending.review" | "platform_disabled" | "platform_paused" | "rejected.inactivity" | "rejected.other" | "rejected.unsupported_business" | "requirements.fields_needed" | null;
             /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
             errors: components["schemas"]["account_requirements_error"][];
-            /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set. */
+            /** @description Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set. */
             eventually_due: string[];
             /** @description Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the capability on the account. */
             past_due: string[];
@@ -9300,7 +9303,7 @@ export interface components {
             alternatives?: components["schemas"]["account_requirements_alternative"][] | null;
             /**
              * Format: unix-time
-             * @description Date on which `future_requirements` merges with the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on its enablement state prior to transitioning.
+             * @description Date on which `future_requirements` becomes the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on its enablement state prior to transitioning.
              */
             current_deadline?: number | null;
             /** @description Fields that need to be collected to keep the account enabled. If not collected by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash. */
@@ -9312,7 +9315,7 @@ export interface components {
             disabled_reason?: "action_required.requested_capabilities" | "listed" | "other" | "platform_paused" | "rejected.fraud" | "rejected.incomplete_verification" | "rejected.listed" | "rejected.other" | "rejected.platform_fraud" | "rejected.platform_other" | "rejected.platform_terms_of_service" | "rejected.terms_of_service" | "requirements.past_due" | "requirements.pending_verification" | "under_review" | null;
             /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
             errors?: components["schemas"]["account_requirements_error"][] | null;
-            /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well. */
+            /** @description Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well. */
             eventually_due?: string[] | null;
             /** @description Fields that weren't collected by `requirements.current_deadline`. These fields need to be collected to enable the capability on the account. New fields will never appear here; `future_requirements.past_due` will always be a subset of `requirements.past_due`. */
             past_due?: string[] | null;
@@ -9359,7 +9362,10 @@ export interface components {
         account_monthly_estimated_revenue: {
             /** @description A non-negative integer representing how much to charge in the [smallest currency unit](/currencies#zero-decimal). */
             amount: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
         };
         /** AccountPaymentsSettings */
@@ -9401,7 +9407,7 @@ export interface components {
             disabled_reason?: "action_required.requested_capabilities" | "listed" | "other" | "platform_paused" | "rejected.fraud" | "rejected.incomplete_verification" | "rejected.listed" | "rejected.other" | "rejected.platform_fraud" | "rejected.platform_other" | "rejected.platform_terms_of_service" | "rejected.terms_of_service" | "requirements.past_due" | "requirements.pending_verification" | "under_review" | null;
             /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
             errors?: components["schemas"]["account_requirements_error"][] | null;
-            /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set. */
+            /** @description Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set. */
             eventually_due?: string[] | null;
             /** @description Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the account. */
             past_due?: string[] | null;
@@ -9562,6 +9568,15 @@ export interface components {
             /** @description State, county, province, or region. */
             state?: string | null;
         };
+        /** amazon_pay_underlying_payment_method_funding_details */
+        amazon_pay_underlying_payment_method_funding_details: {
+            card?: components["schemas"]["payment_method_details_passthrough_card"];
+            /**
+             * @description funding type of the underlying payment method.
+             * @enum {string|null}
+             */
+            type?: "card" | null;
+        };
         /** APIErrors */
         api_errors: {
             /** @description For card errors, the ID of the failed charge. */
@@ -9574,6 +9589,10 @@ export interface components {
             doc_url?: string;
             /** @description A human-readable message providing more details about the error. For card errors, these messages can be shown to your users. */
             message?: string;
+            /** @description For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error. */
+            network_advice_code?: string;
+            /** @description For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed. */
+            network_decline_code?: string;
             /** @description If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field. */
             param?: string;
             payment_intent?: components["schemas"]["payment_intent"];
@@ -9640,7 +9659,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Polymorphic source of the application fee. Includes the ID of the object the application fee was created from. */
             fee_source?: components["schemas"]["platform_earning_fee_source"] | null;
@@ -9717,6 +9739,11 @@ export interface components {
         };
         /** AutomaticTax */
         automatic_tax: {
+            /**
+             * @description If Stripe disabled automatic tax, this enum describes why.
+             * @enum {string|null}
+             */
+            disabled_reason?: "finalization_requires_location_inputs" | "finalization_system_error" | null;
             /** @description Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices. */
             enabled: boolean;
             /** @description The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account. */
@@ -9763,7 +9790,10 @@ export interface components {
         balance_amount: {
             /** @description Balance amount. */
             amount: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             source_types?: components["schemas"]["balance_amount_by_source_type"];
         };
@@ -9780,7 +9810,10 @@ export interface components {
         balance_amount_net: {
             /** @description Balance amount. */
             amount: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Breakdown of balance by destination. */
             net_available?: components["schemas"]["balance_net_available"][];
@@ -9819,7 +9852,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -9845,10 +9881,10 @@ export interface components {
             /** @description The transaction's net funds status in the Stripe balance, which are either `available` or `pending`. */
             status: string;
             /**
-             * @description Transaction type: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `climate_order_purchase`, `climate_order_refund`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_outbound`, `obligation_reversal_inbound`, `payment`, `payment_failure_refund`, `payment_network_reserve_hold`, `payment_network_reserve_release`, `payment_refund`, `payment_reversal`, `payment_unreconciled`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. Learn more about [balance transaction types and what they represent](https://stripe.com/docs/reports/balance-transaction-types). To classify transactions for accounting purposes, consider `reporting_category` instead.
+             * @description Transaction type: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `climate_order_purchase`, `climate_order_refund`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_outbound`, `obligation_reversal_inbound`, `payment`, `payment_failure_refund`, `payment_network_reserve_hold`, `payment_network_reserve_release`, `payment_refund`, `payment_reversal`, `payment_unreconciled`, `payout`, `payout_cancel`, `payout_failure`, `payout_minimum_balance_hold`, `payout_minimum_balance_release`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. Learn more about [balance transaction types and what they represent](https://stripe.com/docs/reports/balance-transaction-types). To classify transactions for accounting purposes, consider `reporting_category` instead.
              * @enum {string}
              */
-            type: "adjustment" | "advance" | "advance_funding" | "anticipation_repayment" | "application_fee" | "application_fee_refund" | "charge" | "climate_order_purchase" | "climate_order_refund" | "connect_collection_transfer" | "contribution" | "issuing_authorization_hold" | "issuing_authorization_release" | "issuing_dispute" | "issuing_transaction" | "obligation_outbound" | "obligation_reversal_inbound" | "payment" | "payment_failure_refund" | "payment_network_reserve_hold" | "payment_network_reserve_release" | "payment_refund" | "payment_reversal" | "payment_unreconciled" | "payout" | "payout_cancel" | "payout_failure" | "refund" | "refund_failure" | "reserve_transaction" | "reserved_funds" | "stripe_fee" | "stripe_fx_fee" | "tax_fee" | "topup" | "topup_reversal" | "transfer" | "transfer_cancel" | "transfer_failure" | "transfer_refund";
+            type: "adjustment" | "advance" | "advance_funding" | "anticipation_repayment" | "application_fee" | "application_fee_refund" | "charge" | "climate_order_purchase" | "climate_order_refund" | "connect_collection_transfer" | "contribution" | "issuing_authorization_hold" | "issuing_authorization_release" | "issuing_dispute" | "issuing_transaction" | "obligation_outbound" | "obligation_reversal_inbound" | "payment" | "payment_failure_refund" | "payment_network_reserve_hold" | "payment_network_reserve_release" | "payment_refund" | "payment_reversal" | "payment_unreconciled" | "payout" | "payout_cancel" | "payout_failure" | "payout_minimum_balance_hold" | "payout_minimum_balance_release" | "refund" | "refund_failure" | "reserve_transaction" | "reserved_funds" | "stripe_fee" | "stripe_fx_fee" | "tax_fee" | "topup" | "topup_reversal" | "transfer" | "transfer_cancel" | "transfer_failure" | "transfer_refund";
         };
         /**
          * BankAccount
@@ -9875,7 +9911,10 @@ export interface components {
             bank_name?: string | null;
             /** @description Two-letter ISO code representing the country the bank account is located in. */
             country: string;
-            /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account. */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account.
+             */
             currency: string;
             /** @description The ID of the customer that the bank account is associated with. */
             customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
@@ -10147,7 +10186,7 @@ export interface components {
             customer: string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"];
             /**
              * Format: unix-time
-             * @description The time when the billing credits become effective—when they're eligible for use.
+             * @description The time when the billing credits become effective-when they're eligible for use.
              */
             effective_at?: number | null;
             /**
@@ -10185,7 +10224,7 @@ export interface components {
         };
         /**
          * BillingMeter
-         * @description A billing meter is a resource that allows you to track usage of a particular event. For example, you might create a billing meter to track the number of API calls made by a particular user. You can then attach the billing meter to a price and attach the price to a subscription to charge the user for the number of API calls they make.
+         * @description Meters specify how to aggregate meter events over a billing period. Meter events represent the actions that customers take in your system. Meters attach to prices and form the basis of the bill.
          *
          *     Related guide: [Usage based billing](https://docs.stripe.com/billing/subscriptions/usage-based)
          */
@@ -10230,8 +10269,7 @@ export interface components {
         };
         /**
          * BillingMeterEvent
-         * @description A billing meter event represents a customer's usage of a product. Meter events are used to bill a customer based on their usage.
-         *     Meter events are associated with billing meters, which define the shape of the event's payload and how those events are aggregated for billing.
+         * @description Meter events represent actions that customers take in your system. You can use meter events to bill a customer based on their usage. Meter events are associated with billing meters, which define both the contents of the event’s payload and how to aggregate those events.
          */
         "billing.meter_event": {
             /**
@@ -10346,11 +10384,20 @@ export interface components {
         /** BillingCreditGrantsResourceBalanceCredit */
         billing_credit_grants_resource_balance_credit: {
             amount: components["schemas"]["billing_credit_grants_resource_amount"];
+            /** @description Details of the invoice to which the reinstated credits were originally applied. Only present if `type` is `credits_application_invoice_voided`. */
+            credits_application_invoice_voided?: components["schemas"]["billing_credit_grants_resource_balance_credits_application_invoice_voided"] | null;
             /**
              * @description The type of credit transaction.
              * @enum {string}
              */
-            type: "credits_granted";
+            type: "credits_application_invoice_voided" | "credits_granted";
+        };
+        /** BillingCreditGrantsResourceBalanceCreditsApplicationInvoiceVoided */
+        billing_credit_grants_resource_balance_credits_application_invoice_voided: {
+            /** @description The invoice to which the reinstated billing credits were originally applied. */
+            invoice: string | components["schemas"]["invoice"];
+            /** @description The invoice line item to which the reinstated billing credits were originally applied. */
+            invoice_line_item: string;
         };
         /** BillingCreditGrantsResourceBalanceCreditsApplied */
         billing_credit_grants_resource_balance_credits_applied: {
@@ -10380,7 +10427,7 @@ export interface components {
         /** BillingCreditGrantsResourceScope */
         billing_credit_grants_resource_scope: {
             /**
-             * @description The price type for which credit grants can apply. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
+             * @description The price type that credit grants can apply to. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
              * @enum {string}
              */
             price_type: "metered";
@@ -10595,13 +10642,21 @@ export interface components {
             address_zip?: string | null;
             /** @description If `address_zip` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`. */
             address_zip_check?: string | null;
+            /**
+             * @description This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
+             * @enum {string|null}
+             */
+            allow_redisplay?: "always" | "limited" | "unspecified" | null;
             /** @description A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout. */
             available_payout_methods?: ("instant" | "standard")[] | null;
             /** @description Card brand. Can be `American Express`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`. */
             brand: string;
             /** @description Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
             country?: string | null;
-            /** @description Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies). Only applicable on accounts (not customers or recipients). The card can be used as a transfer destination for funds in this currency. This property is only available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies). Only applicable on accounts (not customers or recipients). The card can be used as a transfer destination for funds in this currency. This property is only available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
+             */
             currency?: string | null;
             /** @description The customer that this card belongs to. This attribute will not be in the card object if the card belongs to an account or recipient instead. */
             customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
@@ -10623,6 +10678,8 @@ export interface components {
             funding: string;
             /** @description Unique identifier for the object. */
             id: string;
+            /** @description Issuer identification number of the card. */
+            iin?: string;
             /** @description The last four digits of the card. */
             last4: string;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -10637,6 +10694,11 @@ export interface components {
              * @enum {string}
              */
             object: "card";
+            /**
+             * @description Status of a card based on the card issuer.
+             * @enum {string|null}
+             */
+            regulated_status?: "regulated" | "unregulated" | null;
             /** @description For external accounts that are cards, possible values are `new` and `errored`. If a payout fails, the status is set to `errored` and [scheduled payouts](https://stripe.com/docs/payouts#payout-schedule) are stopped until account details are updated. */
             status?: string | null;
             /** @description If the card number is tokenized, this is the method that was used. Can be `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null. */
@@ -10711,7 +10773,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description ID of the customer this charge is for if one exists. */
             customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
@@ -10813,6 +10878,10 @@ export interface components {
         };
         /** ChargeOutcome */
         charge_outcome: {
+            /** @description For charges declined by the network, a 2 digit code which indicates the advice returned by the network on how to proceed with an error. */
+            network_advice_code?: string | null;
+            /** @description For charges declined by the network, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed. */
+            network_decline_code?: string | null;
             /** @description Possible values are `approved_by_network`, `declined_by_network`, `not_sent_to_network`, and `reversed_after_approval`. The value `reversed_after_approval` indicates the payment was [blocked by Stripe](https://stripe.com/docs/declines#blocked-payments) after bank authorization, and may temporarily appear as "pending" on a cardholder's statement. */
             network_status?: string | null;
             /** @description An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://stripe.com/docs/declines) for more details. */
@@ -10886,7 +10955,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency?: string | null;
             /** @description Currency conversion details for [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) sessions */
             currency_conversion?: components["schemas"]["payment_pages_checkout_session_currency_conversion"] | null;
@@ -11516,9 +11588,15 @@ export interface components {
             capture_method?: "manual";
         };
         /** checkout_payment_method_options_mandate_options_bacs_debit */
-        checkout_payment_method_options_mandate_options_bacs_debit: Record<string, never>;
+        checkout_payment_method_options_mandate_options_bacs_debit: {
+            /** @description Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'. */
+            reference_prefix?: string;
+        };
         /** checkout_payment_method_options_mandate_options_sepa_debit */
-        checkout_payment_method_options_mandate_options_sepa_debit: Record<string, never>;
+        checkout_payment_method_options_mandate_options_sepa_debit: {
+            /** @description Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'. */
+            reference_prefix?: string;
+        };
         /** CheckoutPaynowPaymentMethodOptions */
         checkout_paynow_payment_method_options: {
             /**
@@ -12051,7 +12129,10 @@ export interface components {
         connect_collection_transfer: {
             /** @description Amount transferred, in cents (or local equivalent). */
             amount: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description ID of the account that funds are being collected for. */
             destination: string | components["schemas"]["account"];
@@ -12073,7 +12154,7 @@ export interface components {
         };
         /** ConnectEmbeddedAccountFeaturesClaim */
         connect_embedded_account_features_claim: {
-            /** @description Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise. */
+            /** @description Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false. */
             disable_stripe_user_authentication: boolean;
             /** @description Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`. */
             external_account_collection: boolean;
@@ -12125,7 +12206,7 @@ export interface components {
         };
         /** ConnectEmbeddedPayoutsFeatures */
         connect_embedded_payouts_features: {
-            /** @description Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. The default value for this feature is `false` when `external_account_collection` is enabled and `true` otherwise. */
+            /** @description Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false. */
             disable_stripe_user_authentication: boolean;
             /** @description Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise. */
             edit_payout_schedule: boolean;
@@ -12194,7 +12275,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description If `amount_off` has been set, the three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the amount to take off. */
+            /**
+             * Format: currency
+             * @description If `amount_off` has been set, the three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the amount to take off.
+             */
             currency?: string | null;
             /** @description Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
             currency_options?: {
@@ -12267,7 +12351,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description ID of the customer. */
             customer: string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"];
@@ -12720,7 +12807,10 @@ export interface components {
             created: number;
             /** @description The ID of the credit note (if any) related to the transaction. */
             credit_note?: (string | components["schemas"]["credit_note"]) | null;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description The ID of the customer the transaction belongs to. */
             customer: string | components["schemas"]["customer"];
@@ -13392,7 +13482,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description List of eligibility types that are included in `enhanced_evidence`. */
             enhanced_eligibility_types: "visa_compelling_evidence_3"[];
@@ -13427,6 +13520,7 @@ export interface components {
         /** DisputeEnhancedEligibility */
         dispute_enhanced_eligibility: {
             visa_compelling_evidence_3?: components["schemas"]["dispute_enhanced_eligibility_visa_compelling_evidence3"];
+            visa_compliance?: components["schemas"]["dispute_enhanced_eligibility_visa_compliance"];
         };
         /** DisputeEnhancedEligibilityVisaCompellingEvidence3 */
         dispute_enhanced_eligibility_visa_compelling_evidence3: {
@@ -13438,9 +13532,18 @@ export interface components {
              */
             status: "not_qualified" | "qualified" | "requires_action";
         };
+        /** DisputeEnhancedEligibilityVisaCompliance */
+        dispute_enhanced_eligibility_visa_compliance: {
+            /**
+             * @description Visa compliance eligibility status.
+             * @enum {string}
+             */
+            status: "fee_acknowledged" | "requires_fee_acknowledgement";
+        };
         /** DisputeEnhancedEvidence */
         dispute_enhanced_evidence: {
             visa_compelling_evidence_3?: components["schemas"]["dispute_enhanced_evidence_visa_compelling_evidence3"];
+            visa_compliance?: components["schemas"]["dispute_enhanced_evidence_visa_compliance"];
         };
         /** DisputeEnhancedEvidenceVisaCompellingEvidence3 */
         dispute_enhanced_evidence_visa_compelling_evidence3: {
@@ -13448,6 +13551,11 @@ export interface components {
             disputed_transaction?: components["schemas"]["dispute_visa_compelling_evidence3_disputed_transaction"] | null;
             /** @description List of exactly two prior undisputed transaction objects for Visa Compelling Evidence 3.0 evidence submission. */
             prior_undisputed_transactions: components["schemas"]["dispute_visa_compelling_evidence3_prior_undisputed_transaction"][];
+        };
+        /** DisputeEnhancedEvidenceVisaCompliance */
+        dispute_enhanced_evidence_visa_compliance: {
+            /** @description A field acknowledging the fee incurred when countering a Visa compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute. Stripe collects a 500 USD (or local equivalent) amount to cover the network costs associated with resolving compliance disputes. Stripe refunds the 500 USD network fee if you win the dispute. */
+            fee_acknowledged: boolean;
         };
         /** DisputeEvidence */
         dispute_evidence: {
@@ -13826,7 +13934,10 @@ export interface components {
             amount: number;
             /** @description ID of the Connect application that earned the fee. */
             application?: string | null;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -13851,7 +13962,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description ID of the application fee that was refunded. */
             fee: string | components["schemas"]["application_fee"];
@@ -14190,7 +14304,10 @@ export interface components {
             columns?: string[];
             /** @description Connected account ID by which to filter the report run. */
             connected_account?: string;
-            /** @description Currency of objects to be included in the report run. */
+            /**
+             * Format: currency
+             * @description Currency of objects to be included in the report run.
+             */
             currency?: string;
             /**
              * Format: unix-time
@@ -14297,7 +14414,7 @@ export interface components {
             /** @description The PaymentMethod to insert into the forwarded request. Forwarding previously consumed PaymentMethods is allowed. */
             payment_method: string;
             /** @description The field kinds to be replaced in the forwarded request. */
-            replacements: ("card_cvc" | "card_expiry" | "card_number" | "cardholder_name")[];
+            replacements: ("card_cvc" | "card_expiry" | "card_number" | "cardholder_name" | "request_signature")[];
             /** @description Context about the request from Stripe's servers to the destination endpoint. */
             request_context?: components["schemas"]["forwarded_request_context"] | null;
             /** @description The request that was sent to the destination endpoint. We redact any sensitive fields. */
@@ -14386,8 +14503,10 @@ export interface components {
          * @description Iban Records contain E.U. bank account details per the SEPA format.
          */
         funding_instructions_bank_transfer_iban_record: {
+            account_holder_address: components["schemas"]["address"];
             /** @description The name of the person or business that owns the bank account */
             account_holder_name: string;
+            bank_address: components["schemas"]["address"];
             /** @description The BIC/SWIFT code of the account. */
             bic: string;
             /** @description Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)). */
@@ -14400,10 +14519,12 @@ export interface components {
          * @description Sort Code Records contain U.K. bank account details per the sort code format.
          */
         funding_instructions_bank_transfer_sort_code_record: {
+            account_holder_address: components["schemas"]["address"];
             /** @description The name of the person or business that owns the bank account */
             account_holder_name: string;
             /** @description The account number */
             account_number: string;
+            bank_address: components["schemas"]["address"];
             /** @description The six-digit sort code */
             sort_code: string;
         };
@@ -14412,6 +14533,10 @@ export interface components {
          * @description SPEI Records contain Mexico bank account details per the SPEI format.
          */
         funding_instructions_bank_transfer_spei_record: {
+            account_holder_address: components["schemas"]["address"];
+            /** @description The account holder name */
+            account_holder_name: string;
+            bank_address: components["schemas"]["address"];
             /** @description The three-digit bank code */
             bank_code: string;
             /** @description The short banking institution name */
@@ -14442,12 +14567,14 @@ export interface components {
          * @description Zengin Records contain Japan bank account details per the Zengin format.
          */
         funding_instructions_bank_transfer_zengin_record: {
+            account_holder_address: components["schemas"]["address"];
             /** @description The account holder name */
             account_holder_name?: string | null;
             /** @description The account number */
             account_number?: string | null;
             /** @description The bank account type. In Japan, this can only be `futsu` or `toza`. */
             account_type?: string | null;
+            bank_address: components["schemas"]["address"];
             /** @description The bank code of the account */
             bank_code?: string | null;
             /** @description The bank name of the account */
@@ -15021,7 +15148,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Custom fields displayed on the invoice. */
             custom_fields?: components["schemas"]["invoice_setting_custom_field"][] | null;
@@ -15456,7 +15586,10 @@ export interface components {
         invoiceitem: {
             /** @description Amount (in the `currency` specified) of the invoice item. This should always be equal to `unit_amount * quantity`. */
             amount: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description The ID of the customer who will be billed when this invoice item is billed. */
             customer: string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"];
@@ -15556,10 +15689,10 @@ export interface components {
         /** InvoicesResourceInvoiceTaxID */
         invoices_resource_invoice_tax_id: {
             /**
-             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, or `unknown`
+             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, or `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
             /** @description The value of the tax ID. */
             value?: string | null;
         };
@@ -15655,7 +15788,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description The currency of the cardholder. This currency can be different from the currency presented at authorization and the `merchant_currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description The currency of the cardholder. This currency can be different from the currency presented at authorization and the `merchant_currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Fleet-specific information for authorizations using Fleet cards. */
             fleet?: components["schemas"]["issuing_authorization_fleet_data"] | null;
@@ -15669,7 +15805,10 @@ export interface components {
             livemode: boolean;
             /** @description The total amount that was authorized or rejected. This amount is in the `merchant_currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). `merchant_amount` should be the same as `amount`, unless `merchant_currency` and `currency` are different. */
             merchant_amount: number;
-            /** @description The local currency that was presented to the cardholder for the authorization. This currency can be different from the cardholder currency and the `currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description The local currency that was presented to the cardholder for the authorization. This currency can be different from the cardholder currency and the `currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             merchant_currency: string;
             merchant_data: components["schemas"]["issuing_authorization_merchant_data"];
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -15722,7 +15861,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Supported currencies are `usd` in the US, `eur` in the EU, and `gbp` in the UK. */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Supported currencies are `usd` in the US, `eur` in the EU, and `gbp` in the UK.
+             */
             currency: string;
             /** @description The card's CVC. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint. */
             cvc?: string;
@@ -15845,7 +15987,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description The currency the `transaction` was made in. */
+            /**
+             * Format: currency
+             * @description The currency the `transaction` was made in.
+             */
             currency: string;
             evidence: components["schemas"]["issuing_dispute_evidence"];
             /** @description Unique identifier for the object. */
@@ -15962,7 +16107,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Unique identifier for the object. */
             id: string;
@@ -16075,7 +16223,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description If you've disputed the transaction, the ID of the dispute. */
             dispute?: (string | components["schemas"]["issuing.dispute"]) | null;
@@ -16085,7 +16236,10 @@ export interface components {
             livemode: boolean;
             /** @description The amount that the merchant will receive, denominated in `merchant_currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). It will be different from `amount` if the merchant is taking payment in a different currency. */
             merchant_amount: number;
-            /** @description The currency with which the merchant is taking payment. */
+            /**
+             * Format: currency
+             * @description The currency with which the merchant is taking payment.
+             */
             merchant_currency: string;
             merchant_data: components["schemas"]["issuing_authorization_merchant_data"];
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -16267,6 +16421,8 @@ export interface components {
             postal_code?: string | null;
             /** @description State where the seller is located */
             state?: string | null;
+            /** @description The seller's tax identification number. Currently populated for French merchants only. */
+            tax_id?: string | null;
             /** @description An ID assigned by the seller to the location of the sale. */
             terminal_id?: string | null;
             /** @description URL provided by the merchant on a 3DS request */
@@ -16287,13 +16443,19 @@ export interface components {
             amount: number;
             /** @description Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
             amount_details?: components["schemas"]["issuing_authorization_amount_details"] | null;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization. */
             is_amount_controllable: boolean;
             /** @description The amount the merchant is requesting to be authorized in the `merchant_currency`. The amount is in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
             merchant_amount: number;
-            /** @description The local currency the merchant is requesting to authorize. */
+            /**
+             * Format: currency
+             * @description The local currency the merchant is requesting to authorize.
+             */
             merchant_currency: string;
             /** @description The card network's estimate of the likelihood that an authorization is fraudulent. Takes on values between 1 and 99. */
             network_risk_score?: number | null;
@@ -16402,7 +16564,10 @@ export interface components {
             blocked_merchant_countries?: string[] | null;
             /** @description Limit spending with amount-based rules that apply across any cards this card replaced (i.e., its `replacement_for` card and _that_ card's `replacement_for` card, up the chain). */
             spending_limits?: components["schemas"]["issuing_card_spending_limit"][] | null;
-            /** @description Currency of the amounts within `spending_limits`. Always the same as the currency of the card. */
+            /**
+             * Format: currency
+             * @description Currency of the amounts within `spending_limits`. Always the same as the currency of the card.
+             */
             spending_limits_currency?: string | null;
         };
         /** IssuingCardGooglePay */
@@ -16513,7 +16678,10 @@ export interface components {
             blocked_merchant_countries?: string[] | null;
             /** @description Limit spending with amount-based rules that apply across this cardholder's cards. */
             spending_limits?: components["schemas"]["issuing_cardholder_spending_limit"][] | null;
-            /** @description Currency of the amounts within `spending_limits`. */
+            /**
+             * Format: currency
+             * @description Currency of the amounts within `spending_limits`.
+             */
             spending_limits_currency?: string | null;
         };
         /** IssuingCardholderCardIssuing */
@@ -17068,10 +17236,13 @@ export interface components {
             amount_tax: number;
             /** @description Total after discounts and taxes. */
             amount_total: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. Defaults to product name. */
-            description?: string;
+            description?: string | null;
             /** @description The discounts applied to the line item. */
             discounts?: components["schemas"]["line_items_discount_amount"][];
             /** @description Unique identifier for the object. */
@@ -17226,7 +17397,10 @@ export interface components {
             amount: number;
             /** @description The integer amount in cents (or local equivalent) representing the amount for this line item, excluding all tax and discounts. */
             amount_excluding_tax?: number | null;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -17452,7 +17626,10 @@ export interface components {
         mandate_single_use: {
             /** @description The amount of the payment on a single use mandate. */
             amount: number;
-            /** @description The currency of the payment on a single use mandate. */
+            /**
+             * Format: currency
+             * @description The currency of the payment on a single use mandate.
+             */
             currency: string;
         };
         /** mandate_us_bank_account */
@@ -17802,7 +17979,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description ID of the Customer this PaymentIntent belongs to, if one exists.
              *
@@ -17965,7 +18145,10 @@ export interface components {
         payment_intent_next_action_display_bank_transfer_instructions: {
             /** @description The remaining amount that needs to be transferred to complete the payment. */
             amount_remaining?: number | null;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency?: string | null;
             /** @description A list of financial addresses that can be used to fund the customer balance */
             financial_addresses?: components["schemas"]["funding_instructions_bank_transfer_financial_address"][];
@@ -18385,9 +18568,15 @@ export interface components {
             transaction_type?: "business" | "personal" | null;
         };
         /** payment_intent_payment_method_options_mandate_options_bacs_debit */
-        payment_intent_payment_method_options_mandate_options_bacs_debit: Record<string, never>;
+        payment_intent_payment_method_options_mandate_options_bacs_debit: {
+            /** @description Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'. */
+            reference_prefix?: string;
+        };
         /** payment_intent_payment_method_options_mandate_options_sepa_debit */
-        payment_intent_payment_method_options_mandate_options_sepa_debit: Record<string, never>;
+        payment_intent_payment_method_options_mandate_options_sepa_debit: {
+            /** @description Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'. */
+            reference_prefix?: string;
+        };
         /** payment_intent_payment_method_options_mobilepay */
         payment_intent_payment_method_options_mobilepay: {
             /**
@@ -18424,7 +18613,7 @@ export interface components {
         };
         /** payment_intent_payment_method_options_swish */
         payment_intent_payment_method_options_swish: {
-            /** @description The order ID displayed in the Swish app after the payment is authorized. */
+            /** @description A reference for this payment to be displayed in the Swish app. */
             reference?: string | null;
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -18541,7 +18730,10 @@ export interface components {
             billing_address_collection: "auto" | "required";
             /** @description When set, provides configuration to gather active consent from customers. */
             consent_collection?: components["schemas"]["payment_links_resource_consent_collection"] | null;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Collect additional information from your customer using custom fields. Up to 3 fields are supported. */
             custom_fields: components["schemas"]["payment_links_resource_custom_fields"][];
@@ -19008,6 +19200,11 @@ export interface components {
             last4: string;
             /** @description Contains information about card networks that can be used to process the payment. */
             networks?: components["schemas"]["networks"] | null;
+            /**
+             * @description Status of a card based on the card issuer.
+             * @enum {string|null}
+             */
+            regulated_status?: "regulated" | "unregulated" | null;
             /** @description Contains details on how this Card may be used for 3D Secure authentication. */
             three_d_secure_usage?: components["schemas"]["three_d_secure_usage"] | null;
             /** @description If this Card is part of a card wallet, this contains the details of the card wallet. */
@@ -19357,7 +19554,9 @@ export interface components {
         /** payment_method_details_alma */
         payment_method_details_alma: Record<string, never>;
         /** payment_method_details_amazon_pay */
-        payment_method_details_amazon_pay: Record<string, never>;
+        payment_method_details_amazon_pay: {
+            funding?: components["schemas"]["amazon_pay_underlying_payment_method_funding_details"];
+        };
         /** payment_method_details_au_becs_debit */
         payment_method_details_au_becs_debit: {
             /** @description Bank-State-Branch number of the bank account. */
@@ -19456,7 +19655,14 @@ export interface components {
             network?: string | null;
             /** @description If this card has network token credentials, this contains the details of the network token credentials. */
             network_token?: components["schemas"]["payment_method_details_card_network_token"] | null;
+            /** @description This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD). This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands. */
+            network_transaction_id?: string | null;
             overcapture?: components["schemas"]["payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_overcapture_overcapture"];
+            /**
+             * @description Status of a card based on the card issuer.
+             * @enum {string|null}
+             */
+            regulated_status?: "regulated" | "unregulated" | null;
             /** @description Populated if this transaction used 3D Secure authentication. */
             three_d_secure?: components["schemas"]["three_d_secure_details_charge"] | null;
             /** @description If this Card is part of a card wallet, this contains the details of the card wallet. */
@@ -19861,6 +20067,21 @@ export interface components {
              *     Przelewy24 rarely provides this information so the attribute is usually empty. */
             verified_name?: string | null;
         };
+        /** payment_method_details_passthrough_card */
+        payment_method_details_passthrough_card: {
+            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            brand?: string | null;
+            /** @description Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
+            country?: string | null;
+            /** @description Two-digit number representing the card's expiration month. */
+            exp_month?: number | null;
+            /** @description Four-digit number representing the card's expiration year. */
+            exp_year?: number | null;
+            /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
+            funding?: string | null;
+            /** @description The last four digits of the card. */
+            last4?: string | null;
+        };
         /** payment_method_details_payco */
         payment_method_details_payco: {
             /** @description A unique identifier for the buyer as determined by the local payment processor. */
@@ -19897,7 +20118,9 @@ export interface components {
             reference?: string | null;
         };
         /** payment_method_details_revolut_pay */
-        payment_method_details_revolut_pay: Record<string, never>;
+        payment_method_details_revolut_pay: {
+            funding?: components["schemas"]["revolut_pay_underlying_payment_method_funding_details"];
+        };
         /** payment_method_details_samsung_pay */
         payment_method_details_samsung_pay: {
             /** @description A unique identifier for the buyer as determined by the local payment processor. */
@@ -21084,10 +21307,10 @@ export interface components {
         /** PaymentPagesCheckoutSessionTaxID */
         payment_pages_checkout_session_tax_id: {
             /**
-             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, or `unknown`
+             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, or `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
             /** @description The value of the tax ID. */
             value?: string | null;
         };
@@ -21152,7 +21375,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -21330,7 +21556,7 @@ export interface components {
             currently_due: string[];
             /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
             errors: components["schemas"]["account_requirements_error"][];
-            /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `future_requirements[current_deadline]` becomes set. */
+            /** @description Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `future_requirements[current_deadline]` becomes set. */
             eventually_due: string[];
             /** @description Fields that weren't collected by the account's `requirements.current_deadline`. These fields need to be collected to enable the person's account. New fields will never appear here; `future_requirements.past_due` will always be a subset of `requirements.past_due`. */
             past_due: string[];
@@ -21339,6 +21565,8 @@ export interface components {
         };
         /** PersonRelationship */
         person_relationship: {
+            /** @description Whether the person is the authorizer of the account's representative. */
+            authorizer?: boolean | null;
             /** @description Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations. */
             director?: boolean | null;
             /** @description Whether the person has significant responsibility to control, manage, or direct the organization. */
@@ -21362,7 +21590,7 @@ export interface components {
             currently_due: string[];
             /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
             errors: components["schemas"]["account_requirements_error"][];
-            /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `current_deadline` becomes set. */
+            /** @description Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `current_deadline` becomes set. */
             eventually_due: string[];
             /** @description Fields that weren't collected by the account's `current_deadline`. These fields need to be collected to enable the person's account. */
             past_due: string[];
@@ -21405,7 +21633,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Unique identifier for the object. */
             id: string;
@@ -21662,7 +21893,7 @@ export interface components {
              * @enum {string}
              */
             proration_behavior: "always_invoice" | "create_prorations" | "none";
-            schedule_at_period_end?: components["schemas"]["portal_resource_schedule_update_at_period_end"];
+            schedule_at_period_end: components["schemas"]["portal_resource_schedule_update_at_period_end"];
         };
         /** PortalSubscriptionUpdateProduct */
         portal_subscription_update_product: {
@@ -21693,7 +21924,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Prices defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
             currency_options?: {
@@ -22335,7 +22569,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. You can use this for displaying to users (available on non-card refunds only). */
             description?: string;
@@ -22612,7 +22849,10 @@ export interface components {
         /** ReserveTransaction */
         reserve_transaction: {
             amount: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -22673,6 +22913,15 @@ export interface components {
             /** @description Information related to the browsing session of the user who initiated the payment. */
             session?: components["schemas"]["radar_review_resource_session"] | null;
         };
+        /** revolut_pay_underlying_payment_method_funding_details */
+        revolut_pay_underlying_payment_method_funding_details: {
+            card?: components["schemas"]["payment_method_details_passthrough_card"];
+            /**
+             * @description funding type of the underlying payment method.
+             * @enum {string|null}
+             */
+            type?: "card" | null;
+        };
         /** RadarRule */
         rule: {
             /** @description The action taken on the payment. */
@@ -22726,6 +22975,11 @@ export interface components {
         };
         /** SchedulesPhaseAutomaticTax */
         schedules_phase_automatic_tax: {
+            /**
+             * @description If Stripe disabled automatic tax, this enum describes why.
+             * @enum {string|null}
+             */
+            disabled_reason?: "requires_location_inputs" | null;
             /** @description Whether Stripe automatically computes tax on invoices created during this phase. */
             enabled: boolean;
             /** @description The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account. */
@@ -23159,7 +23413,10 @@ export interface components {
              * @enum {string}
              */
             amount_type: "fixed" | "maximum";
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description A description of the mandate or subscription that is meant to be displayed to the customer. */
             description?: string | null;
@@ -23209,9 +23466,15 @@ export interface components {
             transaction_type?: "business" | "personal" | null;
         };
         /** setup_intent_payment_method_options_mandate_options_bacs_debit */
-        setup_intent_payment_method_options_mandate_options_bacs_debit: Record<string, never>;
+        setup_intent_payment_method_options_mandate_options_bacs_debit: {
+            /** @description Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'. */
+            reference_prefix?: string;
+        };
         /** setup_intent_payment_method_options_mandate_options_sepa_debit */
-        setup_intent_payment_method_options_mandate_options_sepa_debit: Record<string, never>;
+        setup_intent_payment_method_options_mandate_options_sepa_debit: {
+            /** @description Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'. */
+            reference_prefix?: string;
+        };
         /** setup_intent_payment_method_options_paypal */
         setup_intent_payment_method_options_paypal: {
             /** @description The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer. */
@@ -23326,7 +23589,10 @@ export interface components {
         shipping_rate_fixed_amount: {
             /** @description A non-negative integer in cents representing how much to charge. */
             amount: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
             currency_options?: {
@@ -23356,6 +23622,11 @@ export interface components {
             ach_debit?: components["schemas"]["source_type_ach_debit"];
             acss_debit?: components["schemas"]["source_type_acss_debit"];
             alipay?: components["schemas"]["source_type_alipay"];
+            /**
+             * @description This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
+             * @enum {string|null}
+             */
+            allow_redisplay?: "always" | "limited" | "unspecified" | null;
             /** @description A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount associated with the source. This is the amount for which the source will be chargeable once ready. Required for `single_use` sources. */
             amount?: number | null;
             au_becs_debit?: components["schemas"]["source_type_au_becs_debit"];
@@ -23370,7 +23641,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) associated with the source. This is the currency for which the source will be chargeable once ready. Required for `single_use` sources. */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) associated with the source. This is the currency for which the source will be chargeable once ready. Required for `single_use` sources.
+             */
             currency?: string | null;
             /** @description The ID of the customer to which this source is attached. This will not be present when the source has not been attached to a customer. */
             customer?: string;
@@ -23480,7 +23754,10 @@ export interface components {
         source_order: {
             /** @description A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount for the order. */
             amount: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description The email address of the customer placing the order. */
             email?: string;
@@ -23565,7 +23842,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             gbp_credit_transfer?: components["schemas"]["source_transaction_gbp_credit_transfer_data"];
             /** @description Unique identifier for the object. */
@@ -23881,7 +24161,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /**
              * Format: unix-time
@@ -24005,6 +24288,11 @@ export interface components {
         };
         /** SubscriptionAutomaticTax */
         subscription_automatic_tax: {
+            /**
+             * @description If Stripe disabled automatic tax, this enum describes why.
+             * @enum {string|null}
+             */
+            disabled_reason?: "requires_location_inputs" | null;
             /** @description Whether Stripe automatically computes tax on this subscription. */
             enabled: boolean;
             /** @description The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account. */
@@ -24222,7 +24510,10 @@ export interface components {
             collection_method?: "charge_automatically" | "send_invoice" | null;
             /** @description ID of the coupon to use during this phase of the subscription schedule. */
             coupon?: (string | components["schemas"]["coupon"] | components["schemas"]["deleted_coupon"]) | null;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings. */
             default_payment_method?: (string | components["schemas"]["payment_method"]) | null;
@@ -24294,6 +24585,11 @@ export interface components {
         };
         /** SubscriptionSchedulesResourceDefaultSettingsAutomaticTax */
         subscription_schedules_resource_default_settings_automatic_tax: {
+            /**
+             * @description If Stripe disabled automatic tax, this enum describes why.
+             * @enum {string|null}
+             */
+            disabled_reason?: "requires_location_inputs" | null;
             /** @description Whether Stripe automatically computes tax on invoices created during this phase. */
             enabled: boolean;
             /** @description The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account. */
@@ -24766,10 +25062,10 @@ export interface components {
             /** @description The account or customer the tax ID belongs to. */
             owner?: components["schemas"]["tax_i_ds_owner"] | null;
             /**
-             * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, or `za_vat`. Note that some legacy tax IDs have type `unknown`
+             * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `ba_tin`, `bb_tin`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kh_tin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`. Note that some legacy tax IDs have type `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
             /** @description Value of the tax ID. */
             value: string;
             /** @description Tax ID verification information. */
@@ -24790,13 +25086,20 @@ export interface components {
         /** TaxProductRegistrationsResourceCountryOptions */
         tax_product_registrations_resource_country_options: {
             ae?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            al?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            am?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
+            ao?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             at?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             au?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            ba?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            bb?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             be?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             bg?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             bh?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            bs?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             by?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             ca?: components["schemas"]["tax_product_registrations_resource_country_options_canada"];
+            cd?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             ch?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             cl?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             co?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
@@ -24813,6 +25116,7 @@ export interface components {
             fr?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             gb?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             ge?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
+            gn?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             gr?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             hr?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             hu?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
@@ -24822,6 +25126,7 @@ export interface components {
             it?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             jp?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             ke?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
+            kh?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             kr?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             kz?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             lt?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
@@ -24829,14 +25134,19 @@ export interface components {
             lv?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             ma?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             md?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
+            me?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            mk?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            mr?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             mt?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             mx?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             my?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             ng?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             nl?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             no?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            np?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             nz?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             om?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            pe?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             pl?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             pt?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             ro?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
@@ -24847,13 +25157,20 @@ export interface components {
             sg?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             si?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             sk?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
+            sn?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
+            sr?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             th?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
+            tj?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             tr?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             tz?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
+            ug?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             us?: components["schemas"]["tax_product_registrations_resource_country_options_united_states"];
+            uy?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             uz?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             vn?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             za?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            zm?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
+            zw?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
         };
         /** TaxProductRegistrationsResourceCountryOptionsCaProvinceStandard */
         tax_product_registrations_resource_country_options_ca_province_standard: {
@@ -24962,10 +25279,10 @@ export interface components {
         /** TaxProductResourceCustomerDetailsResourceTaxId */
         tax_product_resource_customer_details_resource_tax_id: {
             /**
-             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, or `unknown`
+             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, or `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
             /** @description The value of the tax ID. */
             value: string;
         };
@@ -25373,7 +25690,10 @@ export interface components {
          * @description Represents a cart to be displayed on the reader
          */
         terminal_reader_reader_resource_cart: {
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description List of line items in the cart. */
             line_items: components["schemas"]["terminal_reader_reader_resource_line_item"][];
@@ -25789,7 +26109,10 @@ export interface components {
              * @description Time that this record of the transfer was first created.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -25871,7 +26194,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Linked payment refund for the transfer reversal. */
             destination_payment_refund?: (string | components["schemas"]["refund"]) | null;
@@ -25934,7 +26260,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description The FinancialAccount to reverse funds from. */
             financial_account: string;
@@ -25981,7 +26310,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description The FinancialAccount to reverse funds from. */
             financial_account?: string | null;
@@ -26100,7 +26432,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -26159,7 +26494,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description ID of the [customer](https://stripe.com/docs/api/customers) to whom an OutboundPayment is sent. */
             customer?: string | null;
@@ -26226,7 +26564,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -26282,7 +26623,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description: string;
@@ -26333,7 +26677,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description: string;
@@ -26385,7 +26732,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description: string;
@@ -26444,7 +26794,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /**
              * Format: unix-time
@@ -26511,21 +26864,6 @@ export interface components {
             status_details: components["schemas"]["treasury_financial_accounts_resource_toggles_setting_status_details"][];
         };
         /**
-         * TreasuryFinancialAccountsResourceAchToggleSettings
-         * @description Toggle settings for enabling/disabling an ACH specific feature
-         */
-        treasury_financial_accounts_resource_ach_toggle_settings: {
-            /** @description Whether the FinancialAccount should have the Feature. */
-            requested: boolean;
-            /**
-             * @description Whether the Feature is operational.
-             * @enum {string}
-             */
-            status: "active" | "pending" | "restricted";
-            /** @description Additional details; includes at least one entry when the status is not `active`. */
-            status_details: components["schemas"]["treasury_financial_accounts_resource_toggles_setting_status_details"][];
-        };
-        /**
          * TreasuryFinancialAccountsResourceBalance
          * @description Balance information for the FinancialAccount
          */
@@ -26570,18 +26908,48 @@ export interface components {
             aba?: components["schemas"]["treasury_financial_accounts_resource_aba_toggle_settings"];
         };
         /**
+         * TreasuryFinancialAccountsResourceInboundAchToggleSettings
+         * @description Toggle settings for enabling/disabling an inbound ACH specific feature
+         */
+        treasury_financial_accounts_resource_inbound_ach_toggle_settings: {
+            /** @description Whether the FinancialAccount should have the Feature. */
+            requested: boolean;
+            /**
+             * @description Whether the Feature is operational.
+             * @enum {string}
+             */
+            status: "active" | "pending" | "restricted";
+            /** @description Additional details; includes at least one entry when the status is not `active`. */
+            status_details: components["schemas"]["treasury_financial_accounts_resource_toggles_setting_status_details"][];
+        };
+        /**
          * TreasuryFinancialAccountsResourceInboundTransfers
          * @description InboundTransfers contains inbound transfers features for a FinancialAccount.
          */
         treasury_financial_accounts_resource_inbound_transfers: {
-            ach?: components["schemas"]["treasury_financial_accounts_resource_ach_toggle_settings"];
+            ach?: components["schemas"]["treasury_financial_accounts_resource_inbound_ach_toggle_settings"];
+        };
+        /**
+         * TreasuryFinancialAccountsResourceOutboundAchToggleSettings
+         * @description Toggle settings for enabling/disabling an outbound ACH specific feature
+         */
+        treasury_financial_accounts_resource_outbound_ach_toggle_settings: {
+            /** @description Whether the FinancialAccount should have the Feature. */
+            requested: boolean;
+            /**
+             * @description Whether the Feature is operational.
+             * @enum {string}
+             */
+            status: "active" | "pending" | "restricted";
+            /** @description Additional details; includes at least one entry when the status is not `active`. */
+            status_details: components["schemas"]["treasury_financial_accounts_resource_toggles_setting_status_details"][];
         };
         /**
          * TreasuryFinancialAccountsResourceOutboundPayments
          * @description Settings related to Outbound Payments features on a Financial Account
          */
         treasury_financial_accounts_resource_outbound_payments: {
-            ach?: components["schemas"]["treasury_financial_accounts_resource_ach_toggle_settings"];
+            ach?: components["schemas"]["treasury_financial_accounts_resource_outbound_ach_toggle_settings"];
             us_domestic_wire?: components["schemas"]["treasury_financial_accounts_resource_toggle_settings"];
         };
         /**
@@ -26589,7 +26957,7 @@ export interface components {
          * @description OutboundTransfers contains outbound transfers features for a FinancialAccount.
          */
         treasury_financial_accounts_resource_outbound_transfers: {
-            ach?: components["schemas"]["treasury_financial_accounts_resource_ach_toggle_settings"];
+            ach?: components["schemas"]["treasury_financial_accounts_resource_outbound_ach_toggle_settings"];
             us_domestic_wire?: components["schemas"]["treasury_financial_accounts_resource_toggle_settings"];
         };
         /**
@@ -27402,6 +27770,7 @@ export interface operations {
                         /** @enum {string} */
                         account_type?: "checking" | "futsu" | "savings" | "toza";
                         country: string;
+                        /** Format: currency */
                         currency?: string;
                         /** external_account_documents_param */
                         documents?: {
@@ -27422,6 +27791,7 @@ export interface operations {
                         /** annual_revenue_specs */
                         annual_revenue?: {
                             amount: number;
+                            /** Format: currency */
                             currency: string;
                             fiscal_year_end: string;
                         };
@@ -27430,6 +27800,7 @@ export interface operations {
                         /** monthly_estimated_revenue_specs */
                         monthly_estimated_revenue?: {
                             amount: number;
+                            /** Format: currency */
                             currency: string;
                         };
                         name?: string;
@@ -27768,7 +28139,10 @@ export interface operations {
                     };
                     /** @description The country in which the account holder resides, or in which the business is legally established. This should be an ISO 3166-1 alpha-2 country code. For example, if you are in the United States and the business for which you're creating an account is legally represented in Canada, you would use `CA` as the country for the account being created. Available countries include [Stripe's global markets](https://stripe.com/global) as well as countries where [cross-border payouts](https://stripe.com/docs/connect/cross-border-payouts) are supported. */
                     country?: string;
-                    /** @description Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://docs.stripe.com/payouts). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://docs.stripe.com/payouts).
+                     */
                     default_currency?: string;
                     /**
                      * documents_specs
@@ -27812,7 +28186,7 @@ export interface operations {
                     external_account?: string;
                     /**
                      * account_groups_specs
-                     * @description A hash of account group type to tokens. These are account groups this account should be added to
+                     * @description A hash of account group type to tokens. These are account groups this account should be added to.
                      */
                     groups?: {
                         payments_pricing?: string | "";
@@ -28071,13 +28445,14 @@ export interface operations {
                     /** @description An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account. */
                     account_token?: string;
                     /**
-                     * business_profile_specs
+                     * business_profile_update_specs
                      * @description Business information about the account.
                      */
                     business_profile?: {
                         /** annual_revenue_specs */
                         annual_revenue?: {
                             amount: number;
+                            /** Format: currency */
                             currency: string;
                             fiscal_year_end: string;
                         };
@@ -28086,6 +28461,7 @@ export interface operations {
                         /** monthly_estimated_revenue_specs */
                         monthly_estimated_revenue?: {
                             amount: number;
+                            /** Format: currency */
                             currency: string;
                         };
                         name?: string;
@@ -28335,7 +28711,7 @@ export interface operations {
                         };
                     };
                     /**
-                     * company_specs
+                     * company_update_specs
                      * @description Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](/api/account_links) or [Account Session](/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
                      */
                     company?: {
@@ -28399,7 +28775,10 @@ export interface operations {
                             };
                         };
                     };
-                    /** @description Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://docs.stripe.com/payouts). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://docs.stripe.com/payouts).
+                     */
                     default_currency?: string;
                     /**
                      * documents_specs
@@ -28443,13 +28822,13 @@ export interface operations {
                     external_account?: string;
                     /**
                      * account_groups_specs
-                     * @description A hash of account group type to tokens. These are account groups this account should be added to
+                     * @description A hash of account group type to tokens. These are account groups this account should be added to.
                      */
                     groups?: {
                         payments_pricing?: string | "";
                     };
                     /**
-                     * individual_specs
+                     * individual_update_specs
                      * @description Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](/api/account_links) or [Account Session](/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
                      */
                     individual?: {
@@ -28704,6 +29083,7 @@ export interface operations {
                         /** @enum {string} */
                         account_type?: "checking" | "futsu" | "savings" | "toza";
                         country: string;
+                        /** Format: currency */
                         currency?: string;
                         /** external_account_documents_param */
                         documents?: {
@@ -29120,6 +29500,7 @@ export interface operations {
                         /** @enum {string} */
                         account_type?: "checking" | "futsu" | "savings" | "toza";
                         country: string;
+                        /** Format: currency */
                         currency?: string;
                         /** external_account_documents_param */
                         documents?: {
@@ -29375,6 +29756,7 @@ export interface operations {
                 limit?: number;
                 /** @description Filters on the list of people returned based on the person's relationship to the account's company. */
                 relationship?: {
+                    authorizer?: boolean;
                     director?: boolean;
                     executive?: boolean;
                     legal_guardian?: boolean;
@@ -29569,6 +29951,7 @@ export interface operations {
                      * @description The relationship that this person has with the account's legal entity.
                      */
                     relationship?: {
+                        authorizer?: boolean;
                         director?: boolean;
                         executive?: boolean;
                         legal_guardian?: boolean;
@@ -29801,6 +30184,7 @@ export interface operations {
                      * @description The relationship that this person has with the account's legal entity.
                      */
                     relationship?: {
+                        authorizer?: boolean;
                         director?: boolean;
                         executive?: boolean;
                         legal_guardian?: boolean;
@@ -29898,6 +30282,7 @@ export interface operations {
                 limit?: number;
                 /** @description Filters on the list of people returned based on the person's relationship to the account's company. */
                 relationship?: {
+                    authorizer?: boolean;
                     director?: boolean;
                     executive?: boolean;
                     legal_guardian?: boolean;
@@ -30092,6 +30477,7 @@ export interface operations {
                      * @description The relationship that this person has with the account's legal entity.
                      */
                     relationship?: {
+                        authorizer?: boolean;
                         director?: boolean;
                         executive?: boolean;
                         legal_guardian?: boolean;
@@ -30324,6 +30710,7 @@ export interface operations {
                      * @description The relationship that this person has with the account's legal entity.
                      */
                     relationship?: {
+                        authorizer?: boolean;
                         director?: boolean;
                         executive?: boolean;
                         legal_guardian?: boolean;
@@ -31200,7 +31587,7 @@ export interface operations {
                 source?: string;
                 /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
                 starting_after?: string;
-                /** @description Only returns transactions of the given type. One of: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `climate_order_purchase`, `climate_order_refund`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_outbound`, `obligation_reversal_inbound`, `payment`, `payment_failure_refund`, `payment_network_reserve_hold`, `payment_network_reserve_release`, `payment_refund`, `payment_reversal`, `payment_unreconciled`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. */
+                /** @description Only returns transactions of the given type. One of: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `climate_order_purchase`, `climate_order_refund`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_outbound`, `obligation_reversal_inbound`, `payment`, `payment_failure_refund`, `payment_network_reserve_hold`, `payment_network_reserve_release`, `payment_refund`, `payment_reversal`, `payment_unreconciled`, `payout`, `payout_cancel`, `payout_failure`, `payout_minimum_balance_hold`, `payout_minimum_balance_release`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. */
                 type?: string;
             };
             header?: never;
@@ -31306,7 +31693,7 @@ export interface operations {
                 source?: string;
                 /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
                 starting_after?: string;
-                /** @description Only returns transactions of the given type. One of: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `climate_order_purchase`, `climate_order_refund`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_outbound`, `obligation_reversal_inbound`, `payment`, `payment_failure_refund`, `payment_network_reserve_hold`, `payment_network_reserve_release`, `payment_refund`, `payment_reversal`, `payment_unreconciled`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. */
+                /** @description Only returns transactions of the given type. One of: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `climate_order_purchase`, `climate_order_refund`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_outbound`, `obligation_reversal_inbound`, `payment`, `payment_failure_refund`, `payment_network_reserve_hold`, `payment_network_reserve_release`, `payment_refund`, `payment_reversal`, `payment_unreconciled`, `payout`, `payout_cancel`, `payout_failure`, `payout_minimum_balance_hold`, `payout_minimum_balance_release`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. */
                 type?: string;
             };
             header?: never;
@@ -31872,6 +32259,7 @@ export interface operations {
                     amount: {
                         /** monetary_amount_param */
                         monetary?: {
+                            /** Format: currency */
                             currency: string;
                             value: number;
                         };
@@ -31898,17 +32286,17 @@ export interface operations {
                     customer: string;
                     /**
                      * Format: unix-time
-                     * @description The time when the billing credits become effective—when they're eligible for use. Defaults to the current timestamp if not specified.
+                     * @description The time when the billing credits become effective-when they're eligible for use. It defaults to the current timestamp if not specified.
                      */
                     effective_at?: number;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     /**
                      * Format: unix-time
-                     * @description The time when the billing credits will expire. If not specified, the billing credits don't expire.
+                     * @description The time when the billing credits expire. If not specified, the billing credits don't expire.
                      */
                     expires_at?: number;
-                    /** @description Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object (for example, cost basis) in a structured format. */
+                    /** @description Set of key-value pairs that you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format. */
                     metadata?: {
                         [key: string]: string;
                     };
@@ -31994,7 +32382,7 @@ export interface operations {
                     expand?: string[];
                     /** @description The time when the billing credits created by this credit grant expire. If set to empty, the billing credits never expire. */
                     expires_at?: number | "";
-                    /** @description Set of key-value pairs you can attach to an object. This can be useful for storing additional information about the object (for example, cost basis) in a structured format. */
+                    /** @description Set of key-value pairs you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format. */
                     metadata?: {
                         [key: string]: string;
                     };
@@ -32164,7 +32552,7 @@ export interface operations {
                     event_name: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
-                    /** @description A unique identifier for the event. If not provided, one will be generated. We strongly advise using UUID-like identifiers. We will enforce uniqueness within a rolling period of at least 24 hours. The enforcement of uniqueness primarily addresses issues arising from accidental retries or other problems occurring within extremely brief time intervals. This approach helps prevent duplicate entries and ensures data integrity in high-frequency operations. */
+                    /** @description A unique identifier for the event. If not provided, one is generated. We recommend using UUID-like identifiers. We will enforce uniqueness within a rolling period of at least 24 hours. The enforcement of uniqueness primarily addresses issues arising from accidental retries or other problems occurring within extremely brief time intervals. This approach helps prevent duplicate entries and ensures data integrity in high-frequency operations. */
                     identifier?: string;
                     /** @description The payload of the event. This must contain the fields corresponding to a meter's `customer_mapping.event_payload_key` (default is `stripe_customer_id`) and `value_settings.event_payload_key` (default is `value`). Read more about the [payload](https://docs.stripe.com/billing/subscriptions/usage-based/recording-usage#payload-key-overrides). */
                     payload: {
@@ -32281,7 +32669,7 @@ export interface operations {
                         /** @enum {string} */
                         formula: "count" | "sum";
                     };
-                    /** @description The meter's name. */
+                    /** @description The meter’s name. Not visible to the customer. */
                     display_name: string;
                     /** @description The name of the meter event to record usage for. Corresponds with the `event_name` field on meter events. */
                     event_name: string;
@@ -32375,7 +32763,7 @@ export interface operations {
         requestBody?: {
             content: {
                 "application/x-www-form-urlencoded": {
-                    /** @description The meter's name. */
+                    /** @description The meter’s name. Not visible to the customer. */
                     display_name?: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -33062,7 +33450,10 @@ export interface operations {
                         /** @enum {string} */
                         object?: "card";
                     } | string;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description The ID of an existing customer that will be charged in this request. */
                     customer?: string;
@@ -33490,6 +33881,10 @@ export interface operations {
                                     };
                                 }[];
                             };
+                            /** visa_compliance */
+                            visa_compliance?: {
+                                fee_acknowledged?: boolean;
+                            };
                         } | "";
                         product_description?: string;
                         receipt?: string;
@@ -33704,7 +34099,10 @@ export interface operations {
             content: {
                 "application/x-www-form-urlencoded": {
                     amount?: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description Customer whose customer balance to refund from. */
                     customer?: string;
@@ -33980,7 +34378,10 @@ export interface operations {
                         /** @enum {string} */
                         terms_of_service?: "none" | "required";
                     };
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Required in `setup` mode when `payment_method_types` is not set. */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Required in `setup` mode when `payment_method_types` is not set.
+                     */
                     currency?: string;
                     /** @description Collect additional information from your customer using custom fields. Up to 3 fields are supported. */
                     custom_fields?: {
@@ -34134,6 +34535,7 @@ export interface operations {
                         price?: string;
                         /** price_data_with_product_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product?: string;
                             /** product_data */
@@ -34288,7 +34690,9 @@ export interface operations {
                         /** payment_method_options_param */
                         bacs_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                             /** @enum {string} */
                             setup_future_usage?: "none" | "off_session" | "on_session";
                         };
@@ -34468,7 +34872,9 @@ export interface operations {
                         /** payment_method_options_param */
                         sepa_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                             /** @enum {string} */
                             setup_future_usage?: "none" | "off_session" | "on_session";
                         };
@@ -34584,6 +34990,7 @@ export interface operations {
                             /** fixed_amount */
                             fixed_amount?: {
                                 amount: number;
+                                /** Format: currency */
                                 currency: string;
                                 currency_options?: {
                                     [key: string]: {
@@ -35496,7 +35903,10 @@ export interface operations {
                     applies_to?: {
                         products?: string[];
                     };
-                    /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed).
+                     */
                     currency?: string;
                     /** @description Coupons defined in each available currency option (only supported if `amount_off` is passed). Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
                     currency_options?: {
@@ -36431,7 +36841,7 @@ export interface operations {
                     /** @description The customer's tax IDs. */
                     tax_id_data?: {
                         /** @enum {string} */
-                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+                        type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
                         value: string;
                     }[];
                     /** @description ID of the test clock to attach to the customer. */
@@ -36582,6 +36992,7 @@ export interface operations {
                         account_holder_type?: "company" | "individual";
                         account_number: string;
                         country: string;
+                        /** Format: currency */
                         currency?: string;
                         /** @enum {string} */
                         object?: "bank_account";
@@ -36827,7 +37238,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description The integer amount in **cents (or local equivalent)** to apply to the customer's credit balance. */
                     amount: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Specifies the [`invoice_credit_balance`](https://stripe.com/docs/api/customers/object#customer_object-invoice_credit_balance) that this transaction will apply to. If the customer's `currency` is not set, it will be updated to this value. */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Specifies the [`invoice_credit_balance`](https://stripe.com/docs/api/customers/object#customer_object-invoice_credit_balance) that this transaction will apply to. If the customer's `currency` is not set, it will be updated to this value.
+                     */
                     currency: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -37022,6 +37436,7 @@ export interface operations {
                         account_holder_type?: "company" | "individual";
                         account_number: string;
                         country: string;
+                        /** Format: currency */
                         currency?: string;
                         /** @enum {string} */
                         object?: "bank_account";
@@ -37356,6 +37771,7 @@ export interface operations {
                         account_holder_type?: "company" | "individual";
                         account_number: string;
                         country: string;
+                        /** Format: currency */
                         currency?: string;
                         /** @enum {string} */
                         object?: "bank_account";
@@ -37850,7 +38266,10 @@ export interface operations {
                         /** @enum {string} */
                         type: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | "us_bank_transfer";
                     };
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -38060,6 +38479,7 @@ export interface operations {
                         account_holder_type?: "company" | "individual";
                         account_number: string;
                         country: string;
+                        /** Format: currency */
                         currency?: string;
                         /** @enum {string} */
                         object?: "bank_account";
@@ -38396,6 +38816,7 @@ export interface operations {
                         price?: string;
                         /** one_time_price_data_with_negative_amounts */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** @enum {string} */
@@ -38451,7 +38872,10 @@ export interface operations {
                     collection_method?: "charge_automatically" | "send_invoice";
                     /** @description The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead. */
                     coupon?: string;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description Number of days a customer has to pay invoices generated by this subscription. Valid only for subscriptions where `collection_method` is set to `send_invoice`. */
                     days_until_due?: number;
@@ -38498,6 +38922,7 @@ export interface operations {
                         price?: string;
                         /** recurring_price_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** recurring_adhoc */
@@ -38724,6 +39149,7 @@ export interface operations {
                         price?: string;
                         /** one_time_price_data_with_negative_amounts */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** @enum {string} */
@@ -38828,6 +39254,7 @@ export interface operations {
                         price?: string;
                         /** recurring_price_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** recurring_adhoc */
@@ -39184,10 +39611,10 @@ export interface operations {
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     /**
-                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, or `za_vat`
+                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `ba_tin`, `bb_tin`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kh_tin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
                      * @enum {string}
                      */
-                    type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+                    type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
                     /** @description Value of the tax ID. */
                     value: string;
                 };
@@ -39462,6 +39889,10 @@ export interface operations {
                                         state?: string | "";
                                     };
                                 }[];
+                            };
+                            /** visa_compliance */
+                            visa_compliance?: {
+                                fee_acknowledged?: boolean;
                             };
                         } | "";
                         product_description?: string;
@@ -41057,7 +41488,7 @@ export interface operations {
                     /** @description The PaymentMethod to insert into the forwarded request. Forwarding previously consumed PaymentMethods is allowed. */
                     payment_method: string;
                     /** @description The field kinds to be replaced in the forwarded request. */
-                    replacements: ("card_cvc" | "card_expiry" | "card_number" | "cardholder_name")[];
+                    replacements: ("card_cvc" | "card_expiry" | "card_number" | "cardholder_name" | "request_signature")[];
                     /**
                      * request_param
                      * @description The request body and headers to be sent to the destination endpoint.
@@ -41804,7 +42235,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description The integer amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. Passing in a negative `amount` will reduce the `amount_due` on the invoice. */
                     amount?: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description The ID of the customer who will be billed when this invoice item is billed. */
                     customer: string;
@@ -41843,6 +42277,7 @@ export interface operations {
                      * @description Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
                      */
                     price_data?: {
+                        /** Format: currency */
                         currency: string;
                         product: string;
                         /** @enum {string} */
@@ -41980,6 +42415,7 @@ export interface operations {
                      * @description Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
                      */
                     price_data?: {
+                        /** Format: currency */
                         currency: string;
                         product: string;
                         /** @enum {string} */
@@ -42178,7 +42614,10 @@ export interface operations {
                      * @enum {string}
                      */
                     collection_method?: "charge_automatically" | "send_invoice";
-                    /** @description The currency to create this invoice in. Defaults to that of `customer` if not specified. */
+                    /**
+                     * Format: currency
+                     * @description The currency to create this invoice in. Defaults to that of `customer` if not specified.
+                     */
                     currency?: string;
                     /** @description A list of up to 4 custom fields to be displayed on the invoice. */
                     custom_fields?: {
@@ -42355,6 +42794,7 @@ export interface operations {
                             /** fixed_amount */
                             fixed_amount?: {
                                 amount: number;
+                                /** Format: currency */
                                 currency: string;
                                 currency_options?: {
                                     [key: string]: {
@@ -42452,7 +42892,10 @@ export interface operations {
                     };
                     /** @description The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead. */
                     coupon?: string;
-                    /** @description The currency to preview this invoice in. Defaults to that of `customer` if not specified. */
+                    /**
+                     * Format: currency
+                     * @description The currency to preview this invoice in. Defaults to that of `customer` if not specified.
+                     */
                     currency?: string;
                     /** @description The identifier of the customer whose upcoming invoice you'd like to retrieve. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set. */
                     customer?: string;
@@ -42490,7 +42933,7 @@ export interface operations {
                         tax_exempt?: "" | "exempt" | "none" | "reverse";
                         tax_ids?: {
                             /** @enum {string} */
-                            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+                            type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
                             value: string;
                         }[];
                     };
@@ -42505,6 +42948,7 @@ export interface operations {
                     /** @description List of invoice items to add or update in the upcoming invoice preview (up to 250). */
                     invoice_items?: {
                         amount?: number;
+                        /** Format: currency */
                         currency?: string;
                         description?: string;
                         discountable?: boolean;
@@ -42527,6 +42971,7 @@ export interface operations {
                         price?: string;
                         /** one_time_price_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** @enum {string} */
@@ -42579,6 +43024,7 @@ export interface operations {
                                 price?: string;
                                 /** one_time_price_data_with_negative_amounts */
                                 price_data?: {
+                                    /** Format: currency */
                                     currency: string;
                                     product: string;
                                     /** @enum {string} */
@@ -42645,6 +43091,7 @@ export interface operations {
                                 price?: string;
                                 /** recurring_price_data */
                                 price_data?: {
+                                    /** Format: currency */
                                     currency: string;
                                     product: string;
                                     /** recurring_adhoc */
@@ -42711,6 +43158,7 @@ export interface operations {
                             price?: string;
                             /** recurring_price_data */
                             price_data?: {
+                                /** Format: currency */
                                 currency: string;
                                 product: string;
                                 /** recurring_adhoc */
@@ -42866,7 +43314,7 @@ export interface operations {
                     tax_exempt?: "" | "exempt" | "none" | "reverse";
                     tax_ids?: {
                         /** @enum {string} */
-                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+                        type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
                         value: string;
                     }[];
                 };
@@ -42881,6 +43329,7 @@ export interface operations {
                 /** @description List of invoice items to add or update in the upcoming invoice preview (up to 250). */
                 invoice_items?: {
                     amount?: number;
+                    /** Format: currency */
                     currency?: string;
                     description?: string;
                     discountable?: boolean;
@@ -42903,6 +43352,7 @@ export interface operations {
                     price?: string;
                     /** one_time_price_data */
                     price_data?: {
+                        /** Format: currency */
                         currency: string;
                         product: string;
                         /** @enum {string} */
@@ -42946,6 +43396,7 @@ export interface operations {
                             price?: string;
                             /** one_time_price_data_with_negative_amounts */
                             price_data?: {
+                                /** Format: currency */
                                 currency: string;
                                 product: string;
                                 /** @enum {string} */
@@ -43012,6 +43463,7 @@ export interface operations {
                             price?: string;
                             /** recurring_price_data */
                             price_data?: {
+                                /** Format: currency */
                                 currency: string;
                                 product: string;
                                 /** recurring_adhoc */
@@ -43085,6 +43537,7 @@ export interface operations {
                         price?: string;
                         /** recurring_price_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** recurring_adhoc */
@@ -43131,6 +43584,7 @@ export interface operations {
                     price?: string;
                     /** recurring_price_data */
                     price_data?: {
+                        /** Format: currency */
                         currency: string;
                         product: string;
                         /** recurring_adhoc */
@@ -43239,7 +43693,7 @@ export interface operations {
                     tax_exempt?: "" | "exempt" | "none" | "reverse";
                     tax_ids?: {
                         /** @enum {string} */
-                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+                        type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
                         value: string;
                     }[];
                 };
@@ -43256,6 +43710,7 @@ export interface operations {
                 /** @description List of invoice items to add or update in the upcoming invoice preview (up to 250). */
                 invoice_items?: {
                     amount?: number;
+                    /** Format: currency */
                     currency?: string;
                     description?: string;
                     discountable?: boolean;
@@ -43278,6 +43733,7 @@ export interface operations {
                     price?: string;
                     /** one_time_price_data */
                     price_data?: {
+                        /** Format: currency */
                         currency: string;
                         product: string;
                         /** @enum {string} */
@@ -43323,6 +43779,7 @@ export interface operations {
                             price?: string;
                             /** one_time_price_data_with_negative_amounts */
                             price_data?: {
+                                /** Format: currency */
                                 currency: string;
                                 product: string;
                                 /** @enum {string} */
@@ -43389,6 +43846,7 @@ export interface operations {
                             price?: string;
                             /** recurring_price_data */
                             price_data?: {
+                                /** Format: currency */
                                 currency: string;
                                 product: string;
                                 /** recurring_adhoc */
@@ -43464,6 +43922,7 @@ export interface operations {
                         price?: string;
                         /** recurring_price_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** recurring_adhoc */
@@ -43510,6 +43969,7 @@ export interface operations {
                     price?: string;
                     /** recurring_price_data */
                     price_data?: {
+                        /** Format: currency */
                         currency: string;
                         product: string;
                         /** recurring_adhoc */
@@ -43812,6 +44272,7 @@ export interface operations {
                             /** fixed_amount */
                             fixed_amount?: {
                                 amount: number;
+                                /** Format: currency */
                                 currency: string;
                                 currency_options?: {
                                     [key: string]: {
@@ -43953,6 +44414,7 @@ export interface operations {
                         price?: string;
                         /** one_time_price_data_with_product_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product?: string;
                             /** product_data */
@@ -44160,6 +44622,7 @@ export interface operations {
                      * @description Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
                      */
                     price_data?: {
+                        /** Format: currency */
                         currency: string;
                         product?: string;
                         /** product_data */
@@ -44441,6 +44904,7 @@ export interface operations {
                         price?: string;
                         /** one_time_price_data_with_product_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product?: string;
                             /** product_data */
@@ -47021,7 +47485,10 @@ export interface operations {
                      *
                      *     If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence. */
                     confirmation_token?: string;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description ID of the Customer this PaymentIntent belongs to, if one exists.
                      *
@@ -47288,7 +47755,9 @@ export interface operations {
                         } | "";
                         bacs_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
                         } | "";
@@ -47532,7 +48001,9 @@ export interface operations {
                         } | "";
                         sepa_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
                         } | "";
@@ -47791,7 +48262,10 @@ export interface operations {
                      * @enum {string}
                      */
                     capture_method?: "automatic" | "automatic_async" | "manual";
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description ID of the Customer this PaymentIntent belongs to, if one exists.
                      *
@@ -48031,7 +48505,9 @@ export interface operations {
                         } | "";
                         bacs_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
                         } | "";
@@ -48275,7 +48751,9 @@ export interface operations {
                         } | "";
                         sepa_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
                         } | "";
@@ -48423,7 +48901,10 @@ export interface operations {
                      *
                      *     When you omit the amount, it defaults to the remaining amount requested on the PaymentIntent. */
                     amount?: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -48836,7 +49317,9 @@ export interface operations {
                         } | "";
                         bacs_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
                         } | "";
@@ -49080,7 +49563,9 @@ export interface operations {
                         } | "";
                         sepa_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
                         } | "";
@@ -49430,7 +49915,10 @@ export interface operations {
                         /** @enum {string} */
                         terms_of_service?: "none" | "required";
                     };
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies) and supported by each line item's price. */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies) and supported by each line item's price.
+                     */
                     currency?: string;
                     /** @description Collect additional information from your customer using custom fields. Up to 3 fields are supported. */
                     custom_fields?: {
@@ -49915,6 +50403,7 @@ export interface operations {
                         metadata?: {
                             [key: string]: string;
                         } | "";
+                        trial_period_days?: number | "";
                         trial_settings?: {
                             /** end_behavior */
                             end_behavior: {
@@ -52034,7 +52523,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description A positive integer in cents representing how much to payout. */
                     amount: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -52336,7 +52828,10 @@ export interface operations {
                      * @enum {string}
                      */
                     billing_scheme?: "per_unit" | "tiered";
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -52643,7 +53138,10 @@ export interface operations {
                      * @enum {string}
                      */
                     billing_scheme?: "per_unit" | "tiered";
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description Prices defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
                     currency_options?: {
@@ -53044,6 +53542,7 @@ export interface operations {
                      * @description Data used to generate a new [Price](https://stripe.com/docs/api/prices) object. This Price will be set as the default price for this product.
                      */
                     default_price_data?: {
+                        /** Format: currency */
                         currency: string;
                         currency_options?: {
                             [key: string]: {
@@ -53642,6 +54141,7 @@ export interface operations {
                         };
                         first_time_transaction?: boolean;
                         minimum_amount?: number;
+                        /** Format: currency */
                         minimum_amount_currency?: string;
                     };
                 };
@@ -53906,6 +54406,7 @@ export interface operations {
                         price?: string;
                         /** price_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** recurring_adhoc */
@@ -54092,6 +54593,7 @@ export interface operations {
                         price?: string;
                         /** price_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** recurring_adhoc */
@@ -55014,7 +55516,10 @@ export interface operations {
                     amount?: number;
                     /** @description The identifier of the charge to refund. */
                     charge?: string;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description Customer whose customer balance to refund from. */
                     customer?: string;
@@ -55263,6 +55768,7 @@ export interface operations {
                     parameters?: {
                         columns?: string[];
                         connected_account?: string;
+                        /** Format: currency */
                         currency?: string;
                         /** Format: unix-time */
                         interval_end?: number;
@@ -55952,7 +56458,9 @@ export interface operations {
                         /** setup_intent_payment_method_options_param */
                         bacs_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                         };
                         /** setup_intent_param */
                         card?: {
@@ -55961,6 +56469,7 @@ export interface operations {
                                 amount: number;
                                 /** @enum {string} */
                                 amount_type: "fixed" | "maximum";
+                                /** Format: currency */
                                 currency: string;
                                 description?: string;
                                 /** Format: unix-time */
@@ -56011,7 +56520,9 @@ export interface operations {
                         /** setup_intent_payment_method_options_param */
                         sepa_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                         };
                         /** setup_intent_payment_method_options_param */
                         us_bank_account?: {
@@ -56048,6 +56559,7 @@ export interface operations {
                      */
                     single_use?: {
                         amount: number;
+                        /** Format: currency */
                         currency: string;
                     };
                     /**
@@ -56349,7 +56861,9 @@ export interface operations {
                         /** setup_intent_payment_method_options_param */
                         bacs_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                         };
                         /** setup_intent_param */
                         card?: {
@@ -56358,6 +56872,7 @@ export interface operations {
                                 amount: number;
                                 /** @enum {string} */
                                 amount_type: "fixed" | "maximum";
+                                /** Format: currency */
                                 currency: string;
                                 description?: string;
                                 /** Format: unix-time */
@@ -56408,7 +56923,9 @@ export interface operations {
                         /** setup_intent_payment_method_options_param */
                         sepa_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                         };
                         /** setup_intent_payment_method_options_param */
                         us_bank_account?: {
@@ -56745,7 +57262,9 @@ export interface operations {
                         /** setup_intent_payment_method_options_param */
                         bacs_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                         };
                         /** setup_intent_param */
                         card?: {
@@ -56754,6 +57273,7 @@ export interface operations {
                                 amount: number;
                                 /** @enum {string} */
                                 amount_type: "fixed" | "maximum";
+                                /** Format: currency */
                                 currency: string;
                                 description?: string;
                                 /** Format: unix-time */
@@ -56804,7 +57324,9 @@ export interface operations {
                         /** setup_intent_payment_method_options_param */
                         sepa_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                         };
                         /** setup_intent_payment_method_options_param */
                         us_bank_account?: {
@@ -57007,6 +57529,7 @@ export interface operations {
                      */
                     fixed_amount?: {
                         amount: number;
+                        /** Format: currency */
                         currency: string;
                         currency_options?: {
                             [key: string]: {
@@ -57259,7 +57782,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Amount associated with the source. This is the amount for which the source will be chargeable once ready. Required for `single_use` sources. Not supported for `receiver` type sources, where charge amount may not be specified until funds land. */
                     amount?: number;
-                    /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) associated with the source. This is the currency for which the source will be chargeable once ready. */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) associated with the source. This is the currency for which the source will be chargeable once ready.
+                     */
                     currency?: string;
                     /** @description The `Customer` to whom the original source is attached to. Must be set when the original source is not a `Source` (e.g., `Card`). */
                     customer?: string;
@@ -57298,6 +57824,7 @@ export interface operations {
                             user_agent?: string;
                         };
                         amount?: number | "";
+                        /** Format: currency */
                         currency?: string;
                         /** @enum {string} */
                         interval?: "one_time" | "scheduled" | "variable";
@@ -57349,6 +57876,7 @@ export interface operations {
                     source_order?: {
                         items?: {
                             amount?: number;
+                            /** Format: currency */
                             currency?: string;
                             description?: string;
                             parent?: string;
@@ -57489,6 +58017,7 @@ export interface operations {
                             user_agent?: string;
                         };
                         amount?: number | "";
+                        /** Format: currency */
                         currency?: string;
                         /** @enum {string} */
                         interval?: "one_time" | "scheduled" | "variable";
@@ -57524,6 +58053,7 @@ export interface operations {
                     source_order?: {
                         items?: {
                             amount?: number;
+                            /** Format: currency */
                             currency?: string;
                             description?: string;
                             parent?: string;
@@ -57844,6 +58374,7 @@ export interface operations {
                      * @description Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
                      */
                     price_data?: {
+                        /** Format: currency */
                         currency: string;
                         product: string;
                         /** recurring_adhoc */
@@ -57984,6 +58515,7 @@ export interface operations {
                      * @description Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
                      */
                     price_data?: {
+                        /** Format: currency */
                         currency: string;
                         product: string;
                         /** recurring_adhoc */
@@ -58350,6 +58882,7 @@ export interface operations {
                             price?: string;
                             /** one_time_price_data_with_negative_amounts */
                             price_data?: {
+                                /** Format: currency */
                                 currency: string;
                                 product: string;
                                 /** @enum {string} */
@@ -58381,6 +58914,7 @@ export interface operations {
                         /** @enum {string} */
                         collection_method?: "charge_automatically" | "send_invoice";
                         coupon?: string;
+                        /** Format: currency */
                         currency?: string;
                         default_payment_method?: string;
                         default_tax_rates?: string[] | "";
@@ -58418,6 +58952,7 @@ export interface operations {
                             price?: string;
                             /** recurring_price_data */
                             price_data?: {
+                                /** Format: currency */
                                 currency: string;
                                 product: string;
                                 /** recurring_adhoc */
@@ -58592,6 +59127,7 @@ export interface operations {
                             price?: string;
                             /** one_time_price_data_with_negative_amounts */
                             price_data?: {
+                                /** Format: currency */
                                 currency: string;
                                 product: string;
                                 /** @enum {string} */
@@ -58658,6 +59194,7 @@ export interface operations {
                             price?: string;
                             /** recurring_price_data */
                             price_data?: {
+                                /** Format: currency */
                                 currency: string;
                                 product: string;
                                 /** recurring_adhoc */
@@ -58910,6 +59447,7 @@ export interface operations {
                         price?: string;
                         /** one_time_price_data_with_negative_amounts */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** @enum {string} */
@@ -58976,7 +59514,10 @@ export interface operations {
                     collection_method?: "charge_automatically" | "send_invoice";
                     /** @description The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead. */
                     coupon?: string;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description The identifier of the customer to subscribe. */
                     customer: string;
@@ -59027,6 +59568,7 @@ export interface operations {
                         price?: string;
                         /** recurring_price_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** recurring_adhoc */
@@ -59307,6 +59849,7 @@ export interface operations {
                         price?: string;
                         /** one_time_price_data_with_negative_amounts */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** @enum {string} */
@@ -59413,6 +59956,7 @@ export interface operations {
                         price?: string;
                         /** recurring_price_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** recurring_adhoc */
@@ -59731,7 +60275,10 @@ export interface operations {
         requestBody: {
             content: {
                 "application/x-www-form-urlencoded": {
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description The ID of an existing customer to use for this calculation. If provided, the customer's address and tax IDs are copied to `customer_details`. */
                     customer?: string;
@@ -59754,7 +60301,7 @@ export interface operations {
                         ip_address?: string;
                         tax_ids?: {
                             /** @enum {string} */
-                            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+                            type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
                             value: string;
                         }[];
                         /** @enum {string} */
@@ -59997,6 +60544,21 @@ export interface operations {
                             /** @enum {string} */
                             type: "standard";
                         };
+                        /** default */
+                        al?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
+                        /** simplified */
+                        am?: {
+                            /** @enum {string} */
+                            type: "simplified";
+                        };
+                        /** default */
+                        ao?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
                         /** europe */
                         at?: {
                             /** standard */
@@ -60009,6 +60571,16 @@ export interface operations {
                         };
                         /** default */
                         au?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
+                        /** default */
+                        ba?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
+                        /** default */
+                        bb?: {
                             /** @enum {string} */
                             type: "standard";
                         };
@@ -60037,6 +60609,11 @@ export interface operations {
                             /** @enum {string} */
                             type: "standard";
                         };
+                        /** default */
+                        bs?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
                         /** simplified */
                         by?: {
                             /** @enum {string} */
@@ -60050,6 +60627,11 @@ export interface operations {
                             };
                             /** @enum {string} */
                             type: "province_standard" | "simplified" | "standard";
+                        };
+                        /** default */
+                        cd?: {
+                            /** @enum {string} */
+                            type: "standard";
                         };
                         /** default */
                         ch?: {
@@ -60171,6 +60753,11 @@ export interface operations {
                             /** @enum {string} */
                             type: "simplified";
                         };
+                        /** default */
+                        gn?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
                         /** europe */
                         gr?: {
                             /** standard */
@@ -60242,6 +60829,11 @@ export interface operations {
                             type: "simplified";
                         };
                         /** simplified */
+                        kh?: {
+                            /** @enum {string} */
+                            type: "simplified";
+                        };
+                        /** simplified */
                         kr?: {
                             /** @enum {string} */
                             type: "simplified";
@@ -60291,6 +60883,21 @@ export interface operations {
                             /** @enum {string} */
                             type: "simplified";
                         };
+                        /** default */
+                        me?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
+                        /** default */
+                        mk?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
+                        /** default */
+                        mr?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
                         /** europe */
                         mt?: {
                             /** standard */
@@ -60331,6 +60938,11 @@ export interface operations {
                             /** @enum {string} */
                             type: "standard";
                         };
+                        /** simplified */
+                        np?: {
+                            /** @enum {string} */
+                            type: "simplified";
+                        };
                         /** default */
                         nz?: {
                             /** @enum {string} */
@@ -60340,6 +60952,11 @@ export interface operations {
                         om?: {
                             /** @enum {string} */
                             type: "standard";
+                        };
+                        /** simplified */
+                        pe?: {
+                            /** @enum {string} */
+                            type: "simplified";
                         };
                         /** europe */
                         pl?: {
@@ -60422,7 +61039,22 @@ export interface operations {
                             type: "ioss" | "oss_non_union" | "oss_union" | "standard";
                         };
                         /** simplified */
+                        sn?: {
+                            /** @enum {string} */
+                            type: "simplified";
+                        };
+                        /** default */
+                        sr?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
+                        /** simplified */
                         th?: {
+                            /** @enum {string} */
+                            type: "simplified";
+                        };
+                        /** simplified */
+                        tj?: {
                             /** @enum {string} */
                             type: "simplified";
                         };
@@ -60433,6 +61065,11 @@ export interface operations {
                         };
                         /** simplified */
                         tz?: {
+                            /** @enum {string} */
+                            type: "simplified";
+                        };
+                        /** simplified */
+                        ug?: {
                             /** @enum {string} */
                             type: "simplified";
                         };
@@ -60458,6 +61095,11 @@ export interface operations {
                             /** @enum {string} */
                             type: "local_amusement_tax" | "local_lease_tax" | "state_communications_tax" | "state_retail_delivery_fee" | "state_sales_tax";
                         };
+                        /** default */
+                        uy?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
                         /** simplified */
                         uz?: {
                             /** @enum {string} */
@@ -60470,6 +61112,16 @@ export interface operations {
                         };
                         /** default */
                         za?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
+                        /** simplified */
+                        zm?: {
+                            /** @enum {string} */
+                            type: "simplified";
+                        };
+                        /** default */
+                        zw?: {
                             /** @enum {string} */
                             type: "standard";
                         };
@@ -61069,10 +61721,10 @@ export interface operations {
                         type: "account" | "application" | "customer" | "self";
                     };
                     /**
-                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, or `za_vat`
+                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `ba_tin`, `bb_tin`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kh_tin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
                      * @enum {string}
                      */
-                    type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat";
+                    type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
                     /** @description Value of the tax ID. */
                     value: string;
                 };
@@ -62039,7 +62691,7 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /**
                      * optional_fields_address
-                     * @description The full address of the location. If you're updating the `address` field, avoid changing the `country`. If you need to modify the `country` field, create a new `Location` object and re-register any existing readers to that location.
+                     * @description The full address of the location. You can't change the location's `country`. If you need to modify the `country` field, create a new `Location` object and re-register any existing readers to that location.
                      */
                     address?: {
                         city?: string;
@@ -62563,6 +63215,7 @@ export interface operations {
                      * @description Cart
                      */
                     cart?: {
+                        /** Format: currency */
                         currency: string;
                         line_items: {
                             amount: number;
@@ -62845,7 +63498,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Amount to be used for this test cash balance transaction. A positive integer representing how much to fund in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to fund $1.00 or 100 to fund ¥100, a zero-decimal currency). */
                     amount: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -62902,7 +63558,10 @@ export interface operations {
                     authorization_method?: "chip" | "contactless" | "keyed_in" | "online" | "swipe";
                     /** @description Card associated with this authorization. */
                     card: string;
-                    /** @description The currency of the authorization. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description The currency of the authorization. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -62963,7 +63622,10 @@ export interface operations {
                     is_amount_controllable?: boolean;
                     /** @description The total amount to attempt to authorize. This amount is in the provided merchant currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
                     merchant_amount?: number;
-                    /** @description The currency of the authorization. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description The currency of the authorization. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     merchant_currency?: string;
                     /**
                      * merchant_data_specs
@@ -63747,7 +64409,10 @@ export interface operations {
                     bin: string;
                     /** @description The date that the transactions are cleared and posted to user's accounts. */
                     clearing_date: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -63799,7 +64464,10 @@ export interface operations {
                     amount: number;
                     /** @description Card associated with this transaction. */
                     card: string;
-                    /** @description The currency of the capture. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description The currency of the capture. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -63940,7 +64608,10 @@ export interface operations {
                     amount: number;
                     /** @description Card associated with this unlinked refund transaction. */
                     card: string;
-                    /** @description The currency of the unlinked refund. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description The currency of the unlinked refund. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -64906,7 +65577,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Amount (in cents) to be transferred. */
                     amount: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -64969,7 +65643,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Amount (in cents) to be transferred. */
                     amount: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -65200,6 +65877,7 @@ export interface operations {
                         /** @enum {string} */
                         account_type?: "checking" | "futsu" | "savings" | "toza";
                         country: string;
+                        /** Format: currency */
                         currency?: string;
                         payment_method?: string;
                         routing_number?: string;
@@ -65328,6 +66006,7 @@ export interface operations {
                         };
                         /** relationship_specs */
                         relationship?: {
+                            authorizer?: boolean;
                             director?: boolean;
                             executive?: boolean;
                             legal_guardian?: boolean;
@@ -65738,7 +66417,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description A positive integer in cents (or local equivalent) representing how much to transfer. */
                     amount?: number;
-                    /** @description Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies).
+                     */
                     currency: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -66858,7 +67540,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Amount (in cents) to be transferred. */
                     amount: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -67053,7 +67738,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Amount (in cents) to be transferred. */
                     amount: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description ID of the customer to whom the OutboundPayment is sent. Must match the Customer attached to the `destination_payment_method` passed in. */
                     customer?: string;
@@ -67295,7 +67983,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Amount (in cents) to be transferred. */
                     amount: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -67910,7 +68601,7 @@ export interface operations {
                      * @description Events sent to this endpoint will be generated with this Stripe Version instead of your account's default Stripe Version.
                      * @enum {string}
                      */
-                    api_version?: "2011-01-01" | "2011-06-21" | "2011-06-28" | "2011-08-01" | "2011-09-15" | "2011-11-17" | "2012-02-23" | "2012-03-25" | "2012-06-18" | "2012-06-28" | "2012-07-09" | "2012-09-24" | "2012-10-26" | "2012-11-07" | "2013-02-11" | "2013-02-13" | "2013-07-05" | "2013-08-12" | "2013-08-13" | "2013-10-29" | "2013-12-03" | "2014-01-31" | "2014-03-13" | "2014-03-28" | "2014-05-19" | "2014-06-13" | "2014-06-17" | "2014-07-22" | "2014-07-26" | "2014-08-04" | "2014-08-20" | "2014-09-08" | "2014-10-07" | "2014-11-05" | "2014-11-20" | "2014-12-08" | "2014-12-17" | "2014-12-22" | "2015-01-11" | "2015-01-26" | "2015-02-10" | "2015-02-16" | "2015-02-18" | "2015-03-24" | "2015-04-07" | "2015-06-15" | "2015-07-07" | "2015-07-13" | "2015-07-28" | "2015-08-07" | "2015-08-19" | "2015-09-03" | "2015-09-08" | "2015-09-23" | "2015-10-01" | "2015-10-12" | "2015-10-16" | "2016-02-03" | "2016-02-19" | "2016-02-22" | "2016-02-23" | "2016-02-29" | "2016-03-07" | "2016-06-15" | "2016-07-06" | "2016-10-19" | "2017-01-27" | "2017-02-14" | "2017-04-06" | "2017-05-25" | "2017-06-05" | "2017-08-15" | "2017-12-14" | "2018-01-23" | "2018-02-05" | "2018-02-06" | "2018-02-28" | "2018-05-21" | "2018-07-27" | "2018-08-23" | "2018-09-06" | "2018-09-24" | "2018-10-31" | "2018-11-08" | "2019-02-11" | "2019-02-19" | "2019-03-14" | "2019-05-16" | "2019-08-14" | "2019-09-09" | "2019-10-08" | "2019-10-17" | "2019-11-05" | "2019-12-03" | "2020-03-02" | "2020-08-27" | "2022-08-01" | "2022-11-15" | "2023-08-16" | "2023-10-16" | "2024-04-10" | "2024-06-20" | "2024-09-30.acacia" | "2024-10-28.acacia";
+                    api_version?: "2011-01-01" | "2011-06-21" | "2011-06-28" | "2011-08-01" | "2011-09-15" | "2011-11-17" | "2012-02-23" | "2012-03-25" | "2012-06-18" | "2012-06-28" | "2012-07-09" | "2012-09-24" | "2012-10-26" | "2012-11-07" | "2013-02-11" | "2013-02-13" | "2013-07-05" | "2013-08-12" | "2013-08-13" | "2013-10-29" | "2013-12-03" | "2014-01-31" | "2014-03-13" | "2014-03-28" | "2014-05-19" | "2014-06-13" | "2014-06-17" | "2014-07-22" | "2014-07-26" | "2014-08-04" | "2014-08-20" | "2014-09-08" | "2014-10-07" | "2014-11-05" | "2014-11-20" | "2014-12-08" | "2014-12-17" | "2014-12-22" | "2015-01-11" | "2015-01-26" | "2015-02-10" | "2015-02-16" | "2015-02-18" | "2015-03-24" | "2015-04-07" | "2015-06-15" | "2015-07-07" | "2015-07-13" | "2015-07-28" | "2015-08-07" | "2015-08-19" | "2015-09-03" | "2015-09-08" | "2015-09-23" | "2015-10-01" | "2015-10-12" | "2015-10-16" | "2016-02-03" | "2016-02-19" | "2016-02-22" | "2016-02-23" | "2016-02-29" | "2016-03-07" | "2016-06-15" | "2016-07-06" | "2016-10-19" | "2017-01-27" | "2017-02-14" | "2017-04-06" | "2017-05-25" | "2017-06-05" | "2017-08-15" | "2017-12-14" | "2018-01-23" | "2018-02-05" | "2018-02-06" | "2018-02-28" | "2018-05-21" | "2018-07-27" | "2018-08-23" | "2018-09-06" | "2018-09-24" | "2018-10-31" | "2018-11-08" | "2019-02-11" | "2019-02-19" | "2019-03-14" | "2019-05-16" | "2019-08-14" | "2019-09-09" | "2019-10-08" | "2019-10-17" | "2019-11-05" | "2019-12-03" | "2020-03-02" | "2020-08-27" | "2022-08-01" | "2022-11-15" | "2023-08-16" | "2023-10-16" | "2024-04-10" | "2024-06-20" | "2024-09-30.acacia" | "2024-10-28.acacia" | "2024-11-20.acacia" | "2024-12-18.acacia";
                     /** @description Whether this endpoint should receive events from connected accounts (`true`), or from your account (`false`). Defaults to `false`. */
                     connect?: boolean;
                     /** @description An optional description of what the webhook is used for. */
