@@ -84,7 +84,7 @@ export default defineConfig({
               text: "queryOptions",
               link: "/query-options",
             },
-            { text: "About", link: "/openapi-react-query/about" },
+            { text: "About", link: "/about" },
           ],
         },
         {
