@@ -33,6 +33,7 @@ Options
   --root-types (optional)    Export schemas types at root level
   --root-types-no-schema-prefix (optional)
                              Do not add "Schema" prefix to types at the root level (should only be used with --root-types)
+  --make-paths-enum          Generate ApiPaths enum for all paths
 `;
 
 const OUTPUT_FILE = "FILE";
@@ -82,6 +83,7 @@ const flags = parser(args, {
     "pathParamsAsTypes",
     "rootTypes",
     "rootTypesNoSchemaPrefix",
+    "makePathsEnum",
   ],
   string: ["output", "redocly"],
   alias: {
@@ -143,6 +145,7 @@ async function generateSchema(schema, { redocly, silent = false }) {
       pathParamsAsTypes: flags.pathParamsAsTypes,
       rootTypes: flags.rootTypes,
       rootTypesNoSchemaPrefix: flags.rootTypesNoSchemaPrefix,
+      makePathsEnum: flags.makePathsEnum,
       redocly,
       silent,
     }),

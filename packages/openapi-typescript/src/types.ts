@@ -668,6 +668,8 @@ export interface OpenAPITSOptions {
   redocly?: RedoclyConfig;
   /** Inject arbitrary TypeScript types into the start of the file */
   inject?: string;
+  /** Generate ApiPaths enum */
+  makePathsEnum?: boolean;
 }
 
 /** Context passed to all submodules */
@@ -700,6 +702,7 @@ export interface GlobalContext {
   /** retrieve a node by $ref */
   resolve<T>($ref: string): T | undefined;
   inject?: string;
+  makePathsEnum: boolean;
 }
 
 export type $defs = Record<string, SchemaObject>;
