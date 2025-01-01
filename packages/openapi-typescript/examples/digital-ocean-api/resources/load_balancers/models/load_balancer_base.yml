@@ -157,5 +157,29 @@ properties:
   firewall:
     $ref: 'lb_firewall.yml'
 
+  network:
+    type: string
+    example: EXTERNAL
+    enum:
+      - EXTERNAL
+      - INTERNAL
+    default: EXTERNAL
+    description: A string indicating whether the load balancer should be external 
+      or internal. Internal load balancers have no public IPs and are only accessible 
+      to resources on the same VPC network. This property cannot be updated after
+      creating the load balancer.
+
+  type:
+    type: string
+    example: REGIONAL
+    enum:
+      - REGIONAL
+      - REGIONAL_NETWORK
+      - GLOBAL
+    default: REGIONAL
+    description: A string indicating whether the load balancer should be a standard
+      regional HTTP load balancer, a regional network load balancer that routes traffic
+      at the TCP/UDP transport layer, or a global load balancer.
+
 required:
   - forwarding_rules

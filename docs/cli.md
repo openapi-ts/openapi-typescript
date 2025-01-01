@@ -65,7 +65,7 @@ In previous versions globbing was supported, but that has been **deprecated** in
 
 ## Redocly config
 
-A `redocly.yaml` file isn’t required to use openapi-typescript. By default it extends the `"minimal"` built-in config. But it is recommended if you want to have custom validation rules (or build types for [multiple schemas](#multiple-schemas)). The CLI will try to automatically find a `redocly.yaml` in the root of your project, but you can also provide its location with the `--redoc` flag:
+A `redocly.yaml` file isn’t required to use openapi-typescript. By default it extends the `"minimal"` built-in config. But it is recommended if you want to have custom validation rules (or build types for [multiple schemas](#multiple-schemas)). The CLI will try to automatically find a `redocly.yaml` in the root of your project, but you can also provide its location with the `--redocly` flag:
 
 ```bash
 npx openapi-typescript --redocly ./path/to/redocly.yaml
@@ -100,25 +100,28 @@ Refer to the [Redocly docs](https://redocly.com/docs/cli/configuration/#resolve-
 The following flags are supported in the CLI:
 
 | Flag                               | Alias | Default  | Description                                                                                                         |
-| :--------------------------------- | :---- | :------: | :------------------------------------------------------------------------------------------------------------------ |
+|:-----------------------------------| :---- | :------: |:--------------------------------------------------------------------------------------------------------------------|
 | `--help`                           |       |          | Display inline help message and exit                                                                                |
 | `--version`                        |       |          | Display this library’s version and exit                                                                             |
 | `--output [location]`              | `-o`  | (stdout) | Where should the output file be saved?                                                                              |
-| `--redocly [location]`               |       |          | Path to a `redocly.yaml` file (see [Multiple schemas](#multiple-schemas))                                           |
+| `--redocly [location]`             |       |          | Path to a `redocly.yaml` file (see [Multiple schemas](#multiple-schemas))                                           |
 | `--additional-properties`          |       | `false`  | Allow arbitrary properties for all schema objects without `additionalProperties: false`                             |
 | `--alphabetize`                    |       | `false`  | Sort types alphabetically                                                                                           |
 | `--array-length`                   |       | `false`  | Generate tuples using array `minItems` / `maxItems`                                                                 |
-| `--default-non-nullable`           |       | `true`   | Treat schema objects with default values as non-nullable (with the exception of parameters)                         |
+| `--default-non-nullable`           |       |  `true`  | Treat schema objects with default values as non-nullable (with the exception of parameters)                         |
 | `--properties-required-by-default` |       | `false`  | Treat schema objects without `required` as having all properties required.                                          |
 | `--empty-objects-unknown`          |       | `false`  | Allow arbitrary properties for schema objects with no specified properties, and no specified `additionalProperties` |
 | `--enum`                           |       | `false`  | Generate true [TS enums](https://www.typescriptlang.org/docs/handbook/enums.html) rather than string unions.        |
 | `--enum-values`                    |       | `false`  | Export enum values as arrays.                                                                                       |
 | `--dedupe-enums`                   |       | `false`  | Dedupe enum types when `--enum=true` is set                                                                         |
-| `--check`                    |     | `false`  | Check that the generated types are up-to-date.                                                                              |
+| `--check`                          |       | `false`  | Check that the generated types are up-to-date.                                                                      |
 | `--exclude-deprecated`             |       | `false`  | Exclude deprecated fields from types                                                                                |
 | `--export-type`                    | `-t`  | `false`  | Export `type` instead of `interface`                                                                                |
 | `--immutable`                      |       | `false`  | Generates immutable types (readonly properties and readonly array)                                                  |
 | `--path-params-as-types`           |       | `false`  | Allow dynamic string lookups on the `paths` object                                                                  |
+| `--root-types`                     |       | `false`  | Exports types from `components` as root level type aliases                                                          |
+| `--root-types-no-schema-prefix`    |       | `false`  | Do not add "Schema" prefix to types at the root level (should only be used with --root-types)                       |
+| `--make-paths-enum `               |       | `false`  | Generate ApiPaths enum for all paths                                                                                |
 
 ### pathParamsAsTypes
 
@@ -175,7 +178,7 @@ For example, given the following schema:
 ```yaml [my-openapi-3-schema.yaml]
 components:
   schemas:
-    TupleType
+    TupleType:
       type: array
       items:
         type: string
@@ -205,3 +208,22 @@ This results in more explicit typechecking of array lengths.
 _Note: this has a reasonable limit, so for example `maxItems: 100` would simply flatten back down to `string[];`_
 
 _Thanks, [@kgtkr](https://github.com/kgtkr)!_
+
+### makePathsEnum
+
+This option is useful for generating an enum for all paths in the schema. This can be useful to use the paths from the schema in your code.
+
+Enabling `--make-paths-enum` will add an `ApiPaths` enum like this to the generated types:
+
+::: code-group
+
+```ts [my-openapi-3-schema.d.ts]
+export enum ApiPaths {
+  "/user/{user_id}" = "/user/{user_id}",
+  "/user" = "/user",
+  "/user/{user_id}/pets" = "/user/{user_id}/pets",
+  "/user/{user_id}/pets/{pet_id}" = "/user/{user_id}/pets/{pet_id}",
+}
+```
+
+:::

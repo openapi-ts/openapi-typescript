@@ -1,5 +1,53 @@
 # openapi-typescript
 
+## 7.4.4
+
+### Patch Changes
+
+- [#1999](https://github.com/openapi-ts/openapi-typescript/pull/1999) [`e2d8541`](https://github.com/openapi-ts/openapi-typescript/commit/e2d854131a1dc11d3b8e8513d3e0ce1f04ea1211) Thanks [@patzick](https://github.com/patzick)! - Improved error messages to contain locations.
+
+## 7.4.3
+
+### Patch Changes
+
+- [#1982](https://github.com/openapi-ts/openapi-typescript/pull/1982) [`8d00218`](https://github.com/openapi-ts/openapi-typescript/commit/8d00218aaaa65bd175a2538f60cb508a1219a415) Thanks [@prewk](https://github.com/prewk)! - Make pathParamsAsTypes work with integer/boolean types
+
+## 7.4.2
+
+### Patch Changes
+
+- [#1873](https://github.com/openapi-ts/openapi-typescript/pull/1873) [`c2c396d`](https://github.com/openapi-ts/openapi-typescript/commit/c2c396d8282692f3ac2df50656ebcd9e8615a685) Thanks [@DanDeMicco](https://github.com/DanDeMicco)! - Support for generating enums when enums definition has null value
+
+## 7.4.1
+
+### Patch Changes
+
+- [#1917](https://github.com/openapi-ts/openapi-typescript/pull/1917) [`4a59124`](https://github.com/openapi-ts/openapi-typescript/commit/4a591248175f918369a9713dea0856b12dca16c3) Thanks [@drwpow](https://github.com/drwpow)! - Bump Redocly Core
+
+## 7.4.0
+
+### Minor Changes
+
+- [#1876](https://github.com/openapi-ts/openapi-typescript/pull/1876) [`a9cd9aa`](https://github.com/openapi-ts/openapi-typescript/commit/a9cd9aa56dd9dec043a4e4fd85527acac227a142) Thanks [@BradHacker](https://github.com/BradHacker)! - Add option to export all root component types
+
+## 7.3.3
+
+### Patch Changes
+
+- [#1877](https://github.com/openapi-ts/openapi-typescript/pull/1877) [`94592a4`](https://github.com/openapi-ts/openapi-typescript/commit/94592a494566255807a3fc9bc19369af86d7cb78) Thanks [@phk422](https://github.com/phk422)! - fix: replace special characters using `SPECIAL_CHARACTER_MAP` for duplicate-identifiers
+
+## 7.3.2
+
+### Patch Changes
+
+- [#1867](https://github.com/openapi-ts/openapi-typescript/pull/1867) [`21fb8b0`](https://github.com/openapi-ts/openapi-typescript/commit/21fb8b0febbae1a12dd1bb43eb9130422629409e) Thanks [@phk422](https://github.com/phk422)! - fix(openapi-typescript): type errors generated under `enumValues`
+
+## 7.3.1
+
+### Patch Changes
+
+- [#1849](https://github.com/openapi-ts/openapi-typescript/pull/1849) [`08bde72`](https://github.com/openapi-ts/openapi-typescript/commit/08bde72cfeed14ecc3a15251a2f77d0770382442) Thanks [@liangskyli](https://github.com/liangskyli)! - fix: keyedParameters use unique key
+
 ## 7.3.0
 
 ### Minor Changes

@@ -7,10 +7,11 @@ import transformComponentsObject from "./components-object.js";
 import transformPathsObject from "./paths-object.js";
 import transformSchemaObject from "./schema-object.js";
 import transformWebhooksObject from "./webhooks-object.js";
+import makeApiPathsEnum from "./paths-enum.js";
 
 type SchemaTransforms = keyof Pick<OpenAPI3, "paths" | "webhooks" | "components" | "$defs">;
 
-const transformers: Record<SchemaTransforms, (node: any, options: GlobalContext) => ts.TypeNode> = {
+const transformers: Record<SchemaTransforms, (node: any, options: GlobalContext) => ts.Node | ts.Node[]> = {
   paths: transformPathsObject,
   webhooks: transformWebhooksObject,
   components: transformComponentsObject,
@@ -35,28 +36,37 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
 
     if (schema[root] && typeof schema[root] === "object") {
       const rootT = performance.now();
-      const subType = transformers[root](schema[root], ctx);
-      if ((subType as ts.TypeLiteralNode).members?.length) {
-        type.push(
-          ctx.exportType
-            ? ts.factory.createTypeAliasDeclaration(
-                /* modifiers      */ tsModifiers({ export: true }),
-                /* name           */ root,
-                /* typeParameters */ undefined,
-                /* type           */ subType,
-              )
-            : ts.factory.createInterfaceDeclaration(
-                /* modifiers       */ tsModifiers({ export: true }),
-                /* name            */ root,
-                /* typeParameters  */ undefined,
-                /* heritageClauses */ undefined,
-                /* members         */ (subType as TypeLiteralNode).members,
-              ),
-        );
-        debug(`${root} done`, "ts", performance.now() - rootT);
-      } else {
-        type.push(emptyObj);
-        debug(`${root} done (skipped)`, "ts", 0);
+      const subTypes = ([] as ts.Node[]).concat(transformers[root](schema[root], ctx));
+      for (const subType of subTypes) {
+        if (ts.isTypeNode(subType)) {
+          if ((subType as ts.TypeLiteralNode).members?.length) {
+            type.push(
+              ctx.exportType
+                ? ts.factory.createTypeAliasDeclaration(
+                    /* modifiers      */ tsModifiers({ export: true }),
+                    /* name           */ root,
+                    /* typeParameters */ undefined,
+                    /* type           */ subType,
+                  )
+                : ts.factory.createInterfaceDeclaration(
+                    /* modifiers       */ tsModifiers({ export: true }),
+                    /* name            */ root,
+                    /* typeParameters  */ undefined,
+                    /* heritageClauses */ undefined,
+                    /* members         */ (subType as TypeLiteralNode).members,
+                  ),
+            );
+            debug(`${root} done`, "ts", performance.now() - rootT);
+          } else {
+            type.push(emptyObj);
+            debug(`${root} done (skipped)`, "ts", 0);
+          }
+        } else if (ts.isTypeAliasDeclaration(subType)) {
+          type.push(subType);
+        } else {
+          type.push(emptyObj);
+          debug(`${root} done (skipped)`, "ts", 0);
+        }
       }
     } else {
       type.push(emptyObj);
@@ -82,6 +92,10 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
         /* type           */ tsRecord(STRING, NEVER),
       ),
     );
+  }
+
+  if (ctx.makePathsEnum && schema.paths) {
+    type.push(makeApiPathsEnum(schema.paths));
   }
 
   return type;

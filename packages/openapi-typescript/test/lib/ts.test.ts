@@ -100,7 +100,9 @@ describe("tsEnum", () => {
   });
 
   test("name from path", () => {
-    expect(astToString(tsEnum("#/paths/url/get/parameters/query/status", ["active", "inactive"])).trim()).toBe(`enum PathsUrlGetParametersQueryStatus {
+    expect(
+      astToString(tsEnum("#/paths/url/get/parameters/query/status", ["active", "inactive"])).trim(),
+    ).toBe(`enum PathsUrlGetParametersQueryStatus {
     active = "active",
     inactive = "inactive"
 }`);
@@ -208,6 +210,14 @@ describe("tsEnum", () => {
     NotFound = 101,
     // User doesn't have permissions
     PermissionDenied = 102
+}`);
+  });
+
+  test("replace special character", () => {
+    expect(astToString(tsEnum("FOO_ENUM", ["Etc/GMT+0", "Etc/GMT+1", "Etc/GMT-1"])).trim()).toBe(`enum FOO_ENUM {
+    Etc_GMTPlus0 = "Etc/GMT+0",
+    Etc_GMTPlus1 = "Etc/GMT+1",
+    Etc_GMT_1 = "Etc/GMT-1"
 }`);
   });
 });

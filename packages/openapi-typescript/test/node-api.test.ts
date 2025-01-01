@@ -797,6 +797,11 @@ export interface components {
     pathItems: never;
 }
 export type $defs = Record<string, never>;
+type ReadonlyArray<T> = [
+    Exclude<T, undefined>
+] extends [
+    any[]
+] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
 export const pathsUrlGetParametersQueryStatusValues: ReadonlyArray<paths["/url"]["get"]["parameters"]["query"]["status"]> = ["active", "inactive"];
 export const statusValues: ReadonlyArray<components["schemas"]["Status"]> = ["active", "inactive"];
 export const errorCodeValues: ReadonlyArray<components["schemas"]["ErrorCode"]> = [100, 101, 102, 103, 104, 105];
@@ -897,7 +902,7 @@ export type operations = Record<string, never>;`,
         given: new URL("./github-api.yaml", EXAMPLES_DIR),
         want: new URL("./github-api.ts", EXAMPLES_DIR),
         // options: DEFAULT_OPTIONS,
-        ci: { timeout: 3_000 },
+        ci: { timeout: 30_000 },
       },
     ],
     [

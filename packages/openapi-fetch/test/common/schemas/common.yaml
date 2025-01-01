@@ -1,0 +1,446 @@
+openapi: 3.1.0
+info:
+  title: openapi-fetch
+  version: "1.0"
+paths:
+  /resources:
+    get:
+      responses:
+        200:
+          description: OK
+          operationId: getResources
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResourceList"
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /resources/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: version
+        in: query
+        schema:
+          type: integer
+      - name: format
+        in: query
+        schema:
+          type: string
+    get:
+      responses:
+        200:
+          description: OK
+          operationId: getResource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Resource"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /error-404:
+    get:
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResourceList"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /error-500:
+    get:
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResourceList"
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /error-default:
+    get:
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResourceList"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /media-json:
+    get:
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResourceList"
+  /media-vnd-json:
+    get:
+      responses:
+        200:
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: "#/components/schemas/ResourceList"
+  /media-text:
+    get:
+      responses:
+        200:
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: string
+  /media-multiple:
+    get:
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - foo
+                properties:
+                  foo:
+                    type: string
+            application/ld+json:
+              schema:
+                type: object
+                required:
+                  - bar
+                properties:
+                  bar:
+                    type: string
+            application/json5:
+              schema:
+                type: object
+                required:
+                  - baz
+                properties:
+                  baz:
+                    type: string
+            text/html:
+              schema:
+                type: string
+  /mismatched-response:
+    get:
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Resource"
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResourceList"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /mismatched-errors:
+    get:
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Resource"
+        404:
+          description: Not Found
+          content: {}
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /path-params/{string}:
+    parameters:
+      - name: string
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      responses:
+        200:
+          description: OK
+          operationId: getPathParams
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  success:
+                    type: boolean
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /path-params/{simple_primitive}/{simple_obj_flat}/{simple_arr_flat}/{simple_obj_explode*}/{simple_arr_explode*}/{.label_primitive}/{.label_obj_flat}/{.label_arr_flat}/{.label_obj_explode*}/{.label_arr_explode*}/{;matrix_primitive}/{;matrix_obj_flat}/{;matrix_arr_flat}/{;matrix_obj_explode*}/{;matrix_arr_explode*}:
+    parameters:
+      - in: path
+        name: simple_primitive
+        schema:
+          type: string
+      - in: path
+        name: simple_obj_flat
+        schema:
+          type: object
+          required: [a, c]
+          properties:
+            a:
+              type: string
+            c:
+              type: string
+      - in: path
+        name: simple_arr_flat
+        schema:
+          type: array
+          items:
+            type: number
+      - in: path
+        name: simple_obj_explode
+        schema:
+          type: object
+          required: [e, g]
+          properties:
+            e:
+              type: string
+            g:
+              type: string
+      - in: path
+        name: simple_arr_explode
+        schema:
+          type: array
+          items:
+            type: number
+      - in: path
+        name: label_primitive
+        schema:
+          type: string
+      - in: path
+        name: label_obj_flat
+        schema:
+          type: object
+          required: [a, c]
+          properties:
+            a:
+              type: string
+            c:
+              type: string
+      - in: path
+        name: label_arr_flat
+        schema:
+          type: array
+          items:
+            type: number
+      - in: path
+        name: label_obj_explode
+        schema:
+          type: object
+          required: [e, g]
+          properties:
+            e:
+              type: string
+            g:
+              type: string
+      - in: path
+        name: label_arr_explode
+        schema:
+          type: array
+          items:
+            type: number
+      - in: path
+        name: matrix_primitive
+        schema:
+          type: string
+      - in: path
+        name: matrix_obj_flat
+        schema:
+          type: object
+          required: [a, c]
+          properties:
+            a:
+              type: string
+            c:
+              type: string
+      - in: path
+        name: matrix_arr_flat
+        schema:
+          type: array
+          items:
+            type: number
+      - in: path
+        name: matrix_obj_explode
+        schema:
+          type: object
+          required: [e, g]
+          properties:
+            e:
+              type: string
+            g:
+              type: string
+      - in: path
+        name: matrix_arr_explode
+        schema:
+          type: array
+          items:
+            type: number
+    get:
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                required:
+                  - status
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /header-params:
+    get:
+      operationId: getHeaderParams
+      parameters:
+        - name: x-required-header
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                required:
+                  - status
+        500:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /query-params:
+    parameters:
+      - in: query
+        name: string
+        schema:
+          type: string
+      - in: query
+        name: number
+        schema:
+          type: number
+      - in: query
+        name: boolean
+        schema:
+          type: boolean
+      - in: query
+        name: array
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: object
+        schema:
+          type: object
+          required:
+            - foo
+            - bar
+          properties:
+            foo:
+              type: string
+            bar:
+              type: string
+    get:
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                required:
+                  - status
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    Resource:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+    ResourceList:
+      type: array
+      items:
+        $ref: "#/components/schemas/Resource"

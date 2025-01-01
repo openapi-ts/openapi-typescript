@@ -71,6 +71,15 @@ kafka_topic_name:
   schema:
     type: string
 
+opensearch_index_name:
+  in: path
+  name: index_name
+  description: The name of the OpenSearch index.
+  required: true
+  example: logs-*
+  schema:
+    type: string
+
 logsink_id:
   in: path
   name: logsink_id

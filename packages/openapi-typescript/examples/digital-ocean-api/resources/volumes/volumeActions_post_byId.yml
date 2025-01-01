@@ -15,11 +15,11 @@ description: |
   | droplet_id | Set to the Droplet's ID                                             |
   | region     | Set to the slug representing the region where the volume is located |
 
-  Each volume may only be attached to a single Droplet. However, up to seven
+  Each volume may only be attached to a single Droplet. However, up to fifteen
   volumes may be attached to a Droplet at a time. Pre-formatted volumes will be
   automatically mounted to Ubuntu, Debian, Fedora, Fedora Atomic, and CentOS
   Droplets created on or after April 26, 2018 when attached. On older Droplets,
-  [additional configuration](https://www.digitalocean.com/community/tutorials/how-to-partition-and-format-digitalocean-block-storage-volumes-in-linux#mounting-the-filesystems)
+  [additional configuration](https://docs.digitalocean.com/products/volumes/how-to/mount/)
   is required.
 
   ## Remove a Block Storage Volume from a Droplet

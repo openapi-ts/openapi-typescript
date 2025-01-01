@@ -1,5 +1,6 @@
-import type { UserConfig } from "vitepress";
+import type { UserConfig, DefaultTheme } from "vitepress";
 import { zhSearch } from "./zh";
+import { jaSearch } from "./ja";
 
 const HOSTNAME = "https://openapi-ts.dev";
 
@@ -25,13 +26,14 @@ const shared: UserConfig = {
   themeConfig: {
     siteTitle: false,
     logo: "/assets/openapi-ts.svg",
+    outline: 'deep',
     search: {
       provider: "algolia",
       options: {
         appId: "NA92XVKBVS",
         apiKey: "4f3ce9ca7edc3b83c209e6656ab29eb8",
         indexName: "openapi-ts",
-        locales: { ...zhSearch },
+        locales: { ...zhSearch, ...jaSearch },
       },
     },
     socialLinks: [
@@ -43,7 +45,7 @@ const shared: UserConfig = {
       },
       { icon: "github", link: "https://github.com/openapi-ts/openapi-typescript" },
     ],
-  },
+  } satisfies DefaultTheme.Config,
   transformPageData({ relativePath, frontmatter }) {
     frontmatter.head ??= [];
     frontmatter.head.push([

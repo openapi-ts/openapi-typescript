@@ -1,7 +1,7 @@
 {
   "name": "openapi-typescript-helpers",
   "description": "TypeScript helpers for consuming openapi-typescript types",
-  "version": "0.0.12",
+  "version": "0.0.15",
   "author": {
     "name": "Drew Powers",
     "email": "drew@pow.rs"
@@ -45,6 +45,6 @@
     "test": "tsc --noEmit"
   },
   "devDependencies": {
-    "typescript": "^5.4.5"
+    "typescript": "^5.7.2"
   }
 }

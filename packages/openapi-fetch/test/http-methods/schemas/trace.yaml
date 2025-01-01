@@ -1,0 +1,27 @@
+openapi: 3.1.0
+info:
+  title: openapi-fetch
+  version: "1.0"
+paths:
+  /resources/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    trace:
+      responses:
+        200:
+          description: OK
+          operationId: getResources
+          content:
+            message/http:
+              schema:
+                type: string
+        404:
+          description: Not Found
+          content:
+            message/http:
+              schema:
+                type: string

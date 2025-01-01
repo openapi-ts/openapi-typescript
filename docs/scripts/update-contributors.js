@@ -14,6 +14,25 @@ if (!GITHUB_TOKEN) {
   );
 }
 
+class UserFetchError extends Error {
+  /**
+   * @param {string} message
+   * @param {Response} response
+   */
+  constructor(message, response) {
+    super(message);
+    this.name = "UserFetchError";
+    this.response = response;
+  }
+
+  /**
+   * @returns {boolean}
+   */
+  get notFound() {
+    return this.response.status === 404;
+  }
+}
+
 async function fetchUserInfo(username) {
   const res = await fetch(`https://api.github.com/users/${username}`, {
     headers: {
@@ -23,7 +42,7 @@ async function fetchUserInfo(username) {
     },
   });
   if (!res.ok) {
-    throw new Error(`${res.url} responded with ${res.status}`);
+    throw new UserFetchError(`${res.url} responded with ${res.status}`, res);
   }
   return await res.json();
 }
@@ -127,7 +146,6 @@ const CONTRIBUTORS = {
     "JorrinKievit",
     "WickyNilliams",
     "hrsh7th",
-    "davidleger95",
     "phk422",
     "mzronek",
     "raurfang",
@@ -164,18 +182,26 @@ const CONTRIBUTORS = {
     "armandabric",
     "illright",
   ]),
-  "openapi-react-query": new Set(["drwpow", "kerwanp", "yoshi2no"]),
+  "openapi-react-query": new Set(["drwpow", "kerwanp", "yoshi2no", "HugeLetters"]),
+  "swr-openapi": new Set(["htunnicliff"]),
+  "openapi-metadata": new Set(["kerwanp", "drwpow"]),
 };
 
 async function main() {
   let i = 0;
-  const total = Object.values(CONTRIBUTORS).reduce((total, next) => total + next.size, 0);
+  const total = Object.values(CONTRIBUTORS).reduce(
+    (total, next) => total + next.size,
+    0,
+  );
   await Promise.all(
     Object.entries(CONTRIBUTORS).map(async ([repo, contributors]) => {
+      data[repo] ??= [];
       for (const username of [...contributors]) {
         i++;
         // skip profiles that have been updated within the past week
-        const { lastFetch } = data[repo].find((u) => u.username === username) ?? { lastFetch: 0 };
+        const { lastFetch } = data[repo].find(
+          (u) => u.username === username,
+        ) ?? { lastFetch: 0 };
         if (Date.now() - lastFetch < ONE_WEEK) {
           // biome-ignore lint/suspicious/noConsoleLog: this is a script
           console.log(`[${i}/${total}] (Skipped ${username})`);
@@ -193,8 +219,16 @@ async function main() {
           upsert(data[repo], userData);
           // biome-ignore lint/suspicious/noConsoleLog: this is a script
           console.log(`[${i}/${total}] Updated for ${username}`);
-          fs.writeFileSync(new URL("../data/contributors.json", import.meta.url), JSON.stringify(data)); // update file while fetching (sync happens safely in between fetches)
+          fs.writeFileSync(
+            new URL("../data/contributors.json", import.meta.url),
+            JSON.stringify(data),
+          ); // update file while fetching (sync happens safely in between fetches)
         } catch (err) {
+          if (err instanceof UserFetchError && err.notFound) {
+            console.warn(`[${i}/${total}] (Skipped ${username}, not found)`);
+            continue;
+          }
+
           throw new Error(err);
         }
       }

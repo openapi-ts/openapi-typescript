@@ -36,6 +36,7 @@ client.GET("/my-url", options);
 | `querySerializer` | QuerySerializer                                                   | (optional) Provide a [querySerializer](#queryserializer)                                                                                                                                                                          |
 | `bodySerializer`  | BodySerializer                                                    | (optional) Provide a [bodySerializer](#bodyserializer)                                                                                                                                                                            |
 | `parseAs`         | `"json"` \| `"text"` \| `"arrayBuffer"` \| `"blob"` \| `"stream"` | (optional) Parse the response using [a built-in instance method](https://developer.mozilla.org/en-US/docs/Web/API/Response#instance_methods) (default: `"json"`). `"stream"` skips parsing altogether and returns the raw stream. |
+| `baseUrl`         | `string`                                                          | Prefix the fetch URL with this option (e.g. `"https://myapi.dev/v1/"`)                                                                                                                                                              |
 | `fetch`           | `fetch`                                                           | Fetch instance used for requests (default: fetch from `createClient`)                                                                                                                                                             |
 | `middleware`      | `Middleware[]`                                                    | [See docs](/openapi-fetch/middleware-auth)                                                                                                                                                                                        |
 | (Fetch options)   |                                                                   | Any valid fetch option (`headers`, `mode`, `cache`, `signal`, …) ([docs](https://developer.mozilla.org/en-US/docs/Web/API/fetch#options))                                                                                         |
@@ -180,6 +181,17 @@ const { data, error } = await client.PUT("/submit", {
 });
 ```
 
+::: tip
+
+For convenience, `openapi-fetch` sets `Content-Type` to `application/json` automatically
+for any request that provides value for the `body` parameter. When the `bodySerializer` returns an instance of `FormData`,
+`Content-Type` is omitted, allowing the browser to set it automatically with the correct message part boundary.
+
+You can also set `Content-Type` manually through `headers` object either in the fetch options,
+or when instantiating the client.
+
+:::
+
 ## Path serialization
 
 openapi-fetch supports path serialization as [outlined in the 3.1 spec](https://swagger.io/docs/specification/serialization/#path). This happens automatically, based on the specific format in your OpenAPI schema:
@@ -195,7 +207,7 @@ openapi-fetch supports path serialization as [outlined in the 3.1 spec](https://
 
 ## Middleware
 
-Middleware is an object with `onRequest()` and `onResponse()` callbacks that can observe and modify requests and responses.
+Middleware is an object with `onRequest()`, `onResponse()` and `onError()` callbacks that can observe and modify requests, responses and errors.
 
 ```ts
 import createClient from "openapi-fetch";
@@ -212,6 +224,12 @@ const myMiddleware: Middleware = {
     // change status of response
     return new Response(body, { ...resOptions, status: 200 });
   },
+  async onError({ error }) {
+    // wrap errors thrown by fetch
+    onError({ error }) {
+      return new Error("Oops, fetch failed", { cause: error });
+    },
+  },
 };
 
 const client = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
@@ -226,21 +244,33 @@ client.use(myMiddleware);
 
 Each middleware callback receives the following `options` object with the following:
 
-| Name         | Type            | Description                                                                                 |
-| :----------- | :-------------- | :------------------------------------------------------------------------------------------ |
-| `request`    | `Request`       | The current `Request` to be sent to the endpoint.                                           |
-| `response`   | `Response`      | The `Response` returned from the endpoint (note: this will be `undefined` for `onRequest`). |
-| `schemaPath` | `string`        | The original OpenAPI path called (e.g. `/users/{user_id}`)                                  |
-| `params`     | `Object`        | The original `params` object passed to `GET()` / `POST()` / etc.                            |
-| `id`         | `string`        | A random, unique ID for this request.                                                       |
-| `options`    | `ClientOptions` | The readonly options passed to `createClient()`.                                            |
+| Name         | Type            | Description                                                      |
+| :----------- | :-------------- | :----------------------------------------------------------------|
+| `request`    | `Request`       | The current `Request` to be sent to the endpoint.                |
+| `schemaPath` | `string`        | The original OpenAPI path called (e.g. `/users/{user_id}`)       |
+| `params`     | `Object`        | The original `params` object passed to `GET()` / `POST()` / etc. |
+| `id`         | `string`        | A random, unique ID for this request.                            |
+| `options`    | `ClientOptions` | The readonly options passed to `createClient()`.                 |
+
+In addition to these, the `onResponse` callback receives an additional `response` property:
+
+| Name         | Type            | Description                                |
+| :----------- | :-------------- | :------------------------------------------|
+| `response`   | `Response`      | The `Response` returned from the endpoint. |
+
+And the `onError` callback receives an additional `error` property:
+
+| Name         | Type            | Description                                                              |
+| :----------- | :-------------- | :------------------------------------------------------------------------|
+| `error`      | `unknown`       | The error thrown by `fetch`, probably a `TypeError` or a `DOMException`. |
 
 #### Response
 
 Each middleware callback can return:
 
 - **onRequest**: Either a `Request` to modify the request, or `undefined` to leave it untouched (skip)
-- **onResponse** Either a `Response` to modify the response, or `undefined` to leave it untouched (skip)
+- **onResponse**: Either a `Response` to modify the response, or `undefined` to leave it untouched (skip)
+- **onError**: Either an `Error` to modify the error that is thrown, a `Response` which means that the `fetch` call will proceed as successful, or `undefined` to leave the error untouched (skip)
 
 ### Ejecting middleware
 

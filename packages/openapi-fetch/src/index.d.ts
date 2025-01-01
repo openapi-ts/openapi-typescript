@@ -6,8 +6,8 @@ import type {
   MediaType,
   OperationRequestBodyContent,
   PathsWithMethod,
-  ResponseObjectMap,
   RequiredKeysOf,
+  ResponseObjectMap,
   SuccessResponse,
 } from "openapi-typescript-helpers";
 
@@ -17,11 +17,15 @@ export interface ClientOptions extends Omit<RequestInit, "headers"> {
   baseUrl?: string;
   /** custom fetch (defaults to globalThis.fetch) */
   fetch?: (input: Request) => Promise<Response>;
+  /** custom Request (defaults to globalThis.Request) */
+  Request?: typeof Request;
   /** global querySerializer */
   querySerializer?: QuerySerializer<unknown> | QuerySerializerOptions;
   /** global bodySerializer */
   bodySerializer?: BodySerializer<unknown>;
   headers?: HeadersOptions;
+  /** RequestInit extension object to pass as 2nd argument to fetch when supported (defaults to undefined) */
+  requestInitExt?: Record<string, unknown>;
 }
 
 export type HeadersOptions =
@@ -96,7 +100,7 @@ export type RequestBodyOption<T> = OperationRequestBodyContent<T> extends never
 
 export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body" | "headers">;
 
-export type FetchResponse<T, Options, Media extends MediaType> =
+export type FetchResponse<T extends Record<string | number, any>, Options, Media extends MediaType> =
   | {
       data: ParseAsResponse<SuccessResponse<ResponseObjectMap<T>, Media>, Options>;
       error?: never;
@@ -110,6 +114,7 @@ export type FetchResponse<T, Options, Media extends MediaType> =
 
 export type RequestOptions<T> = ParamsOption<T> &
   RequestBodyOption<T> & {
+    baseUrl?: string;
     querySerializer?: QuerySerializer<T> | QuerySerializerOptions;
     bodySerializer?: BodySerializer<T>;
     parseAs?: ParseAs;
@@ -143,15 +148,35 @@ export interface MiddlewareCallbackParams {
   readonly options: MergedOptions;
 }
 
-export interface Middleware {
-  onRequest?: (options: MiddlewareCallbackParams) => void | Request | undefined | Promise<Request | undefined | void>;
-  onResponse?: (
-    options: MiddlewareCallbackParams & { response: Response },
-  ) => void | Response | undefined | Promise<Response | undefined | void>;
-}
+type MiddlewareOnRequest = (
+  options: MiddlewareCallbackParams,
+) => void | Request | undefined | Promise<Request | undefined | void>;
+type MiddlewareOnResponse = (
+  options: MiddlewareCallbackParams & { response: Response },
+) => void | Response | undefined | Promise<Response | undefined | void>;
+type MiddlewareOnError = (
+  options: MiddlewareCallbackParams & { error: unknown },
+) => void | Response | Error | Promise<void | Response | Error>;
+
+export type Middleware =
+  | {
+      onRequest: MiddlewareOnRequest;
+      onResponse?: MiddlewareOnResponse;
+      onError?: MiddlewareOnError;
+    }
+  | {
+      onRequest?: MiddlewareOnRequest;
+      onResponse: MiddlewareOnResponse;
+      onError?: MiddlewareOnError;
+    }
+  | {
+      onRequest?: MiddlewareOnRequest;
+      onResponse?: MiddlewareOnResponse;
+      onError: MiddlewareOnError;
+    };
 
 /** This type helper makes the 2nd function param required if params/requestBody are required; otherwise, optional */
-export type MaybeOptionalInit<Params extends Record<HttpMethod, {}>, Location extends keyof Params> = RequiredKeysOf<
+export type MaybeOptionalInit<Params, Location extends keyof Params> = RequiredKeysOf<
   FetchOptions<FilterKeys<Params, Location>>
 > extends never
   ? FetchOptions<FilterKeys<Params, Location>> | undefined
@@ -174,7 +199,7 @@ export type ClientMethod<
   ...init: InitParam<Init>
 ) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
 
-export type ClientForPath<PathInfo extends Record<HttpMethod, {}>, Media extends MediaType> = {
+export type ClientForPath<PathInfo extends Record<string | number, any>, Media extends MediaType> = {
   [Method in keyof PathInfo as Uppercase<string & Method>]: <Init extends MaybeOptionalInit<PathInfo, Method>>(
     ...init: InitParam<Init>
   ) => Promise<FetchResponse<PathInfo[Method], Init, Media>>;
@@ -221,10 +246,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   clientOptions?: ClientOptions,
 ): Client<Paths, Media>;
 
-export type PathBasedClient<
-  Paths extends Record<string, Record<HttpMethod, {}>>,
-  Media extends MediaType = MediaType,
-> = {
+export type PathBasedClient<Paths extends Record<string | number, any>, Media extends MediaType = MediaType> = {
   [Path in keyof Paths]: ClientForPath<Paths[Path], Media>;
 };
 
@@ -295,3 +317,6 @@ export declare function createFinalURL<O>(
 
 /** Merge headers a and b, with b taking priority */
 export declare function mergeHeaders(...allHeaders: (HeadersOptions | undefined)[]): Headers;
+
+/** Remove trailing slash from url */
+export declare function removeTrailingSlash(url: string): string;

@@ -1,5 +1,106 @@
 # openapi-react-query
 
+## 0.2.8
+
+### Patch Changes
+
+Refresh of 0.2.7; corrupted package
+
+## 0.2.7
+
+### Patch Changes
+
+- Updated dependencies [[`7081842`](https://github.com/openapi-ts/openapi-typescript/commit/70818420c1cd6ca2ad2529bf2d7936bd01f3ef42)]:
+  - openapi-fetch@0.13.2
+
+## 0.2.6
+
+### Patch Changes
+
+- Updated dependencies [[`35c576c`](https://github.com/openapi-ts/openapi-typescript/commit/35c576c8b2852f66e641014d13ffcfdeb21e98a1)]:
+  - openapi-fetch@0.13.1
+
+## 0.2.5
+
+### Patch Changes
+
+- [#1975](https://github.com/openapi-ts/openapi-typescript/pull/1975) [`621792f`](https://github.com/openapi-ts/openapi-typescript/commit/621792f23b0b8830949f3c1e25fe480557016b9a) Thanks [@HugeLetters](https://github.com/HugeLetters)! - - Fixed empty value check in queryFn: only throws error for undefined, other falsy values are allowed
+  - Fixed empty value check in mutationFn: allow falsy values
+
+## 0.2.4
+
+### Patch Changes
+
+- [#1952](https://github.com/openapi-ts/openapi-typescript/pull/1952) [`455b735`](https://github.com/openapi-ts/openapi-typescript/commit/455b73527c788918d665a3d607e8ac240a4e5e52) Thanks [@zsugabubus](https://github.com/zsugabubus)! - Fix return type inference for `queryOptions()` when used inside `useQuery` or `useSuspenseQuery`.
+
+- [#1952](https://github.com/openapi-ts/openapi-typescript/pull/1952) [`455b735`](https://github.com/openapi-ts/openapi-typescript/commit/455b73527c788918d665a3d607e8ac240a4e5e52) Thanks [@zsugabubus](https://github.com/zsugabubus)! - Narrow `queryFn` returned by `queryOptions()` to be a function.
+
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies [[`06163a2`](https://github.com/openapi-ts/openapi-typescript/commit/06163a2030eaf8d0579f624d86481e1205aef396)]:
+  - openapi-typescript-helpers@0.0.15
+  - openapi-fetch@0.12.5
+
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies [[`abfad56`](https://github.com/openapi-ts/openapi-typescript/commit/abfad5659183f95f705598dc52ae2dfe7a18ec04)]:
+  - openapi-typescript-helpers@0.0.14
+  - openapi-fetch@0.12.4
+
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`d14aa65`](https://github.com/openapi-ts/openapi-typescript/commit/d14aa65207b8abd1f369965bbd32ebb581e8d741)]:
+  - openapi-fetch@0.12.3
+
+## 0.2.0
+
+### Minor Changes
+
+- [#1858](https://github.com/openapi-ts/openapi-typescript/pull/1858) [`29bd162`](https://github.com/openapi-ts/openapi-typescript/commit/29bd162dccf441abbb33f07c6158410fd81a85d7) Thanks [@zsugabubus](https://github.com/zsugabubus)! - Introduce `queryOptions` that can be used as a building block to integrate with `useQueries`/`fetchQueries`/`prefetchQueries`… etc.
+
+## 0.1.7
+
+### Patch Changes
+
+- Updated dependencies [[`e39d11e`](https://github.com/openapi-ts/openapi-typescript/commit/e39d11e5ac4e7f5fc2ce81e8a6d7792f91a6551a)]:
+  - openapi-fetch@0.12.2
+
+## 0.1.6
+
+### Patch Changes
+
+- Updated dependencies [[`efaa1e2`](https://github.com/openapi-ts/openapi-typescript/commit/efaa1e23b9cb0901fe026e48fbb4b347f0c95507)]:
+  - openapi-fetch@0.12.1
+
+## 0.1.5
+
+### Patch Changes
+
+- [#1864](https://github.com/openapi-ts/openapi-typescript/pull/1864) [`899b157`](https://github.com/openapi-ts/openapi-typescript/commit/899b1575968334bc55aa402ea1419bc5db801391) Thanks [@zsugabubus](https://github.com/zsugabubus)! - Pass down signal to fetch function this way `useQuery` and `useSuspenseQuery` can cancel queries.
+
+- Updated dependencies []:
+  - openapi-fetch@0.12.0
+
+## 0.1.4
+
+### Patch Changes
+
+- Updated dependencies [[`b893c44`](https://github.com/openapi-ts/openapi-typescript/commit/b893c44f4290917f24c2ef7cda106c540df9cb3d)]:
+  - openapi-fetch@0.12.0
+
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [[`2a4b067`](https://github.com/openapi-ts/openapi-typescript/commit/2a4b067f43f7e0b75aecbf5c2fb3013a4e96e591), [`0e42cbb`](https://github.com/openapi-ts/openapi-typescript/commit/0e42cbb98e2a023c33685de65ab0b8dbf82cc4b3)]:
+  - openapi-fetch@0.11.2
+
 ## 0.1.2
 
 ### Patch Changes

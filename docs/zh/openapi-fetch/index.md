@@ -4,15 +4,16 @@ title: openapi-fetch
 
 <img src="/assets/openapi-fetch.svg" alt="openapi-fetch" width="216" height="40" />
 
-`openapi-fetch`是一个类型安全的`fetch`客户端，用于拉取您的OpenAPI模式。大小为**5 kb**，几乎没有运行时。适用于React、Vue、Svelte或纯JS。
+`openapi-fetch`是一个类型安全的`fetch`客户端，用于拉取您的OpenAPI模式。大小为**6 kb**，几乎没有运行时。适用于React、Vue、Svelte或纯JS。
 
 | 库                         | 大小（最小） | “GET” 请求                  |
 | :------------------------- | -----------: | :-------------------------- |
-| openapi-fetch              |       `5 kB` | `278k` 操作/秒（最快）      |
-| openapi-typescript-fetch   |       `4 kB` | `130k` 操作/秒（2.1× 较慢） |
-| axios                      |      `32 kB` | `217k` 操作/秒（1.3× 较慢） |
-| superagent                 |      `55 kB` | `63k` 操作/秒（4.4× 较慢）  |
-| openapi-typescript-codegen |     `367 kB` | `106k` 操作/秒（2.6× 较慢） |
+| openapi-fetch              |       `6 kB` | `300k` 操作/秒（最快）      |
+| openapi-typescript-fetch   |       `3 kB` | `300k` 操作/秒（最快）      |
+| feature-fetch              |      `15 kB` | `300k` ops/s (fastest)      |
+| axios                      |      `32 kB` | `225k` 操作/秒（1.3× 较慢） |
+| superagent                 |      `55 kB` | `50k` 操作/秒（6× 较慢）    |
+| openapi-typescript-codegen |     `367 kB` | `100k` 操作/秒（3× 较慢）   |
 
 语法灵感来自流行的库，如`react-query`或`Apollo client`，但没有所有这些功能，并且包大小仅为5 kb。
 
@@ -53,7 +54,7 @@ await client.PUT("/blogposts", {
 - ✅ 无需手动输入API
 - ✅ 消除隐藏错误的 `any` 类型
 - ✅ 还消除了可能隐藏错误的 `as` 类型覆盖
-- ✅ 所有这些都在一个 **5 kb** 的客户端包中 🎉
+- ✅ 所有这些都在一个 **6 kb** 的客户端包中 🎉
 
 ## 安装
 
@@ -72,7 +73,7 @@ npm i -D openapi-typescript typescript
 
 ::: tip 强烈推荐
 
-在 `tsconfig.json` 中启用 [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess)（[文档](/advanced#enable-nouncheckedindexaccess-in-your-tsconfigjson)）
+在 `tsconfig.json` 中启用 [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess)（[文档](/zh/advanced#在-tsconfig-中启用-nouncheckedindexedaccess)）
 
 :::
 

@@ -1,23 +1,13 @@
 // settings & const
-const DEFAULT_HEADERS = {
-  "Content-Type": "application/json",
-};
-
 const PATH_PARAM_RE = /\{[^{}]+\}/g;
 
-/** Add custom parameters to Request object */
-class CustomRequest extends Request {
-  constructor(input, init) {
-    super(input, init);
-
-    // add custom parameters
-    for (const key in init) {
-      if (!(key in this)) {
-        this[key] = init[key];
-      }
-    }
-  }
-}
+const supportsRequestInitExt = () => {
+  return (
+    typeof process === "object" &&
+    Number.parseInt(process?.versions?.node?.substring(0, 2)) >= 18 &&
+    process.versions.undici
+  );
+};
 
 /**
  * Returns a cheap, non-cryptographically-secure random ID
@@ -34,16 +24,16 @@ export function randomID() {
 export default function createClient(clientOptions) {
   let {
     baseUrl = "",
+    Request: CustomRequest = globalThis.Request,
     fetch: baseFetch = globalThis.fetch,
     querySerializer: globalQuerySerializer,
     bodySerializer: globalBodySerializer,
     headers: baseHeaders,
+    requestInitExt = undefined,
     ...baseOptions
   } = { ...clientOptions };
-  if (baseUrl.endsWith("/")) {
-    baseUrl = baseUrl.substring(0, baseUrl.length - 1);
-  }
-  baseHeaders = mergeHeaders(DEFAULT_HEADERS, baseHeaders);
+  requestInitExt = supportsRequestInitExt() ? requestInitExt : undefined;
+  baseUrl = removeTrailingSlash(baseUrl);
   const middlewares = [];
 
   /**
@@ -53,14 +43,20 @@ export default function createClient(clientOptions) {
    */
   async function coreFetch(schemaPath, fetchOptions) {
     const {
+      baseUrl: localBaseUrl,
       fetch = baseFetch,
+      Request = CustomRequest,
       headers,
       params = {},
       parseAs = "json",
       querySerializer: requestQuerySerializer,
       bodySerializer = globalBodySerializer ?? defaultBodySerializer,
+      body,
       ...init
     } = fetchOptions || {};
+    if (localBaseUrl) {
+      baseUrl = removeTrailingSlash(localBaseUrl);
+    }
 
     let querySerializer =
       typeof globalQuerySerializer === "function"
@@ -76,23 +72,36 @@ export default function createClient(clientOptions) {
             });
     }
 
+    const serializedBody = body === undefined ? undefined : bodySerializer(body);
+
+    const defaultHeaders =
+      // with no body, we should not to set Content-Type
+      serializedBody === undefined ||
+      // if serialized body is FormData; browser will correctly set Content-Type & boundary expression
+      serializedBody instanceof FormData
+        ? {}
+        : {
+            "Content-Type": "application/json",
+          };
+
     const requestInit = {
       redirect: "follow",
       ...baseOptions,
       ...init,
-      headers: mergeHeaders(baseHeaders, headers, params.header),
+      body: serializedBody,
+      headers: mergeHeaders(defaultHeaders, baseHeaders, headers, params.header),
     };
-    if (requestInit.body) {
-      requestInit.body = bodySerializer(requestInit.body);
-      // remove `Content-Type` if serialized body is FormData; browser will correctly set Content-Type & boundary expression
-      if (requestInit.body instanceof FormData) {
-        requestInit.headers.delete("Content-Type");
-      }
-    }
 
     let id;
     let options;
     let request = new CustomRequest(createFinalURL(schemaPath, { baseUrl, params, querySerializer }), requestInit);
+
+    /** Add custom parameters to Request object */
+    for (const key in init) {
+      if (!(key in request)) {
+        request[key] = init[key];
+      }
+    }
 
     if (middlewares.length) {
       id = randomID();
@@ -115,7 +124,7 @@ export default function createClient(clientOptions) {
             id,
           });
           if (result) {
-            if (!(result instanceof Request)) {
+            if (!(result instanceof CustomRequest)) {
               throw new Error("onRequest: must return new Request() when modifying the request");
             }
             request = result;
@@ -125,7 +134,49 @@ export default function createClient(clientOptions) {
     }
 
     // fetch!
-    let response = await fetch(request);
+    let response;
+    try {
+      response = await fetch(request, requestInitExt);
+    } catch (error) {
+      let errorAfterMiddleware = error;
+      // middleware (error)
+      // execute in reverse-array order (first priority gets last transform)
+      if (middlewares.length) {
+        for (let i = middlewares.length - 1; i >= 0; i--) {
+          const m = middlewares[i];
+          if (m && typeof m === "object" && typeof m.onError === "function") {
+            const result = await m.onError({
+              request,
+              error: errorAfterMiddleware,
+              schemaPath,
+              params,
+              options,
+              id,
+            });
+            if (result) {
+              // if error is handled by returning a response, skip remaining middleware
+              if (result instanceof Response) {
+                errorAfterMiddleware = undefined;
+                response = result;
+                break;
+              }
+
+              if (result instanceof Error) {
+                errorAfterMiddleware = result;
+                continue;
+              }
+
+              throw new Error("onError: must return new Response() or instance of Error");
+            }
+          }
+        }
+      }
+
+      // rethrow error if not handled by middleware
+      if (errorAfterMiddleware) {
+        throw errorAfterMiddleware;
+      }
+    }
 
     // middleware (response)
     // execute in reverse-array order (first priority gets last transform)
@@ -152,9 +203,8 @@ export default function createClient(clientOptions) {
     }
 
     // handle empty content
-    // note: we return `{}` because we want user truthy checks for `.data` or `.error` to succeed
     if (response.status === 204 || response.headers.get("Content-Length") === "0") {
-      return response.ok ? { data: {}, response } : { error: {}, response };
+      return response.ok ? { data: undefined, response } : { error: undefined, response };
     }
 
     // parse response (falling back to .text() when necessary)
@@ -215,8 +265,8 @@ export default function createClient(clientOptions) {
         if (!m) {
           continue;
         }
-        if (typeof m !== "object" || !("onRequest" in m || "onResponse" in m)) {
-          throw new Error("Middleware must be an object with one of `onRequest()` or `onResponse()`");
+        if (typeof m !== "object" || !("onRequest" in m || "onResponse" in m || "onError" in m)) {
+          throw new Error("Middleware must be an object with one of `onRequest()`, `onResponse() or `onError()`");
         }
         middlewares.push(m);
       }
@@ -437,6 +487,9 @@ export function createQuerySerializer(options) {
           continue;
         }
         if (Array.isArray(value)) {
+          if (value.length === 0) {
+            continue;
+          }
           search.push(
             serializeArrayParam(name, value, {
               style: "form",
@@ -562,4 +615,15 @@ export function mergeHeaders(...allHeaders) {
     }
   }
   return finalHeaders;
+}
+
+/**
+ * Remove trailing slash from url
+ * @type {import("./index.js").removeTrailingSlash}
+ */
+export function removeTrailingSlash(url) {
+  if (url.endsWith("/")) {
+    return url.substring(0, url.length - 1);
+  }
+  return url;
 }

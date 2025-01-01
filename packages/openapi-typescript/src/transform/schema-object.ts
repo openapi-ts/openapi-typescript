@@ -66,7 +66,9 @@ export function transformSchemaObjectWithComposition(
   }
   // for any other unexpected type, throw error
   if (Array.isArray(schemaObject) || typeof schemaObject !== "object") {
-    throw new Error(`Expected SchemaObject, received ${Array.isArray(schemaObject) ? "Array" : typeof schemaObject}`);
+    throw new Error(
+      `Expected SchemaObject, received ${Array.isArray(schemaObject) ? "Array" : typeof schemaObject} at ${options.path}`,
+    );
   }
 
   /**
@@ -94,7 +96,10 @@ export function transformSchemaObjectWithComposition(
     !("additionalProperties" in schemaObject)
   ) {
     // hoist enum to top level if string/number enum and option is enabled
-    if (options.ctx.enum && schemaObject.enum.every((v) => typeof v === "string" || typeof v === "number")) {
+    if (
+      options.ctx.enum &&
+      schemaObject.enum.every((v) => typeof v === "string" || typeof v === "number" || v === null)
+    ) {
       let enumName = parseRef(options.path ?? "").pointer.join("/");
       // allow #/components/schemas to have simpler names
       enumName = enumName.replace("components/schemas", "");
@@ -102,7 +107,18 @@ export function transformSchemaObjectWithComposition(
         name: schemaObject["x-enum-varnames"]?.[i] ?? schemaObject["x-enumNames"]?.[i],
         description: schemaObject["x-enum-descriptions"]?.[i] ?? schemaObject["x-enumDescriptions"]?.[i],
       }));
-      const enumType = tsEnum(enumName, schemaObject.enum as (string | number)[], metadata, {
+
+      // enums can contain null values, but dont want to output them
+      let hasNull = false;
+      const validSchemaEnums = schemaObject.enum.filter((enumValue) => {
+        if (enumValue === null) {
+          hasNull = true;
+          return false;
+        }
+
+        return true;
+      });
+      const enumType = tsEnum(enumName, validSchemaEnums as (string | number)[], metadata, {
         shouldCache: options.ctx.dedupeEnums,
         export: true,
         // readonly: TS enum do not support the readonly modifier
@@ -110,7 +126,8 @@ export function transformSchemaObjectWithComposition(
       if (!options.ctx.injectFooter.includes(enumType)) {
         options.ctx.injectFooter.push(enumType);
       }
-      return ts.factory.createTypeReferenceNode(enumType.name);
+      const ref = ts.factory.createTypeReferenceNode(enumType.name);
+      return hasNull ? tsUnion([ref, NULL]) : ref;
     }
     const enumType = schemaObject.enum.map(tsLiteral);
     if (
@@ -136,6 +153,7 @@ export function transformSchemaObjectWithComposition(
         {
           export: true,
           readonly: true,
+          injectFooter: options.ctx.injectFooter,
         },
       );
 

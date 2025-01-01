@@ -1,0 +1,58 @@
+description: A JSON object with a `policies` key set to a map. The keys are 
+  Droplet IDs and the values are objects containing the backup policy
+  information for each Droplet.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            policies:
+              description: |
+                A map where the keys are the Droplet IDs and the values are
+                objects containing the backup policy information for each Droplet.
+              additionalProperties:
+                $ref: '../models/droplet_backup_policy_record.yml'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+    example:
+      policies:
+        "436444618":
+          droplet_id: 436444618
+          backup_enabled: false
+        "444909314":
+          droplet_id: 444909314
+          backup_enabled: true
+          backup_policy:
+            plan: daily
+            hour: 20
+            window_length_hours: 4
+            retention_period_days: 7
+          next_backup_window:
+            start: "2024-09-13T20:00:00Z"
+            end: "2024-09-14T00:00:00Z"
+        "444909706":
+          droplet_id: 444909706
+          backup_enabled: true
+          backup_policy:
+            plan: weekly
+            weekday: SUN
+            hour: 20
+            window_length_hours: 4
+            retention_period_days: 28
+          next_backup_window:
+            start: "2024-09-15T20:00:00Z"
+            end: "2024-09-16T00:00:00Z"
+      links: {}
+      meta:
+        total: 3

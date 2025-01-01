@@ -2,11 +2,39 @@ type: object
 
 properties:
   pg_allow_replication:
-        type: boolean
-        example: true
-        description: |
-          For Postgres clusters, set to `true` for a user with replication rights.
-          This option is not currently supported for other database engines.
+    type: boolean
+    example: true
+    description: |
+      For Postgres clusters, set to `true` for a user with replication rights.
+      This option is not currently supported for other database engines.
+  opensearch_acl:
+    type: array
+    items:
+      type: object
+      properties:
+        index:
+          type: string
+          example: index-abc.*
+          description: A regex for matching the indexes that this ACL should apply to.
+        permission:
+          type: string
+          enum:
+            - deny
+            - admin
+            - read
+            - readwrite
+            - write
+          example: read
+          description: >-
+            Permission set applied to the ACL. 'read' allows user to
+            read from the index. 'write' allows for user to write
+            to the index. 'readwrite' allows for both 'read' and
+            'write' permission. 'deny'(default) restricts user from performing
+            any operation over an index. 'admin' allows for 'readwrite' as
+            well as any operations to administer the index.
+    description: >-
+      ACLs (Access Control Lists) specifying permissions on index within a
+      OpenSearch cluster.
   acl:
     type: array
     items:

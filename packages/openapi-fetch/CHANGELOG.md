@@ -1,5 +1,83 @@
 # openapi-fetch
 
+## 0.13.3
+
+### Patch Changes
+
+Refresh of 0.13.2; corrupted package
+
+## 0.13.2
+
+### Patch Changes
+
+- [#2020](https://github.com/openapi-ts/openapi-typescript/pull/2020) [`7081842`](https://github.com/openapi-ts/openapi-typescript/commit/70818420c1cd6ca2ad2529bf2d7936bd01f3ef42) Thanks [@mellster2012](https://github.com/mellster2012)! - Add client option to pass custom RequestInit object into fetch requests for supported implementations
+
+## 0.13.1
+
+### Patch Changes
+
+- [#1974](https://github.com/openapi-ts/openapi-typescript/pull/1974) [`35c576c`](https://github.com/openapi-ts/openapi-typescript/commit/35c576c8b2852f66e641014d13ffcfdeb21e98a1) Thanks [@luchsamapparat](https://github.com/luchsamapparat)! - add onError handler to middleware
+
+## 0.13.0
+
+### Minor Changes
+
+- [#1968](https://github.com/openapi-ts/openapi-typescript/pull/1968) [`267977e`](https://github.com/openapi-ts/openapi-typescript/commit/267977e369f7a84c5d828023e6175729e4dd4c22) Thanks [@DjordyKoert](https://github.com/DjordyKoert)! - 204 responses or response with a Content-Length of 0 will now return undefined instead of an empty object
+
+## 0.12.5
+
+### Patch Changes
+
+- [#1937](https://github.com/openapi-ts/openapi-typescript/pull/1937) [`06163a2`](https://github.com/openapi-ts/openapi-typescript/commit/06163a2030eaf8d0579f624d86481e1205aef396) Thanks [@DjordyKoert](https://github.com/DjordyKoert)! - client data & error now return a union of possible types
+
+- Updated dependencies [[`06163a2`](https://github.com/openapi-ts/openapi-typescript/commit/06163a2030eaf8d0579f624d86481e1205aef396)]:
+  - openapi-typescript-helpers@0.0.15
+
+## 0.12.4
+
+### Patch Changes
+
+- Updated dependencies [[`abfad56`](https://github.com/openapi-ts/openapi-typescript/commit/abfad5659183f95f705598dc52ae2dfe7a18ec04)]:
+  - openapi-typescript-helpers@0.0.14
+
+## 0.12.3
+
+### Patch Changes
+
+- [#1936](https://github.com/openapi-ts/openapi-typescript/pull/1936) [`d14aa65`](https://github.com/openapi-ts/openapi-typescript/commit/d14aa65207b8abd1f369965bbd32ebb581e8d741) Thanks [@BlakeSzabo](https://github.com/BlakeSzabo)! - Fix multiple empty arrays in query params appending extra ampersands
+
+## 0.12.2
+
+### Patch Changes
+
+- [#1918](https://github.com/openapi-ts/openapi-typescript/pull/1918) [`e39d11e`](https://github.com/openapi-ts/openapi-typescript/commit/e39d11e5ac4e7f5fc2ce81e8a6d7792f91a6551a) Thanks [@yicrotkd](https://github.com/yicrotkd)! - Improve `Middleware` type definition to require either onRequest or onResponse
+
+## 0.12.1
+
+### Patch Changes
+
+- [#1907](https://github.com/openapi-ts/openapi-typescript/pull/1907) [`efaa1e2`](https://github.com/openapi-ts/openapi-typescript/commit/efaa1e23b9cb0901fe026e48fbb4b347f0c95507) Thanks [@tobiasdcl](https://github.com/tobiasdcl)! - allow usage of custom Request class
+
+## 0.12.0
+
+### Minor Changes
+
+- ⚠️ **Breaking Change** [#1826](https://github.com/openapi-ts/openapi-typescript/pull/1826) [`b893c44`](https://github.com/openapi-ts/openapi-typescript/commit/b893c44f4290917f24c2ef7cda106c540df9cb3d) Thanks [@goce-cz](https://github.com/goce-cz)! - Do not set content-type on body-less requests
+
+## 0.11.3
+
+### Patch Changes
+
+- [#1825](https://github.com/openapi-ts/openapi-typescript/pull/1825) [`6038f8f`](https://github.com/openapi-ts/openapi-typescript/commit/6038f8fca09fa698c9dd9bc49349c49342c46ac2) Thanks [@goce-cz](https://github.com/goce-cz)! - Allow falsy values (except undefined) as a valid body
+
+## 0.11.2
+
+### Patch Changes
+
+- [#1817](https://github.com/openapi-ts/openapi-typescript/pull/1817) [`2a4b067`](https://github.com/openapi-ts/openapi-typescript/commit/2a4b067f43f7e0b75aecbf5c2fb3013a4e96e591) Thanks [@Gruak](https://github.com/Gruak)! - Allow specifying baseUrl per request
+
+- [#1842](https://github.com/openapi-ts/openapi-typescript/pull/1842) [`0e42cbb`](https://github.com/openapi-ts/openapi-typescript/commit/0e42cbb98e2a023c33685de65ab0b8dbf82cc4b3) Thanks [@gzm0](https://github.com/gzm0)! - fix: allow use of `PathBasedClient` with generated `paths`
+
 ## 0.11.1
 
 ### Patch Changes
@@ -15,7 +93,7 @@
 
 ### Minor Changes
 
-- [#1791](https://github.com/openapi-ts/openapi-typescript/pull/1791) [`a956d5d`](https://github.com/openapi-ts/openapi-typescript/commit/a956d5d8480834402536283ee2f24ce8086698dc) Thanks [@gzm0](https://github.com/gzm0)! - Add support for `client["/endpoint"].GET()` style calls
+-- ⚠️ **Breaking Change** [#1791](https://github.com/openapi-ts/openapi-typescript/pull/1791) [`a956d5d`](https://github.com/openapi-ts/openapi-typescript/commit/a956d5d8480834402536283ee2f24ce8086698dc) Thanks [@gzm0](https://github.com/gzm0)! - Add support for `client["/endpoint"].GET()` style calls
 
 ## 0.10.6
 

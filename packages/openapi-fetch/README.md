@@ -1,18 +1,19 @@
 <img src="../../docs/public/assets/openapi-fetch.svg" alt="openapi-fetch" width="216" height="40" />
 
-openapi-fetch is a type-safe fetch client that pulls in your OpenAPI schema. Weighs **5 kb** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
+openapi-fetch is a type-safe fetch client that pulls in your OpenAPI schema. Weighs **6 kb** and has virtually zero runtime. Works with React, Vue, Svelte, or vanilla JS.
 
 | Library                    | Size (min) | “GET” request\*            |
 | :------------------------- | ---------: | :------------------------- |
-| openapi-fetch              |     `5 kB` | `300k` ops/s (fastest)     |
-| openapi-typescript-fetch   |     `4 kB` | `150k` ops/s (2× slower)   |
+| openapi-fetch              |     `6 kB` | `300k` ops/s (fastest)     |
+| openapi-typescript-fetch   |     `3 kB` | `300k` ops/s (fastest)     |
+| feature-fetch              |    `15 kB` | `300k` ops/s (fastest)     |
 | axios                      |    `32 kB` | `225k` ops/s (1.3× slower) |
 | superagent                 |    `55 kB` | `50k` ops/s (6× slower)    |
 | openapi-typescript-codegen |   `367 kB` | `100k` ops/s (3× slower)   |
 
 _\* [Benchmarks are approximate](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-fetch/test/index.bench.js) to just show rough baseline and will differ among machines and browsers. The relative performance between libraries is more reliable._
 
-The syntax is inspired by popular libraries like react-query or Apollo client, but without all the bells and whistles and in a 5 kb package.
+The syntax is inspired by popular libraries like react-query or Apollo client, but without all the bells and whistles and in a 6 kb package.
 
 ```ts
 import createClient from "openapi-fetch";
@@ -47,7 +48,7 @@ Notice there are no generics, and no manual typing. Your endpoint’s request an
 - ✅ No manual typing of your API
 - ✅ Eliminates `any` types that hide bugs
 - ✅ Also eliminates `as` type overrides that can also hide bugs
-- ✅ All of this in a **5 kb** client package 🎉
+- ✅ All of this in a **6 kb** client package 🎉
 
 ## Setup
 
@@ -59,7 +60,7 @@ npm i -D openapi-typescript typescript
 ```
 
 > **Highly recommended**
-> 
+>
 > Enable [noUncheckedIndexedAccess](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) in your `tsconfig.json` ([docs](/advanced#enable-nouncheckedindexaccess-in-your-tsconfigjson))
 
 Next, generate TypeScript types from your OpenAPI schema using openapi-typescript:
@@ -81,7 +82,7 @@ Lastly, be sure to **run typechecking** in your project. This can be done by add
 And run `npm run test:ts` in your CI to catch type errors.
 
 > **TIP:**
-> 
+>
 > Use `tsc --noEmit` to check for type errors rather than relying on your linter or your build command. Nothing will typecheck as accurately as the TypeScript compiler itself.
 
 ## Basic usage

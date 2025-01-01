@@ -1,5 +1,23 @@
 # openapi-typescript-helpers
 
+## 0.0.15
+
+### Patch Changes
+
+- [#1937](https://github.com/openapi-ts/openapi-typescript/pull/1937) [`06163a2`](https://github.com/openapi-ts/openapi-typescript/commit/06163a2030eaf8d0579f624d86481e1205aef396) Thanks [@DjordyKoert](https://github.com/DjordyKoert)! - client data & error now return a union of possible types
+
+## 0.0.14
+
+### Patch Changes
+
+- [#1948](https://github.com/openapi-ts/openapi-typescript/pull/1948) [`abfad56`](https://github.com/openapi-ts/openapi-typescript/commit/abfad5659183f95f705598dc52ae2dfe7a18ec04) Thanks [@piousdeer](https://github.com/piousdeer)! - fix SuccessResponseJSON, ErrorResponseJSON and RequestBodyJSON helpers
+
+## 0.0.13
+
+### Patch Changes
+
+- [#1871](https://github.com/openapi-ts/openapi-typescript/pull/1871) [`bd88568`](https://github.com/openapi-ts/openapi-typescript/commit/bd8856854eaaf213b96d04b9eb130db1695bb1f1) Thanks [@brunolca](https://github.com/brunolca)! - fix SuccessResponseJSON and ErrorResponseJSON helpers
+
 ## 0.0.12
 
 ### Patch Changes

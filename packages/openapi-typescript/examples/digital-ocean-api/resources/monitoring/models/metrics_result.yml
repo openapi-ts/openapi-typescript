@@ -6,13 +6,17 @@ properties:
   metric:
     type: object
     description: >-
-      An object containing the metric labels.
+      An object containing the metric's labels. These labels are key/value pairs
+      that vary depending on the metric being queried. For example, load balancer
+      metrics contain a `lb_id` label, while Droplet metrics contain a `host_id`
+      label, and App Platform metrics contain a `app_component` label.
     additionalProperties:
       type: string
     example:
       host_id: "19201920"
   values:
     type: array
+    description: An array of values for the metric.
     example:
       - - 1435781430
         - "1"

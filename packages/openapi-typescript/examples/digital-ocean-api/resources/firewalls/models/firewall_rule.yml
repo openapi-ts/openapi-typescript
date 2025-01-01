@@ -20,7 +20,7 @@ firewall_rule_base:
         containing a single port, a range (e.g. "8000-9000"), or "0" when all
         ports are open for a protocol. For ICMP rules this parameter will always
         return "0".
-      example: '8000'
+      example: "8000"
 
   required:
     - protocol
@@ -39,8 +39,8 @@ firewall_rule_target:
         An array of strings containing the IPv4 addresses, IPv6 addresses, IPv4
         CIDRs, and/or IPv6 CIDRs to which the firewall will allow traffic.
       example:
-        - '1.2.3.4'
-        - '18.0.0.0/8'
+        - "1.2.3.4"
+        - "18.0.0.0/8"
 
     droplet_ids:
       type: array
@@ -74,7 +74,7 @@ firewall_rule_target:
 
     tags:
       allOf:
-        - $ref: '../../../shared/attributes/tags_array.yml'
+        - $ref: "../../../shared/attributes/existing_tags_array.yml"
         - description: >-
             An array containing the names of Tags corresponding to groups of
             Droplets to which the firewall will allow traffic.
@@ -90,11 +90,11 @@ firewall_rules:
       type: array
       items:
         allOf:
-          - $ref: '#/firewall_rule_base'
+          - $ref: "#/firewall_rule_base"
           - properties:
               sources:
                 allOf:
-                  - $ref: '#/firewall_rule_target'
+                  - $ref: "#/firewall_rule_target"
                   - description: >-
                       An object specifying locations from which inbound traffic
                       will be accepted.
@@ -106,11 +106,11 @@ firewall_rules:
       type: array
       items:
         allOf:
-          - $ref: '#/firewall_rule_base'
+          - $ref: "#/firewall_rule_base"
           - properties:
               destinations:
                 allOf:
-                  - $ref: '#/firewall_rule_target'
+                  - $ref: "#/firewall_rule_target"
                   - description: >-
                       An object specifying locations to which outbound
                       traffic that will be allowed.

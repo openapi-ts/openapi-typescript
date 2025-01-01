@@ -32,7 +32,7 @@ While best practices for commit messages are encouraged (e.g. start with an impe
 
 When working locally, run:
 
-```bash
+```sh
 pnpm run dev
 ```
 
@@ -101,19 +101,19 @@ This library uses [Vitest](https://vitest.dev/) for testing. There’s a great [
 
 To run the entire test suite once, run:
 
-```bash
+```sh
 pnpm test
 ```
 
 To run an individual test:
 
-```bash
+```sh
 pnpm test -- [partial filename]
 ```
 
 To start the entire test suite in watch mode:
 
-```bash
+```sh
 npx vitest
 ```
 
@@ -121,7 +121,7 @@ npx vitest
 
 Linting is handled via [Biome](https://biomejs.dev), a faster ESLint replacement. It was installed with `pnpm i` and can be run with:
 
-```bash
+```sh
 pnpm run lint
 ```
 
@@ -129,7 +129,7 @@ pnpm run lint
 
 ⚠️ This may break tests if schemas have been updated
 
-```bash
+```sh
 pnpm run update:examples
 ```
 

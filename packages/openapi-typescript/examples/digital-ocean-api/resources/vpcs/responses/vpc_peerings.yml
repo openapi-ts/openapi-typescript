@@ -1,0 +1,45 @@
+description: >-
+  The response will be a JSON object with a key called `peerings`. This 
+  will be set to an array of objects, each of which will contain the standard 
+  attributes associated with a VPC peering.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            peerings:
+              type: array
+              items:
+                $ref: '../../vpc_peerings/models/vpc_peering.yml#/vpc_peering'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+      example:
+        peerings:
+        - id: 6b5c619c-359c-44ca-87e2-47e98170c01d
+          name: example-vpc-peering
+          vpc_ids:
+          - 997615ce-132d-4bae-9270-9ee21b395e5d
+          - e51aed59-3bb1-4a6a-8de0-9d1329e9c997
+          created_at: '2024-01-09T20:44:32Z'
+          status: ACTIVE
+        - id: c212b274-911c-44cc-a117-23b7da4a2922
+          name: another-vpc-peering
+          vpc_ids:
+          - 5a100736-b085-4f69-81fd-feee325784bb
+          - c140286f-e6ce-4131-8b7b-df4590ce8d6a
+          created_at: '2024-01-10T13:29:58Z'
+          status: ACTIVE
+        links: {}
+        meta:
+          total: 2

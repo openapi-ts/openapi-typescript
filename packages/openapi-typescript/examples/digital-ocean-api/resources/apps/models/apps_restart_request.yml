@@ -1,0 +1,10 @@
+type: object
+properties:
+  components:
+    title: Optional list of components to restart. If not provided, all components will be restarted.
+    type: array
+    items:
+      type: string
+    example:
+      - component1
+      - component2

@@ -7,23 +7,36 @@
     "name": "Drew Powers",
     "email": "drew@pow.rs"
   },
+  "packageManager": "pnpm@9.14.4",
   "scripts": {
-    "build": "pnpm run -r --parallel --filter \"!*docs\" --aggregate-output build",
-    "lint": "pnpm run -r --parallel --aggregate-output lint",
-    "format": "pnpm run -r --parallel --aggregate-output format",
-    "test": "pnpm run -r --parallel --aggregate-output test",
-    "test-e2e": "pnpm run -r --parallel --aggregate-output test-e2e",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "dev": "pnpm run -r --parallel --filter \"{packages/*}\" --aggregate-output dev",
+    "format": "turbo run format",
+    "test": "turbo run test",
+    "test-e2e": "turbo run test-e2e",
+    "size": "turbo run size-limit",
     "version": "pnpm run build && changeset version && pnpm i"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.8.1",
+    "@biomejs/biome": "^1.9.4",
     "@changesets/changelog-github": "^0.5.0",
-    "@changesets/cli": "^2.27.5",
-    "@playwright/test": "^1.44.1",
-    "@types/node": "^20.14.7",
+    "@changesets/cli": "^2.27.11",
+    "@playwright/test": "^1.49.1",
+    "@size-limit/preset-small-lib": "^11.1.6",
+    "@types/node": "^22.10.2",
     "del-cli": "^5.1.0",
-    "prettier": "^3.3.2",
-    "typescript": "^5.4.5",
-    "vitest": "^2.0.5"
-  }
+    "prettier": "^3.4.2",
+    "size-limit": "^11.1.6",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "size-limit": [
+    {
+      "path": "packages/openapi-fetch/dist/index.min.js",
+      "limit": "7 kB",
+      "brotli": false
+    }
+  ]
 }

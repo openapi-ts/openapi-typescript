@@ -359,6 +359,66 @@ describe("transformPathItemObject", () => {
         },
       },
     ],
+    [
+      "parameters > header and cookie have same name param1",
+      {
+        given: {
+          get: {
+            parameters: [
+              {
+                name: "param1",
+                in: "header",
+                required: true,
+                schema: {
+                  type: "string",
+                },
+                description: "param1",
+              },
+              {
+                name: "param1",
+                in: "cookie",
+                required: true,
+                schema: {
+                  type: "string",
+                },
+                description: "param1",
+              },
+            ],
+          },
+        },
+        want: `{
+    parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+    };
+    get: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description param1 */
+                param1: string;
+            };
+            path?: never;
+            cookie: {
+                /** @description param1 */
+                param1: string;
+            };
+        };
+        requestBody?: never;
+        responses: never;
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+}`,
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
