@@ -3,6 +3,8 @@ description: Propose new functionality or a breaking change
 labels:
   - openapi-fetch
   - enhancement
+projects:
+  - openapi-ts/3
 body:
   - type: textarea
     id: description
