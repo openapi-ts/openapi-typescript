@@ -39,7 +39,7 @@ const { Layout } = DefaultTheme;
       </a></template
     >
 
-    <!-- Silver sponsor logos -->
+    <!-- Sidebar sponsors -->
     <template #sidebar-nav-after>
       <div class="sidenav-sponsors">
         <h5>Gold Sponsors</h5>
@@ -58,16 +58,9 @@ const { Layout } = DefaultTheme;
             </a>
           </li>
         </ul>
-        <h5 style="margin-block-start: 4rem">Hosting</h5>
-        <div class="sidebar-hosting">
-          <a href="https://www.netlify.com"
-            ><img
-              width="73"
-              height="32"
-              src="https://www.netlify.com/v3/img/components/netlify-color-bg.svg"
-              alt="Deploys by Netlify"
-          /></a>
-        </div>
+        <p class="sidebar-hosting">
+          Powered by <a href="https://netlify.com">Netlify</a>
+        </p>
       </div>
     </template>
   </Layout>
@@ -159,11 +152,22 @@ const { Layout } = DefaultTheme;
 }
 
 .sidebar-hosting {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  margin-block-start: 1rem;
-  text-align: center;
+  color: var(--vp-c-text-3);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.0625em;
+  margin-block-start: 2rem;
+  text-transform: uppercase;
+
+  a {
+    color: var(--vp-c-brand-1);
+    text-decoration: underline;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--vp-c-brand-2);
+    }
+  }
 }
 </style>
 

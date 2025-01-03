@@ -64,9 +64,8 @@ export default defineConfig({
     sidebarMenuLabel: "メニュー",
     returnToTopLabel: "最上部に戻る",
     footer: {
-      message: `<div class="footer-spacer"></div>
-<div class="footer-license"><a href="https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE">MITライセンス</a> に基づいて配布されています。</div>
-<a class="footer-hosting" href="https://www.netlify.com"><img src="https://www.netlify.com/v3/img/components/netlify-color-bg.svg" alt="Deploys by Netlify" /></a>`,
+      message:
+        '<a href="https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE">MITライセンス</a> に基づいて配布されています。',
     },
   },
 });
