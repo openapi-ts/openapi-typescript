@@ -19,19 +19,13 @@ describe("transformSchemaObject > array", () => {
       },
     ],
     [
-      "tuple > tuple items",
+      "array > heterogeneous items",
       {
         given: {
           type: "array",
-          items: [{ type: "string" }, { type: "number" }],
-          minItems: 2,
-          maxItems: 2,
+          items: { anyOf: [{ type: "number" }, { type: "string" }] },
         },
-        want: `[
-    string,
-    number
-]`,
-        // options: DEFAULT_OPTIONS,
+        want: "(number | string)[]",
       },
     ],
     [
@@ -45,7 +39,8 @@ describe("transformSchemaObject > array", () => {
         want: `[
     number,
     number,
-    number
+    number,
+    ...number[]
 ]`,
         // options: DEFAULT_OPTIONS,
       },
@@ -94,6 +89,28 @@ describe("transformSchemaObject > array", () => {
       },
     ],
     [
+      "options > arrayLength: false > minItems: 0",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 0 },
+        want: "string[]",
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: false },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: false > minItems: 1",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 1 },
+        want: "string[]",
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: false },
+        },
+      },
+    ],
+    [
       "options > arrayLength: true > default",
       {
         given: { type: "array", items: { type: "string" } },
@@ -101,6 +118,28 @@ describe("transformSchemaObject > array", () => {
         options: {
           ...DEFAULT_OPTIONS,
           ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > minItems: 0",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 0 },
+        want: "string[]",
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, immutable: true > minItems: 0",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 0 },
+        want: "readonly string[]",
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
         },
       },
     ],
@@ -115,6 +154,50 @@ describe("transformSchemaObject > array", () => {
         options: {
           ...DEFAULT_OPTIONS,
           ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, immutable: true > minItems: 1",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 1 },
+        want: `readonly [
+    string,
+    ...readonly string[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > minItems: 2",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 2 },
+        want: `[
+    string,
+    string,
+    ...string[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, immutable: true > minItems: 2",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 2 },
+        want: `readonly [
+    string,
+    string,
+    ...readonly string[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
         },
       },
     ],
@@ -136,6 +219,55 @@ describe("transformSchemaObject > array", () => {
       },
     ],
     [
+      "options > arrayLength: true, immutable: true > maxItems: 2",
+      {
+        given: { type: "array", items: { type: "string" }, maxItems: 2 },
+        want: `readonly [
+] | readonly [
+    string
+] | readonly [
+    string,
+    string
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > minItems: 1, maxItems: 2",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 1, maxItems: 2 },
+        want: `[
+    string
+] | [
+    string,
+    string
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, immutable: true > minItems: 1, maxItems: 2",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 1, maxItems: 2 },
+        want: `readonly [
+    string
+] | readonly [
+    string,
+    string
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
+        },
+      },
+    ],
+    [
       "options > arrayLength: true > maxItems: 20",
       {
         given: { type: "array", items: { type: "string" }, maxItems: 20 },
@@ -143,6 +275,17 @@ describe("transformSchemaObject > array", () => {
         options: {
           ...DEFAULT_OPTIONS,
           ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, immutable: true > maxItems: 20",
+      {
+        given: { type: "array", items: { type: "string" }, maxItems: 20 },
+        want: "readonly string[]",
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
         },
       },
     ],
@@ -158,6 +301,193 @@ describe("transformSchemaObject > array", () => {
           ...DEFAULT_OPTIONS,
           ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
         },
+      },
+    ],
+    [
+      "options > arrayLength: true > prefixItems, minItems: 2, maxItems: 2",
+      {
+        given: {
+          type: "array",
+          items: { type: "string" },
+          prefixItems: [
+            { type: "string", enum: ["calcium"] },
+            { type: "string", enum: ["magnesium"] },
+          ],
+          minItems: 2,
+          maxItems: 2,
+        },
+        want: `[
+    "calcium",
+    "magnesium"
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > no items, prefixItems, minItems: 2, maxItems: 3",
+      {
+        given: {
+          type: "array",
+          prefixItems: [
+            { type: "string", enum: ["calcium"] },
+            { type: "string", enum: ["magnesium"] },
+          ],
+          minItems: 2,
+          maxItems: 3,
+        },
+        want: `[
+    "calcium",
+    "magnesium"
+] | [
+    "calcium",
+    "magnesium",
+    unknown
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > no items, prefixItems, minItems: 3",
+      {
+        given: {
+          type: "array",
+          prefixItems: [
+            { type: "string", enum: ["calcium"] },
+            { type: "string", enum: ["magnesium"] },
+          ],
+          minItems: 3,
+        },
+        want: `[
+    "calcium",
+    "magnesium",
+    unknown,
+    ...unknown[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > no items, prefixItems, minItems: 2, maxItems: 5",
+      {
+        given: {
+          type: "array",
+          prefixItems: [
+            { type: "string", enum: ["calcium"] },
+            { type: "string", enum: ["magnesium"] },
+            { type: "string", enum: ["tungsten"] },
+          ],
+          minItems: 2,
+          maxItems: 5,
+        },
+        want: `[
+    "calcium",
+    "magnesium"
+] | [
+    "calcium",
+    "magnesium",
+    "tungsten"
+] | [
+    "calcium",
+    "magnesium",
+    "tungsten",
+    unknown
+] | [
+    "calcium",
+    "magnesium",
+    "tungsten",
+    unknown,
+    unknown
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, immutable: true > prefixItems, minItems: 3",
+      {
+        given: {
+          type: "array",
+          items: { type: "string" },
+          prefixItems: [{ type: "string" }, { type: "number" }],
+          minItems: 3,
+        },
+        want: `readonly [
+    string,
+    number,
+    string,
+    ...readonly string[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, immutable: true > prefixItems, minItems: 3, maxItems: 3",
+      {
+        given: {
+          type: "array",
+          items: { type: "string" },
+          prefixItems: [{ type: "string" }, { type: "number" }],
+          minItems: 3,
+          maxItems: 3,
+        },
+        want: `readonly [
+    string,
+    number,
+    string
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: false, immutable: true > prefixItems, minItems: 3, maxItems: 5",
+      {
+        given: {
+          type: "array",
+          items: { type: "string" },
+          prefixItems: [{ type: "string" }, { type: "number" }],
+          minItems: 3,
+          maxItems: 5,
+        },
+        want: `readonly [
+    string,
+    number,
+    ...readonly string[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: false, immutable: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: false > prefixItems, items: false",
+      {
+        given: {
+          type: "array",
+          items: false,
+          prefixItems: [{ type: "string", enum: ["professor"] }],
+        },
+        want: `[
+    "professor",
+    ...unknown[]
+]`,
       },
     ],
     [
@@ -185,7 +515,8 @@ describe("transformSchemaObject > array", () => {
         want: `readonly [
     number,
     number,
-    number
+    number,
+    ...readonly number[]
 ]`,
         options: {
           ...DEFAULT_OPTIONS,
@@ -200,6 +531,7 @@ describe("transformSchemaObject > array", () => {
       testName,
       async () => {
         const result = astToString(transformSchemaObject(given, options));
+        // console.log(result);
         if (want instanceof URL) {
           expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {
@@ -208,5 +540,26 @@ describe("transformSchemaObject > array", () => {
       },
       ci?.timeout,
     );
+  }
+
+  const invalidTests: TestCase[] = [
+    [
+      "error > items is array",
+      {
+        given: {
+          type: "array",
+          items: [{ type: "number" }, { type: "string" }],
+        },
+        want: "#/components/schemas/schema-object: invalid property items. Expected Schema Object, got Array",
+      },
+    ],
+  ];
+
+  for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of invalidTests) {
+    test.skipIf(ci?.skipIf)(testName, () => {
+      expect(() => {
+        transformSchemaObject(given, options);
+      }).toThrowError(want.toString());
+    });
   }
 });
