@@ -1,5 +1,5 @@
 name: "openapi-typescript: Feature request"
-about: Propose new functionality or a breaking change
+description: Propose new functionality or a breaking change
 title: ""
 labels:
   - openapi-ts
@@ -20,7 +20,8 @@ body:
     validations:
       required: true
   - type: checkboxes
-    id: checklist
+    id: extra
+    label: Extra
     attributes:
       options:
         - label: I’m willing to open a PR (see [CONTRIBUTING.md](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/CONTRIBUTING.md))
