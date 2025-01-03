@@ -68,6 +68,7 @@
     "yargs-parser": "^21.1.1"
   },
   "devDependencies": {
+    "@total-typescript/ts-reset": "^0.6.1",
     "@types/degit": "^2.8.6",
     "@types/js-yaml": "^4.0.9",
     "degit": "^2.8.4",

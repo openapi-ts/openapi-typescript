@@ -77,6 +77,7 @@ export default async function openapiTS(
     enumValues: options.enumValues ?? false,
     dedupeEnums: options.dedupeEnums ?? false,
     excludeDeprecated: options.excludeDeprecated ?? false,
+    experimentalArraySpreadMembers: options.experimentalArraySpreadMembers ?? false,
     exportType: options.exportType ?? false,
     immutable: options.immutable ?? false,
     rootTypes: options.rootTypes ?? false,

@@ -34,6 +34,10 @@ Options
   --root-types-no-schema-prefix (optional)
                              Do not add "Schema" prefix to types at the root level (should only be used with --root-types)
   --make-paths-enum          Generate ApiPaths enum for all paths
+
+Experimental features
+  --experimental-spread-array-members
+                             Array schemas with prefixItems spread remaining items
 `;
 
 const OUTPUT_FILE = "FILE";
@@ -77,6 +81,7 @@ const flags = parser(args, {
     "dedupeEnums",
     "check",
     "excludeDeprecated",
+    "experimentalArraySpreadMembers",
     "exportType",
     "help",
     "immutable",
@@ -133,7 +138,6 @@ async function generateSchema(schema, { redocly, silent = false }) {
       additionalProperties: flags.additionalProperties,
       alphabetize: flags.alphabetize,
       arrayLength: flags.arrayLength,
-      contentNever: flags.contentNever,
       propertiesRequiredByDefault: flags.propertiesRequiredByDefault,
       defaultNonNullable: flags.defaultNonNullable,
       emptyObjectsUnknown: flags.emptyObjectsUnknown,
@@ -142,6 +146,7 @@ async function generateSchema(schema, { redocly, silent = false }) {
       dedupeEnums: flags.dedupeEnums,
       excludeDeprecated: flags.excludeDeprecated,
       exportType: flags.exportType,
+      experimentalArraySpreadMembers: flags.experimentalArraySpreadMembers,
       immutable: flags.immutable,
       pathParamsAsTypes: flags.pathParamsAsTypes,
       rootTypes: flags.rootTypes,

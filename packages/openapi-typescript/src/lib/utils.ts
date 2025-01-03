@@ -155,7 +155,7 @@ export function resolveRef<T>(
   return node;
 }
 
-function createDiscriminatorEnum(values: string[], prevSchema?: SchemaObject): SchemaObject {
+function createDiscriminatorEnum(values: string[], prevSchema?: SchemaObject | ReferenceObject): SchemaObject {
   return {
     type: "string",
     enum: values,
@@ -167,7 +167,7 @@ function createDiscriminatorEnum(values: string[], prevSchema?: SchemaObject): S
 
 /** Adds or replaces the discriminator enum with the passed `values` in a schema defined by `ref` */
 function patchDiscriminatorEnum(
-  schema: SchemaObject,
+  schema: OpenAPI3,
   ref: string,
   values: string[],
   discriminator: DiscriminatorObject,
@@ -206,7 +206,7 @@ function patchDiscriminatorEnum(
     // add/replace the discriminator enum property
     resolvedSchema.properties[discriminator.propertyName] = createDiscriminatorEnum(
       values,
-      resolvedSchema.properties[discriminator.propertyName] as SchemaObject,
+      resolvedSchema.properties[discriminator.propertyName],
     );
 
     return true;
@@ -250,7 +250,7 @@ export function scanDiscriminators(schema: OpenAPI3, options: OpenAPITSOptions) 
       return;
     }
 
-    const oneOf: (SchemaObject | ReferenceObject)[] = obj.oneOf;
+    const oneOf = obj.oneOf as readonly (SchemaObject | ReferenceObject)[];
     const mapping: InternalDiscriminatorMapping = {};
 
     // the mapping can be inferred from the oneOf refs next to the discriminator object
@@ -301,9 +301,7 @@ export function scanDiscriminators(schema: OpenAPI3, options: OpenAPITSOptions) 
       // biome-ignore lint/style/noNonNullAssertion: we just checked for this
       const mappedValues = defined ?? [inferred!];
 
-      if (
-        patchDiscriminatorEnum(schema as unknown as SchemaObject, mappedRef, mappedValues, discriminator, ref, options)
-      ) {
+      if (patchDiscriminatorEnum(schema, mappedRef, mappedValues, discriminator, ref, options)) {
         refsHandled.push(mappedRef);
       }
     }
@@ -335,16 +333,7 @@ export function scanDiscriminators(schema: OpenAPI3, options: OpenAPITSOptions) 
           }
 
           if (mappedValues.length > 0) {
-            if (
-              patchDiscriminatorEnum(
-                schema as unknown as SchemaObject,
-                ref,
-                mappedValues,
-                discriminator,
-                item.$ref,
-                options,
-              )
-            ) {
+            if (patchDiscriminatorEnum(schema, ref, mappedValues, discriminator, item.$ref, options)) {
               refsHandled.push(ref);
             }
           }

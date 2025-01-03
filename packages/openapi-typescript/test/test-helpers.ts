@@ -15,6 +15,7 @@ export const DEFAULT_CTX: GlobalContext = {
   emptyObjectsUnknown: false,
   enum: false,
   enumValues: false,
+  experimentalArraySpreadMembers: false,
   dedupeEnums: false,
   excludeDeprecated: false,
   exportType: false,

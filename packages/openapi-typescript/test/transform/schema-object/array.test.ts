@@ -15,11 +15,10 @@ describe("transformSchemaObject > array", () => {
       {
         given: { type: "array", items: { type: "string" } },
         want: "string[]",
-        // options: DEFAULT_OPTIONS,
       },
     ],
     [
-      "tuple > tuple items",
+      "tuple > tuple items (deprecated)",
       {
         given: {
           type: "array",
@@ -31,7 +30,21 @@ describe("transformSchemaObject > array", () => {
     string,
     number
 ]`,
-        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "tuple > prefixItems, items false",
+      {
+        given: {
+          type: "array",
+          items: false,
+          prefixItems: [{ type: "number" }, { type: "number" }, { type: "number" }],
+        },
+        want: `[
+    number,
+    number,
+    number
+]`,
       },
     ],
     [
@@ -47,7 +60,23 @@ describe("transformSchemaObject > array", () => {
     number,
     number
 ]`,
-        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "options: experimentalArraySpreadMembers: true, tuple > prefixItems",
+      {
+        given: {
+          type: "array",
+          items: { type: "number" },
+          prefixItems: [{ type: "number" }, { type: "number" }, { type: "number" }],
+        },
+        options: { ...DEFAULT_OPTIONS, ctx: { ...DEFAULT_CTX, experimentalArraySpreadMembers: true } },
+        want: `[
+    number,
+    number,
+    number,
+    ...number[]
+]`,
       },
     ],
     [
@@ -58,7 +87,6 @@ describe("transformSchemaObject > array", () => {
           items: { $ref: "#/components/schemas/ArrayItem" },
         },
         want: `components["schemas"]["ArrayItem"][]`,
-        // options: DEFAULT_OPTIONS,
       },
     ],
     [
@@ -66,7 +94,6 @@ describe("transformSchemaObject > array", () => {
       {
         given: { type: ["array", "null"], items: { type: "string" } },
         want: "string[] | null",
-        // options: DEFAULT_OPTIONS,
       },
     ],
     [
@@ -74,7 +101,6 @@ describe("transformSchemaObject > array", () => {
       {
         given: { type: "array", items: { type: "string" }, nullable: true },
         want: "string[] | null",
-        // options: DEFAULT_OPTIONS,
       },
     ],
     [
@@ -82,7 +108,6 @@ describe("transformSchemaObject > array", () => {
       {
         given: { type: "array", items: { type: ["string", "null"] } },
         want: "(string | null)[]",
-        // options: DEFAULT_OPTIONS,
       },
     ],
     [
@@ -90,7 +115,38 @@ describe("transformSchemaObject > array", () => {
       {
         given: { type: "array", items: { type: "string", nullable: true } },
         want: "(string | null)[]",
-        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "array > heterogeneous items",
+      {
+        given: {
+          type: "array",
+          items: { anyOf: [{ type: "number" }, { type: "string" }] },
+        },
+        want: "(number | string)[]",
+      },
+    ],
+    [
+      "options > arrayLength: false > minItems: 0",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 0 },
+        want: "string[]",
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: false },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: false > minItems: 1",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 1 },
+        want: "string[]",
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: false },
+        },
       },
     ],
     [
@@ -105,6 +161,28 @@ describe("transformSchemaObject > array", () => {
       },
     ],
     [
+      "options > arrayLength: true > minItems: 0",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 0 },
+        want: "string[]",
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, immutable: true > minItems: 0",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 0 },
+        want: "readonly string[]",
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
+        },
+      },
+    ],
+    [
       "options > arrayLength: true > minItems: 1",
       {
         given: { type: "array", items: { type: "string" }, minItems: 1 },
@@ -115,6 +193,50 @@ describe("transformSchemaObject > array", () => {
         options: {
           ...DEFAULT_OPTIONS,
           ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, immutable: true > minItems: 1",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 1 },
+        want: `readonly [
+    string,
+    ...readonly string[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > minItems: 2",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 2 },
+        want: `[
+    string,
+    string,
+    ...string[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, immutable: true > minItems: 2",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 2 },
+        want: `readonly [
+    string,
+    string,
+    ...readonly string[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
         },
       },
     ],
@@ -136,6 +258,55 @@ describe("transformSchemaObject > array", () => {
       },
     ],
     [
+      "options > arrayLength: true, immutable: true > maxItems: 2",
+      {
+        given: { type: "array", items: { type: "string" }, maxItems: 2 },
+        want: `readonly [
+] | readonly [
+    string
+] | readonly [
+    string,
+    string
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > minItems: 1, maxItems: 2",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 1, maxItems: 2 },
+        want: `[
+    string
+] | [
+    string,
+    string
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, immutable: true > minItems: 1, maxItems: 2",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 1, maxItems: 2 },
+        want: `readonly [
+    string
+] | readonly [
+    string,
+    string
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
+        },
+      },
+    ],
+    [
       "options > arrayLength: true > maxItems: 20",
       {
         given: { type: "array", items: { type: "string" }, maxItems: 20 },
@@ -143,6 +314,17 @@ describe("transformSchemaObject > array", () => {
         options: {
           ...DEFAULT_OPTIONS,
           ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, immutable: true > maxItems: 20",
+      {
+        given: { type: "array", items: { type: "string" }, maxItems: 20 },
+        want: "readonly string[]",
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
         },
       },
     ],
@@ -158,6 +340,254 @@ describe("transformSchemaObject > array", () => {
           ...DEFAULT_OPTIONS,
           ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
         },
+      },
+    ],
+    [
+      "options > arrayLength: true > prefixItems, minItems: 2, maxItems: 2",
+      {
+        given: {
+          type: "array",
+          items: { type: "string" },
+          prefixItems: [
+            { type: "string", enum: ["calcium"] },
+            { type: "string", enum: ["magnesium"] },
+          ],
+          minItems: 2,
+          maxItems: 2,
+        },
+        want: `[
+    "calcium",
+    "magnesium"
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > no items, prefixItems, minItems: 2, maxItems: 3",
+      {
+        given: {
+          type: "array",
+          prefixItems: [
+            { type: "string", enum: ["calcium"] },
+            { type: "string", enum: ["magnesium"] },
+          ],
+          minItems: 2,
+          maxItems: 3,
+        },
+        want: `[
+    "calcium",
+    "magnesium"
+] | [
+    "calcium",
+    "magnesium",
+    unknown
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > no items, prefixItems, minItems: 3",
+      {
+        given: {
+          type: "array",
+          prefixItems: [
+            { type: "string", enum: ["calcium"] },
+            { type: "string", enum: ["magnesium"] },
+          ],
+          minItems: 3,
+        },
+        want: `[
+    "calcium",
+    "magnesium",
+    unknown
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, experimentalArraySpreadMembers: true > no items, prefixItems, minItems: 3",
+      {
+        given: {
+          type: "array",
+          prefixItems: [
+            { type: "string", enum: ["calcium"] },
+            { type: "string", enum: ["magnesium"] },
+          ],
+          minItems: 3,
+        },
+        want: `[
+    "calcium",
+    "magnesium",
+    unknown,
+    ...unknown[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, experimentalArraySpreadMembers: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > no items, prefixItems, minItems: 2, maxItems: 5",
+      {
+        given: {
+          type: "array",
+          prefixItems: [
+            { type: "string", enum: ["calcium"] },
+            { type: "string", enum: ["magnesium"] },
+            { type: "string", enum: ["tungsten"] },
+          ],
+          minItems: 2,
+          maxItems: 5,
+        },
+        want: `[
+    "calcium",
+    "magnesium"
+] | [
+    "calcium",
+    "magnesium",
+    "tungsten"
+] | [
+    "calcium",
+    "magnesium",
+    "tungsten",
+    unknown
+] | [
+    "calcium",
+    "magnesium",
+    "tungsten",
+    unknown,
+    unknown
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, immutable: true > prefixItems, minItems: 3",
+      {
+        given: {
+          type: "array",
+          items: { type: "string" },
+          prefixItems: [{ type: "string" }, { type: "number" }],
+          minItems: 3,
+        },
+        want: `readonly [
+    string,
+    number,
+    string
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, experimentalArraySpreadMembers: true, immutable: true > prefixItems, minItems: 3",
+      {
+        given: {
+          type: "array",
+          items: { type: "string" },
+          prefixItems: [{ type: "string" }, { type: "number" }],
+          minItems: 3,
+        },
+        want: `readonly [
+    string,
+    number,
+    string,
+    ...readonly string[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true, experimentalArraySpreadMembers: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true, immutable: true > prefixItems, minItems: 3, maxItems: 3",
+      {
+        given: {
+          type: "array",
+          items: { type: "string" },
+          prefixItems: [{ type: "string" }, { type: "number" }],
+          minItems: 3,
+          maxItems: 3,
+        },
+        want: `readonly [
+    string,
+    number,
+    string
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true, immutable: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: false, immutable: true > prefixItems, minItems: 3, maxItems: 5",
+      {
+        given: {
+          type: "array",
+          items: { type: "string" },
+          prefixItems: [{ type: "string" }, { type: "number" }],
+          minItems: 3,
+          maxItems: 5,
+        },
+        want: `readonly [
+    string,
+    number
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: false, immutable: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: false, experimentalArraySpreadMembers: true, immutable: true > prefixItems, minItems: 3, maxItems: 5",
+      {
+        given: {
+          type: "array",
+          items: { type: "string" },
+          prefixItems: [{ type: "string" }, { type: "number" }],
+          minItems: 3,
+          maxItems: 5,
+        },
+        want: `readonly [
+    string,
+    number,
+    ...readonly string[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: false, experimentalArraySpreadMembers: true, immutable: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: false > prefixItems, items: false",
+      {
+        given: {
+          type: "array",
+          items: false,
+          prefixItems: [{ type: "string", enum: ["professor"] }],
+        },
+        want: `[
+    "professor"
+]`,
       },
     ],
     [
@@ -190,6 +620,26 @@ describe("transformSchemaObject > array", () => {
         options: {
           ...DEFAULT_OPTIONS,
           ctx: { ...DEFAULT_OPTIONS.ctx, immutable: true },
+        },
+      },
+    ],
+    [
+      "options > experimentalArraySpreadMembers: true, immutable: true (tuple)",
+      {
+        given: {
+          type: "array",
+          items: { type: "number" },
+          prefixItems: [{ type: "number" }, { type: "number" }, { type: "number" }],
+        },
+        want: `readonly [
+    number,
+    number,
+    number,
+    ...readonly number[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, experimentalArraySpreadMembers: true, immutable: true },
         },
       },
     ],
