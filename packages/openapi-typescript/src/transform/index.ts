@@ -15,7 +15,7 @@ const transformers: Record<SchemaTransforms, (node: any, options: GlobalContext)
   paths: transformPathsObject,
   webhooks: transformWebhooksObject,
   components: transformComponentsObject,
-  $defs: (node, options) => transformSchemaObject(node, { path: createRef(["$defs"]), ctx: options }),
+  $defs: (node, options) => transformSchemaObject(node, { path: createRef(["$defs"]), ctx: options, schema: node }),
 };
 
 export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
