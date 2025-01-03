@@ -1,5 +1,5 @@
 name: "swr-openapi: Bug report"
-about: Report a bug or unexpected behavior
+description: Report a bug or unexpected behavior
 labels:
   - swr-openapi
   - bug
@@ -31,7 +31,8 @@ body:
     validations:
       required: true
   - type: checkboxes
-    id: checklist
+    id: extra
+    label: Extra
     attributes:
       options:
         - label: I’m willing to open a PR (see [CONTRIBUTING.md](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/swr-openapi/CONTRIBUTING.md))

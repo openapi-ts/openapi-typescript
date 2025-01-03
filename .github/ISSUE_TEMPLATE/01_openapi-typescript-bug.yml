@@ -1,5 +1,5 @@
 name: "openapi-typescript: Bug report"
-about: Report a bug or unexpected behavior
+description: Report a bug or unexpected behavior
 labels:
   - openapi-ts
   - bug
@@ -44,9 +44,15 @@ body:
     validations:
       required: true
   - type: checkboxes
-    id: checklist
+    id: required
+    label: Required
     attributes:
       options:
         - label: My OpenAPI schema is valid and passes the [Redocly validator](https://redocly.com/docs/cli/commands/lint/) (`npx @redocly/cli@latest lint`)
           required: true
+  - type: checkboxes
+    id: extra
+    label: Extra
+    attributes:
+      options:
         - label: I’m willing to open a PR (see [CONTRIBUTING.md](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/CONTRIBUTING.md))
