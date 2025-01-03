@@ -1,9 +1,9 @@
----
-name: "Bug report: openapi-fetch"
-about: For the openapi-fetch library
-title: ""
-labels: openapi-fetch, bug
-assignees: ""
+name: "openapi-react-query: Bug report"
+about: Report a bug or unexpected behavior
+labels:
+  - openapi-react-query
+  - bug
+  - triage
 body:
   - type: input
     attributes:
@@ -35,5 +35,4 @@ body:
     id: checklist
     attributes:
       options:
-        - label: I’m willing to open a PR (see [CONTRIBUTING.md](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-fetch/CONTRIBUTING.md))
----
+        - label: I’m willing to open a PR (see [CONTRIBUTING.md](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-react-query/CONTRIBUTING.md))

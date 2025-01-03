@@ -1,14 +1,26 @@
----
-name: "Bug report: swr-openapi"
-about: For the swr-openapi library
-title: ""
-labels: swr-openapi, bug
-assignees: ""
+name: "openapi-typescript: Bug report"
+about: Report a bug or unexpected behavior
+labels:
+  - openapi-ts
+  - bug
+  - triage
 body:
   - type: input
     attributes:
-      label: Version
+      label: openapi-typescript version
       placeholder: x.x.x
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Node.js version
+      placeholder: 20.x.x
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: OS + version
+      placeholder: macOS 15.1.1
     validations:
       required: true
   - type: textarea
@@ -35,5 +47,6 @@ body:
     id: checklist
     attributes:
       options:
-        - label: I’m willing to open a PR (see [CONTRIBUTING.md](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/swr-openapi/CONTRIBUTING.md))
----
+        - label: My OpenAPI schema is valid and passes the [Redocly validator](https://redocly.com/docs/cli/commands/lint/) (`npx @redocly/cli@latest lint`)
+          required: true
+        - label: I’m willing to open a PR (see [CONTRIBUTING.md](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/CONTRIBUTING.md))

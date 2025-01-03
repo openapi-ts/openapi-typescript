@@ -1,9 +1,9 @@
----
-name: "Feature request: openapi-fetch"
-about: For the openapi-fetch library
+name: "swr-openapi: Feature request"
+about: Propose new functionality or a breaking change
 title: ""
-labels: openapi-fetch, enhancement, help wanted
-assignees: ""
+labels:
+  - swr-openapi
+  - enhancement
 body:
   - type: textarea
     id: description
@@ -23,5 +23,4 @@ body:
     id: checklist
     attributes:
       options:
-        - label: I’m willing to open a PR (see [CONTRIBUTING.md](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-fetch/CONTRIBUTING.md))
----
+        - label: I’m willing to open a PR (see [CONTRIBUTING.md](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/swr-openapi/CONTRIBUTING.md))
