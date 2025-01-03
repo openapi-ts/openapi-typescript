@@ -5,8 +5,9 @@ labels:
   - bug
 body:
   - type: input
+    id: version
     attributes:
-      label: Version
+      label: swr-openapi version
       placeholder: x.x.x
     validations:
       required: true
@@ -25,6 +26,7 @@ body:
     validations:
       required: true
   - type: textarea
+    id: expected
     attributes:
       label: Expected result
       description: (In case it’s not obvious)
@@ -32,7 +34,7 @@ body:
       required: true
   - type: checkboxes
     id: extra
-    label: Extra
     attributes:
+      label: Extra
       options:
         - label: I’m willing to open a PR (see [CONTRIBUTING.md](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/swr-openapi/CONTRIBUTING.md))

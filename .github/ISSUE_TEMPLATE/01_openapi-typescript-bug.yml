@@ -6,18 +6,21 @@ labels:
   - triage
 body:
   - type: input
+    id: version
     attributes:
       label: openapi-typescript version
       placeholder: x.x.x
     validations:
       required: true
   - type: input
+    id: node
     attributes:
       label: Node.js version
       placeholder: 20.x.x
     validations:
       required: true
   - type: input
+    id: os
     attributes:
       label: OS + version
       placeholder: macOS 15.1.1
@@ -45,14 +48,14 @@ body:
       required: true
   - type: checkboxes
     id: required
-    label: Required
     attributes:
+      label: Required
       options:
         - label: My OpenAPI schema is valid and passes the [Redocly validator](https://redocly.com/docs/cli/commands/lint/) (`npx @redocly/cli@latest lint`)
           required: true
   - type: checkboxes
     id: extra
-    label: Extra
     attributes:
+      label: Extra
       options:
         - label: I’m willing to open a PR (see [CONTRIBUTING.md](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/CONTRIBUTING.md))
