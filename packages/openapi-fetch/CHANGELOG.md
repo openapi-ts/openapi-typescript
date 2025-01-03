@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.13.4
+
+### Patch Changes
+
+- [#2063](https://github.com/openapi-ts/openapi-typescript/pull/2063) [`5935cd2`](https://github.com/openapi-ts/openapi-typescript/commit/5935cd25a05d3ec1f4c8bf222d65395a0b9ae5b4) Thanks [@kerwanp](https://github.com/kerwanp)! - add support for arbitrary method
+
 ## 0.13.3
 
 ### Patch Changes
