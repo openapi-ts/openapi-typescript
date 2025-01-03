@@ -1,0 +1,21 @@
+name: Issue creation
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  auto-assign:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Auto-assign issue
+        uses: pozil/auto-assign-issue@v2
+        with:
+          teams: maintainers
+          numOfAssignee: 1
+          allowSelfAssign: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.OPENAPI_TS_BOT_GITHUB_TOKEN }}
