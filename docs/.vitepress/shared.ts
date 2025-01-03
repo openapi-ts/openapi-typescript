@@ -26,7 +26,7 @@ const shared: UserConfig = {
   themeConfig: {
     siteTitle: false,
     logo: "/assets/openapi-ts.svg",
-    outline: 'deep',
+    outline: "deep",
     search: {
       provider: "algolia",
       options: {

@@ -4,7 +4,7 @@ import zh from "./zh";
 import ja from "./ja";
 import shared from "./shared";
 import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
-import { ModuleKind, ModuleResolutionKind } from "typescript";
+import { ModuleResolutionKind } from "typescript";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({

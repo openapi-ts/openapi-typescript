@@ -7,11 +7,14 @@ const data = JSON.parse(fs.readFileSync(CONTRIBUTORS_JSON, "utf8"));
 
 const ONE_WEEK = 1000 * 60 * 60 * 24;
 
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-if (!GITHUB_TOKEN) {
-  throw new Error(
-    'GITHUB_TOKEN not set! Create a token with "read:user" scope and set as an environment variable.\nhttps://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic',
-  );
+function getGitHubToken() {
+  const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+  if (!GITHUB_TOKEN) {
+    throw new Error(
+      'GITHUB_TOKEN not set! Create a token with "read:user" scope and set as an environment variable.\nhttps://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic',
+    );
+  }
+  return GITHUB_TOKEN;
 }
 
 class UserFetchError extends Error {
@@ -37,7 +40,7 @@ async function fetchUserInfo(username) {
   const res = await fetch(`https://api.github.com/users/${username}`, {
     headers: {
       Accept: "application/vnd.github+json",
-      Authorization: `Bearer ${GITHUB_TOKEN}`,
+      Authorization: `Bearer ${getGitHubToken()}`,
       "X-GitHub-Api-Version": "2022-11-28",
     },
   });
@@ -189,19 +192,14 @@ const CONTRIBUTORS = {
 
 async function main() {
   let i = 0;
-  const total = Object.values(CONTRIBUTORS).reduce(
-    (total, next) => total + next.size,
-    0,
-  );
+  const total = Object.values(CONTRIBUTORS).reduce((total, next) => total + next.size, 0);
   await Promise.all(
     Object.entries(CONTRIBUTORS).map(async ([repo, contributors]) => {
       data[repo] ??= [];
       for (const username of [...contributors]) {
         i++;
         // skip profiles that have been updated within the past week
-        const { lastFetch } = data[repo].find(
-          (u) => u.username === username,
-        ) ?? { lastFetch: 0 };
+        const { lastFetch } = data[repo].find((u) => u.username === username) ?? { lastFetch: 0 };
         if (Date.now() - lastFetch < ONE_WEEK) {
           // biome-ignore lint/suspicious/noConsoleLog: this is a script
           console.log(`[${i}/${total}] (Skipped ${username})`);
@@ -219,10 +217,7 @@ async function main() {
           upsert(data[repo], userData);
           // biome-ignore lint/suspicious/noConsoleLog: this is a script
           console.log(`[${i}/${total}] Updated for ${username}`);
-          fs.writeFileSync(
-            new URL("../data/contributors.json", import.meta.url),
-            JSON.stringify(data),
-          ); // update file while fetching (sync happens safely in between fetches)
+          fs.writeFileSync(new URL("../data/contributors.json", import.meta.url), JSON.stringify(data)); // update file while fetching (sync happens safely in between fetches)
         } catch (err) {
           if (err instanceof UserFetchError && err.notFound) {
             console.warn(`[${i}/${total}] (Skipped ${username}, not found)`);
