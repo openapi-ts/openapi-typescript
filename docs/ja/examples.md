@@ -80,7 +80,7 @@ try {
 </details>
 
 <details>
-<summary><a href="https://www.npmjs.com/package/feature-fetch" target="_blank" rel="noreferrer">feature-fetch</a> by <a href="https://github.com/builder-group" target="_blank" rel="noreferrer">builder.group</a></summary>
+<summary><a href="https://www.npmjs.com/package/feature-fetch" target="_blank" rel="noreferrer">feature-fetch</a> by <a href="https://builder.group" target="_blank" rel="noreferrer">builder.group</a></summary>
 
 ::: code-group
 
@@ -262,9 +262,9 @@ export default app;
 
 :::
 
-## Hono と [`@blgc/openapi-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-router)
+## Hono と [`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router)
 
-[Honoの例](#hono) のように、各ルートをジェネリックで手動で型付けする代わりに、[`@blgc/openapi-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-router) は、[Hono router](https://hono.dev/docs/api/routing) をラップして完全な型安全性を提供し、バリデーターを使用してOpenAPIスキーマを強制します。
+[Honoの例](#hono) のように、各ルートをジェネリックで手動で型付けする代わりに、[`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router) は、[Hono router](https://hono.dev/docs/api/routing) をラップして完全な型安全性を提供し、バリデーターを使用してOpenAPIスキーマを強制します。
 
 ::: tip 知っておくと良いこと
 
@@ -275,7 +275,7 @@ TypeScriptの型はコンパイル時の安全性を保証しますが、実行�
 ::: code-group
 
 ```ts [src/router.ts]
-import { createHonoOpenApiRouter } from "@blgc/openapi-router";
+import { createHonoOpenApiRouter } from "openapi-ts-router";
 import { Hono } from "hono";
 import { zValidator } from "validation-adapters/zod";
 import * as z from "zod";
@@ -311,11 +311,11 @@ openApiRouter.post("/pet", {
 
 :::
 
-[完全な例](https://github.com/builder-group/community/tree/develop/examples/openapi-router/hono/petstore)
+[完全な例](https://github.com/builder-group/community/tree/develop/examples/openapi-ts-router/hono/petstore)
 
-## Express と [`@blgc/openapi-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-router)
+## Express と [`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router)
 
-[`@blgc/openapi-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-router) は、[Express ルーター](https://expressjs.com/en/5x/api.html#router) をラップして、完全な型安全性を提供し、バリデーターを使用して OpenAPI スキーマを強制します。
+[`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router) は、[Express ルーター](https://expressjs.com/en/5x/api.html#router) をラップして、完全な型安全性を提供し、バリデーターを使用して OpenAPI スキーマを強制します。
 
 ::: tip 知っておくと良いこと
 
@@ -326,7 +326,7 @@ TypeScriptの型はコンパイル時の安全性を保証しますが、実行�
 ::: code-group
 
 ```ts [src/router.ts]
-import { createExpressOpenApiRouter } from "@blgc/openapi-router";
+import { createExpressOpenApiRouter } from "openapi-ts-router";
 import { Router } from "express";
 import * as v from "valibot";
 import { vValidator } from "validation-adapters/valibot";
@@ -362,7 +362,7 @@ openApiRouter.post("/pet", {
 
 :::
 
-[完全な例](https://github.com/builder-group/community/tree/develop/examples/openapi-router/express/petstore)
+[完全な例](https://github.com/builder-group/community/tree/develop/examples/openapi-ts-router/express/petstore)
 
 ## Mock-Service-Worker (MSW)
 
