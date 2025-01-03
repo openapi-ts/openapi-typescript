@@ -90,7 +90,7 @@ import "reflect-metadata";
 
 :::
 
-Enable `experimentalDecorators` and `experimentalDecorators`.
+Enable `emitDecoratorMetadata` and `experimentalDecorators`.
 
 ::: code-group
 
