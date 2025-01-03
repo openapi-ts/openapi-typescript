@@ -8,9 +8,11 @@ Example code of using openapi-fetch with other frameworks and libraries.
 
 ## React + React Query
 
-[React Query](https://tanstack.com/query/latest) is a perfect wrapper for openapi-fetch in React. At only 13 kB, it provides clientside caching without too much client weight in return. And its stellar type inference preserves openapi-fetch types perfectly with minimal setup.
+See [openapi-react-query](/openapi-react-query/)
 
-[View a code example in GitHub](https://github.com/openapi-ts/openapi-typescript/tree/main/packages/openapi-fetch/examples/react-query)
+## React + SWR
+
+See [swr-openapi](/swr-openapi/)
 
 ## Next.js
 
@@ -33,4 +35,5 @@ _Note: if you’re using Svelte without SvelteKit, the root example in `src/rout
 [View a code example in GitHub](https://github.com/openapi-ts/openapi-typescript/tree/main/packages/openapi-fetch/examples/vue-3)
 
 ---
+
 Additional examples are always welcome! Please [open a PR](https://github.com/openapi-ts/openapi-typescript/pulls) with your examples.

@@ -8,9 +8,11 @@ openapi-fetchを他のフレームワークやライブラリと組み合わせ�
 
 ## React + React Query
 
-[React Query](https://tanstack.com/query/latest) は、Reactでopenapi-fetchを使用するための理想的なラッパーです。わずか13 kBのサイズで、クライアントサイドのキャッシュ機能を提供し、クライアントの負担を増やすことなく利用できます。また、その優れた型推論機能により、openapi-fetchの型が最小限の設定で完全に保持されます。
+See [openapi-react-query](/ja/openapi-react-query/)
 
-[GitHubでコード例を見る](https://github.com/openapi-ts/openapi-typescript/tree/main/packages/openapi-fetch/examples/react-query)
+## React + SWR
+
+See [swr-openapi](/swr-openapi/)
 
 ## Next.js
 
