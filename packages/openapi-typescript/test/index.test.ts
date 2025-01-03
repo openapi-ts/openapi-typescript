@@ -759,6 +759,119 @@ export enum ApiPaths {
         },
       },
     ],
+    [
+      "nullable > 3.0 syntax",
+      {
+        given: {
+          openapi: "3.0.3",
+          info: {
+            title: "Test",
+            version: "0",
+          },
+          paths: {},
+          components: {
+            schemas: {
+              obj1: {
+                title: "Nullable object",
+                type: "object",
+                properties: {
+                  id: {
+                    type: "string",
+                  },
+                },
+                nullable: true,
+              },
+              obj2: {
+                title: "Nullable empty object",
+                type: "object",
+                nullable: true,
+              },
+              str: {
+                title: "Nullable string",
+                type: "string",
+                nullable: true,
+              },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        /** Nullable object */
+        obj1: {
+            id?: string;
+        } | null;
+        /** Nullable empty object */
+        obj2: Record<string, never> | null;
+        /** Nullable string */
+        str: string | null;
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+      },
+    ],
+    [
+      "nullable > 3.1 syntax",
+      {
+        given: {
+          openapi: "3.1.0",
+          info: {
+            title: "Test",
+            version: "0",
+          },
+          paths: {},
+          components: {
+            schemas: {
+              obj1: {
+                title: "Nullable object",
+                type: ["object", "null"],
+                properties: {
+                  id: {
+                    type: "string",
+                  },
+                },
+              },
+              obj2: {
+                title: "Nullable empty object",
+                type: ["object", "null"],
+              },
+              str: {
+                title: "Nullable string",
+                type: ["string", "null"],
+              },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        /** Nullable object */
+        obj1: {
+            id?: string;
+        } | null;
+        /** Nullable empty object */
+        obj2: Record<string, never> | null;
+        /** Nullable string */
+        str: string | null;
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options, ci }] of tests) {
