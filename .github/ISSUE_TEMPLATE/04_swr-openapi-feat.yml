@@ -1,6 +1,5 @@
 name: "swr-openapi: Feature request"
 description: Propose new functionality or a breaking change
-title: ""
 labels:
   - swr-openapi
   - enhancement
@@ -21,7 +20,7 @@ body:
       required: true
   - type: checkboxes
     id: extra
-    label: Extra
     attributes:
+      label: Extra
       options:
         - label: I’m willing to open a PR (see [CONTRIBUTING.md](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/swr-openapi/CONTRIBUTING.md))
