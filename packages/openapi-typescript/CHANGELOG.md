@@ -1,5 +1,13 @@
 # openapi-typescript
 
+## 7.5.0
+
+### Minor Changes
+
+- [#2052](https://github.com/openapi-ts/openapi-typescript/pull/2052) [`d2de5c7`](https://github.com/openapi-ts/openapi-typescript/commit/d2de5c7e596d1b427d6d5d629974627456623305) Thanks [@laurenz-glueck](https://github.com/laurenz-glueck)! - brings back --make-paths-enum option to generate ApiPaths enum
+
+- [#2059](https://github.com/openapi-ts/openapi-typescript/pull/2059) [`9e4f61c`](https://github.com/openapi-ts/openapi-typescript/commit/9e4f61c530fe634051fa5c9b25e18a5f9ff1f76f) Thanks [@gduliscouet-ubitransport](https://github.com/gduliscouet-ubitransport)! - Allow all types except UNKNOWN to be nullable
+
 ## 7.4.4
 
 ### Patch Changes
