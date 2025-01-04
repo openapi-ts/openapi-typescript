@@ -64,6 +64,38 @@ onRequest({ schemaPath }) {
 
 This will leave the request/response unmodified, and pass things off to the next middleware handler (if any). There’s no internal callback or observer library needed.
 
+### Early Response
+
+You can return a `Response` directly from `onRequest`, which will skip the actual request and remaining middleware chain. This is useful for cases such as deduplicating or caching responses to avoid unnecessary network requests.
+
+```ts
+const cache = new Map<string, Response>();
+const getCacheKey = (request: Request) => `${request.method}:${request.url}`;
+
+const cacheMiddleware: Middleware = {
+  onRequest({ request }) {
+    const key = getCacheKey(request);
+    const cached = cache.get(key);
+    if (cached) {
+      // Return cached response, skipping actual request and remaining middleware chain
+      return cached.clone();
+    }
+  },
+  onResponse({ request, response }) {
+    if (response.ok) {
+      const key = getCacheKey(request);
+      cache.set(key, response);
+    }
+  }
+};
+```
+
+When a middleware returns a `Response`:
+
+* The request is not sent to the server
+* Subsequent `onRequest` handlers are skipped
+* `onResponse` handlers are skipped
+
 ### Throwing
 
 Middleware can also be used to throw an error that `fetch()` wouldn’t normally, useful in libraries like [TanStack Query](https://tanstack.com/query/latest):
