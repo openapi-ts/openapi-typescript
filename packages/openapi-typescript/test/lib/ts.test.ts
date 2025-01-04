@@ -228,27 +228,64 @@ describe("tsArrayLiteralExpression", () => {
       astToString(
         tsArrayLiteralExpression("-my-color-Values", oapiRef("#/components/schemas/Color"), ["green", "red", "blue"]),
       ).trim(),
-    ).toBe(`const myColorValues: components["schemas"]["Color"][] = ["green", "red", "blue"];`);
+    ).toBe(`const MyColorValues: components["schemas"]["Color"][] = ["green", "red", "blue"];`);
   });
 
   test("with setting: export", () => {
     expect(
       astToString(
-        tsArrayLiteralExpression("-my-color-Values", oapiRef("#/components/schemas/Color"), ["green", "red", "blue"], {
-          export: true,
-        }),
+        tsArrayLiteralExpression(
+          "-my-color-Values",
+          oapiRef("#/components/schemas/Color"),
+          ["green", "red", "blue"],
+          undefined,
+          {
+            export: true,
+          },
+        ),
       ).trim(),
-    ).toBe(`export const myColorValues: components["schemas"]["Color"][] = ["green", "red", "blue"];`);
+    ).toBe(`export const MyColorValues: components["schemas"]["Color"][] = ["green", "red", "blue"];`);
   });
 
   test("with setting: readonly", () => {
     expect(
       astToString(
-        tsArrayLiteralExpression("-my-color-Values", oapiRef("#/components/schemas/Color"), ["green", "red", "blue"], {
-          readonly: true,
-        }),
+        tsArrayLiteralExpression(
+          "-my-color-Values",
+          oapiRef("#/components/schemas/Color"),
+          ["green", "red", "blue"],
+          undefined,
+          {
+            readonly: true,
+          },
+        ),
       ).trim(),
-    ).toBe(`const myColorValues: ReadonlyArray<components["schemas"]["Color"]> = ["green", "red", "blue"];`);
+    ).toBe(`const MyColorValues: ReadonlyArray<components["schemas"]["Color"]> = ["green", "red", "blue"];`);
+  });
+
+  test("with metadata: name", () => {
+    expect(
+      astToString(
+        tsArrayLiteralExpression(
+          "-my-color-Values",
+          oapiRef("#/components/schemas/Color"),
+          ["green", "red", "blue"],
+          [{ description: "Healthy" }, { description: "Unhealthy" }, { description: "Booting" }],
+        ),
+      ).trim(),
+    ).toBe(`const MyColorValues: components["schemas"]["Color"][] = [
+    // Healthy
+    "green", 
+    // Unhealthy
+    "red", 
+    // Booting
+    "blue"];`);
+  });
+
+  test("with no element type", () => {
+    expect(astToString(tsArrayLiteralExpression("-my-color-Values", undefined, ["green", "red", "blue"])).trim()).toBe(
+      `const MyColorValues = ["green", "red", "blue"] as const;`,
+    );
   });
 
   test("name from path", () => {
@@ -260,7 +297,7 @@ describe("tsArrayLiteralExpression", () => {
           ["active", "inactive"],
         ),
       ).trim(),
-    ).toBe(`const pathsUrlGetParametersQueryStatusValues: components["schemas"]["Status"][] = ["active", "inactive"];`);
+    ).toBe(`const PathsUrlGetParametersQueryStatusValues: components["schemas"]["Status"][] = ["active", "inactive"];`);
   });
 
   test("number members", () => {
@@ -272,7 +309,7 @@ describe("tsArrayLiteralExpression", () => {
           [100, 101, 102, -100],
         ),
       ).trim(),
-    ).toBe(`const errorCodeValues: components["schemas"]["ErrorCode"][] = [100, 101, 102, -100];`);
+    ).toBe(`const ErrorCodeValues: components["schemas"]["ErrorCode"][] = [100, 101, 102, -100];`);
   });
 });
 

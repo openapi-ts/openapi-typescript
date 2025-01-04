@@ -34,16 +34,18 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
 
     const items: ts.TypeElement[] = [];
     if (componentsObject[key]) {
-      for (const [name, item] of getEntries(componentsObject[key], ctx)) {
+      for (const [name, item] of getEntries<SchemaObject>(componentsObject[key], ctx)) {
         let subType = transformers[key](item, {
           path: createRef(["components", key, name]),
+          schema: item,
           ctx,
         });
 
         let hasQuestionToken = false;
         if (ctx.transform) {
-          const result = ctx.transform(item as SchemaObject, {
+          const result = ctx.transform(item, {
             path: createRef(["components", key, name]),
+            schema: item,
             ctx,
           });
           if (result) {

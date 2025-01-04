@@ -690,7 +690,7 @@ export interface GlobalContext {
   excludeDeprecated: boolean;
   exportType: boolean;
   immutable: boolean;
-  injectFooter: ts.Node[];
+  injectNodes: ts.Node[];
   pathParamsAsTypes: boolean;
   postTransform: OpenAPITSOptions["postTransform"];
   propertiesRequiredByDefault: boolean;
@@ -710,5 +710,6 @@ export type $defs = Record<string, SchemaObject>;
 /** generic options for most internal transform* functions */
 export interface TransformNodeOptions {
   path?: string;
+  schema?: SchemaObject | ReferenceObject;
   ctx: GlobalContext;
 }

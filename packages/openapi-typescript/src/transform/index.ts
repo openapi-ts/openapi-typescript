@@ -1,4 +1,4 @@
-import ts, { type InterfaceDeclaration, type TypeLiteralNode } from "typescript";
+import ts, { type TypeLiteralNode } from "typescript";
 import { performance } from "node:perf_hooks";
 import { NEVER, STRING, stringToAST, tsModifiers, tsRecord } from "../lib/ts.js";
 import { createRef, debug } from "../lib/utils.js";
@@ -15,17 +15,19 @@ const transformers: Record<SchemaTransforms, (node: any, options: GlobalContext)
   paths: transformPathsObject,
   webhooks: transformWebhooksObject,
   components: transformComponentsObject,
-  $defs: (node, options) => transformSchemaObject(node, { path: createRef(["$defs"]), ctx: options }),
+  $defs: (node, options) => transformSchemaObject(node, { path: createRef(["$defs"]), ctx: options, schema: node }),
 };
 
+function isOperationsInterfaceNode(node: ts.Node) {
+  const interfaceDeclaration = ts.isInterfaceDeclaration(node) ? node : undefined;
+  return interfaceDeclaration?.name.escapedText === "operations";
+}
+
 export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
-  const type: ts.Node[] = [];
+  const schemaNodes: ts.Node[] = [];
 
-  if (ctx.inject) {
-    const injectNodes = stringToAST(ctx.inject) as ts.Node[];
-    type.push(...injectNodes);
-  }
-
+  // Traverse the schema root elements, gathering type information and accumulating
+  // supporting nodes in `cts.injectNodes`.
   for (const root of Object.keys(transformers) as SchemaTransforms[]) {
     const emptyObj = ts.factory.createTypeAliasDeclaration(
       /* modifiers      */ tsModifiers({ export: true }),
@@ -40,7 +42,7 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
       for (const subType of subTypes) {
         if (ts.isTypeNode(subType)) {
           if ((subType as ts.TypeLiteralNode).members?.length) {
-            type.push(
+            schemaNodes.push(
               ctx.exportType
                 ? ts.factory.createTypeAliasDeclaration(
                     /* modifiers      */ tsModifiers({ export: true }),
@@ -58,45 +60,44 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
             );
             debug(`${root} done`, "ts", performance.now() - rootT);
           } else {
-            type.push(emptyObj);
+            schemaNodes.push(emptyObj);
             debug(`${root} done (skipped)`, "ts", 0);
           }
         } else if (ts.isTypeAliasDeclaration(subType)) {
-          type.push(subType);
+          schemaNodes.push(subType);
         } else {
-          type.push(emptyObj);
+          schemaNodes.push(emptyObj);
           debug(`${root} done (skipped)`, "ts", 0);
         }
       }
     } else {
-      type.push(emptyObj);
+      schemaNodes.push(emptyObj);
       debug(`${root} done (skipped)`, "ts", 0);
     }
   }
 
-  // inject
-  let hasOperations = false;
-  for (const injectedType of ctx.injectFooter) {
-    if (!hasOperations && (injectedType as InterfaceDeclaration)?.name?.escapedText === "operations") {
-      hasOperations = true;
-    }
-    type.push(injectedType);
-  }
-  if (!hasOperations) {
-    // if no operations created, inject empty operations type
-    type.push(
-      ts.factory.createTypeAliasDeclaration(
+  // Identify any operations node that was injected during traversal
+  const operationsNodeIndex = ctx.injectNodes.findIndex(isOperationsInterfaceNode);
+  const hasOperations = operationsNodeIndex !== -1;
+  const operationsNode = hasOperations
+    ? ctx.injectNodes.at(operationsNodeIndex)
+    : ts.factory.createTypeAliasDeclaration(
         /* modifiers      */ tsModifiers({ export: true }),
         /* name           */ "operations",
         /* typeParameters */ undefined,
         /* type           */ tsRecord(STRING, NEVER),
-      ),
-    );
-  }
+      );
 
-  if (ctx.makePathsEnum && schema.paths) {
-    type.push(makeApiPathsEnum(schema.paths));
-  }
-
-  return type;
+  return [
+    // Inject user-defined header
+    ...(ctx.inject ? (stringToAST(ctx.inject) as ts.Node[]) : []),
+    // Inject gathered values and types, except operations
+    ...ctx.injectNodes.filter((node) => node !== operationsNode),
+    // Inject schema
+    ...schemaNodes,
+    // Inject operations
+    ...(operationsNode ? [operationsNode] : []),
+    // Inject paths enum
+    ...(ctx.makePathsEnum && schema.paths ? [makeApiPathsEnum(schema.paths)] : []),
+  ];
 }

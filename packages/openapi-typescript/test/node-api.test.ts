@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
 import openapiTS, { COMMENT_HEADER, astToString } from "../src/index.js";
-import type { OpenAPITSOptions } from "../src/types.js";
+import type { OpenAPITSOptions, ReferenceObject, SchemaObject } from "../src/types.js";
 import type { TestCase } from "./test-helpers.js";
 
 const EXAMPLES_DIR = new URL("../examples/", import.meta.url);
@@ -537,6 +537,11 @@ export type operations = Record<string, never>;`,
           components: {
             schemas: {
               Date: { type: "string", format: "date-time" },
+              Set: {
+                "x-string-enum-to-set": true,
+                type: "string",
+                enum: ["low", "medium", "high"],
+              },
             },
           },
         },
@@ -546,6 +551,8 @@ export interface components {
     schemas: {
         /** Format: date-time */
         Date: DateOrTime;
+        /** @enum {string} */
+        Set: Set<"low" | "medium" | "high">;
     };
     responses: never;
     parameters: never;
@@ -564,6 +571,32 @@ export type operations = Record<string, never>;`,
                * AST
                */
               return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("DateOrTime"));
+            }
+
+            // Previously, in order to access the schema in postTransform,
+            // you could resolve the schema using the path.
+            // Now, the schema is made available directly on the options.
+            // const schema = options.path
+            //   ? options.ctx.resolve<ReferenceObject | SchemaObject>(options.path)
+            //   : undefined;
+            const schema = options.schema;
+
+            if (
+              schema &&
+              !("$ref" in schema) &&
+              Object.hasOwn(schema, "x-string-enum-to-set") &&
+              schema.type === "string" &&
+              schema.enum?.every((enumMember) => {
+                return typeof enumMember === "string";
+              })
+            ) {
+              return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Set"), [
+                ts.factory.createUnionTypeNode(
+                  schema.enum.map((value) => {
+                    return ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(value));
+                  }),
+                ),
+              ]);
             }
           },
         },
@@ -590,12 +623,45 @@ export type operations = Record<string, never>;`,
                 ],
               },
             },
+            "/url2": {
+              get: {
+                parameters: [
+                  {
+                    name: "status",
+                    in: "query",
+                    schema: {
+                      anyOf: [
+                        {
+                          type: "string",
+                          enum: ["approved", "rejected"],
+                        },
+                        {
+                          type: "string",
+                          enum: ["appealed"],
+                        },
+                      ],
+                    },
+                  },
+                ],
+              },
+            },
           },
           components: {
             schemas: {
               Status: {
                 type: "string",
                 enum: ["active", "inactive"],
+              },
+              ModeratedStatus: {
+                anyOf: [
+                  {
+                    $ref: "#/components/schemas/Status",
+                  },
+                  {
+                    type: "string",
+                    enum: ["appealed"],
+                  },
+                ],
               },
               ErrorCode: {
                 type: "number",
@@ -624,63 +690,23 @@ export type operations = Record<string, never>;`,
             },
           },
         },
-        want: `export interface paths {
-    "/url": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: {
-                    status?: PathsUrlGetParametersQueryStatus;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: never;
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-}
-export type webhooks = Record<string, never>;
-export interface components {
-    schemas: {
-        /** @enum {string} */
-        Status: Status;
-        /** @enum {number} */
-        ErrorCode: ErrorCode;
-        /** @enum {number} */
-        XEnumVarnames: XEnumVarnames;
-        /** @enum {number} */
-        XEnumNames: XEnumNames;
-        /** @enum {string} */
-        InvalidPropertyNameChars: InvalidPropertyNameChars;
-    };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
-}
-export type $defs = Record<string, never>;
-export enum PathsUrlGetParametersQueryStatus {
+        want: `export enum PathsUrlGetParametersQueryStatus {
     active = "active",
     inactive = "inactive"
+}
+export enum PathsUrl2GetParametersQueryStatusAnyOf0 {
+    approved = "approved",
+    rejected = "rejected"
+}
+export enum PathsUrl2GetParametersQueryStatusAnyOf1 {
+    appealed = "appealed"
 }
 export enum Status {
     active = "active",
     inactive = "inactive"
+}
+export enum ModeratedStatusAnyOf1 {
+    appealed = "appealed"
 }
 export enum ErrorCode {
     Value100 = 100,
@@ -714,6 +740,84 @@ export enum InvalidPropertyNameChars {
     "^" = "^",
     TE_ST = "TE=ST"
 }
+export interface paths {
+    "/url": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    status?: PathsUrlGetParametersQueryStatus;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: never;
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/url2": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    status?: PathsUrl2GetParametersQueryStatusAnyOf0 | PathsUrl2GetParametersQueryStatusAnyOf1;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: never;
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        /** @enum {string} */
+        Status: Status;
+        ModeratedStatus: components["schemas"]["Status"] | ModeratedStatusAnyOf1;
+        /** @enum {number} */
+        ErrorCode: ErrorCode;
+        /** @enum {number} */
+        XEnumVarnames: XEnumVarnames;
+        /** @enum {number} */
+        XEnumNames: XEnumNames;
+        /** @enum {string} */
+        InvalidPropertyNameChars: InvalidPropertyNameChars;
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
         options: { enum: true },
       },
@@ -739,12 +843,43 @@ export type operations = Record<string, never>;`,
                 ],
               },
             },
+            "/url2": {
+              get: {
+                parameters: [
+                  {
+                    name: "status",
+                    in: "query",
+                    schema: {
+                      anyOf: [
+                        {
+                          type: "string",
+                          enum: ["approved", "rejected"],
+                        },
+                        {
+                          type: "string",
+                          enum: ["appealed"],
+                        },
+                      ],
+                    },
+                  },
+                ],
+              },
+            },
           },
           components: {
             schemas: {
               Status: {
-                type: "string",
-                enum: ["active", "inactive"],
+                anyOf: [
+                  {
+                    type: "string",
+                    enum: ["active", "inactive"],
+                  },
+                  {
+                    type: "string",
+                    deprecated: true,
+                    enum: ["pending"],
+                  },
+                ],
               },
               ErrorCode: {
                 type: "number",
@@ -753,7 +888,30 @@ export type operations = Record<string, never>;`,
             },
           },
         },
-        want: `export interface paths {
+        want: `function get_is<TItem extends number | string>(items: readonly TItem[]) {
+    return (value: null | number | string | undefined): value is TItem => {
+        return value !== null && value !== undefined && items.includes(value as TItem);
+    };
+}
+export const pathsUrlGetParametersQueryStatusValues = ["active", "inactive"] as const;
+export type pathsUrlGetParametersQueryStatus = (typeof pathsUrlGetParametersQueryStatusValues)[number];
+export const is_pathsUrlGetParametersQueryStatus = get_is<pathsUrlGetParametersQueryStatus>(pathsUrlGetParametersQueryStatusValues);
+export const pathsUrl2GetParametersQueryStatusAnyOf0Values = ["approved", "rejected"] as const;
+export type pathsUrl2GetParametersQueryStatusAnyOf0 = (typeof pathsUrl2GetParametersQueryStatusAnyOf0Values)[number];
+export const is_pathsUrl2GetParametersQueryStatusAnyOf0 = get_is<pathsUrl2GetParametersQueryStatusAnyOf0>(pathsUrl2GetParametersQueryStatusAnyOf0Values);
+export const pathsUrl2GetParametersQueryStatusAnyOf1Values = ["appealed"] as const;
+export type pathsUrl2GetParametersQueryStatusAnyOf1 = (typeof pathsUrl2GetParametersQueryStatusAnyOf1Values)[number];
+export const is_pathsUrl2GetParametersQueryStatusAnyOf1 = get_is<pathsUrl2GetParametersQueryStatusAnyOf1>(pathsUrl2GetParametersQueryStatusAnyOf1Values);
+export const StatusAnyOf0Values = ["active", "inactive"] as const;
+export type StatusAnyOf0 = (typeof StatusAnyOf0Values)[number];
+export const is_StatusAnyOf0 = get_is<StatusAnyOf0>(StatusAnyOf0Values);
+export const StatusAnyOf1Values = ["pending"] as const;
+export type StatusAnyOf1 = (typeof StatusAnyOf1Values)[number];
+export const is_StatusAnyOf1 = get_is<StatusAnyOf1>(StatusAnyOf1Values);
+export const ErrorCodeValues = [100, 101, 102, 103, 104, 105] as const;
+export type ErrorCode = (typeof ErrorCodeValues)[number];
+export const is_ErrorCode = get_is<ErrorCode>(ErrorCodeValues);
+export interface paths {
     "/url": {
         parameters: {
             query?: never;
@@ -764,7 +922,34 @@ export type operations = Record<string, never>;`,
         get: {
             parameters: {
                 query?: {
-                    status?: "active" | "inactive";
+                    status?: pathsUrlGetParametersQueryStatus;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: never;
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/url2": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: {
+                    status?: pathsUrl2GetParametersQueryStatusAnyOf0 | pathsUrl2GetParametersQueryStatusAnyOf1;
                 };
                 header?: never;
                 path?: never;
@@ -785,10 +970,9 @@ export type operations = Record<string, never>;`,
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        /** @enum {string} */
-        Status: "active" | "inactive";
+        Status: StatusAnyOf0 | StatusAnyOf1;
         /** @enum {number} */
-        ErrorCode: 100 | 101 | 102 | 103 | 104 | 105;
+        ErrorCode: ErrorCode;
     };
     responses: never;
     parameters: never;
@@ -797,14 +981,6 @@ export interface components {
     pathItems: never;
 }
 export type $defs = Record<string, never>;
-type ReadonlyArray<T> = [
-    Exclude<T, undefined>
-] extends [
-    any[]
-] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
-export const pathsUrlGetParametersQueryStatusValues: ReadonlyArray<paths["/url"]["get"]["parameters"]["query"]["status"]> = ["active", "inactive"];
-export const statusValues: ReadonlyArray<components["schemas"]["Status"]> = ["active", "inactive"];
-export const errorCodeValues: ReadonlyArray<components["schemas"]["ErrorCode"]> = [100, 101, 102, 103, 104, 105];
 export type operations = Record<string, never>;`,
         options: { enumValues: true },
       },
@@ -844,7 +1020,11 @@ export type operations = Record<string, never>;`,
             },
           },
         },
-        want: `export interface paths {
+        want: `export enum PathsUrlGetParametersQueryStatus {
+    active = "active",
+    inactive = "inactive"
+}
+export interface paths {
     "/url": {
         parameters: {
             query?: never;
@@ -888,10 +1068,6 @@ export interface components {
     pathItems: never;
 }
 export type $defs = Record<string, never>;
-export enum PathsUrlGetParametersQueryStatus {
-    active = "active",
-    inactive = "inactive"
-}
 export type operations = Record<string, never>;`,
         options: { enum: true, dedupeEnums: true },
       },
@@ -949,7 +1125,7 @@ export type operations = Record<string, never>;`,
       async () => {
         const result = astToString(await openapiTS(given, options));
         if (want instanceof URL) {
-          expect(`${COMMENT_HEADER}${result}`).toMatchFileSnapshot(fileURLToPath(want));
+          await expect(`${COMMENT_HEADER}${result}`).toMatchFileSnapshot(fileURLToPath(want));
         } else {
           expect(result).toBe(`${want}\n`);
         }

@@ -209,12 +209,14 @@ export function tsDedupe(types: ts.TypeNode[]): ts.TypeNode[] {
 }
 
 export const enumCache = new Map<string, ts.EnumDeclaration>();
+export const constEnumCache = new Map<string, ts.VariableStatement>();
+export type EnumMemberMetadata = { readonly name?: string; readonly description?: string };
 
 /** Create a TS enum (with sanitized name and members) */
 export function tsEnum(
   name: string,
   members: (string | number)[],
-  metadata?: { name?: string; description?: string }[],
+  metadata?: EnumMemberMetadata[],
   options?: { export?: boolean; shouldCache?: boolean },
 ) {
   let enumName = sanitizeMemberName(name);
@@ -224,69 +226,87 @@ export function tsEnum(
     key = `${members
       .slice(0)
       .sort()
-      .map((v, i) => {
-        return `${metadata?.[i]?.name ?? String(v)}:${metadata?.[i]?.description || ""}`;
+      .map((v, index) => {
+        return `${metadata?.[index]?.name ?? String(v)}:${metadata?.[index]?.description || ""}`;
       })
       .join(",")}`;
-    if (enumCache.has(key)) {
-      return enumCache.get(key) as ts.EnumDeclaration;
+
+    const cached = enumCache.get(key);
+    if (cached) {
+      return cached;
     }
   }
   const enumDeclaration = ts.factory.createEnumDeclaration(
     /* modifiers */ options ? tsModifiers({ export: options.export ?? false }) : undefined,
     /* name      */ enumName,
-    /* members   */ members.map((value, i) => tsEnumMember(value, metadata?.[i])),
+    /* members   */ members.map((value, index) => tsEnumMember(value, metadata?.[index])),
   );
   options?.shouldCache && enumCache.set(key, enumDeclaration);
   return enumDeclaration;
 }
 
-/** Create an exported TS array literal expression  */
+/** Create a TS array literal expression */
 export function tsArrayLiteralExpression(
   name: string,
-  elementType: ts.TypeNode,
-  values: (string | number)[],
-  options?: { export?: boolean; readonly?: boolean; injectFooter?: ts.Node[] },
+  elementType: ts.TypeNode | undefined,
+  members: (string | number)[],
+  metadata?: readonly EnumMemberMetadata[],
+  options?: { export?: boolean; readonly?: boolean; inject?: ts.Node[]; shouldCache?: boolean },
 ) {
-  let variableName = sanitizeMemberName(name);
-  variableName = `${variableName[0].toLowerCase()}${variableName.substring(1)}`;
+  let key = "";
+  if (options?.shouldCache) {
+    key = `${members
+      .slice(0)
+      .sort()
+      .map((v, i) => {
+        return `${metadata?.[i]?.name ?? String(v)}:${metadata?.[i]?.description || ""}`;
+      })
+      .join(",")}`;
+    const cached = constEnumCache.get(key);
+    if (cached) {
+      return cached;
+    }
+  }
 
-  const arrayType = options?.readonly
-    ? tsReadonlyArray(elementType, options.injectFooter)
-    : ts.factory.createArrayTypeNode(elementType);
+  const variableName = sanitizeMemberName(name);
 
-  return ts.factory.createVariableStatement(
+  const arrayType =
+    (elementType && options?.readonly ? tsReadonlyArray(elementType, options.inject) : undefined) ??
+    (elementType && !options?.readonly ? ts.factory.createArrayTypeNode(elementType) : undefined);
+
+  const initializer = ts.factory.createArrayLiteralExpression(
+    members.flatMap((value, index) => {
+      return tsLiteralValue(value, metadata?.[index]) ?? [];
+    }),
+  );
+
+  const asConstInitializer = arrayType
+    ? initializer
+    : ts.factory.createAsExpression(initializer, ts.factory.createTypeReferenceNode("const"));
+
+  const variableStatement = ts.factory.createVariableStatement(
     options ? tsModifiers({ export: options.export ?? false }) : undefined,
     ts.factory.createVariableDeclarationList(
       [
         ts.factory.createVariableDeclaration(
-          variableName,
-          undefined,
-          arrayType,
-          ts.factory.createArrayLiteralExpression(
-            values.map((value) => {
-              if (typeof value === "number") {
-                if (value < 0) {
-                  return ts.factory.createPrefixUnaryExpression(
-                    ts.SyntaxKind.MinusToken,
-                    ts.factory.createNumericLiteral(Math.abs(value)),
-                  );
-                } else {
-                  return ts.factory.createNumericLiteral(value);
-                }
-              } else {
-                return ts.factory.createStringLiteral(value);
-              }
-            }),
-          ),
+          /* name             */ variableName,
+          /* exclamationToken */ undefined,
+          /* type             */ arrayType,
+          /* initializer      */ asConstInitializer,
         ),
       ],
       ts.NodeFlags.Const,
     ),
   );
+
+  if (options?.shouldCache) {
+    constEnumCache.set(key, variableStatement);
+  }
+
+  return variableStatement;
 }
 
-function sanitizeMemberName(name: string) {
+export function sanitizeMemberName(name: string) {
   let sanitizedName = name.replace(JS_ENUM_INVALID_CHARS_RE, (c) => {
     const last = c[c.length - 1];
     return JS_PROPERTY_INDEX_INVALID_CHARS_RE.test(last) ? "" : last.toUpperCase();
@@ -298,7 +318,7 @@ function sanitizeMemberName(name: string) {
 }
 
 /** Sanitize TS enum member expression */
-export function tsEnumMember(value: string | number, metadata: { name?: string; description?: string } = {}) {
+export function tsEnumMember(value: string | number, metadata: EnumMemberMetadata = {}) {
   let name = metadata.name ?? String(value);
   if (!JS_PROPERTY_INDEX_RE.test(name)) {
     if (Number(name[0]) >= 0) {
@@ -418,19 +438,40 @@ export function tsLiteral(value: unknown): ts.TypeNode {
   return UNKNOWN;
 }
 
+/**
+ * Create a literal value (different from a literal type), such as a string or number
+ */
+export function tsLiteralValue(value: string | number, metadata?: EnumMemberMetadata) {
+  const literalExpression =
+    (typeof value === "number" && value < 0
+      ? ts.factory.createPrefixUnaryExpression(
+          ts.SyntaxKind.MinusToken,
+          ts.factory.createNumericLiteral(Math.abs(value)),
+        )
+      : undefined) ??
+    (typeof value === "number" ? ts.factory.createNumericLiteral(value) : undefined) ??
+    (typeof value === "string" ? ts.factory.createStringLiteral(value) : undefined);
+
+  if (literalExpression && metadata?.description) {
+    return ts.addSyntheticLeadingComment(
+      literalExpression,
+      ts.SyntaxKind.SingleLineCommentTrivia,
+      " ".concat(metadata.description.trim()),
+    );
+  }
+
+  return literalExpression;
+}
+
 /** Modifiers (readonly) */
 export function tsModifiers(modifiers: {
   readonly?: boolean;
   export?: boolean;
 }): ts.Modifier[] {
-  const typeMods: ts.Modifier[] = [];
-  if (modifiers.export) {
-    typeMods.push(ts.factory.createModifier(ts.SyntaxKind.ExportKeyword));
-  }
-  if (modifiers.readonly) {
-    typeMods.push(ts.factory.createModifier(ts.SyntaxKind.ReadonlyKeyword));
-  }
-  return typeMods;
+  return [
+    modifiers.export ? ts.factory.createModifier(ts.SyntaxKind.ExportKeyword) : undefined,
+    modifiers.readonly ? ts.factory.createModifier(ts.SyntaxKind.ReadonlyKeyword) : undefined,
+  ].filter((modifier) => modifier !== undefined);
 }
 
 /** Create a T | null union */
@@ -475,20 +516,23 @@ export function tsUnion(types: ts.TypeNode[]): ts.TypeNode {
   return ts.factory.createUnionTypeNode(tsDedupe(types));
 }
 
+const withRequiredHelper: ts.Node = stringToAST(
+  "type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };",
+)[0] as ts.Node;
+
 /** Create a WithRequired<X, Y> type */
 export function tsWithRequired(
   type: ts.TypeNode,
   keys: string[],
-  injectFooter: ts.Node[], // needed to inject type helper if used
+  inject: ts.Node[], // needed to inject type helper if used
 ): ts.TypeNode {
   if (keys.length === 0) {
     return type;
   }
 
   // inject helper, if needed
-  if (!injectFooter.some((node) => ts.isTypeAliasDeclaration(node) && node?.name?.escapedText === "WithRequired")) {
-    const helper = stringToAST("type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };")[0] as any;
-    injectFooter.push(helper);
+  if (!inject.includes(withRequiredHelper)) {
+    inject.push(withRequiredHelper);
   }
 
   return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("WithRequired"), [
@@ -497,20 +541,19 @@ export function tsWithRequired(
   ]);
 }
 
+const readonlyArrayHelper: ts.Node = stringToAST(
+  "type ReadonlyArray<T> = [Exclude<T, undefined>] extends [any[]] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;",
+)[0] as ts.Node;
+
 /**
  * Enhanced ReadonlyArray.
  * eg: type Foo = ReadonlyArray<T>; type Bar = ReadonlyArray<T[]>
  * Foo and Bar are both of type `readonly T[]`
  */
-export function tsReadonlyArray(type: ts.TypeNode, injectFooter?: ts.Node[]): ts.TypeNode {
-  if (
-    injectFooter &&
-    !injectFooter.some((node) => ts.isTypeAliasDeclaration(node) && node?.name?.escapedText === "ReadonlyArray")
-  ) {
-    const helper = stringToAST(
-      "type ReadonlyArray<T> = [Exclude<T, undefined>] extends [any[]] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;",
-    )[0] as any;
-    injectFooter.push(helper);
+export function tsReadonlyArray(type: ts.TypeNode, inject?: ts.Node[]): ts.TypeNode {
+  if (inject && !inject.includes(readonlyArrayHelper)) {
+    inject.push(readonlyArrayHelper);
   }
+
   return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("ReadonlyArray"), [type]);
 }

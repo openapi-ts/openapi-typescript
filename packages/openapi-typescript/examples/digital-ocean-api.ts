@@ -3,6 +3,9 @@
  * Do not make direct changes to the file.
  */
 
+type WithRequired<T, K extends keyof T> = T & {
+    [P in K]-?: T[P];
+};
 export interface paths {
     "/v2/1-clicks": {
         parameters: {
@@ -28798,6 +28801,3 @@ export interface operations {
         };
     };
 }
-type WithRequired<T, K extends keyof T> = T & {
-    [P in K]-?: T[P];
-};

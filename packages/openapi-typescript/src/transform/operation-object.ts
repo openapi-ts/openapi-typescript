@@ -72,7 +72,7 @@ export function injectOperationObject(
   options: TransformNodeOptions,
 ): void {
   // find or create top-level operations interface
-  let operations = options.ctx.injectFooter.find(
+  let operations = options.ctx.injectNodes.find(
     (node) => ts.isInterfaceDeclaration(node) && (node as ts.InterfaceDeclaration).name.text === "operations",
   ) as unknown as ts.InterfaceDeclaration;
   if (!operations) {
@@ -86,7 +86,7 @@ export function injectOperationObject(
       /* heritageClauses */ undefined,
       /* members         */ [],
     );
-    options.ctx.injectFooter.push(operations);
+    options.ctx.injectNodes.push(operations);
   }
 
   // inject operation object

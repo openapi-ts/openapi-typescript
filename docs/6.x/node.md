@@ -122,6 +122,16 @@ Resultant diff with correctly-typed `file` property:
 +    file?: Blob;
 ```
 
-Any [Schema Object](https://spec.openapis.org/oas/latest.html#schema-object) present in your schema will be run through this formatter (even remote ones!). Also be sure to check the `metadata` parameter for additional context that may be helpful.
+#### transform / postTransform metadata
 
-There are many other uses for this besides checking `format`. Because this must return a **string** you can produce any arbitrary TypeScript code you’d like (even your own custom types).
+Any [Schema Object](https://spec.openapis.org/oas/latest.html#schema-object) present in your schema will be run through `transform`, prior to its conversion to a TypeScript AST node, and `postTransform` after its conversion, including remote schemas!
+
+The `metadata` parameter present on both `transform` and `postTransform` has additional context that may be helpful.
+
+| Property | Description |
+|-|-|
+| `metadata.path` | A [`$ref`](https://json-schema.org/understanding-json-schema/structuring#dollarref) URI string, pointing to the current schema object |
+| `metadata.schema` | The schema object being transformed (only present for `postTransform`) |
+| `metadata.ctx` | The GlobalContext object, containing
+
+There are many other uses for this besides checking `format`. Because `tranform` may return a **string** you can produce any arbitrary TypeScript code you’d like (even your own custom types).

@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.5.1
+
+### Patch Changes
+
+- [#2049](https://github.com/openapi-ts/openapi-typescript/pull/2049) [`39f9b2f`](https://github.com/openapi-ts/openapi-typescript/commit/39f9b2fb913eb13817592b22f1bbe35de1bc4c33) Thanks [@duncanbeevers](https://github.com/duncanbeevers)! - Add schema to postTransform options
+
 ## 7.5.0
 
 ### Minor Changes
