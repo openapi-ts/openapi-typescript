@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.5.2
+
+### Patch Changes
+
+- [#2085](https://github.com/openapi-ts/openapi-typescript/pull/2085) [`2bffe2a`](https://github.com/openapi-ts/openapi-typescript/commit/2bffe2a652864a54c8dc969327e4a8eb4081eb25) Thanks [@drwpow](https://github.com/drwpow)! - Update @redocly/openapi-core to 1.27.0
+
 ## 7.5.1
 
 ### Patch Changes
