@@ -66,15 +66,15 @@
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.13",
-    "@types/node": "^22.10.1",
+    "@types/lodash": "^4.17.14",
+    "@types/node": "^22.10.5",
     "@vitest/coverage-v8": "^2.1.8",
     "del-cli": "^5.1.0",
-    "esbuild": "^0.24.0",
+    "esbuild": "^0.24.2",
     "execa": "^8.0.1",
     "reflect-metadata": "^0.2.2",
     "tsup": "^8.3.5",
-    "type-fest": "^4.29.0",
+    "type-fest": "^4.31.0",
     "typescript": "^5.7.2",
     "unplugin-swc": "^1.5.1"
   }

@@ -18,7 +18,7 @@ jobs:
           node-version: 22
       - uses: pnpm/action-setup@v4
         with:
-          version: 9.14.4
+          version: 9.15.2
           run_install: true
       - uses: andresz1/size-limit-action@v1.8.0
         with:
