@@ -1,7 +1,7 @@
 {
   "name": "swr-openapi",
   "description": "Generate SWR hooks from OpenAPI schemas",
-  "version": "5.1.2",
+  "version": "5.1.3",
   "author": {
     "name": "Hunter Tunnicliff",
     "email": "hunter@tunnicliff.co"
@@ -57,7 +57,7 @@
   },
   "peerDependencies": {
     "openapi-fetch": "0.13.4",
-    "openapi-typescript": "7.5.1",
+    "openapi-typescript": "7.5.2",
     "react": "18 || 19",
     "swr": "2",
     "typescript": "^5.x"
