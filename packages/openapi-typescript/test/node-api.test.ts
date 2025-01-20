@@ -290,7 +290,7 @@ export type operations = Record<string, never>;`,
             },
           },
         },
-        want: `export interface paths {
+        want: `export type dynamicPaths = {
     [path: \`/user/\${string}\`]: {
         parameters: {
             query?: never;
@@ -322,6 +322,95 @@ export type operations = Record<string, never>;`,
             requestBody?: never;
             responses: never;
         };
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+};
+export interface paths extends dynamicPaths {
+}
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+        options: { pathParamsAsTypes: true },
+      },
+    ],
+    [
+      "options > pathParamsAsTypes > true simple and dynamic paths",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
+          paths: {
+            "/users": {
+              get: [],
+            },
+            "/users/{user_id}": {
+              get: {
+                parameters: [{ name: "user_id", in: "path" }],
+              },
+            },
+          },
+        },
+        want: `export type dynamicPaths = {
+    [path: \`/users/\${string}\`]: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    user_id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: never;
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+};
+export interface paths extends dynamicPaths {
+    "/users": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: never;
+        };
+        put?: never;
         post?: never;
         delete?: never;
         options?: never;

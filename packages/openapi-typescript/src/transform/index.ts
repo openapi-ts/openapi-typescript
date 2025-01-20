@@ -4,7 +4,7 @@ import { NEVER, STRING, stringToAST, tsModifiers, tsRecord } from "../lib/ts.js"
 import { createRef, debug } from "../lib/utils.js";
 import type { GlobalContext, OpenAPI3 } from "../types.js";
 import transformComponentsObject from "./components-object.js";
-import transformPathsObject from "./paths-object.js";
+import { transformDynamicPathsObject, transformPathsObject } from "./paths-object.js";
 import transformSchemaObject from "./schema-object.js";
 import transformWebhooksObject from "./webhooks-object.js";
 import makeApiPathsEnum from "./paths-enum.js";
@@ -24,6 +24,18 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
   if (ctx.inject) {
     const injectNodes = stringToAST(ctx.inject) as ts.Node[];
     type.push(...injectNodes);
+  }
+
+  // First create dynamicPaths if needed
+  if (ctx.pathParamsAsTypes && schema.paths) {
+    type.push(
+      ts.factory.createTypeAliasDeclaration(
+        /* modifiers */ tsModifiers({ export: true }),
+        /* name */ "dynamicPaths",
+        /* typeParameters */ undefined,
+        /* type */ transformDynamicPathsObject(schema.paths, ctx),
+      ),
+    );
   }
 
   for (const root of Object.keys(transformers) as SchemaTransforms[]) {
@@ -52,11 +64,37 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
                     /* modifiers       */ tsModifiers({ export: true }),
                     /* name            */ root,
                     /* typeParameters  */ undefined,
-                    /* heritageClauses */ undefined,
-                    /* members         */ (subType as TypeLiteralNode).members,
+                    /* heritageClauses */ ctx.pathParamsAsTypes && root === "paths"
+                      ? [
+                          ts.factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
+                            ts.factory.createExpressionWithTypeArguments(
+                              ts.factory.createIdentifier("dynamicPaths"),
+                              undefined,
+                            ),
+                          ]),
+                        ]
+                      : undefined,
+                    /* members         */ (subType as ts.TypeLiteralNode).members,
                   ),
             );
             debug(`${root} done`, "ts", performance.now() - rootT);
+          } else if (root === "paths" && ctx.pathParamsAsTypes) {
+            type.push(
+              ts.factory.createInterfaceDeclaration(
+                /* modifiers       */ tsModifiers({ export: true }),
+                /* name            */ root,
+                /* typeParameters  */ undefined,
+                /* heritageClauses */ [
+                  ts.factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
+                    ts.factory.createExpressionWithTypeArguments(
+                      ts.factory.createIdentifier("dynamicPaths"),
+                      undefined,
+                    ),
+                  ]),
+                ],
+                /* members         */ (subType as ts.TypeLiteralNode).members,
+              ),
+            );
           } else {
             type.push(emptyObj);
             debug(`${root} done (skipped)`, "ts", 0);

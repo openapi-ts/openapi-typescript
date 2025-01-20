@@ -18,7 +18,7 @@ export { default as transformOperationObject } from "./transform/operation-objec
 export { default as transformParameterObject } from "./transform/parameter-object.js";
 export * from "./transform/path-item-object.js";
 export { default as transformPathItemObject } from "./transform/path-item-object.js";
-export { default as transformPathsObject } from "./transform/paths-object.js";
+export * from "./transform/paths-object.js";
 export { default as transformRequestBodyObject } from "./transform/request-body-object.js";
 export { default as transformResponseObject } from "./transform/response-object.js";
 export { default as transformResponsesObject } from "./transform/responses-object.js";

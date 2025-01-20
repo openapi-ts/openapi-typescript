@@ -18,7 +18,7 @@ const PATH_PARAM_RE = /\{[^}]+\}/g;
  * Transform the PathsObject node (4.8.8)
  * @see https://spec.openapis.org/oas/v3.1.0#operation-object
  */
-export default function transformPathsObject(pathsObject: PathsObject, ctx: GlobalContext): ts.TypeNode {
+export function transformPathsObject(pathsObject: PathsObject, ctx: GlobalContext): ts.TypeNode {
   const type: ts.TypeElement[] = [];
   for (const [url, pathItemObject] of getEntries(pathsObject, ctx)) {
     if (!pathItemObject || typeof pathItemObject !== "object") {
@@ -43,67 +43,121 @@ export default function transformPathsObject(pathsObject: PathsObject, ctx: Glob
         ctx,
       });
 
-      // pathParamsAsTypes
-      if (ctx.pathParamsAsTypes && url.includes("{")) {
-        const pathParams = extractPathParams(pathItemObject, ctx);
-        const matches = url.match(PATH_PARAM_RE);
-        let rawPath = `\`${url}\``;
-        if (matches) {
-          for (const match of matches) {
-            const paramName = match.slice(1, -1);
-            const param = pathParams[paramName];
-            switch (param?.schema?.type) {
-              case "number":
-              case "integer":
-                rawPath = rawPath.replace(match, "${number}");
-                break;
-              case "boolean":
-                rawPath = rawPath.replace(match, "${boolean}");
-                break;
-              default:
-                rawPath = rawPath.replace(match, "${string}");
-                break;
-            }
-          }
-          // note: creating a string template literal’s AST manually is hard!
-          // just pass an arbitrary string to TS
-          const pathType = (stringToAST(rawPath)[0] as any)?.expression;
-          if (pathType) {
-            type.push(
-              ts.factory.createIndexSignature(
-                /* modifiers     */ tsModifiers({ readonly: ctx.immutable }),
-                /* parameters    */ [
-                  ts.factory.createParameterDeclaration(
-                    /* modifiers      */ undefined,
-                    /* dotDotDotToken */ undefined,
-                    /* name           */ "path",
-                    /* questionToken  */ undefined,
-                    /* type           */ pathType,
-                    /* initializer    */ undefined,
-                  ),
-                ],
-                /* type          */ pathItemType,
-              ),
-            );
-            continue;
-          }
-        }
+      if (!(ctx.pathParamsAsTypes && url.includes("{"))) {
+        type.push(
+          ts.factory.createPropertySignature(
+            /* modifiers     */ tsModifiers({ readonly: ctx.immutable }),
+            /* name          */ tsPropertyIndex(url),
+            /* questionToken */ undefined,
+            /* type          */ pathItemType,
+          ),
+        );
       }
-
-      type.push(
-        ts.factory.createPropertySignature(
-          /* modifiers     */ tsModifiers({ readonly: ctx.immutable }),
-          /* name          */ tsPropertyIndex(url),
-          /* questionToken */ undefined,
-          /* type          */ pathItemType,
-        ),
-      );
 
       debug(`Transformed path "${url}"`, "ts", performance.now() - pathT);
     }
   }
 
   return ts.factory.createTypeLiteralNode(type);
+}
+
+export function transformDynamicPathsObject(pathsObject: PathsObject, ctx: GlobalContext): ts.TypeNode {
+  if (!ctx.pathParamsAsTypes) {
+    return ts.factory.createTypeLiteralNode([]);
+  }
+
+  const types: ts.TypeNode[] = [];
+  for (const [url, pathItemObject] of getEntries(pathsObject, ctx)) {
+    if (!pathItemObject || typeof pathItemObject !== "object") {
+      continue;
+    }
+
+    if (!url.includes("{")) {
+      continue;
+    }
+    if ("$ref" in pathItemObject) {
+      continue;
+    }
+
+    const pathT = performance.now();
+
+    // handle $ref
+    const pathItemType = transformPathItemObject(pathItemObject, {
+      path: createRef(["paths", url]),
+      ctx,
+    });
+
+    // pathParamsAsTypes
+    const pathParams = extractPathParams(pathItemObject, ctx);
+    const matches = url.match(PATH_PARAM_RE);
+    let rawPath = `\`${url}\``;
+    if (matches) {
+      for (const match of matches) {
+        const paramName = match.slice(1, -1);
+        const param = pathParams[paramName];
+        switch (param?.schema?.type) {
+          case "number":
+          case "integer":
+            rawPath = rawPath.replace(match, "${number}");
+            break;
+          case "boolean":
+            rawPath = rawPath.replace(match, "${boolean}");
+            break;
+          default:
+            rawPath = rawPath.replace(match, "${string}");
+            break;
+        }
+      }
+      // note: creating a string template literal's AST manually is hard!
+      // just pass an arbitrary string to TS
+      const pathType = (stringToAST(rawPath)[0] as any)?.expression;
+      if (pathType) {
+        types.push(
+          ts.factory.createTypeLiteralNode([
+            ts.factory.createIndexSignature(
+              /* modifiers     */ tsModifiers({ readonly: ctx.immutable }),
+              /* parameters    */ [
+                ts.factory.createParameterDeclaration(
+                  /* modifiers      */ undefined,
+                  /* dotDotDotToken */ undefined,
+                  /* name           */ "path",
+                  /* questionToken  */ undefined,
+                  /* type           */ pathType,
+                  /* initializer    */ undefined,
+                ),
+              ],
+              /* type          */ pathItemType,
+            ),
+          ]),
+        );
+        continue;
+      }
+    }
+
+    types.push(
+      ts.factory.createTypeLiteralNode([
+        ts.factory.createPropertySignature(
+          /* modifiers     */ tsModifiers({ readonly: ctx.immutable }),
+          /* name          */ tsPropertyIndex(url),
+          /* questionToken */ undefined,
+          /* type          */ pathItemType,
+        ),
+      ]),
+    );
+
+    debug(`Transformed path "${url}"`, "ts", performance.now() - pathT);
+  }
+
+  // // Combine all types with intersection
+  // if (types.length === 0) {
+  //   return ts.factory.createTypeLiteralNode([]);
+  // }
+
+  // if (types.length === 1) {
+  //   return types[0];
+  // }
+
+  return ts.factory.createIntersectionTypeNode(types);
 }
 
 function extractPathParams(pathItemObject: PathItemObject, ctx: GlobalContext) {
