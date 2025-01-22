@@ -234,7 +234,7 @@ describe("client", () => {
   });
 
   describe("useQuery", () => {
-    it("should resolve data properly and have error as null when successfull request", async () => {
+    it("should resolve data properly and have error as null when successful request", async () => {
       const response = ["one", "two", "three"];
       const fetchClient = createFetchClient<paths>({ baseUrl });
       const client = createClient(fetchClient);
@@ -339,6 +339,39 @@ describe("client", () => {
 
       expectTypeOf(data).toEqualTypeOf<string[] | undefined>();
       expectTypeOf(error).toEqualTypeOf<{ code: number; message: string } | null>();
+    });
+
+    it("should infer correct data when used with select property", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl, fetch: fetchInfinite });
+      const client = createClient(fetchClient);
+
+      const { result } = renderHook(
+        () =>
+          client.useQuery(
+            "get",
+            "/string-array",
+            {},
+            {
+              select: (data) => ({
+                originalData: data,
+                customData: 1,
+              }),
+            },
+          ),
+        {
+          wrapper,
+        },
+      );
+
+      const { data } = result.current;
+
+      expectTypeOf(data).toEqualTypeOf<
+        | {
+            originalData: string[];
+            customData: number;
+          }
+        | undefined
+      >();
     });
 
     it("passes abort signal to fetch", async () => {
