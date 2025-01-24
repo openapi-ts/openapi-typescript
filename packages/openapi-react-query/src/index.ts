@@ -3,10 +3,10 @@ import {
   type UseMutationResult,
   type UseQueryOptions,
   type UseQueryResult,
-  type UseSuspenseQueryOptions,
-  type UseSuspenseQueryResult,
   type UseInfiniteQueryOptions,
   type UseInfiniteQueryResult,
+  type UseSuspenseQueryOptions,
+  type UseSuspenseQueryResult,
   type QueryClient,
   type QueryFunctionContext,
   type SkipToken,
@@ -15,7 +15,7 @@ import {
   useSuspenseQuery,
   useInfiniteQuery,
 } from "@tanstack/react-query";
-import type { ClientMethod, FetchResponse, MaybeOptionalInit, Client as FetchClient } from "openapi-fetch";
+import type { ClientMethod, FetchResponse, MaybeOptionalInit, Client as FetchClient, DefaultParamsOption } from "openapi-fetch";
 import type { HttpMethod, MediaType, PathsWithMethod, RequiredKeysOf } from "openapi-typescript-helpers";
 
 // Helper type to dynamically infer the type from the `select` property
@@ -93,6 +93,45 @@ export type UseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>,
     : [InitWithUnknowns<Init>, Options?, QueryClient?]
 ) => UseQueryResult<InferSelectReturnType<Response["data"], Options["select"]>, Response["error"]>;
 
+export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
+    Method extends HttpMethod,
+    Path extends PathsWithMethod<Paths, Method>,
+    Init extends MaybeOptionalInit<Paths[Path], Method>,
+    Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>,
+>(
+    method: Method,
+    url: Path,
+    ...[init, options, queryClient]: RequiredKeysOf<Init> extends never
+        ? [
+          InitWithUnknowns<Init>?,
+          Omit<
+              UseInfiniteQueryOptions<
+                  Response["data"],
+                  Response["error"],
+                  Response["data"],
+                  number,
+                  QueryKey<Paths, Method, Path>
+              >,
+              "queryKey" | "queryFn"
+          >?,
+          QueryClient?,
+        ]
+        : [
+          InitWithUnknowns<Init>,
+          Omit<
+              UseInfiniteQueryOptions<
+                  Response["data"],
+                  Response["error"],
+                  Response["data"],
+                  number,
+                  QueryKey<Paths, Method, Path>
+              >,
+              "queryKey" | "queryFn"
+          >?,
+          QueryClient?,
+        ]
+) => UseInfiniteQueryResult<Response["data"], Response["error"]>;
+
 export type UseSuspenseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
@@ -114,45 +153,6 @@ export type UseSuspenseQueryMethod<Paths extends Record<string, Record<HttpMetho
     ? [InitWithUnknowns<Init>?, Options?, QueryClient?]
     : [InitWithUnknowns<Init>, Options?, QueryClient?]
 ) => UseSuspenseQueryResult<InferSelectReturnType<Response["data"], Options["select"]>, Response["error"]>;
-
-export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
-  Method extends HttpMethod,
-  Path extends PathsWithMethod<Paths, Method>,
-  Init extends MaybeOptionalInit<Paths[Path], Method>,
-  Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>,
->(
-  method: Method,
-  url: Path,
-  ...[init, options, queryClient]: RequiredKeysOf<Init> extends never
-    ? [
-        InitWithUnknowns<Init>?,
-        Omit<
-          UseInfiniteQueryOptions<
-            Response["data"],
-            Response["error"],
-            Response["data"],
-            number,
-            QueryKey<Paths, Method, Path>
-          >,
-          "queryKey" | "queryFn"
-        >?,
-        QueryClient?,
-      ]
-    : [
-        InitWithUnknowns<Init>,
-        Omit<
-          UseInfiniteQueryOptions<
-            Response["data"],
-            Response["error"],
-            Response["data"],
-            number,
-            QueryKey<Paths, Method, Path>
-          >,
-          "queryKey" | "queryFn"
-        >?,
-        QueryClient?,
-      ]
-) => UseInfiniteQueryResult<Response["data"], Response["error"]>;
 
 export type UseMutationMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
@@ -199,30 +199,54 @@ export default function createClient<Paths extends {}, Media extends MediaType =
     ...options,
   });
 
-  const infiniteQueryOptions = <
-    Method extends HttpMethod,
-    Path extends PathsWithMethod<Paths, Method>,
-    Init extends MaybeOptionalInit<Paths[Path], Method & keyof Paths[Path]>,
-    Response extends Required<FetchResponse<any, Init, Media>>,
-  >(
-    method: Method,
-    path: Path,
-    init?: InitWithUnknowns<Init>,
-    options?: Omit<
-      UseInfiniteQueryOptions<
-        Response["data"],
-        Response["error"],
-        Response["data"],
-        number,
-        QueryKey<Paths, Method, Path>
-      >,
-      "queryKey" | "queryFn"
-    >,
-  ) => ({
-    queryKey: [method, path, init] as const,
-    queryFn,
-    ...options,
-  });
+    const infiniteQueryOptions = <
+        Method extends HttpMethod,
+        Path extends PathsWithMethod<Paths, Method>,
+        Init extends MaybeOptionalInit<Paths[Path], Method & keyof Paths[Path]>,
+        Response extends Required<FetchResponse<any, Init, Media>>,
+    >(
+        method: Method,
+        path: Path,
+        init?: InitWithUnknowns<Init>,
+        options?: Omit<
+            UseInfiniteQueryOptions<
+                Response["data"],
+                Response["error"],
+                Response["data"],
+                number,
+                QueryKey<Paths, Method, Path>
+            >,
+            "queryKey" | "queryFn"
+        >,
+    ) => ({
+        queryKey: [method, path, init] as const,
+        queryFn: async ({
+                            queryKey: [method, path, init],
+                            pageParam = 0,
+                            signal,
+                        }: QueryFunctionContext<QueryKey<Paths, Method, Path>, number>) => {
+            const mth = method.toUpperCase() as Uppercase<typeof method>;
+            const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
+            const mergedInit = {
+                ...init,
+                signal,
+                params: {
+                    ...(init?.params || {}),
+                    query: {
+                        ...(init?.params as { query?: DefaultParamsOption })?.query,
+                        cursor: pageParam,
+                    },
+                },
+            };
+
+            const { data, error } = await fn(path, mergedInit as any);
+            if (error) {
+                throw error;
+            }
+            return data;
+        },
+        ...options,
+    });
 
   return {
     queryOptions,
@@ -233,13 +257,12 @@ export default function createClient<Paths extends {}, Media extends MediaType =
     useInfiniteQuery: (method, path, ...[init, options, queryClient]) => {
       const baseOptions = infiniteQueryOptions(method, path, init as InitWithUnknowns<typeof init>, options as any); // TODO: find a way to avoid as any
       return useInfiniteQuery(
-        {
-          ...baseOptions,
-          initialPageParam: 0,
-          getNextPageParam: (lastPage: any, allPages: any[], lastPageParam: number, allPageParams: number[]) =>
-            options?.getNextPageParam?.(lastPage, allPages, lastPageParam, allPageParams) ?? allPages.length,
-        } as any,
-        queryClient,
+          {
+            ...baseOptions,
+            getNextPageParam: (lastPage: any, allPages: any[], lastPageParam: number, allPageParams: number[]) =>
+                options?.getNextPageParam?.(lastPage, allPages, lastPageParam, allPageParams) ?? allPages.length,
+          } as any,
+          queryClient,
       );
     },
     useMutation: (method, path, options, queryClient) =>
