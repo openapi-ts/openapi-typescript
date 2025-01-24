@@ -104,9 +104,10 @@ export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMetho
         UseInfiniteQueryOptions<
             Response["data"],
             Response["error"],
+            InfiniteData<Response["data"]>,
             Response["data"],
-            number,
-            QueryKey<Paths, Method, Path>
+            QueryKey<Paths, Method, Path>,
+            unknown
         >,
         "queryKey" | "queryFn"
     >
@@ -207,8 +208,9 @@ export default function createClient<Paths extends {}, Media extends MediaType =
                 Response["data"],
                 Response["error"],
                 Response["data"],
-                number,
-                QueryKey<Paths, Method, Path>
+                Response["data"],
+                QueryKey<Paths, Method, Path>,
+                unknown
             >,
             "queryKey" | "queryFn"
         >,
