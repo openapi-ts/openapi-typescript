@@ -827,10 +827,6 @@ describe("client", () => {
       const fetchClient = createFetchClient<paths>({ baseUrl });
       const client = createClient(fetchClient);
 
-      // Track request URLs using the mock handler
-      let firstRequestUrl: URL | undefined;
-      let secondRequestUrl: URL | undefined;
-
       // First page request handler
       const firstRequestHandler = useMockRequestHandler({
         baseUrl,
@@ -841,18 +837,22 @@ describe("client", () => {
       });
 
       const { result, rerender } = renderHook(
-        () => client.useInfiniteQuery("get", "/paginated-data",
-        {
-          params: {
-            query: {
-              limit: 3
-            }
-          }
-        },
-        {
-          getNextPageParam: (lastPage) => lastPage.nextPage,
-          initialPageParam: 0,
-        }),
+        () =>
+          client.useInfiniteQuery(
+            "get",
+            "/paginated-data",
+            {
+              params: {
+                query: {
+                  limit: 3,
+                },
+              },
+            },
+            {
+              getNextPageParam: (lastPage) => lastPage.nextPage,
+              initialPageParam: 0,
+            },
+          ),
         { wrapper },
       );
 
@@ -860,9 +860,9 @@ describe("client", () => {
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
       // Verify first request
-      firstRequestUrl = firstRequestHandler.getRequestUrl();
-      expect(firstRequestUrl?.searchParams.get('limit')).toBe('3');
-      expect(firstRequestUrl?.searchParams.get('cursor')).toBe('0');
+      const firstRequestUrl = firstRequestHandler.getRequestUrl();
+      expect(firstRequestUrl?.searchParams.get("limit")).toBe("3");
+      expect(firstRequestUrl?.searchParams.get("cursor")).toBe("0");
 
       // Set up mock for second page before triggering next page fetch
       const secondRequestHandler = useMockRequestHandler({
@@ -888,25 +888,24 @@ describe("client", () => {
       });
 
       // Verify second request
-      secondRequestUrl = secondRequestHandler.getRequestUrl();
-      expect(secondRequestUrl?.searchParams.get('limit')).toBe('3');
-      expect(secondRequestUrl?.searchParams.get('cursor')).toBe('1');
+      const secondRequestUrl = secondRequestHandler.getRequestUrl();
+      expect(secondRequestUrl?.searchParams.get("limit")).toBe("3");
+      expect(secondRequestUrl?.searchParams.get("cursor")).toBe("1");
 
       expect(result.current.data).toBeDefined();
-      expect(result.current.data!.pages[0].nextPage).toBe(1);
-
+      expect(result.current.data?.pages[0].nextPage).toBe(1);
 
       expect(result.current.data).toBeDefined();
-      expect(result.current.data!.pages[1].nextPage).toBe(2);
+      expect(result.current.data?.pages[1].nextPage).toBe(2);
 
       // Verify the complete data structure
       expect(result.current.data?.pages).toEqual([
         { items: [1, 2, 3], nextPage: 1 },
-        { items: [4, 5, 6], nextPage: 2 }
+        { items: [4, 5, 6], nextPage: 2 },
       ]);
 
       // Verify we can access all items through pages
-      const allItems = result.current.data?.pages.flatMap(page => page.items);
+      const allItems = result.current.data?.pages.flatMap((page) => page.items);
       expect(allItems).toEqual([1, 2, 3, 4, 5, 6]);
     });
     it("should reverse pages and pageParams when using the select option", async () => {
@@ -923,27 +922,27 @@ describe("client", () => {
       });
 
       const { result, rerender } = renderHook(
-          () =>
-              client.useInfiniteQuery(
-                  "get",
-                  "/paginated-data",
-                  {
-                    params: {
-                      query: {
-                        limit: 3,
-                      },
-                    },
-                  },
-                  {
-                    getNextPageParam: (lastPage) => lastPage.nextPage,
-                    initialPageParam: 0,
-                    select: (data) => ({
-                      pages: [...data.pages].reverse(),
-                      pageParams: [...data.pageParams].reverse(),
-                    }),
-                  }
-              ),
-          { wrapper }
+        () =>
+          client.useInfiniteQuery(
+            "get",
+            "/paginated-data",
+            {
+              params: {
+                query: {
+                  limit: 3,
+                },
+              },
+            },
+            {
+              getNextPageParam: (lastPage) => lastPage.nextPage,
+              initialPageParam: 0,
+              select: (data) => ({
+                pages: [...data.pages].reverse(),
+                pageParams: [...data.pageParams].reverse(),
+              }),
+            },
+          ),
+        { wrapper },
       );
 
       // Wait for initial query to complete
@@ -979,17 +978,17 @@ describe("client", () => {
       expect(result.current.data).toBeDefined();
 
       // Since pages are reversed, the second page will now come first
-      expect(result.current.data!.pages).toEqual([
+      expect(result.current.data?.pages).toEqual([
         { items: [4, 5, 6], nextPage: 2 },
         { items: [1, 2, 3], nextPage: 1 },
       ]);
 
       // Verify reversed pageParams
-      expect(result.current.data!.pageParams).toEqual([1, 0]);
+      expect(result.current.data?.pageParams).toEqual([1, 0]);
 
       // Verify all items from reversed pages
-      const allItems = result.current.data!.pages.flatMap((page) => page.items);
+      const allItems = result.current.data?.pages.flatMap((page) => page.items);
       expect(allItems).toEqual([4, 5, 6, 1, 2, 3]);
     });
-  })
+  });
 });
