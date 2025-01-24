@@ -100,36 +100,28 @@ export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMetho
     Path extends PathsWithMethod<Paths, Method>,
     Init extends MaybeOptionalInit<Paths[Path], Method>,
     Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>,
+    Options extends Omit<
+        UseInfiniteQueryOptions<
+            Response["data"],
+            Response["error"],
+            Response["data"],
+            number,
+            QueryKey<Paths, Method, Path>
+        >,
+        "queryKey" | "queryFn"
+    >
 >(
     method: Method,
     url: Path,
     ...[init, options, queryClient]: RequiredKeysOf<Init> extends never
         ? [
             InitWithUnknowns<Init>?,
-            Omit<
-                UseInfiniteQueryOptions<
-                    Response["data"],
-                    Response["error"],
-                    Response["data"],
-                    number,
-                    QueryKey<Paths, Method, Path>
-                >,
-                "queryKey" | "queryFn"
-            >?,
+            Options?,
             QueryClient?,
         ]
         : [
             InitWithUnknowns<Init>,
-            Omit<
-                UseInfiniteQueryOptions<
-                    Response["data"],
-                    Response["error"],
-                    Response["data"],
-                    number,
-                    QueryKey<Paths, Method, Path>
-                >,
-                "queryKey" | "queryFn"
-            >?,
+            Options?,
             QueryClient?,
         ]
 ) => UseInfiniteQueryResult<InfiniteData<Response["data"]>, Response["error"]>;
