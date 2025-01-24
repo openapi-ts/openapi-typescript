@@ -15,6 +15,7 @@ export interface paths {
             parameters: {
                 query: {
                     limit: number;
+                    cursor?: number;
                 };
                 header?: never;
                 path?: never;

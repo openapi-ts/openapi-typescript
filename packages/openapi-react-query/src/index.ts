@@ -3,6 +3,8 @@ import {
   type UseMutationResult,
   type UseQueryOptions,
   type UseQueryResult,
+  type InfiniteData,
+  type InfiniteQueryObserverResult,
   type UseInfiniteQueryOptions,
   type UseInfiniteQueryResult,
   type UseSuspenseQueryOptions,
@@ -103,34 +105,34 @@ export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMetho
     url: Path,
     ...[init, options, queryClient]: RequiredKeysOf<Init> extends never
         ? [
-          InitWithUnknowns<Init>?,
-          Omit<
-              UseInfiniteQueryOptions<
-                  Response["data"],
-                  Response["error"],
-                  Response["data"],
-                  number,
-                  QueryKey<Paths, Method, Path>
-              >,
-              "queryKey" | "queryFn"
-          >?,
-          QueryClient?,
+            InitWithUnknowns<Init>?,
+            Omit<
+                UseInfiniteQueryOptions<
+                    Response["data"],
+                    Response["error"],
+                    Response["data"],
+                    number,
+                    QueryKey<Paths, Method, Path>
+                >,
+                "queryKey" | "queryFn"
+            >?,
+            QueryClient?,
         ]
         : [
-          InitWithUnknowns<Init>,
-          Omit<
-              UseInfiniteQueryOptions<
-                  Response["data"],
-                  Response["error"],
-                  Response["data"],
-                  number,
-                  QueryKey<Paths, Method, Path>
-              >,
-              "queryKey" | "queryFn"
-          >?,
-          QueryClient?,
+            InitWithUnknowns<Init>,
+            Omit<
+                UseInfiniteQueryOptions<
+                    Response["data"],
+                    Response["error"],
+                    Response["data"],
+                    number,
+                    QueryKey<Paths, Method, Path>
+                >,
+                "queryKey" | "queryFn"
+            >?,
+            QueryClient?,
         ]
-) => UseInfiniteQueryResult<Response["data"], Response["error"]>;
+) => UseInfiniteQueryResult<InfiniteData<Response["data"]>, Response["error"]>;
 
 export type UseSuspenseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,

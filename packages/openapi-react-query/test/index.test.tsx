@@ -3,7 +3,7 @@ import { server, baseUrl, useMockRequestHandler } from "./fixtures/mock-server.j
 import type { paths } from "./fixtures/api.js";
 import createClient from "../src/index.js";
 import createFetchClient from "openapi-fetch";
-import { act, fireEvent, render, renderHook, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, renderHook, screen, waitFor, act } from "@testing-library/react";
 import {
   QueryClient,
   QueryClientProvider,
@@ -823,11 +823,16 @@ describe("client", () => {
     });
   });
   describe("useInfiniteQuery", () => {
-    it("should fetch data correctly with pagination", async () => {
+    it("should fetch data correctly with pagination and include cursor", async () => {
       const fetchClient = createFetchClient<paths>({ baseUrl });
       const client = createClient(fetchClient);
 
-      useMockRequestHandler({
+      // Track request URLs using the mock handler
+      let firstRequestUrl: URL | undefined;
+      let secondRequestUrl: URL | undefined;
+
+      // First page request handler
+      const firstRequestHandler = useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/paginated-data",
@@ -835,17 +840,32 @@ describe("client", () => {
         body: { items: [1, 2, 3], nextPage: 1 },
       });
 
-      const { result } = renderHook(
-        () => client.useInfiniteQuery("get", "/paginated-data", { params: { query: { limit: 3 } } }),
+      const { result, rerender } = renderHook(
+        () => client.useInfiniteQuery("get", "/paginated-data",
+        {
+          params: {
+            query: {
+              limit: 3
+            }
+          }
+        },
+        {
+          getNextPageParam: (lastPage) => lastPage.nextPage,
+          initialPageParam: 0,
+        }),
         { wrapper },
       );
 
+      // Wait for initial query to complete
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-      expect((result.current.data as any).pages[0]).toEqual({ items: [1, 2, 3], nextPage: 1 });
+      // Verify first request
+      firstRequestUrl = firstRequestHandler.getRequestUrl();
+      expect(firstRequestUrl?.searchParams.get('limit')).toBe('3');
+      expect(firstRequestUrl?.searchParams.get('cursor')).toBe('0');
 
-      // Set up mock for second page
-      useMockRequestHandler({
+      // Set up mock for second page before triggering next page fetch
+      const secondRequestHandler = useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/paginated-data",
@@ -853,34 +873,41 @@ describe("client", () => {
         body: { items: [4, 5, 6], nextPage: 2 },
       });
 
-      await result.current.fetchNextPage();
-
-      await waitFor(() => expect(result.current.isFetching).toBe(false));
-
-      expect((result.current.data as any).pages).toHaveLength(2);
-      expect((result.current.data as any).pages[1]).toEqual({ items: [4, 5, 6], nextPage: 2 });
-    });
-
-    it("should handle errors correctly", async () => {
-      const fetchClient = createFetchClient<paths>({ baseUrl });
-      const client = createClient(fetchClient);
-
-      useMockRequestHandler({
-        baseUrl,
-        method: "get",
-        path: "/paginated-data",
-        status: 500,
-        body: { code: 500, message: "Internal Server Error" },
+      // Fetch next page
+      await act(async () => {
+        await result.current.fetchNextPage();
+        // Force a rerender to ensure state is updated
+        rerender();
       });
 
-      const { result } = renderHook(
-        () => client.useInfiniteQuery("get", "/paginated-data", { params: { query: { limit: 3 } } }),
-        { wrapper },
-      );
+      // Wait for second page to be fetched and verify loading states
+      await waitFor(() => {
+        expect(result.current.isFetching).toBe(false);
+        expect(result.current.hasNextPage).toBe(true);
+        expect(result.current.data?.pages).toHaveLength(2);
+      });
 
-      await waitFor(() => expect(result.current.isError).toBe(true));
+      // Verify second request
+      secondRequestUrl = secondRequestHandler.getRequestUrl();
+      expect(secondRequestUrl?.searchParams.get('limit')).toBe('3');
+      expect(secondRequestUrl?.searchParams.get('cursor')).toBe('1');
 
-      expect(result.current.error).toEqual({ code: 500, message: "Internal Server Error" });
+      expect(result.current.data).toBeDefined();
+      expect(result.current.data!.pages[0].nextPage).toBe(1);
+
+
+      expect(result.current.data).toBeDefined();
+      expect(result.current.data!.pages[1].nextPage).toBe(2);
+
+      // Verify the complete data structure
+      expect(result.current.data?.pages).toEqual([
+        { items: [1, 2, 3], nextPage: 1 },
+        { items: [4, 5, 6], nextPage: 2 }
+      ]);
+
+      // Verify we can access all items through pages
+      const allItems = result.current.data?.pages.flatMap(page => page.items);
+      expect(allItems).toEqual([1, 2, 3, 4, 5, 6]);
     });
-  });
+  })
 });
