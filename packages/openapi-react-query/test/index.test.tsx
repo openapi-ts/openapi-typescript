@@ -909,5 +909,87 @@ describe("client", () => {
       const allItems = result.current.data?.pages.flatMap(page => page.items);
       expect(allItems).toEqual([1, 2, 3, 4, 5, 6]);
     });
+    it("should reverse pages and pageParams when using the select option", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      // First page request handler
+      const firstRequestHandler = useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/paginated-data",
+        status: 200,
+        body: { items: [1, 2, 3], nextPage: 1 },
+      });
+
+      const { result, rerender } = renderHook(
+          () =>
+              client.useInfiniteQuery(
+                  "get",
+                  "/paginated-data",
+                  {
+                    params: {
+                      query: {
+                        limit: 3,
+                      },
+                    },
+                  },
+                  {
+                    getNextPageParam: (lastPage) => lastPage.nextPage,
+                    initialPageParam: 0,
+                    select: (data) => ({
+                      pages: [...data.pages].reverse(),
+                      pageParams: [...data.pageParams].reverse(),
+                    }),
+                  }
+              ),
+          { wrapper }
+      );
+
+      // Wait for initial query to complete
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+      // Verify first request
+      const firstRequestUrl = firstRequestHandler.getRequestUrl();
+      expect(firstRequestUrl?.searchParams.get("limit")).toBe("3");
+      expect(firstRequestUrl?.searchParams.get("cursor")).toBe("0");
+
+      // Set up mock for second page before triggering next page fetch
+      const secondRequestHandler = useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/paginated-data",
+        status: 200,
+        body: { items: [4, 5, 6], nextPage: 2 },
+      });
+
+      // Fetch next page
+      await act(async () => {
+        await result.current.fetchNextPage();
+        rerender();
+      });
+
+      // Wait for second page to complete
+      await waitFor(() => {
+        expect(result.current.isFetching).toBe(false);
+        expect(result.current.hasNextPage).toBe(true);
+      });
+
+      // Verify reversed pages and pageParams
+      expect(result.current.data).toBeDefined();
+
+      // Since pages are reversed, the second page will now come first
+      expect(result.current.data!.pages).toEqual([
+        { items: [4, 5, 6], nextPage: 2 },
+        { items: [1, 2, 3], nextPage: 1 },
+      ]);
+
+      // Verify reversed pageParams
+      expect(result.current.data!.pageParams).toEqual([1, 0]);
+
+      // Verify all items from reversed pages
+      const allItems = result.current.data!.pages.flatMap((page) => page.items);
+      expect(allItems).toEqual([4, 5, 6, 1, 2, 3]);
+    });
   })
 });
