@@ -140,4 +140,32 @@ describe("GET", () => {
     expect(data).toBeUndefined();
     expect(error).toBe("Unauthorized");
   });
+
+  describe("handles error as", () => {
+    test("text", async () => {
+      const client = createObservedClient<paths>({}, async () => new Response("Unauthorized", { status: 401 }));
+
+      const { data, error } = await client.GET("/posts", { parseAs: "text" });
+
+      expect(data).toBeUndefined();
+      expect(error).toBe("Unauthorized");
+    });
+
+    test("stream", async () => {
+      const client = createObservedClient<paths>({}, async () => new Response("Unauthorized", { status: 401 }));
+
+      const { data, error } = (await client.GET("/posts", { parseAs: "stream" })) satisfies {
+        error?: ReadableStream<Uint8Array> | null;
+      };
+      if (!error) {
+        throw new Error("parseAs stream: error");
+      }
+
+      expect(data).toBeUndefined();
+      expect(error).toBeInstanceOf(ReadableStream);
+      const reader = error.getReader();
+      const result = await reader.read();
+      expect(result.value?.length).toBe(12);
+    });
+  });
 });
