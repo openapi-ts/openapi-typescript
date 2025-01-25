@@ -53,6 +53,7 @@ network_interface:
     enum:
       - private
       - public
+
 network_direction:
   in: query
   name: direction
@@ -64,6 +65,16 @@ network_direction:
     enum:
       - inbound
       - outbound
+
+autoscale_pool_id:
+  in: query
+  name: autoscale_pool_id
+  description: A unique identifier for an autoscale pool.
+  required: true
+  schema:
+    type: string
+  example: 0d3db13e-a604-4944-9827-7ec2642d32ac
+
 metric_timestamp_start:
   in: query
   name: start

@@ -84,6 +84,7 @@ const flags = parser(args, {
     "rootTypes",
     "rootTypesNoSchemaPrefix",
     "makePathsEnum",
+    "generatePathParams",
   ],
   string: ["output", "redocly"],
   alias: {
@@ -146,6 +147,7 @@ async function generateSchema(schema, { redocly, silent = false }) {
       rootTypes: flags.rootTypes,
       rootTypesNoSchemaPrefix: flags.rootTypesNoSchemaPrefix,
       makePathsEnum: flags.makePathsEnum,
+      generatePathParams: flags.generatePathParams,
       redocly,
       silent,
     }),

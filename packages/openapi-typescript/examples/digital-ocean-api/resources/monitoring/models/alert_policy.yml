@@ -70,6 +70,14 @@ properties:
       - v1/dbaas/alerts/memory_utilization_alerts
       - v1/dbaas/alerts/disk_utilization_alerts
       - v1/dbaas/alerts/cpu_alerts
+      - v1/droplet/autoscale_alerts/current_instances
+      - v1/droplet/autoscale_alerts/target_instances
+      - v1/droplet/autoscale_alerts/current_cpu_utilization
+      - v1/droplet/autoscale_alerts/target_cpu_utilization
+      - v1/droplet/autoscale_alerts/current_memory_utilization
+      - v1/droplet/autoscale_alerts/target_memory_utilization
+      - v1/droplet/autoscale_alerts/scale_up
+      - v1/droplet/autoscale_alerts/scale_down
     example: v1/insights/droplet/cpu
   uuid:
     type: string

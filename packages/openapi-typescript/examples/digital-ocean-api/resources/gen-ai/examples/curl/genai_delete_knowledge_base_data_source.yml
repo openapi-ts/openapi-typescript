@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X DELETE \
+    -H "Content-Type: application/json"  \
+    -H "Authorization: Bearer $PREVIEW_API_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/knowledge_bases/9a6e3975-b0c6-11ef-bf8f-4e013e2ddde4/data_sources/bd2a2db5-b8b0-11ef-bf8f-4e013e2ddde4"
+

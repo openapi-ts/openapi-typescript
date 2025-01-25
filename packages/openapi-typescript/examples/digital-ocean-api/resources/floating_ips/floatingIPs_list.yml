@@ -35,4 +35,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'firewall:read'
+    - 'reserved_ip:read'
