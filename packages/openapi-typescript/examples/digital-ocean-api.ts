@@ -3921,6 +3921,31 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/load_balancers/{lb_id}/cache": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete a Global Load Balancer CDN Cache
+         * @description To delete a Global load balancer CDN cache, send a DELETE request to
+         *     `/v2/load_balancers/$LOAD_BALANCER_ID/cache`.
+         *
+         *     A successful request will receive a 204 status code with no body in response.
+         *     This indicates that the request was processed successfully.
+         *
+         */
+        delete: operations["loadBalancers_delete_cache"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v2/load_balancers/{lb_id}/droplets": {
         parameters: {
             query?: never;
@@ -4867,6 +4892,126 @@ export interface paths {
          * @description To retrieve Droplets downtime status for a given load balancer, send a GET request to `/v2/monitoring/metrics/load_balancer/droplets_downtime`.
          */
         get: operations["monitoring_get_lb_droplets_downtime"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/droplet_autoscale/current_instances": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Droplet Autoscale Pool Current Size
+         * @description To retrieve the current size for a given Droplet Autoscale Pool, send a GET request to `/v2/monitoring/metrics/droplet_autoscale/current_instances`.
+         */
+        get: operations["monitoring_get_droplet_autoscale_current_instances"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/droplet_autoscale/target_instances": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Droplet Autoscale Pool Target Size
+         * @description To retrieve the target size for a given Droplet Autoscale Pool, send a GET request to `/v2/monitoring/metrics/droplet_autoscale/target_instances`.
+         */
+        get: operations["monitoring_get_droplet_autoscale_target_instances"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/droplet_autoscale/current_cpu_utilization": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Droplet Autoscale Pool Current Average CPU utilization
+         * @description To retrieve the current average CPU utilization for a given Droplet Autoscale Pool, send a GET request to `/v2/monitoring/metrics/droplet_autoscale/current_cpu_utilization`.
+         */
+        get: operations["monitoring_get_droplet_autoscale_current_cpu_utilization.yml"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/droplet_autoscale/target_cpu_utilization": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Droplet Autoscale Pool Target Average CPU utilization
+         * @description To retrieve the target average CPU utilization for a given Droplet Autoscale Pool, send a GET request to `/v2/monitoring/metrics/droplet_autoscale/target_cpu_utilization`.
+         */
+        get: operations["monitoring_get_droplet_autoscale_target_cpu_utilization"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/droplet_autoscale/current_memory_utilization": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Droplet Autoscale Pool Current Average Memory utilization
+         * @description To retrieve the current average memory utilization for a given Droplet Autoscale Pool, send a GET request to `/v2/monitoring/metrics/droplet_autoscale/current_memory_utilization`.
+         */
+        get: operations["monitoring_get_droplet_autoscale_current_memory_utilization"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/monitoring/metrics/droplet_autoscale/target_memory_utilization": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Droplet Autoscale Pool Target Average Memory utilization
+         * @description To retrieve the target average memory utilization for a given Droplet Autoscale Pool, send a GET request to `/v2/monitoring/metrics/droplet_autoscale/target_memory_utilization`.
+         */
+        get: operations["monitoring_get_droplet_autoscale_target_memory_utilization"];
         put?: never;
         post?: never;
         delete?: never;
@@ -6443,6 +6588,482 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v2/gen-ai/agents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Agents
+         * @description To list all agents, send a GET request to `/v2/gen-ai/agents`.
+         */
+        get: operations["genai_list_agents"];
+        put?: never;
+        /**
+         * Create an Agent
+         * @description To create a new agent, send a POST request to `/v2/gen-ai/agents`. The response body contains a JSON object with the newly created agent object.
+         */
+        post: operations["genai_create_agent"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/agents/{agent_uuid}/api_keys": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Agent API Keys
+         * @description To list all agent API keys, send a GET request to `/v2/gen-ai/agents/{agent_uuid}/api_keys`.
+         */
+        get: operations["genai_list_agent_api_keys"];
+        put?: never;
+        /**
+         * Create an Agent API Key
+         * @description To create an agent API key, send a POST request to `/v2/gen-ai/agents/{agent_uuid}/api_keys`.
+         */
+        post: operations["genai_create_agent_api_key"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/agents/{agent_uuid}/api_keys/{api_key_uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Update API Key for an Agent
+         * @description To update an agent API key, send a PUT request to `/v2/gen-ai/agents/{agent_uuid}/api_keys/{api_key_uuid}`.
+         */
+        put: operations["genai_update_agent_api_key"];
+        post?: never;
+        /**
+         * Delete API Key for an Agent
+         * @description To delete an API key for an agent, send a DELETE request to `/v2/gen-ai/agents/{agent_uuid}/api_keys/{api_key_uuid}`.
+         */
+        delete: operations["genai_delete_agent_api_key"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/agents/{agent_uuid}/api_keys/{api_key_uuid}/regenerate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Regenerate API Key for an Agent
+         * @description To regenerate an agent API key, send a PUT request to `/v2/gen-ai/agents/{agent_uuid}/api_keys/{api_key_uuid}/regenerate`.
+         */
+        put: operations["genai_regenerate_agent_api_key"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/agents/{agent_uuid}/functions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Add Function Route to an Agent
+         * @description To create a function route for an agent, send a POST request to `/v2/gen-ai/agents/{agent_uuid}/functions`.
+         */
+        post: operations["genai_attach_agent_function"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/agents/{agent_uuid}/functions/{function_uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Update Function Route for an Agent
+         * @description To update the function route, send a PUT request to `/v2/gen-ai/agents/{agent_uuid}/functions/{function_uuid}`.
+         */
+        put: operations["genai_update_agent_function"];
+        post?: never;
+        /**
+         * Delete Function Route for an Agent
+         * @description To delete a function route from an agent, send a DELETE request to `/v2/gen-ai/agents/{agent_uuid}/functions/{function_uuid}`.
+         */
+        delete: operations["genai_detach_agent_function"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/agents/{agent_uuid}/knowledge_bases/{knowledge_base_uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Attach Knowledge Base to an Agent
+         * @description To attach a knowledge base to an agent, send a POST request to `/v2/gen-ai/agents/{agent_uuid}/knowledge_bases/{knowledge_base_uuid}`
+         */
+        post: operations["genai_attach_knowledge_base"];
+        /**
+         * Detach Knowledge Base from an Agent
+         * @description To detach a knowledge base from an agent, send a DELETE request to `/v2/gen-ai/agents/{agent_uuid}/knowledge_bases/{knowledge_base_uuid}`.
+         */
+        delete: operations["genai_detach_knowledge_base"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/agents/{parent_agent_uuid}/child_agents/{child_agent_uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Update Agent Route for an Agent
+         * @description To update an agent route for an agent, send a PUT request to `/v2/gen-ai/agents/{parent_agent_uuid}/child_agents/{child_agent_uuid}`.
+         */
+        put: operations["genai_update_attached_agent"];
+        /**
+         * Add Agent Route to an Agent
+         * @description To add an agent route to an agent, send a POST request to `/v2/gen-ai/agents/{parent_agent_uuid}/child_agents/{child_agent_uuid}`.
+         */
+        post: operations["genai_attach_agent"];
+        /**
+         * Delete Agent Route for an Agent
+         * @description To delete an agent route from a parent agent, send a DELETE request to `/v2/gen-ai/agents/{parent_agent_uuid}/child_agents/{child_agent_uuid}`.
+         */
+        delete: operations["genai_detach_agent"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/agents/{uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve an Existing Agent
+         * @description To retrieve details of an agent, GET request to `/v2/gen-ai/agents/{uuid}`. The response body is a JSON object containing the agent.
+         */
+        get: operations["genai_get_agent"];
+        /**
+         * Update an Agent
+         * @description To update an agent, send a PUT request to `/v2/gen-ai/agents/{uuid}`. The response body is a JSON object containing the agent.
+         */
+        put: operations["genai_update_agent"];
+        post?: never;
+        /**
+         * Delete an Agent
+         * @description To delete an agent, send a DELETE request to `/v2/gen-ai/agents/{uuid}`.
+         */
+        delete: operations["genai_delete_agent"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/agents/{uuid}/child_agents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * View Agent Routes
+         * @description To view agent routes for an agent, send a GET requtest to `/v2/gen-ai/agents/{uuid}/child_agents`.
+         */
+        get: operations["genai_get_agent_children"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/agents/{uuid}/deployment_visibility": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Check Agent Status
+         * @description Check whether an agent is public or private. To get the agent status, send a PUT request to `/v2/gen-ai/agents/{uuid}/deployment_visibility`.
+         */
+        put: operations["genai_update_agent_deployment_visibility"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/indexing_jobs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Indexing Jobs for a Knowledge Base
+         * @description To list all indexing jobs for a knowledge base, send a GET request to `/v2/gen-ai/indexing_jobs`.
+         */
+        get: operations["genai_list_indexing_jobs"];
+        put?: never;
+        /**
+         * Start Indexing Job for a Knowledge Base
+         * @description To start an indexing job for a knowledge base, send a POST request to `/v2/gen-ai/indexing_jobs`.
+         */
+        post: operations["genai_create_indexing_job"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/indexing_jobs/{indexing_job_uuid}/data_sources": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Data Sources for Indexing Job for a Knowledge Base
+         * @description To list all datasources for an indexing job, send a GET request to `/v2/gen-ai/indexing_jobs/{indexing_job_uuid}/data_sources`.
+         */
+        get: operations["genai_list_indexing_job_data_sources"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/indexing_jobs/{uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve Status of Indexing Job for a Knowledge Base
+         * @description To get status of an indexing Job for a knowledge base, send a GET request to `/v2/gen-ai/indexing_jobs/{uuid}`.
+         */
+        get: operations["genai_get_indexing_job"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/indexing_jobs/{uuid}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Cancel Indexing Job for a Knowledge Base
+         * @description To cancel an indexing job for a knowledge base, send a PUT request to `/v2/gen-ai/indexing_jobs/{uuid}/cancel`.
+         */
+        put: operations["genai_cancel_indexing_job"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/knowledge_bases": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Knowledge Bases
+         * @description To attach a knowledge base to an agent, send a POST request to `/v2/gen-ai/agents/{agent_uuid}/knowledge_bases/{knowledge_base_uuid}`.
+         */
+        get: operations["genai_list_knowledge_bases"];
+        put?: never;
+        /**
+         * Create a Knowledge Base
+         * @description To create a knowledge base, send a POST request to `/v2/gen-ai/knowledge_bases`.
+         */
+        post: operations["genai_create_knowledge_base"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/knowledge_bases/{knowledge_base_uuid}/data_sources": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Data Sources for a Knowledge Base
+         * @description To list all data sources for a knowledge base, send a GET request to `/v2/gen-ai/knowledge_bases/{knowledge_base_uuid}/data_sources`.
+         */
+        get: operations["genai_list_knowledge_base_data_sources"];
+        put?: never;
+        /**
+         * Add Data Source to a Knowledge Base
+         * @description To add a data source to a knowledge base, send a POST request to `/v2/gen-ai/knowledge_bases/{knowledge_base_uuid}/data_sources`.
+         */
+        post: operations["genai_create_knowledge_base_data_source"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/knowledge_bases/{knowledge_base_uuid}/data_sources/{data_source_uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete a Data Source from a Knowledge Base
+         * @description To delete a data source from a knowledge base, send a DELETE request to `/v2/gen-ai/knowledge_bases/{knowledge_base_uuid}/data_sources/{data_source_uuid}`.
+         */
+        delete: operations["genai_delete_knowledge_base_data_source"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/knowledge_bases/{uuid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve Information About an Existing Knowledge Base
+         * @description To retrive information about an existing knowledge base, send a GET request to `/v2/gen-ai/knowledge_bases/{uuid}`.
+         */
+        get: operations["genai_get_knowledge_base"];
+        /**
+         * Update a Knowledge Base
+         * @description To update a knowledge base, send a PUT request to `/v2/gen-ai/knowledge_bases/{uuid}`.
+         */
+        put: operations["genai_update_knowledge_base"];
+        post?: never;
+        /**
+         * Delete a Knowledge Base
+         * @description To delete a knowledge base, send a DELETE request to `/v2/gen-ai/knowledge_bases/{uuid}`.
+         */
+        delete: operations["genai_delete_knowledge_base"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/models": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Available Models
+         * @description To list all models, send a GET request to `/v2/gen-ai/models`.
+         */
+        get: operations["genai_list_models"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v2/gen-ai/regions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Datacenter Regions
+         * @description To list all datacenter regions, send a GET request to `/v2/gen-ai/regions`.
+         */
+        get: operations["genai_list_datacenter_regions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -7636,6 +8257,11 @@ export interface components {
              * @example true
              */
             archive?: boolean;
+            /**
+             * @description A custom offline page to display when maintenance mode is enabled or the app is archived.
+             * @example https://example.com/offline.html
+             */
+            offline_page_url?: string;
         };
         /**
          * AppSpec
@@ -13402,6 +14028,62 @@ export interface components {
              */
             allow: string[];
         };
+        /** @description An object specifying domain configurations for a Global load balancer. */
+        domains: {
+            /**
+             * @description FQDN to associate with a Global load balancer.
+             * @example example.com
+             */
+            name?: string;
+            /**
+             * @description A boolean value indicating if the domain is already managed by DigitalOcean. If true, all A and AAAA records required to enable Global load balancers will be automatically added.
+             * @example true
+             */
+            is_managed?: boolean;
+            /**
+             * @description The ID of the TLS certificate used for SSL termination.
+             * @example 892071a0-bb95-49bc-8021-3afd67a210bf
+             */
+            certificate_id?: string;
+        };
+        /** @description An object specifying forwarding configurations for a Global load balancer. */
+        glb_settings: {
+            /**
+             * @description The protocol used for forwarding traffic from the load balancer to the target backends. The possible values are `http`, `https` and `http2`.
+             * @example http
+             * @enum {string}
+             */
+            target_protocol?: "http" | "https" | "http2";
+            /**
+             * @description An integer representing the port on the target backends which the load balancer will forward traffic to.
+             * @example 80
+             */
+            target_port?: number;
+            /** @description An object specifying CDN configurations for a Global load balancer. */
+            cdn?: {
+                /**
+                 * @description A boolean flag to enable CDN caching.
+                 * @example true
+                 */
+                is_enabled?: boolean;
+            };
+            /**
+             * @description A map of region string to an integer priority value indicating preference for which regional target a Global load balancer will forward traffic to. A lower value indicates a higher priority.
+             * @example {
+             *       "nyc1": 1,
+             *       "fra1": 2,
+             *       "sgp1": 3
+             *     }
+             */
+            region_priorities?: {
+                [key: string]: number;
+            };
+            /**
+             * @description An integer value as a percentage to indicate failure threshold to decide how the regional priorities will take effect. A value of `50` would indicate that the Global load balancer will choose a lower priority region to forward traffic to once this failure threshold has been reached for the higher priority region.
+             * @example 50
+             */
+            failover_threshold?: number;
+        };
         load_balancer_base: {
             /**
              * Format: uuid
@@ -13518,6 +14200,17 @@ export interface components {
              * @enum {string}
              */
             type: "REGIONAL" | "REGIONAL_NETWORK" | "GLOBAL";
+            /** @description An array of objects specifying the domain configurations for a Global load balancer. */
+            domains?: components["schemas"]["domains"][];
+            glb_settings?: components["schemas"]["glb_settings"];
+            /**
+             * @description An array containing the UUIDs of the Regional load balancers to be used as target backends for a Global load balancer.
+             * @example [
+             *       "7dbf91fe-cbdb-48dc-8290-c3a181554905",
+             *       "996fa239-fac3-42a2-b9a1-9fa822268b7a"
+             *     ]
+             */
+            target_load_balancer_ids?: string[];
         };
         load_balancer: components["schemas"]["load_balancer_base"] & {
             region?: unknown & components["schemas"]["region"];
@@ -13603,7 +14296,7 @@ export interface components {
              * @example v1/insights/droplet/cpu
              * @enum {string}
              */
-            type: "v1/insights/droplet/load_1" | "v1/insights/droplet/load_5" | "v1/insights/droplet/load_15" | "v1/insights/droplet/memory_utilization_percent" | "v1/insights/droplet/disk_utilization_percent" | "v1/insights/droplet/cpu" | "v1/insights/droplet/disk_read" | "v1/insights/droplet/disk_write" | "v1/insights/droplet/public_outbound_bandwidth" | "v1/insights/droplet/public_inbound_bandwidth" | "v1/insights/droplet/private_outbound_bandwidth" | "v1/insights/droplet/private_inbound_bandwidth" | "v1/insights/lbaas/avg_cpu_utilization_percent" | "v1/insights/lbaas/connection_utilization_percent" | "v1/insights/lbaas/droplet_health" | "v1/insights/lbaas/tls_connections_per_second_utilization_percent" | "v1/insights/lbaas/increase_in_http_error_rate_percentage_5xx" | "v1/insights/lbaas/increase_in_http_error_rate_percentage_4xx" | "v1/insights/lbaas/increase_in_http_error_rate_count_5xx" | "v1/insights/lbaas/increase_in_http_error_rate_count_4xx" | "v1/insights/lbaas/high_http_request_response_time" | "v1/insights/lbaas/high_http_request_response_time_50p" | "v1/insights/lbaas/high_http_request_response_time_95p" | "v1/insights/lbaas/high_http_request_response_time_99p" | "v1/dbaas/alerts/load_15_alerts" | "v1/dbaas/alerts/memory_utilization_alerts" | "v1/dbaas/alerts/disk_utilization_alerts" | "v1/dbaas/alerts/cpu_alerts";
+            type: "v1/insights/droplet/load_1" | "v1/insights/droplet/load_5" | "v1/insights/droplet/load_15" | "v1/insights/droplet/memory_utilization_percent" | "v1/insights/droplet/disk_utilization_percent" | "v1/insights/droplet/cpu" | "v1/insights/droplet/disk_read" | "v1/insights/droplet/disk_write" | "v1/insights/droplet/public_outbound_bandwidth" | "v1/insights/droplet/public_inbound_bandwidth" | "v1/insights/droplet/private_outbound_bandwidth" | "v1/insights/droplet/private_inbound_bandwidth" | "v1/insights/lbaas/avg_cpu_utilization_percent" | "v1/insights/lbaas/connection_utilization_percent" | "v1/insights/lbaas/droplet_health" | "v1/insights/lbaas/tls_connections_per_second_utilization_percent" | "v1/insights/lbaas/increase_in_http_error_rate_percentage_5xx" | "v1/insights/lbaas/increase_in_http_error_rate_percentage_4xx" | "v1/insights/lbaas/increase_in_http_error_rate_count_5xx" | "v1/insights/lbaas/increase_in_http_error_rate_count_4xx" | "v1/insights/lbaas/high_http_request_response_time" | "v1/insights/lbaas/high_http_request_response_time_50p" | "v1/insights/lbaas/high_http_request_response_time_95p" | "v1/insights/lbaas/high_http_request_response_time_99p" | "v1/dbaas/alerts/load_15_alerts" | "v1/dbaas/alerts/memory_utilization_alerts" | "v1/dbaas/alerts/disk_utilization_alerts" | "v1/dbaas/alerts/cpu_alerts" | "v1/droplet/autoscale_alerts/current_instances" | "v1/droplet/autoscale_alerts/target_instances" | "v1/droplet/autoscale_alerts/current_cpu_utilization" | "v1/droplet/autoscale_alerts/target_cpu_utilization" | "v1/droplet/autoscale_alerts/current_memory_utilization" | "v1/droplet/autoscale_alerts/target_memory_utilization" | "v1/droplet/autoscale_alerts/scale_up" | "v1/droplet/autoscale_alerts/scale_down";
             /** @example 78b3da62-27e5-49ba-ac70-5db0b5935c64 */
             uuid: string;
             /**
@@ -13643,7 +14336,7 @@ export interface components {
              * @example v1/insights/droplet/cpu
              * @enum {string}
              */
-            type: "v1/insights/droplet/load_1" | "v1/insights/droplet/load_5" | "v1/insights/droplet/load_15" | "v1/insights/droplet/memory_utilization_percent" | "v1/insights/droplet/disk_utilization_percent" | "v1/insights/droplet/cpu" | "v1/insights/droplet/disk_read" | "v1/insights/droplet/disk_write" | "v1/insights/droplet/public_outbound_bandwidth" | "v1/insights/droplet/public_inbound_bandwidth" | "v1/insights/droplet/private_outbound_bandwidth" | "v1/insights/droplet/private_inbound_bandwidth" | "v1/insights/lbaas/avg_cpu_utilization_percent" | "v1/insights/lbaas/connection_utilization_percent" | "v1/insights/lbaas/droplet_health" | "v1/insights/lbaas/tls_connections_per_second_utilization_percent" | "v1/insights/lbaas/increase_in_http_error_rate_percentage_5xx" | "v1/insights/lbaas/increase_in_http_error_rate_percentage_4xx" | "v1/insights/lbaas/increase_in_http_error_rate_count_5xx" | "v1/insights/lbaas/increase_in_http_error_rate_count_4xx" | "v1/insights/lbaas/high_http_request_response_time" | "v1/insights/lbaas/high_http_request_response_time_50p" | "v1/insights/lbaas/high_http_request_response_time_95p" | "v1/insights/lbaas/high_http_request_response_time_99p" | "v1/dbaas/alerts/load_15_alerts" | "v1/dbaas/alerts/memory_utilization_alerts" | "v1/dbaas/alerts/disk_utilization_alerts" | "v1/dbaas/alerts/cpu_alerts";
+            type: "v1/insights/droplet/load_1" | "v1/insights/droplet/load_5" | "v1/insights/droplet/load_15" | "v1/insights/droplet/memory_utilization_percent" | "v1/insights/droplet/disk_utilization_percent" | "v1/insights/droplet/cpu" | "v1/insights/droplet/disk_read" | "v1/insights/droplet/disk_write" | "v1/insights/droplet/public_outbound_bandwidth" | "v1/insights/droplet/public_inbound_bandwidth" | "v1/insights/droplet/private_outbound_bandwidth" | "v1/insights/droplet/private_inbound_bandwidth" | "v1/insights/lbaas/avg_cpu_utilization_percent" | "v1/insights/lbaas/connection_utilization_percent" | "v1/insights/lbaas/droplet_health" | "v1/insights/lbaas/tls_connections_per_second_utilization_percent" | "v1/insights/lbaas/increase_in_http_error_rate_percentage_5xx" | "v1/insights/lbaas/increase_in_http_error_rate_percentage_4xx" | "v1/insights/lbaas/increase_in_http_error_rate_count_5xx" | "v1/insights/lbaas/increase_in_http_error_rate_count_4xx" | "v1/insights/lbaas/high_http_request_response_time" | "v1/insights/lbaas/high_http_request_response_time_50p" | "v1/insights/lbaas/high_http_request_response_time_95p" | "v1/insights/lbaas/high_http_request_response_time_99p" | "v1/dbaas/alerts/load_15_alerts" | "v1/dbaas/alerts/memory_utilization_alerts" | "v1/dbaas/alerts/disk_utilization_alerts" | "v1/dbaas/alerts/cpu_alerts" | "v1/droplet/autoscale_alerts/current_instances" | "v1/droplet/autoscale_alerts/target_instances" | "v1/droplet/autoscale_alerts/current_cpu_utilization" | "v1/droplet/autoscale_alerts/target_cpu_utilization" | "v1/droplet/autoscale_alerts/current_memory_utilization" | "v1/droplet/autoscale_alerts/target_memory_utilization" | "v1/droplet/autoscale_alerts/scale_up" | "v1/droplet/autoscale_alerts/scale_down";
             /**
              * Format: float
              * @example 80
@@ -14907,6 +15600,1610 @@ export interface components {
             period?: "2m" | "3m" | "5m" | "10m" | "15m" | "30m" | "1h";
         };
         alert: components["schemas"]["alert_base"] & components["schemas"]["alert_updatable"];
+        /** @description A Chatbot */
+        apiChatbot: {
+            /** @example "example string" */
+            button_background_color?: string;
+            /** @example "example string" */
+            logo?: string;
+            /**
+             * @description Name of chatbot
+             * @example "example name"
+             */
+            name?: string;
+            /** @example "example string" */
+            primary_color?: string;
+            /** @example "example string" */
+            secondary_color?: string;
+            /** @example "example string" */
+            starting_message?: string;
+        };
+        /** @description Agent Chatbot Identifier */
+        apiAgentChatbotIdentifier: {
+            /**
+             * @description Agent chatbot identifier
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            agent_chatbot_identifier?: string;
+        };
+        /**
+         * @default STATUS_UNKNOWN
+         * @example STATUS_UNKNOWN
+         * @enum {string}
+         */
+        apiDeploymentStatus: "STATUS_UNKNOWN" | "STATUS_WAITING_FOR_DEPLOYMENT" | "STATUS_DEPLOYING" | "STATUS_RUNNING" | "STATUS_FAILED" | "STATUS_WAITING_FOR_UNDEPLOYMENT" | "STATUS_UNDEPLOYING" | "STATUS_UNDEPLOYMENT_FAILED" | "STATUS_DELETED";
+        /**
+         * @description - VISIBILITY_UNKNOWN: The status of the deployment is unknown
+         *      - VISIBILITY_DISABLED: The deployment is disabled and will no longer service requests
+         *      - VISIBILITY_PLAYGROUND: Deprecated: No longer a valid state
+         *      - VISIBILITY_PUBLIC: The deployment is public and will service requests from the public internet
+         *      - VISIBILITY_PRIVATE: The deployment is private and will only service requests from other agents, or through API keys
+         * @default VISIBILITY_UNKNOWN
+         * @example VISIBILITY_UNKNOWN
+         * @enum {string}
+         */
+        apiDeploymentVisibility: "VISIBILITY_UNKNOWN" | "VISIBILITY_DISABLED" | "VISIBILITY_PLAYGROUND" | "VISIBILITY_PUBLIC" | "VISIBILITY_PRIVATE";
+        /** @description Description of deployment */
+        apiDeployment: {
+            /**
+             * Format: date-time
+             * @description Creation date / time
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            /**
+             * @description Name
+             * @example "example name"
+             */
+            name?: string;
+            status?: components["schemas"]["apiDeploymentStatus"];
+            /**
+             * Format: date-time
+             * @description Last modified
+             * @example 2023-01-01T00:00:00Z
+             */
+            updated_at?: string;
+            /**
+             * @description Access your deployed agent here
+             * @example "example string"
+             */
+            url?: string;
+            /**
+             * @description Unique id
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            uuid?: string;
+            visibility?: components["schemas"]["apiDeploymentVisibility"];
+        };
+        /** @description Agreement Description */
+        apiAgreement: {
+            /** @example "example string" */
+            description?: string;
+            /** @example "example name" */
+            name?: string;
+            /** @example "example string" */
+            url?: string;
+            /** @example "123e4567-e89b-12d3-a456-426614174000" */
+            uuid?: string;
+        };
+        /**
+         * @default MODEL_PROVIDER_DIGITALOCEAN
+         * @example MODEL_PROVIDER_DIGITALOCEAN
+         * @enum {string}
+         */
+        apiModelProvider: "MODEL_PROVIDER_DIGITALOCEAN" | "MODEL_PROVIDER_ANTHROPIC";
+        /** @description Version Information about a Model */
+        apiModelVersion: {
+            /**
+             * Format: int64
+             * @description Major version number
+             * @example 123
+             */
+            major?: number;
+            /**
+             * Format: int64
+             * @description Minor version number
+             * @example 123
+             */
+            minor?: number;
+            /**
+             * Format: int64
+             * @description Patch version number
+             * @example 123
+             */
+            patch?: number;
+        };
+        /** @description Description of a Model */
+        apiModel: {
+            agreement?: components["schemas"]["apiAgreement"];
+            /**
+             * Format: date-time
+             * @description Creation date / time
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            /**
+             * @description Internally used name
+             * @example "example name"
+             */
+            inference_name?: string;
+            /**
+             * @description Internally used version
+             * @example "example string"
+             */
+            inference_version?: string;
+            /**
+             * @description True if it is a foundational model provided by do
+             * @example true
+             */
+            is_foundational?: boolean;
+            /** @description Additional meta data */
+            metadata?: Record<string, never>;
+            /**
+             * @description Name of the model
+             * @example "example name"
+             */
+            name?: string;
+            /**
+             * @description Unique id of the model, this model is based on
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            parent_uuid?: string;
+            provider?: components["schemas"]["apiModelProvider"];
+            /**
+             * Format: date-time
+             * @description Last modified
+             * @example 2023-01-01T00:00:00Z
+             */
+            updated_at?: string;
+            /**
+             * @description Model has been fully uploaded
+             * @example true
+             */
+            upload_complete?: boolean;
+            /**
+             * @description Download url
+             * @example "example string"
+             */
+            url?: string;
+            /**
+             * @description Unique id
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            uuid?: string;
+            version?: components["schemas"]["apiModelVersion"];
+        };
+        /**
+         * @default BATCH_JOB_PHASE_UNKNOWN
+         * @example BATCH_JOB_PHASE_UNKNOWN
+         * @enum {string}
+         */
+        apiBatchJobPhase: "BATCH_JOB_PHASE_UNKNOWN" | "BATCH_JOB_PHASE_PENDING" | "BATCH_JOB_PHASE_RUNNING" | "BATCH_JOB_PHASE_SUCCEEDED" | "BATCH_JOB_PHASE_FAILED" | "BATCH_JOB_PHASE_ERROR";
+        /** @description IndexingJob description */
+        apiIndexingJob: {
+            /**
+             * Format: int64
+             * @description Number of datasources indexed completed
+             * @example 123
+             */
+            completed_datasources?: number;
+            /**
+             * Format: date-time
+             * @description Creation date / time
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            /** @example [
+             *       "example string"
+             *     ] */
+            data_source_uuids?: string[];
+            /**
+             * Format: date-time
+             * @example 2023-01-01T00:00:00Z
+             */
+            finished_at?: string;
+            /**
+             * @description Knowledge base id
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            knowledge_base_uuid?: string;
+            phase?: components["schemas"]["apiBatchJobPhase"];
+            /**
+             * Format: date-time
+             * @example 2023-01-01T00:00:00Z
+             */
+            started_at?: string;
+            /**
+             * Format: int64
+             * @description Number of tokens
+             * @example 123
+             */
+            tokens?: number;
+            /**
+             * Format: int64
+             * @description Number of datasources being indexed
+             * @example 123
+             */
+            total_datasources?: number;
+            /**
+             * Format: date-time
+             * @description Last modified
+             * @example 2023-01-01T00:00:00Z
+             */
+            updated_at?: string;
+            /**
+             * @description Unique id
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            uuid?: string;
+        };
+        /** @description Knowledgebase Description */
+        apiKnowledgeBase: {
+            /**
+             * Format: date-time
+             * @description Time when the knowledge base was added to the agent
+             * @example 2023-01-01T00:00:00Z
+             */
+            added_to_agent_at?: string;
+            /**
+             * Format: date-time
+             * @description Creation date / time
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            /** @example "123e4567-e89b-12d3-a456-426614174000" */
+            database_id?: string;
+            /** @example "123e4567-e89b-12d3-a456-426614174000" */
+            embedding_model_uuid?: string;
+            /**
+             * @description Whether the knowledge base is public or not
+             * @example true
+             */
+            is_public?: boolean;
+            last_indexing_job?: components["schemas"]["apiIndexingJob"];
+            /**
+             * @description Name of knowledge base
+             * @example "example name"
+             */
+            name?: string;
+            /** @example "123e4567-e89b-12d3-a456-426614174000" */
+            project_id?: string;
+            /**
+             * @description Region code
+             * @example "example string"
+             */
+            region?: string;
+            /**
+             * @description Tags to organize related resources
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            tags?: string[];
+            /**
+             * Format: date-time
+             * @description Last modified
+             * @example 2023-01-01T00:00:00Z
+             */
+            updated_at?: string;
+            /**
+             * Format: int64
+             * @description Id of user that created the knowledge base
+             * @example "12345"
+             */
+            user_id?: string;
+            /**
+             * @description Unique id for knowledge base
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            uuid?: string;
+        };
+        /** @description Represents an AgentTemplate entity */
+        apiAgentTemplate: {
+            /**
+             * Format: date-time
+             * @description The agent template's creation date
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            /**
+             * @description Description of the agent template
+             * @example "example string"
+             */
+            description?: string;
+            /**
+             * @description Instructions for the agent template
+             * @example "example string"
+             */
+            instruction?: string;
+            /**
+             * Format: int64
+             * @description The 'k' value for the agent template
+             * @example 123
+             */
+            k?: number;
+            /** @description List of knowledge bases associated with the agent template */
+            knowledge_bases?: components["schemas"]["apiKnowledgeBase"][];
+            /**
+             * Format: int64
+             * @description The max_tokens setting for the agent template
+             * @example 123
+             */
+            max_tokens?: number;
+            model?: components["schemas"]["apiModel"];
+            /**
+             * @description Name of the agent template
+             * @example "example name"
+             */
+            name?: string;
+            /**
+             * Format: float
+             * @description The temperature setting for the agent template
+             * @example 123
+             */
+            temperature?: number;
+            /**
+             * Format: float
+             * @description The top_p setting for the agent template
+             * @example 123
+             */
+            top_p?: number;
+            /**
+             * Format: date-time
+             * @description The agent template's last updated date
+             * @example 2023-01-01T00:00:00Z
+             */
+            updated_at?: string;
+            /**
+             * @description Unique id
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            uuid?: string;
+        };
+        /** @description A GenAI Agent's configuration */
+        apiAgentPublic: {
+            chatbot?: components["schemas"]["apiChatbot"];
+            /** @description Chatbot identifiers */
+            chatbot_identifiers?: components["schemas"]["apiAgentChatbotIdentifier"][];
+            /**
+             * Format: date-time
+             * @description Creation date / time
+             * @example 2021-01-01T00:00:00Z
+             */
+            created_at?: string;
+            deployment?: components["schemas"]["apiDeployment"];
+            /**
+             * @description Description of agent
+             * @example This is a chatbot that can help you with your questions.
+             */
+            description?: string;
+            /**
+             * @description Instructions to the agent on how to use the route
+             * @example if talking about the weather use this route
+             */
+            if_case?: string;
+            /**
+             * @description Agent instruction. Instructions help your agent to perform its job effectively. See [Write Effective Agent Instructions](https://docs.digitalocean.com/products/genai-platform/concepts/best-practices/#agent-instructions) for best practices.
+             * @example Hello, how can I help you?
+             */
+            instruction?: string;
+            /**
+             * Format: int64
+             * @description How many results should be considered from an attached knowledge base
+             * @example 5
+             */
+            k?: number;
+            /**
+             * Format: int64
+             * @description Specifies the maximum number of tokens the model can process in a single input or output, set as a number between 1 and 512. This determines the length of each response.
+             * @example 100
+             */
+            max_tokens?: number;
+            model?: components["schemas"]["apiModel"];
+            /**
+             * @description Agent name
+             * @example My Agent
+             */
+            name?: string;
+            /**
+             * @description The DigitalOcean project ID associated with the agent
+             * @example 12345678-1234-1234-1234-123456789012
+             */
+            project_id?: string;
+            /**
+             * @description Region code
+             * @example "tor1"
+             */
+            region?: string;
+            /**
+             * Format: date-time
+             * @description Creation of route date / time
+             * @example 2021-01-01T00:00:00Z
+             */
+            route_created_at?: string;
+            /**
+             * Format: uint64
+             * @description Id of user that created the route
+             * @example 12345678
+             */
+            route_created_by?: string;
+            /**
+             * @description Route name
+             * @example Route Name
+             */
+            route_name?: string;
+            /**
+             * @description Route uuid
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            route_uuid?: string;
+            /**
+             * @description A set of abitrary tags to organize your agent
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            tags?: string[];
+            /**
+             * Format: float
+             * @description Controls the model’s creativity, specified as a number between 0 and 1. Lower values produce more predictable and conservative responses, while higher values encourage creativity and variation.
+             * @example 0.5
+             */
+            temperature?: number;
+            template?: components["schemas"]["apiAgentTemplate"];
+            /**
+             * Format: float
+             * @description Defines the cumulative probability threshold for word selection, specified as a number between 0 and 1. Higher values allow for more diverse outputs, while lower values ensure focused and coherent responses.
+             * @example 0.9
+             */
+            top_p?: number;
+            /**
+             * Format: date-time
+             * @description Last modified
+             * @example 2021-01-01T00:00:00Z
+             */
+            updated_at?: string;
+            /**
+             * @description Access your agent under this url
+             * @example https://example.com/agent
+             */
+            url?: string;
+            /**
+             * Format: uint64
+             * @description Id of user that created the agent
+             * @example 12345678
+             */
+            user_id?: string;
+            /**
+             * @description Unique agent id
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            uuid?: string;
+        };
+        /** @description Information about how to reach other pages */
+        apiPages: {
+            /**
+             * @description First page
+             * @example "example string"
+             */
+            first?: string;
+            /**
+             * @description Last page
+             * @example "example string"
+             */
+            last?: string;
+            /**
+             * @description Next page
+             * @example "example string"
+             */
+            next?: string;
+            /**
+             * @description Previous page
+             * @example "example string"
+             */
+            previous?: string;
+        };
+        /** @description Links to other pages */
+        apiLinks: {
+            pages?: components["schemas"]["apiPages"];
+        };
+        /** @description Meta information about the data set */
+        apiMeta: {
+            /**
+             * Format: int64
+             * @description The current page
+             * @example 123
+             */
+            page?: number;
+            /**
+             * Format: int64
+             * @description Total number of pages
+             * @example 123
+             */
+            pages?: number;
+            /**
+             * Format: int64
+             * @description Total amount of items over all pages
+             * @example 123
+             */
+            total?: number;
+        };
+        /** @description List of Agents */
+        apiListAgentsOutputPublic: {
+            /** @description Agents */
+            agents?: components["schemas"]["apiAgentPublic"][];
+            links?: components["schemas"]["apiLinks"];
+            meta?: components["schemas"]["apiMeta"];
+        };
+        /** @description Parameters for Agent Creation */
+        apiCreateAgentInputPublic: {
+            /**
+             * @description A text description of the agent, not used in inference
+             * @example "My Agent Description"
+             */
+            description?: string;
+            /**
+             * @description Agent instruction. Instructions help your agent to perform its job effectively. See [Write Effective Agent Instructions](https://docs.digitalocean.com/products/genai-platform/concepts/best-practices/#agent-instructions) for best practices.
+             * @example "You are an agent who thinks deeply about the world"
+             */
+            instruction?: string;
+            /**
+             * @description Ids of the knowledge base(s) to attach to the agent
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            knowledge_base_uuid?: string[];
+            /**
+             * @description Identifier for the foundation model.
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            model_uuid?: string;
+            /**
+             * @description Agent name
+             * @example "My Agent"
+             */
+            name?: string;
+            /**
+             * @description The id of the DigitalOcean project this agent will belong to
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            project_id?: string;
+            /**
+             * @description The DigitalOcean region to deploy your agent in
+             * @example "tor1"
+             */
+            region?: string;
+            /**
+             * @description Agent tag to organize related resources
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            tags?: string[];
+        };
+        /** @description Anthropic API Key Info */
+        apiAnthropicAPIKeyInfo: {
+            /**
+             * Format: date-time
+             * @description Key creation date
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            /**
+             * Format: uint64
+             * @description Created by user id from DO
+             * @example "12345"
+             */
+            created_by?: string;
+            /**
+             * Format: date-time
+             * @description Key deleted date
+             * @example 2023-01-01T00:00:00Z
+             */
+            deleted_at?: string;
+            /**
+             * @description Name
+             * @example "example name"
+             */
+            name?: string;
+            /**
+             * Format: date-time
+             * @description Key last updated date
+             * @example 2023-01-01T00:00:00Z
+             */
+            updated_at?: string;
+            /**
+             * @description Uuid
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            uuid?: string;
+        };
+        /** @description Agent API Key Info */
+        apiAgentAPIKeyInfo: {
+            /**
+             * Format: date-time
+             * @description Creation date
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            /**
+             * Format: uint64
+             * @description Created by
+             * @example "12345"
+             */
+            created_by?: string;
+            /**
+             * Format: date-time
+             * @description Deleted date
+             * @example 2023-01-01T00:00:00Z
+             */
+            deleted_at?: string;
+            /**
+             * @description Name
+             * @example "example name"
+             */
+            name?: string;
+            /** @example "example string" */
+            secret_key?: string;
+            /**
+             * @description Uuid
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            uuid?: string;
+        };
+        /** @description Agent API Key */
+        apiAgentAPIKey: {
+            /**
+             * @description Api key
+             * @example "example string"
+             */
+            api_key?: string;
+        };
+        /** @description An Agent */
+        apiAgent: {
+            anthropic_api_key?: components["schemas"]["apiAnthropicAPIKeyInfo"];
+            /** @description Api key infos */
+            api_key_infos?: components["schemas"]["apiAgentAPIKeyInfo"][];
+            /** @description Api keys */
+            api_keys?: components["schemas"]["apiAgentAPIKey"][];
+            chatbot?: components["schemas"]["apiChatbot"];
+            /** @description Chatbot identifiers */
+            chatbot_identifiers?: components["schemas"]["apiAgentChatbotIdentifier"][];
+            /** @description Child agents */
+            child_agents?: components["schemas"]["apiAgent"][];
+            /**
+             * Format: date-time
+             * @description Creation date / time
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            deployment?: components["schemas"]["apiDeployment"];
+            /**
+             * @description Description of agent
+             * @example "example string"
+             */
+            description?: string;
+            functions?: components["schemas"]["apiAgentFunction"][];
+            /** @description The guardrails the agent is attached to */
+            guardrails?: components["schemas"]["apiAgentGuardrail"][];
+            /** @example "example string" */
+            if_case?: string;
+            /**
+             * @description Agent instruction. Instructions help your agent to perform its job effectively. See [Write Effective Agent Instructions](https://docs.digitalocean.com/products/genai-platform/concepts/best-practices/#agent-instructions) for best practices.
+             * @example "example string"
+             */
+            instruction?: string;
+            /**
+             * Format: int64
+             * @example 123
+             */
+            k?: number;
+            /** @description Knowledge bases */
+            knowledge_bases?: components["schemas"]["apiKnowledgeBase"][];
+            /**
+             * Format: int64
+             * @example 123
+             */
+            max_tokens?: number;
+            model?: components["schemas"]["apiModel"];
+            /**
+             * @description Agent name
+             * @example "example name"
+             */
+            name?: string;
+            /** @description Parent agents */
+            parent_agents?: components["schemas"]["apiAgent"][];
+            /** @example "123e4567-e89b-12d3-a456-426614174000" */
+            project_id?: string;
+            /**
+             * @description Region code
+             * @example "example string"
+             */
+            region?: string;
+            /**
+             * Format: date-time
+             * @description Creation of route date / time
+             * @example 2023-01-01T00:00:00Z
+             */
+            route_created_at?: string;
+            /**
+             * Format: uint64
+             * @example "12345"
+             */
+            route_created_by?: string;
+            /**
+             * @description Route name
+             * @example "example name"
+             */
+            route_name?: string;
+            /** @example "123e4567-e89b-12d3-a456-426614174000" */
+            route_uuid?: string;
+            /**
+             * @description Agent tag to organize related resources
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            tags?: string[];
+            /**
+             * Format: float
+             * @example 123
+             */
+            temperature?: number;
+            template?: components["schemas"]["apiAgentTemplate"];
+            /**
+             * Format: float
+             * @example 123
+             */
+            top_p?: number;
+            /**
+             * Format: date-time
+             * @description Last modified
+             * @example 2023-01-01T00:00:00Z
+             */
+            updated_at?: string;
+            /**
+             * @description Access your agent under this url
+             * @example "example string"
+             */
+            url?: string;
+            /**
+             * Format: uint64
+             * @description Id of user that created the agent
+             * @example "12345"
+             */
+            user_id?: string;
+            /**
+             * @description Unique agent id
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            uuid?: string;
+        };
+        /** @description Description missing */
+        apiAgentFunction: {
+            /**
+             * @description Api key
+             * @example "example string"
+             */
+            api_key?: string;
+            /**
+             * Format: date-time
+             * @description Creation date / time
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            /**
+             * @description Agent description
+             * @example "example string"
+             */
+            description?: string;
+            /** @example "example name" */
+            faas_name?: string;
+            /** @example "example name" */
+            faas_namespace?: string;
+            input_schema?: Record<string, never>;
+            /**
+             * @description Name
+             * @example "example name"
+             */
+            name?: string;
+            output_schema?: Record<string, never>;
+            /**
+             * Format: date-time
+             * @description Last modified
+             * @example 2023-01-01T00:00:00Z
+             */
+            updated_at?: string;
+            /**
+             * @description Download your agent here
+             * @example "example string"
+             */
+            url?: string;
+            /**
+             * @description Unique id
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            uuid?: string;
+        };
+        /**
+         * @default GUARDRAIL_TYPE_UNKNOWN
+         * @example GUARDRAIL_TYPE_UNKNOWN
+         * @enum {string}
+         */
+        apiGuardrailType: "GUARDRAIL_TYPE_UNKNOWN" | "GUARDRAIL_TYPE_JAILBREAK" | "GUARDRAIL_TYPE_SENSITIVE_DATA" | "GUARDRAIL_TYPE_CONTENT_MODERATION";
+        /** @description A Agent Guardrail */
+        apiAgentGuardrail: {
+            /** @example "123e4567-e89b-12d3-a456-426614174000" */
+            agent_uuid?: string;
+            /**
+             * Format: date-time
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            /** @example "example string" */
+            default_response?: string;
+            /** @example "example string" */
+            description?: string;
+            /** @example "123e4567-e89b-12d3-a456-426614174000" */
+            guardrail_uuid?: string;
+            /** @example true */
+            is_attached?: boolean;
+            /** @example true */
+            is_default?: boolean;
+            metadata?: Record<string, never>;
+            /** @example "example name" */
+            name?: string;
+            /**
+             * Format: int32
+             * @example 123
+             */
+            priority?: number;
+            type?: components["schemas"]["apiGuardrailType"];
+            /**
+             * Format: date-time
+             * @example 2023-01-01T00:00:00Z
+             */
+            updated_at?: string;
+            /** @example "123e4567-e89b-12d3-a456-426614174000" */
+            uuid?: string;
+        };
+        /** @description Information about a newly created Agent */
+        apiCreateAgentOutput: {
+            agent?: components["schemas"]["apiAgent"];
+        };
+        apiListAgentAPIKeysOutput: {
+            /** @description Api key infos */
+            api_key_infos?: components["schemas"]["apiAgentAPIKeyInfo"][];
+            links?: components["schemas"]["apiLinks"];
+            meta?: components["schemas"]["apiMeta"];
+        };
+        apiCreateAgentAPIKeyInputPublic: {
+            /**
+             * @description Agent id
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            agent_uuid?: string;
+            /**
+             * @description A human friendly name to identify the key
+             * @example Production Key
+             */
+            name?: string;
+        };
+        apiCreateAgentAPIKeyOutput: {
+            api_key_info?: components["schemas"]["apiAgentAPIKeyInfo"];
+        };
+        apiUpdateAgentAPIKeyInputPublic: {
+            /**
+             * @description Agent id
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            agent_uuid?: string;
+            /**
+             * @description Api key id
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            api_key_uuid?: string;
+            /**
+             * @description Name
+             * @example "Production Key"
+             */
+            name?: string;
+        };
+        apiUpdateAgentAPIKeyOutput: {
+            api_key_info?: components["schemas"]["apiAgentAPIKeyInfo"];
+        };
+        apiDeleteAgentAPIKeyOutput: {
+            api_key_info?: components["schemas"]["apiAgentAPIKeyInfo"];
+        };
+        apiRegenerateAgentAPIKeyOutput: {
+            api_key_info?: components["schemas"]["apiAgentAPIKeyInfo"];
+        };
+        /** @description Information for a agent function link */
+        apiLinkAgentFunctionInputPublic: {
+            /**
+             * @description Agent id
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            agent_uuid?: string;
+            /**
+             * @description Function description
+             * @example "My Function Description"
+             */
+            description?: string;
+            /**
+             * @description The name of the function in the DigitalOcean functions platform
+             * @example "my-function"
+             */
+            faas_name?: string;
+            /**
+             * @description The namespace of the function in the DigitalOcean functions platform
+             * @example "default"
+             */
+            faas_namespace?: string;
+            /**
+             * @description Function name
+             * @example "My Function"
+             */
+            function_name?: string;
+            /** @description Describe the input schema for the function so the agent may call it */
+            input_schema?: Record<string, never>;
+            /** @description Describe the output schema for the function so the agent handle its response */
+            output_schema?: Record<string, never>;
+        };
+        /** @description Information about a newly function linked agent */
+        apiLinkAgentFunctionOutput: {
+            agent?: components["schemas"]["apiAgent"];
+        };
+        /** @description Information about updating an agent function */
+        apiUpdateAgentFunctionInputPublic: {
+            /**
+             * @description Agent id
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            agent_uuid?: string;
+            /**
+             * @description Funciton description
+             * @example "My Function Description"
+             */
+            description?: string;
+            /**
+             * @description The name of the function in the DigitalOcean functions platform
+             * @example "my-function"
+             */
+            faas_name?: string;
+            /**
+             * @description The namespace of the function in the DigitalOcean functions platform
+             * @example "default"
+             */
+            faas_namespace?: string;
+            /**
+             * @description Function name
+             * @example "My Function"
+             */
+            function_name?: string;
+            /**
+             * @description Function id
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            function_uuid?: string;
+            /** @description Describe the input schema for the function so the agent may call it */
+            input_schema?: Record<string, never>;
+            /** @description Describe the output schema for the function so the agent handle its response */
+            output_schema?: Record<string, never>;
+        };
+        /** @description The updated agent */
+        apiUpdateAgentFunctionOutput: {
+            agent?: components["schemas"]["apiAgent"];
+        };
+        /** @description Information about a newly unlinked agent */
+        apiUnlinkAgentFunctionOutput: {
+            agent?: components["schemas"]["apiAgent"];
+        };
+        /** @description Information about a linked knowledge base */
+        apiLinkKnowledgeBaseOutput: {
+            agent?: components["schemas"]["apiAgent"];
+        };
+        /** @description Informatinon about a unlinked knowledge base */
+        apiUnlinkKnowledgeBaseOutput: {
+            agent?: components["schemas"]["apiAgent"];
+        };
+        /** @description Information about updating the linkage of an agent */
+        apiUpdateLinkedAgentInputPublic: {
+            /**
+             * @description Routed agent id
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            child_agent_uuid?: string;
+            /**
+             * @description Describes the case in which the child agent should be used
+             * @example "use this to get weather information"
+             */
+            if_case?: string;
+            /**
+             * @description A unique identifier for the parent agent.
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            parent_agent_uuid?: string;
+            /**
+             * @description Route name
+             * @example "weather_route"
+             */
+            route_name?: string;
+            /**
+             * @description Unique id of linkage
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            uuid?: string;
+        };
+        /** @description Information about an updated linkage */
+        apiUpdateLinkedAgentOutput: {
+            /**
+             * @description Routed agent id
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            child_agent_uuid?: string;
+            /**
+             * @description A unique identifier for the parent agent.
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            parent_agent_uuid?: string;
+            /**
+             * @description Unique id of linkage
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            uuid?: string;
+        };
+        /** @description Information for linking an agent */
+        apiLinkAgentInputPublic: {
+            /**
+             * @description Routed agent id
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            child_agent_uuid?: string;
+            /** @example "use this to get weather information" */
+            if_case?: string;
+            /**
+             * @description A unique identifier for the parent agent.
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            parent_agent_uuid?: string;
+            /**
+             * @description Name of route
+             * @example "weather_route"
+             */
+            route_name?: string;
+        };
+        /** @description Information about a newly linked agent */
+        apiLinkAgentOutput: {
+            /**
+             * @description Routed agent id
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            child_agent_uuid?: string;
+            /**
+             * @description A unique identifier for the parent agent.
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            parent_agent_uuid?: string;
+        };
+        /** @description Information about a removed linkage */
+        apiUnlinkAgentOutput: {
+            /**
+             * @description Routed agent id
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            child_agent_uuid?: string;
+            /**
+             * @description Pagent agent id
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            parent_agent_uuid?: string;
+        };
+        /** @description One Agent */
+        apiGetAgentOutputPublic: {
+            agent?: components["schemas"]["apiAgentPublic"];
+        };
+        /** @description Data to modify an existing Agent */
+        apiUpdateAgentInputPublic: {
+            /**
+             * @description Agent description
+             * @example "My Agent Description"
+             */
+            description?: string;
+            /**
+             * @description Agent instruction. Instructions help your agent to perform its job effectively. See [Write Effective Agent Instructions](https://docs.digitalocean.com/products/genai-platform/concepts/best-practices/#agent-instructions) for best practices.
+             * @example "You are an agent who thinks deeply about the world"
+             */
+            instruction?: string;
+            /**
+             * Format: int64
+             * @description How many results should be considered from an attached knowledge base
+             * @example 5
+             */
+            k?: number;
+            /**
+             * Format: int64
+             * @description Specifies the maximum number of tokens the model can process in a single input or output, set as a number between 1 and 512. This determines the length of each response.
+             * @example 100
+             */
+            max_tokens?: number;
+            /**
+             * @description Identifier for the foundation model.
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            model_uuid?: string;
+            /**
+             * @description Agent name
+             * @example "My New Agent Name"
+             */
+            name?: string;
+            /**
+             * @description The id of the DigitalOcean project this agent will belong to
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            project_id?: string;
+            /**
+             * @description A set of abitrary tags to organize your agent
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            tags?: string[];
+            /**
+             * Format: float
+             * @description Controls the model’s creativity, specified as a number between 0 and 1. Lower values produce more predictable and conservative responses, while higher values encourage creativity and variation.
+             * @example 0.7
+             */
+            temperature?: number;
+            /**
+             * Format: float
+             * @description Defines the cumulative probability threshold for word selection, specified as a number between 0 and 1. Higher values allow for more diverse outputs, while lower values ensure focused and coherent responses.
+             * @example 0.9
+             */
+            top_p?: number;
+            /**
+             * @description Unique agent id
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            uuid?: string;
+        };
+        /** @description Information about an updated agent */
+        apiUpdateAgentOutput: {
+            agent?: components["schemas"]["apiAgent"];
+        };
+        /** @description Info about a deleted agent */
+        apiDeleteAgentOutput: {
+            agent?: components["schemas"]["apiAgent"];
+        };
+        /** @description Child list for an agent */
+        apiGetChildrenOutput: {
+            /** @description Child agents */
+            children?: components["schemas"]["apiAgent"][];
+        };
+        /** @description UpdateAgentDeploymentVisibilityInputPublic description */
+        apiUpdateAgentDeploymentVisibilityInputPublic: {
+            /**
+             * @description Unique id
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            uuid?: string;
+            visibility?: components["schemas"]["apiDeploymentVisibility"];
+        };
+        /** @description UpdateAgentDeploymentVisbilityOutput description */
+        apiUpdateAgentDeploymentVisbilityOutput: {
+            agent?: components["schemas"]["apiAgent"];
+        };
+        /** @description Indexing jobs */
+        apiListKnowledgeBaseIndexingJobsOutput: {
+            /** @description The indexing jobs */
+            jobs?: components["schemas"]["apiIndexingJob"][];
+            links?: components["schemas"]["apiLinks"];
+            meta?: components["schemas"]["apiMeta"];
+        };
+        /** @description StartKnowledgeBaseIndexingJobInputPublic description */
+        apiStartKnowledgeBaseIndexingJobInputPublic: {
+            /**
+             * @description List of data source ids to index, if none are provided, all data sources will be indexed
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            data_source_uuids?: string[];
+            /**
+             * @description Knowledge base id
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            knowledge_base_uuid?: string;
+        };
+        /** @description StartKnowledgeBaseIndexingJobOutput description */
+        apiStartKnowledgeBaseIndexingJobOutput: {
+            job?: components["schemas"]["apiIndexingJob"];
+        };
+        apiIndexedDataSource: {
+            /**
+             * Format: date-time
+             * @description Timestamp when data source completed indexing
+             * @example 2023-01-01T00:00:00Z
+             */
+            completed_at?: string;
+            /**
+             * @description Uuid of the indexed data source
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            data_source_uuid?: string;
+            /**
+             * Format: uint64
+             * @description Total count of files that have been indexed
+             * @example "12345"
+             */
+            indexed_file_count?: string;
+            /**
+             * Format: date-time
+             * @description Timestamp when data source started indexing
+             * @example 2023-01-01T00:00:00Z
+             */
+            started_at?: string;
+            /**
+             * Format: uint64
+             * @description Total size of files in data source in bytes
+             * @example "12345"
+             */
+            total_bytes?: string;
+            /**
+             * Format: uint64
+             * @description Total size of files in data source in bytes that have been indexed
+             * @example "12345"
+             */
+            total_bytes_indexed?: string;
+            /**
+             * Format: uint64
+             * @description Total file count in the data source
+             * @example "12345"
+             */
+            total_file_count?: string;
+        };
+        apiListIndexingJobDataSourcesOutput: {
+            indexed_data_sources?: components["schemas"]["apiIndexedDataSource"][];
+        };
+        /** @description GetKnowledgeBaseIndexingJobOutput description */
+        apiGetKnowledgeBaseIndexingJobOutput: {
+            job?: components["schemas"]["apiIndexingJob"];
+        };
+        /** @description CancelKnowledgeBaseIndexingJobInputPublic description */
+        apiCancelKnowledgeBaseIndexingJobInputPublic: {
+            /**
+             * @description A unique identifier for an indexing job.
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            uuid?: string;
+        };
+        /** @description CancelKnowledgeBaseIndexingJobOutput description */
+        apiCancelKnowledgeBaseIndexingJobOutput: {
+            job?: components["schemas"]["apiIndexingJob"];
+        };
+        /** @description List of knowledge bases */
+        apiListKnowledgeBasesOutput: {
+            /** @description The knowledge bases */
+            knowledge_bases?: components["schemas"]["apiKnowledgeBase"][];
+            links?: components["schemas"]["apiLinks"];
+            meta?: components["schemas"]["apiMeta"];
+        };
+        /** @description File to upload as data source for knowledge base. */
+        apiFileUploadDataSource: {
+            /**
+             * @description The original file name
+             * @example "example name"
+             */
+            original_file_name?: string;
+            /**
+             * Format: uint64
+             * @description The size of the file in bytes
+             * @example "12345"
+             */
+            size_in_bytes?: string;
+            /**
+             * @description The object key the file was stored as
+             * @example "example string"
+             */
+            stored_object_key?: string;
+        };
+        /** @description Spaces Bucket Data Source */
+        apiSpacesDataSource: {
+            /**
+             * @description Spaces bucket name
+             * @example "example name"
+             */
+            bucket_name?: string;
+            /** @example "example string" */
+            item_path?: string;
+            /**
+             * @description Region of bucket
+             * @example "example string"
+             */
+            region?: string;
+        };
+        apiKBDataSource: {
+            /**
+             * @description Deprecated, moved to data_source_details
+             * @example "example name"
+             */
+            bucket_name?: string;
+            /**
+             * @description Deprecated, moved to data_source_details
+             * @example "example string"
+             */
+            bucket_region?: string;
+            file_upload_data_source?: components["schemas"]["apiFileUploadDataSource"];
+            /** @example "example string" */
+            item_path?: string;
+            spaces_data_source?: components["schemas"]["apiSpacesDataSource"];
+        };
+        /** @description Data to create a new knowledge base. */
+        apiCreateKnowledgeBaseInputPublic: {
+            /**
+             * @description Identifier of the DigitalOcean OpenSearch database this knowledge base will use, optional.
+             *     If not provided, we create a new database for the knowledge base in
+             *     the same region as the knowledge base.
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            database_id?: string;
+            /** @description The data sources to use for this knowledge base. See [Organize Data Sources](https://docs.digitalocean.com/products/genai-platform/concepts/best-practices/#spaces-buckets) for more information on data sources best practices. */
+            datasources?: components["schemas"]["apiKBDataSource"][];
+            /**
+             * @description Identifier for the [embedding model](https://docs.digitalocean.com/products/genai-platform/details/models/#embedding-models).
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            embedding_model_uuid?: string;
+            /**
+             * @description Name of the knowledge base.
+             * @example "My Knowledge Base"
+             */
+            name?: string;
+            /**
+             * @description Identifier of the DigitalOcean project this knowledge base will belong to.
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            project_id?: string;
+            /**
+             * @description The datacenter region to deploy the knowledge base in.
+             * @example "tor1"
+             */
+            region?: string;
+            /**
+             * @description Tags to organize your knowledge base.
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            tags?: string[];
+            /**
+             * @description The VPC to deploy the knowledge base database in
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            vpc_uuid?: string;
+        };
+        /** @description Information about a newly created knowledge base */
+        apiCreateKnowledgeBaseOutput: {
+            knowledge_base?: components["schemas"]["apiKnowledgeBase"];
+        };
+        /** @description Data Source configuration for Knowledge Bases */
+        apiKnowledgeBaseDataSource: {
+            /**
+             * @description Name of storage bucket - Deprecated, moved to data_source_details
+             * @example "example name"
+             */
+            bucket_name?: string;
+            /**
+             * Format: date-time
+             * @description Creation date / time
+             * @example 2023-01-01T00:00:00Z
+             */
+            created_at?: string;
+            file_upload_data_source?: components["schemas"]["apiFileUploadDataSource"];
+            /**
+             * @description Path of folder or object in bucket - Deprecated, moved to data_source_details
+             * @example "example string"
+             */
+            item_path?: string;
+            last_indexing_job?: components["schemas"]["apiIndexingJob"];
+            /**
+             * @description Region code - Deprecated, moved to data_source_details
+             * @example "example string"
+             */
+            region?: string;
+            spaces_data_source?: components["schemas"]["apiSpacesDataSource"];
+            /**
+             * Format: date-time
+             * @description Last modified
+             * @example 2023-01-01T00:00:00Z
+             */
+            updated_at?: string;
+            /**
+             * @description Unique id of knowledge base
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            uuid?: string;
+        };
+        /** @description A list of knowledge base data sources */
+        apiListKnowledgeBaseDataSourcesOutput: {
+            /** @description The data sources */
+            knowledge_base_data_sources?: components["schemas"]["apiKnowledgeBaseDataSource"][];
+            links?: components["schemas"]["apiLinks"];
+            meta?: components["schemas"]["apiMeta"];
+        };
+        /** @description Data to create a knowledge base data source */
+        apiCreateKnowledgeBaseDataSourceInputPublic: {
+            file_upload_data_source?: components["schemas"]["apiFileUploadDataSource"];
+            /**
+             * @description Knowledge base id
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            knowledge_base_uuid?: string;
+            spaces_data_source?: components["schemas"]["apiSpacesDataSource"];
+        };
+        /** @description Information about a newly created knowldege base data source */
+        apiCreateKnowledgeBaseDataSourceOutput: {
+            knowledge_base_data_source?: components["schemas"]["apiKnowledgeBaseDataSource"];
+        };
+        /** @description Information about a newly deleted knowledge base data source */
+        apiDeleteKnowledgeBaseDataSourceOutput: {
+            /**
+             * @description Data source id
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            data_source_uuid?: string;
+            /**
+             * @description Knowledge base id
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            knowledge_base_uuid?: string;
+        };
+        /**
+         * @default CREATING
+         * @example CREATING
+         * @enum {string}
+         */
+        dbaasClusterStatus: "CREATING" | "ONLINE" | "POWEROFF" | "REBUILDING" | "REBALANCING" | "DECOMMISSIONED" | "FORKING" | "MIGRATING" | "RESIZING" | "RESTORING" | "POWERING_ON" | "UNHEALTHY";
+        /** @description The knowledge base */
+        apiGetKnowledgeBaseOutput: {
+            database_status?: components["schemas"]["dbaasClusterStatus"];
+            knowledge_base?: components["schemas"]["apiKnowledgeBase"];
+        };
+        /** @description Information about updating a knowledge base */
+        apiUpdateKnowledgeBaseInputPublic: {
+            /**
+             * @description The id of the DigitalOcean database this knowledge base will use, optiona.
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            database_id?: string;
+            /**
+             * @description Identifier for the foundation model.
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            embedding_model_uuid?: string;
+            /**
+             * @description Knowledge base name
+             * @example "My Knowledge Base"
+             */
+            name?: string;
+            /**
+             * @description The id of the DigitalOcean project this knowledge base will belong to
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            project_id?: string;
+            /**
+             * @description Tags to organize your knowledge base.
+             * @example [
+             *       "example string"
+             *     ]
+             */
+            tags?: string[];
+            /**
+             * @description Knowledge base id
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            uuid?: string;
+        };
+        /** @description Information about an updated knowledge base */
+        apiUpdateKnowledgeBaseOutput: {
+            knowledge_base?: components["schemas"]["apiKnowledgeBase"];
+        };
+        /** @description Information about a deleted knowledge base */
+        apiDeleteKnowledgeBaseOutput: {
+            /**
+             * @description The id of the deleted knowledge base
+             * @example "123e4567-e89b-12d3-a456-426614174000"
+             */
+            uuid?: string;
+        };
+        /** @description A machine learning model stored on the GenAI platform */
+        apiModelPublic: {
+            agreement?: components["schemas"]["apiAgreement"];
+            /**
+             * Format: date-time
+             * @description Creation date / time
+             * @example 2021-01-01T00:00:00Z
+             */
+            created_at?: string;
+            /**
+             * @description True if it is a foundational model provided by do
+             * @example true
+             */
+            is_foundational?: boolean;
+            /**
+             * @description Name of the model
+             * @example Llama 3.3 (70b)
+             */
+            name?: string;
+            /**
+             * @description Unique id of the model, this model is based on
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            parent_uuid?: string;
+            /**
+             * Format: date-time
+             * @description Last modified
+             * @example 2021-01-01T00:00:00Z
+             */
+            updated_at?: string;
+            /**
+             * @description Model has been fully uploaded
+             * @example true
+             */
+            upload_complete?: boolean;
+            /**
+             * @description Download url
+             * @example https://example.com/model.zip
+             */
+            url?: string;
+            /**
+             * @description Unique id
+             * @example "12345678-1234-1234-1234-123456789012"
+             */
+            uuid?: string;
+            version?: components["schemas"]["apiModelVersion"];
+        };
+        /** @description A list of models */
+        apiListModelsOutputPublic: {
+            links?: components["schemas"]["apiLinks"];
+            meta?: components["schemas"]["apiMeta"];
+            /** @description The models */
+            models?: components["schemas"]["apiModelPublic"][];
+        };
+        /** @description Description for a specific Region */
+        genaiapiRegion: {
+            /**
+             * @description Url for inference server
+             * @example "example string"
+             */
+            inference_url?: string;
+            /**
+             * @description Region code
+             * @example "example string"
+             */
+            region?: string;
+            /**
+             * @description This datacenter is capable of running batch jobs
+             * @example true
+             */
+            serves_batch?: boolean;
+            /**
+             * @description This datacenter is capable of serving inference
+             * @example true
+             */
+            serves_inference?: boolean;
+            /**
+             * @description The url for the inference streaming server
+             * @example "example string"
+             */
+            stream_inference_url?: string;
+        };
+        /** @description Region Codes */
+        apiListRegionsOutput: {
+            /** @description Region code */
+            regions?: components["schemas"]["genaiapiRegion"][];
+        };
     };
     responses: {
         /** @description Unexpected error */
@@ -18215,6 +20512,11 @@ export interface components {
          * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
          */
         parameters_load_balancer_id: string;
+        /**
+         * @description A unique identifier for an autoscale pool.
+         * @example 0d3db13e-a604-4944-9827-7ec2642d32ac
+         */
+        parameters_autoscale_pool_id: string;
         /**
          * @description A unique identifier for a destination.
          * @example 1a64809f-1708-48ee-a742-dec8d481b8d1
@@ -24547,6 +26849,29 @@ export interface operations {
             default: components["responses"]["unexpected_error"];
         };
     };
+    loadBalancers_delete_cache: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for a load balancer.
+                 * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+                 */
+                lb_id: components["parameters"]["load_balancer_id"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
     loadBalancers_add_droplets: {
         parameters: {
             query?: never;
@@ -24743,6 +27068,14 @@ export interface operations {
          *     `v1/dbaas/alerts/memory_utilization_alerts` | alert on the percent memory utilization average across the database cluster | database cluster UUID
          *     `v1/dbaas/alerts/disk_utilization_alerts` | alert on the percent disk utilization average across the database cluster | database cluster UUID
          *     `v1/dbaas/alerts/cpu_alerts` | alert on the percent CPU usage average across the database cluster | database cluster UUID
+         *     `v1/droplet/autoscale_alerts/current_instances` | alert on current pool size | autoscale pool ID
+         *     `v1/droplet/autoscale_alerts/target_instances` | alert on target pool size | autoscale pool ID
+         *     `v1/droplet/autoscale_alerts/current_cpu_utilization` | alert on current average CPU utilization | autoscale pool ID
+         *     `v1/droplet/autoscale_alerts/target_cpu_utilization` | alert on target average CPU utilization | autoscale pool ID
+         *     `v1/droplet/autoscale_alerts/current_memory_utilization` | alert on current average memory utilization | autoscale pool ID
+         *     `v1/droplet/autoscale_alerts/target_memory_utilization` | alert on target average memory utilization | autoscale pool ID
+         *     `v1/droplet/autoscale_alerts/scale_up` | alert on scale up event | autoscale pool ID
+         *     `v1/droplet/autoscale_alerts/scale_down` | alert on scale down event | autoscale pool ID
          *      */
         requestBody: {
             content: {
@@ -24825,6 +27158,14 @@ export interface operations {
          *     `v1/dbaas/alerts/memory_utilization_alerts` | alert on the percent memory utilization average across the database cluster | database cluster UUID
          *     `v1/dbaas/alerts/disk_utilization_alerts` | alert on the percent disk utilization average across the database cluster | database cluster UUID
          *     `v1/dbaas/alerts/cpu_alerts` | alert on the percent CPU usage average across the database cluster | database cluster UUID
+         *     `v1/droplet/autoscale_alerts/current_instances` | alert on current pool size | autoscale pool ID
+         *     `v1/droplet/autoscale_alerts/target_instances` | alert on target pool size | autoscale pool ID
+         *     `v1/droplet/autoscale_alerts/current_cpu_utilization` | alert on current average CPU utilization | autoscale pool ID
+         *     `v1/droplet/autoscale_alerts/target_cpu_utilization` | alert on target average CPU utilization | autoscale pool ID
+         *     `v1/droplet/autoscale_alerts/current_memory_utilization` | alert on current average memory utilization | autoscale pool ID
+         *     `v1/droplet/autoscale_alerts/target_memory_utilization` | alert on target average memory utilization | autoscale pool ID
+         *     `v1/droplet/autoscale_alerts/scale_up` | alert on scale up event | autoscale pool ID
+         *     `v1/droplet/autoscale_alerts/scale_down` | alert on scale down event | autoscale pool ID
          *      */
         requestBody: {
             content: {
@@ -26176,6 +28517,198 @@ export interface operations {
                  * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
                  */
                 lb_id: components["parameters"]["parameters_load_balancer_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_droplet_autoscale_current_instances: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for an autoscale pool.
+                 * @example 0d3db13e-a604-4944-9827-7ec2642d32ac
+                 */
+                autoscale_pool_id: components["parameters"]["parameters_autoscale_pool_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_droplet_autoscale_target_instances: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for an autoscale pool.
+                 * @example 0d3db13e-a604-4944-9827-7ec2642d32ac
+                 */
+                autoscale_pool_id: components["parameters"]["parameters_autoscale_pool_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    "monitoring_get_droplet_autoscale_current_cpu_utilization.yml": {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for an autoscale pool.
+                 * @example 0d3db13e-a604-4944-9827-7ec2642d32ac
+                 */
+                autoscale_pool_id: components["parameters"]["parameters_autoscale_pool_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_droplet_autoscale_target_cpu_utilization: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for an autoscale pool.
+                 * @example 0d3db13e-a604-4944-9827-7ec2642d32ac
+                 */
+                autoscale_pool_id: components["parameters"]["parameters_autoscale_pool_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_droplet_autoscale_current_memory_utilization: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for an autoscale pool.
+                 * @example 0d3db13e-a604-4944-9827-7ec2642d32ac
+                 */
+                autoscale_pool_id: components["parameters"]["parameters_autoscale_pool_id"];
+                /**
+                 * @description UNIX timestamp to start metric window.
+                 * @example 1620683817
+                 */
+                start: components["parameters"]["metric_timestamp_start"];
+                /**
+                 * @description UNIX timestamp to end metric window.
+                 * @example 1620705417
+                 */
+                end: components["parameters"]["metric_timestamp_end"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: components["responses"]["metric_response"];
+            401: components["responses"]["unauthorized"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    monitoring_get_droplet_autoscale_target_memory_utilization: {
+        parameters: {
+            query: {
+                /**
+                 * @description A unique identifier for an autoscale pool.
+                 * @example 0d3db13e-a604-4944-9827-7ec2642d32ac
+                 */
+                autoscale_pool_id: components["parameters"]["parameters_autoscale_pool_id"];
                 /**
                  * @description UNIX timestamp to start metric window.
                  * @example 1620683817
@@ -28790,6 +31323,1359 @@ export interface operations {
         requestBody?: never;
         responses: {
             204: components["responses"]["no_content"];
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_agents: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Only list agents that are deployed.
+                 * @example true
+                 */
+                only_deployed?: boolean;
+                /**
+                 * @description Page number.
+                 * @example 1
+                 */
+                page?: number;
+                /**
+                 * @description Items per page.
+                 * @example 1
+                 */
+                per_page?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListAgentsOutputPublic"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_create_agent: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiCreateAgentInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiCreateAgentOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_agent_api_keys: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Page number.
+                 * @example 1
+                 */
+                page?: number;
+                /**
+                 * @description Items per page.
+                 * @example 1
+                 */
+                per_page?: number;
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description Agent id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                agent_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListAgentAPIKeysOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_create_agent_api_key: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Agent id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                agent_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiCreateAgentAPIKeyInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiCreateAgentAPIKeyOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_update_agent_api_key: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Agent id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                agent_uuid: string;
+                /**
+                 * @description Api key id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                api_key_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiUpdateAgentAPIKeyInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiUpdateAgentAPIKeyOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_delete_agent_api_key: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for your agent.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                agent_uuid: string;
+                /**
+                 * @description API key for an agent.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                api_key_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiDeleteAgentAPIKeyOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_regenerate_agent_api_key: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Agent id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                agent_uuid: string;
+                /**
+                 * @description Api key id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                api_key_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiRegenerateAgentAPIKeyOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_attach_agent_function: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Agent id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                agent_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiLinkAgentFunctionInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiLinkAgentFunctionOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_update_agent_function: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Agent id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                agent_uuid: string;
+                /**
+                 * @description Function id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                function_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiUpdateAgentFunctionInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiUpdateAgentFunctionOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_detach_agent_function: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description The id of the agent the function route belongs to.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                agent_uuid: string;
+                /**
+                 * @description The function route to be destroyed. This does not destroy the function itself.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                function_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiUnlinkAgentFunctionOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_attach_knowledge_base: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for an agent.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                agent_uuid: string;
+                /**
+                 * @description A unique identifier for a knowledge base.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                knowledge_base_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiLinkKnowledgeBaseOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_detach_knowledge_base: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Agent id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                agent_uuid: string;
+                /**
+                 * @description Knowledge base id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                knowledge_base_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiUnlinkKnowledgeBaseOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_update_attached_agent: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for the parent agent.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                parent_agent_uuid: string;
+                /**
+                 * @description Routed agent id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                child_agent_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiUpdateLinkedAgentInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiUpdateLinkedAgentOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_attach_agent: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for the parent agent.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                parent_agent_uuid: string;
+                /**
+                 * @description Routed agent id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                child_agent_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiLinkAgentInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiLinkAgentOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_detach_agent: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Pagent agent id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                parent_agent_uuid: string;
+                /**
+                 * @description Routed agent id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                child_agent_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiUnlinkAgentOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_get_agent: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Unique agent id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiGetAgentOutputPublic"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_update_agent: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Unique agent id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiUpdateAgentInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiUpdateAgentOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_delete_agent: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Unique agent id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiDeleteAgentOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_get_agent_children: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Agent id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiGetChildrenOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_update_agent_deployment_visibility: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Unique id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiUpdateAgentDeploymentVisibilityInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiUpdateAgentDeploymentVisbilityOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_indexing_jobs: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Page number.
+                 * @example 1
+                 */
+                page?: number;
+                /**
+                 * @description Items per page.
+                 * @example 1
+                 */
+                per_page?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListKnowledgeBaseIndexingJobsOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_create_indexing_job: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiStartKnowledgeBaseIndexingJobInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiStartKnowledgeBaseIndexingJobOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_indexing_job_data_sources: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Uuid of the indexing job
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                indexing_job_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListIndexingJobDataSourcesOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_get_indexing_job: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Indexing job id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiGetKnowledgeBaseIndexingJobOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_cancel_indexing_job: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description A unique identifier for an indexing job.
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiCancelKnowledgeBaseIndexingJobInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiCancelKnowledgeBaseIndexingJobOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_knowledge_bases: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Page number.
+                 * @example 1
+                 */
+                page?: number;
+                /**
+                 * @description Items per page.
+                 * @example 1
+                 */
+                per_page?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListKnowledgeBasesOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_create_knowledge_base: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiCreateKnowledgeBaseInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiCreateKnowledgeBaseOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_knowledge_base_data_sources: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Page number.
+                 * @example 1
+                 */
+                page?: number;
+                /**
+                 * @description Items per page.
+                 * @example 1
+                 */
+                per_page?: number;
+            };
+            header?: never;
+            path: {
+                /**
+                 * @description Knowledge base id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                knowledge_base_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListKnowledgeBaseDataSourcesOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_create_knowledge_base_data_source: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Knowledge base id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                knowledge_base_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiCreateKnowledgeBaseDataSourceInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiCreateKnowledgeBaseDataSourceOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_delete_knowledge_base_data_source: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Knowledge base id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                knowledge_base_uuid: string;
+                /**
+                 * @description Data source id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                data_source_uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiDeleteKnowledgeBaseDataSourceOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_get_knowledge_base: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Knowledge base id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiGetKnowledgeBaseOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_update_knowledge_base: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Knowledge base id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["apiUpdateKnowledgeBaseInputPublic"];
+            };
+        };
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiUpdateKnowledgeBaseOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_delete_knowledge_base: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /**
+                 * @description Knowledge base id
+                 * @example "123e4567-e89b-12d3-a456-426614174000"
+                 */
+                uuid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiDeleteKnowledgeBaseOutput"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_models: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Include only models defined for the listed usecases.
+                 *
+                 *      - MODEL_USECASE_UNKNOWN: The use case of the model is unknown
+                 *      - MODEL_USECASE_AGENT: The model maybe used in an agent
+                 *      - MODEL_USECASE_FINETUNED: The model maybe used for fine tuning
+                 *      - MODEL_USECASE_KNOWLEDGEBASE: The model maybe used for knowledge bases (embedding models)
+                 *      - MODEL_USECASE_GUARDRAIL: The model maybe used for guardrails
+                 * @example [
+                 *       "MODEL_USECASE_UNKNOWN"
+                 *     ]
+                 */
+                usecases?: ("MODEL_USECASE_UNKNOWN" | "MODEL_USECASE_AGENT" | "MODEL_USECASE_FINETUNED" | "MODEL_USECASE_KNOWLEDGEBASE" | "MODEL_USECASE_GUARDRAIL")[];
+                /**
+                 * @description Only include models that are publicly available.
+                 * @example true
+                 */
+                public_only?: boolean;
+                /**
+                 * @description Page number.
+                 * @example 1
+                 */
+                page?: number;
+                /**
+                 * @description Items per page.
+                 * @example 1
+                 */
+                per_page?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListModelsOutputPublic"];
+                };
+            };
+            401: components["responses"]["unauthorized"];
+            404: components["responses"]["not_found"];
+            429: components["responses"]["too_many_requests"];
+            500: components["responses"]["server_error"];
+            default: components["responses"]["unexpected_error"];
+        };
+    };
+    genai_list_datacenter_regions: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Include datacenters that serve inference.
+                 * @example true
+                 */
+                serves_inference?: boolean;
+                /**
+                 * @description Include datacenters that are capable of running batch jobs.
+                 * @example true
+                 */
+                serves_batch?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description A successful response. */
+            200: {
+                headers: {
+                    "ratelimit-limit": components["headers"]["ratelimit-limit"];
+                    "ratelimit-remaining": components["headers"]["ratelimit-remaining"];
+                    "ratelimit-reset": components["headers"]["ratelimit-reset"];
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["apiListRegionsOutput"];
+                };
+            };
             401: components["responses"]["unauthorized"];
             404: components["responses"]["not_found"];
             429: components["responses"]["too_many_requests"];

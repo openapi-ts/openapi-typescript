@@ -181,5 +181,25 @@ properties:
       regional HTTP load balancer, a regional network load balancer that routes traffic
       at the TCP/UDP transport layer, or a global load balancer.
 
+  domains:
+    type: array
+    items:
+      $ref: 'domains.yml'
+    description: An array of objects specifying the domain configurations for a 
+      Global load balancer.
+
+  glb_settings:
+    $ref: 'glb_settings.yml'
+
+  target_load_balancer_ids:
+    type: array
+    items:
+      type: string
+    example:
+      - 7dbf91fe-cbdb-48dc-8290-c3a181554905
+      - 996fa239-fac3-42a2-b9a1-9fa822268b7a
+    description: An array containing the UUIDs of the Regional load balancers to be used as target
+      backends for a Global load balancer.
+
 required:
   - forwarding_rules

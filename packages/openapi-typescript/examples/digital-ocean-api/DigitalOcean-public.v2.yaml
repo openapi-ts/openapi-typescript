@@ -291,6 +291,14 @@ tags:
 
       The Serverless Functions API currently only supports creating and managing namespaces.
 
+
+  - name: GenAI Platform (Public Preview)
+    description: |-
+      **The GenAI Platform API is in [public preview](https://docs.digitalocean.com/platform/product-lifecycle/#public-preview) for select customers.**
+      
+      The API lets you build GPU-powered AI agents with pre-built or custom foundation models, function and agent routes, and RAG pipelines with knowledge bases.
+
+
   - name: Image Actions
     description: |-
       Image actions are commands that can be given to a DigitalOcean image. In
@@ -1249,6 +1257,10 @@ paths:
     delete:
       $ref: 'resources/load_balancers/loadBalancers_delete.yml'
 
+  /v2/load_balancers/{lb_id}/cache:
+    delete:
+      $ref: 'resources/load_balancers/loadBalancers_delete_cache.yml'
+
   /v2/load_balancers/{lb_id}/droplets:
     post:
       $ref: 'resources/load_balancers/loadBalancers_add_droplets.yml'
@@ -1443,6 +1455,30 @@ paths:
   /v2/monitoring/metrics/load_balancer/droplets_downtime:
     get:
       $ref: 'resources/monitoring/monitoring_get_lb_droplets_downtime.yml'
+
+  /v2/monitoring/metrics/droplet_autoscale/current_instances:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_droplet_autoscale_current_instances.yml'
+
+  /v2/monitoring/metrics/droplet_autoscale/target_instances:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_droplet_autoscale_target_instances.yml'
+
+  /v2/monitoring/metrics/droplet_autoscale/current_cpu_utilization:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_droplet_autoscale_current_cpu_utilization.yml'
+
+  /v2/monitoring/metrics/droplet_autoscale/target_cpu_utilization:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_droplet_autoscale_target_cpu_utilization.yml'
+
+  /v2/monitoring/metrics/droplet_autoscale/current_memory_utilization:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_droplet_autoscale_current_memory_utilization.yml'
+
+  /v2/monitoring/metrics/droplet_autoscale/target_memory_utilization:
+    get:
+      $ref: 'resources/monitoring/monitoring_get_droplet_autoscale_target_memory_utilization.yml'
 
   /v2/monitoring/sinks/destinations:
     post:
@@ -1777,6 +1813,155 @@ paths:
 
     delete:
       $ref: 'resources/uptime/delete_alert.yml'
+
+
+
+  /v2/gen-ai/agents:
+    get:
+      $ref: 'resources/gen-ai/genai_list_agents.yml'
+
+    post:
+      $ref: 'resources/gen-ai/genai_create_agent.yml'
+
+
+  /v2/gen-ai/agents/{agent_uuid}/api_keys:
+    get:
+      $ref: 'resources/gen-ai/genai_list_agent_api_keys.yml'
+
+    post:
+      $ref: 'resources/gen-ai/genai_create_agent_api_key.yml'
+
+
+  /v2/gen-ai/agents/{agent_uuid}/api_keys/{api_key_uuid}:
+    put:
+      $ref: 'resources/gen-ai/genai_update_agent_api_key.yml'
+
+    delete:
+      $ref: 'resources/gen-ai/genai_delete_agent_api_key.yml'
+
+
+  /v2/gen-ai/agents/{agent_uuid}/api_keys/{api_key_uuid}/regenerate:
+    put:
+      $ref: 'resources/gen-ai/genai_regenerate_agent_api_key.yml'
+
+
+  /v2/gen-ai/agents/{agent_uuid}/functions:
+    post:
+      $ref: 'resources/gen-ai/genai_attach_agent_function.yml'
+
+
+  /v2/gen-ai/agents/{agent_uuid}/functions/{function_uuid}:
+    delete:
+      $ref: 'resources/gen-ai/genai_detach_agent_function.yml'
+
+    put:
+      $ref: 'resources/gen-ai/genai_update_agent_function.yml'
+
+
+  /v2/gen-ai/agents/{agent_uuid}/knowledge_bases/{knowledge_base_uuid}:
+    delete:
+      $ref: 'resources/gen-ai/genai_detach_knowledge_base.yml'
+
+    post:
+      $ref: 'resources/gen-ai/genai_attach_knowledge_base.yml'
+
+
+  /v2/gen-ai/agents/{parent_agent_uuid}/child_agents/{child_agent_uuid}:
+    delete:
+      $ref: 'resources/gen-ai/genai_detach_agent.yml'
+
+    post:
+      $ref: 'resources/gen-ai/genai_attach_agent.yml'
+
+    put:
+      $ref: 'resources/gen-ai/genai_update_attached_agent.yml'
+
+
+  /v2/gen-ai/agents/{uuid}:
+    delete:
+      $ref: 'resources/gen-ai/genai_delete_agent.yml'
+
+    get:
+      $ref: 'resources/gen-ai/genai_get_agent.yml'
+
+    put:
+      $ref: 'resources/gen-ai/genai_update_agent.yml'
+
+
+  /v2/gen-ai/agents/{uuid}/child_agents:
+    get:
+      $ref: 'resources/gen-ai/genai_get_agent_children.yml'
+
+
+  /v2/gen-ai/agents/{uuid}/deployment_visibility:
+    put:
+      $ref: 'resources/gen-ai/genai_update_agent_deployment_visibility.yml'
+
+
+  /v2/gen-ai/indexing_jobs:
+    get:
+      $ref: 'resources/gen-ai/genai_list_indexing_jobs.yml'
+
+    post:
+      $ref: 'resources/gen-ai/genai_create_indexing_job.yml'
+
+
+  /v2/gen-ai/indexing_jobs/{indexing_job_uuid}/data_sources:
+    get:
+      $ref: 'resources/gen-ai/genai_list_indexing_job_data_sources.yml'
+
+
+  /v2/gen-ai/indexing_jobs/{uuid}:
+    get:
+      $ref: 'resources/gen-ai/genai_get_indexing_job.yml'
+
+
+  /v2/gen-ai/indexing_jobs/{uuid}/cancel:
+    put:
+      $ref: 'resources/gen-ai/genai_cancel_indexing_job.yml'
+
+
+  /v2/gen-ai/knowledge_bases:
+    get:
+      $ref: 'resources/gen-ai/genai_list_knowledge_bases.yml'
+
+    post:
+      $ref: 'resources/gen-ai/genai_create_knowledge_base.yml'
+
+
+  /v2/gen-ai/knowledge_bases/{knowledge_base_uuid}/data_sources:
+    post:
+      $ref: 'resources/gen-ai/genai_create_knowledge_base_data_source.yml'
+
+    get:
+      $ref: 'resources/gen-ai/genai_list_knowledge_base_data_sources.yml'
+
+
+  /v2/gen-ai/knowledge_bases/{knowledge_base_uuid}/data_sources/{data_source_uuid}:
+    delete:
+      $ref: 'resources/gen-ai/genai_delete_knowledge_base_data_source.yml'
+
+
+  /v2/gen-ai/knowledge_bases/{uuid}:
+    get:
+      $ref: 'resources/gen-ai/genai_get_knowledge_base.yml'
+
+    put:
+      $ref: 'resources/gen-ai/genai_update_knowledge_base.yml'
+
+    delete:
+      $ref: 'resources/gen-ai/genai_delete_knowledge_base.yml'
+
+
+  /v2/gen-ai/models:
+    get:
+      $ref: 'resources/gen-ai/genai_list_models.yml'
+
+
+  /v2/gen-ai/regions:
+    get:
+      $ref: 'resources/gen-ai/genai_list_datacenter_regions.yml'
+
 
 
 components:
