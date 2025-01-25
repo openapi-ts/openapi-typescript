@@ -217,15 +217,11 @@ export default function createClient<Paths extends {}, Media extends MediaType =
       useSuspenseQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
     useInfiniteQuery: (method, path, init, options, queryClient) => {
       const { pageParamName = "cursor", ...restOptions } = options;
-
+      const { queryKey } = queryOptions(method, path, init);
       return useInfiniteQuery(
         {
-          queryKey: [method, path, init] as const,
-          queryFn: async <Method extends HttpMethod, Path extends PathsWithMethod<Paths, Method>>({
-            queryKey: [method, path, init],
-            pageParam = 0,
-            signal,
-          }: QueryFunctionContext<QueryKey<Paths, Method, Path>, unknown>) => {
+          queryKey,
+          queryFn: async ({ queryKey: [method, path, init], pageParam = 0, signal }) => {
             const mth = method.toUpperCase() as Uppercase<typeof method>;
             const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
             const mergedInit = {
