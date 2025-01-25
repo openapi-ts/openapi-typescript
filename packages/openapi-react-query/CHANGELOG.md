@@ -1,5 +1,11 @@
 # openapi-react-query
 
+## 0.2.10
+
+### Patch Changes
+
+- [#2105](https://github.com/openapi-ts/openapi-typescript/pull/2105) [`af0e72f`](https://github.com/openapi-ts/openapi-typescript/commit/af0e72f16f1515f2953a719d7f58c76ec27637ea) Thanks [@HagenMorano](https://github.com/HagenMorano)! - [#1845](https://github.com/openapi-ts/openapi-typescript/pull/2105): The return value of the `select` property is now considered when inferring the `data` type.
+
 ## 0.2.9
 
 ### Patch Changes
