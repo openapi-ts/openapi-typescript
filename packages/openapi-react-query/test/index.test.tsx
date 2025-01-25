@@ -231,6 +231,16 @@ describe("client", () => {
       expectTypeOf(result.current.data).toEqualTypeOf<"select(true)">();
       expectTypeOf(result.current.error).toEqualTypeOf<false | null>();
     });
+
+    it("returns query options without an init", async () => {
+      const fetchClient = createFetchClient<minimalGetPaths>({
+        baseUrl,
+        fetch: () => Promise.resolve(Response.json(true)),
+      });
+      const client = createClient(fetchClient);
+
+      expect(client.queryOptions("get", "/foo").queryKey.length).toBe(2);
+    });
   });
 
   describe("useQuery", () => {
