@@ -4,7 +4,6 @@ import {
   type UseQueryOptions,
   type UseQueryResult,
   type InfiniteData,
-  type InfiniteQueryObserverResult,
   type UseInfiniteQueryOptions,
   type UseInfiniteQueryResult,
   type UseSuspenseQueryOptions,
@@ -116,7 +115,9 @@ export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMetho
       unknown
     >,
     "queryKey" | "queryFn"
-  >,
+  > & {
+    pageParamName?: string;
+  },
 >(
   method: Method,
   url: Path,
@@ -198,8 +199,10 @@ export default function createClient<Paths extends {}, Media extends MediaType =
       useQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
     useSuspenseQuery: (method, path, ...[init, options, queryClient]) =>
       useSuspenseQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
-    useInfiniteQuery: (method, path, init, options, queryClient) =>
-      useInfiniteQuery(
+    useInfiniteQuery: (method, path, init, options, queryClient) => {
+      const { pageParamName = "cursor", ...restOptions } = options;
+
+      return useInfiniteQuery(
         {
           queryKey: [method, path, init] as const,
           queryFn: async <Method extends HttpMethod, Path extends PathsWithMethod<Paths, Method>>({
@@ -216,7 +219,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
                 ...(init?.params || {}),
                 query: {
                   ...(init?.params as { query?: DefaultParamsOption })?.query,
-                  cursor: pageParam,
+                  [pageParamName]: pageParam,
                 },
               },
             };
@@ -227,10 +230,11 @@ export default function createClient<Paths extends {}, Media extends MediaType =
             }
             return data;
           },
-          ...options,
+          ...restOptions,
         },
         queryClient,
-      ),
+      );
+    },
     useMutation: (method, path, options, queryClient) =>
       useMutation(
         {

@@ -822,6 +822,7 @@ describe("client", () => {
       });
     });
   });
+  // >: {"tests": ["infiniteQuery"]}
   describe("useInfiniteQuery", () => {
     it("should fetch data correctly with pagination and include cursor", async () => {
       const fetchClient = createFetchClient<paths>({ baseUrl });
@@ -990,5 +991,92 @@ describe("client", () => {
       const allItems = result.current.data?.pages.flatMap((page) => page.items);
       expect(allItems).toEqual([4, 5, 6, 1, 2, 3]);
     });
+    it("should use custom cursor params", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      // First page request handler
+      const firstRequestHandler = useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/paginated-data",
+        status: 200,
+        body: { items: [1, 2, 3], nextPage: 1 },
+      });
+
+      const { result, rerender } = renderHook(
+        () =>
+          client.useInfiniteQuery(
+            "get",
+            "/paginated-data",
+            {
+              params: {
+                query: {
+                  limit: 3,
+                },
+              },
+            },
+            {
+              getNextPageParam: (lastPage) => lastPage.nextPage,
+              initialPageParam: 0,
+              pageParamName: "follow_cursor",
+            },
+          ),
+        { wrapper },
+      );
+
+      // Wait for initial query to complete
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+      // Verify first request
+      const firstRequestUrl = firstRequestHandler.getRequestUrl();
+      expect(firstRequestUrl?.searchParams.get("limit")).toBe("3");
+      expect(firstRequestUrl?.searchParams.get("follow_cursor")).toBe("0");
+
+      // Set up mock for second page before triggering next page fetch
+      const secondRequestHandler = useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/paginated-data",
+        status: 200,
+        body: { items: [4, 5, 6], nextPage: 2 },
+      });
+
+      // Fetch next page
+      await act(async () => {
+        await result.current.fetchNextPage();
+        // Force a rerender to ensure state is updated
+        rerender();
+      });
+
+      // Wait for second page to be fetched and verify loading states
+      await waitFor(() => {
+        expect(result.current.isFetching).toBe(false);
+        expect(result.current.hasNextPage).toBe(true);
+        expect(result.current.data?.pages).toHaveLength(2);
+      });
+
+      // Verify second request
+      const secondRequestUrl = secondRequestHandler.getRequestUrl();
+      expect(secondRequestUrl?.searchParams.get("limit")).toBe("3");
+      expect(secondRequestUrl?.searchParams.get("follow_cursor")).toBe("1");
+
+      expect(result.current.data).toBeDefined();
+      expect(result.current.data?.pages[0].nextPage).toBe(1);
+
+      expect(result.current.data).toBeDefined();
+      expect(result.current.data?.pages[1].nextPage).toBe(2);
+
+      // Verify the complete data structure
+      expect(result.current.data?.pages).toEqual([
+        { items: [1, 2, 3], nextPage: 1 },
+        { items: [4, 5, 6], nextPage: 2 },
+      ]);
+
+      // Verify we can access all items through pages
+      const allItems = result.current.data?.pages.flatMap((page) => page.items);
+      expect(allItems).toEqual([1, 2, 3, 4, 5, 6]);
+    });
   });
+  // <: {"tests": ["infiniteQuery"]}
 });
