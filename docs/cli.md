@@ -121,7 +121,8 @@ The following flags are supported in the CLI:
 | `--path-params-as-types`           |       | `false`  | Allow dynamic string lookups on the `paths` object                                                                  |
 | `--root-types`                     |       | `false`  | Exports types from `components` as root level type aliases                                                          |
 | `--root-types-no-schema-prefix`    |       | `false`  | Do not add "Schema" prefix to types at the root level (should only be used with --root-types)                       |
-| `--make-paths-enum `               |       | `false`  | Generate ApiPaths enum for all paths                                                                                |
+| `--make-paths-enum`                |       | `false`  | Generate ApiPaths enum for all paths                                                                                |
+| `--generate-path-params`           |       | `false`  | Generate path parameters for all paths where they are undefined by schema                                           |
 
 ### pathParamsAsTypes
 
@@ -227,3 +228,9 @@ export enum ApiPaths {
 ```
 
 :::
+
+### generatePathParams
+
+This option is useful for generating path params optimistically when the schema has flaky path parameter definitions.
+Checks the path for opening and closing brackets and extracts them as path parameters. 
+Does not override already defined by schema path parameters.
