@@ -1,0 +1,14 @@
+lang: cURL
+source: |-
+  curl -X PUT \
+    -H "Content-Type: application/json"  \
+    -H "Authorization: Bearer $PREVIEW_API_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/agents/1b418231-b7d6-11ef-bf8f-4e013e2ddde4/child_agents/18c4c90c-cc40-11ef-bf8f-4e013e2ddde4" \
+    -d '{
+      "parent_agent_uuid": "1b418231-b7d6-11ef-bf8f-4e013e2ddde4",
+      "child_agent_uuid": "18c4c90c-cc40-11ef-bf8f-4e013e2ddde4",
+      "route_name": "route-rename-api",
+      "if_case": "if any token related statistics, use this route only",
+      "uuid":"a22d2004-bbaa-11ef-bf8f-4e013e2ddde4"
+    }'
+

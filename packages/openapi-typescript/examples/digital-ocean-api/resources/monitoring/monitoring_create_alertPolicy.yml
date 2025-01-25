@@ -57,6 +57,14 @@ requestBody:
     `v1/dbaas/alerts/memory_utilization_alerts` | alert on the percent memory utilization average across the database cluster | database cluster UUID
     `v1/dbaas/alerts/disk_utilization_alerts` | alert on the percent disk utilization average across the database cluster | database cluster UUID
     `v1/dbaas/alerts/cpu_alerts` | alert on the percent CPU usage average across the database cluster | database cluster UUID
+    `v1/droplet/autoscale_alerts/current_instances` | alert on current pool size | autoscale pool ID
+    `v1/droplet/autoscale_alerts/target_instances` | alert on target pool size | autoscale pool ID
+    `v1/droplet/autoscale_alerts/current_cpu_utilization` | alert on current average CPU utilization | autoscale pool ID
+    `v1/droplet/autoscale_alerts/target_cpu_utilization` | alert on target average CPU utilization | autoscale pool ID
+    `v1/droplet/autoscale_alerts/current_memory_utilization` | alert on current average memory utilization | autoscale pool ID
+    `v1/droplet/autoscale_alerts/target_memory_utilization` | alert on target average memory utilization | autoscale pool ID
+    `v1/droplet/autoscale_alerts/scale_up` | alert on scale up event | autoscale pool ID
+    `v1/droplet/autoscale_alerts/scale_down` | alert on scale down event | autoscale pool ID
   required: true
   content:
     application/json:
