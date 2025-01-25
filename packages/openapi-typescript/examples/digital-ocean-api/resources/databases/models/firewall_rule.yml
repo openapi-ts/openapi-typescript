@@ -10,6 +10,7 @@ properties:
     type: string
     pattern: '^$|[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}'
     example: 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+    readOnly: true
     description: A unique ID for the database cluster to which the rule is applied.
   type:
     type: string

@@ -78,7 +78,7 @@ try {
 </details>
 
 <details>
-<summary><a href="https://www.npmjs.com/package/feature-fetch" target="_blank" rel="noreferrer">feature-fetch</a> by <a href="https://github.com/builder-group" target="_blank" rel="noreferrer">builder.group</a></summary>
+<summary><a href="https://www.npmjs.com/package/feature-fetch" target="_blank" rel="noreferrer">feature-fetch</a> by <a href="https://builder.group" target="_blank" rel="noreferrer">builder.group</a></summary>
 
 ::: code-group
 
@@ -257,26 +257,27 @@ TypeChecking in server environments can be tricky, as you’re often querying da
 
 :::
 
-## Hono with [`@blgc/openapi-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-router)
+## Hono with [`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router)
 
-Instead of manually typing each route with generics as in the [Hono example](#hono), [`@blgc/openapi-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-router) wraps around the [Hono router](https://hono.dev/docs/api/routing) to deliver full typesafety and enforce your OpenAPI-Schema with validators. 
+[`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router) provides full type-safety and runtime validation for your HonoAPI routes by wrapping a [Hono router](https://hono.dev/docs/api/routing):
 
-::: tip Good To Know
+::: tip Good to Know
 
-While TypeScript types ensure compile-time safety, they don't enforce runtime schema validation. For runtime compliance, you need to integrate with validation libraries like Zod or Valibot. Although you must define the validation rules manually, they are type-safe to ensure these rules are correctly defined.
+While TypeScript ensures compile-time type safety, runtime validation is equally important. `openapi-ts-router` integrates with Zod/Valibot to provide both:
+- Types verify your code matches the OpenAPI spec during development
+- Validators ensure incoming requests match the spec at runtime
 
 :::
 
 ::: code-group
 
 ```ts [src/router.ts]
-import { createHonoOpenApiRouter } from '@blgc/openapi-router';
 import { Hono } from 'hono';
+import { createHonoOpenApiRouter } from 'openapi-ts-router';
 import { zValidator } from 'validation-adapters/zod';
 import * as z from 'zod';
-
 import { paths } from './gen/v1'; // OpenAPI-generated types
-import { PetSchema } from './schemas'; // Custom reusable Zod schema for validation
+import { PetSchema } from './schemas'; // Custom reusable schema for validation
 
 export const router = new Hono();
 export const openApiRouter = createHonoOpenApiRouter<paths>(router);
@@ -302,41 +303,51 @@ openApiRouter.post('/pet', {
     return c.json({ name, photoUrls }); 
   }
 });
+
+// TypeScript will error if route/method doesn't exist in OpenAPI spec
+// or if response doesn't match defined schema
 ```
 
 :::
 
-[Full example](https://github.com/builder-group/community/tree/develop/examples/openapi-router/hono/petstore)
+[Full example](https://github.com/builder-group/community/tree/develop/examples/openapi-ts-router/hono/petstore)
 
-## Express with [`@blgc/openapi-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-router)
+**Key benefits:**
+- Full type safety for routes, methods, params, body and responses
+- Runtime validation using Zod/Valibot
+- Catches API spec mismatches at compile time
+- Zero manual type definitions needed
 
-[`@blgc/openapi-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-router) wraps around the [Express router](https://expressjs.com/en/5x/api.html#router) to deliver full typesafety and enforce your OpenAPI-Schema with validators. 
+## Express with [`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router)
 
-::: tip Good To Know
+[`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router) provides full type-safety and runtime validation for your Express API routes by wrapping a [Express router](https://expressjs.com/en/5x/api.html#router):
 
-While TypeScript types ensure compile-time safety, they don't enforce runtime schema validation. For runtime compliance, you need to integrate with validation libraries like Zod or Valibot. Although you must define the validation rules manually, they are type-safe to ensure these rules are correctly defined.
+::: tip Good to Know
+
+While TypeScript ensures compile-time type safety, runtime validation is equally important. `openapi-ts-router` integrates with Zod/Valibot to provide both:
+- Types verify your code matches the OpenAPI spec during development
+- Validators ensure incoming requests match the spec at runtime
 
 :::
 
 ::: code-group
 
 ```ts [src/router.ts]
-import { createExpressOpenApiRouter } from '@blgc/openapi-router';
 import { Router } from 'express';
-import * as v from 'valibot';
-import { vValidator } from 'validation-adapters/valibot';
-
+import { createExpressOpenApiRouter } from 'openapi-ts-router';
+import * as z from 'zod';
+import { zValidator } from 'validation-adapters/zod';
 import { paths } from './gen/v1'; // OpenAPI-generated types
-import { PetSchema } from './schemas'; // Custom reusable Zod schema for validation
+import { PetSchema } from './schemas'; // Custom reusable schema for validation
 
 export const router: Router = Router();
 export const openApiRouter = createExpressOpenApiRouter<paths>(router);
 
 // GET /pet/{petId}
 openApiRouter.get('/pet/{petId}', {
-  pathValidator: vValidator(
-    v.object({
-      petId: v.number() // Validate that petId is a number
+  pathValidator: zValidator(
+    z.object({
+      petId: z.number() // Validate that petId is a number
     })
   ),
   handler: (req, res) => {
@@ -347,17 +358,26 @@ openApiRouter.get('/pet/{petId}', {
 
 // POST /pet
 openApiRouter.post('/pet', {
-  bodyValidator: vValidator(PetSchema), // Validate request body using PetSchema
+  bodyValidator: zValidator(PetSchema), // Validate request body using PetSchema
   handler: (req, res) => {
     const { name, photoUrls } = req.body; // Access validated body data
     res.send({ name, photoUrls }); 
   }
 });
+
+// TypeScript will error if route/method doesn't exist in OpenAPI spec
+// or if response doesn't match defined schema
 ```
 
 :::
 
-[Full example](https://github.com/builder-group/community/tree/develop/examples/openapi-router/express/petstore)
+[Full example](https://github.com/builder-group/community/tree/develop/examples/openapi-ts-router/express/petstore)
+
+**Key benefits:**
+- Full type safety for routes, methods, params, body and responses
+- Runtime validation using Zod/Valibot
+- Catches API spec mismatches at compile time
+- Zero manual type definitions needed
 
 ## Mock-Service-Worker (MSW)
 

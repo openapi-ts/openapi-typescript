@@ -71,13 +71,54 @@ export default defineConfig({
         },
         {
           text: "openapi-react-query",
+          base: "/openapi-react-query",
           items: [
-            { text: "Getting Started", link: "/openapi-react-query/" },
-            { text: "useQuery", link: "/openapi-react-query/use-query" },
-            { text: "useMutation", link: "/openapi-react-query/use-mutation" },
-            { text: "useSuspenseQuery", link: "/openapi-react-query/use-suspense-query" },
-            { text: "queryOptions", link: "/openapi-react-query/query-options" },
-            { text: "About", link: "/openapi-react-query/about" },
+            { text: "Getting Started", link: "/" },
+            { text: "useQuery", link: "/use-query" },
+            { text: "useMutation", link: "/use-mutation" },
+            {
+              text: "useSuspenseQuery",
+              link: "/use-suspense-query",
+            },
+            {
+              text: "queryOptions",
+              link: "/query-options",
+            },
+            { text: "About", link: "/about" },
+          ],
+        },
+        {
+          text: "swr-openapi",
+          base: "/swr-openapi",
+          items: [
+            { text: "Getting Started", link: "/" },
+            { text: "Hook Builders", link: "/hook-builders" },
+            { text: "useQuery", link: "/use-query" },
+            { text: "useImmutable", link: "/use-immutable" },
+            { text: "useInfinite", link: "/use-infinite" },
+            { text: "useMutate", link: "/use-mutate" },
+            { text: "About", link: "/about" },
+          ],
+        },
+        {
+          text: "openapi-metadata",
+          items: [
+            { text: "Getting Started", link: "/openapi-metadata" },
+            { text: "Decorators", link: "/openapi-metadata/decorators" },
+            { text: "Metadata", link: "/openapi-metadata/metadata" },
+            { text: "Type loader", link: "/openapi-metadata/type-loader" },
+            { text: "UI Integrations", link: "/openapi-metadata/ui" },
+            {
+              text: "Integrations",
+              items: [
+                {
+                  text: "AdonisJS",
+                  link: "https://friendsofadonis.com/docs/openapi",
+                },
+              ],
+            },
+            { text: "Examples", link: "/openapi-metadata/examples" },
+            { text: "About", link: "/openapi-metadata/about" },
           ],
         },
       ],
@@ -90,9 +131,15 @@ export default defineConfig({
         indexName: "openapi-ts",
       },
     },
+    socialLinks: [
+      {
+        icon: "github",
+        link: "https://github.com/openapi-ts/openapi-typescript",
+      },
+    ],
     footer: {
       message:
-        'Released under the <a href="https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE">MIT License</a>.',
+        'Released under the <a href="https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-typescript/LICENSE">MIT License</a>. Powered by <a href="https://netlify.com">Netlify</a>.',
     },
   },
 });

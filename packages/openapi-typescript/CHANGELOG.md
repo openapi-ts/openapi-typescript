@@ -1,5 +1,37 @@
 # openapi-typescript
 
+## 7.5.2
+
+### Patch Changes
+
+- [#2085](https://github.com/openapi-ts/openapi-typescript/pull/2085) [`2bffe2a`](https://github.com/openapi-ts/openapi-typescript/commit/2bffe2a652864a54c8dc969327e4a8eb4081eb25) Thanks [@drwpow](https://github.com/drwpow)! - Update @redocly/openapi-core to 1.27.0
+
+## 7.5.1
+
+### Patch Changes
+
+- [#2049](https://github.com/openapi-ts/openapi-typescript/pull/2049) [`39f9b2f`](https://github.com/openapi-ts/openapi-typescript/commit/39f9b2fb913eb13817592b22f1bbe35de1bc4c33) Thanks [@duncanbeevers](https://github.com/duncanbeevers)! - Add schema to postTransform options
+
+## 7.5.0
+
+### Minor Changes
+
+- [#2052](https://github.com/openapi-ts/openapi-typescript/pull/2052) [`d2de5c7`](https://github.com/openapi-ts/openapi-typescript/commit/d2de5c7e596d1b427d6d5d629974627456623305) Thanks [@laurenz-glueck](https://github.com/laurenz-glueck)! - brings back --make-paths-enum option to generate ApiPaths enum
+
+- [#2059](https://github.com/openapi-ts/openapi-typescript/pull/2059) [`9e4f61c`](https://github.com/openapi-ts/openapi-typescript/commit/9e4f61c530fe634051fa5c9b25e18a5f9ff1f76f) Thanks [@gduliscouet-ubitransport](https://github.com/gduliscouet-ubitransport)! - Allow all types except UNKNOWN to be nullable
+
+## 7.4.4
+
+### Patch Changes
+
+- [#1999](https://github.com/openapi-ts/openapi-typescript/pull/1999) [`e2d8541`](https://github.com/openapi-ts/openapi-typescript/commit/e2d854131a1dc11d3b8e8513d3e0ce1f04ea1211) Thanks [@patzick](https://github.com/patzick)! - Improved error messages to contain locations.
+
+## 7.4.3
+
+### Patch Changes
+
+- [#1982](https://github.com/openapi-ts/openapi-typescript/pull/1982) [`8d00218`](https://github.com/openapi-ts/openapi-typescript/commit/8d00218aaaa65bd175a2538f60cb508a1219a415) Thanks [@prewk](https://github.com/prewk)! - Make pathParamsAsTypes work with integer/boolean types
+
 ## 7.4.2
 
 ### Patch Changes

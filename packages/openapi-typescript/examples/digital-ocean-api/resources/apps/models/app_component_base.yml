@@ -18,6 +18,9 @@ properties:
   gitlab:
     $ref: apps_gitlab_source_spec.yml
 
+  bitbucket:
+    $ref: apps_bitbucket_source_spec.yml
+
   image:
     $ref: apps_image_source_spec.yml
 
@@ -55,7 +58,7 @@ properties:
   environment_slug:
     type: string
     description: An environment slug describing the type of this app. For a full list,
-      please refer to [the product documentation](https://www.digitalocean.com/docs/app-platform/).
+      please refer to [the product documentation](https://docs.digitalocean.com/products/app-platform/).
     example: node-js
 
   log_destinations:

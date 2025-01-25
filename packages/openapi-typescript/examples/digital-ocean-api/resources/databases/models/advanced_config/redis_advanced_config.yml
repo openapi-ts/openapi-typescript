@@ -2,7 +2,7 @@ type: object
 
 properties:
   redis_maxmemory_policy:
-    $ref: '../eviction_policy_model.yml'
+    $ref: "../eviction_policy_model.yml"
   redis_pubsub_client_output_buffer_limit:
     description: >-
       Set output buffer limit for pub / sub clients in MB. The value is the hard
@@ -43,7 +43,10 @@ properties:
     default: 1
     example: 1
   redis_ssl:
-    description: Require SSL to access Redis
+    description: |
+      Require SSL to access Redis.
+      - When enabled, Redis accepts only SSL connections on port `25061`.
+      - When disabled, port `25060` is opened for non-SSL connections, while port `25061` remains available for SSL connections.
     type: boolean
     default: true
     example: true
@@ -74,20 +77,21 @@ properties:
       - `A` &mdash; Alias for `"g$lshztxed"`
     type: string
     pattern: ^[KEg\$lshzxeA]*$
-    default: ''
+    default: ""
     maxLength: 32
     example: K
   redis_persistence:
     type: string
     enum:
-      - 'off'
+      - "off"
       - rdb
     description: >-
-      When persistence is 'rdb', Redis does RDB dumps each 10 minutes if any key
-      is changed. Also RDB dumps are done according to backup schedule for
-      backup purposes. When persistence is 'off', no RDB dumps and backups are
-      done, so data can be lost at any moment if service is restarted for any
-      reason, or if service is powered off. Also service can't be forked.
+      Creates an RDB dump of the database every 10 minutes that can be used 
+      to recover data after a node crash. The database does not create the 
+      dump if no keys have changed since the last dump. When set to `off`, 
+      the database cannot fork services, and data can be lost if a service 
+      is restarted or powered off. DigitalOcean Managed Caching databases 
+      do not support the Append Only File (AOF) persistence method.
     example: rdb
   redis_acl_channels_default:
     type: string

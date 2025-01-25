@@ -1,0 +1,14 @@
+type: object
+required:
+  - urn
+properties:
+  urn:
+    type: string
+    pattern: ^do:kubernetes:.*
+    example: do:kubernetes:f453aa14-646e-4cf8-8c62-75a19fb24ec2
+    description: The uniform resource name (URN) for the resource in the format 
+      do:resource_type:resource_id.
+  name:
+    type: string
+    description: "resource name"
+    example: "managed_kubernetes_cluster"

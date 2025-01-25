@@ -1,0 +1,18 @@
+type: object
+required:
+  - config
+  - type
+properties:
+  name:
+    type: string
+    description: "destination name"
+    example: "managed_opensearch_cluster"
+  type:
+    enum:
+      - opensearch_dbaas
+      - opensearch_ext
+    description: |
+      The destination type. `opensearch_dbaas` for a DigitalOcean managed OpenSearch
+      cluster or `opensearch_ext` for an externally managed one.
+  config:
+    $ref: 'opensearch_config_request.yml'

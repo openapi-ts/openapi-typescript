@@ -1,0 +1,11 @@
+lang: cURL
+source: |-
+  curl -X PUT \
+    -H "Content-Type: application/json"  \
+    -H "Authorization: Bearer $PREVIEW_API_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/agents/1b418231-b7d6-11ef-bf8f-4e013e2ddde4/api_keys/11efb7d6-cdb5-6388-bf8f-4e013e2ddde4" \
+    -d '{
+      "agent_uuid": "1b418231-b7d6-11ef-bf8f-4e013e2ddde4",
+      "api_key_uuid": "11efb7d6-cdb5-6388-bf8f-4e013e2ddde4",
+      "name": "test-key2"
+    }'

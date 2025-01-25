@@ -80,6 +80,7 @@ export default async function openapiTS(
     exportType: options.exportType ?? false,
     immutable: options.immutable ?? false,
     rootTypes: options.rootTypes ?? false,
+    rootTypesNoSchemaPrefix: options.rootTypesNoSchemaPrefix ?? false,
     injectFooter: [],
     pathParamsAsTypes: options.pathParamsAsTypes ?? false,
     postTransform: typeof options.postTransform === "function" ? options.postTransform : undefined,
@@ -88,6 +89,8 @@ export default async function openapiTS(
     silent: options.silent ?? false,
     inject: options.inject ?? undefined,
     transform: typeof options.transform === "function" ? options.transform : undefined,
+    makePathsEnum: options.makePathsEnum ?? false,
+    generatePathParams: options.generatePathParams ?? false,
     resolve($ref) {
       return resolveRef(schema, $ref, { silent: options.silent ?? false });
     },

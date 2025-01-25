@@ -1,6 +1,6 @@
-import { expect, test, expectTypeOf, assertType } from "vitest";
-import { createObservedClient } from "../helpers.js";
+import { assertType, expect, expectTypeOf, test } from "vitest";
 import type { Middleware, MiddlewareCallbackParams } from "../../src/index.js";
+import { createObservedClient } from "../helpers.js";
 import type { paths } from "./schemas/middleware.js";
 
 test("receives a UUID per-request", async () => {
@@ -96,6 +96,62 @@ test("can modify response", async () => {
   expect(response.headers.get("middleware")).toBe("value");
 });
 
+test("returns original errors if nothing is returned", async () => {
+  const actualError = new Error();
+  const client = createObservedClient<paths>({}, async (req) => {
+    throw actualError;
+  });
+  client.use({
+    onError({ error }) {
+      expect(error).toBe(actualError);
+      return;
+    },
+  });
+
+  try {
+    await client.GET("/posts/{id}", { params: { path: { id: 123 } } });
+  } catch (thrownError) {
+    expect(thrownError).toBe(actualError);
+  }
+});
+
+test("can modify errors", async () => {
+  const actualError = new Error();
+  const modifiedError = new Error();
+  const client = createObservedClient<paths>({}, async (req) => {
+    throw actualError;
+  });
+  client.use({
+    onError() {
+      return modifiedError;
+    },
+  });
+
+  try {
+    await client.GET("/posts/{id}", { params: { path: { id: 123 } } });
+  } catch (thrownError) {
+    expect(thrownError).toBe(modifiedError);
+  }
+});
+
+test("can catch errors and return a response instead", async () => {
+  const actualError = new Error();
+  const customResponse = Response.json({});
+  const client = createObservedClient<paths>({}, async (req) => {
+    throw actualError;
+  });
+  client.use({
+    onError({ error }) {
+      expect(error).toBe(actualError);
+      return customResponse;
+    },
+  });
+
+  const { response } = await client.GET("/posts/{id}", { params: { path: { id: 123 } } });
+
+  expect(response).toBe(customResponse);
+});
+
 test("executes in expected order", async () => {
   let actualRequest = new Request("https://nottherealurl.fake");
   const client = createObservedClient<paths>({}, async (req) => {
@@ -151,6 +207,30 @@ test("executes in expected order", async () => {
 
   // assert responses ended up on step A (reverse order)
   expect(response.headers.get("step")).toBe("A");
+});
+
+test("executes error handlers in expected order", async () => {
+  const actualError = new Error();
+  const modifiedError = new Error();
+  const customResponse = Response.json({});
+  const client = createObservedClient<paths>({}, async (req) => {
+    throw actualError;
+  });
+  client.use({
+    onError({ error }) {
+      expect(error).toBe(modifiedError);
+      return customResponse;
+    },
+  });
+  client.use({
+    onError() {
+      return modifiedError;
+    },
+  });
+
+  const { response } = await client.GET("/posts/{id}", { params: { path: { id: 123 } } });
+
+  expect(response).toBe(customResponse);
 });
 
 test("receives correct options", async () => {

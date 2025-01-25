@@ -24,12 +24,15 @@ export const DEFAULT_CTX: GlobalContext = {
   postTransform: undefined,
   propertiesRequiredByDefault: false,
   rootTypes: false,
+  rootTypesNoSchemaPrefix: false,
   redoc: await createConfig({}, { extends: ["minimal"] }),
   resolve($ref) {
     return resolveRef({}, $ref, { silent: false });
   },
   silent: true,
   transform: undefined,
+  makePathsEnum: false,
+  generatePathParams: false,
 };
 
 /** Generic test case */

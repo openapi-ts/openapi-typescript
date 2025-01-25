@@ -8,9 +8,11 @@ title: openapi-fetch 示例
 
 ## React + React Query
 
-[React Query](https://tanstack.com/query/latest) 是在 React 中完美封装 openapi-fetch 的工具。仅有 13 kB 的大小，提供了客户端缓存而没有太多的客户端负担。其出色的类型推断通过最小的设置完美地保留了 openapi-fetch 的类型。
+See [openapi-react-query](/openapi-react-query/)
 
-[在 GitHub 中查看代码示例](https://github.com/openapi-ts/openapi-typescript/tree/main/packages/openapi-fetch/examples/react-query)
+## React + SWR
+
+See [swr-openapi](/swr-openapi/)
 
 ## Next.js
 

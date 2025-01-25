@@ -1,0 +1,27 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json"  \
+    -H "Authorization: Bearer $PREVIEW_API_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/agents/1b418231-b7d6-11ef-bf8f-4e013e2ddde4/functions" \
+    -d '{
+      "agent_uuid": "1b418231-b7d6-11ef-bf8f-4e013e2ddde4",
+      "function_name": "funzip",
+      "description": "Use when you need the zipcode for a city",
+      "input_schema": {
+        "city": {
+          "description": "the city you want a zipcode for",
+          "required": true,
+          "type": "string"
+        }
+      },
+      "output_schema": {
+        "zip_code": {
+          "description": "The zipcode of the desired city",
+          "type": "number"
+        }
+      },
+      "faas_namespace": "fn-2014dc98-faa1-45f4-ba1f-59910cb3d399",
+      "faas_name": "default/get-zipcode"
+    }'
+   

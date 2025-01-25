@@ -1,0 +1,63 @@
+autoscale_create_request_dynamic:
+  value:
+    name: "my-autoscale-pool"
+    config: 
+      min_instances: 1
+      max_instances: 5
+      target_cpu_utilization: 0.5
+      cooldown_minutes: 10
+    droplet_template:
+      name: example.com
+      region: nyc3
+      size: c-2
+      image: ubuntu-20-04-x64
+      ssh_keys:
+      - 3b:16:e4:bf:8b:00:8b:b8:59:8c:a9:d3:f0:19:fa:45
+      backups: true
+      ipv6: true
+      monitoring: true
+      tags:
+        - env:prod
+        - web
+      user_data: "#cloud-config\nruncmd:\n  - touch /test.txt\n"
+      vpc_uuid: 760e09ef-dc84-11e8-981e-3cfdfeaae000
+autoscale_create_request_static:
+  value:
+    name: "my-autoscale-pool"
+    config: 
+      target_number_instances: 2
+    droplet_template:
+      name: example.com
+      region: nyc3
+      size: c-2
+      image: ubuntu-20-04-x64
+      ssh_keys:
+      - 3b:16:e4:bf:8b:00:8b:b8:59:8c:a9:d3:f0:19:fa:45
+      backups: true
+      ipv6: true
+      monitoring: true
+      tags:
+        - env:prod
+        - web
+      user_data: "#cloud-config\nruncmd:\n  - touch /test.txt\n"
+      vpc_uuid: 760e09ef-dc84-11e8-981e-3cfdfeaae000
+autoscale_update_request:
+  value:
+    name: "my-autoscale-pool"
+    config: 
+      target_number_instances: 2
+    droplet_template:
+      name: example.com
+      region: nyc3
+      size: c-2
+      image: ubuntu-20-04-x64
+      ssh_keys:
+      - 3b:16:e4:bf:8b:00:8b:b8:59:8c:a9:d3:f0:19:fa:45
+      backups: true
+      ipv6: true
+      monitoring: true
+      tags:
+        - env:prod
+        - web
+      user_data: "#cloud-config\nruncmd:\n  - touch /test.txt\n"
+      vpc_uuid: 760e09ef-dc84-11e8-981e-3cfdfeaae000

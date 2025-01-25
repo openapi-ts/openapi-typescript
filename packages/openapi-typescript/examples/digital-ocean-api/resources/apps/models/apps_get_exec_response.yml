@@ -1,0 +1,6 @@
+properties:
+  url:
+    description: A websocket URL that allows sending/receiving console input and receiving console output.
+    type: string
+    example: wss://exec/?token=xxx
+type: object

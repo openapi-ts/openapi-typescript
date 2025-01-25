@@ -659,6 +659,8 @@ export interface OpenAPITSOptions {
   propertiesRequiredByDefault?: boolean;
   /** (optional) Generate schema types at root level */
   rootTypes?: boolean;
+  /** (optional) Do not add Schema prefix to types at root level */
+  rootTypesNoSchemaPrefix?: boolean;
   /**
    * Configure Redocly for validation, schema fetching, and bundling
    * @see https://redocly.com/docs/cli/configuration/
@@ -666,6 +668,10 @@ export interface OpenAPITSOptions {
   redocly?: RedoclyConfig;
   /** Inject arbitrary TypeScript types into the start of the file */
   inject?: string;
+  /** Generate ApiPaths enum */
+  makePathsEnum?: boolean;
+  /** Generate path params based on path even if they are not defiend in the open api schema */
+  generatePathParams?: boolean;
 }
 
 /** Context passed to all submodules */
@@ -691,12 +697,15 @@ export interface GlobalContext {
   postTransform: OpenAPITSOptions["postTransform"];
   propertiesRequiredByDefault: boolean;
   rootTypes: boolean;
+  rootTypesNoSchemaPrefix: boolean;
   redoc: RedoclyConfig;
   silent: boolean;
   transform: OpenAPITSOptions["transform"];
   /** retrieve a node by $ref */
   resolve<T>($ref: string): T | undefined;
   inject?: string;
+  makePathsEnum: boolean;
+  generatePathParams: boolean;
 }
 
 export type $defs = Record<string, SchemaObject>;
@@ -704,5 +713,6 @@ export type $defs = Record<string, SchemaObject>;
 /** generic options for most internal transform* functions */
 export interface TransformNodeOptions {
   path?: string;
+  schema?: SchemaObject | ReferenceObject;
   ctx: GlobalContext;
 }

@@ -7,7 +7,7 @@ description: |
   manifest data) after deleting one or more manifests from a repository. If
   there are no unreferenced blobs resulting from the deletion of one or more
   manifests, garbage collection is effectively a noop.
-  [See here for more information](https://www.digitalocean.com/docs/container-registry/how-to/clean-up-container-registry/)
+  [See here for more information](https://docs.digitalocean.com/products/container-registry/how-to/clean-up-container-registry/)
   about how and why you should clean up your container registry periodically.
 
   To request a garbage collection run on your registry, send a POST request to

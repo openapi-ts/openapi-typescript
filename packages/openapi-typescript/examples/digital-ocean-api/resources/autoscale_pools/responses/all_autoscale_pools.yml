@@ -1,0 +1,26 @@
+description: A JSON object with a key of `autoscale_pools`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            autoscale_pools:
+              type: array
+              items:
+                $ref: '../models/autoscale_pool.yml'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+    examples:
+      All Autoscale Pools:
+        $ref: 'examples.yml#/autoscale_pools_all'

@@ -5,8 +5,8 @@ import type {
   MediaType,
   OperationRequestBodyContent,
   PathsWithMethod,
-  ResponseObjectMap,
   RequiredKeysOf,
+  ResponseObjectMap,
   GetResponseContent,
   ErrorStatus,
   OkStatus,
@@ -26,6 +26,8 @@ export interface ClientOptions extends Omit<RequestInit, "headers"> {
   /** global bodySerializer */
   bodySerializer?: BodySerializer<unknown>;
   headers?: HeadersOptions;
+  /** RequestInit extension object to pass as 2nd argument to fetch when supported (defaults to undefined) */
+  requestInitExt?: Record<string, unknown>;
 }
 
 export type HeadersOptions =
@@ -151,15 +153,25 @@ type MiddlewareOnRequest = (
 type MiddlewareOnResponse = (
   options: MiddlewareCallbackParams & { response: Response },
 ) => void | Response | undefined | Promise<Response | undefined | void>;
+type MiddlewareOnError = (
+  options: MiddlewareCallbackParams & { error: unknown },
+) => void | Response | Error | Promise<void | Response | Error>;
 
 export type Middleware =
   | {
       onRequest: MiddlewareOnRequest;
       onResponse?: MiddlewareOnResponse;
+      onError?: MiddlewareOnError;
     }
   | {
       onRequest?: MiddlewareOnRequest;
       onResponse: MiddlewareOnResponse;
+      onError?: MiddlewareOnError;
+    }
+  | {
+      onRequest?: MiddlewareOnRequest;
+      onResponse?: MiddlewareOnResponse;
+      onError: MiddlewareOnError;
     };
 
 /** This type helper makes the 2nd function param required if params/requestBody are required; otherwise, optional */
@@ -186,6 +198,16 @@ export type ClientMethod<
   ...init: InitParam<Init>
 ) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
 
+export type ClientRequestMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
+  Method extends HttpMethod,
+  Path extends PathsWithMethod<Paths, Method>,
+  Init extends MaybeOptionalInit<Paths[Path], Method>,
+>(
+  method: Method,
+  url: Path,
+  ...init: InitParam<Init>
+) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
+
 export type ClientForPath<PathInfo extends Record<string | number, any>, Media extends MediaType> = {
   [Method in keyof PathInfo as Uppercase<string & Method>]: <Init extends MaybeOptionalInit<PathInfo, Method>>(
     ...init: InitParam<Init>
@@ -193,6 +215,7 @@ export type ClientForPath<PathInfo extends Record<string | number, any>, Media e
 };
 
 export interface Client<Paths extends {}, Media extends MediaType = MediaType> {
+  request: ClientRequestMethod<Paths, Media>;
   /** Call a GET endpoint */
   GET: ClientMethod<Paths, "get", Media>;
   /** Call a PUT endpoint */

@@ -11,7 +11,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an account.</p> */
+        /**
+         * Retrieve account
+         * @description <p>Retrieves the details of an account.</p>
+         */
         get: operations["GetAccount"];
         put?: never;
         post?: never;
@@ -30,7 +33,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Creates an AccountLink object that includes a single-use Stripe URL that the platform can redirect their user to in order to take them through the Connect Onboarding flow.</p> */
+        /**
+         * Create an account link
+         * @description <p>Creates an AccountLink object that includes a single-use Stripe URL that the platform can redirect their user to in order to take them through the Connect Onboarding flow.</p>
+         */
         post: operations["PostAccountLinks"];
         delete?: never;
         options?: never;
@@ -47,7 +53,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.</p> */
+        /**
+         * Create an Account Session
+         * @description <p>Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.</p>
+         */
         post: operations["PostAccountSessions"];
         delete?: never;
         options?: never;
@@ -62,7 +71,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of accounts connected to your platform via <a href="/docs/connect">Connect</a>. If you’re not a platform, the list is empty.</p> */
+        /**
+         * List all connected accounts
+         * @description <p>Returns a list of accounts connected to your platform via <a href="/docs/connect">Connect</a>. If you’re not a platform, the list is empty.</p>
+         */
         get: operations["GetAccounts"];
         put?: never;
         /** @description <p>With <a href="/docs/connect">Connect</a>, you can create Stripe accounts for your users.
@@ -85,10 +97,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an account.</p> */
+        /**
+         * Retrieve account
+         * @description <p>Retrieves the details of an account.</p>
+         */
         get: operations["GetAccountsAccount"];
         put?: never;
-        /** @description <p>Updates a <a href="/connect/accounts">connected account</a> by setting the values of the parameters passed. Any parameters not provided are
+        /**
+         * Update an account
+         * @description <p>Updates a <a href="/connect/accounts">connected account</a> by setting the values of the parameters passed. Any parameters not provided are
          *     left unchanged.</p>
          *
          *     <p>For accounts where <a href="/api/accounts/object#account_object-controller-requirement_collection">controller.requirement_collection</a>
@@ -100,15 +117,19 @@ export interface paths {
          *     after which some properties can no longer be updated.</p>
          *
          *     <p>To update your own account, use the <a href="https://dashboard.stripe.com/settings/account">Dashboard</a>. Refer to our
-         *     <a href="/docs/connect/updating-accounts">Connect</a> documentation to learn more about updating accounts.</p> */
+         *     <a href="/docs/connect/updating-accounts">Connect</a> documentation to learn more about updating accounts.</p>
+         */
         post: operations["PostAccountsAccount"];
-        /** @description <p>With <a href="/connect">Connect</a>, you can delete accounts you manage.</p>
+        /**
+         * Delete an account
+         * @description <p>With <a href="/connect">Connect</a>, you can delete accounts you manage.</p>
          *
          *     <p>Test-mode accounts can be deleted at any time.</p>
          *
          *     <p>Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all <a href="/api/balance/balance_object">balances</a> are zero.</p>
          *
-         *     <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/settings/account">account information tab in your account settings</a> instead.</p> */
+         *     <p>If you want to delete your own account, use the <a href="https://dashboard.stripe.com/settings/account">account information tab in your account settings</a> instead.</p>
+         */
         delete: operations["DeleteAccountsAccount"];
         options?: never;
         head?: never;
@@ -124,7 +145,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Create an external account for a given account.</p> */
+        /**
+         * Create an external account
+         * @description <p>Create an external account for a given account.</p>
+         */
         post: operations["PostAccountsAccountBankAccounts"];
         delete?: never;
         options?: never;
@@ -139,7 +163,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieve a specified external account for a given account.</p> */
+        /**
+         * Retrieve an external account
+         * @description <p>Retrieve a specified external account for a given account.</p>
+         */
         get: operations["GetAccountsAccountBankAccountsId"];
         put?: never;
         /** @description <p>Updates the metadata, account holder name, account holder type of a bank account belonging to
@@ -151,7 +178,10 @@ export interface paths {
          *     <p>You can re-enable a disabled bank account by performing an update call without providing any
          *     arguments or changes.</p> */
         post: operations["PostAccountsAccountBankAccountsId"];
-        /** @description <p>Delete a specified external account for a given account.</p> */
+        /**
+         * Delete an external account
+         * @description <p>Delete a specified external account for a given account.</p>
+         */
         delete: operations["DeleteAccountsAccountBankAccountsId"];
         options?: never;
         head?: never;
@@ -165,7 +195,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.</p> */
+        /**
+         * List all account capabilities
+         * @description <p>Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.</p>
+         */
         get: operations["GetAccountsAccountCapabilities"];
         put?: never;
         post?: never;
@@ -182,10 +215,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves information about the specified Account Capability.</p> */
+        /**
+         * Retrieve an Account Capability
+         * @description <p>Retrieves information about the specified Account Capability.</p>
+         */
         get: operations["GetAccountsAccountCapabilitiesCapability"];
         put?: never;
-        /** @description <p>Updates an existing Account Capability. Request or remove a capability by updating its <code>requested</code> parameter.</p> */
+        /**
+         * Update an Account Capability
+         * @description <p>Updates an existing Account Capability. Request or remove a capability by updating its <code>requested</code> parameter.</p>
+         */
         post: operations["PostAccountsAccountCapabilitiesCapability"];
         delete?: never;
         options?: never;
@@ -200,10 +239,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>List external accounts for an account.</p> */
+        /**
+         * List all external accounts
+         * @description <p>List external accounts for an account.</p>
+         */
         get: operations["GetAccountsAccountExternalAccounts"];
         put?: never;
-        /** @description <p>Create an external account for a given account.</p> */
+        /**
+         * Create an external account
+         * @description <p>Create an external account for a given account.</p>
+         */
         post: operations["PostAccountsAccountExternalAccounts"];
         delete?: never;
         options?: never;
@@ -218,7 +263,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieve a specified external account for a given account.</p> */
+        /**
+         * Retrieve an external account
+         * @description <p>Retrieve a specified external account for a given account.</p>
+         */
         get: operations["GetAccountsAccountExternalAccountsId"];
         put?: never;
         /** @description <p>Updates the metadata, account holder name, account holder type of a bank account belonging to
@@ -230,7 +278,10 @@ export interface paths {
          *     <p>You can re-enable a disabled bank account by performing an update call without providing any
          *     arguments or changes.</p> */
         post: operations["PostAccountsAccountExternalAccountsId"];
-        /** @description <p>Delete a specified external account for a given account.</p> */
+        /**
+         * Delete an external account
+         * @description <p>Delete a specified external account for a given account.</p>
+         */
         delete: operations["DeleteAccountsAccountExternalAccountsId"];
         options?: never;
         head?: never;
@@ -246,9 +297,12 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Creates a single-use login link for a connected account to access the Express Dashboard.</p>
+        /**
+         * Create a login link
+         * @description <p>Creates a login link for a connected account to access the Express Dashboard.</p>
          *
-         *     <p><strong>You can only create login links for accounts that use the <a href="/connect/express-dashboard">Express Dashboard</a> and are connected to your platform</strong>.</p> */
+         *     <p><strong>You can only create login links for accounts that use the <a href="/connect/express-dashboard">Express Dashboard</a> and are connected to your platform</strong>.</p>
+         */
         post: operations["PostAccountsAccountLoginLinks"];
         delete?: never;
         options?: never;
@@ -263,10 +317,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first.</p> */
+        /**
+         * List all persons
+         * @description <p>Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first.</p>
+         */
         get: operations["GetAccountsAccountPeople"];
         put?: never;
-        /** @description <p>Creates a new person.</p> */
+        /**
+         * Create a person
+         * @description <p>Creates a new person.</p>
+         */
         post: operations["PostAccountsAccountPeople"];
         delete?: never;
         options?: never;
@@ -281,12 +341,21 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves an existing person.</p> */
+        /**
+         * Retrieve a person
+         * @description <p>Retrieves an existing person.</p>
+         */
         get: operations["GetAccountsAccountPeoplePerson"];
         put?: never;
-        /** @description <p>Updates an existing person.</p> */
+        /**
+         * Update a person
+         * @description <p>Updates an existing person.</p>
+         */
         post: operations["PostAccountsAccountPeoplePerson"];
-        /** @description <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
+        /**
+         * Delete a person
+         * @description <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p>
+         */
         delete: operations["DeleteAccountsAccountPeoplePerson"];
         options?: never;
         head?: never;
@@ -300,10 +369,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first.</p> */
+        /**
+         * List all persons
+         * @description <p>Returns a list of people associated with the account’s legal entity. The people are returned sorted by creation date, with the most recent people appearing first.</p>
+         */
         get: operations["GetAccountsAccountPersons"];
         put?: never;
-        /** @description <p>Creates a new person.</p> */
+        /**
+         * Create a person
+         * @description <p>Creates a new person.</p>
+         */
         post: operations["PostAccountsAccountPersons"];
         delete?: never;
         options?: never;
@@ -318,12 +393,21 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves an existing person.</p> */
+        /**
+         * Retrieve a person
+         * @description <p>Retrieves an existing person.</p>
+         */
         get: operations["GetAccountsAccountPersonsPerson"];
         put?: never;
-        /** @description <p>Updates an existing person.</p> */
+        /**
+         * Update a person
+         * @description <p>Updates an existing person.</p>
+         */
         post: operations["PostAccountsAccountPersonsPerson"];
-        /** @description <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p> */
+        /**
+         * Delete a person
+         * @description <p>Deletes an existing person’s relationship to the account’s legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the <code>account_opener</code>. If your integration is using the <code>executive</code> parameter, you cannot delete the only verified <code>executive</code> on file.</p>
+         */
         delete: operations["DeleteAccountsAccountPersonsPerson"];
         options?: never;
         head?: never;
@@ -339,9 +423,12 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>With <a href="/connect">Connect</a>, you can reject accounts that you have flagged as suspicious.</p>
+        /**
+         * Reject an account
+         * @description <p>With <a href="/connect">Connect</a>, you can reject accounts that you have flagged as suspicious.</p>
          *
-         *     <p>Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.</p> */
+         *     <p>Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.</p>
+         */
         post: operations["PostAccountsAccountReject"];
         delete?: never;
         options?: never;
@@ -392,7 +479,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of application fees you’ve previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.</p> */
+        /**
+         * List all application fees
+         * @description <p>Returns a list of application fees you’ve previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.</p>
+         */
         get: operations["GetApplicationFees"];
         put?: never;
         post?: never;
@@ -409,12 +499,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details about a specific refund stored on the application fee.</p> */
+        /**
+         * Retrieve an application fee refund
+         * @description <p>By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details about a specific refund stored on the application fee.</p>
+         */
         get: operations["GetApplicationFeesFeeRefundsId"];
         put?: never;
-        /** @description <p>Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+        /**
+         * Update an application fee refund
+         * @description <p>Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
          *
-         *     <p>This request only accepts metadata as an argument.</p> */
+         *     <p>This request only accepts metadata as an argument.</p>
+         */
         post: operations["PostApplicationFeesFeeRefundsId"];
         delete?: never;
         options?: never;
@@ -429,7 +525,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an application fee that your account has collected. The same information is returned when refunding the application fee.</p> */
+        /**
+         * Retrieve an application fee
+         * @description <p>Retrieves the details of an application fee that your account has collected. The same information is returned when refunding the application fee.</p>
+         */
         get: operations["GetApplicationFeesId"];
         put?: never;
         post?: never;
@@ -462,10 +561,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>You can see a list of the refunds belonging to a specific application fee. Note that the 10 most recent refunds are always available by default on the application fee object. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional refunds.</p> */
+        /**
+         * List all application fee refunds
+         * @description <p>You can see a list of the refunds belonging to a specific application fee. Note that the 10 most recent refunds are always available by default on the application fee object. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional refunds.</p>
+         */
         get: operations["GetApplicationFeesIdRefunds"];
         put?: never;
-        /** @description <p>Refunds an application fee that has previously been collected but not yet refunded.
+        /**
+         * Create an application fee refund
+         * @description <p>Refunds an application fee that has previously been collected but not yet refunded.
          *     Funds will be refunded to the Stripe account from which the fee was originally collected.</p>
          *
          *     <p>You can optionally refund only part of an application fee.
@@ -473,7 +577,8 @@ export interface paths {
          *
          *     <p>Once entirely refunded, an application fee can’t be refunded again.
          *     This method will raise an error when called on an already-refunded application fee,
-         *     or when trying to refund more money than is left on an application fee.</p> */
+         *     or when trying to refund more money than is left on an application fee.</p>
+         */
         post: operations["PostApplicationFeesIdRefunds"];
         delete?: never;
         options?: never;
@@ -488,10 +593,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>List all secrets stored on the given scope.</p> */
+        /**
+         * List secrets
+         * @description <p>List all secrets stored on the given scope.</p>
+         */
         get: operations["GetAppsSecrets"];
         put?: never;
-        /** @description <p>Create or replace a secret in the secret store.</p> */
+        /**
+         * Set a Secret
+         * @description <p>Create or replace a secret in the secret store.</p>
+         */
         post: operations["PostAppsSecrets"];
         delete?: never;
         options?: never;
@@ -508,7 +619,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Deletes a secret from the secret store by name and scope.</p> */
+        /**
+         * Delete a Secret
+         * @description <p>Deletes a secret from the secret store by name and scope.</p>
+         */
         post: operations["PostAppsSecretsDelete"];
         delete?: never;
         options?: never;
@@ -523,7 +637,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Finds a secret in the secret store by name and scope.</p> */
+        /**
+         * Find a Secret
+         * @description <p>Finds a secret in the secret store by name and scope.</p>
+         */
         get: operations["GetAppsSecretsFind"];
         put?: never;
         post?: never;
@@ -540,8 +657,11 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the current account balance, based on the authentication that was used to make the request.
-         *      For a sample request, see <a href="/docs/connect/account-balances#accounting-for-negative-balances">Accounting for negative balances</a>.</p> */
+        /**
+         * Retrieve balance
+         * @description <p>Retrieves the current account balance, based on the authentication that was used to make the request.
+         *      For a sample request, see <a href="/docs/connect/account-balances#accounting-for-negative-balances">Accounting for negative balances</a>.</p>
+         */
         get: operations["GetBalance"];
         put?: never;
         post?: never;
@@ -558,9 +678,12 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.</p>
+        /**
+         * List all balance transactions
+         * @description <p>Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.</p>
          *
-         *     <p>Note that this endpoint was previously called “Balance history” and used the path <code>/v1/balance/history</code>.</p> */
+         *     <p>Note that this endpoint was previously called “Balance history” and used the path <code>/v1/balance/history</code>.</p>
+         */
         get: operations["GetBalanceHistory"];
         put?: never;
         post?: never;
@@ -577,9 +700,12 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the balance transaction with the given ID.</p>
+        /**
+         * Retrieve a balance transaction
+         * @description <p>Retrieves the balance transaction with the given ID.</p>
          *
-         *     <p>Note that this endpoint previously used the path <code>/v1/balance/history/:id</code>.</p> */
+         *     <p>Note that this endpoint previously used the path <code>/v1/balance/history/:id</code>.</p>
+         */
         get: operations["GetBalanceHistoryId"];
         put?: never;
         post?: never;
@@ -596,9 +722,12 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.</p>
+        /**
+         * List all balance transactions
+         * @description <p>Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.</p>
          *
-         *     <p>Note that this endpoint was previously called “Balance history” and used the path <code>/v1/balance/history</code>.</p> */
+         *     <p>Note that this endpoint was previously called “Balance history” and used the path <code>/v1/balance/history</code>.</p>
+         */
         get: operations["GetBalanceTransactions"];
         put?: never;
         post?: never;
@@ -615,9 +744,12 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the balance transaction with the given ID.</p>
+        /**
+         * Retrieve a balance transaction
+         * @description <p>Retrieves the balance transaction with the given ID.</p>
          *
-         *     <p>Note that this endpoint previously used the path <code>/v1/balance/history/:id</code>.</p> */
+         *     <p>Note that this endpoint previously used the path <code>/v1/balance/history/:id</code>.</p>
+         */
         get: operations["GetBalanceTransactionsId"];
         put?: never;
         post?: never;
@@ -634,10 +766,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Lists billing active and inactive alerts</p> */
+        /**
+         * List billing alerts
+         * @description <p>Lists billing active and inactive alerts</p>
+         */
         get: operations["GetBillingAlerts"];
         put?: never;
-        /** @description <p>Creates a billing alert</p> */
+        /**
+         * Create a billing alert
+         * @description <p>Creates a billing alert</p>
+         */
         post: operations["PostBillingAlerts"];
         delete?: never;
         options?: never;
@@ -652,7 +790,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a billing alert given an ID</p> */
+        /**
+         * Retrieve a billing alert
+         * @description <p>Retrieves a billing alert given an ID</p>
+         */
         get: operations["GetBillingAlertsId"];
         put?: never;
         post?: never;
@@ -671,7 +812,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Reactivates this alert, allowing it to trigger again.</p> */
+        /**
+         * Activate a billing alert
+         * @description <p>Reactivates this alert, allowing it to trigger again.</p>
+         */
         post: operations["PostBillingAlertsIdActivate"];
         delete?: never;
         options?: never;
@@ -688,7 +832,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Archives this alert, removing it from the list view and APIs. This is non-reversible.</p> */
+        /**
+         * Archive a billing alert
+         * @description <p>Archives this alert, removing it from the list view and APIs. This is non-reversible.</p>
+         */
         post: operations["PostBillingAlertsIdArchive"];
         delete?: never;
         options?: never;
@@ -705,8 +852,159 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Deactivates this alert, preventing it from triggering.</p> */
+        /**
+         * Deactivate a billing alert
+         * @description <p>Deactivates this alert, preventing it from triggering.</p>
+         */
         post: operations["PostBillingAlertsIdDeactivate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/billing/credit_balance_summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve the credit balance summary for a customer
+         * @description <p>Retrieves the credit balance summary for a customer.</p>
+         */
+        get: operations["GetBillingCreditBalanceSummary"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/billing/credit_balance_transactions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List credit balance transactions
+         * @description <p>Retrieve a list of credit balance transactions.</p>
+         */
+        get: operations["GetBillingCreditBalanceTransactions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/billing/credit_balance_transactions/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve a credit balance transaction
+         * @description <p>Retrieves a credit balance transaction.</p>
+         */
+        get: operations["GetBillingCreditBalanceTransactionsId"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/billing/credit_grants": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List credit grants
+         * @description <p>Retrieve a list of credit grants.</p>
+         */
+        get: operations["GetBillingCreditGrants"];
+        put?: never;
+        /**
+         * Create a credit grant
+         * @description <p>Creates a credit grant.</p>
+         */
+        post: operations["PostBillingCreditGrants"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/billing/credit_grants/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Retrieve a credit grant
+         * @description <p>Retrieves a credit grant.</p>
+         */
+        get: operations["GetBillingCreditGrantsId"];
+        put?: never;
+        /**
+         * Update a credit grant
+         * @description <p>Updates a credit grant.</p>
+         */
+        post: operations["PostBillingCreditGrantsId"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/billing/credit_grants/{id}/expire": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Expire a credit grant
+         * @description <p>Expires a credit grant.</p>
+         */
+        post: operations["PostBillingCreditGrantsIdExpire"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/billing/credit_grants/{id}/void": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Void a credit grant
+         * @description <p>Voids a credit grant.</p>
+         */
+        post: operations["PostBillingCreditGrantsIdVoid"];
         delete?: never;
         options?: never;
         head?: never;
@@ -722,7 +1020,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Creates a billing meter event adjustment</p> */
+        /**
+         * Create a billing meter event adjustment
+         * @description <p>Creates a billing meter event adjustment.</p>
+         */
         post: operations["PostBillingMeterEventAdjustments"];
         delete?: never;
         options?: never;
@@ -739,7 +1040,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Creates a billing meter event</p> */
+        /**
+         * Create a billing meter event
+         * @description <p>Creates a billing meter event.</p>
+         */
         post: operations["PostBillingMeterEvents"];
         delete?: never;
         options?: never;
@@ -754,10 +1058,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieve a list of billing meters.</p> */
+        /**
+         * List billing meters
+         * @description <p>Retrieve a list of billing meters.</p>
+         */
         get: operations["GetBillingMeters"];
         put?: never;
-        /** @description <p>Creates a billing meter</p> */
+        /**
+         * Create a billing meter
+         * @description <p>Creates a billing meter.</p>
+         */
         post: operations["PostBillingMeters"];
         delete?: never;
         options?: never;
@@ -772,10 +1082,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a billing meter given an ID</p> */
+        /**
+         * Retrieve a billing meter
+         * @description <p>Retrieves a billing meter given an ID.</p>
+         */
         get: operations["GetBillingMetersId"];
         put?: never;
-        /** @description <p>Updates a billing meter</p> */
+        /**
+         * Update a billing meter
+         * @description <p>Updates a billing meter.</p>
+         */
         post: operations["PostBillingMetersId"];
         delete?: never;
         options?: never;
@@ -792,7 +1108,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Deactivates a billing meter</p> */
+        /**
+         * Deactivate a billing meter
+         * @description <p>When a meter is deactivated, no more meter events will be accepted for this meter. You can’t attach a deactivated meter to a price.</p>
+         */
         post: operations["PostBillingMetersIdDeactivate"];
         delete?: never;
         options?: never;
@@ -807,7 +1126,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieve a list of billing meter event summaries.</p> */
+        /**
+         * List billing meter event summaries
+         * @description <p>Retrieve a list of billing meter event summaries.</p>
+         */
         get: operations["GetBillingMetersIdEventSummaries"];
         put?: never;
         post?: never;
@@ -826,7 +1148,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Reactivates a billing meter</p> */
+        /**
+         * Reactivate a billing meter
+         * @description <p>When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.</p>
+         */
         post: operations["PostBillingMetersIdReactivate"];
         delete?: never;
         options?: never;
@@ -841,10 +1166,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of configurations that describe the functionality of the customer portal.</p> */
+        /**
+         * List portal configurations
+         * @description <p>Returns a list of configurations that describe the functionality of the customer portal.</p>
+         */
         get: operations["GetBillingPortalConfigurations"];
         put?: never;
-        /** @description <p>Creates a configuration that describes the functionality and behavior of a PortalSession</p> */
+        /**
+         * Create a portal configuration
+         * @description <p>Creates a configuration that describes the functionality and behavior of a PortalSession</p>
+         */
         post: operations["PostBillingPortalConfigurations"];
         delete?: never;
         options?: never;
@@ -859,10 +1190,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a configuration that describes the functionality of the customer portal.</p> */
+        /**
+         * Retrieve a portal configuration
+         * @description <p>Retrieves a configuration that describes the functionality of the customer portal.</p>
+         */
         get: operations["GetBillingPortalConfigurationsConfiguration"];
         put?: never;
-        /** @description <p>Updates a configuration that describes the functionality of the customer portal.</p> */
+        /**
+         * Update a portal configuration
+         * @description <p>Updates a configuration that describes the functionality of the customer portal.</p>
+         */
         post: operations["PostBillingPortalConfigurationsConfiguration"];
         delete?: never;
         options?: never;
@@ -879,7 +1216,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Creates a session of the customer portal.</p> */
+        /**
+         * Create a portal session
+         * @description <p>Creates a session of the customer portal.</p>
+         */
         post: operations["PostBillingPortalSessions"];
         delete?: never;
         options?: never;
@@ -894,7 +1234,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of charges you’ve previously created. The charges are returned in sorted order, with the most recent charges appearing first.</p> */
+        /**
+         * List all charges
+         * @description <p>Returns a list of charges you’ve previously created. The charges are returned in sorted order, with the most recent charges appearing first.</p>
+         */
         get: operations["GetCharges"];
         put?: never;
         /** @description <p>This method is no longer recommended—use the <a href="/docs/api/payment_intents">Payment Intents API</a>
@@ -914,10 +1257,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Search for charges you’ve previously created using Stripe’s <a href="/docs/search#search-query-language">Search Query Language</a>.
+        /**
+         * Search charges
+         * @description <p>Search for charges you’ve previously created using Stripe’s <a href="/docs/search#search-query-language">Search Query Language</a>.
          *     Don’t use search in read-after-write flows where strict consistency is necessary. Under normal operating
          *     conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
-         *     to an hour behind during outages. Search functionality is not available to merchants in India.</p> */
+         *     to an hour behind during outages. Search functionality is not available to merchants in India.</p>
+         */
         get: operations["GetChargesSearch"];
         put?: never;
         post?: never;
@@ -934,10 +1280,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.</p> */
+        /**
+         * Retrieve a charge
+         * @description <p>Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.</p>
+         */
         get: operations["GetChargesCharge"];
         put?: never;
-        /** @description <p>Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
+        /**
+         * Update a charge
+         * @description <p>Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+         */
         post: operations["PostChargesCharge"];
         delete?: never;
         options?: never;
@@ -954,11 +1306,14 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Capture the payment of an existing, uncaptured charge that was created with the <code>capture</code> option set to false.</p>
+        /**
+         * Capture a payment
+         * @description <p>Capture the payment of an existing, uncaptured charge that was created with the <code>capture</code> option set to false.</p>
          *
          *     <p>Uncaptured payments expire a set number of days after they are created (<a href="/docs/charges/placing-a-hold">7 by default</a>), after which they are marked as refunded and capture attempts will fail.</p>
          *
-         *     <p>Don’t use this method to capture a PaymentIntent-initiated charge. Use <a href="/docs/api/payment_intents/capture">Capture a PaymentIntent</a>.</p> */
+         *     <p>Don’t use this method to capture a PaymentIntent-initiated charge. Use <a href="/docs/api/payment_intents/capture">Capture a PaymentIntent</a>.</p>
+         */
         post: operations["PostChargesChargeCapture"];
         delete?: never;
         options?: never;
@@ -1008,7 +1363,9 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>When you create a new refund, you must specify either a Charge or a PaymentIntent object.</p>
+        /**
+         * Create a refund
+         * @description <p>When you create a new refund, you must specify either a Charge or a PaymentIntent object.</p>
          *
          *     <p>This action refunds a previously created charge that’s not refunded yet.
          *     Funds are refunded to the credit or debit card that’s originally charged.</p>
@@ -1018,7 +1375,8 @@ export interface paths {
          *
          *     <p>After you entirely refund a charge, you can’t refund it again.
          *     This method raises an error when it’s called on an already-refunded charge,
-         *     or when you attempt to refund more money than is left on a charge.</p> */
+         *     or when you attempt to refund more money than is left on a charge.</p>
+         */
         post: operations["PostChargesChargeRefund"];
         delete?: never;
         options?: never;
@@ -1033,10 +1391,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional refunds.</p> */
+        /**
+         * List all refunds
+         * @description <p>You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional refunds.</p>
+         */
         get: operations["GetChargesChargeRefunds"];
         put?: never;
-        /** @description <p>When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.</p>
+        /**
+         * Create customer balance refund
+         * @description <p>When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.</p>
          *
          *     <p>Creating a new refund will refund a charge that has previously been created but not yet refunded.
          *     Funds will be refunded to the credit or debit card that was originally charged.</p>
@@ -1046,7 +1409,8 @@ export interface paths {
          *
          *     <p>Once entirely refunded, a charge can’t be refunded again.
          *     This method will raise an error when called on an already-refunded charge,
-         *     or when trying to refund more money than is left on a charge.</p> */
+         *     or when trying to refund more money than is left on a charge.</p>
+         */
         post: operations["PostChargesChargeRefunds"];
         delete?: never;
         options?: never;
@@ -1079,10 +1443,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of Checkout Sessions.</p> */
+        /**
+         * List all Checkout Sessions
+         * @description <p>Returns a list of Checkout Sessions.</p>
+         */
         get: operations["GetCheckoutSessions"];
         put?: never;
-        /** @description <p>Creates a Session object.</p> */
+        /**
+         * Create a Session
+         * @description <p>Creates a Session object.</p>
+         */
         post: operations["PostCheckoutSessions"];
         delete?: never;
         options?: never;
@@ -1097,10 +1467,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a Session object.</p> */
+        /**
+         * Retrieve a Session
+         * @description <p>Retrieves a Session object.</p>
+         */
         get: operations["GetCheckoutSessionsSession"];
         put?: never;
-        /** @description <p>Updates a Session object.</p> */
+        /**
+         * Update a Session
+         * @description <p>Updates a Session object.</p>
+         */
         post: operations["PostCheckoutSessionsSession"];
         delete?: never;
         options?: never;
@@ -1117,9 +1493,12 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>A Session can be expired when it is in one of these statuses: <code>open</code> </p>
+        /**
+         * Expire a Session
+         * @description <p>A Session can be expired when it is in one of these statuses: <code>open</code> </p>
          *
-         *     <p>After it expires, a customer can’t complete a Session and customers loading the Session see a message saying the Session is expired.</p> */
+         *     <p>After it expires, a customer can’t complete a Session and customers loading the Session see a message saying the Session is expired.</p>
+         */
         post: operations["PostCheckoutSessionsSessionExpire"];
         delete?: never;
         options?: never;
@@ -1134,7 +1513,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>When retrieving a Checkout Session, there is an includable <strong>line_items</strong> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
+        /**
+         * Retrieve a Checkout Session's line items
+         * @description <p>When retrieving a Checkout Session, there is an includable <strong>line_items</strong> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p>
+         */
         get: operations["GetCheckoutSessionsSessionLineItems"];
         put?: never;
         post?: never;
@@ -1151,12 +1533,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Lists all Climate order objects. The orders are returned sorted by creation date, with the
-         *     most recently created orders appearing first.</p> */
+        /**
+         * List orders
+         * @description <p>Lists all Climate order objects. The orders are returned sorted by creation date, with the
+         *     most recently created orders appearing first.</p>
+         */
         get: operations["GetClimateOrders"];
         put?: never;
-        /** @description <p>Creates a Climate order object for a given Climate product. The order will be processed immediately
-         *     after creation and payment will be deducted your Stripe balance.</p> */
+        /**
+         * Create an order
+         * @description <p>Creates a Climate order object for a given Climate product. The order will be processed immediately
+         *     after creation and payment will be deducted your Stripe balance.</p>
+         */
         post: operations["PostClimateOrders"];
         delete?: never;
         options?: never;
@@ -1171,10 +1559,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of a Climate order object with the given ID.</p> */
+        /**
+         * Retrieve an order
+         * @description <p>Retrieves the details of a Climate order object with the given ID.</p>
+         */
         get: operations["GetClimateOrdersOrder"];
         put?: never;
-        /** @description <p>Updates the specified order by setting the values of the parameters passed.</p> */
+        /**
+         * Update an order
+         * @description <p>Updates the specified order by setting the values of the parameters passed.</p>
+         */
         post: operations["PostClimateOrdersOrder"];
         delete?: never;
         options?: never;
@@ -1191,10 +1585,13 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
+        /**
+         * Cancel an order
+         * @description <p>Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
          *     reservation <code>amount_subtotal</code>, but not the <code>amount_fees</code> for user-triggered cancellations. Frontier
          *     might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
-         *     provides 90 days advance notice and refunds the <code>amount_total</code>.</p> */
+         *     provides 90 days advance notice and refunds the <code>amount_total</code>.</p>
+         */
         post: operations["PostClimateOrdersOrderCancel"];
         delete?: never;
         options?: never;
@@ -1209,7 +1606,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Lists all available Climate product objects.</p> */
+        /**
+         * List products
+         * @description <p>Lists all available Climate product objects.</p>
+         */
         get: operations["GetClimateProducts"];
         put?: never;
         post?: never;
@@ -1226,7 +1626,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of a Climate product with the given ID.</p> */
+        /**
+         * Retrieve a product
+         * @description <p>Retrieves the details of a Climate product with the given ID.</p>
+         */
         get: operations["GetClimateProductsProduct"];
         put?: never;
         post?: never;
@@ -1243,7 +1646,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Lists all available Climate supplier objects.</p> */
+        /**
+         * List suppliers
+         * @description <p>Lists all available Climate supplier objects.</p>
+         */
         get: operations["GetClimateSuppliers"];
         put?: never;
         post?: never;
@@ -1260,7 +1666,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a Climate supplier object.</p> */
+        /**
+         * Retrieve a supplier
+         * @description <p>Retrieves a Climate supplier object.</p>
+         */
         get: operations["GetClimateSuppliersSupplier"];
         put?: never;
         post?: never;
@@ -1277,7 +1686,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves an existing ConfirmationToken object</p> */
+        /**
+         * Retrieve a ConfirmationToken
+         * @description <p>Retrieves an existing ConfirmationToken object</p>
+         */
         get: operations["GetConfirmationTokensConfirmationToken"];
         put?: never;
         post?: never;
@@ -1294,7 +1706,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Lists all Country Spec objects available in the API.</p> */
+        /**
+         * List Country Specs
+         * @description <p>Lists all Country Spec objects available in the API.</p>
+         */
         get: operations["GetCountrySpecs"];
         put?: never;
         post?: never;
@@ -1311,7 +1726,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a Country Spec for a given Country code.</p> */
+        /**
+         * Retrieve a Country Spec
+         * @description <p>Returns a Country Spec for a given Country code.</p>
+         */
         get: operations["GetCountrySpecsCountry"];
         put?: never;
         post?: never;
@@ -1328,12 +1746,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of your coupons.</p> */
+        /**
+         * List all coupons
+         * @description <p>Returns a list of your coupons.</p>
+         */
         get: operations["GetCoupons"];
         put?: never;
-        /** @description <p>You can create coupons easily via the <a href="https://dashboard.stripe.com/coupons">coupon management</a> page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.</p>
+        /**
+         * Create a coupon
+         * @description <p>You can create coupons easily via the <a href="https://dashboard.stripe.com/coupons">coupon management</a> page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.</p>
          *
-         *     <p>A coupon has either a <code>percent_off</code> or an <code>amount_off</code> and <code>currency</code>. If you set an <code>amount_off</code>, that amount will be subtracted from any invoice’s subtotal. For example, an invoice with a subtotal of <currency>100</currency> will have a final total of <currency>0</currency> if a coupon with an <code>amount_off</code> of <amount>200</amount> is applied to it and an invoice with a subtotal of <currency>300</currency> will have a final total of <currency>100</currency> if a coupon with an <code>amount_off</code> of <amount>200</amount> is applied to it.</p> */
+         *     <p>A coupon has either a <code>percent_off</code> or an <code>amount_off</code> and <code>currency</code>. If you set an <code>amount_off</code>, that amount will be subtracted from any invoice’s subtotal. For example, an invoice with a subtotal of <currency>100</currency> will have a final total of <currency>0</currency> if a coupon with an <code>amount_off</code> of <amount>200</amount> is applied to it and an invoice with a subtotal of <currency>300</currency> will have a final total of <currency>100</currency> if a coupon with an <code>amount_off</code> of <amount>200</amount> is applied to it.</p>
+         */
         post: operations["PostCoupons"];
         delete?: never;
         options?: never;
@@ -1348,12 +1772,21 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the coupon with the given ID.</p> */
+        /**
+         * Retrieve a coupon
+         * @description <p>Retrieves the coupon with the given ID.</p>
+         */
         get: operations["GetCouponsCoupon"];
         put?: never;
-        /** @description <p>Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.</p> */
+        /**
+         * Update a coupon
+         * @description <p>Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.</p>
+         */
         post: operations["PostCouponsCoupon"];
-        /** @description <p>You can delete coupons via the <a href="https://dashboard.stripe.com/coupons">coupon management</a> page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can’t redeem the coupon. You can also delete coupons via the API.</p> */
+        /**
+         * Delete a coupon
+         * @description <p>You can delete coupons via the <a href="https://dashboard.stripe.com/coupons">coupon management</a> page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can’t redeem the coupon. You can also delete coupons via the API.</p>
+         */
         delete: operations["DeleteCouponsCoupon"];
         options?: never;
         head?: never;
@@ -1367,10 +1800,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of credit notes.</p> */
+        /**
+         * List all credit notes
+         * @description <p>Returns a list of credit notes.</p>
+         */
         get: operations["GetCreditNotes"];
         put?: never;
-        /** @description <p>Issue a credit note to adjust the amount of a finalized invoice. For a <code>status=open</code> invoice, a credit note reduces
+        /**
+         * Create a credit note
+         * @description <p>Issue a credit note to adjust the amount of a finalized invoice. For a <code>status=open</code> invoice, a credit note reduces
          *     its <code>amount_due</code>. For a <code>status=paid</code> invoice, a credit note does not affect its <code>amount_due</code>. Instead, it can result
          *     in any combination of the following:</p>
          *
@@ -1383,7 +1821,8 @@ export interface paths {
          *     <p>For post-payment credit notes the sum of the refund, credit and outside of Stripe amounts must equal the credit note total.</p>
          *
          *     <p>You may issue multiple credit notes for an invoice. Each credit note will increment the invoice’s <code>pre_payment_credit_notes_amount</code>
-         *     or <code>post_payment_credit_notes_amount</code> depending on its <code>status</code> at the time of credit note creation.</p> */
+         *     or <code>post_payment_credit_notes_amount</code> depending on its <code>status</code> at the time of credit note creation.</p>
+         */
         post: operations["PostCreditNotes"];
         delete?: never;
         options?: never;
@@ -1398,7 +1837,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Get a preview of a credit note without creating it.</p> */
+        /**
+         * Preview a credit note
+         * @description <p>Get a preview of a credit note without creating it.</p>
+         */
         get: operations["GetCreditNotesPreview"];
         put?: never;
         post?: never;
@@ -1415,7 +1857,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>When retrieving a credit note preview, you’ll get a <strong>lines</strong> property containing the first handful of those items. This URL you can retrieve the full (paginated) list of line items.</p> */
+        /**
+         * Retrieve a credit note preview's line items
+         * @description <p>When retrieving a credit note preview, you’ll get a <strong>lines</strong> property containing the first handful of those items. This URL you can retrieve the full (paginated) list of line items.</p>
+         */
         get: operations["GetCreditNotesPreviewLines"];
         put?: never;
         post?: never;
@@ -1432,7 +1877,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>When retrieving a credit note, you’ll get a <strong>lines</strong> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
+        /**
+         * Retrieve a credit note's line items
+         * @description <p>When retrieving a credit note, you’ll get a <strong>lines</strong> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p>
+         */
         get: operations["GetCreditNotesCreditNoteLines"];
         put?: never;
         post?: never;
@@ -1449,10 +1897,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the credit note object with the given identifier.</p> */
+        /**
+         * Retrieve a credit note
+         * @description <p>Retrieves the credit note object with the given identifier.</p>
+         */
         get: operations["GetCreditNotesId"];
         put?: never;
-        /** @description <p>Updates an existing credit note.</p> */
+        /**
+         * Update a credit note
+         * @description <p>Updates an existing credit note.</p>
+         */
         post: operations["PostCreditNotesId"];
         delete?: never;
         options?: never;
@@ -1469,7 +1923,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Marks a credit note as void. Learn more about <a href="/docs/billing/invoices/credit-notes#voiding">voiding credit notes</a>.</p> */
+        /**
+         * Void a credit note
+         * @description <p>Marks a credit note as void. Learn more about <a href="/docs/billing/invoices/credit-notes#voiding">voiding credit notes</a>.</p>
+         */
         post: operations["PostCreditNotesIdVoid"];
         delete?: never;
         options?: never;
@@ -1486,7 +1943,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Creates a Customer Session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.</p> */
+        /**
+         * Create a Customer Session
+         * @description <p>Creates a Customer Session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.</p>
+         */
         post: operations["PostCustomerSessions"];
         delete?: never;
         options?: never;
@@ -1501,10 +1961,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.</p> */
+        /**
+         * List all customers
+         * @description <p>Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.</p>
+         */
         get: operations["GetCustomers"];
         put?: never;
-        /** @description <p>Creates a new customer object.</p> */
+        /**
+         * Create a customer
+         * @description <p>Creates a new customer object.</p>
+         */
         post: operations["PostCustomers"];
         delete?: never;
         options?: never;
@@ -1519,10 +1985,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Search for customers you’ve previously created using Stripe’s <a href="/docs/search#search-query-language">Search Query Language</a>.
+        /**
+         * Search customers
+         * @description <p>Search for customers you’ve previously created using Stripe’s <a href="/docs/search#search-query-language">Search Query Language</a>.
          *     Don’t use search in read-after-write flows where strict consistency is necessary. Under normal operating
          *     conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
-         *     to an hour behind during outages. Search functionality is not available to merchants in India.</p> */
+         *     to an hour behind during outages. Search functionality is not available to merchants in India.</p>
+         */
         get: operations["GetCustomersSearch"];
         put?: never;
         post?: never;
@@ -1539,14 +2008,23 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a Customer object.</p> */
+        /**
+         * Retrieve a customer
+         * @description <p>Retrieves a Customer object.</p>
+         */
         get: operations["GetCustomersCustomer"];
         put?: never;
-        /** @description <p>Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the <strong>source</strong> parameter, that becomes the customer’s active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the <strong>source</strong> parameter: for each of the customer’s current subscriptions, if the subscription bills automatically and is in the <code>past_due</code> state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the <strong>default_source</strong> for a customer will not trigger this behavior.</p>
+        /**
+         * Update a customer
+         * @description <p>Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the <strong>source</strong> parameter, that becomes the customer’s active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the <strong>source</strong> parameter: for each of the customer’s current subscriptions, if the subscription bills automatically and is in the <code>past_due</code> state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the <strong>default_source</strong> for a customer will not trigger this behavior.</p>
          *
-         *     <p>This request accepts mostly the same arguments as the customer creation call.</p> */
+         *     <p>This request accepts mostly the same arguments as the customer creation call.</p>
+         */
         post: operations["PostCustomersCustomer"];
-        /** @description <p>Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.</p> */
+        /**
+         * Delete a customer
+         * @description <p>Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.</p>
+         */
         delete: operations["DeleteCustomersCustomer"];
         options?: never;
         head?: never;
@@ -1560,10 +2038,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of transactions that updated the customer’s <a href="/docs/billing/customer/balance">balances</a>.</p> */
+        /**
+         * List customer balance transactions
+         * @description <p>Returns a list of transactions that updated the customer’s <a href="/docs/billing/customer/balance">balances</a>.</p>
+         */
         get: operations["GetCustomersCustomerBalanceTransactions"];
         put?: never;
-        /** @description <p>Creates an immutable transaction that updates the customer’s credit <a href="/docs/billing/customer/balance">balance</a>.</p> */
+        /**
+         * Create a customer balance transaction
+         * @description <p>Creates an immutable transaction that updates the customer’s credit <a href="/docs/billing/customer/balance">balance</a>.</p>
+         */
         post: operations["PostCustomersCustomerBalanceTransactions"];
         delete?: never;
         options?: never;
@@ -1578,10 +2062,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a specific customer balance transaction that updated the customer’s <a href="/docs/billing/customer/balance">balances</a>.</p> */
+        /**
+         * Retrieve a customer balance transaction
+         * @description <p>Retrieves a specific customer balance transaction that updated the customer’s <a href="/docs/billing/customer/balance">balances</a>.</p>
+         */
         get: operations["GetCustomersCustomerBalanceTransactionsTransaction"];
         put?: never;
-        /** @description <p>Most credit balance transaction fields are immutable, but you may update its <code>description</code> and <code>metadata</code>.</p> */
+        /**
+         * Update a customer credit balance transaction
+         * @description <p>Most credit balance transaction fields are immutable, but you may update its <code>description</code> and <code>metadata</code>.</p>
+         */
         post: operations["PostCustomersCustomerBalanceTransactionsTransaction"];
         delete?: never;
         options?: never;
@@ -1597,16 +2087,20 @@ export interface paths {
             cookie?: never;
         };
         /**
+         * List all bank accounts
          * @deprecated
          * @description <p>You can see a list of the bank accounts belonging to a Customer. Note that the 10 most recent sources are always available by default on the Customer. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional bank accounts.</p>
          */
         get: operations["GetCustomersCustomerBankAccounts"];
         put?: never;
-        /** @description <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
+        /**
+         * Create a card
+         * @description <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
          *
          *     <p>If the card’s owner has no default card, then the new card will become the default.
          *     However, if the owner already has a default, then it will not change.
-         *     To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p> */
+         *     To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p>
+         */
         post: operations["PostCustomersCustomerBankAccounts"];
         delete?: never;
         options?: never;
@@ -1622,6 +2116,7 @@ export interface paths {
             cookie?: never;
         };
         /**
+         * Retrieve a bank account
          * @deprecated
          * @description <p>By default, you can see the 10 most recent sources stored on a Customer directly on the object, but you can also retrieve details about a specific bank account stored on the Stripe account.</p>
          */
@@ -1629,7 +2124,10 @@ export interface paths {
         put?: never;
         /** @description <p>Update a specified source for a given customer.</p> */
         post: operations["PostCustomersCustomerBankAccountsId"];
-        /** @description <p>Delete a specified source for a given customer.</p> */
+        /**
+         * Delete a customer source
+         * @description <p>Delete a specified source for a given customer.</p>
+         */
         delete: operations["DeleteCustomersCustomerBankAccountsId"];
         options?: never;
         head?: never;
@@ -1645,7 +2143,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Verify a specified bank account for a given customer.</p> */
+        /**
+         * Verify a bank account
+         * @description <p>Verify a specified bank account for a given customer.</p>
+         */
         post: operations["PostCustomersCustomerBankAccountsIdVerify"];
         delete?: never;
         options?: never;
@@ -1661,6 +2162,7 @@ export interface paths {
             cookie?: never;
         };
         /**
+         * List all cards
          * @deprecated
          * @description <p>You can see a list of the cards belonging to a customer.
          *     Note that the 10 most recent sources are always available on the <code>Customer</code> object.
@@ -1668,11 +2170,14 @@ export interface paths {
          */
         get: operations["GetCustomersCustomerCards"];
         put?: never;
-        /** @description <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
+        /**
+         * Create a card
+         * @description <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
          *
          *     <p>If the card’s owner has no default card, then the new card will become the default.
          *     However, if the owner already has a default, then it will not change.
-         *     To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p> */
+         *     To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p>
+         */
         post: operations["PostCustomersCustomerCards"];
         delete?: never;
         options?: never;
@@ -1688,6 +2193,7 @@ export interface paths {
             cookie?: never;
         };
         /**
+         * Retrieve a card
          * @deprecated
          * @description <p>You can always see the 10 most recent cards directly on a customer; this method lets you retrieve details about a specific card stored on the customer.</p>
          */
@@ -1695,7 +2201,10 @@ export interface paths {
         put?: never;
         /** @description <p>Update a specified source for a given customer.</p> */
         post: operations["PostCustomersCustomerCardsId"];
-        /** @description <p>Delete a specified source for a given customer.</p> */
+        /**
+         * Delete a customer source
+         * @description <p>Delete a specified source for a given customer.</p>
+         */
         delete: operations["DeleteCustomersCustomerCardsId"];
         options?: never;
         head?: never;
@@ -1709,10 +2218,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a customer’s cash balance.</p> */
+        /**
+         * Retrieve a cash balance
+         * @description <p>Retrieves a customer’s cash balance.</p>
+         */
         get: operations["GetCustomersCustomerCashBalance"];
         put?: never;
-        /** @description <p>Changes the settings on a customer’s cash balance.</p> */
+        /**
+         * Update a cash balance's settings
+         * @description <p>Changes the settings on a customer’s cash balance.</p>
+         */
         post: operations["PostCustomersCustomerCashBalance"];
         delete?: never;
         options?: never;
@@ -1727,7 +2242,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of transactions that modified the customer’s <a href="/docs/payments/customer-balance">cash balance</a>.</p> */
+        /**
+         * List cash balance transactions
+         * @description <p>Returns a list of transactions that modified the customer’s <a href="/docs/payments/customer-balance">cash balance</a>.</p>
+         */
         get: operations["GetCustomersCustomerCashBalanceTransactions"];
         put?: never;
         post?: never;
@@ -1744,7 +2262,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a specific cash balance transaction, which updated the customer’s <a href="/docs/payments/customer-balance">cash balance</a>.</p> */
+        /**
+         * Retrieve a cash balance transaction
+         * @description <p>Retrieves a specific cash balance transaction, which updated the customer’s <a href="/docs/payments/customer-balance">cash balance</a>.</p>
+         */
         get: operations["GetCustomersCustomerCashBalanceTransactionsTransaction"];
         put?: never;
         post?: never;
@@ -1764,7 +2285,10 @@ export interface paths {
         get: operations["GetCustomersCustomerDiscount"];
         put?: never;
         post?: never;
-        /** @description <p>Removes the currently applied discount on a customer.</p> */
+        /**
+         * Delete a customer discount
+         * @description <p>Removes the currently applied discount on a customer.</p>
+         */
         delete: operations["DeleteCustomersCustomerDiscount"];
         options?: never;
         head?: never;
@@ -1780,9 +2304,12 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
+        /**
+         * Create or retrieve funding instructions for a customer cash balance
+         * @description <p>Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
          *     funding instructions will be created. If funding instructions have already been created for a given customer, the same
-         *     funding instructions will be retrieved. In other words, we will return the same funding instructions each time.</p> */
+         *     funding instructions will be retrieved. In other words, we will return the same funding instructions each time.</p>
+         */
         post: operations["PostCustomersCustomerFundingInstructions"];
         delete?: never;
         options?: never;
@@ -1797,7 +2324,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of PaymentMethods for a given Customer</p> */
+        /**
+         * List a Customer's PaymentMethods
+         * @description <p>Returns a list of PaymentMethods for a given Customer</p>
+         */
         get: operations["GetCustomersCustomerPaymentMethods"];
         put?: never;
         post?: never;
@@ -1814,7 +2344,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a PaymentMethod object for a given Customer.</p> */
+        /**
+         * Retrieve a Customer's PaymentMethod
+         * @description <p>Retrieves a PaymentMethod object for a given Customer.</p>
+         */
         get: operations["GetCustomersCustomerPaymentMethodsPaymentMethod"];
         put?: never;
         post?: never;
@@ -1834,11 +2367,14 @@ export interface paths {
         /** @description <p>List sources for a specified customer.</p> */
         get: operations["GetCustomersCustomerSources"];
         put?: never;
-        /** @description <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
+        /**
+         * Create a card
+         * @description <p>When you create a new credit card, you must specify a customer or recipient on which to create it.</p>
          *
          *     <p>If the card’s owner has no default card, then the new card will become the default.
          *     However, if the owner already has a default, then it will not change.
-         *     To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p> */
+         *     To change the default, you should <a href="/docs/api#update_customer">update the customer</a> to have a new <code>default_source</code>.</p>
+         */
         post: operations["PostCustomersCustomerSources"];
         delete?: never;
         options?: never;
@@ -1858,7 +2394,10 @@ export interface paths {
         put?: never;
         /** @description <p>Update a specified source for a given customer.</p> */
         post: operations["PostCustomersCustomerSourcesId"];
-        /** @description <p>Delete a specified source for a given customer.</p> */
+        /**
+         * Delete a customer source
+         * @description <p>Delete a specified source for a given customer.</p>
+         */
         delete: operations["DeleteCustomersCustomerSourcesId"];
         options?: never;
         head?: never;
@@ -1874,7 +2413,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Verify a specified bank account for a given customer.</p> */
+        /**
+         * Verify a bank account
+         * @description <p>Verify a specified bank account for a given customer.</p>
+         */
         post: operations["PostCustomersCustomerSourcesIdVerify"];
         delete?: never;
         options?: never;
@@ -1889,10 +2431,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>You can see a list of the customer’s active subscriptions. Note that the 10 most recent active subscriptions are always available by default on the customer object. If you need more than those 10, you can use the limit and starting_after parameters to page through additional subscriptions.</p> */
+        /**
+         * List active subscriptions
+         * @description <p>You can see a list of the customer’s active subscriptions. Note that the 10 most recent active subscriptions are always available by default on the customer object. If you need more than those 10, you can use the limit and starting_after parameters to page through additional subscriptions.</p>
+         */
         get: operations["GetCustomersCustomerSubscriptions"];
         put?: never;
-        /** @description <p>Creates a new subscription on an existing customer.</p> */
+        /**
+         * Create a subscription
+         * @description <p>Creates a new subscription on an existing customer.</p>
+         */
         post: operations["PostCustomersCustomerSubscriptions"];
         delete?: never;
         options?: never;
@@ -1907,16 +2455,25 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the subscription with the given ID.</p> */
+        /**
+         * Retrieve a subscription
+         * @description <p>Retrieves the subscription with the given ID.</p>
+         */
         get: operations["GetCustomersCustomerSubscriptionsSubscriptionExposedId"];
         put?: never;
-        /** @description <p>Updates an existing subscription on a customer to match the specified parameters. When changing plans or quantities, we will optionally prorate the price we charge next month to make up for any price changes. To preview how the proration will be calculated, use the <a href="#upcoming_invoice">upcoming invoice</a> endpoint.</p> */
+        /**
+         * Update a subscription on a customer
+         * @description <p>Updates an existing subscription on a customer to match the specified parameters. When changing plans or quantities, we will optionally prorate the price we charge next month to make up for any price changes. To preview how the proration will be calculated, use the <a href="#upcoming_invoice">upcoming invoice</a> endpoint.</p>
+         */
         post: operations["PostCustomersCustomerSubscriptionsSubscriptionExposedId"];
-        /** @description <p>Cancels a customer’s subscription. If you set the <code>at_period_end</code> parameter to <code>true</code>, the subscription will remain active until the end of the period, at which point it will be canceled and not renewed. Otherwise, with the default <code>false</code> value, the subscription is terminated immediately. In either case, the customer will not be charged again for the subscription.</p>
+        /**
+         * Cancel a subscription
+         * @description <p>Cancels a customer’s subscription. If you set the <code>at_period_end</code> parameter to <code>true</code>, the subscription will remain active until the end of the period, at which point it will be canceled and not renewed. Otherwise, with the default <code>false</code> value, the subscription is terminated immediately. In either case, the customer will not be charged again for the subscription.</p>
          *
          *     <p>Note, however, that any pending invoice items that you’ve created will still be charged for at the end of the period, unless manually <a href="#delete_invoiceitem">deleted</a>. If you’ve set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.</p>
          *
-         *     <p>By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.</p> */
+         *     <p>By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.</p>
+         */
         delete: operations["DeleteCustomersCustomerSubscriptionsSubscriptionExposedId"];
         options?: never;
         head?: never;
@@ -1933,7 +2490,10 @@ export interface paths {
         get: operations["GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount"];
         put?: never;
         post?: never;
-        /** @description <p>Removes the currently applied discount on a customer.</p> */
+        /**
+         * Delete a customer discount
+         * @description <p>Removes the currently applied discount on a customer.</p>
+         */
         delete: operations["DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount"];
         options?: never;
         head?: never;
@@ -1947,10 +2507,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of tax IDs for a customer.</p> */
+        /**
+         * List all Customer tax IDs
+         * @description <p>Returns a list of tax IDs for a customer.</p>
+         */
         get: operations["GetCustomersCustomerTaxIds"];
         put?: never;
-        /** @description <p>Creates a new <code>tax_id</code> object for a customer.</p> */
+        /**
+         * Create a Customer tax ID
+         * @description <p>Creates a new <code>tax_id</code> object for a customer.</p>
+         */
         post: operations["PostCustomersCustomerTaxIds"];
         delete?: never;
         options?: never;
@@ -1965,11 +2531,17 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the <code>tax_id</code> object with the given identifier.</p> */
+        /**
+         * Retrieve a Customer tax ID
+         * @description <p>Retrieves the <code>tax_id</code> object with the given identifier.</p>
+         */
         get: operations["GetCustomersCustomerTaxIdsId"];
         put?: never;
         post?: never;
-        /** @description <p>Deletes an existing <code>tax_id</code> object.</p> */
+        /**
+         * Delete a Customer tax ID
+         * @description <p>Deletes an existing <code>tax_id</code> object.</p>
+         */
         delete: operations["DeleteCustomersCustomerTaxIdsId"];
         options?: never;
         head?: never;
@@ -1983,7 +2555,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of your disputes.</p> */
+        /**
+         * List all disputes
+         * @description <p>Returns a list of your disputes.</p>
+         */
         get: operations["GetDisputes"];
         put?: never;
         post?: never;
@@ -2000,12 +2575,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the dispute with the given ID.</p> */
+        /**
+         * Retrieve a dispute
+         * @description <p>Retrieves the dispute with the given ID.</p>
+         */
         get: operations["GetDisputesDispute"];
         put?: never;
-        /** @description <p>When you get a dispute, contacting your customer is always the best first step. If that doesn’t work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your <a href="https://dashboard.stripe.com/disputes">dashboard</a>, but if you prefer, you can use the API to submit evidence programmatically.</p>
+        /**
+         * Update a dispute
+         * @description <p>When you get a dispute, contacting your customer is always the best first step. If that doesn’t work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your <a href="https://dashboard.stripe.com/disputes">dashboard</a>, but if you prefer, you can use the API to submit evidence programmatically.</p>
          *
-         *     <p>Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our <a href="/docs/disputes/categories">guide to dispute types</a>.</p> */
+         *     <p>Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our <a href="/docs/disputes/categories">guide to dispute types</a>.</p>
+         */
         post: operations["PostDisputesDispute"];
         delete?: never;
         options?: never;
@@ -2022,9 +2603,12 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.</p>
+        /**
+         * Close a dispute
+         * @description <p>Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.</p>
          *
-         *     <p>The status of the dispute will change from <code>needs_response</code> to <code>lost</code>. <em>Closing a dispute is irreversible</em>.</p> */
+         *     <p>The status of the dispute will change from <code>needs_response</code> to <code>lost</code>. <em>Closing a dispute is irreversible</em>.</p>
+         */
         post: operations["PostDisputesDisputeClose"];
         delete?: never;
         options?: never;
@@ -2039,7 +2623,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieve a list of active entitlements for a customer</p> */
+        /**
+         * List all active entitlements
+         * @description <p>Retrieve a list of active entitlements for a customer</p>
+         */
         get: operations["GetEntitlementsActiveEntitlements"];
         put?: never;
         post?: never;
@@ -2056,7 +2643,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieve an active entitlement</p> */
+        /**
+         * Retrieve an active entitlement
+         * @description <p>Retrieve an active entitlement</p>
+         */
         get: operations["GetEntitlementsActiveEntitlementsId"];
         put?: never;
         post?: never;
@@ -2073,10 +2663,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieve a list of features</p> */
+        /**
+         * List all features
+         * @description <p>Retrieve a list of features</p>
+         */
         get: operations["GetEntitlementsFeatures"];
         put?: never;
-        /** @description <p>Creates a feature</p> */
+        /**
+         * Create a feature
+         * @description <p>Creates a feature</p>
+         */
         post: operations["PostEntitlementsFeatures"];
         delete?: never;
         options?: never;
@@ -2091,10 +2687,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a feature</p> */
+        /**
+         * Retrieve a feature
+         * @description <p>Retrieves a feature</p>
+         */
         get: operations["GetEntitlementsFeaturesId"];
         put?: never;
-        /** @description <p>Update a feature’s metadata or permanently deactivate it.</p> */
+        /**
+         * Updates a feature
+         * @description <p>Update a feature’s metadata or permanently deactivate it.</p>
+         */
         post: operations["PostEntitlementsFeaturesId"];
         delete?: never;
         options?: never;
@@ -2111,7 +2713,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Creates a short-lived API key for a given resource.</p> */
+        /**
+         * Create an ephemeral key
+         * @description <p>Creates a short-lived API key for a given resource.</p>
+         */
         post: operations["PostEphemeralKeys"];
         delete?: never;
         options?: never;
@@ -2129,7 +2734,10 @@ export interface paths {
         get?: never;
         put?: never;
         post?: never;
-        /** @description <p>Invalidates a short-lived API key for a given resource.</p> */
+        /**
+         * Immediately invalidate an ephemeral key
+         * @description <p>Invalidates a short-lived API key for a given resource.</p>
+         */
         delete: operations["DeleteEphemeralKeysKey"];
         options?: never;
         head?: never;
@@ -2143,7 +2751,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in <a href="https://docs.stripe.com/api/events/object">event object</a> <code>api_version</code> attribute (not according to your current Stripe API version or <code>Stripe-Version</code> header).</p> */
+        /**
+         * List all events
+         * @description <p>List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in <a href="https://docs.stripe.com/api/events/object">event object</a> <code>api_version</code> attribute (not according to your current Stripe API version or <code>Stripe-Version</code> header).</p>
+         */
         get: operations["GetEvents"];
         put?: never;
         post?: never;
@@ -2160,7 +2771,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an event if it was created in the last 30 days. Supply the unique identifier of the event, which you might have received in a webhook.</p> */
+        /**
+         * Retrieve an event
+         * @description <p>Retrieves the details of an event if it was created in the last 30 days. Supply the unique identifier of the event, which you might have received in a webhook.</p>
+         */
         get: operations["GetEventsId"];
         put?: never;
         post?: never;
@@ -2177,7 +2791,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.</p> */
+        /**
+         * List all exchange rates
+         * @description <p>Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.</p>
+         */
         get: operations["GetExchangeRates"];
         put?: never;
         post?: never;
@@ -2194,7 +2811,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the exchange rates from the given currency to every supported currency.</p> */
+        /**
+         * Retrieve an exchange rate
+         * @description <p>Retrieves the exchange rates from the given currency to every supported currency.</p>
+         */
         get: operations["GetExchangeRatesRateId"];
         put?: never;
         post?: never;
@@ -2211,10 +2831,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of file links.</p> */
+        /**
+         * List all file links
+         * @description <p>Returns a list of file links.</p>
+         */
         get: operations["GetFileLinks"];
         put?: never;
-        /** @description <p>Creates a new file link object.</p> */
+        /**
+         * Create a file link
+         * @description <p>Creates a new file link object.</p>
+         */
         post: operations["PostFileLinks"];
         delete?: never;
         options?: never;
@@ -2229,10 +2855,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the file link with the given ID.</p> */
+        /**
+         * Retrieve a file link
+         * @description <p>Retrieves the file link with the given ID.</p>
+         */
         get: operations["GetFileLinksLink"];
         put?: never;
-        /** @description <p>Updates an existing file link object. Expired links can no longer be updated.</p> */
+        /**
+         * Update a file link
+         * @description <p>Updates an existing file link object. Expired links can no longer be updated.</p>
+         */
         post: operations["PostFileLinksLink"];
         delete?: never;
         options?: never;
@@ -2247,12 +2879,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.</p> */
+        /**
+         * List all files
+         * @description <p>Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.</p>
+         */
         get: operations["GetFiles"];
         put?: never;
-        /** @description <p>To upload a file to Stripe, you need to send a request of type <code>multipart/form-data</code>. Include the file you want to upload in the request, and the parameters for creating a file.</p>
+        /**
+         * Create a file
+         * @description <p>To upload a file to Stripe, you need to send a request of type <code>multipart/form-data</code>. Include the file you want to upload in the request, and the parameters for creating a file.</p>
          *
-         *     <p>All of Stripe’s officially supported Client libraries support sending <code>multipart/form-data</code>.</p> */
+         *     <p>All of Stripe’s officially supported Client libraries support sending <code>multipart/form-data</code>.</p>
+         */
         post: operations["PostFiles"];
         delete?: never;
         options?: never;
@@ -2267,7 +2905,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an existing file object. After you supply a unique file ID, Stripe returns the corresponding file object. Learn how to <a href="/docs/file-upload#download-file-contents">access file contents</a>.</p> */
+        /**
+         * Retrieve a file
+         * @description <p>Retrieves the details of an existing file object. After you supply a unique file ID, Stripe returns the corresponding file object. Learn how to <a href="/docs/file-upload#download-file-contents">access file contents</a>.</p>
+         */
         get: operations["GetFilesFile"];
         put?: never;
         post?: never;
@@ -2284,7 +2925,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of Financial Connections <code>Account</code> objects.</p> */
+        /**
+         * List Accounts
+         * @description <p>Returns a list of Financial Connections <code>Account</code> objects.</p>
+         */
         get: operations["GetFinancialConnectionsAccounts"];
         put?: never;
         post?: never;
@@ -2301,7 +2945,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an Financial Connections <code>Account</code>.</p> */
+        /**
+         * Retrieve an Account
+         * @description <p>Retrieves the details of an Financial Connections <code>Account</code>.</p>
+         */
         get: operations["GetFinancialConnectionsAccountsAccount"];
         put?: never;
         post?: never;
@@ -2320,7 +2967,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Disables your access to a Financial Connections <code>Account</code>. You will no longer be able to access data associated with the account (e.g. balances, transactions).</p> */
+        /**
+         * Disconnect an Account
+         * @description <p>Disables your access to a Financial Connections <code>Account</code>. You will no longer be able to access data associated with the account (e.g. balances, transactions).</p>
+         */
         post: operations["PostFinancialConnectionsAccountsAccountDisconnect"];
         delete?: never;
         options?: never;
@@ -2335,7 +2985,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Lists all owners for a given <code>Account</code></p> */
+        /**
+         * List Account Owners
+         * @description <p>Lists all owners for a given <code>Account</code></p>
+         */
         get: operations["GetFinancialConnectionsAccountsAccountOwners"];
         put?: never;
         post?: never;
@@ -2354,7 +3007,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Refreshes the data associated with a Financial Connections <code>Account</code>.</p> */
+        /**
+         * Refresh Account data
+         * @description <p>Refreshes the data associated with a Financial Connections <code>Account</code>.</p>
+         */
         post: operations["PostFinancialConnectionsAccountsAccountRefresh"];
         delete?: never;
         options?: never;
@@ -2371,7 +3027,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Subscribes to periodic refreshes of data associated with a Financial Connections <code>Account</code>.</p> */
+        /**
+         * Subscribe to data refreshes for an Account
+         * @description <p>Subscribes to periodic refreshes of data associated with a Financial Connections <code>Account</code>.</p>
+         */
         post: operations["PostFinancialConnectionsAccountsAccountSubscribe"];
         delete?: never;
         options?: never;
@@ -2388,7 +3047,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Unsubscribes from periodic refreshes of data associated with a Financial Connections <code>Account</code>.</p> */
+        /**
+         * Unsubscribe from data refreshes for an Account
+         * @description <p>Unsubscribes from periodic refreshes of data associated with a Financial Connections <code>Account</code>.</p>
+         */
         post: operations["PostFinancialConnectionsAccountsAccountUnsubscribe"];
         delete?: never;
         options?: never;
@@ -2405,7 +3067,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>To launch the Financial Connections authorization flow, create a <code>Session</code>. The session’s <code>client_secret</code> can be used to launch the flow using Stripe.js.</p> */
+        /**
+         * Create a Session
+         * @description <p>To launch the Financial Connections authorization flow, create a <code>Session</code>. The session’s <code>client_secret</code> can be used to launch the flow using Stripe.js.</p>
+         */
         post: operations["PostFinancialConnectionsSessions"];
         delete?: never;
         options?: never;
@@ -2420,7 +3085,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of a Financial Connections <code>Session</code></p> */
+        /**
+         * Retrieve a Session
+         * @description <p>Retrieves the details of a Financial Connections <code>Session</code></p>
+         */
         get: operations["GetFinancialConnectionsSessionsSession"];
         put?: never;
         post?: never;
@@ -2437,7 +3105,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of Financial Connections <code>Transaction</code> objects.</p> */
+        /**
+         * List Transactions
+         * @description <p>Returns a list of Financial Connections <code>Transaction</code> objects.</p>
+         */
         get: operations["GetFinancialConnectionsTransactions"];
         put?: never;
         post?: never;
@@ -2454,7 +3125,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of a Financial Connections <code>Transaction</code></p> */
+        /**
+         * Retrieve a Transaction
+         * @description <p>Retrieves the details of a Financial Connections <code>Transaction</code></p>
+         */
         get: operations["GetFinancialConnectionsTransactionsTransaction"];
         put?: never;
         post?: never;
@@ -2471,10 +3145,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Lists all ForwardingRequest objects.</p> */
+        /**
+         * List all ForwardingRequests
+         * @description <p>Lists all ForwardingRequest objects.</p>
+         */
         get: operations["GetForwardingRequests"];
         put?: never;
-        /** @description <p>Creates a ForwardingRequest object.</p> */
+        /**
+         * Create a ForwardingRequest
+         * @description <p>Creates a ForwardingRequest object.</p>
+         */
         post: operations["PostForwardingRequests"];
         delete?: never;
         options?: never;
@@ -2489,7 +3169,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a ForwardingRequest object.</p> */
+        /**
+         * Retrieve a ForwardingRequest
+         * @description <p>Retrieves a ForwardingRequest object.</p>
+         */
         get: operations["GetForwardingRequestsId"];
         put?: never;
         post?: never;
@@ -2506,7 +3189,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>List all verification reports.</p> */
+        /**
+         * List VerificationReports
+         * @description <p>List all verification reports.</p>
+         */
         get: operations["GetIdentityVerificationReports"];
         put?: never;
         post?: never;
@@ -2523,7 +3209,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves an existing VerificationReport</p> */
+        /**
+         * Retrieve a VerificationReport
+         * @description <p>Retrieves an existing VerificationReport</p>
+         */
         get: operations["GetIdentityVerificationReportsReport"];
         put?: never;
         post?: never;
@@ -2540,16 +3229,22 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of VerificationSessions</p> */
+        /**
+         * List VerificationSessions
+         * @description <p>Returns a list of VerificationSessions</p>
+         */
         get: operations["GetIdentityVerificationSessions"];
         put?: never;
-        /** @description <p>Creates a VerificationSession object.</p>
+        /**
+         * Create a VerificationSession
+         * @description <p>Creates a VerificationSession object.</p>
          *
          *     <p>After the VerificationSession is created, display a verification modal using the session <code>client_secret</code> or send your users to the session’s <code>url</code>.</p>
          *
          *     <p>If your API key is in test mode, verification checks won’t actually process, though everything else will occur as if in live mode.</p>
          *
-         *     <p>Related guide: <a href="/docs/identity/verify-identity-documents">Verify your users’ identity documents</a></p> */
+         *     <p>Related guide: <a href="/docs/identity/verify-identity-documents">Verify your users’ identity documents</a></p>
+         */
         post: operations["PostIdentityVerificationSessions"];
         delete?: never;
         options?: never;
@@ -2564,16 +3259,22 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of a VerificationSession that was previously created.</p>
+        /**
+         * Retrieve a VerificationSession
+         * @description <p>Retrieves the details of a VerificationSession that was previously created.</p>
          *
          *     <p>When the session status is <code>requires_input</code>, you can use this method to retrieve a valid
-         *     <code>client_secret</code> or <code>url</code> to allow re-submission.</p> */
+         *     <code>client_secret</code> or <code>url</code> to allow re-submission.</p>
+         */
         get: operations["GetIdentityVerificationSessionsSession"];
         put?: never;
-        /** @description <p>Updates a VerificationSession object.</p>
+        /**
+         * Update a VerificationSession
+         * @description <p>Updates a VerificationSession object.</p>
          *
          *     <p>When the session status is <code>requires_input</code>, you can use this method to update the
-         *     verification check and options.</p> */
+         *     verification check and options.</p>
+         */
         post: operations["PostIdentityVerificationSessionsSession"];
         delete?: never;
         options?: never;
@@ -2590,9 +3291,12 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>A VerificationSession object can be canceled when it is in <code>requires_input</code> <a href="/docs/identity/how-sessions-work">status</a>.</p>
+        /**
+         * Cancel a VerificationSession
+         * @description <p>A VerificationSession object can be canceled when it is in <code>requires_input</code> <a href="/docs/identity/how-sessions-work">status</a>.</p>
          *
-         *     <p>Once canceled, future submission attempts are disabled. This cannot be undone. <a href="/docs/identity/verification-sessions#cancel">Learn more</a>.</p> */
+         *     <p>Once canceled, future submission attempts are disabled. This cannot be undone. <a href="/docs/identity/verification-sessions#cancel">Learn more</a>.</p>
+         */
         post: operations["PostIdentityVerificationSessionsSessionCancel"];
         delete?: never;
         options?: never;
@@ -2609,7 +3313,9 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Redact a VerificationSession to remove all collected information from Stripe. This will redact
+        /**
+         * Redact a VerificationSession
+         * @description <p>Redact a VerificationSession to remove all collected information from Stripe. This will redact
          *     the VerificationSession and all objects related to it, including VerificationReports, Events,
          *     request logs, etc.</p>
          *
@@ -2627,7 +3333,8 @@ export interface paths {
          *     placeholder. The <code>metadata</code> field will also be erased. Redacted objects cannot be updated or
          *     used for any purpose.</p>
          *
-         *     <p><a href="/docs/identity/verification-sessions#redact">Learn more</a>.</p> */
+         *     <p><a href="/docs/identity/verification-sessions#redact">Learn more</a>.</p>
+         */
         post: operations["PostIdentityVerificationSessionsSessionRedact"];
         delete?: never;
         options?: never;
@@ -2642,7 +3349,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>List all templates, ordered by creation date, with the most recently created template appearing first.</p> */
+        /**
+         * List all invoice rendering templates
+         * @description <p>List all templates, ordered by creation date, with the most recently created template appearing first.</p>
+         */
         get: operations["GetInvoiceRenderingTemplates"];
         put?: never;
         post?: never;
@@ -2659,7 +3369,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves an invoice rendering template with the given ID. It by default returns the latest version of the template. Optionally, specify a version to see previous versions.</p> */
+        /**
+         * Retrieve an invoice rendering template
+         * @description <p>Retrieves an invoice rendering template with the given ID. It by default returns the latest version of the template. Optionally, specify a version to see previous versions.</p>
+         */
         get: operations["GetInvoiceRenderingTemplatesTemplate"];
         put?: never;
         post?: never;
@@ -2678,7 +3391,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Updates the status of an invoice rendering template to ‘archived’ so no new Stripe objects (customers, invoices, etc.) can reference it. The template can also no longer be updated. However, if the template is already set on a Stripe object, it will continue to be applied on invoices generated by it.</p> */
+        /**
+         * Archive an invoice rendering template
+         * @description <p>Updates the status of an invoice rendering template to ‘archived’ so no new Stripe objects (customers, invoices, etc.) can reference it. The template can also no longer be updated. However, if the template is already set on a Stripe object, it will continue to be applied on invoices generated by it.</p>
+         */
         post: operations["PostInvoiceRenderingTemplatesTemplateArchive"];
         delete?: never;
         options?: never;
@@ -2695,7 +3411,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Unarchive an invoice rendering template so it can be used on new Stripe objects again.</p> */
+        /**
+         * Unarchive an invoice rendering template
+         * @description <p>Unarchive an invoice rendering template so it can be used on new Stripe objects again.</p>
+         */
         post: operations["PostInvoiceRenderingTemplatesTemplateUnarchive"];
         delete?: never;
         options?: never;
@@ -2710,10 +3429,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first.</p> */
+        /**
+         * List all invoice items
+         * @description <p>Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first.</p>
+         */
         get: operations["GetInvoiceitems"];
         put?: never;
-        /** @description <p>Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.</p> */
+        /**
+         * Create an invoice item
+         * @description <p>Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.</p>
+         */
         post: operations["PostInvoiceitems"];
         delete?: never;
         options?: never;
@@ -2728,12 +3453,21 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the invoice item with the given ID.</p> */
+        /**
+         * Retrieve an invoice item
+         * @description <p>Retrieves the invoice item with the given ID.</p>
+         */
         get: operations["GetInvoiceitemsInvoiceitem"];
         put?: never;
-        /** @description <p>Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it’s attached to is closed.</p> */
+        /**
+         * Update an invoice item
+         * @description <p>Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it’s attached to is closed.</p>
+         */
         post: operations["PostInvoiceitemsInvoiceitem"];
-        /** @description <p>Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they’re not attached to invoices, or if it’s attached to a draft invoice.</p> */
+        /**
+         * Delete an invoice item
+         * @description <p>Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they’re not attached to invoices, or if it’s attached to a draft invoice.</p>
+         */
         delete: operations["DeleteInvoiceitemsInvoiceitem"];
         options?: never;
         head?: never;
@@ -2747,10 +3481,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.</p> */
+        /**
+         * List all invoices
+         * @description <p>You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.</p>
+         */
         get: operations["GetInvoices"];
         put?: never;
-        /** @description <p>This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you <a href="#finalize_invoice">finalize</a> the invoice, which allows you to <a href="#pay_invoice">pay</a> or <a href="#send_invoice">send</a> the invoice to your customers.</p> */
+        /**
+         * Create an invoice
+         * @description <p>This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you <a href="#finalize_invoice">finalize</a> the invoice, which allows you to <a href="#pay_invoice">pay</a> or <a href="#send_invoice">send</a> the invoice to your customers.</p>
+         */
         post: operations["PostInvoices"];
         delete?: never;
         options?: never;
@@ -2767,13 +3507,16 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.</p>
+        /**
+         * Create a preview invoice
+         * @description <p>At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.</p>
          *
          *     <p>Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer’s discount.</p>
          *
          *     <p>You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the <code>subscription_details.proration_date</code> parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where <code>period[start]</code> is equal to the <code>subscription_details.proration_date</code> value passed in the request. </p>
          *
-         *     <p>Note: Currency conversion calculations use the latest exchange rates. Exchange rates may vary between the time of the preview and the time of the actual invoice creation. <a href="https://docs.stripe.com/currencies/conversions">Learn more</a></p> */
+         *     <p>Note: Currency conversion calculations use the latest exchange rates. Exchange rates may vary between the time of the preview and the time of the actual invoice creation. <a href="https://docs.stripe.com/currencies/conversions">Learn more</a></p>
+         */
         post: operations["PostInvoicesCreatePreview"];
         delete?: never;
         options?: never;
@@ -2788,10 +3531,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Search for invoices you’ve previously created using Stripe’s <a href="/docs/search#search-query-language">Search Query Language</a>.
+        /**
+         * Search invoices
+         * @description <p>Search for invoices you’ve previously created using Stripe’s <a href="/docs/search#search-query-language">Search Query Language</a>.
          *     Don’t use search in read-after-write flows where strict consistency is necessary. Under normal operating
          *     conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
-         *     to an hour behind during outages. Search functionality is not available to merchants in India.</p> */
+         *     to an hour behind during outages. Search functionality is not available to merchants in India.</p>
+         */
         get: operations["GetInvoicesSearch"];
         put?: never;
         post?: never;
@@ -2808,13 +3554,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.</p>
+        /**
+         * Retrieve an upcoming invoice
+         * @description <p>At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.</p>
          *
          *     <p>Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer’s discount.</p>
          *
          *     <p>You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the <code>subscription_details.proration_date</code> parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where <code>period[start]</code> is equal to the <code>subscription_details.proration_date</code> value passed in the request.</p>
          *
-         *     <p>Note: Currency conversion calculations use the latest exchange rates. Exchange rates may vary between the time of the preview and the time of the actual invoice creation. <a href="https://docs.stripe.com/currencies/conversions">Learn more</a></p> */
+         *     <p>Note: Currency conversion calculations use the latest exchange rates. Exchange rates may vary between the time of the preview and the time of the actual invoice creation. <a href="https://docs.stripe.com/currencies/conversions">Learn more</a></p>
+         */
         get: operations["GetInvoicesUpcoming"];
         put?: never;
         post?: never;
@@ -2831,7 +3580,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>When retrieving an upcoming invoice, you’ll get a <strong>lines</strong> property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
+        /**
+         * Retrieve an upcoming invoice's line items
+         * @description <p>When retrieving an upcoming invoice, you’ll get a <strong>lines</strong> property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p>
+         */
         get: operations["GetInvoicesUpcomingLines"];
         put?: never;
         post?: never;
@@ -2848,17 +3600,26 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the invoice with the given ID.</p> */
+        /**
+         * Retrieve an invoice
+         * @description <p>Retrieves the invoice with the given ID.</p>
+         */
         get: operations["GetInvoicesInvoice"];
         put?: never;
-        /** @description <p>Draft invoices are fully editable. Once an invoice is <a href="/docs/billing/invoices/workflow#finalized">finalized</a>,
+        /**
+         * Update an invoice
+         * @description <p>Draft invoices are fully editable. Once an invoice is <a href="/docs/billing/invoices/workflow#finalized">finalized</a>,
          *     monetary values, as well as <code>collection_method</code>, become uneditable.</p>
          *
          *     <p>If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
          *     sending reminders for, or <a href="/docs/billing/invoices/reconciliation">automatically reconciling</a> invoices, pass
-         *     <code>auto_advance=false</code>.</p> */
+         *     <code>auto_advance=false</code>.</p>
+         */
         post: operations["PostInvoicesInvoice"];
-        /** @description <p>Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be <a href="#void_invoice">voided</a>.</p> */
+        /**
+         * Delete a draft invoice
+         * @description <p>Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be <a href="#void_invoice">voided</a>.</p>
+         */
         delete: operations["DeleteInvoicesInvoice"];
         options?: never;
         head?: never;
@@ -2874,7 +3635,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.</p> */
+        /**
+         * Bulk add invoice line items
+         * @description <p>Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.</p>
+         */
         post: operations["PostInvoicesInvoiceAddLines"];
         delete?: never;
         options?: never;
@@ -2891,7 +3655,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you’d like to finalize a draft invoice manually, you can do so using this method.</p> */
+        /**
+         * Finalize an invoice
+         * @description <p>Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you’d like to finalize a draft invoice manually, you can do so using this method.</p>
+         */
         post: operations["PostInvoicesInvoiceFinalize"];
         delete?: never;
         options?: never;
@@ -2906,7 +3673,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>When retrieving an invoice, you’ll get a <strong>lines</strong> property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
+        /**
+         * Retrieve an invoice's line items
+         * @description <p>When retrieving an invoice, you’ll get a <strong>lines</strong> property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p>
+         */
         get: operations["GetInvoicesInvoiceLines"];
         put?: never;
         post?: never;
@@ -2925,10 +3695,13 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Updates an invoice’s line item. Some fields, such as <code>tax_amounts</code>, only live on the invoice line item,
+        /**
+         * Update an invoice's line item
+         * @description <p>Updates an invoice’s line item. Some fields, such as <code>tax_amounts</code>, only live on the invoice line item,
          *     so they can only be updated through this endpoint. Other fields, such as <code>amount</code>, live on both the invoice
          *     item and the invoice line item, so updates on this endpoint will propagate to the invoice item as well.
-         *     Updating an invoice’s line item is only possible before the invoice is finalized.</p> */
+         *     Updating an invoice’s line item is only possible before the invoice is finalized.</p>
+         */
         post: operations["PostInvoicesInvoiceLinesLineItemId"];
         delete?: never;
         options?: never;
@@ -2945,7 +3718,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.</p> */
+        /**
+         * Mark an invoice as uncollectible
+         * @description <p>Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.</p>
+         */
         post: operations["PostInvoicesInvoiceMarkUncollectible"];
         delete?: never;
         options?: never;
@@ -2962,7 +3738,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your <a href="https://dashboard.stripe.com/account/billing/automatic">subscriptions settings</a>. However, if you’d like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.</p> */
+        /**
+         * Pay an invoice
+         * @description <p>Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your <a href="https://dashboard.stripe.com/account/billing/automatic">subscriptions settings</a>. However, if you’d like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.</p>
+         */
         post: operations["PostInvoicesInvoicePay"];
         delete?: never;
         options?: never;
@@ -2979,7 +3758,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.</p> */
+        /**
+         * Bulk remove invoice line items
+         * @description <p>Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.</p>
+         */
         post: operations["PostInvoicesInvoiceRemoveLines"];
         delete?: never;
         options?: never;
@@ -2996,9 +3778,12 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Stripe will automatically send invoices to customers according to your <a href="https://dashboard.stripe.com/account/billing/automatic">subscriptions settings</a>. However, if you’d like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.</p>
+        /**
+         * Send an invoice for manual payment
+         * @description <p>Stripe will automatically send invoices to customers according to your <a href="https://dashboard.stripe.com/account/billing/automatic">subscriptions settings</a>. However, if you’d like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.</p>
          *
-         *     <p>Requests made in test-mode result in no emails being sent, despite sending an <code>invoice.sent</code> event.</p> */
+         *     <p>Requests made in test-mode result in no emails being sent, despite sending an <code>invoice.sent</code> event.</p>
+         */
         post: operations["PostInvoicesInvoiceSend"];
         delete?: never;
         options?: never;
@@ -3015,7 +3800,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.</p> */
+        /**
+         * Bulk update invoice line items
+         * @description <p>Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.</p>
+         */
         post: operations["PostInvoicesInvoiceUpdateLines"];
         delete?: never;
         options?: never;
@@ -3032,9 +3820,12 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to <a href="#delete_invoice">deletion</a>, however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.</p>
+        /**
+         * Void an invoice
+         * @description <p>Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to <a href="#delete_invoice">deletion</a>, however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.</p>
          *
-         *     <p>Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you’re doing business in. You might need to <a href="#create_invoice">issue another invoice</a> or <a href="#create_credit_note">credit note</a> instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.</p> */
+         *     <p>Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you’re doing business in. You might need to <a href="#create_invoice">issue another invoice</a> or <a href="#create_credit_note">credit note</a> instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.</p>
+         */
         post: operations["PostInvoicesInvoiceVoid"];
         delete?: never;
         options?: never;
@@ -3049,7 +3840,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of Issuing <code>Authorization</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
+        /**
+         * List all authorizations
+         * @description <p>Returns a list of Issuing <code>Authorization</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p>
+         */
         get: operations["GetIssuingAuthorizations"];
         put?: never;
         post?: never;
@@ -3066,10 +3860,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves an Issuing <code>Authorization</code> object.</p> */
+        /**
+         * Retrieve an authorization
+         * @description <p>Retrieves an Issuing <code>Authorization</code> object.</p>
+         */
         get: operations["GetIssuingAuthorizationsAuthorization"];
         put?: never;
-        /** @description <p>Updates the specified Issuing <code>Authorization</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
+        /**
+         * Update an authorization
+         * @description <p>Updates the specified Issuing <code>Authorization</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+         */
         post: operations["PostIssuingAuthorizationsAuthorization"];
         delete?: never;
         options?: never;
@@ -3087,6 +3887,7 @@ export interface paths {
         get?: never;
         put?: never;
         /**
+         * Approve an authorization
          * @deprecated
          * @description <p>[Deprecated] Approves a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real-time authorization</a> flow.
          *     This method is deprecated. Instead, <a href="/docs/issuing/controls/real-time-authorizations#authorization-handling">respond directly to the webhook request to approve an authorization</a>.</p>
@@ -3108,6 +3909,7 @@ export interface paths {
         get?: never;
         put?: never;
         /**
+         * Decline an authorization
          * @deprecated
          * @description <p>[Deprecated] Declines a pending Issuing <code>Authorization</code> object. This request should be made within the timeout window of the <a href="/docs/issuing/controls/real-time-authorizations">real time authorization</a> flow.
          *     This method is deprecated. Instead, <a href="/docs/issuing/controls/real-time-authorizations#authorization-handling">respond directly to the webhook request to decline an authorization</a>.</p>
@@ -3126,10 +3928,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of Issuing <code>Cardholder</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
+        /**
+         * List all cardholders
+         * @description <p>Returns a list of Issuing <code>Cardholder</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p>
+         */
         get: operations["GetIssuingCardholders"];
         put?: never;
-        /** @description <p>Creates a new Issuing <code>Cardholder</code> object that can be issued cards.</p> */
+        /**
+         * Create a cardholder
+         * @description <p>Creates a new Issuing <code>Cardholder</code> object that can be issued cards.</p>
+         */
         post: operations["PostIssuingCardholders"];
         delete?: never;
         options?: never;
@@ -3144,10 +3952,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves an Issuing <code>Cardholder</code> object.</p> */
+        /**
+         * Retrieve a cardholder
+         * @description <p>Retrieves an Issuing <code>Cardholder</code> object.</p>
+         */
         get: operations["GetIssuingCardholdersCardholder"];
         put?: never;
-        /** @description <p>Updates the specified Issuing <code>Cardholder</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
+        /**
+         * Update a cardholder
+         * @description <p>Updates the specified Issuing <code>Cardholder</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+         */
         post: operations["PostIssuingCardholdersCardholder"];
         delete?: never;
         options?: never;
@@ -3162,10 +3976,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of Issuing <code>Card</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
+        /**
+         * List all cards
+         * @description <p>Returns a list of Issuing <code>Card</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p>
+         */
         get: operations["GetIssuingCards"];
         put?: never;
-        /** @description <p>Creates an Issuing <code>Card</code> object.</p> */
+        /**
+         * Create a card
+         * @description <p>Creates an Issuing <code>Card</code> object.</p>
+         */
         post: operations["PostIssuingCards"];
         delete?: never;
         options?: never;
@@ -3180,10 +4000,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves an Issuing <code>Card</code> object.</p> */
+        /**
+         * Retrieve a card
+         * @description <p>Retrieves an Issuing <code>Card</code> object.</p>
+         */
         get: operations["GetIssuingCardsCard"];
         put?: never;
-        /** @description <p>Updates the specified Issuing <code>Card</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
+        /**
+         * Update a card
+         * @description <p>Updates the specified Issuing <code>Card</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+         */
         post: operations["PostIssuingCardsCard"];
         delete?: never;
         options?: never;
@@ -3198,10 +4024,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of Issuing <code>Dispute</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
+        /**
+         * List all disputes
+         * @description <p>Returns a list of Issuing <code>Dispute</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p>
+         */
         get: operations["GetIssuingDisputes"];
         put?: never;
-        /** @description <p>Creates an Issuing <code>Dispute</code> object. Individual pieces of evidence within the <code>evidence</code> object are optional at this point. Stripe only validates that required evidence is present during submission. Refer to <a href="/docs/issuing/purchases/disputes#dispute-reasons-and-evidence">Dispute reasons and evidence</a> for more details about evidence requirements.</p> */
+        /**
+         * Create a dispute
+         * @description <p>Creates an Issuing <code>Dispute</code> object. Individual pieces of evidence within the <code>evidence</code> object are optional at this point. Stripe only validates that required evidence is present during submission. Refer to <a href="/docs/issuing/purchases/disputes#dispute-reasons-and-evidence">Dispute reasons and evidence</a> for more details about evidence requirements.</p>
+         */
         post: operations["PostIssuingDisputes"];
         delete?: never;
         options?: never;
@@ -3216,10 +4048,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves an Issuing <code>Dispute</code> object.</p> */
+        /**
+         * Retrieve a dispute
+         * @description <p>Retrieves an Issuing <code>Dispute</code> object.</p>
+         */
         get: operations["GetIssuingDisputesDispute"];
         put?: never;
-        /** @description <p>Updates the specified Issuing <code>Dispute</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Properties on the <code>evidence</code> object can be unset by passing in an empty string.</p> */
+        /**
+         * Update a dispute
+         * @description <p>Updates the specified Issuing <code>Dispute</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Properties on the <code>evidence</code> object can be unset by passing in an empty string.</p>
+         */
         post: operations["PostIssuingDisputesDispute"];
         delete?: never;
         options?: never;
@@ -3236,7 +4074,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Submits an Issuing <code>Dispute</code> to the card network. Stripe validates that all evidence fields required for the dispute’s reason are present. For more details, see <a href="/docs/issuing/purchases/disputes#dispute-reasons-and-evidence">Dispute reasons and evidence</a>.</p> */
+        /**
+         * Submit a dispute
+         * @description <p>Submits an Issuing <code>Dispute</code> to the card network. Stripe validates that all evidence fields required for the dispute’s reason are present. For more details, see <a href="/docs/issuing/purchases/disputes#dispute-reasons-and-evidence">Dispute reasons and evidence</a>.</p>
+         */
         post: operations["PostIssuingDisputesDisputeSubmit"];
         delete?: never;
         options?: never;
@@ -3251,10 +4092,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of personalization design objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
+        /**
+         * List all personalization designs
+         * @description <p>Returns a list of personalization design objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p>
+         */
         get: operations["GetIssuingPersonalizationDesigns"];
         put?: never;
-        /** @description <p>Creates a personalization design object.</p> */
+        /**
+         * Create a personalization design
+         * @description <p>Creates a personalization design object.</p>
+         */
         post: operations["PostIssuingPersonalizationDesigns"];
         delete?: never;
         options?: never;
@@ -3269,10 +4116,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a personalization design object.</p> */
+        /**
+         * Retrieve a personalization design
+         * @description <p>Retrieves a personalization design object.</p>
+         */
         get: operations["GetIssuingPersonalizationDesignsPersonalizationDesign"];
         put?: never;
-        /** @description <p>Updates a card personalization object.</p> */
+        /**
+         * Update a personalization design
+         * @description <p>Updates a card personalization object.</p>
+         */
         post: operations["PostIssuingPersonalizationDesignsPersonalizationDesign"];
         delete?: never;
         options?: never;
@@ -3287,7 +4140,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of physical bundle objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
+        /**
+         * List all physical bundles
+         * @description <p>Returns a list of physical bundle objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p>
+         */
         get: operations["GetIssuingPhysicalBundles"];
         put?: never;
         post?: never;
@@ -3304,7 +4160,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a physical bundle object.</p> */
+        /**
+         * Retrieve a physical bundle
+         * @description <p>Retrieves a physical bundle object.</p>
+         */
         get: operations["GetIssuingPhysicalBundlesPhysicalBundle"];
         put?: never;
         post?: never;
@@ -3321,10 +4180,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves an Issuing <code>Settlement</code> object.</p> */
+        /**
+         * Retrieve a settlement
+         * @description <p>Retrieves an Issuing <code>Settlement</code> object.</p>
+         */
         get: operations["GetIssuingSettlementsSettlement"];
         put?: never;
-        /** @description <p>Updates the specified Issuing <code>Settlement</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
+        /**
+         * Update a settlement
+         * @description <p>Updates the specified Issuing <code>Settlement</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+         */
         post: operations["PostIssuingSettlementsSettlement"];
         delete?: never;
         options?: never;
@@ -3339,7 +4204,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Lists all Issuing <code>Token</code> objects for a given card.</p> */
+        /**
+         * List all issuing tokens for card
+         * @description <p>Lists all Issuing <code>Token</code> objects for a given card.</p>
+         */
         get: operations["GetIssuingTokens"];
         put?: never;
         post?: never;
@@ -3356,10 +4224,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves an Issuing <code>Token</code> object.</p> */
+        /**
+         * Retrieve an issuing token
+         * @description <p>Retrieves an Issuing <code>Token</code> object.</p>
+         */
         get: operations["GetIssuingTokensToken"];
         put?: never;
-        /** @description <p>Attempts to update the specified Issuing <code>Token</code> object to the status specified.</p> */
+        /**
+         * Update a token status
+         * @description <p>Attempts to update the specified Issuing <code>Token</code> object to the status specified.</p>
+         */
         post: operations["PostIssuingTokensToken"];
         delete?: never;
         options?: never;
@@ -3374,7 +4248,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of Issuing <code>Transaction</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
+        /**
+         * List all transactions
+         * @description <p>Returns a list of Issuing <code>Transaction</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p>
+         */
         get: operations["GetIssuingTransactions"];
         put?: never;
         post?: never;
@@ -3391,10 +4268,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves an Issuing <code>Transaction</code> object.</p> */
+        /**
+         * Retrieve a transaction
+         * @description <p>Retrieves an Issuing <code>Transaction</code> object.</p>
+         */
         get: operations["GetIssuingTransactionsTransaction"];
         put?: never;
-        /** @description <p>Updates the specified Issuing <code>Transaction</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
+        /**
+         * Update a transaction
+         * @description <p>Updates the specified Issuing <code>Transaction</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+         */
         post: operations["PostIssuingTransactionsTransaction"];
         delete?: never;
         options?: never;
@@ -3411,7 +4294,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>To launch the Financial Connections authorization flow, create a <code>Session</code>. The session’s <code>client_secret</code> can be used to launch the flow using Stripe.js.</p> */
+        /**
+         * Create a Session
+         * @description <p>To launch the Financial Connections authorization flow, create a <code>Session</code>. The session’s <code>client_secret</code> can be used to launch the flow using Stripe.js.</p>
+         */
         post: operations["PostLinkAccountSessions"];
         delete?: never;
         options?: never;
@@ -3426,7 +4312,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of a Financial Connections <code>Session</code></p> */
+        /**
+         * Retrieve a Session
+         * @description <p>Retrieves the details of a Financial Connections <code>Session</code></p>
+         */
         get: operations["GetLinkAccountSessionsSession"];
         put?: never;
         post?: never;
@@ -3443,7 +4332,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of Financial Connections <code>Account</code> objects.</p> */
+        /**
+         * List Accounts
+         * @description <p>Returns a list of Financial Connections <code>Account</code> objects.</p>
+         */
         get: operations["GetLinkedAccounts"];
         put?: never;
         post?: never;
@@ -3460,7 +4352,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an Financial Connections <code>Account</code>.</p> */
+        /**
+         * Retrieve an Account
+         * @description <p>Retrieves the details of an Financial Connections <code>Account</code>.</p>
+         */
         get: operations["GetLinkedAccountsAccount"];
         put?: never;
         post?: never;
@@ -3479,7 +4374,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Disables your access to a Financial Connections <code>Account</code>. You will no longer be able to access data associated with the account (e.g. balances, transactions).</p> */
+        /**
+         * Disconnect an Account
+         * @description <p>Disables your access to a Financial Connections <code>Account</code>. You will no longer be able to access data associated with the account (e.g. balances, transactions).</p>
+         */
         post: operations["PostLinkedAccountsAccountDisconnect"];
         delete?: never;
         options?: never;
@@ -3494,7 +4392,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Lists all owners for a given <code>Account</code></p> */
+        /**
+         * List Account Owners
+         * @description <p>Lists all owners for a given <code>Account</code></p>
+         */
         get: operations["GetLinkedAccountsAccountOwners"];
         put?: never;
         post?: never;
@@ -3513,7 +4414,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Refreshes the data associated with a Financial Connections <code>Account</code>.</p> */
+        /**
+         * Refresh Account data
+         * @description <p>Refreshes the data associated with a Financial Connections <code>Account</code>.</p>
+         */
         post: operations["PostLinkedAccountsAccountRefresh"];
         delete?: never;
         options?: never;
@@ -3528,7 +4432,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a Mandate object.</p> */
+        /**
+         * Retrieve a Mandate
+         * @description <p>Retrieves a Mandate object.</p>
+         */
         get: operations["GetMandatesMandate"];
         put?: never;
         post?: never;
@@ -3545,10 +4452,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of PaymentIntents.</p> */
+        /**
+         * List all PaymentIntents
+         * @description <p>Returns a list of PaymentIntents.</p>
+         */
         get: operations["GetPaymentIntents"];
         put?: never;
-        /** @description <p>Creates a PaymentIntent object.</p>
+        /**
+         * Create a PaymentIntent
+         * @description <p>Creates a PaymentIntent object.</p>
          *
          *     <p>After the PaymentIntent is created, attach a payment method and <a href="/docs/api/payment_intents/confirm">confirm</a>
          *     to continue the payment. Learn more about <a href="/docs/payments/payment-intents">the available payment flows
@@ -3557,7 +4469,8 @@ export interface paths {
          *     <p>When you use <code>confirm=true</code> during creation, it’s equivalent to creating
          *     and confirming the PaymentIntent in the same call. You can use any parameters
          *     available in the <a href="/docs/api/payment_intents/confirm">confirm API</a> when you supply
-         *     <code>confirm=true</code>.</p> */
+         *     <code>confirm=true</code>.</p>
+         */
         post: operations["PostPaymentIntents"];
         delete?: never;
         options?: never;
@@ -3572,10 +4485,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Search for PaymentIntents you’ve previously created using Stripe’s <a href="/docs/search#search-query-language">Search Query Language</a>.
+        /**
+         * Search PaymentIntents
+         * @description <p>Search for PaymentIntents you’ve previously created using Stripe’s <a href="/docs/search#search-query-language">Search Query Language</a>.
          *     Don’t use search in read-after-write flows where strict consistency is necessary. Under normal operating
          *     conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
-         *     to an hour behind during outages. Search functionality is not available to merchants in India.</p> */
+         *     to an hour behind during outages. Search functionality is not available to merchants in India.</p>
+         */
         get: operations["GetPaymentIntentsSearch"];
         put?: never;
         post?: never;
@@ -3592,20 +4508,26 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of a PaymentIntent that has previously been created. </p>
+        /**
+         * Retrieve a PaymentIntent
+         * @description <p>Retrieves the details of a PaymentIntent that has previously been created. </p>
          *
          *     <p>You can retrieve a PaymentIntent client-side using a publishable key when the <code>client_secret</code> is in the query string. </p>
          *
-         *     <p>If you retrieve a PaymentIntent with a publishable key, it only returns a subset of properties. Refer to the <a href="#payment_intent_object">payment intent</a> object reference for more details.</p> */
+         *     <p>If you retrieve a PaymentIntent with a publishable key, it only returns a subset of properties. Refer to the <a href="#payment_intent_object">payment intent</a> object reference for more details.</p>
+         */
         get: operations["GetPaymentIntentsIntent"];
         put?: never;
-        /** @description <p>Updates properties on a PaymentIntent object without confirming.</p>
+        /**
+         * Update a PaymentIntent
+         * @description <p>Updates properties on a PaymentIntent object without confirming.</p>
          *
          *     <p>Depending on which properties you update, you might need to confirm the
          *     PaymentIntent again. For example, updating the <code>payment_method</code>
          *     always requires you to confirm the PaymentIntent again. If you prefer to
          *     update and confirm at the same time, we recommend updating properties through
-         *     the <a href="/docs/api/payment_intents/confirm">confirm API</a> instead.</p> */
+         *     the <a href="/docs/api/payment_intents/confirm">confirm API</a> instead.</p>
+         */
         post: operations["PostPaymentIntentsIntent"];
         delete?: never;
         options?: never;
@@ -3622,7 +4544,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Manually reconcile the remaining amount for a <code>customer_balance</code> PaymentIntent.</p> */
+        /**
+         * Reconcile a customer_balance PaymentIntent
+         * @description <p>Manually reconcile the remaining amount for a <code>customer_balance</code> PaymentIntent.</p>
+         */
         post: operations["PostPaymentIntentsIntentApplyCustomerBalance"];
         delete?: never;
         options?: never;
@@ -3639,11 +4564,14 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>You can cancel a PaymentIntent object when it’s in one of these statuses: <code>requires_payment_method</code>, <code>requires_capture</code>, <code>requires_confirmation</code>, <code>requires_action</code> or, <a href="/docs/payments/intents">in rare cases</a>, <code>processing</code>. </p>
+        /**
+         * Cancel a PaymentIntent
+         * @description <p>You can cancel a PaymentIntent object when it’s in one of these statuses: <code>requires_payment_method</code>, <code>requires_capture</code>, <code>requires_confirmation</code>, <code>requires_action</code> or, <a href="/docs/payments/intents">in rare cases</a>, <code>processing</code>. </p>
          *
          *     <p>After it’s canceled, no additional charges are made by the PaymentIntent and any operations on the PaymentIntent fail with an error. For PaymentIntents with a <code>status</code> of <code>requires_capture</code>, the remaining <code>amount_capturable</code> is automatically refunded. </p>
          *
-         *     <p>You can’t cancel the PaymentIntent for a Checkout Session. <a href="/docs/api/checkout/sessions/expire">Expire the Checkout Session</a> instead.</p> */
+         *     <p>You can’t cancel the PaymentIntent for a Checkout Session. <a href="/docs/api/checkout/sessions/expire">Expire the Checkout Session</a> instead.</p>
+         */
         post: operations["PostPaymentIntentsIntentCancel"];
         delete?: never;
         options?: never;
@@ -3660,11 +4588,14 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Capture the funds of an existing uncaptured PaymentIntent when its status is <code>requires_capture</code>.</p>
+        /**
+         * Capture a PaymentIntent
+         * @description <p>Capture the funds of an existing uncaptured PaymentIntent when its status is <code>requires_capture</code>.</p>
          *
          *     <p>Uncaptured PaymentIntents are cancelled a set number of days (7 by default) after their creation.</p>
          *
-         *     <p>Learn more about <a href="/docs/payments/capture-later">separate authorization and capture</a>.</p> */
+         *     <p>Learn more about <a href="/docs/payments/capture-later">separate authorization and capture</a>.</p>
+         */
         post: operations["PostPaymentIntentsIntentCapture"];
         delete?: never;
         options?: never;
@@ -3681,7 +4612,9 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Confirm that your customer intends to pay with current or provided
+        /**
+         * Confirm a PaymentIntent
+         * @description <p>Confirm that your customer intends to pay with current or provided
          *     payment method. Upon confirmation, the PaymentIntent will attempt to initiate
          *     a payment.
          *     If the selected payment method requires additional authentication steps, the
@@ -3705,7 +4638,8 @@ export interface paths {
          *     attempt.
          *     There is a variable upper limit on how many times a PaymentIntent can be confirmed.
          *     After this limit is reached, any further calls to this endpoint will
-         *     transition the PaymentIntent to the <code>canceled</code> state.</p> */
+         *     transition the PaymentIntent to the <code>canceled</code> state.</p>
+         */
         post: operations["PostPaymentIntentsIntentConfirm"];
         delete?: never;
         options?: never;
@@ -3722,7 +4656,9 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Perform an incremental authorization on an eligible
+        /**
+         * Increment an authorization
+         * @description <p>Perform an incremental authorization on an eligible
          *     <a href="/docs/api/payment_intents/object">PaymentIntent</a>. To be eligible, the
          *     PaymentIntent’s status must be <code>requires_capture</code> and
          *     <a href="/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported">incremental_authorization_supported</a>
@@ -3745,7 +4681,8 @@ export interface paths {
          *     <p>Each PaymentIntent can have a maximum of 10 incremental authorization attempts, including declines.
          *     After it’s captured, a PaymentIntent can no longer be incremented.</p>
          *
-         *     <p>Learn more about <a href="/docs/terminal/features/incremental-authorizations">incremental authorizations</a>.</p> */
+         *     <p>Learn more about <a href="/docs/terminal/features/incremental-authorizations">incremental authorizations</a>.</p>
+         */
         post: operations["PostPaymentIntentsIntentIncrementAuthorization"];
         delete?: never;
         options?: never;
@@ -3762,7 +4699,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Verifies microdeposits on a PaymentIntent object.</p> */
+        /**
+         * Verify microdeposits on a PaymentIntent
+         * @description <p>Verifies microdeposits on a PaymentIntent object.</p>
+         */
         post: operations["PostPaymentIntentsIntentVerifyMicrodeposits"];
         delete?: never;
         options?: never;
@@ -3777,10 +4717,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of your payment links.</p> */
+        /**
+         * List all payment links
+         * @description <p>Returns a list of your payment links.</p>
+         */
         get: operations["GetPaymentLinks"];
         put?: never;
-        /** @description <p>Creates a payment link.</p> */
+        /**
+         * Create a payment link
+         * @description <p>Creates a payment link.</p>
+         */
         post: operations["PostPaymentLinks"];
         delete?: never;
         options?: never;
@@ -3795,10 +4741,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieve a payment link.</p> */
+        /**
+         * Retrieve payment link
+         * @description <p>Retrieve a payment link.</p>
+         */
         get: operations["GetPaymentLinksPaymentLink"];
         put?: never;
-        /** @description <p>Updates a payment link.</p> */
+        /**
+         * Update a payment link
+         * @description <p>Updates a payment link.</p>
+         */
         post: operations["PostPaymentLinksPaymentLink"];
         delete?: never;
         options?: never;
@@ -3813,7 +4765,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>When retrieving a payment link, there is an includable <strong>line_items</strong> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
+        /**
+         * Retrieve a payment link's line items
+         * @description <p>When retrieving a payment link, there is an includable <strong>line_items</strong> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p>
+         */
         get: operations["GetPaymentLinksPaymentLinkLineItems"];
         put?: never;
         post?: never;
@@ -3830,10 +4785,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>List payment method configurations</p> */
+        /**
+         * List payment method configurations
+         * @description <p>List payment method configurations</p>
+         */
         get: operations["GetPaymentMethodConfigurations"];
         put?: never;
-        /** @description <p>Creates a payment method configuration</p> */
+        /**
+         * Create a payment method configuration
+         * @description <p>Creates a payment method configuration</p>
+         */
         post: operations["PostPaymentMethodConfigurations"];
         delete?: never;
         options?: never;
@@ -3848,10 +4809,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieve payment method configuration</p> */
+        /**
+         * Retrieve payment method configuration
+         * @description <p>Retrieve payment method configuration</p>
+         */
         get: operations["GetPaymentMethodConfigurationsConfiguration"];
         put?: never;
-        /** @description <p>Update payment method configuration</p> */
+        /**
+         * Update payment method configuration
+         * @description <p>Update payment method configuration</p>
+         */
         post: operations["PostPaymentMethodConfigurationsConfiguration"];
         delete?: never;
         options?: never;
@@ -3866,10 +4833,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Lists the details of existing payment method domains.</p> */
+        /**
+         * List payment method domains
+         * @description <p>Lists the details of existing payment method domains.</p>
+         */
         get: operations["GetPaymentMethodDomains"];
         put?: never;
-        /** @description <p>Creates a payment method domain.</p> */
+        /**
+         * Create a payment method domain
+         * @description <p>Creates a payment method domain.</p>
+         */
         post: operations["PostPaymentMethodDomains"];
         delete?: never;
         options?: never;
@@ -3884,10 +4857,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an existing payment method domain.</p> */
+        /**
+         * Retrieve a payment method domain
+         * @description <p>Retrieves the details of an existing payment method domain.</p>
+         */
         get: operations["GetPaymentMethodDomainsPaymentMethodDomain"];
         put?: never;
-        /** @description <p>Updates an existing payment method domain.</p> */
+        /**
+         * Update a payment method domain
+         * @description <p>Updates an existing payment method domain.</p>
+         */
         post: operations["PostPaymentMethodDomainsPaymentMethodDomain"];
         delete?: never;
         options?: never;
@@ -3904,12 +4883,15 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren’t satisfied when the domain was created, the payment method will be inactive on the domain.
+        /**
+         * Validate an existing payment method domain
+         * @description <p>Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren’t satisfied when the domain was created, the payment method will be inactive on the domain.
          *     The payment method doesn’t appear in Elements for this domain until it is active.</p>
          *
          *     <p>To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.</p>
          *
-         *     <p>Related guides: <a href="/docs/payments/payment-methods/pmd-registration">Payment method domains</a>.</p> */
+         *     <p>Related guides: <a href="/docs/payments/payment-methods/pmd-registration">Payment method domains</a>.</p>
+         */
         post: operations["PostPaymentMethodDomainsPaymentMethodDomainValidate"];
         delete?: never;
         options?: never;
@@ -3924,12 +4906,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the <a href="/docs/api/payment_methods/customer_list">List a Customer’s PaymentMethods</a> API instead.</p> */
+        /**
+         * List PaymentMethods
+         * @description <p>Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the <a href="/docs/api/payment_methods/customer_list">List a Customer’s PaymentMethods</a> API instead.</p>
+         */
         get: operations["GetPaymentMethods"];
         put?: never;
-        /** @description <p>Creates a PaymentMethod object. Read the <a href="/docs/stripe-js/reference#stripe-create-payment-method">Stripe.js reference</a> to learn how to create PaymentMethods via Stripe.js.</p>
+        /**
+         * Shares a PaymentMethod
+         * @description <p>Creates a PaymentMethod object. Read the <a href="/docs/stripe-js/reference#stripe-create-payment-method">Stripe.js reference</a> to learn how to create PaymentMethods via Stripe.js.</p>
          *
-         *     <p>Instead of creating a PaymentMethod directly, we recommend using the <a href="/docs/payments/accept-a-payment">PaymentIntents</a> API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent</a> API to collect payment method details ahead of a future payment.</p> */
+         *     <p>Instead of creating a PaymentMethod directly, we recommend using the <a href="/docs/payments/accept-a-payment">PaymentIntents</a> API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent</a> API to collect payment method details ahead of a future payment.</p>
+         */
         post: operations["PostPaymentMethods"];
         delete?: never;
         options?: never;
@@ -3944,10 +4932,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use <a href="/docs/api/payment_methods/customer">Retrieve a Customer’s PaymentMethods</a></p> */
+        /**
+         * Retrieve a PaymentMethod
+         * @description <p>Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use <a href="/docs/api/payment_methods/customer">Retrieve a Customer’s PaymentMethods</a></p>
+         */
         get: operations["GetPaymentMethodsPaymentMethod"];
         put?: never;
-        /** @description <p>Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.</p> */
+        /**
+         * Update a PaymentMethod
+         * @description <p>Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.</p>
+         */
         post: operations["PostPaymentMethodsPaymentMethod"];
         delete?: never;
         options?: never;
@@ -3964,7 +4958,9 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Attaches a PaymentMethod object to a Customer.</p>
+        /**
+         * Attach a PaymentMethod to a Customer
+         * @description <p>Attaches a PaymentMethod object to a Customer.</p>
          *
          *     <p>To attach a new PaymentMethod to a customer for future payments, we recommend you use a <a href="/docs/api/setup_intents">SetupIntent</a>
          *     or a PaymentIntent with <a href="/docs/api/payment_intents/create#create_payment_intent-setup_future_usage">setup_future_usage</a>.
@@ -3976,7 +4972,8 @@ export interface paths {
          *
          *     <p>To use this PaymentMethod as the default for invoice or subscription payments,
          *     set <a href="/docs/api/customers/update#update_customer-invoice_settings-default_payment_method"><code>invoice_settings.default_payment_method</code></a>,
-         *     on the Customer to the PaymentMethod’s ID.</p> */
+         *     on the Customer to the PaymentMethod’s ID.</p>
+         */
         post: operations["PostPaymentMethodsPaymentMethodAttach"];
         delete?: never;
         options?: never;
@@ -3993,7 +4990,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.</p> */
+        /**
+         * Detach a PaymentMethod from a Customer
+         * @description <p>Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.</p>
+         */
         post: operations["PostPaymentMethodsPaymentMethodDetach"];
         delete?: never;
         options?: never;
@@ -4008,14 +5008,20 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.</p> */
+        /**
+         * List all payouts
+         * @description <p>Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.</p>
+         */
         get: operations["GetPayouts"];
         put?: never;
-        /** @description <p>To send funds to your own bank account, create a new payout object. Your <a href="#balance">Stripe balance</a> must cover the payout amount. If it doesn’t, you receive an “Insufficient Funds” error.</p>
+        /**
+         * Create a payout
+         * @description <p>To send funds to your own bank account, create a new payout object. Your <a href="#balance">Stripe balance</a> must cover the payout amount. If it doesn’t, you receive an “Insufficient Funds” error.</p>
          *
          *     <p>If your API key is in test mode, money won’t actually be sent, though every other action occurs as if you’re in live mode.</p>
          *
-         *     <p>If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The <a href="#balance_object">balance object</a> details available and pending amounts by source type.</p> */
+         *     <p>If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The <a href="#balance_object">balance object</a> details available and pending amounts by source type.</p>
+         */
         post: operations["PostPayouts"];
         delete?: never;
         options?: never;
@@ -4030,10 +5036,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list. Stripe returns the corresponding payout information.</p> */
+        /**
+         * Retrieve a payout
+         * @description <p>Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list. Stripe returns the corresponding payout information.</p>
+         */
         get: operations["GetPayoutsPayout"];
         put?: never;
-        /** @description <p>Updates the specified payout by setting the values of the parameters you pass. We don’t change parameters that you don’t provide. This request only accepts the metadata as arguments.</p> */
+        /**
+         * Update a payout
+         * @description <p>Updates the specified payout by setting the values of the parameters you pass. We don’t change parameters that you don’t provide. This request only accepts the metadata as arguments.</p>
+         */
         post: operations["PostPayoutsPayout"];
         delete?: never;
         options?: never;
@@ -4050,7 +5062,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>You can cancel a previously created payout if its status is <code>pending</code>. Stripe refunds the funds to your available balance. You can’t cancel automatic Stripe payouts.</p> */
+        /**
+         * Cancel a payout
+         * @description <p>You can cancel a previously created payout if its status is <code>pending</code>. Stripe refunds the funds to your available balance. You can’t cancel automatic Stripe payouts.</p>
+         */
         post: operations["PostPayoutsPayoutCancel"];
         delete?: never;
         options?: never;
@@ -4067,9 +5082,12 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the <code>pending</code> status, use <code>/v1/payouts/:id/cancel</code> instead.</p>
+        /**
+         * Reverse a payout
+         * @description <p>Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the <code>pending</code> status, use <code>/v1/payouts/:id/cancel</code> instead.</p>
          *
-         *     <p>By requesting a reversal through <code>/v1/payouts/:id/reverse</code>, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.</p> */
+         *     <p>By requesting a reversal through <code>/v1/payouts/:id/reverse</code>, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.</p>
+         */
         post: operations["PostPayoutsPayoutReverse"];
         delete?: never;
         options?: never;
@@ -4084,10 +5102,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of your plans.</p> */
+        /**
+         * List all plans
+         * @description <p>Returns a list of your plans.</p>
+         */
         get: operations["GetPlans"];
         put?: never;
-        /** @description <p>You can now model subscriptions more flexibly using the <a href="#prices">Prices API</a>. It replaces the Plans API and is backwards compatible to simplify your migration.</p> */
+        /**
+         * Create a plan
+         * @description <p>You can now model subscriptions more flexibly using the <a href="#prices">Prices API</a>. It replaces the Plans API and is backwards compatible to simplify your migration.</p>
+         */
         post: operations["PostPlans"];
         delete?: never;
         options?: never;
@@ -4102,12 +5126,21 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the plan with the given ID.</p> */
+        /**
+         * Retrieve a plan
+         * @description <p>Retrieves the plan with the given ID.</p>
+         */
         get: operations["GetPlansPlan"];
         put?: never;
-        /** @description <p>Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan’s ID, amount, currency, or billing cycle.</p> */
+        /**
+         * Update a plan
+         * @description <p>Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan’s ID, amount, currency, or billing cycle.</p>
+         */
         post: operations["PostPlansPlan"];
-        /** @description <p>Deleting plans means new subscribers can’t be added. Existing subscribers aren’t affected.</p> */
+        /**
+         * Delete a plan
+         * @description <p>Deleting plans means new subscribers can’t be added. Existing subscribers aren’t affected.</p>
+         */
         delete: operations["DeletePlansPlan"];
         options?: never;
         head?: never;
@@ -4121,10 +5154,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of your active prices, excluding <a href="/docs/products-prices/pricing-models#inline-pricing">inline prices</a>. For the list of inactive prices, set <code>active</code> to false.</p> */
+        /**
+         * List all prices
+         * @description <p>Returns a list of your active prices, excluding <a href="/docs/products-prices/pricing-models#inline-pricing">inline prices</a>. For the list of inactive prices, set <code>active</code> to false.</p>
+         */
         get: operations["GetPrices"];
         put?: never;
-        /** @description <p>Creates a new price for an existing product. The price can be recurring or one-time.</p> */
+        /**
+         * Create a price
+         * @description <p>Creates a new price for an existing product. The price can be recurring or one-time.</p>
+         */
         post: operations["PostPrices"];
         delete?: never;
         options?: never;
@@ -4139,10 +5178,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Search for prices you’ve previously created using Stripe’s <a href="/docs/search#search-query-language">Search Query Language</a>.
+        /**
+         * Search prices
+         * @description <p>Search for prices you’ve previously created using Stripe’s <a href="/docs/search#search-query-language">Search Query Language</a>.
          *     Don’t use search in read-after-write flows where strict consistency is necessary. Under normal operating
          *     conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
-         *     to an hour behind during outages. Search functionality is not available to merchants in India.</p> */
+         *     to an hour behind during outages. Search functionality is not available to merchants in India.</p>
+         */
         get: operations["GetPricesSearch"];
         put?: never;
         post?: never;
@@ -4159,10 +5201,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the price with the given ID.</p> */
+        /**
+         * Retrieve a price
+         * @description <p>Retrieves the price with the given ID.</p>
+         */
         get: operations["GetPricesPrice"];
         put?: never;
-        /** @description <p>Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.</p> */
+        /**
+         * Update a price
+         * @description <p>Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.</p>
+         */
         post: operations["PostPricesPrice"];
         delete?: never;
         options?: never;
@@ -4177,10 +5225,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.</p> */
+        /**
+         * List all products
+         * @description <p>Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.</p>
+         */
         get: operations["GetProducts"];
         put?: never;
-        /** @description <p>Creates a new product object.</p> */
+        /**
+         * Create a product
+         * @description <p>Creates a new product object.</p>
+         */
         post: operations["PostProducts"];
         delete?: never;
         options?: never;
@@ -4195,10 +5249,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Search for products you’ve previously created using Stripe’s <a href="/docs/search#search-query-language">Search Query Language</a>.
+        /**
+         * Search products
+         * @description <p>Search for products you’ve previously created using Stripe’s <a href="/docs/search#search-query-language">Search Query Language</a>.
          *     Don’t use search in read-after-write flows where strict consistency is necessary. Under normal operating
          *     conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
-         *     to an hour behind during outages. Search functionality is not available to merchants in India.</p> */
+         *     to an hour behind during outages. Search functionality is not available to merchants in India.</p>
+         */
         get: operations["GetProductsSearch"];
         put?: never;
         post?: never;
@@ -4215,12 +5272,21 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an existing product. Supply the unique product ID from either a product creation request or the product list, and Stripe will return the corresponding product information.</p> */
+        /**
+         * Retrieve a product
+         * @description <p>Retrieves the details of an existing product. Supply the unique product ID from either a product creation request or the product list, and Stripe will return the corresponding product information.</p>
+         */
         get: operations["GetProductsId"];
         put?: never;
-        /** @description <p>Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
+        /**
+         * Update a product
+         * @description <p>Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+         */
         post: operations["PostProductsId"];
-        /** @description <p>Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with <code>type=good</code> is only possible if it has no SKUs associated with it.</p> */
+        /**
+         * Delete a product
+         * @description <p>Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with <code>type=good</code> is only possible if it has no SKUs associated with it.</p>
+         */
         delete: operations["DeleteProductsId"];
         options?: never;
         head?: never;
@@ -4234,10 +5300,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieve a list of features for a product</p> */
+        /**
+         * List all features attached to a product
+         * @description <p>Retrieve a list of features for a product</p>
+         */
         get: operations["GetProductsProductFeatures"];
         put?: never;
-        /** @description <p>Creates a product_feature, which represents a feature attachment to a product</p> */
+        /**
+         * Attach a feature to a product
+         * @description <p>Creates a product_feature, which represents a feature attachment to a product</p>
+         */
         post: operations["PostProductsProductFeatures"];
         delete?: never;
         options?: never;
@@ -4252,11 +5324,17 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a product_feature, which represents a feature attachment to a product</p> */
+        /**
+         * Retrieve a product_feature
+         * @description <p>Retrieves a product_feature, which represents a feature attachment to a product</p>
+         */
         get: operations["GetProductsProductFeaturesId"];
         put?: never;
         post?: never;
-        /** @description <p>Deletes the feature attachment to a product</p> */
+        /**
+         * Remove a feature from a product
+         * @description <p>Deletes the feature attachment to a product</p>
+         */
         delete: operations["DeleteProductsProductFeaturesId"];
         options?: never;
         head?: never;
@@ -4270,10 +5348,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of your promotion codes.</p> */
+        /**
+         * List all promotion codes
+         * @description <p>Returns a list of your promotion codes.</p>
+         */
         get: operations["GetPromotionCodes"];
         put?: never;
-        /** @description <p>A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.</p> */
+        /**
+         * Create a promotion code
+         * @description <p>A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.</p>
+         */
         post: operations["PostPromotionCodes"];
         delete?: never;
         options?: never;
@@ -4288,10 +5372,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the promotion code with the given ID. In order to retrieve a promotion code by the customer-facing <code>code</code> use <a href="/docs/api/promotion_codes/list">list</a> with the desired <code>code</code>.</p> */
+        /**
+         * Retrieve a promotion code
+         * @description <p>Retrieves the promotion code with the given ID. In order to retrieve a promotion code by the customer-facing <code>code</code> use <a href="/docs/api/promotion_codes/list">list</a> with the desired <code>code</code>.</p>
+         */
         get: operations["GetPromotionCodesPromotionCode"];
         put?: never;
-        /** @description <p>Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.</p> */
+        /**
+         * Update a promotion code
+         * @description <p>Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.</p>
+         */
         post: operations["PostPromotionCodesPromotionCode"];
         delete?: never;
         options?: never;
@@ -4306,10 +5396,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of your quotes.</p> */
+        /**
+         * List all quotes
+         * @description <p>Returns a list of your quotes.</p>
+         */
         get: operations["GetQuotes"];
         put?: never;
-        /** @description <p>A quote models prices and services for a customer. Default options for <code>header</code>, <code>description</code>, <code>footer</code>, and <code>expires_at</code> can be set in the dashboard via the <a href="https://dashboard.stripe.com/settings/billing/quote">quote template</a>.</p> */
+        /**
+         * Create a quote
+         * @description <p>A quote models prices and services for a customer. Default options for <code>header</code>, <code>description</code>, <code>footer</code>, and <code>expires_at</code> can be set in the dashboard via the <a href="https://dashboard.stripe.com/settings/billing/quote">quote template</a>.</p>
+         */
         post: operations["PostQuotes"];
         delete?: never;
         options?: never;
@@ -4324,10 +5420,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the quote with the given ID.</p> */
+        /**
+         * Retrieve a quote
+         * @description <p>Retrieves the quote with the given ID.</p>
+         */
         get: operations["GetQuotesQuote"];
         put?: never;
-        /** @description <p>A quote models prices and services for a customer.</p> */
+        /**
+         * Update a quote
+         * @description <p>A quote models prices and services for a customer.</p>
+         */
         post: operations["PostQuotesQuote"];
         delete?: never;
         options?: never;
@@ -4344,7 +5446,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Accepts the specified quote.</p> */
+        /**
+         * Accept a quote
+         * @description <p>Accepts the specified quote.</p>
+         */
         post: operations["PostQuotesQuoteAccept"];
         delete?: never;
         options?: never;
@@ -4361,7 +5466,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Cancels the quote.</p> */
+        /**
+         * Cancel a quote
+         * @description <p>Cancels the quote.</p>
+         */
         post: operations["PostQuotesQuoteCancel"];
         delete?: never;
         options?: never;
@@ -4376,7 +5484,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>When retrieving a quote, there is an includable <a href="https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items"><strong>computed.upfront.line_items</strong></a> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.</p> */
+        /**
+         * Retrieve a quote's upfront line items
+         * @description <p>When retrieving a quote, there is an includable <a href="https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items"><strong>computed.upfront.line_items</strong></a> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.</p>
+         */
         get: operations["GetQuotesQuoteComputedUpfrontLineItems"];
         put?: never;
         post?: never;
@@ -4395,7 +5506,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Finalizes the quote.</p> */
+        /**
+         * Finalize a quote
+         * @description <p>Finalizes the quote.</p>
+         */
         post: operations["PostQuotesQuoteFinalize"];
         delete?: never;
         options?: never;
@@ -4410,7 +5524,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>When retrieving a quote, there is an includable <strong>line_items</strong> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p> */
+        /**
+         * Retrieve a quote's line items
+         * @description <p>When retrieving a quote, there is an includable <strong>line_items</strong> property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.</p>
+         */
         get: operations["GetQuotesQuoteLineItems"];
         put?: never;
         post?: never;
@@ -4427,7 +5544,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Download the PDF for a finalized quote. Explanation for special handling can be found <a href="https://docs.stripe.com/quotes/overview#quote_pdf">here</a></p> */
+        /**
+         * Download quote PDF
+         * @description <p>Download the PDF for a finalized quote. Explanation for special handling can be found <a href="https://docs.stripe.com/quotes/overview#quote_pdf">here</a></p>
+         */
         get: operations["GetQuotesQuotePdf"];
         put?: never;
         post?: never;
@@ -4444,7 +5564,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of early fraud warnings.</p> */
+        /**
+         * List all early fraud warnings
+         * @description <p>Returns a list of early fraud warnings.</p>
+         */
         get: operations["GetRadarEarlyFraudWarnings"];
         put?: never;
         post?: never;
@@ -4461,9 +5584,12 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an early fraud warning that has previously been created. </p>
+        /**
+         * Retrieve an early fraud warning
+         * @description <p>Retrieves the details of an early fraud warning that has previously been created. </p>
          *
-         *     <p>Please refer to the <a href="#early_fraud_warning_object">early fraud warning</a> object reference for more details.</p> */
+         *     <p>Please refer to the <a href="#early_fraud_warning_object">early fraud warning</a> object reference for more details.</p>
+         */
         get: operations["GetRadarEarlyFraudWarningsEarlyFraudWarning"];
         put?: never;
         post?: never;
@@ -4480,10 +5606,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of <code>ValueListItem</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
+        /**
+         * List all value list items
+         * @description <p>Returns a list of <code>ValueListItem</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p>
+         */
         get: operations["GetRadarValueListItems"];
         put?: never;
-        /** @description <p>Creates a new <code>ValueListItem</code> object, which is added to the specified parent value list.</p> */
+        /**
+         * Create a value list item
+         * @description <p>Creates a new <code>ValueListItem</code> object, which is added to the specified parent value list.</p>
+         */
         post: operations["PostRadarValueListItems"];
         delete?: never;
         options?: never;
@@ -4498,11 +5630,17 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a <code>ValueListItem</code> object.</p> */
+        /**
+         * Retrieve a value list item
+         * @description <p>Retrieves a <code>ValueListItem</code> object.</p>
+         */
         get: operations["GetRadarValueListItemsItem"];
         put?: never;
         post?: never;
-        /** @description <p>Deletes a <code>ValueListItem</code> object, removing it from its parent value list.</p> */
+        /**
+         * Delete a value list item
+         * @description <p>Deletes a <code>ValueListItem</code> object, removing it from its parent value list.</p>
+         */
         delete: operations["DeleteRadarValueListItemsItem"];
         options?: never;
         head?: never;
@@ -4516,10 +5654,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of <code>ValueList</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
+        /**
+         * List all value lists
+         * @description <p>Returns a list of <code>ValueList</code> objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p>
+         */
         get: operations["GetRadarValueLists"];
         put?: never;
-        /** @description <p>Creates a new <code>ValueList</code> object, which can then be referenced in rules.</p> */
+        /**
+         * Create a value list
+         * @description <p>Creates a new <code>ValueList</code> object, which can then be referenced in rules.</p>
+         */
         post: operations["PostRadarValueLists"];
         delete?: never;
         options?: never;
@@ -4534,12 +5678,21 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a <code>ValueList</code> object.</p> */
+        /**
+         * Retrieve a value list
+         * @description <p>Retrieves a <code>ValueList</code> object.</p>
+         */
         get: operations["GetRadarValueListsValueList"];
         put?: never;
-        /** @description <p>Updates a <code>ValueList</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that <code>item_type</code> is immutable.</p> */
+        /**
+         * Update a value list
+         * @description <p>Updates a <code>ValueList</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that <code>item_type</code> is immutable.</p>
+         */
         post: operations["PostRadarValueListsValueList"];
-        /** @description <p>Deletes a <code>ValueList</code> object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.</p> */
+        /**
+         * Delete a value list
+         * @description <p>Deletes a <code>ValueList</code> object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.</p>
+         */
         delete: operations["DeleteRadarValueListsValueList"];
         options?: never;
         head?: never;
@@ -4553,10 +5706,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first. The 10 most recent refunds are always available by default on the Charge object.</p> */
+        /**
+         * List all refunds
+         * @description <p>Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first. The 10 most recent refunds are always available by default on the Charge object.</p>
+         */
         get: operations["GetRefunds"];
         put?: never;
-        /** @description <p>When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.</p>
+        /**
+         * Create customer balance refund
+         * @description <p>When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.</p>
          *
          *     <p>Creating a new refund will refund a charge that has previously been created but not yet refunded.
          *     Funds will be refunded to the credit or debit card that was originally charged.</p>
@@ -4566,7 +5724,8 @@ export interface paths {
          *
          *     <p>Once entirely refunded, a charge can’t be refunded again.
          *     This method will raise an error when called on an already-refunded charge,
-         *     or when trying to refund more money than is left on a charge.</p> */
+         *     or when trying to refund more money than is left on a charge.</p>
+         */
         post: operations["PostRefunds"];
         delete?: never;
         options?: never;
@@ -4581,12 +5740,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an existing refund.</p> */
+        /**
+         * Retrieve a refund
+         * @description <p>Retrieves the details of an existing refund.</p>
+         */
         get: operations["GetRefundsRefund"];
         put?: never;
-        /** @description <p>Updates the refund that you specify by setting the values of the passed parameters. Any parameters that you don’t provide remain unchanged.</p>
+        /**
+         * Update a refund
+         * @description <p>Updates the refund that you specify by setting the values of the passed parameters. Any parameters that you don’t provide remain unchanged.</p>
          *
-         *     <p>This request only accepts <code>metadata</code> as an argument.</p> */
+         *     <p>This request only accepts <code>metadata</code> as an argument.</p>
+         */
         post: operations["PostRefundsRefund"];
         delete?: never;
         options?: never;
@@ -4603,9 +5768,12 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Cancels a refund with a status of <code>requires_action</code>.</p>
+        /**
+         * Cancel a refund
+         * @description <p>Cancels a refund with a status of <code>requires_action</code>.</p>
          *
-         *     <p>You can’t cancel refunds in other states. Only refunds for payment methods that require customer action can enter the <code>requires_action</code> state.</p> */
+         *     <p>You can’t cancel refunds in other states. Only refunds for payment methods that require customer action can enter the <code>requires_action</code> state.</p>
+         */
         post: operations["PostRefundsRefundCancel"];
         delete?: never;
         options?: never;
@@ -4620,10 +5788,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of Report Runs, with the most recent appearing first.</p> */
+        /**
+         * List all Report Runs
+         * @description <p>Returns a list of Report Runs, with the most recent appearing first.</p>
+         */
         get: operations["GetReportingReportRuns"];
         put?: never;
-        /** @description <p>Creates a new object and begin running the report. (Certain report types require a <a href="https://stripe.com/docs/keys#test-live-modes">live-mode API key</a>.)</p> */
+        /**
+         * Create a Report Run
+         * @description <p>Creates a new object and begin running the report. (Certain report types require a <a href="https://stripe.com/docs/keys#test-live-modes">live-mode API key</a>.)</p>
+         */
         post: operations["PostReportingReportRuns"];
         delete?: never;
         options?: never;
@@ -4638,7 +5812,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an existing Report Run.</p> */
+        /**
+         * Retrieve a Report Run
+         * @description <p>Retrieves the details of an existing Report Run.</p>
+         */
         get: operations["GetReportingReportRunsReportRun"];
         put?: never;
         post?: never;
@@ -4655,7 +5832,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a full list of Report Types.</p> */
+        /**
+         * List all Report Types
+         * @description <p>Returns a full list of Report Types.</p>
+         */
         get: operations["GetReportingReportTypes"];
         put?: never;
         post?: never;
@@ -4672,7 +5852,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of a Report Type. (Certain report types require a <a href="https://stripe.com/docs/keys#test-live-modes">live-mode API key</a>.)</p> */
+        /**
+         * Retrieve a Report Type
+         * @description <p>Retrieves the details of a Report Type. (Certain report types require a <a href="https://stripe.com/docs/keys#test-live-modes">live-mode API key</a>.)</p>
+         */
         get: operations["GetReportingReportTypesReportType"];
         put?: never;
         post?: never;
@@ -4689,7 +5872,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of <code>Review</code> objects that have <code>open</code> set to <code>true</code>. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p> */
+        /**
+         * List all open reviews
+         * @description <p>Returns a list of <code>Review</code> objects that have <code>open</code> set to <code>true</code>. The objects are sorted in descending order by creation date, with the most recently created object appearing first.</p>
+         */
         get: operations["GetReviews"];
         put?: never;
         post?: never;
@@ -4706,7 +5892,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a <code>Review</code> object.</p> */
+        /**
+         * Retrieve a review
+         * @description <p>Retrieves a <code>Review</code> object.</p>
+         */
         get: operations["GetReviewsReview"];
         put?: never;
         post?: never;
@@ -4725,7 +5914,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Approves a <code>Review</code> object, closing it and removing it from the list of reviews.</p> */
+        /**
+         * Approve a review
+         * @description <p>Approves a <code>Review</code> object, closing it and removing it from the list of reviews.</p>
+         */
         post: operations["PostReviewsReviewApprove"];
         delete?: never;
         options?: never;
@@ -4740,7 +5932,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of SetupAttempts that associate with a provided SetupIntent.</p> */
+        /**
+         * List all SetupAttempts
+         * @description <p>Returns a list of SetupAttempts that associate with a provided SetupIntent.</p>
+         */
         get: operations["GetSetupAttempts"];
         put?: never;
         post?: never;
@@ -4757,13 +5952,19 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of SetupIntents.</p> */
+        /**
+         * List all SetupIntents
+         * @description <p>Returns a list of SetupIntents.</p>
+         */
         get: operations["GetSetupIntents"];
         put?: never;
-        /** @description <p>Creates a SetupIntent object.</p>
+        /**
+         * Create a SetupIntent
+         * @description <p>Creates a SetupIntent object.</p>
          *
          *     <p>After you create the SetupIntent, attach a payment method and <a href="/docs/api/setup_intents/confirm">confirm</a>
-         *     it to collect any required permissions to charge the payment method later.</p> */
+         *     it to collect any required permissions to charge the payment method later.</p>
+         */
         post: operations["PostSetupIntents"];
         delete?: never;
         options?: never;
@@ -4778,14 +5979,20 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of a SetupIntent that has previously been created. </p>
+        /**
+         * Retrieve a SetupIntent
+         * @description <p>Retrieves the details of a SetupIntent that has previously been created. </p>
          *
          *     <p>Client-side retrieval using a publishable key is allowed when the <code>client_secret</code> is provided in the query string. </p>
          *
-         *     <p>When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the <a href="#setup_intent_object">SetupIntent</a> object reference for more details.</p> */
+         *     <p>When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the <a href="#setup_intent_object">SetupIntent</a> object reference for more details.</p>
+         */
         get: operations["GetSetupIntentsIntent"];
         put?: never;
-        /** @description <p>Updates a SetupIntent object.</p> */
+        /**
+         * Update a SetupIntent
+         * @description <p>Updates a SetupIntent object.</p>
+         */
         post: operations["PostSetupIntentsIntent"];
         delete?: never;
         options?: never;
@@ -4802,9 +6009,12 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>You can cancel a SetupIntent object when it’s in one of these statuses: <code>requires_payment_method</code>, <code>requires_confirmation</code>, or <code>requires_action</code>. </p>
+        /**
+         * Cancel a SetupIntent
+         * @description <p>You can cancel a SetupIntent object when it’s in one of these statuses: <code>requires_payment_method</code>, <code>requires_confirmation</code>, or <code>requires_action</code>. </p>
          *
-         *     <p>After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can’t cancel the SetupIntent for a Checkout Session. <a href="/docs/api/checkout/sessions/expire">Expire the Checkout Session</a> instead.</p> */
+         *     <p>After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can’t cancel the SetupIntent for a Checkout Session. <a href="/docs/api/checkout/sessions/expire">Expire the Checkout Session</a> instead.</p>
+         */
         post: operations["PostSetupIntentsIntentCancel"];
         delete?: never;
         options?: never;
@@ -4821,7 +6031,9 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Confirm that your customer intends to set up the current or
+        /**
+         * Confirm a SetupIntent
+         * @description <p>Confirm that your customer intends to set up the current or
          *     provided payment method. For example, you would confirm a SetupIntent
          *     when a customer hits the “Save” button on a payment method management
          *     page on your website.</p>
@@ -4834,7 +6046,8 @@ export interface paths {
          *     suggest additional actions via <code>next_action</code>. If setup fails,
          *     the SetupIntent will transition to the
          *     <code>requires_payment_method</code> status or the <code>canceled</code> status if the
-         *     confirmation limit is reached.</p> */
+         *     confirmation limit is reached.</p>
+         */
         post: operations["PostSetupIntentsIntentConfirm"];
         delete?: never;
         options?: never;
@@ -4851,7 +6064,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Verifies microdeposits on a SetupIntent object.</p> */
+        /**
+         * Verify microdeposits on a SetupIntent
+         * @description <p>Verifies microdeposits on a SetupIntent object.</p>
+         */
         post: operations["PostSetupIntentsIntentVerifyMicrodeposits"];
         delete?: never;
         options?: never;
@@ -4866,10 +6082,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of your shipping rates.</p> */
+        /**
+         * List all shipping rates
+         * @description <p>Returns a list of your shipping rates.</p>
+         */
         get: operations["GetShippingRates"];
         put?: never;
-        /** @description <p>Creates a new shipping rate object.</p> */
+        /**
+         * Create a shipping rate
+         * @description <p>Creates a new shipping rate object.</p>
+         */
         post: operations["PostShippingRates"];
         delete?: never;
         options?: never;
@@ -4884,10 +6106,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns the shipping rate object with the given ID.</p> */
+        /**
+         * Retrieve a shipping rate
+         * @description <p>Returns the shipping rate object with the given ID.</p>
+         */
         get: operations["GetShippingRatesShippingRateToken"];
         put?: never;
-        /** @description <p>Updates an existing shipping rate object.</p> */
+        /**
+         * Update a shipping rate
+         * @description <p>Updates an existing shipping rate object.</p>
+         */
         post: operations["PostShippingRatesShippingRateToken"];
         delete?: never;
         options?: never;
@@ -4902,7 +6130,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of scheduled query runs.</p> */
+        /**
+         * List all scheduled query runs
+         * @description <p>Returns a list of scheduled query runs.</p>
+         */
         get: operations["GetSigmaScheduledQueryRuns"];
         put?: never;
         post?: never;
@@ -4919,7 +6150,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an scheduled query run.</p> */
+        /**
+         * Retrieve a scheduled query run
+         * @description <p>Retrieves the details of an scheduled query run.</p>
+         */
         get: operations["GetSigmaScheduledQueryRunsScheduledQueryRun"];
         put?: never;
         post?: never;
@@ -4938,7 +6172,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Creates a new source object.</p> */
+        /**
+         * Shares a source
+         * @description <p>Creates a new source object.</p>
+         */
         post: operations["PostSources"];
         delete?: never;
         options?: never;
@@ -4953,12 +6190,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves an existing source object. Supply the unique source ID from a source creation request and Stripe will return the corresponding up-to-date source object information.</p> */
+        /**
+         * Retrieve a source
+         * @description <p>Retrieves an existing source object. Supply the unique source ID from a source creation request and Stripe will return the corresponding up-to-date source object information.</p>
+         */
         get: operations["GetSourcesSource"];
         put?: never;
-        /** @description <p>Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+        /**
+         * Update a source
+         * @description <p>Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
          *
-         *     <p>This request accepts the <code>metadata</code> and <code>owner</code> as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our <a href="/docs/sources">payment method guides</a> for more detail.</p> */
+         *     <p>This request accepts the <code>metadata</code> and <code>owner</code> as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our <a href="/docs/sources">payment method guides</a> for more detail.</p>
+         */
         post: operations["PostSourcesSource"];
         delete?: never;
         options?: never;
@@ -4973,7 +6216,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a new Source MandateNotification.</p> */
+        /**
+         * Retrieve a Source MandateNotification
+         * @description <p>Retrieves a new Source MandateNotification.</p>
+         */
         get: operations["GetSourcesSourceMandateNotificationsMandateNotification"];
         put?: never;
         post?: never;
@@ -5007,7 +6253,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieve an existing source transaction object. Supply the unique source ID from a source creation request and the source transaction ID and Stripe will return the corresponding up-to-date source object information.</p> */
+        /**
+         * Retrieve a source transaction
+         * @description <p>Retrieve an existing source transaction object. Supply the unique source ID from a source creation request and the source transaction ID and Stripe will return the corresponding up-to-date source object information.</p>
+         */
         get: operations["GetSourcesSourceSourceTransactionsSourceTransaction"];
         put?: never;
         post?: never;
@@ -5041,10 +6290,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of your subscription items for a given subscription.</p> */
+        /**
+         * List all subscription items
+         * @description <p>Returns a list of your subscription items for a given subscription.</p>
+         */
         get: operations["GetSubscriptionItems"];
         put?: never;
-        /** @description <p>Adds a new item to an existing subscription. No existing items will be changed or replaced.</p> */
+        /**
+         * Create a subscription item
+         * @description <p>Adds a new item to an existing subscription. No existing items will be changed or replaced.</p>
+         */
         post: operations["PostSubscriptionItems"];
         delete?: never;
         options?: never;
@@ -5059,12 +6314,21 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the subscription item with the given ID.</p> */
+        /**
+         * Retrieve a subscription item
+         * @description <p>Retrieves the subscription item with the given ID.</p>
+         */
         get: operations["GetSubscriptionItemsItem"];
         put?: never;
-        /** @description <p>Updates the plan or quantity of an item on a current subscription.</p> */
+        /**
+         * Update a subscription item
+         * @description <p>Updates the plan or quantity of an item on a current subscription.</p>
+         */
         post: operations["PostSubscriptionItemsItem"];
-        /** @description <p>Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.</p> */
+        /**
+         * Delete a subscription item
+         * @description <p>Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.</p>
+         */
         delete: operations["DeleteSubscriptionItemsItem"];
         options?: never;
         head?: never;
@@ -5078,9 +6342,12 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>For the specified subscription item, returns a list of summary objects. Each object in the list provides usage information that’s been summarized from multiple usage records and over a subscription billing period (e.g., 15 usage records in the month of September).</p>
+        /**
+         * List all subscription item period summaries
+         * @description <p>For the specified subscription item, returns a list of summary objects. Each object in the list provides usage information that’s been summarized from multiple usage records and over a subscription billing period (e.g., 15 usage records in the month of September).</p>
          *
-         *     <p>The list is sorted in reverse-chronological order (newest first). The first list item represents the most current usage period that hasn’t ended yet. Since new usage records can still be added, the returned summary information for the subscription item’s ID should be seen as unstable until the subscription billing period ends.</p> */
+         *     <p>The list is sorted in reverse-chronological order (newest first). The first list item represents the most current usage period that hasn’t ended yet. Since new usage records can still be added, the returned summary information for the subscription item’s ID should be seen as unstable until the subscription billing period ends.</p>
+         */
         get: operations["GetSubscriptionItemsSubscriptionItemUsageRecordSummaries"];
         put?: never;
         post?: never;
@@ -5099,13 +6366,16 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Creates a usage record for a specified subscription item and date, and fills it with a quantity.</p>
+        /**
+         * Create a usage record
+         * @description <p>Creates a usage record for a specified subscription item and date, and fills it with a quantity.</p>
          *
          *     <p>Usage records provide <code>quantity</code> information that Stripe uses to track how much a customer is using your service. With usage information and the pricing model set up by the <a href="https://stripe.com/docs/billing/subscriptions/metered-billing">metered billing</a> plan, Stripe helps you send accurate invoices to your customers.</p>
          *
          *     <p>The default calculation for usage is to add up all the <code>quantity</code> values of the usage records within a billing period. You can change this default behavior with the billing plan’s <code>aggregate_usage</code> <a href="/docs/api/plans/create#create_plan-aggregate_usage">parameter</a>. When there is more than one usage record with the same timestamp, Stripe adds the <code>quantity</code> values together. In most cases, this is the desired resolution, however, you can change this behavior with the <code>action</code> parameter.</p>
          *
-         *     <p>The default pricing model for metered billing is <a href="/docs/api/plans/object#plan_object-billing_scheme">per-unit pricing</a>. For finer granularity, you can configure metered billing to have a <a href="https://stripe.com/docs/billing/subscriptions/tiers">tiered pricing</a> model.</p> */
+         *     <p>The default pricing model for metered billing is <a href="/docs/api/plans/object#plan_object-billing_scheme">per-unit pricing</a>. For finer granularity, you can configure metered billing to have a <a href="https://stripe.com/docs/billing/subscriptions/tiers">tiered pricing</a> model.</p>
+         */
         post: operations["PostSubscriptionItemsSubscriptionItemUsageRecords"];
         delete?: never;
         options?: never;
@@ -5120,10 +6390,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the list of your subscription schedules.</p> */
+        /**
+         * List all schedules
+         * @description <p>Retrieves the list of your subscription schedules.</p>
+         */
         get: operations["GetSubscriptionSchedules"];
         put?: never;
-        /** @description <p>Creates a new subscription schedule object. Each customer can have up to 500 active or scheduled subscriptions.</p> */
+        /**
+         * Create a schedule
+         * @description <p>Creates a new subscription schedule object. Each customer can have up to 500 active or scheduled subscriptions.</p>
+         */
         post: operations["PostSubscriptionSchedules"];
         delete?: never;
         options?: never;
@@ -5138,10 +6414,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an existing subscription schedule. You only need to supply the unique subscription schedule identifier that was returned upon subscription schedule creation.</p> */
+        /**
+         * Retrieve a schedule
+         * @description <p>Retrieves the details of an existing subscription schedule. You only need to supply the unique subscription schedule identifier that was returned upon subscription schedule creation.</p>
+         */
         get: operations["GetSubscriptionSchedulesSchedule"];
         put?: never;
-        /** @description <p>Updates an existing subscription schedule.</p> */
+        /**
+         * Update a schedule
+         * @description <p>Updates an existing subscription schedule.</p>
+         */
         post: operations["PostSubscriptionSchedulesSchedule"];
         delete?: never;
         options?: never;
@@ -5158,7 +6440,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is <code>not_started</code> or <code>active</code>.</p> */
+        /**
+         * Cancel a schedule
+         * @description <p>Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is <code>not_started</code> or <code>active</code>.</p>
+         */
         post: operations["PostSubscriptionSchedulesScheduleCancel"];
         delete?: never;
         options?: never;
@@ -5175,7 +6460,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is <code>not_started</code> or <code>active</code>. If the subscription schedule is currently associated with a subscription, releasing it will remove its <code>subscription</code> property and set the subscription’s ID to the <code>released_subscription</code> property.</p> */
+        /**
+         * Release a schedule
+         * @description <p>Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is <code>not_started</code> or <code>active</code>. If the subscription schedule is currently associated with a subscription, releasing it will remove its <code>subscription</code> property and set the subscription’s ID to the <code>released_subscription</code> property.</p>
+         */
         post: operations["PostSubscriptionSchedulesScheduleRelease"];
         delete?: never;
         options?: never;
@@ -5190,16 +6478,22 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify <code>status=canceled</code>.</p> */
+        /**
+         * List subscriptions
+         * @description <p>By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify <code>status=canceled</code>.</p>
+         */
         get: operations["GetSubscriptions"];
         put?: never;
-        /** @description <p>Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.</p>
+        /**
+         * Create a subscription
+         * @description <p>Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.</p>
          *
          *     <p>When you create a subscription with <code>collection_method=charge_automatically</code>, the first invoice is finalized as part of the request.
          *     The <code>payment_behavior</code> parameter determines the exact behavior of the initial payment.</p>
          *
          *     <p>To start subscriptions where the first invoice always begins in a <code>draft</code> status, use <a href="/docs/billing/subscriptions/subscription-schedules#managing">subscription schedules</a> instead.
-         *     Schedules provide the flexibility to model more complex billing configurations that change over time.</p> */
+         *     Schedules provide the flexibility to model more complex billing configurations that change over time.</p>
+         */
         post: operations["PostSubscriptions"];
         delete?: never;
         options?: never;
@@ -5214,10 +6508,13 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Search for subscriptions you’ve previously created using Stripe’s <a href="/docs/search#search-query-language">Search Query Language</a>.
+        /**
+         * Search subscriptions
+         * @description <p>Search for subscriptions you’ve previously created using Stripe’s <a href="/docs/search#search-query-language">Search Query Language</a>.
          *     Don’t use search in read-after-write flows where strict consistency is necessary. Under normal operating
          *     conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
-         *     to an hour behind during outages. Search functionality is not available to merchants in India.</p> */
+         *     to an hour behind during outages. Search functionality is not available to merchants in India.</p>
+         */
         get: operations["GetSubscriptionsSearch"];
         put?: never;
         post?: never;
@@ -5234,10 +6531,15 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the subscription with the given ID.</p> */
+        /**
+         * Retrieve a subscription
+         * @description <p>Retrieves the subscription with the given ID.</p>
+         */
         get: operations["GetSubscriptionsSubscriptionExposedId"];
         put?: never;
-        /** @description <p>Updates an existing subscription to match the specified parameters.
+        /**
+         * Update a subscription
+         * @description <p>Updates an existing subscription to match the specified parameters.
          *     When changing prices or quantities, we optionally prorate the price we charge next month to make up for any price changes.
          *     To preview how the proration is calculated, use the <a href="/docs/api/invoices/create_preview">create preview</a> endpoint.</p>
          *
@@ -5251,19 +6553,23 @@ export interface paths {
          *     <li>A trial starts or ends.</li>
          *     </ul>
          *
-         *     <p>In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date. Learn about how <a href="/billing/subscriptions/upgrade-downgrade#immediate-payment">Stripe immediately attempts payment for subscription changes</a>.</p>
+         *     <p>In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date. Learn about how <a href="/docs/billing/subscriptions/upgrade-downgrade#immediate-payment">Stripe immediately attempts payment for subscription changes</a>.</p>
          *
          *     <p>If you want to charge for an upgrade immediately, pass <code>proration_behavior</code> as <code>always_invoice</code> to create prorations, automatically invoice the customer for those proration adjustments, and attempt to collect payment. If you pass <code>create_prorations</code>, the prorations are created but not automatically invoiced. If you want to bill the customer for the prorations before the subscription’s renewal date, you need to manually <a href="/docs/api/invoices/create">invoice the customer</a>.</p>
          *
          *     <p>If you don’t want to prorate, set the <code>proration_behavior</code> option to <code>none</code>. With this option, the customer is billed <currency>100</currency> on May 1 and <currency>200</currency> on June 1. Similarly, if you set <code>proration_behavior</code> to <code>none</code> when switching between different billing intervals (for example, from monthly to yearly), we don’t generate any credits for the old subscription’s unused time. We still reset the billing date and bill immediately for the new subscription.</p>
          *
-         *     <p>Updating the quantity on a subscription many times in an hour may result in <a href="/docs/rate-limits">rate limiting</a>. If you need to bill for a frequently changing quantity, consider integrating <a href="/docs/billing/subscriptions/usage-based">usage-based billing</a> instead.</p> */
+         *     <p>Updating the quantity on a subscription many times in an hour may result in <a href="/docs/rate-limits">rate limiting</a>. If you need to bill for a frequently changing quantity, consider integrating <a href="/docs/billing/subscriptions/usage-based">usage-based billing</a> instead.</p>
+         */
         post: operations["PostSubscriptionsSubscriptionExposedId"];
-        /** @description <p>Cancels a customer’s subscription immediately. The customer will not be charged again for the subscription.</p>
+        /**
+         * Cancel a subscription
+         * @description <p>Cancels a customer’s subscription immediately. The customer won’t be charged again for the subscription. After it’s canceled, you can no longer update the subscription or its <a href="/metadata">metadata</a>.</p>
          *
-         *     <p>Note, however, that any pending invoice items that you’ve created will still be charged for at the end of the period, unless manually <a href="#delete_invoiceitem">deleted</a>. If you’ve set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.</p>
+         *     <p>Any pending invoice items that you’ve created are still charged at the end of the period, unless manually <a href="#delete_invoiceitem">deleted</a>. If you’ve set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed.</p>
          *
-         *     <p>By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.</p> */
+         *     <p>By default, upon subscription cancellation, Stripe stops automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.</p>
+         */
         delete: operations["DeleteSubscriptionsSubscriptionExposedId"];
         options?: never;
         head?: never;
@@ -5280,7 +6586,10 @@ export interface paths {
         get?: never;
         put?: never;
         post?: never;
-        /** @description <p>Removes the currently applied discount on a subscription.</p> */
+        /**
+         * Delete a subscription discount
+         * @description <p>Removes the currently applied discount on a subscription.</p>
+         */
         delete: operations["DeleteSubscriptionsSubscriptionExposedIdDiscount"];
         options?: never;
         head?: never;
@@ -5296,7 +6605,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become <code>active</code>, and if payment fails the subscription will be <code>past_due</code>. The resumption invoice will void automatically if not paid by the expiration date.</p> */
+        /**
+         * Resume a subscription
+         * @description <p>Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become <code>active</code>, and if payment fails the subscription will be <code>past_due</code>. The resumption invoice will void automatically if not paid by the expiration date.</p>
+         */
         post: operations["PostSubscriptionsSubscriptionResume"];
         delete?: never;
         options?: never;
@@ -5313,7 +6625,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Calculates tax based on the input and returns a Tax <code>Calculation</code> object.</p> */
+        /**
+         * Create a Tax Calculation
+         * @description <p>Calculates tax based on the input and returns a Tax <code>Calculation</code> object.</p>
+         */
         post: operations["PostTaxCalculations"];
         delete?: never;
         options?: never;
@@ -5328,7 +6643,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a Tax <code>Calculation</code> object, if the calculation hasn’t expired.</p> */
+        /**
+         * Retrieve a Tax Calculation
+         * @description <p>Retrieves a Tax <code>Calculation</code> object, if the calculation hasn’t expired.</p>
+         */
         get: operations["GetTaxCalculationsCalculation"];
         put?: never;
         post?: never;
@@ -5345,7 +6663,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the line items of a tax calculation as a collection, if the calculation hasn’t expired.</p> */
+        /**
+         * Retrieve a calculation's line items
+         * @description <p>Retrieves the line items of a tax calculation as a collection, if the calculation hasn’t expired.</p>
+         */
         get: operations["GetTaxCalculationsCalculationLineItems"];
         put?: never;
         post?: never;
@@ -5362,10 +6683,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of Tax <code>Registration</code> objects.</p> */
+        /**
+         * List registrations
+         * @description <p>Returns a list of Tax <code>Registration</code> objects.</p>
+         */
         get: operations["GetTaxRegistrations"];
         put?: never;
-        /** @description <p>Creates a new Tax <code>Registration</code> object.</p> */
+        /**
+         * Create a registration
+         * @description <p>Creates a new Tax <code>Registration</code> object.</p>
+         */
         post: operations["PostTaxRegistrations"];
         delete?: never;
         options?: never;
@@ -5380,12 +6707,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a Tax <code>Registration</code> object.</p> */
+        /**
+         * Retrieve a registration
+         * @description <p>Returns a Tax <code>Registration</code> object.</p>
+         */
         get: operations["GetTaxRegistrationsId"];
         put?: never;
-        /** @description <p>Updates an existing Tax <code>Registration</code> object.</p>
+        /**
+         * Update a registration
+         * @description <p>Updates an existing Tax <code>Registration</code> object.</p>
          *
-         *     <p>A registration cannot be deleted after it has been created. If you wish to end a registration you may do so by setting <code>expires_at</code>.</p> */
+         *     <p>A registration cannot be deleted after it has been created. If you wish to end a registration you may do so by setting <code>expires_at</code>.</p>
+         */
         post: operations["PostTaxRegistrationsId"];
         delete?: never;
         options?: never;
@@ -5400,10 +6733,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves Tax <code>Settings</code> for a merchant.</p> */
+        /**
+         * Retrieve settings
+         * @description <p>Retrieves Tax <code>Settings</code> for a merchant.</p>
+         */
         get: operations["GetTaxSettings"];
         put?: never;
-        /** @description <p>Updates Tax <code>Settings</code> parameters used in tax calculations. All parameters are editable but none can be removed once set.</p> */
+        /**
+         * Update settings
+         * @description <p>Updates Tax <code>Settings</code> parameters used in tax calculations. All parameters are editable but none can be removed once set.</p>
+         */
         post: operations["PostTaxSettings"];
         delete?: never;
         options?: never;
@@ -5420,7 +6759,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Creates a Tax Transaction from a calculation, if that calculation hasn’t expired. Calculations expire after 90 days.</p> */
+        /**
+         * Create a transaction from a calculation
+         * @description <p>Creates a Tax Transaction from a calculation, if that calculation hasn’t expired. Calculations expire after 90 days.</p>
+         */
         post: operations["PostTaxTransactionsCreateFromCalculation"];
         delete?: never;
         options?: never;
@@ -5437,7 +6779,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Partially or fully reverses a previously created <code>Transaction</code>.</p> */
+        /**
+         * Create a reversal transaction
+         * @description <p>Partially or fully reverses a previously created <code>Transaction</code>.</p>
+         */
         post: operations["PostTaxTransactionsCreateReversal"];
         delete?: never;
         options?: never;
@@ -5452,7 +6797,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a Tax <code>Transaction</code> object.</p> */
+        /**
+         * Retrieve a transaction
+         * @description <p>Retrieves a Tax <code>Transaction</code> object.</p>
+         */
         get: operations["GetTaxTransactionsTransaction"];
         put?: never;
         post?: never;
@@ -5469,7 +6817,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the line items of a committed standalone transaction as a collection.</p> */
+        /**
+         * Retrieve a transaction's line items
+         * @description <p>Retrieves the line items of a committed standalone transaction as a collection.</p>
+         */
         get: operations["GetTaxTransactionsTransactionLineItems"];
         put?: never;
         post?: never;
@@ -5486,7 +6837,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>A list of <a href="https://stripe.com/docs/tax/tax-categories">all tax codes available</a> to add to Products in order to allow specific tax calculations.</p> */
+        /**
+         * List all tax codes
+         * @description <p>A list of <a href="https://stripe.com/docs/tax/tax-categories">all tax codes available</a> to add to Products in order to allow specific tax calculations.</p>
+         */
         get: operations["GetTaxCodes"];
         put?: never;
         post?: never;
@@ -5503,7 +6857,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an existing tax code. Supply the unique tax code ID and Stripe will return the corresponding tax code information.</p> */
+        /**
+         * Retrieve a tax code
+         * @description <p>Retrieves the details of an existing tax code. Supply the unique tax code ID and Stripe will return the corresponding tax code information.</p>
+         */
         get: operations["GetTaxCodesId"];
         put?: never;
         post?: never;
@@ -5520,10 +6877,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of tax IDs.</p> */
+        /**
+         * List all tax IDs
+         * @description <p>Returns a list of tax IDs.</p>
+         */
         get: operations["GetTaxIds"];
         put?: never;
-        /** @description <p>Creates a new account or customer <code>tax_id</code> object.</p> */
+        /**
+         * Create a tax ID
+         * @description <p>Creates a new account or customer <code>tax_id</code> object.</p>
+         */
         post: operations["PostTaxIds"];
         delete?: never;
         options?: never;
@@ -5538,11 +6901,17 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves an account or customer <code>tax_id</code> object.</p> */
+        /**
+         * Retrieve a tax ID
+         * @description <p>Retrieves an account or customer <code>tax_id</code> object.</p>
+         */
         get: operations["GetTaxIdsId"];
         put?: never;
         post?: never;
-        /** @description <p>Deletes an existing account or customer <code>tax_id</code> object.</p> */
+        /**
+         * Delete a tax ID
+         * @description <p>Deletes an existing account or customer <code>tax_id</code> object.</p>
+         */
         delete: operations["DeleteTaxIdsId"];
         options?: never;
         head?: never;
@@ -5556,10 +6925,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.</p> */
+        /**
+         * List all tax rates
+         * @description <p>Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.</p>
+         */
         get: operations["GetTaxRates"];
         put?: never;
-        /** @description <p>Creates a new tax rate.</p> */
+        /**
+         * Create a tax rate
+         * @description <p>Creates a new tax rate.</p>
+         */
         post: operations["PostTaxRates"];
         delete?: never;
         options?: never;
@@ -5574,10 +6949,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a tax rate with the given ID</p> */
+        /**
+         * Retrieve a tax rate
+         * @description <p>Retrieves a tax rate with the given ID</p>
+         */
         get: operations["GetTaxRatesTaxRate"];
         put?: never;
-        /** @description <p>Updates an existing tax rate.</p> */
+        /**
+         * Update a tax rate
+         * @description <p>Updates an existing tax rate.</p>
+         */
         post: operations["PostTaxRatesTaxRate"];
         delete?: never;
         options?: never;
@@ -5592,10 +6973,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of <code>Configuration</code> objects.</p> */
+        /**
+         * List all Configurations
+         * @description <p>Returns a list of <code>Configuration</code> objects.</p>
+         */
         get: operations["GetTerminalConfigurations"];
         put?: never;
-        /** @description <p>Creates a new <code>Configuration</code> object.</p> */
+        /**
+         * Create a Configuration
+         * @description <p>Creates a new <code>Configuration</code> object.</p>
+         */
         post: operations["PostTerminalConfigurations"];
         delete?: never;
         options?: never;
@@ -5610,12 +6997,21 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a <code>Configuration</code> object.</p> */
+        /**
+         * Retrieve a Configuration
+         * @description <p>Retrieves a <code>Configuration</code> object.</p>
+         */
         get: operations["GetTerminalConfigurationsConfiguration"];
         put?: never;
-        /** @description <p>Updates a new <code>Configuration</code> object.</p> */
+        /**
+         * Update a Configuration
+         * @description <p>Updates a new <code>Configuration</code> object.</p>
+         */
         post: operations["PostTerminalConfigurationsConfiguration"];
-        /** @description <p>Deletes a <code>Configuration</code> object.</p> */
+        /**
+         * Delete a Configuration
+         * @description <p>Deletes a <code>Configuration</code> object.</p>
+         */
         delete: operations["DeleteTerminalConfigurationsConfiguration"];
         options?: never;
         head?: never;
@@ -5631,7 +7027,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>To connect to a reader the Stripe Terminal SDK needs to retrieve a short-lived connection token from Stripe, proxied through your server. On your backend, add an endpoint that creates and returns a connection token.</p> */
+        /**
+         * Create a Connection Token
+         * @description <p>To connect to a reader the Stripe Terminal SDK needs to retrieve a short-lived connection token from Stripe, proxied through your server. On your backend, add an endpoint that creates and returns a connection token.</p>
+         */
         post: operations["PostTerminalConnectionTokens"];
         delete?: never;
         options?: never;
@@ -5646,11 +7045,17 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of <code>Location</code> objects.</p> */
+        /**
+         * List all Locations
+         * @description <p>Returns a list of <code>Location</code> objects.</p>
+         */
         get: operations["GetTerminalLocations"];
         put?: never;
-        /** @description <p>Creates a new <code>Location</code> object.
-         *     For further details, including which address fields are required in each country, see the <a href="/docs/terminal/fleet/locations">Manage locations</a> guide.</p> */
+        /**
+         * Create a Location
+         * @description <p>Creates a new <code>Location</code> object.
+         *     For further details, including which address fields are required in each country, see the <a href="/docs/terminal/fleet/locations">Manage locations</a> guide.</p>
+         */
         post: operations["PostTerminalLocations"];
         delete?: never;
         options?: never;
@@ -5665,12 +7070,21 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a <code>Location</code> object.</p> */
+        /**
+         * Retrieve a Location
+         * @description <p>Retrieves a <code>Location</code> object.</p>
+         */
         get: operations["GetTerminalLocationsLocation"];
         put?: never;
-        /** @description <p>Updates a <code>Location</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
+        /**
+         * Update a Location
+         * @description <p>Updates a <code>Location</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+         */
         post: operations["PostTerminalLocationsLocation"];
-        /** @description <p>Deletes a <code>Location</code> object.</p> */
+        /**
+         * Delete a Location
+         * @description <p>Deletes a <code>Location</code> object.</p>
+         */
         delete: operations["DeleteTerminalLocationsLocation"];
         options?: never;
         head?: never;
@@ -5684,10 +7098,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of <code>Reader</code> objects.</p> */
+        /**
+         * List all Readers
+         * @description <p>Returns a list of <code>Reader</code> objects.</p>
+         */
         get: operations["GetTerminalReaders"];
         put?: never;
-        /** @description <p>Creates a new <code>Reader</code> object.</p> */
+        /**
+         * Create a Reader
+         * @description <p>Creates a new <code>Reader</code> object.</p>
+         */
         post: operations["PostTerminalReaders"];
         delete?: never;
         options?: never;
@@ -5702,12 +7122,21 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a <code>Reader</code> object.</p> */
+        /**
+         * Retrieve a Reader
+         * @description <p>Retrieves a <code>Reader</code> object.</p>
+         */
         get: operations["GetTerminalReadersReader"];
         put?: never;
-        /** @description <p>Updates a <code>Reader</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p> */
+        /**
+         * Update a Reader
+         * @description <p>Updates a <code>Reader</code> object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+         */
         post: operations["PostTerminalReadersReader"];
-        /** @description <p>Deletes a <code>Reader</code> object.</p> */
+        /**
+         * Delete a Reader
+         * @description <p>Deletes a <code>Reader</code> object.</p>
+         */
         delete: operations["DeleteTerminalReadersReader"];
         options?: never;
         head?: never;
@@ -5723,7 +7152,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Cancels the current reader action.</p> */
+        /**
+         * Cancel the current reader action
+         * @description <p>Cancels the current reader action.</p>
+         */
         post: operations["PostTerminalReadersReaderCancelAction"];
         delete?: never;
         options?: never;
@@ -5740,7 +7172,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Initiates a payment flow on a Reader.</p> */
+        /**
+         * Hand-off a PaymentIntent to a Reader
+         * @description <p>Initiates a payment flow on a Reader.</p>
+         */
         post: operations["PostTerminalReadersReaderProcessPaymentIntent"];
         delete?: never;
         options?: never;
@@ -5757,7 +7192,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Initiates a setup intent flow on a Reader.</p> */
+        /**
+         * Hand-off a SetupIntent to a Reader
+         * @description <p>Initiates a setup intent flow on a Reader.</p>
+         */
         post: operations["PostTerminalReadersReaderProcessSetupIntent"];
         delete?: never;
         options?: never;
@@ -5774,7 +7212,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Initiates a refund on a Reader</p> */
+        /**
+         * Refund a Charge or a PaymentIntent in-person
+         * @description <p>Initiates a refund on a Reader</p>
+         */
         post: operations["PostTerminalReadersReaderRefundPayment"];
         delete?: never;
         options?: never;
@@ -5791,7 +7232,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Sets reader display to show cart details.</p> */
+        /**
+         * Set reader display
+         * @description <p>Sets reader display to show cart details.</p>
+         */
         post: operations["PostTerminalReadersReaderSetReaderDisplay"];
         delete?: never;
         options?: never;
@@ -5808,7 +7252,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Creates a test mode Confirmation Token server side for your integration tests.</p> */
+        /**
+         * Create a test Confirmation Token
+         * @description <p>Creates a test mode Confirmation Token server side for your integration tests.</p>
+         */
         post: operations["PostTestHelpersConfirmationTokens"];
         delete?: never;
         options?: never;
@@ -5825,7 +7272,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Create an incoming testmode bank transfer</p> */
+        /**
+         * Fund a test mode cash balance
+         * @description <p>Create an incoming testmode bank transfer</p>
+         */
         post: operations["PostTestHelpersCustomersCustomerFundCashBalance"];
         delete?: never;
         options?: never;
@@ -5842,7 +7292,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Create a test-mode authorization.</p> */
+        /**
+         * Create a test-mode authorization
+         * @description <p>Create a test-mode authorization.</p>
+         */
         post: operations["PostTestHelpersIssuingAuthorizations"];
         delete?: never;
         options?: never;
@@ -5859,7 +7312,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Capture a test-mode authorization.</p> */
+        /**
+         * Capture a test-mode authorization
+         * @description <p>Capture a test-mode authorization.</p>
+         */
         post: operations["PostTestHelpersIssuingAuthorizationsAuthorizationCapture"];
         delete?: never;
         options?: never;
@@ -5876,7 +7332,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Expire a test-mode Authorization.</p> */
+        /**
+         * Expire a test-mode authorization
+         * @description <p>Expire a test-mode Authorization.</p>
+         */
         post: operations["PostTestHelpersIssuingAuthorizationsAuthorizationExpire"];
         delete?: never;
         options?: never;
@@ -5893,8 +7352,31 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.</p> */
+        /**
+         * Finalize a test-mode authorization's amount
+         * @description <p>Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.</p>
+         */
         post: operations["PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/test_helpers/issuing/authorizations/{authorization}/fraud_challenges/respond": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Respond to fraud challenge
+         * @description <p>Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.</p>
+         */
+        post: operations["PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond"];
         delete?: never;
         options?: never;
         head?: never;
@@ -5910,7 +7392,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Increment a test-mode Authorization.</p> */
+        /**
+         * Increment a test-mode authorization
+         * @description <p>Increment a test-mode Authorization.</p>
+         */
         post: operations["PostTestHelpersIssuingAuthorizationsAuthorizationIncrement"];
         delete?: never;
         options?: never;
@@ -5927,7 +7412,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Reverse a test-mode Authorization.</p> */
+        /**
+         * Reverse a test-mode authorization
+         * @description <p>Reverse a test-mode Authorization.</p>
+         */
         post: operations["PostTestHelpersIssuingAuthorizationsAuthorizationReverse"];
         delete?: never;
         options?: never;
@@ -5944,7 +7432,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Updates the shipping status of the specified Issuing <code>Card</code> object to <code>delivered</code>.</p> */
+        /**
+         * Deliver a testmode card
+         * @description <p>Updates the shipping status of the specified Issuing <code>Card</code> object to <code>delivered</code>.</p>
+         */
         post: operations["PostTestHelpersIssuingCardsCardShippingDeliver"];
         delete?: never;
         options?: never;
@@ -5961,7 +7452,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Updates the shipping status of the specified Issuing <code>Card</code> object to <code>failure</code>.</p> */
+        /**
+         * Fail a testmode card
+         * @description <p>Updates the shipping status of the specified Issuing <code>Card</code> object to <code>failure</code>.</p>
+         */
         post: operations["PostTestHelpersIssuingCardsCardShippingFail"];
         delete?: never;
         options?: never;
@@ -5978,7 +7472,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Updates the shipping status of the specified Issuing <code>Card</code> object to <code>returned</code>.</p> */
+        /**
+         * Return a testmode card
+         * @description <p>Updates the shipping status of the specified Issuing <code>Card</code> object to <code>returned</code>.</p>
+         */
         post: operations["PostTestHelpersIssuingCardsCardShippingReturn"];
         delete?: never;
         options?: never;
@@ -5995,8 +7492,31 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Updates the shipping status of the specified Issuing <code>Card</code> object to <code>shipped</code>.</p> */
+        /**
+         * Ship a testmode card
+         * @description <p>Updates the shipping status of the specified Issuing <code>Card</code> object to <code>shipped</code>.</p>
+         */
         post: operations["PostTestHelpersIssuingCardsCardShippingShip"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/test_helpers/issuing/cards/{card}/shipping/submit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Submit a testmode card
+         * @description <p>Updates the shipping status of the specified Issuing <code>Card</code> object to <code>submitted</code>. This method requires Stripe Version ‘2024-09-30.acacia’ or later.</p>
+         */
+        post: operations["PostTestHelpersIssuingCardsCardShippingSubmit"];
         delete?: never;
         options?: never;
         head?: never;
@@ -6012,7 +7532,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Updates the <code>status</code> of the specified testmode personalization design object to <code>active</code>.</p> */
+        /**
+         * Activate a testmode personalization design
+         * @description <p>Updates the <code>status</code> of the specified testmode personalization design object to <code>active</code>.</p>
+         */
         post: operations["PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate"];
         delete?: never;
         options?: never;
@@ -6029,7 +7552,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Updates the <code>status</code> of the specified testmode personalization design object to <code>inactive</code>.</p> */
+        /**
+         * Deactivate a testmode personalization design
+         * @description <p>Updates the <code>status</code> of the specified testmode personalization design object to <code>inactive</code>.</p>
+         */
         post: operations["PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate"];
         delete?: never;
         options?: never;
@@ -6046,7 +7572,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Updates the <code>status</code> of the specified testmode personalization design object to <code>rejected</code>.</p> */
+        /**
+         * Reject a testmode personalization design
+         * @description <p>Updates the <code>status</code> of the specified testmode personalization design object to <code>rejected</code>.</p>
+         */
         post: operations["PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject"];
         delete?: never;
         options?: never;
@@ -6063,7 +7592,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Allows the user to create an Issuing settlement.</p> */
+        /**
+         * Create a test-mode settleemnt
+         * @description <p>Allows the user to create an Issuing settlement.</p>
+         */
         post: operations["PostTestHelpersIssuingSettlements"];
         delete?: never;
         options?: never;
@@ -6080,7 +7612,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Allows the user to capture an arbitrary amount, also known as a forced capture.</p> */
+        /**
+         * Create a test-mode force capture
+         * @description <p>Allows the user to capture an arbitrary amount, also known as a forced capture.</p>
+         */
         post: operations["PostTestHelpersIssuingTransactionsCreateForceCapture"];
         delete?: never;
         options?: never;
@@ -6097,7 +7632,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Allows the user to refund an arbitrary amount, also known as a unlinked refund.</p> */
+        /**
+         * Create a test-mode unlinked refund
+         * @description <p>Allows the user to refund an arbitrary amount, also known as a unlinked refund.</p>
+         */
         post: operations["PostTestHelpersIssuingTransactionsCreateUnlinkedRefund"];
         delete?: never;
         options?: never;
@@ -6114,7 +7652,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Refund a test-mode Transaction.</p> */
+        /**
+         * Refund a test-mode transaction
+         * @description <p>Refund a test-mode Transaction.</p>
+         */
         post: operations["PostTestHelpersIssuingTransactionsTransactionRefund"];
         delete?: never;
         options?: never;
@@ -6131,7 +7672,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Expire a refund with a status of <code>requires_action</code>.</p> */
+        /**
+         * Expire a pending refund.
+         * @description <p>Expire a refund with a status of <code>requires_action</code>.</p>
+         */
         post: operations["PostTestHelpersRefundsRefundExpire"];
         delete?: never;
         options?: never;
@@ -6148,7 +7692,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.</p> */
+        /**
+         * Simulate presenting a payment method
+         * @description <p>Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.</p>
+         */
         post: operations["PostTestHelpersTerminalReadersReaderPresentPaymentMethod"];
         delete?: never;
         options?: never;
@@ -6163,10 +7710,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of your test clocks.</p> */
+        /**
+         * List all test clocks
+         * @description <p>Returns a list of your test clocks.</p>
+         */
         get: operations["GetTestHelpersTestClocks"];
         put?: never;
-        /** @description <p>Creates a new test clock that can be attached to new customers and quotes.</p> */
+        /**
+         * Create a test clock
+         * @description <p>Creates a new test clock that can be attached to new customers and quotes.</p>
+         */
         post: operations["PostTestHelpersTestClocks"];
         delete?: never;
         options?: never;
@@ -6181,11 +7734,17 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a test clock.</p> */
+        /**
+         * Retrieve a test clock
+         * @description <p>Retrieves a test clock.</p>
+         */
         get: operations["GetTestHelpersTestClocksTestClock"];
         put?: never;
         post?: never;
-        /** @description <p>Deletes a test clock.</p> */
+        /**
+         * Delete a test clock
+         * @description <p>Deletes a test clock.</p>
+         */
         delete: operations["DeleteTestHelpersTestClocksTestClock"];
         options?: never;
         head?: never;
@@ -6201,7 +7760,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to <code>Ready</code>.</p> */
+        /**
+         * Advance a test clock
+         * @description <p>Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to <code>Ready</code>.</p>
+         */
         post: operations["PostTestHelpersTestClocksTestClockAdvance"];
         delete?: never;
         options?: never;
@@ -6218,7 +7780,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Transitions a test mode created InboundTransfer to the <code>failed</code> status. The InboundTransfer must already be in the <code>processing</code> state.</p> */
+        /**
+         * Test mode: Fail an InboundTransfer
+         * @description <p>Transitions a test mode created InboundTransfer to the <code>failed</code> status. The InboundTransfer must already be in the <code>processing</code> state.</p>
+         */
         post: operations["PostTestHelpersTreasuryInboundTransfersIdFail"];
         delete?: never;
         options?: never;
@@ -6235,7 +7800,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the <code>succeeded</code> state.</p> */
+        /**
+         * Test mode: Return an InboundTransfer
+         * @description <p>Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the <code>succeeded</code> state.</p>
+         */
         post: operations["PostTestHelpersTreasuryInboundTransfersIdReturn"];
         delete?: never;
         options?: never;
@@ -6252,7 +7820,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Transitions a test mode created InboundTransfer to the <code>succeeded</code> status. The InboundTransfer must already be in the <code>processing</code> state.</p> */
+        /**
+         * Test mode: Succeed an InboundTransfer
+         * @description <p>Transitions a test mode created InboundTransfer to the <code>succeeded</code> status. The InboundTransfer must already be in the <code>processing</code> state.</p>
+         */
         post: operations["PostTestHelpersTreasuryInboundTransfersIdSucceed"];
         delete?: never;
         options?: never;
@@ -6269,7 +7840,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the <code>canceled</code> or <code>failed</code> states.</p> */
+        /**
+         * Test mode: Update an OutboundPayment
+         * @description <p>Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the <code>canceled</code> or <code>failed</code> states.</p>
+         */
         post: operations["PostTestHelpersTreasuryOutboundPaymentsId"];
         delete?: never;
         options?: never;
@@ -6286,7 +7860,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Transitions a test mode created OutboundPayment to the <code>failed</code> status. The OutboundPayment must already be in the <code>processing</code> state.</p> */
+        /**
+         * Test mode: Fail an OutboundPayment
+         * @description <p>Transitions a test mode created OutboundPayment to the <code>failed</code> status. The OutboundPayment must already be in the <code>processing</code> state.</p>
+         */
         post: operations["PostTestHelpersTreasuryOutboundPaymentsIdFail"];
         delete?: never;
         options?: never;
@@ -6303,7 +7880,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Transitions a test mode created OutboundPayment to the <code>posted</code> status. The OutboundPayment must already be in the <code>processing</code> state.</p> */
+        /**
+         * Test mode: Post an OutboundPayment
+         * @description <p>Transitions a test mode created OutboundPayment to the <code>posted</code> status. The OutboundPayment must already be in the <code>processing</code> state.</p>
+         */
         post: operations["PostTestHelpersTreasuryOutboundPaymentsIdPost"];
         delete?: never;
         options?: never;
@@ -6320,7 +7900,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Transitions a test mode created OutboundPayment to the <code>returned</code> status. The OutboundPayment must already be in the <code>processing</code> state.</p> */
+        /**
+         * Test mode: Return an OutboundPayment
+         * @description <p>Transitions a test mode created OutboundPayment to the <code>returned</code> status. The OutboundPayment must already be in the <code>processing</code> state.</p>
+         */
         post: operations["PostTestHelpersTreasuryOutboundPaymentsIdReturn"];
         delete?: never;
         options?: never;
@@ -6337,7 +7920,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the <code>canceled</code> or <code>failed</code> states.</p> */
+        /**
+         * Test mode: Update an OutboundTransfer
+         * @description <p>Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the <code>canceled</code> or <code>failed</code> states.</p>
+         */
         post: operations["PostTestHelpersTreasuryOutboundTransfersOutboundTransfer"];
         delete?: never;
         options?: never;
@@ -6354,7 +7940,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Transitions a test mode created OutboundTransfer to the <code>failed</code> status. The OutboundTransfer must already be in the <code>processing</code> state.</p> */
+        /**
+         * Test mode: Fail an OutboundTransfer
+         * @description <p>Transitions a test mode created OutboundTransfer to the <code>failed</code> status. The OutboundTransfer must already be in the <code>processing</code> state.</p>
+         */
         post: operations["PostTestHelpersTreasuryOutboundTransfersOutboundTransferFail"];
         delete?: never;
         options?: never;
@@ -6371,7 +7960,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Transitions a test mode created OutboundTransfer to the <code>posted</code> status. The OutboundTransfer must already be in the <code>processing</code> state.</p> */
+        /**
+         * Test mode: Post an OutboundTransfer
+         * @description <p>Transitions a test mode created OutboundTransfer to the <code>posted</code> status. The OutboundTransfer must already be in the <code>processing</code> state.</p>
+         */
         post: operations["PostTestHelpersTreasuryOutboundTransfersOutboundTransferPost"];
         delete?: never;
         options?: never;
@@ -6388,7 +7980,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Transitions a test mode created OutboundTransfer to the <code>returned</code> status. The OutboundTransfer must already be in the <code>processing</code> state.</p> */
+        /**
+         * Test mode: Return an OutboundTransfer
+         * @description <p>Transitions a test mode created OutboundTransfer to the <code>returned</code> status. The OutboundTransfer must already be in the <code>processing</code> state.</p>
+         */
         post: operations["PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn"];
         delete?: never;
         options?: never;
@@ -6405,7 +8000,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Use this endpoint to simulate a test mode ReceivedCredit initiated by a third party. In live mode, you can’t directly create ReceivedCredits initiated by third parties.</p> */
+        /**
+         * Test mode: Create a ReceivedCredit
+         * @description <p>Use this endpoint to simulate a test mode ReceivedCredit initiated by a third party. In live mode, you can’t directly create ReceivedCredits initiated by third parties.</p>
+         */
         post: operations["PostTestHelpersTreasuryReceivedCredits"];
         delete?: never;
         options?: never;
@@ -6422,7 +8020,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can’t directly create ReceivedDebits initiated by third parties.</p> */
+        /**
+         * Test mode: Create a ReceivedDebit
+         * @description <p>Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can’t directly create ReceivedDebits initiated by third parties.</p>
+         */
         post: operations["PostTestHelpersTreasuryReceivedDebits"];
         delete?: never;
         options?: never;
@@ -6439,8 +8040,11 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Creates a single-use token that represents a bank account’s details.
-         *     You can use this token with any API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a <a href="#accounts">connected account</a> where <a href="/api/accounts/object#account_object-controller-requirement_collection">controller.requirement_collection</a> is <code>application</code>, which includes Custom accounts.</p> */
+        /**
+         * Create a CVC update token
+         * @description <p>Creates a single-use token that represents a bank account’s details.
+         *     You can use this token with any v1 API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a <a href="#accounts">connected account</a> where <a href="/api/accounts/object#account_object-controller-requirement_collection">controller.requirement_collection</a> is <code>application</code>, which includes Custom accounts.</p>
+         */
         post: operations["PostTokens"];
         delete?: never;
         options?: never;
@@ -6455,7 +8059,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the token with the given ID.</p> */
+        /**
+         * Retrieve a token
+         * @description <p>Retrieves the token with the given ID.</p>
+         */
         get: operations["GetTokensToken"];
         put?: never;
         post?: never;
@@ -6472,10 +8079,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of top-ups.</p> */
+        /**
+         * List all top-ups
+         * @description <p>Returns a list of top-ups.</p>
+         */
         get: operations["GetTopups"];
         put?: never;
-        /** @description <p>Top up the balance of an account</p> */
+        /**
+         * Create a top-up
+         * @description <p>Top up the balance of an account</p>
+         */
         post: operations["PostTopups"];
         delete?: never;
         options?: never;
@@ -6490,10 +8103,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of a top-up that has previously been created. Supply the unique top-up ID that was returned from your previous request, and Stripe will return the corresponding top-up information.</p> */
+        /**
+         * Retrieve a top-up
+         * @description <p>Retrieves the details of a top-up that has previously been created. Supply the unique top-up ID that was returned from your previous request, and Stripe will return the corresponding top-up information.</p>
+         */
         get: operations["GetTopupsTopup"];
         put?: never;
-        /** @description <p>Updates the metadata of a top-up. Other top-up details are not editable by design.</p> */
+        /**
+         * Update a top-up
+         * @description <p>Updates the metadata of a top-up. Other top-up details are not editable by design.</p>
+         */
         post: operations["PostTopupsTopup"];
         delete?: never;
         options?: never;
@@ -6510,7 +8129,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Cancels a top-up. Only pending top-ups can be canceled.</p> */
+        /**
+         * Cancel a top-up
+         * @description <p>Cancels a top-up. Only pending top-ups can be canceled.</p>
+         */
         post: operations["PostTopupsTopupCancel"];
         delete?: never;
         options?: never;
@@ -6525,10 +8147,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.</p> */
+        /**
+         * List all transfers
+         * @description <p>Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.</p>
+         */
         get: operations["GetTransfers"];
         put?: never;
-        /** @description <p>To send funds from your Stripe account to a connected account, you create a new transfer object. Your <a href="#balance">Stripe balance</a> must be able to cover the transfer amount, or you’ll receive an “Insufficient Funds” error.</p> */
+        /**
+         * Create a transfer
+         * @description <p>To send funds from your Stripe account to a connected account, you create a new transfer object. Your <a href="#balance">Stripe balance</a> must be able to cover the transfer amount, or you’ll receive an “Insufficient Funds” error.</p>
+         */
         post: operations["PostTransfers"];
         delete?: never;
         options?: never;
@@ -6543,14 +8171,20 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional reversals.</p> */
+        /**
+         * List all reversals
+         * @description <p>You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the <code>limit</code> and <code>starting_after</code> parameters to page through additional reversals.</p>
+         */
         get: operations["GetTransfersIdReversals"];
         put?: never;
-        /** @description <p>When you create a new reversal, you must specify a transfer to create it on.</p>
+        /**
+         * Create a transfer reversal
+         * @description <p>When you create a new reversal, you must specify a transfer to create it on.</p>
          *
          *     <p>When reversing transfers, you can optionally reverse part of the transfer. You can do so as many times as you wish until the entire transfer has been reversed.</p>
          *
-         *     <p>Once entirely reversed, a transfer can’t be reversed again. This method will return an error when called on an already-reversed transfer, or when trying to reverse more money than is left on a transfer.</p> */
+         *     <p>Once entirely reversed, a transfer can’t be reversed again. This method will return an error when called on an already-reversed transfer, or when trying to reverse more money than is left on a transfer.</p>
+         */
         post: operations["PostTransfersIdReversals"];
         delete?: never;
         options?: never;
@@ -6565,12 +8199,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an existing transfer. Supply the unique transfer ID from either a transfer creation request or the transfer list, and Stripe will return the corresponding transfer information.</p> */
+        /**
+         * Retrieve a transfer
+         * @description <p>Retrieves the details of an existing transfer. Supply the unique transfer ID from either a transfer creation request or the transfer list, and Stripe will return the corresponding transfer information.</p>
+         */
         get: operations["GetTransfersTransfer"];
         put?: never;
-        /** @description <p>Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+        /**
+         * Update a transfer
+         * @description <p>Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
          *
-         *     <p>This request accepts only metadata as an argument.</p> */
+         *     <p>This request accepts only metadata as an argument.</p>
+         */
         post: operations["PostTransfersTransfer"];
         delete?: never;
         options?: never;
@@ -6585,12 +8225,18 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.</p> */
+        /**
+         * Retrieve a reversal
+         * @description <p>By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.</p>
+         */
         get: operations["GetTransfersTransferReversalsId"];
         put?: never;
-        /** @description <p>Updates the specified reversal by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
+        /**
+         * Update a reversal
+         * @description <p>Updates the specified reversal by setting the values of the parameters passed. Any parameters not provided will be left unchanged.</p>
          *
-         *     <p>This request only accepts metadata and description as arguments.</p> */
+         *     <p>This request only accepts metadata and description as arguments.</p>
+         */
         post: operations["PostTransfersTransferReversalsId"];
         delete?: never;
         options?: never;
@@ -6605,10 +8251,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of CreditReversals.</p> */
+        /**
+         * List all CreditReversals
+         * @description <p>Returns a list of CreditReversals.</p>
+         */
         get: operations["GetTreasuryCreditReversals"];
         put?: never;
-        /** @description <p>Reverses a ReceivedCredit and creates a CreditReversal object.</p> */
+        /**
+         * Create a CreditReversal
+         * @description <p>Reverses a ReceivedCredit and creates a CreditReversal object.</p>
+         */
         post: operations["PostTreasuryCreditReversals"];
         delete?: never;
         options?: never;
@@ -6623,7 +8275,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an existing CreditReversal by passing the unique CreditReversal ID from either the CreditReversal creation request or CreditReversal list</p> */
+        /**
+         * Retrieve a CreditReversal
+         * @description <p>Retrieves the details of an existing CreditReversal by passing the unique CreditReversal ID from either the CreditReversal creation request or CreditReversal list</p>
+         */
         get: operations["GetTreasuryCreditReversalsCreditReversal"];
         put?: never;
         post?: never;
@@ -6640,10 +8295,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of DebitReversals.</p> */
+        /**
+         * List all DebitReversals
+         * @description <p>Returns a list of DebitReversals.</p>
+         */
         get: operations["GetTreasuryDebitReversals"];
         put?: never;
-        /** @description <p>Reverses a ReceivedDebit and creates a DebitReversal object.</p> */
+        /**
+         * Create a DebitReversal
+         * @description <p>Reverses a ReceivedDebit and creates a DebitReversal object.</p>
+         */
         post: operations["PostTreasuryDebitReversals"];
         delete?: never;
         options?: never;
@@ -6658,7 +8319,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a DebitReversal object.</p> */
+        /**
+         * Retrieve a DebitReversal
+         * @description <p>Retrieves a DebitReversal object.</p>
+         */
         get: operations["GetTreasuryDebitReversalsDebitReversal"];
         put?: never;
         post?: never;
@@ -6675,10 +8339,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of FinancialAccounts.</p> */
+        /**
+         * List all FinancialAccounts
+         * @description <p>Returns a list of FinancialAccounts.</p>
+         */
         get: operations["GetTreasuryFinancialAccounts"];
         put?: never;
-        /** @description <p>Creates a new FinancialAccount. For now, each connected account can only have one FinancialAccount.</p> */
+        /**
+         * Create a FinancialAccount
+         * @description <p>Creates a new FinancialAccount. For now, each connected account can only have one FinancialAccount.</p>
+         */
         post: operations["PostTreasuryFinancialAccounts"];
         delete?: never;
         options?: never;
@@ -6693,10 +8363,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of a FinancialAccount.</p> */
+        /**
+         * Retrieve a FinancialAccount
+         * @description <p>Retrieves the details of a FinancialAccount.</p>
+         */
         get: operations["GetTreasuryFinancialAccountsFinancialAccount"];
         put?: never;
-        /** @description <p>Updates the details of a FinancialAccount.</p> */
+        /**
+         * Update a FinancialAccount
+         * @description <p>Updates the details of a FinancialAccount.</p>
+         */
         post: operations["PostTreasuryFinancialAccountsFinancialAccount"];
         delete?: never;
         options?: never;
@@ -6711,10 +8387,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves Features information associated with the FinancialAccount.</p> */
+        /**
+         * Retrieve FinancialAccount Features
+         * @description <p>Retrieves Features information associated with the FinancialAccount.</p>
+         */
         get: operations["GetTreasuryFinancialAccountsFinancialAccountFeatures"];
         put?: never;
-        /** @description <p>Updates the Features associated with a FinancialAccount.</p> */
+        /**
+         * Update FinancialAccount Features
+         * @description <p>Updates the Features associated with a FinancialAccount.</p>
+         */
         post: operations["PostTreasuryFinancialAccountsFinancialAccountFeatures"];
         delete?: never;
         options?: never;
@@ -6729,10 +8411,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of InboundTransfers sent from the specified FinancialAccount.</p> */
+        /**
+         * List all InboundTransfers
+         * @description <p>Returns a list of InboundTransfers sent from the specified FinancialAccount.</p>
+         */
         get: operations["GetTreasuryInboundTransfers"];
         put?: never;
-        /** @description <p>Creates an InboundTransfer.</p> */
+        /**
+         * Create an InboundTransfer
+         * @description <p>Creates an InboundTransfer.</p>
+         */
         post: operations["PostTreasuryInboundTransfers"];
         delete?: never;
         options?: never;
@@ -6747,7 +8435,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an existing InboundTransfer.</p> */
+        /**
+         * Retrieve an InboundTransfer
+         * @description <p>Retrieves the details of an existing InboundTransfer.</p>
+         */
         get: operations["GetTreasuryInboundTransfersId"];
         put?: never;
         post?: never;
@@ -6766,7 +8457,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Cancels an InboundTransfer.</p> */
+        /**
+         * Cancel an InboundTransfer
+         * @description <p>Cancels an InboundTransfer.</p>
+         */
         post: operations["PostTreasuryInboundTransfersInboundTransferCancel"];
         delete?: never;
         options?: never;
@@ -6781,10 +8475,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of OutboundPayments sent from the specified FinancialAccount.</p> */
+        /**
+         * List all OutboundPayments
+         * @description <p>Returns a list of OutboundPayments sent from the specified FinancialAccount.</p>
+         */
         get: operations["GetTreasuryOutboundPayments"];
         put?: never;
-        /** @description <p>Creates an OutboundPayment.</p> */
+        /**
+         * Create an OutboundPayment
+         * @description <p>Creates an OutboundPayment.</p>
+         */
         post: operations["PostTreasuryOutboundPayments"];
         delete?: never;
         options?: never;
@@ -6799,7 +8499,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an existing OutboundPayment by passing the unique OutboundPayment ID from either the OutboundPayment creation request or OutboundPayment list.</p> */
+        /**
+         * Retrieve an OutboundPayment
+         * @description <p>Retrieves the details of an existing OutboundPayment by passing the unique OutboundPayment ID from either the OutboundPayment creation request or OutboundPayment list.</p>
+         */
         get: operations["GetTreasuryOutboundPaymentsId"];
         put?: never;
         post?: never;
@@ -6818,7 +8521,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>Cancel an OutboundPayment.</p> */
+        /**
+         * Cancel an OutboundPayment
+         * @description <p>Cancel an OutboundPayment.</p>
+         */
         post: operations["PostTreasuryOutboundPaymentsIdCancel"];
         delete?: never;
         options?: never;
@@ -6833,10 +8539,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of OutboundTransfers sent from the specified FinancialAccount.</p> */
+        /**
+         * List all OutboundTransfers
+         * @description <p>Returns a list of OutboundTransfers sent from the specified FinancialAccount.</p>
+         */
         get: operations["GetTreasuryOutboundTransfers"];
         put?: never;
-        /** @description <p>Creates an OutboundTransfer.</p> */
+        /**
+         * Create an OutboundTransfer
+         * @description <p>Creates an OutboundTransfer.</p>
+         */
         post: operations["PostTreasuryOutboundTransfers"];
         delete?: never;
         options?: never;
@@ -6851,7 +8563,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an existing OutboundTransfer by passing the unique OutboundTransfer ID from either the OutboundTransfer creation request or OutboundTransfer list.</p> */
+        /**
+         * Retrieve an OutboundTransfer
+         * @description <p>Retrieves the details of an existing OutboundTransfer by passing the unique OutboundTransfer ID from either the OutboundTransfer creation request or OutboundTransfer list.</p>
+         */
         get: operations["GetTreasuryOutboundTransfersOutboundTransfer"];
         put?: never;
         post?: never;
@@ -6870,7 +8585,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** @description <p>An OutboundTransfer can be canceled if the funds have not yet been paid out.</p> */
+        /**
+         * Cancel an OutboundTransfer
+         * @description <p>An OutboundTransfer can be canceled if the funds have not yet been paid out.</p>
+         */
         post: operations["PostTreasuryOutboundTransfersOutboundTransferCancel"];
         delete?: never;
         options?: never;
@@ -6885,7 +8603,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of ReceivedCredits.</p> */
+        /**
+         * List all ReceivedCredits
+         * @description <p>Returns a list of ReceivedCredits.</p>
+         */
         get: operations["GetTreasuryReceivedCredits"];
         put?: never;
         post?: never;
@@ -6902,7 +8623,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an existing ReceivedCredit by passing the unique ReceivedCredit ID from the ReceivedCredit list.</p> */
+        /**
+         * Retrieve a ReceivedCredit
+         * @description <p>Retrieves the details of an existing ReceivedCredit by passing the unique ReceivedCredit ID from the ReceivedCredit list.</p>
+         */
         get: operations["GetTreasuryReceivedCreditsId"];
         put?: never;
         post?: never;
@@ -6919,7 +8643,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of ReceivedDebits.</p> */
+        /**
+         * List all ReceivedDebits
+         * @description <p>Returns a list of ReceivedDebits.</p>
+         */
         get: operations["GetTreasuryReceivedDebits"];
         put?: never;
         post?: never;
@@ -6936,7 +8663,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an existing ReceivedDebit by passing the unique ReceivedDebit ID from the ReceivedDebit list</p> */
+        /**
+         * Retrieve a ReceivedDebit
+         * @description <p>Retrieves the details of an existing ReceivedDebit by passing the unique ReceivedDebit ID from the ReceivedDebit list</p>
+         */
         get: operations["GetTreasuryReceivedDebitsId"];
         put?: never;
         post?: never;
@@ -6953,7 +8683,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a list of TransactionEntry objects.</p> */
+        /**
+         * List all TransactionEntries
+         * @description <p>Retrieves a list of TransactionEntry objects.</p>
+         */
         get: operations["GetTreasuryTransactionEntries"];
         put?: never;
         post?: never;
@@ -6970,7 +8703,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a TransactionEntry object.</p> */
+        /**
+         * Retrieve a TransactionEntry
+         * @description <p>Retrieves a TransactionEntry object.</p>
+         */
         get: operations["GetTreasuryTransactionEntriesId"];
         put?: never;
         post?: never;
@@ -6987,7 +8723,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves a list of Transaction objects.</p> */
+        /**
+         * List all Transactions
+         * @description <p>Retrieves a list of Transaction objects.</p>
+         */
         get: operations["GetTreasuryTransactions"];
         put?: never;
         post?: never;
@@ -7004,7 +8743,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the details of an existing Transaction.</p> */
+        /**
+         * Retrieve a Transaction
+         * @description <p>Retrieves the details of an existing Transaction.</p>
+         */
         get: operations["GetTreasuryTransactionsId"];
         put?: never;
         post?: never;
@@ -7021,10 +8763,16 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Returns a list of your webhook endpoints.</p> */
+        /**
+         * List all webhook endpoints
+         * @description <p>Returns a list of your webhook endpoints.</p>
+         */
         get: operations["GetWebhookEndpoints"];
         put?: never;
-        /** @description <p>A webhook endpoint must have a <code>url</code> and a list of <code>enabled_events</code>. You may optionally specify the Boolean <code>connect</code> parameter. If set to true, then a Connect webhook endpoint that notifies the specified <code>url</code> about events from all connected accounts is created; otherwise an account webhook endpoint that notifies the specified <code>url</code> only about events from your account is created. You can also create webhook endpoints in the <a href="https://dashboard.stripe.com/account/webhooks">webhooks settings</a> section of the Dashboard.</p> */
+        /**
+         * Create a webhook endpoint
+         * @description <p>A webhook endpoint must have a <code>url</code> and a list of <code>enabled_events</code>. You may optionally specify the Boolean <code>connect</code> parameter. If set to true, then a Connect webhook endpoint that notifies the specified <code>url</code> about events from all connected accounts is created; otherwise an account webhook endpoint that notifies the specified <code>url</code> only about events from your account is created. You can also create webhook endpoints in the <a href="https://dashboard.stripe.com/account/webhooks">webhooks settings</a> section of the Dashboard.</p>
+         */
         post: operations["PostWebhookEndpoints"];
         delete?: never;
         options?: never;
@@ -7039,12 +8787,21 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** @description <p>Retrieves the webhook endpoint with the given ID.</p> */
+        /**
+         * Retrieve a webhook endpoint
+         * @description <p>Retrieves the webhook endpoint with the given ID.</p>
+         */
         get: operations["GetWebhookEndpointsWebhookEndpoint"];
         put?: never;
-        /** @description <p>Updates the webhook endpoint. You may edit the <code>url</code>, the list of <code>enabled_events</code>, and the status of your endpoint.</p> */
+        /**
+         * Update a webhook endpoint
+         * @description <p>Updates the webhook endpoint. You may edit the <code>url</code>, the list of <code>enabled_events</code>, and the status of your endpoint.</p>
+         */
         post: operations["PostWebhookEndpointsWebhookEndpoint"];
-        /** @description <p>You can also delete webhook endpoints via the <a href="https://dashboard.stripe.com/account/webhooks">webhook endpoint management</a> page of the Stripe dashboard.</p> */
+        /**
+         * Delete a webhook endpoint
+         * @description <p>You can also delete webhook endpoints via the <a href="https://dashboard.stripe.com/account/webhooks">webhook endpoint management</a> page of the Stripe dashboard.</p>
+         */
         delete: operations["DeleteWebhookEndpointsWebhookEndpoint"];
         options?: never;
         head?: never;
@@ -7079,7 +8836,7 @@ export interface components {
              */
             business_type?: "company" | "government_entity" | "individual" | "non_profit" | null;
             capabilities?: components["schemas"]["account_capabilities"];
-            /** @description Whether the account can create live charges. */
+            /** @description Whether the account can process charges. */
             charges_enabled?: boolean;
             company?: components["schemas"]["legal_entity_company"];
             controller?: components["schemas"]["account_unification_account_controller"];
@@ -7114,6 +8871,8 @@ export interface components {
                 url: string;
             };
             future_requirements?: components["schemas"]["account_future_requirements"];
+            /** @description The groups associated with the account. */
+            groups?: components["schemas"]["account_group_membership"] | null;
             /** @description Unique identifier for the object. */
             id: string;
             individual?: components["schemas"]["person"];
@@ -7126,7 +8885,7 @@ export interface components {
              * @enum {string}
              */
             object: "account";
-            /** @description Whether Stripe can send payouts to this account. */
+            /** @description Whether the funds in this account can be paid out. */
             payouts_enabled?: boolean;
             requirements?: components["schemas"]["account_requirements"];
             /** @description Options for customizing how the account functions within Stripe. */
@@ -7142,7 +8901,10 @@ export interface components {
         account_annual_revenue: {
             /** @description A non-negative integer representing the amount in the [smallest currency unit](/currencies#zero-decimal). */
             amount?: number | null;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency?: string | null;
             /** @description The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023. */
             fiscal_year_end?: string | null;
@@ -7206,6 +8968,11 @@ export interface components {
              * @enum {string}
              */
             afterpay_clearpay_payments?: "active" | "inactive" | "pending";
+            /**
+             * @description The status of the Alma capability of the account, or whether the account can directly process Alma payments.
+             * @enum {string}
+             */
+            alma_payments?: "active" | "inactive" | "pending";
             /**
              * @description The status of the AmazonPay capability of the account, or whether the account can directly process AmazonPay payments.
              * @enum {string}
@@ -7307,6 +9074,11 @@ export interface components {
              */
             jp_bank_transfer_payments?: "active" | "inactive" | "pending";
             /**
+             * @description The status of the KakaoPay capability of the account, or whether the account can directly process KakaoPay payments.
+             * @enum {string}
+             */
+            kakao_pay_payments?: "active" | "inactive" | "pending";
+            /**
              * @description The status of the Klarna payments capability of the account, or whether the account can directly process Klarna charges.
              * @enum {string}
              */
@@ -7316,6 +9088,11 @@ export interface components {
              * @enum {string}
              */
             konbini_payments?: "active" | "inactive" | "pending";
+            /**
+             * @description The status of the KrCard capability of the account, or whether the account can directly process KrCard payments.
+             * @enum {string}
+             */
+            kr_card_payments?: "active" | "inactive" | "pending";
             /**
              * @description The status of the legacy payments capability of the account.
              * @enum {string}
@@ -7342,6 +9119,11 @@ export interface components {
              */
             mx_bank_transfer_payments?: "active" | "inactive" | "pending";
             /**
+             * @description The status of the NaverPay capability of the account, or whether the account can directly process NaverPay payments.
+             * @enum {string}
+             */
+            naver_pay_payments?: "active" | "inactive" | "pending";
+            /**
              * @description The status of the OXXO payments capability of the account, or whether the account can directly process OXXO charges.
              * @enum {string}
              */
@@ -7351,6 +9133,11 @@ export interface components {
              * @enum {string}
              */
             p24_payments?: "active" | "inactive" | "pending";
+            /**
+             * @description The status of the Payco capability of the account, or whether the account can directly process Payco payments.
+             * @enum {string}
+             */
+            payco_payments?: "active" | "inactive" | "pending";
             /**
              * @description The status of the paynow payments capability of the account, or whether the account can directly process paynow charges.
              * @enum {string}
@@ -7366,6 +9153,11 @@ export interface components {
              * @enum {string}
              */
             revolut_pay_payments?: "active" | "inactive" | "pending";
+            /**
+             * @description The status of the SamsungPay capability of the account, or whether the account can directly process SamsungPay payments.
+             * @enum {string}
+             */
+            samsung_pay_payments?: "active" | "inactive" | "pending";
             /**
              * @description The status of the SEPA customer_balance payments (EUR currency) capability of the account, or whether the account can directly process SEPA customer_balance charges.
              * @enum {string}
@@ -7433,7 +9225,7 @@ export interface components {
             alternatives?: components["schemas"]["account_requirements_alternative"][] | null;
             /**
              * Format: unix-time
-             * @description Date on which `future_requirements` merges with the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on the capability's enablement state prior to transitioning.
+             * @description Date on which `future_requirements` becomes the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on the capability's enablement state prior to transitioning.
              */
             current_deadline?: number | null;
             /** @description Fields that need to be collected to keep the capability enabled. If not collected by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash. */
@@ -7445,7 +9237,7 @@ export interface components {
             disabled_reason?: "other" | "paused.inactivity" | "pending.onboarding" | "pending.review" | "platform_disabled" | "platform_paused" | "rejected.inactivity" | "rejected.other" | "rejected.unsupported_business" | "requirements.fields_needed" | null;
             /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
             errors: components["schemas"]["account_requirements_error"][];
-            /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well. */
+            /** @description Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well. */
             eventually_due: string[];
             /** @description Fields that weren't collected by `requirements.current_deadline`. These fields need to be collected to enable the capability on the account. New fields will never appear here; `future_requirements.past_due` will always be a subset of `requirements.past_due`. */
             past_due: string[];
@@ -7470,7 +9262,7 @@ export interface components {
             disabled_reason?: "other" | "paused.inactivity" | "pending.onboarding" | "pending.review" | "platform_disabled" | "platform_paused" | "rejected.inactivity" | "rejected.other" | "rejected.unsupported_business" | "requirements.fields_needed" | null;
             /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
             errors: components["schemas"]["account_requirements_error"][];
-            /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set. */
+            /** @description Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set. */
             eventually_due: string[];
             /** @description Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the capability on the account. */
             past_due: string[];
@@ -7511,21 +9303,29 @@ export interface components {
             alternatives?: components["schemas"]["account_requirements_alternative"][] | null;
             /**
              * Format: unix-time
-             * @description Date on which `future_requirements` merges with the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on its enablement state prior to transitioning.
+             * @description Date on which `future_requirements` becomes the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on its enablement state prior to transitioning.
              */
             current_deadline?: number | null;
             /** @description Fields that need to be collected to keep the account enabled. If not collected by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash. */
             currently_due?: string[] | null;
-            /** @description This is typed as a string for consistency with `requirements.disabled_reason`. */
-            disabled_reason?: string | null;
+            /**
+             * @description This is typed as an enum for consistency with `requirements.disabled_reason`.
+             * @enum {string|null}
+             */
+            disabled_reason?: "action_required.requested_capabilities" | "listed" | "other" | "platform_paused" | "rejected.fraud" | "rejected.incomplete_verification" | "rejected.listed" | "rejected.other" | "rejected.platform_fraud" | "rejected.platform_other" | "rejected.platform_terms_of_service" | "rejected.terms_of_service" | "requirements.past_due" | "requirements.pending_verification" | "under_review" | null;
             /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
             errors?: components["schemas"]["account_requirements_error"][] | null;
-            /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well. */
+            /** @description Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well. */
             eventually_due?: string[] | null;
             /** @description Fields that weren't collected by `requirements.current_deadline`. These fields need to be collected to enable the capability on the account. New fields will never appear here; `future_requirements.past_due` will always be a subset of `requirements.past_due`. */
             past_due?: string[] | null;
             /** @description Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`. Fields might appear in `eventually_due` or `currently_due` and in `pending_verification` if verification fails but another verification is still pending. */
             pending_verification?: string[] | null;
+        };
+        /** AccountGroupMembership */
+        account_group_membership: {
+            /** @description The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://stripe.com/docs/connect/platform-pricing-tools) for details. */
+            payments_pricing?: string | null;
         };
         /** AccountInvoicesSettings */
         account_invoices_settings: {
@@ -7562,7 +9362,10 @@ export interface components {
         account_monthly_estimated_revenue: {
             /** @description A non-negative integer representing how much to charge in the [smallest currency unit](/currencies#zero-decimal). */
             amount: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
         };
         /** AccountPaymentsSettings */
@@ -7597,11 +9400,14 @@ export interface components {
             current_deadline?: number | null;
             /** @description Fields that need to be collected to keep the account enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the account is disabled. */
             currently_due?: string[] | null;
-            /** @description If the account is disabled, this string describes why. [Learn more about handling verification issues](https://stripe.com/docs/connect/handling-api-verification). Can be `action_required.requested_capabilities`, `requirements.past_due`, `requirements.pending_verification`, `listed`, `platform_paused`, `rejected.fraud`, `rejected.incomplete_verification`, `rejected.listed`, `rejected.other`, `rejected.terms_of_service`, `under_review`, or `other`. */
-            disabled_reason?: string | null;
+            /**
+             * @description If the account is disabled, this enum describes why. [Learn more about handling verification issues](https://stripe.com/docs/connect/handling-api-verification).
+             * @enum {string|null}
+             */
+            disabled_reason?: "action_required.requested_capabilities" | "listed" | "other" | "platform_paused" | "rejected.fraud" | "rejected.incomplete_verification" | "rejected.listed" | "rejected.other" | "rejected.platform_fraud" | "rejected.platform_other" | "rejected.platform_terms_of_service" | "rejected.terms_of_service" | "requirements.past_due" | "requirements.pending_verification" | "under_review" | null;
             /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
             errors?: components["schemas"]["account_requirements_error"][] | null;
-            /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set. */
+            /** @description Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set. */
             eventually_due?: string[] | null;
             /** @description Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the account. */
             past_due?: string[] | null;
@@ -7762,6 +9568,15 @@ export interface components {
             /** @description State, county, province, or region. */
             state?: string | null;
         };
+        /** amazon_pay_underlying_payment_method_funding_details */
+        amazon_pay_underlying_payment_method_funding_details: {
+            card?: components["schemas"]["payment_method_details_passthrough_card"];
+            /**
+             * @description funding type of the underlying payment method.
+             * @enum {string|null}
+             */
+            type?: "card" | null;
+        };
         /** APIErrors */
         api_errors: {
             /** @description For card errors, the ID of the failed charge. */
@@ -7774,6 +9589,10 @@ export interface components {
             doc_url?: string;
             /** @description A human-readable message providing more details about the error. For card errors, these messages can be shown to your users. */
             message?: string;
+            /** @description For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error. */
+            network_advice_code?: string;
+            /** @description For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed. */
+            network_decline_code?: string;
             /** @description If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field. */
             param?: string;
             payment_intent?: components["schemas"]["payment_intent"];
@@ -7840,7 +9659,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Polymorphic source of the application fee. Includes the ID of the object the application fee was created from. */
             fee_source?: components["schemas"]["platform_earning_fee_source"] | null;
@@ -7917,6 +9739,11 @@ export interface components {
         };
         /** AutomaticTax */
         automatic_tax: {
+            /**
+             * @description If Stripe disabled automatic tax, this enum describes why.
+             * @enum {string|null}
+             */
+            disabled_reason?: "finalization_requires_location_inputs" | "finalization_system_error" | null;
             /** @description Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices. */
             enabled: boolean;
             /** @description The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account. */
@@ -7963,7 +9790,10 @@ export interface components {
         balance_amount: {
             /** @description Balance amount. */
             amount: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             source_types?: components["schemas"]["balance_amount_by_source_type"];
         };
@@ -7980,7 +9810,10 @@ export interface components {
         balance_amount_net: {
             /** @description Balance amount. */
             amount: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Breakdown of balance by destination. */
             net_available?: components["schemas"]["balance_net_available"][];
@@ -8019,7 +9852,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -8045,10 +9881,10 @@ export interface components {
             /** @description The transaction's net funds status in the Stripe balance, which are either `available` or `pending`. */
             status: string;
             /**
-             * @description Transaction type: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `climate_order_purchase`, `climate_order_refund`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_outbound`, `obligation_reversal_inbound`, `payment`, `payment_failure_refund`, `payment_network_reserve_hold`, `payment_network_reserve_release`, `payment_refund`, `payment_reversal`, `payment_unreconciled`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. Learn more about [balance transaction types and what they represent](https://stripe.com/docs/reports/balance-transaction-types). To classify transactions for accounting purposes, consider `reporting_category` instead.
+             * @description Transaction type: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `climate_order_purchase`, `climate_order_refund`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_outbound`, `obligation_reversal_inbound`, `payment`, `payment_failure_refund`, `payment_network_reserve_hold`, `payment_network_reserve_release`, `payment_refund`, `payment_reversal`, `payment_unreconciled`, `payout`, `payout_cancel`, `payout_failure`, `payout_minimum_balance_hold`, `payout_minimum_balance_release`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. Learn more about [balance transaction types and what they represent](https://stripe.com/docs/reports/balance-transaction-types). To classify transactions for accounting purposes, consider `reporting_category` instead.
              * @enum {string}
              */
-            type: "adjustment" | "advance" | "advance_funding" | "anticipation_repayment" | "application_fee" | "application_fee_refund" | "charge" | "climate_order_purchase" | "climate_order_refund" | "connect_collection_transfer" | "contribution" | "issuing_authorization_hold" | "issuing_authorization_release" | "issuing_dispute" | "issuing_transaction" | "obligation_outbound" | "obligation_reversal_inbound" | "payment" | "payment_failure_refund" | "payment_network_reserve_hold" | "payment_network_reserve_release" | "payment_refund" | "payment_reversal" | "payment_unreconciled" | "payout" | "payout_cancel" | "payout_failure" | "refund" | "refund_failure" | "reserve_transaction" | "reserved_funds" | "stripe_fee" | "stripe_fx_fee" | "tax_fee" | "topup" | "topup_reversal" | "transfer" | "transfer_cancel" | "transfer_failure" | "transfer_refund";
+            type: "adjustment" | "advance" | "advance_funding" | "anticipation_repayment" | "application_fee" | "application_fee_refund" | "charge" | "climate_order_purchase" | "climate_order_refund" | "connect_collection_transfer" | "contribution" | "issuing_authorization_hold" | "issuing_authorization_release" | "issuing_dispute" | "issuing_transaction" | "obligation_outbound" | "obligation_reversal_inbound" | "payment" | "payment_failure_refund" | "payment_network_reserve_hold" | "payment_network_reserve_release" | "payment_refund" | "payment_reversal" | "payment_unreconciled" | "payout" | "payout_cancel" | "payout_failure" | "payout_minimum_balance_hold" | "payout_minimum_balance_release" | "refund" | "refund_failure" | "reserve_transaction" | "reserved_funds" | "stripe_fee" | "stripe_fx_fee" | "tax_fee" | "topup" | "topup_reversal" | "transfer" | "transfer_cancel" | "transfer_failure" | "transfer_refund";
         };
         /**
          * BankAccount
@@ -8075,7 +9911,10 @@ export interface components {
             bank_name?: string | null;
             /** @description Two-letter ISO code representing the country the bank account is located in. */
             country: string;
-            /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account. */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO code for the currency](https://stripe.com/docs/payouts) paid out to the bank account.
+             */
             currency: string;
             /** @description The ID of the customer that the bank account is associated with. */
             customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
@@ -8250,8 +10089,6 @@ export interface components {
              * @enum {string}
              */
             alert_type: "usage_threshold";
-            /** @description Limits the scope of the alert to a specific [customer](https://stripe.com/docs/api/customers). */
-            filter?: components["schemas"]["thresholds_resource_alert_filter"] | null;
             /** @description Unique identifier for the object. */
             id: string;
             /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
@@ -8269,11 +10106,127 @@ export interface components {
             /** @description Title of the alert. */
             title: string;
             /** @description Encapsulates configuration of the alert to monitor usage on a specific [Billing Meter](https://stripe.com/docs/api/billing/meter). */
-            usage_threshold_config?: components["schemas"]["thresholds_resource_usage_threshold_config"] | null;
+            usage_threshold?: components["schemas"]["thresholds_resource_usage_threshold_config"] | null;
+        };
+        /**
+         * CreditBalanceSummary
+         * @description Indicates the billing credit balance for billing credits granted to a customer.
+         */
+        "billing.credit_balance_summary": {
+            /** @description The billing credit balances. One entry per credit grant currency. If a customer only has credit grants in a single currency, then this will have a single balance entry. */
+            balances: components["schemas"]["credit_balance"][];
+            /** @description The customer the balance is for. */
+            customer: string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"];
+            /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
+            livemode: boolean;
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @enum {string}
+             */
+            object: "billing.credit_balance_summary";
+        };
+        /**
+         * CreditBalanceTransaction
+         * @description A credit balance transaction is a resource representing a transaction (either a credit or a debit) against an existing credit grant.
+         */
+        "billing.credit_balance_transaction": {
+            /**
+             * Format: unix-time
+             * @description Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+            /** @description Credit details for this credit balance transaction. Only present if type is `credit`. */
+            credit?: components["schemas"]["billing_credit_grants_resource_balance_credit"] | null;
+            /** @description The credit grant associated with this credit balance transaction. */
+            credit_grant: string | components["schemas"]["billing.credit_grant"];
+            /** @description Debit details for this credit balance transaction. Only present if type is `debit`. */
+            debit?: components["schemas"]["billing_credit_grants_resource_balance_debit"] | null;
+            /**
+             * Format: unix-time
+             * @description The effective time of this credit balance transaction.
+             */
+            effective_at: number;
+            /** @description Unique identifier for the object. */
+            id: string;
+            /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
+            livemode: boolean;
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @enum {string}
+             */
+            object: "billing.credit_balance_transaction";
+            /** @description ID of the test clock this credit balance transaction belongs to. */
+            test_clock?: (string | components["schemas"]["test_helpers.test_clock"]) | null;
+            /**
+             * @description The type of credit balance transaction (credit or debit).
+             * @enum {string|null}
+             */
+            type?: "credit" | "debit" | null;
+        };
+        /**
+         * CreditGrant
+         * @description A credit grant is an API resource that documents the allocation of some billing credits to a customer.
+         *
+         *     Related guide: [Billing credits](https://docs.stripe.com/billing/subscriptions/usage-based/billing-credits)
+         */
+        "billing.credit_grant": {
+            amount: components["schemas"]["billing_credit_grants_resource_amount"];
+            applicability_config: components["schemas"]["billing_credit_grants_resource_applicability_config"];
+            /**
+             * @description The category of this credit grant. This is for tracking purposes and isn't displayed to the customer.
+             * @enum {string}
+             */
+            category: "paid" | "promotional";
+            /**
+             * Format: unix-time
+             * @description Time at which the object was created. Measured in seconds since the Unix epoch.
+             */
+            created: number;
+            /** @description ID of the customer receiving the billing credits. */
+            customer: string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"];
+            /**
+             * Format: unix-time
+             * @description The time when the billing credits become effective-when they're eligible for use.
+             */
+            effective_at?: number | null;
+            /**
+             * Format: unix-time
+             * @description The time when the billing credits expire. If not present, the billing credits don't expire.
+             */
+            expires_at?: number | null;
+            /** @description Unique identifier for the object. */
+            id: string;
+            /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
+            livemode: boolean;
+            /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
+            metadata: {
+                [key: string]: string;
+            };
+            /** @description A descriptive name shown in dashboard. */
+            name?: string | null;
+            /**
+             * @description String representing the object's type. Objects of the same type share the same value.
+             * @enum {string}
+             */
+            object: "billing.credit_grant";
+            /** @description ID of the test clock this credit grant belongs to. */
+            test_clock?: (string | components["schemas"]["test_helpers.test_clock"]) | null;
+            /**
+             * Format: unix-time
+             * @description Time at which the object was last updated. Measured in seconds since the Unix epoch.
+             */
+            updated: number;
+            /**
+             * Format: unix-time
+             * @description The time when this credit grant was voided. If not present, the credit grant hasn't been voided.
+             */
+            voided_at?: number | null;
         };
         /**
          * BillingMeter
-         * @description A billing meter is a resource that allows you to track usage of a particular event. For example, you might create a billing meter to track the number of API calls made by a particular user. You can then attach the billing meter to a price and attach the price to a subscription to charge the user for the number of API calls they make.
+         * @description Meters specify how to aggregate meter events over a billing period. Meter events represent the actions that customers take in your system. Meters attach to prices and form the basis of the bill.
+         *
+         *     Related guide: [Usage based billing](https://docs.stripe.com/billing/subscriptions/usage-based)
          */
         "billing.meter": {
             /**
@@ -8316,8 +10269,7 @@ export interface components {
         };
         /**
          * BillingMeterEvent
-         * @description A billing meter event represents a customer's usage of a product. Meter events are used to bill a customer based on their usage.
-         *     Meter events are associated with billing meters, which define the shape of the event's payload and how those events are aggregated for billing.
+         * @description Meter events represent actions that customers take in your system. You can use meter events to bill a customer based on their usage. Meter events are associated with billing meters, which define both the contents of the event’s payload and how to aggregate those events.
          */
         "billing.meter_event": {
             /**
@@ -8414,6 +10366,71 @@ export interface components {
         /** BillingClocksResourceStatusDetailsStatusDetails */
         billing_clocks_resource_status_details_status_details: {
             advancing?: components["schemas"]["billing_clocks_resource_status_details_advancing_status_details"];
+        };
+        /** BillingCreditGrantsResourceAmount */
+        billing_credit_grants_resource_amount: {
+            /** @description The monetary amount. */
+            monetary?: components["schemas"]["billing_credit_grants_resource_monetary_amount"] | null;
+            /**
+             * @description The type of this amount. We currently only support `monetary` billing credits.
+             * @enum {string}
+             */
+            type: "monetary";
+        };
+        /** BillingCreditGrantsResourceApplicabilityConfig */
+        billing_credit_grants_resource_applicability_config: {
+            scope: components["schemas"]["billing_credit_grants_resource_scope"];
+        };
+        /** BillingCreditGrantsResourceBalanceCredit */
+        billing_credit_grants_resource_balance_credit: {
+            amount: components["schemas"]["billing_credit_grants_resource_amount"];
+            /** @description Details of the invoice to which the reinstated credits were originally applied. Only present if `type` is `credits_application_invoice_voided`. */
+            credits_application_invoice_voided?: components["schemas"]["billing_credit_grants_resource_balance_credits_application_invoice_voided"] | null;
+            /**
+             * @description The type of credit transaction.
+             * @enum {string}
+             */
+            type: "credits_application_invoice_voided" | "credits_granted";
+        };
+        /** BillingCreditGrantsResourceBalanceCreditsApplicationInvoiceVoided */
+        billing_credit_grants_resource_balance_credits_application_invoice_voided: {
+            /** @description The invoice to which the reinstated billing credits were originally applied. */
+            invoice: string | components["schemas"]["invoice"];
+            /** @description The invoice line item to which the reinstated billing credits were originally applied. */
+            invoice_line_item: string;
+        };
+        /** BillingCreditGrantsResourceBalanceCreditsApplied */
+        billing_credit_grants_resource_balance_credits_applied: {
+            /** @description The invoice to which the billing credits were applied. */
+            invoice: string | components["schemas"]["invoice"];
+            /** @description The invoice line item to which the billing credits were applied. */
+            invoice_line_item: string;
+        };
+        /** BillingCreditGrantsResourceBalanceDebit */
+        billing_credit_grants_resource_balance_debit: {
+            amount: components["schemas"]["billing_credit_grants_resource_amount"];
+            /** @description Details of how the billing credits were applied to an invoice. Only present if `type` is `credits_applied`. */
+            credits_applied?: components["schemas"]["billing_credit_grants_resource_balance_credits_applied"] | null;
+            /**
+             * @description The type of debit transaction.
+             * @enum {string}
+             */
+            type: "credits_applied" | "credits_expired" | "credits_voided";
+        };
+        /** BillingCreditGrantsResourceMonetaryAmount */
+        billing_credit_grants_resource_monetary_amount: {
+            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            currency: string;
+            /** @description A positive integer representing the amount. */
+            value: number;
+        };
+        /** BillingCreditGrantsResourceScope */
+        billing_credit_grants_resource_scope: {
+            /**
+             * @description The price type that credit grants can apply to. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
+             * @enum {string}
+             */
+            price_type: "metered";
         };
         /** billing_details */
         billing_details: {
@@ -8593,7 +10610,7 @@ export interface components {
             requested_at?: number | null;
             requirements?: components["schemas"]["account_capability_requirements"];
             /**
-             * @description The status of the capability. Can be `active`, `inactive`, `pending`, or `unrequested`.
+             * @description The status of the capability.
              * @enum {string}
              */
             status: "active" | "disabled" | "inactive" | "pending" | "unrequested";
@@ -8625,13 +10642,21 @@ export interface components {
             address_zip?: string | null;
             /** @description If `address_zip` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`. */
             address_zip_check?: string | null;
+            /**
+             * @description This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
+             * @enum {string|null}
+             */
+            allow_redisplay?: "always" | "limited" | "unspecified" | null;
             /** @description A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout. */
             available_payout_methods?: ("instant" | "standard")[] | null;
             /** @description Card brand. Can be `American Express`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`. */
             brand: string;
             /** @description Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
             country?: string | null;
-            /** @description Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies). Only applicable on accounts (not customers or recipients). The card can be used as a transfer destination for funds in this currency. This property is only available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies). Only applicable on accounts (not customers or recipients). The card can be used as a transfer destination for funds in this currency. This property is only available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
+             */
             currency?: string | null;
             /** @description The customer that this card belongs to. This attribute will not be in the card object if the card belongs to an account or recipient instead. */
             customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
@@ -8653,6 +10678,8 @@ export interface components {
             funding: string;
             /** @description Unique identifier for the object. */
             id: string;
+            /** @description Issuer identification number of the card. */
+            iin?: string;
             /** @description The last four digits of the card. */
             last4: string;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -8667,6 +10694,11 @@ export interface components {
              * @enum {string}
              */
             object: "card";
+            /**
+             * @description Status of a card based on the card issuer.
+             * @enum {string|null}
+             */
+            regulated_status?: "regulated" | "unregulated" | null;
             /** @description For external accounts that are cards, possible values are `new` and `errored`. If a payout fails, the status is set to `errored` and [scheduled payouts](https://stripe.com/docs/payouts#payout-schedule) are stopped until account details are updated. */
             status?: string | null;
             /** @description If the card number is tokenized, this is the method that was used. Can be `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null. */
@@ -8741,7 +10773,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description ID of the customer this charge is for if one exists. */
             customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
@@ -8843,6 +10878,10 @@ export interface components {
         };
         /** ChargeOutcome */
         charge_outcome: {
+            /** @description For charges declined by the network, a 2 digit code which indicates the advice returned by the network on how to proceed with an error. */
+            network_advice_code?: string | null;
+            /** @description For charges declined by the network, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed. */
+            network_decline_code?: string | null;
             /** @description Possible values are `approved_by_network`, `declined_by_network`, `not_sent_to_network`, and `reversed_after_approval`. The value `reversed_after_approval` indicates the payment was [blocked by Stripe](https://stripe.com/docs/declines#blocked-payments) after bank authorization, and may temporarily appear as "pending" on a cardholder's statement. */
             network_status?: string | null;
             /** @description An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://stripe.com/docs/declines) for more details. */
@@ -8883,6 +10922,8 @@ export interface components {
          *     Related guide: [Checkout quickstart](https://stripe.com/docs/checkout/quickstart)
          */
         "checkout.session": {
+            /** @description Settings for price localization with [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing). */
+            adaptive_pricing?: components["schemas"]["payment_pages_checkout_session_adaptive_pricing"] | null;
             /** @description When set, provides configuration for actions to take if this Checkout Session expires. */
             after_expiration?: components["schemas"]["payment_pages_checkout_session_after_expiration"] | null;
             /** @description Enables user redeemable promotion codes. */
@@ -8914,7 +10955,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency?: string | null;
             /** @description Currency conversion details for [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) sessions */
             currency_conversion?: components["schemas"]["payment_pages_checkout_session_currency_conversion"] | null;
@@ -9044,7 +11088,7 @@ export interface components {
              *     specified on Checkout Sessions in `payment` mode. If blank or `auto`, `pay` is used.
              * @enum {string|null}
              */
-            submit_type?: "auto" | "book" | "donate" | "pay" | null;
+            submit_type?: "auto" | "book" | "donate" | "pay" | "subscribe" | null;
             /** @description The ID of the subscription for Checkout Sessions in `subscription` mode. */
             subscription?: (string | components["schemas"]["subscription"]) | null;
             /** @description The URL the customer will be directed to after the payment or
@@ -9178,6 +11222,7 @@ export interface components {
         };
         /** CheckoutBacsDebitPaymentMethodOptions */
         checkout_bacs_debit_payment_method_options: {
+            mandate_options?: components["schemas"]["checkout_payment_method_options_mandate_options_bacs_debit"];
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
@@ -9228,6 +11273,26 @@ export interface components {
         /** CheckoutCardPaymentMethodOptions */
         checkout_card_payment_method_options: {
             installments?: components["schemas"]["checkout_card_installments_options"];
+            /**
+             * @description Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
+             * @enum {string}
+             */
+            request_extended_authorization?: "if_available" | "never";
+            /**
+             * @description Request ability to [increment the authorization](/payments/incremental-authorization) for this CheckoutSession.
+             * @enum {string}
+             */
+            request_incremental_authorization?: "if_available" | "never";
+            /**
+             * @description Request ability to make [multiple captures](/payments/multicapture) for this CheckoutSession.
+             * @enum {string}
+             */
+            request_multicapture?: "if_available" | "never";
+            /**
+             * @description Request ability to [overcapture](/payments/overcapture) for this CheckoutSession.
+             * @enum {string}
+             */
+            request_overcapture?: "if_available" | "never";
             /**
              * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
              * @enum {string}
@@ -9366,6 +11431,25 @@ export interface components {
              */
             setup_future_usage?: "none";
         };
+        /** CheckoutKakaoPayPaymentMethodOptions */
+        checkout_kakao_pay_payment_method_options: {
+            /**
+             * @description Controls when the funds will be captured from the customer's account.
+             * @enum {string}
+             */
+            capture_method?: "manual";
+            /**
+             * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
+             *
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+             *
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+             * @enum {string}
+             */
+            setup_future_usage?: "none" | "off_session";
+        };
         /** CheckoutKlarnaPaymentMethodOptions */
         checkout_klarna_payment_method_options: {
             /**
@@ -9395,6 +11479,25 @@ export interface components {
              * @enum {string}
              */
             setup_future_usage?: "none";
+        };
+        /** CheckoutKrCardPaymentMethodOptions */
+        checkout_kr_card_payment_method_options: {
+            /**
+             * @description Controls when the funds will be captured from the customer's account.
+             * @enum {string}
+             */
+            capture_method?: "manual";
+            /**
+             * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
+             *
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+             *
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+             * @enum {string}
+             */
+            setup_future_usage?: "none" | "off_session";
         };
         /** CheckoutLinkPaymentMethodOptions */
         checkout_link_payment_method_options: {
@@ -9438,6 +11541,14 @@ export interface components {
              */
             setup_future_usage?: "none";
         };
+        /** CheckoutNaverPayPaymentMethodOptions */
+        checkout_naver_pay_payment_method_options: {
+            /**
+             * @description Controls when the funds will be captured from the customer's account.
+             * @enum {string}
+             */
+            capture_method?: "manual";
+        };
         /** CheckoutOxxoPaymentMethodOptions */
         checkout_oxxo_payment_method_options: {
             /** @description The number of calendar days before an OXXO invoice expires. For example, if you create an OXXO invoice on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time. */
@@ -9467,6 +11578,24 @@ export interface components {
              * @enum {string}
              */
             setup_future_usage?: "none";
+        };
+        /** CheckoutPaycoPaymentMethodOptions */
+        checkout_payco_payment_method_options: {
+            /**
+             * @description Controls when the funds will be captured from the customer's account.
+             * @enum {string}
+             */
+            capture_method?: "manual";
+        };
+        /** checkout_payment_method_options_mandate_options_bacs_debit */
+        checkout_payment_method_options_mandate_options_bacs_debit: {
+            /** @description Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'. */
+            reference_prefix?: string;
+        };
+        /** checkout_payment_method_options_mandate_options_sepa_debit */
+        checkout_payment_method_options_mandate_options_sepa_debit: {
+            /** @description Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'. */
+            reference_prefix?: string;
         };
         /** CheckoutPaynowPaymentMethodOptions */
         checkout_paynow_payment_method_options: {
@@ -9524,8 +11653,17 @@ export interface components {
              */
             setup_future_usage?: "none" | "off_session";
         };
+        /** CheckoutSamsungPayPaymentMethodOptions */
+        checkout_samsung_pay_payment_method_options: {
+            /**
+             * @description Controls when the funds will be captured from the customer's account.
+             * @enum {string}
+             */
+            capture_method?: "manual";
+        };
         /** CheckoutSepaDebitPaymentMethodOptions */
         checkout_sepa_debit_payment_method_options: {
+            mandate_options?: components["schemas"]["checkout_payment_method_options_mandate_options_sepa_debit"];
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
              *
@@ -9557,17 +11695,22 @@ export interface components {
             giropay?: components["schemas"]["checkout_giropay_payment_method_options"];
             grabpay?: components["schemas"]["checkout_grab_pay_payment_method_options"];
             ideal?: components["schemas"]["checkout_ideal_payment_method_options"];
+            kakao_pay?: components["schemas"]["checkout_kakao_pay_payment_method_options"];
             klarna?: components["schemas"]["checkout_klarna_payment_method_options"];
             konbini?: components["schemas"]["checkout_konbini_payment_method_options"];
+            kr_card?: components["schemas"]["checkout_kr_card_payment_method_options"];
             link?: components["schemas"]["checkout_link_payment_method_options"];
             mobilepay?: components["schemas"]["checkout_mobilepay_payment_method_options"];
             multibanco?: components["schemas"]["checkout_multibanco_payment_method_options"];
+            naver_pay?: components["schemas"]["checkout_naver_pay_payment_method_options"];
             oxxo?: components["schemas"]["checkout_oxxo_payment_method_options"];
             p24?: components["schemas"]["checkout_p24_payment_method_options"];
+            payco?: components["schemas"]["checkout_payco_payment_method_options"];
             paynow?: components["schemas"]["checkout_paynow_payment_method_options"];
             paypal?: components["schemas"]["checkout_paypal_payment_method_options"];
             pix?: components["schemas"]["checkout_pix_payment_method_options"];
             revolut_pay?: components["schemas"]["checkout_revolut_pay_payment_method_options"];
+            samsung_pay?: components["schemas"]["checkout_samsung_pay_payment_method_options"];
             sepa_debit?: components["schemas"]["checkout_sepa_debit_payment_method_options"];
             sofort?: components["schemas"]["checkout_sofort_payment_method_options"];
             swish?: components["schemas"]["checkout_swish_payment_method_options"];
@@ -9914,6 +12057,7 @@ export interface components {
              * @enum {string}
              */
             allow_redisplay?: "always" | "limited" | "unspecified";
+            alma?: components["schemas"]["payment_method_alma"];
             amazon_pay?: components["schemas"]["payment_method_amazon_pay"];
             au_becs_debit?: components["schemas"]["payment_method_au_becs_debit"];
             bacs_debit?: components["schemas"]["payment_method_bacs_debit"];
@@ -9933,18 +12077,23 @@ export interface components {
             grabpay?: components["schemas"]["payment_method_grabpay"];
             ideal?: components["schemas"]["payment_method_ideal"];
             interac_present?: components["schemas"]["payment_method_interac_present"];
+            kakao_pay?: components["schemas"]["payment_method_kakao_pay"];
             klarna?: components["schemas"]["payment_method_klarna"];
             konbini?: components["schemas"]["payment_method_konbini"];
+            kr_card?: components["schemas"]["payment_method_kr_card"];
             link?: components["schemas"]["payment_method_link"];
             mobilepay?: components["schemas"]["payment_method_mobilepay"];
             multibanco?: components["schemas"]["payment_method_multibanco"];
+            naver_pay?: components["schemas"]["payment_method_naver_pay"];
             oxxo?: components["schemas"]["payment_method_oxxo"];
             p24?: components["schemas"]["payment_method_p24"];
+            payco?: components["schemas"]["payment_method_payco"];
             paynow?: components["schemas"]["payment_method_paynow"];
             paypal?: components["schemas"]["payment_method_paypal"];
             pix?: components["schemas"]["payment_method_pix"];
             promptpay?: components["schemas"]["payment_method_promptpay"];
             revolut_pay?: components["schemas"]["payment_method_revolut_pay"];
+            samsung_pay?: components["schemas"]["payment_method_samsung_pay"];
             sepa_debit?: components["schemas"]["payment_method_sepa_debit"];
             sofort?: components["schemas"]["payment_method_sofort"];
             swish?: components["schemas"]["payment_method_swish"];
@@ -9953,7 +12102,7 @@ export interface components {
              * @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
              * @enum {string}
              */
-            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "card_present" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "interac_present" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "card_present" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "interac_present" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
             us_bank_account?: components["schemas"]["payment_method_us_bank_account"];
             wechat_pay?: components["schemas"]["payment_method_wechat_pay"];
             zip?: components["schemas"]["payment_method_zip"];
@@ -9980,7 +12129,10 @@ export interface components {
         connect_collection_transfer: {
             /** @description Amount transferred, in cents (or local equivalent). */
             amount: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description ID of the account that funds are being collected for. */
             destination: string | components["schemas"]["account"];
@@ -10002,7 +12154,9 @@ export interface components {
         };
         /** ConnectEmbeddedAccountFeaturesClaim */
         connect_embedded_account_features_claim: {
-            /** @description Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements. */
+            /** @description Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false. */
+            disable_stripe_user_authentication: boolean;
+            /** @description Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`. */
             external_account_collection: boolean;
         };
         /** ConnectEmbeddedAccountSessionCreateComponents */
@@ -10052,9 +12206,11 @@ export interface components {
         };
         /** ConnectEmbeddedPayoutsFeatures */
         connect_embedded_payouts_features: {
+            /** @description Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false. */
+            disable_stripe_user_authentication: boolean;
             /** @description Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise. */
             edit_payout_schedule: boolean;
-            /** @description Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for custom accounts (or accounts where the platform is compliance owner). Otherwise, bank account collection is determined by compliance requirements. */
+            /** @description Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`. */
             external_account_collection: boolean;
             /** @description Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise. */
             instant_payouts: boolean;
@@ -10119,7 +12275,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description If `amount_off` has been set, the three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the amount to take off. */
+            /**
+             * Format: currency
+             * @description If `amount_off` has been set, the three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the amount to take off.
+             */
             currency?: string | null;
             /** @description Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
             currency_options?: {
@@ -10171,6 +12330,11 @@ export interface components {
             /** @description Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer. */
             amount_off: number;
         };
+        /** CreditBalance */
+        credit_balance: {
+            available_balance: components["schemas"]["billing_credit_grants_resource_amount"];
+            ledger_balance: components["schemas"]["billing_credit_grants_resource_amount"];
+        };
         /**
          * CreditNote
          * @description Issue a credit note to adjust an invoice's amount after the invoice is finalized.
@@ -10187,7 +12351,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description ID of the customer. */
             customer: string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"];
@@ -10242,6 +12409,8 @@ export interface components {
             out_of_band_amount?: number | null;
             /** @description The link to download the PDF of the credit note. */
             pdf: string;
+            /** @description The pretax credit amounts (ex: discount, credit grants, etc) for all line items. */
+            pretax_credit_amounts?: components["schemas"]["credit_notes_pretax_credit_amount"][];
             /**
              * @description Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
              * @enum {string|null}
@@ -10303,6 +12472,8 @@ export interface components {
              * @enum {string}
              */
             object: "credit_note_line_item";
+            /** @description The pretax credit amounts (ex: discount, credit grants, etc) for this line item. */
+            pretax_credit_amounts?: components["schemas"]["credit_notes_pretax_credit_amount"][];
             /** @description The number of units of product being credited. */
             quantity?: number | null;
             /** @description The amount of tax calculated per tax rate for this line item */
@@ -10343,6 +12514,20 @@ export interface components {
             /** @description The amount on which tax is calculated, in cents (or local equivalent). */
             taxable_amount?: number | null;
         };
+        /** CreditNotesPretaxCreditAmount */
+        credit_notes_pretax_credit_amount: {
+            /** @description The amount, in cents (or local equivalent), of the pretax credit amount. */
+            amount: number;
+            /** @description The credit balance transaction that was applied to get this pretax credit amount. */
+            credit_balance_transaction?: string | components["schemas"]["billing.credit_balance_transaction"];
+            /** @description The discount that was applied to get this pretax credit amount. */
+            discount?: string | components["schemas"]["discount"] | components["schemas"]["deleted_discount"];
+            /**
+             * @description Type of the pretax credit amount referenced.
+             * @enum {string}
+             */
+            type: "credit_balance_transaction" | "discount";
+        };
         /** CurrencyOption */
         currency_option: {
             /** @description When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links. */
@@ -10373,9 +12558,8 @@ export interface components {
         };
         /**
          * Customer
-         * @description This object represents a customer of your business. Use it to create recurring charges and track payments that belong to the same customer.
-         *
-         *     Related guide: [Save a card during payment](https://stripe.com/docs/payments/save-during-payment)
+         * @description This object represents a customer of your business. Use it to [create recurring charges](https://stripe.com/docs/invoicing/customer), [save payment](https://stripe.com/docs/payments/save-during-payment) and contact information,
+         *     and track payments that belong to the same customer.
          */
         customer: {
             /** @description The customer's address. */
@@ -10623,7 +12807,10 @@ export interface components {
             created: number;
             /** @description The ID of the credit note (if any) related to the transaction. */
             credit_note?: (string | components["schemas"]["credit_note"]) | null;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description The ID of the customer the transaction belongs to. */
             customer: string | components["schemas"]["customer"];
@@ -11295,8 +13482,13 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
+            /** @description List of eligibility types that are included in `enhanced_evidence`. */
+            enhanced_eligibility_types: "visa_compelling_evidence_3"[];
             evidence: components["schemas"]["dispute_evidence"];
             evidence_details: components["schemas"]["dispute_evidence_details"];
             /** @description Unique identifier for the object. */
@@ -11324,6 +13516,46 @@ export interface components {
              * @enum {string}
              */
             status: "lost" | "needs_response" | "under_review" | "warning_closed" | "warning_needs_response" | "warning_under_review" | "won";
+        };
+        /** DisputeEnhancedEligibility */
+        dispute_enhanced_eligibility: {
+            visa_compelling_evidence_3?: components["schemas"]["dispute_enhanced_eligibility_visa_compelling_evidence3"];
+            visa_compliance?: components["schemas"]["dispute_enhanced_eligibility_visa_compliance"];
+        };
+        /** DisputeEnhancedEligibilityVisaCompellingEvidence3 */
+        dispute_enhanced_eligibility_visa_compelling_evidence3: {
+            /** @description List of actions required to qualify dispute for Visa Compelling Evidence 3.0 evidence submission. */
+            required_actions: ("missing_customer_identifiers" | "missing_disputed_transaction_description" | "missing_merchandise_or_services" | "missing_prior_undisputed_transaction_description" | "missing_prior_undisputed_transactions")[];
+            /**
+             * @description Visa Compelling Evidence 3.0 eligibility status.
+             * @enum {string}
+             */
+            status: "not_qualified" | "qualified" | "requires_action";
+        };
+        /** DisputeEnhancedEligibilityVisaCompliance */
+        dispute_enhanced_eligibility_visa_compliance: {
+            /**
+             * @description Visa compliance eligibility status.
+             * @enum {string}
+             */
+            status: "fee_acknowledged" | "requires_fee_acknowledgement";
+        };
+        /** DisputeEnhancedEvidence */
+        dispute_enhanced_evidence: {
+            visa_compelling_evidence_3?: components["schemas"]["dispute_enhanced_evidence_visa_compelling_evidence3"];
+            visa_compliance?: components["schemas"]["dispute_enhanced_evidence_visa_compliance"];
+        };
+        /** DisputeEnhancedEvidenceVisaCompellingEvidence3 */
+        dispute_enhanced_evidence_visa_compelling_evidence3: {
+            /** @description Disputed transaction details for Visa Compelling Evidence 3.0 evidence submission. */
+            disputed_transaction?: components["schemas"]["dispute_visa_compelling_evidence3_disputed_transaction"] | null;
+            /** @description List of exactly two prior undisputed transaction objects for Visa Compelling Evidence 3.0 evidence submission. */
+            prior_undisputed_transactions: components["schemas"]["dispute_visa_compelling_evidence3_prior_undisputed_transaction"][];
+        };
+        /** DisputeEnhancedEvidenceVisaCompliance */
+        dispute_enhanced_evidence_visa_compliance: {
+            /** @description A field acknowledging the fee incurred when countering a Visa compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute. Stripe collects a 500 USD (or local equivalent) amount to cover the network costs associated with resolving compliance disputes. Stripe refunds the 500 USD network fee if you win the dispute. */
+            fee_acknowledged: boolean;
         };
         /** DisputeEvidence */
         dispute_evidence: {
@@ -11353,6 +13585,7 @@ export interface components {
             duplicate_charge_explanation?: string | null;
             /** @description The Stripe ID for the prior charge which appears to be a duplicate of the disputed charge. */
             duplicate_charge_id?: string | null;
+            enhanced_evidence: components["schemas"]["dispute_enhanced_evidence"];
             /** @description A description of the product or service that was sold. */
             product_description?: string | null;
             /** @description (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any receipt or message sent to the customer notifying them of the charge. */
@@ -11389,6 +13622,7 @@ export interface components {
              * @description Date by which evidence must be submitted in order to successfully challenge dispute. Will be 0 if the customer's bank or credit card company doesn't allow a response for this particular dispute.
              */
             due_by?: number | null;
+            enhanced_eligibility: components["schemas"]["dispute_enhanced_eligibility"];
             /** @description Whether evidence has been staged for this dispute. */
             has_evidence: boolean;
             /** @description Whether the last evidence submission was submitted past the due date. Defaults to `false` if no evidence submissions have occurred. If `true`, then delivery of the latest evidence is *not* guaranteed. */
@@ -11418,7 +13652,7 @@ export interface components {
         };
         /** DisputePaymentMethodDetailsCard */
         dispute_payment_method_details_card: {
-            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             brand: string;
             /**
              * @description The type of dispute opened. Different case types may have varying fees and financial impact.
@@ -11439,6 +13673,62 @@ export interface components {
             case_id?: string | null;
             /** @description The reason for the dispute as defined by PayPal */
             reason_code?: string | null;
+        };
+        /** DisputeTransactionShippingAddress */
+        dispute_transaction_shipping_address: {
+            /** @description City, district, suburb, town, or village. */
+            city?: string | null;
+            /** @description Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)). */
+            country?: string | null;
+            /** @description Address line 1 (e.g., street, PO Box, or company name). */
+            line1?: string | null;
+            /** @description Address line 2 (e.g., apartment, suite, unit, or building). */
+            line2?: string | null;
+            /** @description ZIP or postal code. */
+            postal_code?: string | null;
+            /** @description State, county, province, or region. */
+            state?: string | null;
+        };
+        /** DisputeVisaCompellingEvidence3DisputedTransaction */
+        dispute_visa_compelling_evidence3_disputed_transaction: {
+            /** @description User Account ID used to log into business platform. Must be recognizable by the user. */
+            customer_account_id?: string | null;
+            /** @description Unique identifier of the cardholder’s device derived from a combination of at least two hardware and software attributes. Must be at least 20 characters. */
+            customer_device_fingerprint?: string | null;
+            /** @description Unique identifier of the cardholder’s device such as a device serial number (e.g., International Mobile Equipment Identity [IMEI]). Must be at least 15 characters. */
+            customer_device_id?: string | null;
+            /** @description The email address of the customer. */
+            customer_email_address?: string | null;
+            /** @description The IP address that the customer used when making the purchase. */
+            customer_purchase_ip?: string | null;
+            /**
+             * @description Categorization of disputed payment.
+             * @enum {string|null}
+             */
+            merchandise_or_services?: "merchandise" | "services" | null;
+            /** @description A description of the product or service that was sold. */
+            product_description?: string | null;
+            /** @description The address to which a physical product was shipped. All fields are required for Visa Compelling Evidence 3.0 evidence submission. */
+            shipping_address?: components["schemas"]["dispute_transaction_shipping_address"] | null;
+        };
+        /** DisputeVisaCompellingEvidence3PriorUndisputedTransaction */
+        dispute_visa_compelling_evidence3_prior_undisputed_transaction: {
+            /** @description Stripe charge ID for the Visa Compelling Evidence 3.0 eligible prior charge. */
+            charge: string;
+            /** @description User Account ID used to log into business platform. Must be recognizable by the user. */
+            customer_account_id?: string | null;
+            /** @description Unique identifier of the cardholder’s device derived from a combination of at least two hardware and software attributes. Must be at least 20 characters. */
+            customer_device_fingerprint?: string | null;
+            /** @description Unique identifier of the cardholder’s device such as a device serial number (e.g., International Mobile Equipment Identity [IMEI]). Must be at least 15 characters. */
+            customer_device_id?: string | null;
+            /** @description The email address of the customer. */
+            customer_email_address?: string | null;
+            /** @description The IP address that the customer used when making the purchase. */
+            customer_purchase_ip?: string | null;
+            /** @description A description of the product or service that was sold. */
+            product_description?: string | null;
+            /** @description The address to which a physical product was shipped. All fields are required for Visa Compelling Evidence 3.0 evidence submission. */
+            shipping_address?: components["schemas"]["dispute_transaction_shipping_address"] | null;
         };
         /** EmailSent */
         email_sent: {
@@ -11644,7 +13934,10 @@ export interface components {
             amount: number;
             /** @description ID of the Connect application that earned the fee. */
             application?: string | null;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -11669,7 +13962,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description ID of the application fee that was refunded. */
             fee: string | components["schemas"]["application_fee"];
@@ -11736,7 +14032,7 @@ export interface components {
              * @description The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file.
              * @enum {string}
              */
-            purpose: "account_requirement" | "additional_verification" | "business_icon" | "business_logo" | "customer_signature" | "dispute_evidence" | "document_provider_identity_document" | "finance_report_run" | "identity_document" | "identity_document_downloadable" | "issuing_regulatory_reporting" | "pci_document" | "selfie" | "sigma_scheduled_query" | "tax_document_user_upload" | "terminal_reader_splashscreen";
+            purpose: "account_requirement" | "additional_verification" | "business_icon" | "business_logo" | "customer_signature" | "dispute_evidence" | "document_provider_identity_document" | "finance_report_run" | "financial_account_statement" | "identity_document" | "identity_document_downloadable" | "issuing_regulatory_reporting" | "pci_document" | "selfie" | "sigma_scheduled_query" | "tax_document_user_upload" | "terminal_reader_splashscreen";
             /** @description The size of the file object in bytes. */
             size: number;
             /** @description A suitable title for the document. */
@@ -12008,7 +14304,10 @@ export interface components {
             columns?: string[];
             /** @description Connected account ID by which to filter the report run. */
             connected_account?: string;
-            /** @description Currency of objects to be included in the report run. */
+            /**
+             * Format: currency
+             * @description Currency of objects to be included in the report run.
+             */
             currency?: string;
             /**
              * Format: unix-time
@@ -12103,6 +14402,10 @@ export interface components {
             id: string;
             /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
             livemode: boolean;
+            /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
+            metadata?: {
+                [key: string]: string;
+            } | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
              * @enum {string}
@@ -12111,7 +14414,7 @@ export interface components {
             /** @description The PaymentMethod to insert into the forwarded request. Forwarding previously consumed PaymentMethods is allowed. */
             payment_method: string;
             /** @description The field kinds to be replaced in the forwarded request. */
-            replacements: ("card_cvc" | "card_expiry" | "card_number" | "cardholder_name")[];
+            replacements: ("card_cvc" | "card_expiry" | "card_number" | "cardholder_name" | "request_signature")[];
             /** @description Context about the request from Stripe's servers to the destination endpoint. */
             request_context?: components["schemas"]["forwarded_request_context"] | null;
             /** @description The request that was sent to the destination endpoint. We redact any sensitive fields. */
@@ -12163,8 +14466,14 @@ export interface components {
          * @description ABA Records contain U.S. bank account details per the ABA format.
          */
         funding_instructions_bank_transfer_aba_record: {
+            account_holder_address: components["schemas"]["address"];
+            /** @description The account holder name */
+            account_holder_name: string;
             /** @description The ABA account number */
             account_number: string;
+            /** @description The account type */
+            account_type: string;
+            bank_address: components["schemas"]["address"];
             /** @description The bank name */
             bank_name: string;
             /** @description The ABA routing number */
@@ -12194,8 +14503,10 @@ export interface components {
          * @description Iban Records contain E.U. bank account details per the SEPA format.
          */
         funding_instructions_bank_transfer_iban_record: {
+            account_holder_address: components["schemas"]["address"];
             /** @description The name of the person or business that owns the bank account */
             account_holder_name: string;
+            bank_address: components["schemas"]["address"];
             /** @description The BIC/SWIFT code of the account. */
             bic: string;
             /** @description Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)). */
@@ -12208,10 +14519,12 @@ export interface components {
          * @description Sort Code Records contain U.K. bank account details per the sort code format.
          */
         funding_instructions_bank_transfer_sort_code_record: {
+            account_holder_address: components["schemas"]["address"];
             /** @description The name of the person or business that owns the bank account */
             account_holder_name: string;
             /** @description The account number */
             account_number: string;
+            bank_address: components["schemas"]["address"];
             /** @description The six-digit sort code */
             sort_code: string;
         };
@@ -12220,6 +14533,10 @@ export interface components {
          * @description SPEI Records contain Mexico bank account details per the SPEI format.
          */
         funding_instructions_bank_transfer_spei_record: {
+            account_holder_address: components["schemas"]["address"];
+            /** @description The account holder name */
+            account_holder_name: string;
+            bank_address: components["schemas"]["address"];
             /** @description The three-digit bank code */
             bank_code: string;
             /** @description The short banking institution name */
@@ -12232,8 +14549,14 @@ export interface components {
          * @description SWIFT Records contain U.S. bank account details per the SWIFT format.
          */
         funding_instructions_bank_transfer_swift_record: {
+            account_holder_address: components["schemas"]["address"];
+            /** @description The account holder name */
+            account_holder_name: string;
             /** @description The account number */
             account_number: string;
+            /** @description The account type */
+            account_type: string;
+            bank_address: components["schemas"]["address"];
             /** @description The bank name */
             bank_name: string;
             /** @description The SWIFT code */
@@ -12244,12 +14567,14 @@ export interface components {
          * @description Zengin Records contain Japan bank account details per the Zengin format.
          */
         funding_instructions_bank_transfer_zengin_record: {
+            account_holder_address: components["schemas"]["address"];
             /** @description The account holder name */
             account_holder_name?: string | null;
             /** @description The account number */
             account_number?: string | null;
             /** @description The bank account type. In Japan, this can only be `futsu` or `toza`. */
             account_type?: string | null;
+            bank_address: components["schemas"]["address"];
             /** @description The bank code of the account */
             bank_code?: string | null;
             /** @description The bank name of the account */
@@ -12610,7 +14935,7 @@ export interface components {
              * @enum {string}
              */
             type: "document" | "id_number" | "verification_flow";
-            /** @description The configuration token of a Verification Flow from the dashboard. */
+            /** @description The configuration token of a verification flow from the dashboard. */
             verification_flow?: string;
             /** @description ID of the VerificationSession that created this report. */
             verification_session?: string | null;
@@ -12676,7 +15001,7 @@ export interface components {
             type: "document" | "id_number" | "verification_flow";
             /** @description The short-lived URL that you use to redirect a user to Stripe to submit their identity information. This URL expires after 48 hours and can only be used once. Don’t store it, log it, send it in emails or expose it to anyone other than the user. Refer to our docs on [verifying identity documents](https://stripe.com/docs/identity/verify-identity-documents?platform=web&type=redirect) to learn how to redirect users to Stripe. */
             url?: string | null;
-            /** @description The configuration token of a Verification Flow from the dashboard. */
+            /** @description The configuration token of a verification flow from the dashboard. */
             verification_flow?: string;
             /** @description The user’s verified data. */
             verified_outputs?: components["schemas"]["gelato_verified_outputs"] | null;
@@ -12823,7 +15148,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Custom fields displayed on the invoice. */
             custom_fields?: components["schemas"]["invoice_setting_custom_field"][] | null;
@@ -12984,6 +15312,8 @@ export interface components {
             total_discount_amounts?: components["schemas"]["discounts_resource_discount_amount"][] | null;
             /** @description The integer amount in cents (or local equivalent) representing the total amount of the invoice including all discounts but excluding all tax. */
             total_excluding_tax?: number | null;
+            /** @description Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this invoice. This is a combined list of total_pretax_credit_amounts across all invoice line items. */
+            total_pretax_credit_amounts?: components["schemas"]["invoices_resource_pretax_credit_amount"][] | null;
             /** @description The aggregate amounts calculated per tax rate for all line items. */
             total_tax_amounts: components["schemas"]["invoice_tax_amount"][];
             /** @description The account (if any) the payment will be attributed to for tax reporting, and where funds from the payment will be transferred to for the invoice. */
@@ -13256,7 +15586,10 @@ export interface components {
         invoiceitem: {
             /** @description Amount (in the `currency` specified) of the invoice item. This should always be equal to `unit_amount * quantity`. */
             amount: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description The ID of the customer who will be billed when this invoice item is billed. */
             customer: string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"];
@@ -13333,7 +15666,7 @@ export interface components {
             /** @description Payment-method-specific configuration to provide to the invoice’s PaymentIntent. */
             payment_method_options?: components["schemas"]["invoices_payment_method_options"] | null;
             /** @description The list of payment method types (e.g. card) to provide to the invoice’s PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). */
-            payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "multibanco" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | null;
+            payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "jp_credit_transfer" | "kakao_pay" | "konbini" | "kr_card" | "link" | "multibanco" | "naver_pay" | "p24" | "payco" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_credit_transfer" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | null;
         };
         /** InvoicesResourceFromInvoice */
         invoices_resource_from_invoice: {
@@ -13356,10 +15689,10 @@ export interface components {
         /** InvoicesResourceInvoiceTaxID */
         invoices_resource_invoice_tax_id: {
             /**
-             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, or `unknown`
+             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, or `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
             /** @description The value of the tax ID. */
             value?: string | null;
         };
@@ -13374,6 +15707,20 @@ export interface components {
         invoices_resource_line_items_proration_details: {
             /** @description For a credit proration `line_item`, the original debit line_items to which the credit proration applies. */
             credited_items?: components["schemas"]["invoices_resource_line_items_credited_items"] | null;
+        };
+        /** InvoicesResourcePretaxCreditAmount */
+        invoices_resource_pretax_credit_amount: {
+            /** @description The amount, in cents (or local equivalent), of the pretax credit amount. */
+            amount: number;
+            /** @description The credit balance transaction that was applied to get this pretax credit amount. */
+            credit_balance_transaction?: (string | components["schemas"]["billing.credit_balance_transaction"]) | null;
+            /** @description The discount that was applied to get this pretax credit amount. */
+            discount?: string | components["schemas"]["discount"] | components["schemas"]["deleted_discount"];
+            /**
+             * @description Type of the pretax credit amount referenced.
+             * @enum {string}
+             */
+            type: "credit_balance_transaction" | "discount";
         };
         /** InvoicesResourceShippingCost */
         invoices_resource_shipping_cost: {
@@ -13441,10 +15788,15 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description The currency of the cardholder. This currency can be different from the currency presented at authorization and the `merchant_currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description The currency of the cardholder. This currency can be different from the currency presented at authorization and the `merchant_currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Fleet-specific information for authorizations using Fleet cards. */
             fleet?: components["schemas"]["issuing_authorization_fleet_data"] | null;
+            /** @description Fraud challenges sent to the cardholder, if this authorization was declined for fraud risk reasons. */
+            fraud_challenges?: components["schemas"]["issuing_authorization_fraud_challenge"][] | null;
             /** @description Information about fuel that was purchased with this transaction. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed. */
             fuel?: components["schemas"]["issuing_authorization_fuel_data"] | null;
             /** @description Unique identifier for the object. */
@@ -13453,7 +15805,10 @@ export interface components {
             livemode: boolean;
             /** @description The total amount that was authorized or rejected. This amount is in the `merchant_currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). `merchant_amount` should be the same as `amount`, unless `merchant_currency` and `currency` are different. */
             merchant_amount: number;
-            /** @description The local currency that was presented to the cardholder for the authorization. This currency can be different from the cardholder currency and the `currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description The local currency that was presented to the cardholder for the authorization. This currency can be different from the cardholder currency and the `currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             merchant_currency: string;
             merchant_data: components["schemas"]["issuing_authorization_merchant_data"];
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -13483,12 +15838,14 @@ export interface components {
             /** @description [Treasury](https://stripe.com/docs/api/treasury) details related to this authorization if it was created on a [FinancialAccount](https://stripe.com/docs/api/treasury/financial_accounts). */
             treasury?: components["schemas"]["issuing_authorization_treasury"] | null;
             verification_data: components["schemas"]["issuing_authorization_verification_data"];
+            /** @description Whether the authorization bypassed fraud risk checks because the cardholder has previously completed a fraud challenge on a similar high-risk authorization from the same merchant. */
+            verified_by_fraud_challenge?: boolean | null;
             /** @description The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`. Will populate as `null` when no digital wallet was utilized. */
             wallet?: string | null;
         };
         /**
          * IssuingCard
-         * @description You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders.
+         * @description You can [create physical or virtual cards](https://stripe.com/docs/issuing) that are issued to cardholders.
          */
         "issuing.card": {
             /** @description The brand of the card. */
@@ -13504,7 +15861,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Supported currencies are `usd` in the US, `eur` in the EU, and `gbp` in the UK. */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Supported currencies are `usd` in the US, `eur` in the EU, and `gbp` in the UK.
+             */
             currency: string;
             /** @description The card's CVC. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint. */
             cvc?: string;
@@ -13562,7 +15922,7 @@ export interface components {
          * IssuingCardholder
          * @description An Issuing `Cardholder` object represents an individual or business entity who is [issued](https://stripe.com/docs/issuing) cards.
          *
-         *     Related guide: [How to create a cardholder](https://stripe.com/docs/issuing/cards#create-cardholder)
+         *     Related guide: [How to create a cardholder](https://stripe.com/docs/issuing/cards/virtual/issue-cards#create-cardholder)
          */
         "issuing.cardholder": {
             billing: components["schemas"]["issuing_cardholder_address"];
@@ -13627,7 +15987,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description The currency the `transaction` was made in. */
+            /**
+             * Format: currency
+             * @description The currency the `transaction` was made in.
+             */
             currency: string;
             evidence: components["schemas"]["issuing_dispute_evidence"];
             /** @description Unique identifier for the object. */
@@ -13744,7 +16107,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Unique identifier for the object. */
             id: string;
@@ -13857,7 +16223,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description If you've disputed the transaction, the ID of the dispute. */
             dispute?: (string | components["schemas"]["issuing.dispute"]) | null;
@@ -13867,7 +16236,10 @@ export interface components {
             livemode: boolean;
             /** @description The amount that the merchant will receive, denominated in `merchant_currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). It will be different from `amount` if the merchant is taking payment in a different currency. */
             merchant_amount: number;
-            /** @description The currency with which the merchant is taking payment. */
+            /**
+             * Format: currency
+             * @description The currency with which the merchant is taking payment.
+             */
             merchant_currency: string;
             merchant_data: components["schemas"]["issuing_authorization_merchant_data"];
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
@@ -13988,6 +16360,24 @@ export interface components {
              */
             national_amount_decimal?: string | null;
         };
+        /** IssuingAuthorizationFraudChallenge */
+        issuing_authorization_fraud_challenge: {
+            /**
+             * @description The method by which the fraud challenge was delivered to the cardholder.
+             * @enum {string}
+             */
+            channel: "sms";
+            /**
+             * @description The status of the fraud challenge.
+             * @enum {string}
+             */
+            status: "expired" | "pending" | "rejected" | "undeliverable" | "verified";
+            /**
+             * @description If the challenge is not deliverable, the reason why.
+             * @enum {string|null}
+             */
+            undeliverable_reason?: "no_phone_number" | "unsupported_phone_number" | null;
+        };
         /** IssuingAuthorizationFuelData */
         issuing_authorization_fuel_data: {
             /** @description [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased. */
@@ -14031,6 +16421,8 @@ export interface components {
             postal_code?: string | null;
             /** @description State where the seller is located */
             state?: string | null;
+            /** @description The seller's tax identification number. Currently populated for French merchants only. */
+            tax_id?: string | null;
             /** @description An ID assigned by the seller to the location of the sale. */
             terminal_id?: string | null;
             /** @description URL provided by the merchant on a 3DS request */
@@ -14051,13 +16443,19 @@ export interface components {
             amount: number;
             /** @description Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
             amount_details?: components["schemas"]["issuing_authorization_amount_details"] | null;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization. */
             is_amount_controllable: boolean;
             /** @description The amount the merchant is requesting to be authorized in the `merchant_currency`. The amount is in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
             merchant_amount: number;
-            /** @description The local currency the merchant is requesting to authorize. */
+            /**
+             * Format: currency
+             * @description The local currency the merchant is requesting to authorize.
+             */
             merchant_currency: string;
             /** @description The card network's estimate of the likelihood that an authorization is fraudulent. Takes on values between 1 and 99. */
             network_risk_score?: number | null;
@@ -14166,7 +16564,10 @@ export interface components {
             blocked_merchant_countries?: string[] | null;
             /** @description Limit spending with amount-based rules that apply across any cards this card replaced (i.e., its `replacement_for` card and _that_ card's `replacement_for` card, up the chain). */
             spending_limits?: components["schemas"]["issuing_card_spending_limit"][] | null;
-            /** @description Currency of the amounts within `spending_limits`. Always the same as the currency of the card. */
+            /**
+             * Format: currency
+             * @description Currency of the amounts within `spending_limits`. Always the same as the currency of the card.
+             */
             spending_limits_currency?: string | null;
         };
         /** IssuingCardGooglePay */
@@ -14277,7 +16678,10 @@ export interface components {
             blocked_merchant_countries?: string[] | null;
             /** @description Limit spending with amount-based rules that apply across this cardholder's cards. */
             spending_limits?: components["schemas"]["issuing_cardholder_spending_limit"][] | null;
-            /** @description Currency of the amounts within `spending_limits`. */
+            /**
+             * Format: currency
+             * @description Currency of the amounts within `spending_limits`.
+             */
             spending_limits_currency?: string | null;
         };
         /** IssuingCardholderCardIssuing */
@@ -14832,10 +17236,13 @@ export interface components {
             amount_tax: number;
             /** @description Total after discounts and taxes. */
             amount_total: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. Defaults to product name. */
-            description?: string;
+            description?: string | null;
             /** @description The discounts applied to the line item. */
             discounts?: components["schemas"]["line_items_discount_amount"][];
             /** @description Unique identifier for the object. */
@@ -14990,7 +17397,10 @@ export interface components {
             amount: number;
             /** @description The integer amount in cents (or local equivalent) representing the amount for this line item, excluding all tax and discounts. */
             amount_excluding_tax?: number | null;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -15018,6 +17428,8 @@ export interface components {
              */
             object: "line_item";
             period: components["schemas"]["invoice_line_item_period"];
+            /** @description Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this line item. */
+            pretax_credit_amounts?: components["schemas"]["invoices_resource_pretax_credit_amount"][] | null;
             /** @description The price of the line item. */
             price?: components["schemas"]["price"] | null;
             /** @description Whether this is a proration. */
@@ -15168,6 +17580,10 @@ export interface components {
         };
         /** mandate_cashapp */
         mandate_cashapp: Record<string, never>;
+        /** mandate_kakao_pay */
+        mandate_kakao_pay: Record<string, never>;
+        /** mandate_kr_card */
+        mandate_kr_card: Record<string, never>;
         /** mandate_link */
         mandate_link: Record<string, never>;
         /** mandate_multi_use */
@@ -15180,6 +17596,8 @@ export interface components {
             bacs_debit?: components["schemas"]["mandate_bacs_debit"];
             card?: components["schemas"]["card_mandate_payment_method_details"];
             cashapp?: components["schemas"]["mandate_cashapp"];
+            kakao_pay?: components["schemas"]["mandate_kakao_pay"];
+            kr_card?: components["schemas"]["mandate_kr_card"];
             link?: components["schemas"]["mandate_link"];
             paypal?: components["schemas"]["mandate_paypal"];
             revolut_pay?: components["schemas"]["mandate_revolut_pay"];
@@ -15208,7 +17626,10 @@ export interface components {
         mandate_single_use: {
             /** @description The amount of the payment on a single use mandate. */
             amount: number;
-            /** @description The currency of the payment on a single use mandate. */
+            /**
+             * Format: currency
+             * @description The currency of the payment on a single use mandate.
+             */
             currency: string;
         };
         /** mandate_us_bank_account */
@@ -15349,10 +17770,14 @@ export interface components {
         };
         /** PaymentFlowsAmountDetails */
         payment_flows_amount_details: {
-            tip?: components["schemas"]["payment_flows_amount_details_resource_tip"];
+            tip?: components["schemas"]["payment_flows_amount_details_client_resource_tip"];
         };
-        /** PaymentFlowsAmountDetailsResourceTip */
-        payment_flows_amount_details_resource_tip: {
+        /** PaymentFlowsAmountDetailsClient */
+        payment_flows_amount_details_client: {
+            tip?: components["schemas"]["payment_flows_amount_details_client_resource_tip"];
+        };
+        /** PaymentFlowsAmountDetailsClientResourceTip */
+        payment_flows_amount_details_client_resource_tip: {
             /** @description Portion of the amount that corresponds to a tip. */
             amount?: number;
         };
@@ -15438,6 +17863,25 @@ export interface components {
              */
             type: "apple_pay" | "google_pay" | "samsung_pay" | "unknown";
         };
+        /** PaymentFlowsPrivatePaymentMethodsKakaoPayPaymentMethodOptions */
+        payment_flows_private_payment_methods_kakao_pay_payment_method_options: {
+            /**
+             * @description Controls when the funds will be captured from the customer's account.
+             * @enum {string}
+             */
+            capture_method?: "manual";
+            /**
+             * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
+             *
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+             *
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+             * @enum {string}
+             */
+            setup_future_usage?: "none" | "off_session";
+        };
         /** PaymentFlowsPrivatePaymentMethodsKlarnaDOB */
         payment_flows_private_payment_methods_klarna_dob: {
             /** @description The day of birth, between 1 and 31. */
@@ -15446,6 +17890,30 @@ export interface components {
             month?: number | null;
             /** @description The four-digit year of birth. */
             year?: number | null;
+        };
+        /** PaymentFlowsPrivatePaymentMethodsNaverPayPaymentMethodOptions */
+        payment_flows_private_payment_methods_naver_pay_payment_method_options: {
+            /**
+             * @description Controls when the funds will be captured from the customer's account.
+             * @enum {string}
+             */
+            capture_method?: "manual";
+        };
+        /** PaymentFlowsPrivatePaymentMethodsPaycoPaymentMethodOptions */
+        payment_flows_private_payment_methods_payco_payment_method_options: {
+            /**
+             * @description Controls when the funds will be captured from the customer's account.
+             * @enum {string}
+             */
+            capture_method?: "manual";
+        };
+        /** PaymentFlowsPrivatePaymentMethodsSamsungPayPaymentMethodOptions */
+        payment_flows_private_payment_methods_samsung_pay_payment_method_options: {
+            /**
+             * @description Controls when the funds will be captured from the customer's account.
+             * @enum {string}
+             */
+            capture_method?: "manual";
         };
         /** PaymentFlowsPrivatePaymentMethodsUsBankAccountLinkedAccountOptionsFilters */
         payment_flows_private_payment_methods_us_bank_account_linked_account_options_filters: {
@@ -15471,7 +17939,7 @@ export interface components {
             amount: number;
             /** @description Amount that can be captured from this PaymentIntent. */
             amount_capturable?: number;
-            amount_details?: components["schemas"]["payment_flows_amount_details"];
+            amount_details?: components["schemas"]["payment_flows_amount_details"] | components["schemas"]["payment_flows_amount_details_client"];
             /** @description Amount that this PaymentIntent collects. */
             amount_received?: number;
             /** @description ID of the Connect application that created the PaymentIntent. */
@@ -15511,7 +17979,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description ID of the Customer this PaymentIntent belongs to, if one exists.
              *
@@ -15546,7 +18017,7 @@ export interface components {
             on_behalf_of?: (string | components["schemas"]["account"]) | null;
             /** @description ID of the payment method used in this PaymentIntent. */
             payment_method?: (string | components["schemas"]["payment_method"]) | null;
-            /** @description Information about the payment method configuration used for this PaymentIntent. */
+            /** @description Information about the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) used for this PaymentIntent. */
             payment_method_configuration_details?: components["schemas"]["payment_method_config_biz_payment_method_configuration_details"] | null;
             /** @description Payment-method-specific configuration for this PaymentIntent. */
             payment_method_options?: components["schemas"]["payment_intent_payment_method_options"] | null;
@@ -15674,7 +18145,10 @@ export interface components {
         payment_intent_next_action_display_bank_transfer_instructions: {
             /** @description The remaining amount that needs to be transferred to complete the payment. */
             amount_remaining?: number | null;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency?: string | null;
             /** @description A list of financial addresses that can be used to fund the customer balance */
             financial_addresses?: components["schemas"]["funding_instructions_bank_transfer_financial_address"][];
@@ -15877,6 +18351,7 @@ export interface components {
             affirm?: components["schemas"]["payment_method_options_affirm"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             afterpay_clearpay?: components["schemas"]["payment_method_options_afterpay_clearpay"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             alipay?: components["schemas"]["payment_method_options_alipay"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
+            alma?: components["schemas"]["payment_method_options_alma"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             amazon_pay?: components["schemas"]["payment_method_options_amazon_pay"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             au_becs_debit?: components["schemas"]["payment_intent_payment_method_options_au_becs_debit"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             bacs_debit?: components["schemas"]["payment_intent_payment_method_options_bacs_debit"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
@@ -15893,18 +18368,23 @@ export interface components {
             grabpay?: components["schemas"]["payment_method_options_grabpay"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             ideal?: components["schemas"]["payment_method_options_ideal"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             interac_present?: components["schemas"]["payment_method_options_interac_present"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
+            kakao_pay?: components["schemas"]["payment_flows_private_payment_methods_kakao_pay_payment_method_options"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             klarna?: components["schemas"]["payment_method_options_klarna"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             konbini?: components["schemas"]["payment_method_options_konbini"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
+            kr_card?: components["schemas"]["payment_method_options_kr_card"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             link?: components["schemas"]["payment_intent_payment_method_options_link"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             mobilepay?: components["schemas"]["payment_intent_payment_method_options_mobilepay"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             multibanco?: components["schemas"]["payment_method_options_multibanco"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
+            naver_pay?: components["schemas"]["payment_flows_private_payment_methods_naver_pay_payment_method_options"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             oxxo?: components["schemas"]["payment_method_options_oxxo"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             p24?: components["schemas"]["payment_method_options_p24"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
+            payco?: components["schemas"]["payment_flows_private_payment_methods_payco_payment_method_options"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             paynow?: components["schemas"]["payment_method_options_paynow"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             paypal?: components["schemas"]["payment_method_options_paypal"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             pix?: components["schemas"]["payment_method_options_pix"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             promptpay?: components["schemas"]["payment_method_options_promptpay"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             revolut_pay?: components["schemas"]["payment_method_options_revolut_pay"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
+            samsung_pay?: components["schemas"]["payment_flows_private_payment_methods_samsung_pay_payment_method_options"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             sepa_debit?: components["schemas"]["payment_intent_payment_method_options_sepa_debit"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             sofort?: components["schemas"]["payment_method_options_sofort"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             swish?: components["schemas"]["payment_intent_payment_method_options_swish"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
@@ -15993,7 +18473,7 @@ export interface components {
              * @description Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time.
              * @enum {string|null}
              */
-            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
+            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
             /**
              * @description Request ability to [capture beyond the standard authorization validity window](https://stripe.com/docs/payments/extended-authorization) for this PaymentIntent.
              * @enum {string}
@@ -16088,9 +18568,15 @@ export interface components {
             transaction_type?: "business" | "personal" | null;
         };
         /** payment_intent_payment_method_options_mandate_options_bacs_debit */
-        payment_intent_payment_method_options_mandate_options_bacs_debit: Record<string, never>;
+        payment_intent_payment_method_options_mandate_options_bacs_debit: {
+            /** @description Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'. */
+            reference_prefix?: string;
+        };
         /** payment_intent_payment_method_options_mandate_options_sepa_debit */
-        payment_intent_payment_method_options_mandate_options_sepa_debit: Record<string, never>;
+        payment_intent_payment_method_options_mandate_options_sepa_debit: {
+            /** @description Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'. */
+            reference_prefix?: string;
+        };
         /** payment_intent_payment_method_options_mobilepay */
         payment_intent_payment_method_options_mobilepay: {
             /**
@@ -16127,7 +18613,7 @@ export interface components {
         };
         /** payment_intent_payment_method_options_swish */
         payment_intent_payment_method_options_swish: {
-            /** @description The order ID displayed in the Swish app after the payment is authorized. */
+            /** @description A reference for this payment to be displayed in the Swish app. */
             reference?: string | null;
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -16244,7 +18730,10 @@ export interface components {
             billing_address_collection: "auto" | "required";
             /** @description When set, provides configuration to gather active consent from customers. */
             consent_collection?: components["schemas"]["payment_links_resource_consent_collection"] | null;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Collect additional information from your customer using custom fields. Up to 3 fields are supported. */
             custom_fields: components["schemas"]["payment_links_resource_custom_fields"][];
@@ -16298,7 +18787,7 @@ export interface components {
              */
             payment_method_collection: "always" | "if_required";
             /** @description The list of payment method types that customers can use. When `null`, Stripe will dynamically show relevant payment methods you've enabled in your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
-            payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[] | null;
+            payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "alma" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[] | null;
             phone_number_collection: components["schemas"]["payment_links_resource_phone_number_collection"];
             /** @description Settings that restrict the usage of a payment link. */
             restrictions?: components["schemas"]["payment_links_resource_restrictions"] | null;
@@ -16310,7 +18799,7 @@ export interface components {
              * @description Indicates the type of transaction being performed which customizes relevant text on the page, such as the submit button.
              * @enum {string}
              */
-            submit_type: "auto" | "book" | "donate" | "pay";
+            submit_type: "auto" | "book" | "donate" | "pay" | "subscribe";
             /** @description When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`. */
             subscription_data?: components["schemas"]["payment_links_resource_subscription_data"] | null;
             tax_id_collection: components["schemas"]["payment_links_resource_tax_id_collection"];
@@ -16568,6 +19057,7 @@ export interface components {
              * @enum {string}
              */
             allow_redisplay?: "always" | "limited" | "unspecified";
+            alma?: components["schemas"]["payment_method_alma"];
             amazon_pay?: components["schemas"]["payment_method_amazon_pay"];
             au_becs_debit?: components["schemas"]["payment_method_au_becs_debit"];
             bacs_debit?: components["schemas"]["payment_method_bacs_debit"];
@@ -16594,8 +19084,10 @@ export interface components {
             id: string;
             ideal?: components["schemas"]["payment_method_ideal"];
             interac_present?: components["schemas"]["payment_method_interac_present"];
+            kakao_pay?: components["schemas"]["payment_method_kakao_pay"];
             klarna?: components["schemas"]["payment_method_klarna"];
             konbini?: components["schemas"]["payment_method_konbini"];
+            kr_card?: components["schemas"]["payment_method_kr_card"];
             link?: components["schemas"]["payment_method_link"];
             /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
             livemode: boolean;
@@ -16605,6 +19097,7 @@ export interface components {
             } | null;
             mobilepay?: components["schemas"]["payment_method_mobilepay"];
             multibanco?: components["schemas"]["payment_method_multibanco"];
+            naver_pay?: components["schemas"]["payment_method_naver_pay"];
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
              * @enum {string}
@@ -16612,12 +19105,14 @@ export interface components {
             object: "payment_method";
             oxxo?: components["schemas"]["payment_method_oxxo"];
             p24?: components["schemas"]["payment_method_p24"];
+            payco?: components["schemas"]["payment_method_payco"];
             paynow?: components["schemas"]["payment_method_paynow"];
             paypal?: components["schemas"]["payment_method_paypal"];
             pix?: components["schemas"]["payment_method_pix"];
             promptpay?: components["schemas"]["payment_method_promptpay"];
             radar_options?: components["schemas"]["radar_radar_options"];
             revolut_pay?: components["schemas"]["payment_method_revolut_pay"];
+            samsung_pay?: components["schemas"]["payment_method_samsung_pay"];
             sepa_debit?: components["schemas"]["payment_method_sepa_debit"];
             sofort?: components["schemas"]["payment_method_sofort"];
             swish?: components["schemas"]["payment_method_swish"];
@@ -16626,7 +19121,7 @@ export interface components {
              * @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
              * @enum {string}
              */
-            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "card_present" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "interac_present" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "card_present" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "interac_present" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
             us_bank_account?: components["schemas"]["payment_method_us_bank_account"];
             wechat_pay?: components["schemas"]["payment_method_wechat_pay"];
             zip?: components["schemas"]["payment_method_zip"];
@@ -16648,6 +19143,8 @@ export interface components {
         payment_method_affirm: Record<string, never>;
         /** payment_method_afterpay_clearpay */
         payment_method_afterpay_clearpay: Record<string, never>;
+        /** payment_method_alma */
+        payment_method_alma: Record<string, never>;
         /** payment_method_amazon_pay */
         payment_method_amazon_pay: Record<string, never>;
         /** payment_method_au_becs_debit */
@@ -16679,7 +19176,7 @@ export interface components {
         };
         /** payment_method_card */
         payment_method_card: {
-            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             brand: string;
             /** @description Checks on Card address and CVC if provided. */
             checks?: components["schemas"]["payment_method_card_checks"] | null;
@@ -16703,6 +19200,11 @@ export interface components {
             last4: string;
             /** @description Contains information about card networks that can be used to process the payment. */
             networks?: components["schemas"]["networks"] | null;
+            /**
+             * @description Status of a card based on the card issuer.
+             * @enum {string|null}
+             */
+            regulated_status?: "regulated" | "unregulated" | null;
             /** @description Contains details on how this Card may be used for 3D Secure authentication. */
             three_d_secure_usage?: components["schemas"]["three_d_secure_usage"] | null;
             /** @description If this Card is part of a card wallet, this contains the details of the card wallet. */
@@ -16728,7 +19230,7 @@ export interface components {
         };
         /** payment_method_card_present */
         payment_method_card_present: {
-            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             brand?: string | null;
             /** @description The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. */
             brand_product?: string | null;
@@ -16880,6 +19382,7 @@ export interface components {
             affirm?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
             afterpay_clearpay?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
             alipay?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
+            alma?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
             amazon_pay?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
             apple_pay?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
             /** @description For child configs, the Connect application associated with the configuration. */
@@ -16944,6 +19447,7 @@ export interface components {
             affirm?: components["schemas"]["payment_method_details_affirm"];
             afterpay_clearpay?: components["schemas"]["payment_method_details_afterpay_clearpay"];
             alipay?: components["schemas"]["payment_flows_private_payment_methods_alipay_details"];
+            alma?: components["schemas"]["payment_method_details_alma"];
             amazon_pay?: components["schemas"]["payment_method_details_amazon_pay"];
             au_becs_debit?: components["schemas"]["payment_method_details_au_becs_debit"];
             bacs_debit?: components["schemas"]["payment_method_details_bacs_debit"];
@@ -16960,18 +19464,23 @@ export interface components {
             grabpay?: components["schemas"]["payment_method_details_grabpay"];
             ideal?: components["schemas"]["payment_method_details_ideal"];
             interac_present?: components["schemas"]["payment_method_details_interac_present"];
+            kakao_pay?: components["schemas"]["payment_method_details_kakao_pay"];
             klarna?: components["schemas"]["payment_method_details_klarna"];
             konbini?: components["schemas"]["payment_method_details_konbini"];
+            kr_card?: components["schemas"]["payment_method_details_kr_card"];
             link?: components["schemas"]["payment_method_details_link"];
             mobilepay?: components["schemas"]["payment_method_details_mobilepay"];
             multibanco?: components["schemas"]["payment_method_details_multibanco"];
+            naver_pay?: components["schemas"]["payment_method_details_naver_pay"];
             oxxo?: components["schemas"]["payment_method_details_oxxo"];
             p24?: components["schemas"]["payment_method_details_p24"];
+            payco?: components["schemas"]["payment_method_details_payco"];
             paynow?: components["schemas"]["payment_method_details_paynow"];
             paypal?: components["schemas"]["payment_method_details_paypal"];
             pix?: components["schemas"]["payment_method_details_pix"];
             promptpay?: components["schemas"]["payment_method_details_promptpay"];
             revolut_pay?: components["schemas"]["payment_method_details_revolut_pay"];
+            samsung_pay?: components["schemas"]["payment_method_details_samsung_pay"];
             sepa_debit?: components["schemas"]["payment_method_details_sepa_debit"];
             sofort?: components["schemas"]["payment_method_details_sofort"];
             stripe_account?: components["schemas"]["payment_method_details_stripe_account"];
@@ -17042,8 +19551,12 @@ export interface components {
             /** @description Order identifier shown to the merchant in Afterpay’s online portal. */
             reference?: string | null;
         };
+        /** payment_method_details_alma */
+        payment_method_details_alma: Record<string, never>;
         /** payment_method_details_amazon_pay */
-        payment_method_details_amazon_pay: Record<string, never>;
+        payment_method_details_amazon_pay: {
+            funding?: components["schemas"]["amazon_pay_underlying_payment_method_funding_details"];
+        };
         /** payment_method_details_au_becs_debit */
         payment_method_details_au_becs_debit: {
             /** @description Bank-State-Branch number of the bank account. */
@@ -17106,7 +19619,7 @@ export interface components {
             amount_authorized?: number | null;
             /** @description Authorization code on the charge. */
             authorization_code?: string | null;
-            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             brand?: string | null;
             /**
              * Format: unix-time
@@ -17138,11 +19651,18 @@ export interface components {
             /** @description ID of the mandate used to make this payment or created by it. */
             mandate?: string | null;
             multicapture?: components["schemas"]["payment_flows_private_payment_methods_card_details_api_resource_multicapture"];
-            /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             network?: string | null;
             /** @description If this card has network token credentials, this contains the details of the network token credentials. */
             network_token?: components["schemas"]["payment_method_details_card_network_token"] | null;
+            /** @description This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD). This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands. */
+            network_transaction_id?: string | null;
             overcapture?: components["schemas"]["payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_overcapture_overcapture"];
+            /**
+             * @description Status of a card based on the card issuer.
+             * @enum {string|null}
+             */
+            regulated_status?: "regulated" | "unregulated" | null;
             /** @description Populated if this transaction used 3D Secure authentication. */
             three_d_secure?: components["schemas"]["three_d_secure_details_charge"] | null;
             /** @description If this Card is part of a card wallet, this contains the details of the card wallet. */
@@ -17187,7 +19707,7 @@ export interface components {
         payment_method_details_card_present: {
             /** @description The authorized amount */
             amount_authorized?: number | null;
-            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             brand?: string | null;
             /** @description The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. */
             brand_product?: string | null;
@@ -17222,7 +19742,7 @@ export interface components {
             issuer?: string | null;
             /** @description The last four digits of the card. */
             last4?: string | null;
-            /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             network?: string | null;
             /** @description This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD). This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands. */
             network_transaction_id?: string | null;
@@ -17426,7 +19946,7 @@ export interface components {
             issuer?: string | null;
             /** @description The last four digits of the card. */
             last4?: string | null;
-            /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             network?: string | null;
             /** @description This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD). This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands. */
             network_transaction_id?: string | null;
@@ -17464,6 +19984,11 @@ export interface components {
             /** @description An indication of various EMV functions performed during the transaction. */
             transaction_status_information?: string | null;
         };
+        /** payment_method_details_kakao_pay */
+        payment_method_details_kakao_pay: {
+            /** @description A unique identifier for the buyer as determined by the local payment processor. */
+            buyer_id?: string | null;
+        };
         /** payment_method_details_klarna */
         payment_method_details_klarna: {
             /** @description The payer details for this transaction. */
@@ -17488,6 +20013,18 @@ export interface components {
              */
             chain?: "familymart" | "lawson" | "ministop" | "seicomart" | null;
         };
+        /** payment_method_details_kr_card */
+        payment_method_details_kr_card: {
+            /**
+             * @description The local credit or debit card brand.
+             * @enum {string|null}
+             */
+            brand?: "bc" | "citi" | "hana" | "hyundai" | "jeju" | "jeonbuk" | "kakaobank" | "kbank" | "kdbbank" | "kookmin" | "kwangju" | "lotte" | "mg" | "nh" | "post" | "samsung" | "savingsbank" | "shinhan" | "shinhyup" | "suhyup" | "tossbank" | "woori" | null;
+            /** @description A unique identifier for the buyer as determined by the local payment processor. */
+            buyer_id?: string | null;
+            /** @description The last four digits of the card. This may not be present for American Express cards. */
+            last4?: string | null;
+        };
         /** payment_method_details_link */
         payment_method_details_link: {
             /** @description Two-letter ISO code representing the funding source country beneath the Link payment.
@@ -17505,6 +20042,11 @@ export interface components {
             entity?: string | null;
             /** @description Reference number associated with this Multibanco payment. */
             reference?: string | null;
+        };
+        /** payment_method_details_naver_pay */
+        payment_method_details_naver_pay: {
+            /** @description A unique identifier for the buyer as determined by the local payment processor. */
+            buyer_id?: string | null;
         };
         /** payment_method_details_oxxo */
         payment_method_details_oxxo: {
@@ -17524,6 +20066,26 @@ export interface components {
              *     (if supported) at the time of authorization or settlement. They cannot be set or mutated.
              *     Przelewy24 rarely provides this information so the attribute is usually empty. */
             verified_name?: string | null;
+        };
+        /** payment_method_details_passthrough_card */
+        payment_method_details_passthrough_card: {
+            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            brand?: string | null;
+            /** @description Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected. */
+            country?: string | null;
+            /** @description Two-digit number representing the card's expiration month. */
+            exp_month?: number | null;
+            /** @description Four-digit number representing the card's expiration year. */
+            exp_year?: number | null;
+            /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
+            funding?: string | null;
+            /** @description The last four digits of the card. */
+            last4?: string | null;
+        };
+        /** payment_method_details_payco */
+        payment_method_details_payco: {
+            /** @description A unique identifier for the buyer as determined by the local payment processor. */
+            buyer_id?: string | null;
         };
         /** payment_method_details_paynow */
         payment_method_details_paynow: {
@@ -17556,7 +20118,14 @@ export interface components {
             reference?: string | null;
         };
         /** payment_method_details_revolut_pay */
-        payment_method_details_revolut_pay: Record<string, never>;
+        payment_method_details_revolut_pay: {
+            funding?: components["schemas"]["revolut_pay_underlying_payment_method_funding_details"];
+        };
+        /** payment_method_details_samsung_pay */
+        payment_method_details_samsung_pay: {
+            /** @description A unique identifier for the buyer as determined by the local payment processor. */
+            buyer_id?: string | null;
+        };
         /** payment_method_details_sepa_debit */
         payment_method_details_sepa_debit: {
             /** @description Bank code of bank associated with the bank account. */
@@ -17655,6 +20224,7 @@ export interface components {
          *     Related guide: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
          */
         payment_method_domain: {
+            amazon_pay: components["schemas"]["payment_method_domain_resource_payment_method_status"];
             apple_pay: components["schemas"]["payment_method_domain_resource_payment_method_status"];
             /**
              * Format: unix-time
@@ -17765,6 +20335,8 @@ export interface components {
              */
             read_method?: "contact_emv" | "contactless_emv" | "contactless_magstripe_mode" | "magnetic_stripe_fallback" | "magnetic_stripe_track2" | null;
         };
+        /** payment_method_kakao_pay */
+        payment_method_kakao_pay: Record<string, never>;
         /** payment_method_klarna */
         payment_method_klarna: {
             /** @description The customer's date of birth, if provided. */
@@ -17772,6 +20344,16 @@ export interface components {
         };
         /** payment_method_konbini */
         payment_method_konbini: Record<string, never>;
+        /** payment_method_kr_card */
+        payment_method_kr_card: {
+            /**
+             * @description The local credit or debit card brand.
+             * @enum {string|null}
+             */
+            brand?: "bc" | "citi" | "hana" | "hyundai" | "jeju" | "jeonbuk" | "kakaobank" | "kbank" | "kdbbank" | "kookmin" | "kwangju" | "lotte" | "mg" | "nh" | "post" | "samsung" | "savingsbank" | "shinhan" | "shinhyup" | "suhyup" | "tossbank" | "woori" | null;
+            /** @description The last four digits of the card. This may not be present for American Express cards. */
+            last4?: string | null;
+        };
         /** payment_method_link */
         payment_method_link: {
             /** @description Account owner's email address. */
@@ -17781,6 +20363,14 @@ export interface components {
         payment_method_mobilepay: Record<string, never>;
         /** payment_method_multibanco */
         payment_method_multibanco: Record<string, never>;
+        /** payment_method_naver_pay */
+        payment_method_naver_pay: {
+            /**
+             * @description Whether to fund this transaction with Naver Pay points or a card.
+             * @enum {string}
+             */
+            funding: "card" | "points";
+        };
         /** payment_method_options_affirm */
         payment_method_options_affirm: {
             /**
@@ -17837,6 +20427,14 @@ export interface components {
              * @enum {string}
              */
             setup_future_usage?: "none" | "off_session";
+        };
+        /** payment_method_options_alma */
+        payment_method_options_alma: {
+            /**
+             * @description Controls when the funds will be captured from the customer's account.
+             * @enum {string}
+             */
+            capture_method?: "manual";
         };
         /** payment_method_options_amazon_pay */
         payment_method_options_amazon_pay: {
@@ -18114,6 +20712,25 @@ export interface components {
              */
             setup_future_usage?: "none";
         };
+        /** payment_method_options_kr_card */
+        payment_method_options_kr_card: {
+            /**
+             * @description Controls when the funds will be captured from the customer's account.
+             * @enum {string}
+             */
+            capture_method?: "manual";
+            /**
+             * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
+             *
+             *     If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+             *
+             *     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+             *
+             *     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+             * @enum {string}
+             */
+            setup_future_usage?: "none" | "off_session";
+        };
         /** payment_method_options_multibanco */
         payment_method_options_multibanco: {
             /**
@@ -18332,6 +20949,8 @@ export interface components {
              */
             bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank" | null;
         };
+        /** payment_method_payco */
+        payment_method_payco: Record<string, never>;
         /** payment_method_paynow */
         payment_method_paynow: Record<string, never>;
         /** payment_method_paypal */
@@ -18348,6 +20967,8 @@ export interface components {
         payment_method_promptpay: Record<string, never>;
         /** payment_method_revolut_pay */
         payment_method_revolut_pay: Record<string, never>;
+        /** payment_method_samsung_pay */
+        payment_method_samsung_pay: Record<string, never>;
         /** payment_method_sepa_debit */
         payment_method_sepa_debit: {
             /** @description Bank code of bank associated with the bank account. */
@@ -18420,6 +21041,11 @@ export interface components {
         payment_method_wechat_pay: Record<string, never>;
         /** payment_method_zip */
         payment_method_zip: Record<string, never>;
+        /** PaymentPagesCheckoutSessionAdaptivePricing */
+        payment_pages_checkout_session_adaptive_pricing: {
+            /** @description Whether Adaptive Pricing is enabled. */
+            enabled: boolean;
+        };
         /** PaymentPagesCheckoutSessionAfterExpiration */
         payment_pages_checkout_session_after_expiration: {
             /** @description When set, configuration used to recover the Checkout Session on expiry. */
@@ -18681,10 +21307,10 @@ export interface components {
         /** PaymentPagesCheckoutSessionTaxID */
         payment_pages_checkout_session_tax_id: {
             /**
-             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, or `unknown`
+             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, or `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
             /** @description The value of the tax ID. */
             value?: string | null;
         };
@@ -18749,7 +21375,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -18791,11 +21420,20 @@ export interface components {
             statement_descriptor?: string | null;
             /** @description Current status of the payout: `paid`, `pending`, `in_transit`, `canceled` or `failed`. A payout is `pending` until it's submitted to the bank, when it becomes `in_transit`. The status changes to `paid` if the transaction succeeds, or to `failed` or `canceled` (within 5 business days). Some payouts that fail might initially show as `paid`, then change to `failed`. */
             status: string;
+            /** @description A value that generates from the beneficiary's bank that allows users to track payouts with their bank. Banks might call this a "reference number" or something similar. */
+            trace_id?: components["schemas"]["payouts_trace_id"] | null;
             /**
              * @description Can be `bank_account` or `card`.
              * @enum {string}
              */
             type: "bank_account" | "card";
+        };
+        /** PayoutsTraceID */
+        payouts_trace_id: {
+            /** @description Possible values are `pending`, `supported`, and `unsupported`. When `payout.status` is `pending` or `in_transit`, this will be `pending`. When the payout transitions to `paid`, `failed`, or `canceled`, this status will become `supported` or `unsupported` shortly after in most cases. In some cases, this may appear as `pending` for up to 10 days after `arrival_date` until transitioning to `supported` or `unsupported`. */
+            status: string;
+            /** @description The trace ID value if `trace_id.status` is `supported`, otherwise `nil`. */
+            value?: string | null;
         };
         /** paypal_seller_protection */
         paypal_seller_protection: {
@@ -18852,7 +21490,7 @@ export interface components {
             /** @description A list of alternate names or aliases that the person is known by. */
             full_name_aliases?: string[];
             future_requirements?: components["schemas"]["person_future_requirements"] | null;
-            /** @description The person's gender (International regulations require either "male" or "female"). */
+            /** @description The person's gender. */
             gender?: string | null;
             /** @description Unique identifier for the object. */
             id: string;
@@ -18918,7 +21556,7 @@ export interface components {
             currently_due: string[];
             /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
             errors: components["schemas"]["account_requirements_error"][];
-            /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `future_requirements[current_deadline]` becomes set. */
+            /** @description Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `future_requirements[current_deadline]` becomes set. */
             eventually_due: string[];
             /** @description Fields that weren't collected by the account's `requirements.current_deadline`. These fields need to be collected to enable the person's account. New fields will never appear here; `future_requirements.past_due` will always be a subset of `requirements.past_due`. */
             past_due: string[];
@@ -18927,6 +21565,8 @@ export interface components {
         };
         /** PersonRelationship */
         person_relationship: {
+            /** @description Whether the person is the authorizer of the account's representative. */
+            authorizer?: boolean | null;
             /** @description Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations. */
             director?: boolean | null;
             /** @description Whether the person has significant responsibility to control, manage, or direct the organization. */
@@ -18950,7 +21590,7 @@ export interface components {
             currently_due: string[];
             /** @description Fields that are `currently_due` and need to be collected again because validation or verification failed. */
             errors: components["schemas"]["account_requirements_error"][];
-            /** @description Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `current_deadline` becomes set. */
+            /** @description Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `current_deadline` becomes set. */
             eventually_due: string[];
             /** @description Fields that weren't collected by the account's `current_deadline`. These fields need to be collected to enable the person's account. */
             past_due: string[];
@@ -18993,7 +21633,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Unique identifier for the object. */
             id: string;
@@ -19201,6 +21844,19 @@ export interface components {
             /** @description Whether the feature is enabled. */
             enabled: boolean;
         };
+        /** PortalResourceScheduleUpdateAtPeriodEnd */
+        portal_resource_schedule_update_at_period_end: {
+            /** @description List of conditions. When any condition is true, an update will be scheduled at the end of the current period. */
+            conditions: components["schemas"]["portal_resource_schedule_update_at_period_end_condition"][];
+        };
+        /** PortalResourceScheduleUpdateAtPeriodEndCondition */
+        portal_resource_schedule_update_at_period_end_condition: {
+            /**
+             * @description The type of condition.
+             * @enum {string}
+             */
+            type: "decreasing_item_amount" | "shortening_interval";
+        };
         /** PortalSubscriptionCancel */
         portal_subscription_cancel: {
             cancellation_reason: components["schemas"]["portal_subscription_cancellation_reason"];
@@ -19237,6 +21893,7 @@ export interface components {
              * @enum {string}
              */
             proration_behavior: "always_invoice" | "create_prorations" | "none";
+            schedule_at_period_end: components["schemas"]["portal_resource_schedule_update_at_period_end"];
         };
         /** PortalSubscriptionUpdateProduct */
         portal_subscription_update_product: {
@@ -19267,7 +21924,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Prices defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
             currency_options?: {
@@ -19432,7 +22092,7 @@ export interface components {
         promotion_code: {
             /** @description Whether the promotion code is currently active. A promotion code is only active if the coupon is also valid. */
             active: boolean;
-            /** @description The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for each customer. */
+            /** @description The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for each customer. Valid characters are lower case letters (a-z), upper case letters (A-Z), and digits (0-9). */
             code: string;
             coupon: components["schemas"]["coupon"];
             /**
@@ -19909,7 +22569,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. You can use this for displaying to users (available on non-card refunds only). */
             description?: string;
@@ -19953,35 +22616,52 @@ export interface components {
             affirm?: components["schemas"]["destination_details_unimplemented"];
             afterpay_clearpay?: components["schemas"]["destination_details_unimplemented"];
             alipay?: components["schemas"]["destination_details_unimplemented"];
+            alma?: components["schemas"]["destination_details_unimplemented"];
             amazon_pay?: components["schemas"]["destination_details_unimplemented"];
             au_bank_transfer?: components["schemas"]["destination_details_unimplemented"];
-            blik?: components["schemas"]["refund_destination_details_generic"];
-            br_bank_transfer?: components["schemas"]["refund_destination_details_generic"];
+            blik?: components["schemas"]["refund_destination_details_blik"];
+            br_bank_transfer?: components["schemas"]["refund_destination_details_br_bank_transfer"];
             card?: components["schemas"]["refund_destination_details_card"];
             cashapp?: components["schemas"]["destination_details_unimplemented"];
             customer_cash_balance?: components["schemas"]["destination_details_unimplemented"];
             eps?: components["schemas"]["destination_details_unimplemented"];
-            eu_bank_transfer?: components["schemas"]["refund_destination_details_generic"];
-            gb_bank_transfer?: components["schemas"]["refund_destination_details_generic"];
+            eu_bank_transfer?: components["schemas"]["refund_destination_details_eu_bank_transfer"];
+            gb_bank_transfer?: components["schemas"]["refund_destination_details_gb_bank_transfer"];
             giropay?: components["schemas"]["destination_details_unimplemented"];
             grabpay?: components["schemas"]["destination_details_unimplemented"];
-            jp_bank_transfer?: components["schemas"]["refund_destination_details_generic"];
+            jp_bank_transfer?: components["schemas"]["refund_destination_details_jp_bank_transfer"];
             klarna?: components["schemas"]["destination_details_unimplemented"];
-            multibanco?: components["schemas"]["refund_destination_details_generic"];
-            mx_bank_transfer?: components["schemas"]["refund_destination_details_generic"];
-            p24?: components["schemas"]["refund_destination_details_generic"];
+            multibanco?: components["schemas"]["refund_destination_details_multibanco"];
+            mx_bank_transfer?: components["schemas"]["refund_destination_details_mx_bank_transfer"];
+            p24?: components["schemas"]["refund_destination_details_p24"];
             paynow?: components["schemas"]["destination_details_unimplemented"];
             paypal?: components["schemas"]["destination_details_unimplemented"];
             pix?: components["schemas"]["destination_details_unimplemented"];
             revolut?: components["schemas"]["destination_details_unimplemented"];
             sofort?: components["schemas"]["destination_details_unimplemented"];
-            swish?: components["schemas"]["refund_destination_details_generic"];
-            th_bank_transfer?: components["schemas"]["refund_destination_details_generic"];
+            swish?: components["schemas"]["refund_destination_details_swish"];
+            th_bank_transfer?: components["schemas"]["refund_destination_details_th_bank_transfer"];
             /** @description The type of transaction-specific details of the payment method used in the refund (e.g., `card`). An additional hash is included on `destination_details` with a name matching this value. It contains information specific to the refund transaction. */
             type: string;
-            us_bank_transfer?: components["schemas"]["refund_destination_details_generic"];
+            us_bank_transfer?: components["schemas"]["refund_destination_details_us_bank_transfer"];
             wechat_pay?: components["schemas"]["destination_details_unimplemented"];
             zip?: components["schemas"]["destination_details_unimplemented"];
+        };
+        /** refund_destination_details_blik */
+        refund_destination_details_blik: {
+            /** @description For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed. */
+            network_decline_code?: string | null;
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
+        };
+        /** refund_destination_details_br_bank_transfer */
+        refund_destination_details_br_bank_transfer: {
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
         };
         /** refund_destination_details_card */
         refund_destination_details_card: {
@@ -19997,8 +22677,66 @@ export interface components {
              */
             type: "pending" | "refund" | "reversal";
         };
-        /** refund_destination_details_generic */
-        refund_destination_details_generic: {
+        /** refund_destination_details_eu_bank_transfer */
+        refund_destination_details_eu_bank_transfer: {
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
+        };
+        /** refund_destination_details_gb_bank_transfer */
+        refund_destination_details_gb_bank_transfer: {
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
+        };
+        /** refund_destination_details_jp_bank_transfer */
+        refund_destination_details_jp_bank_transfer: {
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
+        };
+        /** refund_destination_details_multibanco */
+        refund_destination_details_multibanco: {
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
+        };
+        /** refund_destination_details_mx_bank_transfer */
+        refund_destination_details_mx_bank_transfer: {
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
+        };
+        /** refund_destination_details_p24 */
+        refund_destination_details_p24: {
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
+        };
+        /** refund_destination_details_swish */
+        refund_destination_details_swish: {
+            /** @description For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed. */
+            network_decline_code?: string | null;
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
+        };
+        /** refund_destination_details_th_bank_transfer */
+        refund_destination_details_th_bank_transfer: {
+            /** @description The reference assigned to the refund. */
+            reference?: string | null;
+            /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
+            reference_status?: string | null;
+        };
+        /** refund_destination_details_us_bank_transfer */
+        refund_destination_details_us_bank_transfer: {
             /** @description The reference assigned to the refund. */
             reference?: string | null;
             /** @description Status of the reference on the refund. This can be `pending`, `available` or `unavailable`. */
@@ -20006,8 +22744,7 @@ export interface components {
         };
         /** RefundNextAction */
         refund_next_action: {
-            /** @description Contains the refund details. */
-            display_details?: components["schemas"]["refund_next_action_display_details"] | null;
+            display_details?: components["schemas"]["refund_next_action_display_details"];
             /** @description Type of the next action to perform. */
             type: string;
         };
@@ -20112,7 +22849,10 @@ export interface components {
         /** ReserveTransaction */
         reserve_transaction: {
             amount: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -20173,6 +22913,15 @@ export interface components {
             /** @description Information related to the browsing session of the user who initiated the payment. */
             session?: components["schemas"]["radar_review_resource_session"] | null;
         };
+        /** revolut_pay_underlying_payment_method_funding_details */
+        revolut_pay_underlying_payment_method_funding_details: {
+            card?: components["schemas"]["payment_method_details_passthrough_card"];
+            /**
+             * @description funding type of the underlying payment method.
+             * @enum {string|null}
+             */
+            type?: "card" | null;
+        };
         /** RadarRule */
         rule: {
             /** @description The action taken on the payment. */
@@ -20226,6 +22975,11 @@ export interface components {
         };
         /** SchedulesPhaseAutomaticTax */
         schedules_phase_automatic_tax: {
+            /**
+             * @description If Stripe disabled automatic tax, this enum describes why.
+             * @enum {string|null}
+             */
+            disabled_reason?: "requires_location_inputs" | null;
             /** @description Whether Stripe automatically computes tax on invoices created during this phase. */
             enabled: boolean;
             /** @description The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account. */
@@ -20308,7 +23062,9 @@ export interface components {
             card_present?: components["schemas"]["setup_attempt_payment_method_details_card_present"];
             cashapp?: components["schemas"]["setup_attempt_payment_method_details_cashapp"];
             ideal?: components["schemas"]["setup_attempt_payment_method_details_ideal"];
+            kakao_pay?: components["schemas"]["setup_attempt_payment_method_details_kakao_pay"];
             klarna?: components["schemas"]["setup_attempt_payment_method_details_klarna"];
+            kr_card?: components["schemas"]["setup_attempt_payment_method_details_kr_card"];
             link?: components["schemas"]["setup_attempt_payment_method_details_link"];
             paypal?: components["schemas"]["setup_attempt_payment_method_details_paypal"];
             revolut_pay?: components["schemas"]["setup_attempt_payment_method_details_revolut_pay"];
@@ -20354,7 +23110,7 @@ export interface components {
         setup_attempt_payment_method_details_boleto: Record<string, never>;
         /** setup_attempt_payment_method_details_card */
         setup_attempt_payment_method_details_card: {
-            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             brand?: string | null;
             /** @description Check results by Card networks on Card address and CVC at the time of authorization */
             checks?: components["schemas"]["setup_attempt_payment_method_details_card_checks"] | null;
@@ -20372,7 +23128,7 @@ export interface components {
             funding?: string | null;
             /** @description The last four digits of the card. */
             last4?: string | null;
-            /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
+            /** @description Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`. */
             network?: string | null;
             /** @description Populated if this authorization used 3D Secure authentication. */
             three_d_secure?: components["schemas"]["three_d_secure_details"] | null;
@@ -20429,8 +23185,12 @@ export interface components {
              *     (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
             verified_name?: string | null;
         };
+        /** setup_attempt_payment_method_details_kakao_pay */
+        setup_attempt_payment_method_details_kakao_pay: Record<string, never>;
         /** setup_attempt_payment_method_details_klarna */
         setup_attempt_payment_method_details_klarna: Record<string, never>;
+        /** setup_attempt_payment_method_details_kr_card */
+        setup_attempt_payment_method_details_kr_card: Record<string, never>;
         /** setup_attempt_payment_method_details_link */
         setup_attempt_payment_method_details_link: Record<string, never>;
         /** setup_attempt_payment_method_details_paypal */
@@ -20547,7 +23307,7 @@ export interface components {
             on_behalf_of?: (string | components["schemas"]["account"]) | null;
             /** @description ID of the payment method used with this SetupIntent. If the payment method is `card_present` and isn't a digital wallet, then the [generated_card](https://docs.stripe.com/api/setup_attempts/object#setup_attempt_object-payment_method_details-card_present-generated_card) associated with the `latest_attempt` is attached to the Customer instead. */
             payment_method?: (string | components["schemas"]["payment_method"]) | null;
-            /** @description Information about the payment method configuration used for this Setup Intent. */
+            /** @description Information about the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) used for this Setup Intent. */
             payment_method_configuration_details?: components["schemas"]["payment_method_config_biz_payment_method_configuration_details"] | null;
             /** @description Payment method-specific configuration for this SetupIntent. */
             payment_method_options?: components["schemas"]["setup_intent_payment_method_options"] | null;
@@ -20637,7 +23397,7 @@ export interface components {
              * @description Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the setup intent. Can be only set confirm-time.
              * @enum {string|null}
              */
-            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
+            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
             /**
              * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
              * @enum {string|null}
@@ -20653,7 +23413,10 @@ export interface components {
              * @enum {string}
              */
             amount_type: "fixed" | "maximum";
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description A description of the mandate or subscription that is meant to be displayed to the customer. */
             description?: string | null;
@@ -20703,9 +23466,15 @@ export interface components {
             transaction_type?: "business" | "personal" | null;
         };
         /** setup_intent_payment_method_options_mandate_options_bacs_debit */
-        setup_intent_payment_method_options_mandate_options_bacs_debit: Record<string, never>;
+        setup_intent_payment_method_options_mandate_options_bacs_debit: {
+            /** @description Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'. */
+            reference_prefix?: string;
+        };
         /** setup_intent_payment_method_options_mandate_options_sepa_debit */
-        setup_intent_payment_method_options_mandate_options_sepa_debit: Record<string, never>;
+        setup_intent_payment_method_options_mandate_options_sepa_debit: {
+            /** @description Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'. */
+            reference_prefix?: string;
+        };
         /** setup_intent_payment_method_options_paypal */
         setup_intent_payment_method_options_paypal: {
             /** @description The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer. */
@@ -20820,7 +23589,10 @@ export interface components {
         shipping_rate_fixed_amount: {
             /** @description A non-negative integer in cents representing how much to charge. */
             amount: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
             currency_options?: {
@@ -20850,6 +23622,11 @@ export interface components {
             ach_debit?: components["schemas"]["source_type_ach_debit"];
             acss_debit?: components["schemas"]["source_type_acss_debit"];
             alipay?: components["schemas"]["source_type_alipay"];
+            /**
+             * @description This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
+             * @enum {string|null}
+             */
+            allow_redisplay?: "always" | "limited" | "unspecified" | null;
             /** @description A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount associated with the source. This is the amount for which the source will be chargeable once ready. Required for `single_use` sources. */
             amount?: number | null;
             au_becs_debit?: components["schemas"]["source_type_au_becs_debit"];
@@ -20864,7 +23641,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) associated with the source. This is the currency for which the source will be chargeable once ready. Required for `single_use` sources. */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) associated with the source. This is the currency for which the source will be chargeable once ready. Required for `single_use` sources.
+             */
             currency?: string | null;
             /** @description The ID of the customer to which this source is attached. This will not be present when the source has not been attached to a customer. */
             customer?: string;
@@ -20974,7 +23754,10 @@ export interface components {
         source_order: {
             /** @description A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount for the order. */
             amount: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description The email address of the customer placing the order. */
             email?: string;
@@ -21059,7 +23842,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             gbp_credit_transfer?: components["schemas"]["source_transaction_gbp_credit_transfer_data"];
             /** @description Unique identifier for the object. */
@@ -21375,7 +24161,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /**
              * Format: unix-time
@@ -21448,7 +24237,7 @@ export interface components {
             object: "subscription";
             /** @description The account (if any) the charge was made on behalf of for charges associated with this subscription. See the Connect documentation for details. */
             on_behalf_of?: (string | components["schemas"]["account"]) | null;
-            /** @description If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](/billing/subscriptions/pause-payment). */
+            /** @description If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment). */
             pause_collection?: components["schemas"]["subscriptions_resource_pause_collection"] | null;
             /** @description Payment settings passed on to invoices created by the subscription. */
             payment_settings?: components["schemas"]["subscriptions_resource_payment_settings"] | null;
@@ -21472,7 +24261,7 @@ export interface components {
              *
              *     A subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.
              *
-             *     A subscription can only enter a `paused` status [when a trial ends without a payment method](/billing/subscriptions/trials#create-free-trials-without-payment). A `paused` subscription doesn't generate invoices and can be resumed after your customer adds their payment method. The `paused` status is different from [pausing collection](/billing/subscriptions/pause-payment), which still generates invoices and leaves the subscription's status unchanged.
+             *     A subscription can only enter a `paused` status [when a trial ends without a payment method](https://stripe.com/docs/billing/subscriptions/trials#create-free-trials-without-payment). A `paused` subscription doesn't generate invoices and can be resumed after your customer adds their payment method. The `paused` status is different from [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment), which still generates invoices and leaves the subscription's status unchanged.
              *
              *     If subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings).
              *
@@ -21499,6 +24288,11 @@ export interface components {
         };
         /** SubscriptionAutomaticTax */
         subscription_automatic_tax: {
+            /**
+             * @description If Stripe disabled automatic tax, this enum describes why.
+             * @enum {string|null}
+             */
+            disabled_reason?: "requires_location_inputs" | null;
             /** @description Whether Stripe automatically computes tax on this subscription. */
             enabled: boolean;
             /** @description The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account. */
@@ -21562,7 +24356,7 @@ export interface components {
              * @description Selected network to process this Subscription on. Depends on the available networks of the card attached to the Subscription. Can be only set confirm-time.
              * @enum {string|null}
              */
-            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
+            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa" | null;
             /**
              * @description We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
              * @enum {string|null}
@@ -21716,7 +24510,10 @@ export interface components {
             collection_method?: "charge_automatically" | "send_invoice" | null;
             /** @description ID of the coupon to use during this phase of the subscription schedule. */
             coupon?: (string | components["schemas"]["coupon"] | components["schemas"]["deleted_coupon"]) | null;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings. */
             default_payment_method?: (string | components["schemas"]["payment_method"]) | null;
@@ -21788,6 +24585,11 @@ export interface components {
         };
         /** SubscriptionSchedulesResourceDefaultSettingsAutomaticTax */
         subscription_schedules_resource_default_settings_automatic_tax: {
+            /**
+             * @description If Stripe disabled automatic tax, this enum describes why.
+             * @enum {string|null}
+             */
+            disabled_reason?: "requires_location_inputs" | null;
             /** @description Whether Stripe automatically computes tax on invoices created during this phase. */
             enabled: boolean;
             /** @description The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account. */
@@ -21852,7 +24654,7 @@ export interface components {
             /** @description Payment-method-specific configuration to provide to invoices created by the subscription. */
             payment_method_options?: components["schemas"]["subscriptions_resource_payment_method_options"] | null;
             /** @description The list of payment method types to provide to every invoice created by the subscription. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice’s default payment method, the subscription’s default payment method, the customer’s default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). */
-            payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "multibanco" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | null;
+            payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "jp_credit_transfer" | "kakao_pay" | "konbini" | "kr_card" | "link" | "multibanco" | "naver_pay" | "p24" | "payco" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_credit_transfer" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | null;
             /**
              * @description Configure whether Stripe updates `subscription.default_payment_method` when payment succeeds. Defaults to `off`.
              * @enum {string|null}
@@ -22061,7 +24863,7 @@ export interface components {
              */
             object: "tax.settings";
             /**
-             * @description The `active` status indicates you have all required settings to calculate tax. A status can transition out of `active` when new required settings are introduced.
+             * @description The status of the Tax `Settings`.
              * @enum {string}
              */
             status: "active" | "pending";
@@ -22260,10 +25062,10 @@ export interface components {
             /** @description The account or customer the tax ID belongs to. */
             owner?: components["schemas"]["tax_i_ds_owner"] | null;
             /**
-             * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`. Note that some legacy tax IDs have type `unknown`
+             * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `ba_tin`, `bb_tin`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kh_tin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`. Note that some legacy tax IDs have type `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
             /** @description Value of the tax ID. */
             value: string;
             /** @description Tax ID verification information. */
@@ -22284,19 +25086,29 @@ export interface components {
         /** TaxProductRegistrationsResourceCountryOptions */
         tax_product_registrations_resource_country_options: {
             ae?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            al?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            am?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
+            ao?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             at?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             au?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            ba?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            bb?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             be?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             bg?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             bh?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            bs?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            by?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             ca?: components["schemas"]["tax_product_registrations_resource_country_options_canada"];
+            cd?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             ch?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             cl?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             co?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
+            cr?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             cy?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             cz?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             de?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             dk?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
+            ec?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             ee?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             eg?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             es?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
@@ -22304,6 +25116,7 @@ export interface components {
             fr?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             gb?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             ge?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
+            gn?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             gr?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             hr?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             hu?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
@@ -22313,32 +25126,51 @@ export interface components {
             it?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             jp?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             ke?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
+            kh?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             kr?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             kz?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             lt?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             lu?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             lv?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
+            ma?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
+            md?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
+            me?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            mk?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            mr?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             mt?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             mx?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             my?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             ng?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             nl?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             no?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            np?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             nz?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             om?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            pe?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             pl?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             pt?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             ro?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
+            rs?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            ru?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             sa?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             se?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             sg?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             si?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
             sk?: components["schemas"]["tax_product_registrations_resource_country_options_europe"];
+            sn?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
+            sr?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
             th?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
+            tj?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             tr?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
+            tz?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
+            ug?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             us?: components["schemas"]["tax_product_registrations_resource_country_options_united_states"];
+            uy?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            uz?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             vn?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
             za?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
+            zm?: components["schemas"]["tax_product_registrations_resource_country_options_simplified"];
+            zw?: components["schemas"]["tax_product_registrations_resource_country_options_default"];
         };
         /** TaxProductRegistrationsResourceCountryOptionsCaProvinceStandard */
         tax_product_registrations_resource_country_options_ca_province_standard: {
@@ -22398,7 +25230,7 @@ export interface components {
              * @description Type of registration in the US.
              * @enum {string}
              */
-            type: "local_amusement_tax" | "local_lease_tax" | "state_communications_tax" | "state_sales_tax";
+            type: "local_amusement_tax" | "local_lease_tax" | "state_communications_tax" | "state_retail_delivery_fee" | "state_sales_tax";
         };
         /** TaxProductRegistrationsResourceCountryOptionsUsLocalAmusementTax */
         tax_product_registrations_resource_country_options_us_local_amusement_tax: {
@@ -22447,10 +25279,10 @@ export interface components {
         /** TaxProductResourceCustomerDetailsResourceTaxId */
         tax_product_resource_customer_details_resource_tax_id: {
             /**
-             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, or `unknown`
+             * @description The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, or `unknown`
              * @enum {string}
              */
-            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "unknown" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+            type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "unknown" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
             /** @description The value of the tax ID. */
             value: string;
         };
@@ -22498,7 +25330,7 @@ export interface components {
              * @description The tax type, such as `vat` or `sales_tax`.
              * @enum {string}
              */
-            tax_type: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
+            tax_type: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "service_tax" | "vat";
         };
         /** TaxProductResourcePostalAddress */
         tax_product_resource_postal_address: {
@@ -22556,15 +25388,22 @@ export interface components {
         tax_product_resource_tax_rate_details: {
             /** @description Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)). */
             country?: string | null;
+            /** @description The amount of the tax rate when the `rate_type` is `flat_amount`. Tax rates with `rate_type` `percentage` can vary based on the transaction, resulting in this field being `null`. This field exposes the amount and currency of the flat tax rate. */
+            flat_amount?: components["schemas"]["tax_rate_flat_amount"] | null;
             /** @description The tax rate percentage as a string. For example, 8.5% is represented as `"8.5"`. */
             percentage_decimal: string;
+            /**
+             * @description Indicates the type of tax rate applied to the taxable amount. This value can be `null` when no tax applies to the location.
+             * @enum {string|null}
+             */
+            rate_type?: "flat_amount" | "percentage" | null;
             /** @description State, county, province, or region. */
             state?: string | null;
             /**
              * @description The tax type, such as `vat` or `sales_tax`.
              * @enum {string|null}
              */
-            tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat" | null;
+            tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "service_tax" | "vat" | null;
         };
         /** TaxProductResourceTaxSettingsDefaults */
         tax_product_resource_tax_settings_defaults: {
@@ -22642,6 +25481,8 @@ export interface components {
              *     this percentage reflects the rate actually used to calculate tax based on the product's taxability
              *     and whether the user is registered to collect taxes in the corresponding jurisdiction. */
             effective_percentage?: number | null;
+            /** @description The amount of the tax rate when the `rate_type` is `flat_amount`. Tax rates with `rate_type` `percentage` can vary based on the transaction, resulting in this field being `null`. This field exposes the amount and currency of the flat tax rate. */
+            flat_amount?: components["schemas"]["tax_rate_flat_amount"] | null;
             /** @description Unique identifier for the object. */
             id: string;
             /** @description This specifies if the tax rate is inclusive or exclusive. */
@@ -22666,13 +25507,28 @@ export interface components {
             object: "tax_rate";
             /** @description Tax rate percentage out of 100. For tax calculations with automatic_tax[enabled]=true, this percentage includes the statutory tax rate of non-taxable jurisdictions. */
             percentage: number;
+            /**
+             * @description Indicates the type of tax rate applied to the taxable amount. This value can be `null` when no tax applies to the location.
+             * @enum {string|null}
+             */
+            rate_type?: "flat_amount" | "percentage" | null;
             /** @description [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States. */
             state?: string | null;
             /**
              * @description The high-level tax type, such as `vat` or `sales_tax`.
              * @enum {string|null}
              */
-            tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat" | null;
+            tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "service_tax" | "vat" | null;
+        };
+        /**
+         * TaxRateFlatAmount
+         * @description The amount of the tax rate when the `rate_type`` is `flat_amount`. Tax rates with `rate_type` `percentage` can vary based on the transaction, resulting in this field being `null`. This field exposes the amount and currency of the flat tax rate.
+         */
+        tax_rate_flat_amount: {
+            /** @description Amount of the tax when the `rate_type` is `flat_amount`. This positive integer represents how much to charge in the smallest currency unit (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99). */
+            amount: number;
+            /** @description Three-letter ISO currency code, in lowercase. */
+            currency: string;
         };
         /**
          * TerminalConfigurationConfiguration
@@ -22824,6 +25680,7 @@ export interface components {
             myr?: components["schemas"]["terminal_configuration_configuration_resource_currency_specific_config"];
             nok?: components["schemas"]["terminal_configuration_configuration_resource_currency_specific_config"];
             nzd?: components["schemas"]["terminal_configuration_configuration_resource_currency_specific_config"];
+            pln?: components["schemas"]["terminal_configuration_configuration_resource_currency_specific_config"];
             sek?: components["schemas"]["terminal_configuration_configuration_resource_currency_specific_config"];
             sgd?: components["schemas"]["terminal_configuration_configuration_resource_currency_specific_config"];
             usd?: components["schemas"]["terminal_configuration_configuration_resource_currency_specific_config"];
@@ -22833,7 +25690,10 @@ export interface components {
          * @description Represents a cart to be displayed on the reader
          */
         terminal_reader_reader_resource_cart: {
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description List of line items in the cart. */
             line_items: components["schemas"]["terminal_reader_reader_resource_line_item"][];
@@ -23095,16 +25955,20 @@ export interface components {
             /** @description Whether 3D Secure is supported on this card. */
             supported: boolean;
         };
-        /** ThresholdsResourceAlertFilter */
-        thresholds_resource_alert_filter: {
+        /** ThresholdsResourceUsageAlertFilter */
+        thresholds_resource_usage_alert_filter: {
             /** @description Limit the scope of the alert to this customer ID */
             customer?: (string | components["schemas"]["customer"]) | null;
+            /** @enum {string} */
+            type: "customer";
         };
         /**
          * ThresholdsResourceUsageThresholdConfig
          * @description The usage threshold alert configuration enables setting up alerts for when a certain usage threshold on a specific meter is crossed.
          */
         thresholds_resource_usage_threshold_config: {
+            /** @description The filters allow limiting the scope of this usage alert. You can only specify up to one filter at this time. */
+            filters?: components["schemas"]["thresholds_resource_usage_alert_filter"][] | null;
             /** @description The value at which this alert will trigger. */
             gte: number;
             /** @description The [Billing Meter](/api/billing/meter) ID whose usage is monitored. */
@@ -23245,7 +26109,10 @@ export interface components {
              * @description Time that this record of the transfer was first created.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -23327,7 +26194,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description Linked payment refund for the transfer reversal. */
             destination_payment_refund?: (string | components["schemas"]["refund"]) | null;
@@ -23390,7 +26260,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description The FinancialAccount to reverse funds from. */
             financial_account: string;
@@ -23437,7 +26310,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description The FinancialAccount to reverse funds from. */
             financial_account?: string | null;
@@ -23513,7 +26389,7 @@ export interface components {
             /** @description The array of paths to restricted Features in the Features hash. */
             restricted_features?: ("card_issuing" | "deposit_insurance" | "financial_addresses.aba" | "financial_addresses.aba.forwarding" | "inbound_transfers.ach" | "intra_stripe_flows" | "outbound_payments.ach" | "outbound_payments.us_domestic_wire" | "outbound_transfers.ach" | "outbound_transfers.us_domestic_wire" | "remote_deposit_capture")[];
             /**
-             * @description The enum specifying what state the account is in.
+             * @description Status of this FinancialAccount.
              * @enum {string}
              */
             status: "closed" | "open";
@@ -23556,7 +26432,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -23581,7 +26460,7 @@ export interface components {
              */
             object: "treasury.inbound_transfer";
             /** @description The origin payment method to be debited for an InboundTransfer. */
-            origin_payment_method: string;
+            origin_payment_method?: string | null;
             /** @description Details about the PaymentMethod for an InboundTransfer. */
             origin_payment_method_details?: components["schemas"]["inbound_transfers"] | null;
             /** @description Returns `true` if the funds for an InboundTransfer were returned after the InboundTransfer went to the `succeeded` state. */
@@ -23615,7 +26494,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description ID of the [customer](https://stripe.com/docs/api/customers) to whom an OutboundPayment is sent. */
             customer?: string | null;
@@ -23682,7 +26564,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -23738,7 +26623,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description: string;
@@ -23746,7 +26634,7 @@ export interface components {
              * @description Reason for the failure. A ReceivedCredit might fail because the receiving FinancialAccount is closed or frozen.
              * @enum {string|null}
              */
-            failure_code?: "account_closed" | "account_frozen" | "other" | null;
+            failure_code?: "account_closed" | "account_frozen" | "international_transaction" | "other" | null;
             /** @description The FinancialAccount that received the funds. */
             financial_account?: string | null;
             /** @description A [hosted transaction receipt](https://stripe.com/docs/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses. */
@@ -23789,7 +26677,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description: string;
@@ -23841,7 +26732,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description: string;
@@ -23900,7 +26794,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+            /**
+             * Format: currency
+             * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+             */
             currency: string;
             /**
              * Format: unix-time
@@ -23967,21 +26864,6 @@ export interface components {
             status_details: components["schemas"]["treasury_financial_accounts_resource_toggles_setting_status_details"][];
         };
         /**
-         * TreasuryFinancialAccountsResourceAchToggleSettings
-         * @description Toggle settings for enabling/disabling an ACH specific feature
-         */
-        treasury_financial_accounts_resource_ach_toggle_settings: {
-            /** @description Whether the FinancialAccount should have the Feature. */
-            requested: boolean;
-            /**
-             * @description Whether the Feature is operational.
-             * @enum {string}
-             */
-            status: "active" | "pending" | "restricted";
-            /** @description Additional details; includes at least one entry when the status is not `active`. */
-            status_details: components["schemas"]["treasury_financial_accounts_resource_toggles_setting_status_details"][];
-        };
-        /**
          * TreasuryFinancialAccountsResourceBalance
          * @description Balance information for the FinancialAccount
          */
@@ -24026,18 +26908,48 @@ export interface components {
             aba?: components["schemas"]["treasury_financial_accounts_resource_aba_toggle_settings"];
         };
         /**
+         * TreasuryFinancialAccountsResourceInboundAchToggleSettings
+         * @description Toggle settings for enabling/disabling an inbound ACH specific feature
+         */
+        treasury_financial_accounts_resource_inbound_ach_toggle_settings: {
+            /** @description Whether the FinancialAccount should have the Feature. */
+            requested: boolean;
+            /**
+             * @description Whether the Feature is operational.
+             * @enum {string}
+             */
+            status: "active" | "pending" | "restricted";
+            /** @description Additional details; includes at least one entry when the status is not `active`. */
+            status_details: components["schemas"]["treasury_financial_accounts_resource_toggles_setting_status_details"][];
+        };
+        /**
          * TreasuryFinancialAccountsResourceInboundTransfers
          * @description InboundTransfers contains inbound transfers features for a FinancialAccount.
          */
         treasury_financial_accounts_resource_inbound_transfers: {
-            ach?: components["schemas"]["treasury_financial_accounts_resource_ach_toggle_settings"];
+            ach?: components["schemas"]["treasury_financial_accounts_resource_inbound_ach_toggle_settings"];
+        };
+        /**
+         * TreasuryFinancialAccountsResourceOutboundAchToggleSettings
+         * @description Toggle settings for enabling/disabling an outbound ACH specific feature
+         */
+        treasury_financial_accounts_resource_outbound_ach_toggle_settings: {
+            /** @description Whether the FinancialAccount should have the Feature. */
+            requested: boolean;
+            /**
+             * @description Whether the Feature is operational.
+             * @enum {string}
+             */
+            status: "active" | "pending" | "restricted";
+            /** @description Additional details; includes at least one entry when the status is not `active`. */
+            status_details: components["schemas"]["treasury_financial_accounts_resource_toggles_setting_status_details"][];
         };
         /**
          * TreasuryFinancialAccountsResourceOutboundPayments
          * @description Settings related to Outbound Payments features on a Financial Account
          */
         treasury_financial_accounts_resource_outbound_payments: {
-            ach?: components["schemas"]["treasury_financial_accounts_resource_ach_toggle_settings"];
+            ach?: components["schemas"]["treasury_financial_accounts_resource_outbound_ach_toggle_settings"];
             us_domestic_wire?: components["schemas"]["treasury_financial_accounts_resource_toggle_settings"];
         };
         /**
@@ -24045,7 +26957,7 @@ export interface components {
          * @description OutboundTransfers contains outbound transfers features for a FinancialAccount.
          */
         treasury_financial_accounts_resource_outbound_transfers: {
-            ach?: components["schemas"]["treasury_financial_accounts_resource_ach_toggle_settings"];
+            ach?: components["schemas"]["treasury_financial_accounts_resource_outbound_ach_toggle_settings"];
             us_domestic_wire?: components["schemas"]["treasury_financial_accounts_resource_toggle_settings"];
         };
         /**
@@ -24455,7 +27367,10 @@ export interface components {
              */
             timestamp: number;
         };
-        /** UsageRecordSummary */
+        /**
+         * UsageRecordSummary
+         * @description A usage record summary represents an aggregated view of how much usage was accrued for a subscription item within a subscription billing period.
+         */
         usage_record_summary: {
             /** @description Unique identifier for the object. */
             id: string;
@@ -24655,6 +27570,7 @@ export interface operations {
                             enabled: boolean;
                             /** account_features_param */
                             features?: {
+                                disable_stripe_user_authentication?: boolean;
                                 external_account_collection?: boolean;
                             };
                         };
@@ -24663,6 +27579,7 @@ export interface operations {
                             enabled: boolean;
                             /** account_features_param */
                             features?: {
+                                disable_stripe_user_authentication?: boolean;
                                 external_account_collection?: boolean;
                             };
                         };
@@ -24671,6 +27588,7 @@ export interface operations {
                             enabled: boolean;
                             /** payouts_features_param */
                             features?: {
+                                disable_stripe_user_authentication?: boolean;
                                 edit_payout_schedule?: boolean;
                                 external_account_collection?: boolean;
                                 instant_payouts?: boolean;
@@ -24688,6 +27606,7 @@ export interface operations {
                             enabled: boolean;
                             /** account_features_param */
                             features?: {
+                                disable_stripe_user_authentication?: boolean;
                                 external_account_collection?: boolean;
                             };
                         };
@@ -24718,6 +27637,7 @@ export interface operations {
                             enabled: boolean;
                             /** payouts_features_param */
                             features?: {
+                                disable_stripe_user_authentication?: boolean;
                                 edit_payout_schedule?: boolean;
                                 external_account_collection?: boolean;
                                 instant_payouts?: boolean;
@@ -24850,6 +27770,7 @@ export interface operations {
                         /** @enum {string} */
                         account_type?: "checking" | "futsu" | "savings" | "toza";
                         country: string;
+                        /** Format: currency */
                         currency?: string;
                         /** external_account_documents_param */
                         documents?: {
@@ -24870,6 +27791,7 @@ export interface operations {
                         /** annual_revenue_specs */
                         annual_revenue?: {
                             amount: number;
+                            /** Format: currency */
                             currency: string;
                             fiscal_year_end: string;
                         };
@@ -24878,6 +27800,7 @@ export interface operations {
                         /** monthly_estimated_revenue_specs */
                         monthly_estimated_revenue?: {
                             amount: number;
+                            /** Format: currency */
                             currency: string;
                         };
                         name?: string;
@@ -24923,6 +27846,10 @@ export interface operations {
                         };
                         /** capability_param */
                         afterpay_clearpay_payments?: {
+                            requested?: boolean;
+                        };
+                        /** capability_param */
+                        alma_payments?: {
                             requested?: boolean;
                         };
                         /** capability_param */
@@ -25006,11 +27933,19 @@ export interface operations {
                             requested?: boolean;
                         };
                         /** capability_param */
+                        kakao_pay_payments?: {
+                            requested?: boolean;
+                        };
+                        /** capability_param */
                         klarna_payments?: {
                             requested?: boolean;
                         };
                         /** capability_param */
                         konbini_payments?: {
+                            requested?: boolean;
+                        };
+                        /** capability_param */
+                        kr_card_payments?: {
                             requested?: boolean;
                         };
                         /** capability_param */
@@ -25034,11 +27969,19 @@ export interface operations {
                             requested?: boolean;
                         };
                         /** capability_param */
+                        naver_pay_payments?: {
+                            requested?: boolean;
+                        };
+                        /** capability_param */
                         oxxo_payments?: {
                             requested?: boolean;
                         };
                         /** capability_param */
                         p24_payments?: {
+                            requested?: boolean;
+                        };
+                        /** capability_param */
+                        payco_payments?: {
                             requested?: boolean;
                         };
                         /** capability_param */
@@ -25051,6 +27994,10 @@ export interface operations {
                         };
                         /** capability_param */
                         revolut_pay_payments?: {
+                            requested?: boolean;
+                        };
+                        /** capability_param */
+                        samsung_pay_payments?: {
                             requested?: boolean;
                         };
                         /** capability_param */
@@ -25192,7 +28139,10 @@ export interface operations {
                     };
                     /** @description The country in which the account holder resides, or in which the business is legally established. This should be an ISO 3166-1 alpha-2 country code. For example, if you are in the United States and the business for which you're creating an account is legally represented in Canada, you would use `CA` as the country for the account being created. Available countries include [Stripe's global markets](https://stripe.com/global) as well as countries where [cross-border payouts](https://stripe.com/docs/connect/cross-border-payouts) are supported. */
                     country?: string;
-                    /** @description Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://docs.stripe.com/payouts). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://docs.stripe.com/payouts).
+                     */
                     default_currency?: string;
                     /**
                      * documents_specs
@@ -25234,6 +28184,13 @@ export interface operations {
                     expand?: string[];
                     /** @description A card or bank account to attach to the account for receiving [payouts](/connect/bank-debit-card-payouts) (you won’t be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](/js), or a dictionary, as documented in the `external_account` parameter for [bank account](/api#account_create_bank_account) creation. <br><br>By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](/api#account_create_bank_account) or [card creation](/api#account_create_card) APIs. After you create an [Account Link](/api/account_links) or [Account Session](/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. */
                     external_account?: string;
+                    /**
+                     * account_groups_specs
+                     * @description A hash of account group type to tokens. These are account groups this account should be added to.
+                     */
+                    groups?: {
+                        payments_pricing?: string | "";
+                    };
                     /**
                      * individual_specs
                      * @description Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](/api/account_links) or [Account Session](/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
@@ -25488,13 +28445,14 @@ export interface operations {
                     /** @description An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account. */
                     account_token?: string;
                     /**
-                     * business_profile_specs
+                     * business_profile_update_specs
                      * @description Business information about the account.
                      */
                     business_profile?: {
                         /** annual_revenue_specs */
                         annual_revenue?: {
                             amount: number;
+                            /** Format: currency */
                             currency: string;
                             fiscal_year_end: string;
                         };
@@ -25503,6 +28461,7 @@ export interface operations {
                         /** monthly_estimated_revenue_specs */
                         monthly_estimated_revenue?: {
                             amount: number;
+                            /** Format: currency */
                             currency: string;
                         };
                         name?: string;
@@ -25548,6 +28507,10 @@ export interface operations {
                         };
                         /** capability_param */
                         afterpay_clearpay_payments?: {
+                            requested?: boolean;
+                        };
+                        /** capability_param */
+                        alma_payments?: {
                             requested?: boolean;
                         };
                         /** capability_param */
@@ -25631,11 +28594,19 @@ export interface operations {
                             requested?: boolean;
                         };
                         /** capability_param */
+                        kakao_pay_payments?: {
+                            requested?: boolean;
+                        };
+                        /** capability_param */
                         klarna_payments?: {
                             requested?: boolean;
                         };
                         /** capability_param */
                         konbini_payments?: {
+                            requested?: boolean;
+                        };
+                        /** capability_param */
+                        kr_card_payments?: {
                             requested?: boolean;
                         };
                         /** capability_param */
@@ -25659,11 +28630,19 @@ export interface operations {
                             requested?: boolean;
                         };
                         /** capability_param */
+                        naver_pay_payments?: {
+                            requested?: boolean;
+                        };
+                        /** capability_param */
                         oxxo_payments?: {
                             requested?: boolean;
                         };
                         /** capability_param */
                         p24_payments?: {
+                            requested?: boolean;
+                        };
+                        /** capability_param */
+                        payco_payments?: {
                             requested?: boolean;
                         };
                         /** capability_param */
@@ -25676,6 +28655,10 @@ export interface operations {
                         };
                         /** capability_param */
                         revolut_pay_payments?: {
+                            requested?: boolean;
+                        };
+                        /** capability_param */
+                        samsung_pay_payments?: {
                             requested?: boolean;
                         };
                         /** capability_param */
@@ -25728,7 +28711,7 @@ export interface operations {
                         };
                     };
                     /**
-                     * company_specs
+                     * company_update_specs
                      * @description Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](/api/account_links) or [Account Session](/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
                      */
                     company?: {
@@ -25792,7 +28775,10 @@ export interface operations {
                             };
                         };
                     };
-                    /** @description Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://docs.stripe.com/payouts). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://docs.stripe.com/payouts).
+                     */
                     default_currency?: string;
                     /**
                      * documents_specs
@@ -25835,7 +28821,14 @@ export interface operations {
                     /** @description A card or bank account to attach to the account for receiving [payouts](/connect/bank-debit-card-payouts) (you won’t be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](/js), or a dictionary, as documented in the `external_account` parameter for [bank account](/api#account_create_bank_account) creation. <br><br>By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](/api#account_create_bank_account) or [card creation](/api#account_create_card) APIs. After you create an [Account Link](/api/account_links) or [Account Session](/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. */
                     external_account?: string;
                     /**
-                     * individual_specs
+                     * account_groups_specs
+                     * @description A hash of account group type to tokens. These are account groups this account should be added to.
+                     */
+                    groups?: {
+                        payments_pricing?: string | "";
+                    };
+                    /**
+                     * individual_update_specs
                      * @description Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](/api/account_links) or [Account Session](/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
                      */
                     individual?: {
@@ -26090,6 +29083,7 @@ export interface operations {
                         /** @enum {string} */
                         account_type?: "checking" | "futsu" | "savings" | "toza";
                         country: string;
+                        /** Format: currency */
                         currency?: string;
                         /** external_account_documents_param */
                         documents?: {
@@ -26506,6 +29500,7 @@ export interface operations {
                         /** @enum {string} */
                         account_type?: "checking" | "futsu" | "savings" | "toza";
                         country: string;
+                        /** Format: currency */
                         currency?: string;
                         /** external_account_documents_param */
                         documents?: {
@@ -26761,6 +29756,7 @@ export interface operations {
                 limit?: number;
                 /** @description Filters on the list of people returned based on the person's relationship to the account's company. */
                 relationship?: {
+                    authorizer?: boolean;
                     director?: boolean;
                     executive?: boolean;
                     legal_guardian?: boolean;
@@ -26955,6 +29951,7 @@ export interface operations {
                      * @description The relationship that this person has with the account's legal entity.
                      */
                     relationship?: {
+                        authorizer?: boolean;
                         director?: boolean;
                         executive?: boolean;
                         legal_guardian?: boolean;
@@ -27187,6 +30184,7 @@ export interface operations {
                      * @description The relationship that this person has with the account's legal entity.
                      */
                     relationship?: {
+                        authorizer?: boolean;
                         director?: boolean;
                         executive?: boolean;
                         legal_guardian?: boolean;
@@ -27284,6 +30282,7 @@ export interface operations {
                 limit?: number;
                 /** @description Filters on the list of people returned based on the person's relationship to the account's company. */
                 relationship?: {
+                    authorizer?: boolean;
                     director?: boolean;
                     executive?: boolean;
                     legal_guardian?: boolean;
@@ -27478,6 +30477,7 @@ export interface operations {
                      * @description The relationship that this person has with the account's legal entity.
                      */
                     relationship?: {
+                        authorizer?: boolean;
                         director?: boolean;
                         executive?: boolean;
                         legal_guardian?: boolean;
@@ -27710,6 +30710,7 @@ export interface operations {
                      * @description The relationship that this person has with the account's legal entity.
                      */
                     relationship?: {
+                        authorizer?: boolean;
                         director?: boolean;
                         executive?: boolean;
                         legal_guardian?: boolean;
@@ -28586,7 +31587,7 @@ export interface operations {
                 source?: string;
                 /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
                 starting_after?: string;
-                /** @description Only returns transactions of the given type. One of: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `climate_order_purchase`, `climate_order_refund`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_outbound`, `obligation_reversal_inbound`, `payment`, `payment_failure_refund`, `payment_network_reserve_hold`, `payment_network_reserve_release`, `payment_refund`, `payment_reversal`, `payment_unreconciled`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. */
+                /** @description Only returns transactions of the given type. One of: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `climate_order_purchase`, `climate_order_refund`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_outbound`, `obligation_reversal_inbound`, `payment`, `payment_failure_refund`, `payment_network_reserve_hold`, `payment_network_reserve_release`, `payment_refund`, `payment_reversal`, `payment_unreconciled`, `payout`, `payout_cancel`, `payout_failure`, `payout_minimum_balance_hold`, `payout_minimum_balance_release`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. */
                 type?: string;
             };
             header?: never;
@@ -28692,7 +31693,7 @@ export interface operations {
                 source?: string;
                 /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
                 starting_after?: string;
-                /** @description Only returns transactions of the given type. One of: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `climate_order_purchase`, `climate_order_refund`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_outbound`, `obligation_reversal_inbound`, `payment`, `payment_failure_refund`, `payment_network_reserve_hold`, `payment_network_reserve_release`, `payment_refund`, `payment_reversal`, `payment_unreconciled`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. */
+                /** @description Only returns transactions of the given type. One of: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `climate_order_purchase`, `climate_order_refund`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_outbound`, `obligation_reversal_inbound`, `payment`, `payment_failure_refund`, `payment_network_reserve_hold`, `payment_network_reserve_release`, `payment_refund`, `payment_reversal`, `payment_unreconciled`, `payout`, `payout_cancel`, `payout_failure`, `payout_minimum_balance_hold`, `payout_minimum_balance_release`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`. */
                 type?: string;
             };
             header?: never;
@@ -28848,22 +31849,18 @@ export interface operations {
                     alert_type: "usage_threshold";
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
-                    /**
-                     * alert_filter
-                     * @description Filters to limit the scope of an alert.
-                     */
-                    filter?: {
-                        customer?: string;
-                        subscription?: string;
-                        subscription_item?: string;
-                    };
                     /** @description The title of the alert. */
                     title: string;
                     /**
                      * usage_threshold_config
                      * @description The configuration of the usage threshold.
                      */
-                    usage_threshold_config?: {
+                    usage_threshold?: {
+                        filters?: {
+                            customer?: string;
+                            /** @enum {string} */
+                            type: "customer";
+                        }[];
                         gte: number;
                         meter?: string;
                         /** @enum {string} */
@@ -29045,6 +32042,452 @@ export interface operations {
             };
         };
     };
+    GetBillingCreditBalanceSummary: {
+        parameters: {
+            query: {
+                /** @description The customer for which to fetch credit balance summary. */
+                customer: string;
+                /** @description Specifies which fields in the response should be expanded. */
+                expand?: string[];
+                /** @description The filter criteria for the credit balance summary. */
+                filter: {
+                    /** scope_param */
+                    applicability_scope?: {
+                        /** @enum {string} */
+                        price_type: "metered";
+                    };
+                    credit_grant?: string;
+                    /** @enum {string} */
+                    type: "applicability_scope" | "credit_grant";
+                };
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": Record<string, never>;
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["billing.credit_balance_summary"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    GetBillingCreditBalanceTransactions: {
+        parameters: {
+            query: {
+                /** @description The credit grant for which to fetch credit balance transactions. */
+                credit_grant?: string;
+                /** @description The customer for which to fetch credit balance transactions. */
+                customer: string;
+                /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
+                ending_before?: string;
+                /** @description Specifies which fields in the response should be expanded. */
+                expand?: string[];
+                /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
+                limit?: number;
+                /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
+                starting_after?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": Record<string, never>;
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["billing.credit_balance_transaction"][];
+                        /** @description True if this list has another page of items after this one that can be fetched. */
+                        has_more: boolean;
+                        /**
+                         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+                         * @enum {string}
+                         */
+                        object: "list";
+                        /** @description The URL where this list can be accessed. */
+                        url: string;
+                    };
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    GetBillingCreditBalanceTransactionsId: {
+        parameters: {
+            query?: {
+                /** @description Specifies which fields in the response should be expanded. */
+                expand?: string[];
+            };
+            header?: never;
+            path: {
+                /** @description Unique identifier for the object. */
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": Record<string, never>;
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["billing.credit_balance_transaction"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    GetBillingCreditGrants: {
+        parameters: {
+            query?: {
+                /** @description Only return credit grants for this customer. */
+                customer?: string;
+                /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
+                ending_before?: string;
+                /** @description Specifies which fields in the response should be expanded. */
+                expand?: string[];
+                /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
+                limit?: number;
+                /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
+                starting_after?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": Record<string, never>;
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: components["schemas"]["billing.credit_grant"][];
+                        /** @description True if this list has another page of items after this one that can be fetched. */
+                        has_more: boolean;
+                        /**
+                         * @description String representing the object's type. Objects of the same type share the same value. Always has the value `list`.
+                         * @enum {string}
+                         */
+                        object: "list";
+                        /** @description The URL where this list can be accessed. */
+                        url: string;
+                    };
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    PostBillingCreditGrants: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /**
+                     * amount_param
+                     * @description Amount of this credit grant.
+                     */
+                    amount: {
+                        /** monetary_amount_param */
+                        monetary?: {
+                            /** Format: currency */
+                            currency: string;
+                            value: number;
+                        };
+                        /** @enum {string} */
+                        type: "monetary";
+                    };
+                    /**
+                     * applicability_config_param
+                     * @description Configuration specifying what this credit grant applies to.
+                     */
+                    applicability_config: {
+                        /** scope_param */
+                        scope: {
+                            /** @enum {string} */
+                            price_type: "metered";
+                        };
+                    };
+                    /**
+                     * @description The category of this credit grant.
+                     * @enum {string}
+                     */
+                    category: "paid" | "promotional";
+                    /** @description ID of the customer to receive the billing credits. */
+                    customer: string;
+                    /**
+                     * Format: unix-time
+                     * @description The time when the billing credits become effective-when they're eligible for use. It defaults to the current timestamp if not specified.
+                     */
+                    effective_at?: number;
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                    /**
+                     * Format: unix-time
+                     * @description The time when the billing credits expire. If not specified, the billing credits don't expire.
+                     */
+                    expires_at?: number;
+                    /** @description Set of key-value pairs that you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format. */
+                    metadata?: {
+                        [key: string]: string;
+                    };
+                    /** @description A descriptive name shown in the Dashboard. */
+                    name?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["billing.credit_grant"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    GetBillingCreditGrantsId: {
+        parameters: {
+            query?: {
+                /** @description Specifies which fields in the response should be expanded. */
+                expand?: string[];
+            };
+            header?: never;
+            path: {
+                /** @description Unique identifier for the object. */
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": Record<string, never>;
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["billing.credit_grant"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    PostBillingCreditGrantsId: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Unique identifier for the object. */
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                    /** @description The time when the billing credits created by this credit grant expire. If set to empty, the billing credits never expire. */
+                    expires_at?: number | "";
+                    /** @description Set of key-value pairs you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format. */
+                    metadata?: {
+                        [key: string]: string;
+                    };
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["billing.credit_grant"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    PostBillingCreditGrantsIdExpire: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Unique identifier for the object. */
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["billing.credit_grant"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    PostBillingCreditGrantsIdVoid: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Unique identifier for the object. */
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["billing.credit_grant"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
     PostBillingMeterEventAdjustments: {
         parameters: {
             query?: never;
@@ -29109,7 +32552,7 @@ export interface operations {
                     event_name: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
-                    /** @description A unique identifier for the event. If not provided, one will be generated. We recommend using a globally unique identifier for this. We'll enforce uniqueness within a rolling 24 hour period. */
+                    /** @description A unique identifier for the event. If not provided, one is generated. We recommend using UUID-like identifiers. We will enforce uniqueness within a rolling period of at least 24 hours. The enforcement of uniqueness primarily addresses issues arising from accidental retries or other problems occurring within extremely brief time intervals. This approach helps prevent duplicate entries and ensures data integrity in high-frequency operations. */
                     identifier?: string;
                     /** @description The payload of the event. This must contain the fields corresponding to a meter's `customer_mapping.event_payload_key` (default is `stripe_customer_id`) and `value_settings.event_payload_key` (default is `value`). Read more about the [payload](https://docs.stripe.com/billing/subscriptions/usage-based/recording-usage#payload-key-overrides). */
                     payload: {
@@ -29226,7 +32669,7 @@ export interface operations {
                         /** @enum {string} */
                         formula: "count" | "sum";
                     };
-                    /** @description The meter's name. */
+                    /** @description The meter’s name. Not visible to the customer. */
                     display_name: string;
                     /** @description The name of the meter event to record usage for. Corresponds with the `event_name` field on meter events. */
                     event_name: string;
@@ -29320,7 +32763,7 @@ export interface operations {
         requestBody?: {
             content: {
                 "application/x-www-form-urlencoded": {
-                    /** @description The meter's name. */
+                    /** @description The meter’s name. Not visible to the customer. */
                     display_name?: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -29561,7 +33004,7 @@ export interface operations {
                      * business_profile_create_param
                      * @description The business information shown to customers in the portal.
                      */
-                    business_profile: {
+                    business_profile?: {
                         headline?: string | "";
                         privacy_policy_url?: string;
                         terms_of_service_url?: string;
@@ -29603,14 +33046,21 @@ export interface operations {
                         };
                         /** subscription_update_creation_param */
                         subscription_update?: {
-                            default_allowed_updates: ("price" | "promotion_code" | "quantity")[] | "";
+                            default_allowed_updates?: ("price" | "promotion_code" | "quantity")[] | "";
                             enabled: boolean;
-                            products: {
+                            products?: {
                                 prices: string[];
                                 product: string;
                             }[] | "";
                             /** @enum {string} */
                             proration_behavior?: "always_invoice" | "create_prorations" | "none";
+                            /** schedule_update_at_period_end_creating_param */
+                            schedule_at_period_end?: {
+                                conditions?: {
+                                    /** @enum {string} */
+                                    type: "decreasing_item_amount" | "shortening_interval";
+                                }[];
+                            };
                         };
                     };
                     /**
@@ -29754,6 +33204,13 @@ export interface operations {
                             }[] | "";
                             /** @enum {string} */
                             proration_behavior?: "always_invoice" | "create_prorations" | "none";
+                            /** schedule_update_at_period_end_updating_param */
+                            schedule_at_period_end?: {
+                                conditions?: {
+                                    /** @enum {string} */
+                                    type: "decreasing_item_amount" | "shortening_interval";
+                                }[] | "";
+                            };
                         };
                     };
                     /**
@@ -29993,7 +33450,10 @@ export interface operations {
                         /** @enum {string} */
                         object?: "card";
                     } | string;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description The ID of an existing customer that will be charged in this request. */
                     customer?: string;
@@ -30379,6 +33839,53 @@ export interface operations {
                         duplicate_charge_documentation?: string;
                         duplicate_charge_explanation?: string;
                         duplicate_charge_id?: string;
+                        enhanced_evidence?: {
+                            /** visa_compelling_evidence3 */
+                            visa_compelling_evidence_3?: {
+                                /** visa_compelling_evidence3_disputed_transaction */
+                                disputed_transaction?: {
+                                    customer_account_id?: string | "";
+                                    customer_device_fingerprint?: string | "";
+                                    customer_device_id?: string | "";
+                                    customer_email_address?: string | "";
+                                    customer_purchase_ip?: string | "";
+                                    /** @enum {string} */
+                                    merchandise_or_services?: "merchandise" | "services";
+                                    product_description?: string | "";
+                                    /** shipping_address */
+                                    shipping_address?: {
+                                        city?: string | "";
+                                        country?: string | "";
+                                        line1?: string | "";
+                                        line2?: string | "";
+                                        postal_code?: string | "";
+                                        state?: string | "";
+                                    };
+                                };
+                                prior_undisputed_transactions?: {
+                                    charge: string;
+                                    customer_account_id?: string | "";
+                                    customer_device_fingerprint?: string | "";
+                                    customer_device_id?: string | "";
+                                    customer_email_address?: string | "";
+                                    customer_purchase_ip?: string | "";
+                                    product_description?: string | "";
+                                    /** shipping_address */
+                                    shipping_address?: {
+                                        city?: string | "";
+                                        country?: string | "";
+                                        line1?: string | "";
+                                        line2?: string | "";
+                                        postal_code?: string | "";
+                                        state?: string | "";
+                                    };
+                                }[];
+                            };
+                            /** visa_compliance */
+                            visa_compliance?: {
+                                fee_acknowledged?: boolean;
+                            };
+                        } | "";
                         product_description?: string;
                         receipt?: string;
                         refund_policy?: string;
@@ -30592,7 +34099,10 @@ export interface operations {
             content: {
                 "application/x-www-form-urlencoded": {
                     amount?: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description Customer whose customer balance to refund from. */
                     customer?: string;
@@ -30810,6 +34320,13 @@ export interface operations {
             content: {
                 "application/x-www-form-urlencoded": {
                     /**
+                     * adaptive_pricing_params
+                     * @description Settings for price localization with [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing).
+                     */
+                    adaptive_pricing?: {
+                        enabled?: boolean;
+                    };
+                    /**
                      * after_expiration_params
                      * @description Configure actions after a Checkout Session has expired.
                      */
@@ -30861,7 +34378,10 @@ export interface operations {
                         /** @enum {string} */
                         terms_of_service?: "none" | "required";
                     };
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Required in `setup` mode when `payment_method_types` is not set. */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Required in `setup` mode when `payment_method_types` is not set.
+                     */
                     currency?: string;
                     /** @description Collect additional information from your customer using custom fields. Up to 3 fields are supported. */
                     custom_fields?: {
@@ -31015,6 +34535,7 @@ export interface operations {
                         price?: string;
                         /** price_data_with_product_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product?: string;
                             /** product_data */
@@ -31168,6 +34689,10 @@ export interface operations {
                         };
                         /** payment_method_options_param */
                         bacs_debit?: {
+                            /** payment_method_options_mandate_options_param */
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                             /** @enum {string} */
                             setup_future_usage?: "none" | "off_session" | "on_session";
                         };
@@ -31188,6 +34713,14 @@ export interface operations {
                             installments?: {
                                 enabled?: boolean;
                             };
+                            /** @enum {string} */
+                            request_extended_authorization?: "if_available" | "never";
+                            /** @enum {string} */
+                            request_incremental_authorization?: "if_available" | "never";
+                            /** @enum {string} */
+                            request_multicapture?: "if_available" | "never";
+                            /** @enum {string} */
+                            request_overcapture?: "if_available" | "never";
                             /** @enum {string} */
                             request_three_d_secure?: "any" | "automatic" | "challenge";
                             /** @enum {string} */
@@ -31243,6 +34776,13 @@ export interface operations {
                             setup_future_usage?: "none";
                         };
                         /** payment_method_options_param */
+                        kakao_pay?: {
+                            /** @enum {string} */
+                            capture_method?: "manual";
+                            /** @enum {string} */
+                            setup_future_usage?: "none" | "off_session";
+                        };
+                        /** payment_method_options_param */
                         klarna?: {
                             /** @enum {string} */
                             setup_future_usage?: "none";
@@ -31252,6 +34792,13 @@ export interface operations {
                             expires_after_days?: number;
                             /** @enum {string} */
                             setup_future_usage?: "none";
+                        };
+                        /** payment_method_options_param */
+                        kr_card?: {
+                            /** @enum {string} */
+                            capture_method?: "manual";
+                            /** @enum {string} */
+                            setup_future_usage?: "none" | "off_session";
                         };
                         /** payment_method_options_param */
                         link?: {
@@ -31269,6 +34816,13 @@ export interface operations {
                             setup_future_usage?: "none";
                         };
                         /** payment_method_options_param */
+                        naver_pay?: {
+                            /** @enum {string} */
+                            capture_method?: "manual";
+                            /** @enum {string} */
+                            setup_future_usage?: "none" | "off_session";
+                        };
+                        /** payment_method_options_param */
                         oxxo?: {
                             expires_after_days?: number;
                             /** @enum {string} */
@@ -31279,6 +34833,11 @@ export interface operations {
                             /** @enum {string} */
                             setup_future_usage?: "none";
                             tos_shown_and_accepted?: boolean;
+                        };
+                        /** payment_method_options_param */
+                        payco?: {
+                            /** @enum {string} */
+                            capture_method?: "manual";
                         };
                         /** payment_method_options_param */
                         paynow?: {
@@ -31306,7 +34865,16 @@ export interface operations {
                             setup_future_usage?: "none" | "off_session";
                         };
                         /** payment_method_options_param */
+                        samsung_pay?: {
+                            /** @enum {string} */
+                            capture_method?: "manual";
+                        };
+                        /** payment_method_options_param */
                         sepa_debit?: {
+                            /** payment_method_options_mandate_options_param */
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                             /** @enum {string} */
                             setup_future_usage?: "none" | "off_session" | "on_session";
                         };
@@ -31351,7 +34919,7 @@ export interface operations {
                      *     If multiple payment methods are passed, Checkout will dynamically reorder them to
                      *     prioritize the most relevant payment methods based on the customer's location and
                      *     other characteristics. */
-                    payment_method_types?: ("acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[];
+                    payment_method_types?: ("acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[];
                     /**
                      * phone_number_collection_params
                      * @description Controls phone number collection settings for the session.
@@ -31422,6 +34990,7 @@ export interface operations {
                             /** fixed_amount */
                             fixed_amount?: {
                                 amount: number;
+                                /** Format: currency */
                                 currency: string;
                                 currency_options?: {
                                     [key: string]: {
@@ -31447,7 +35016,7 @@ export interface operations {
                      *     specified on Checkout Sessions in `payment` mode. If blank or `auto`, `pay` is used.
                      * @enum {string}
                      */
-                    submit_type?: "auto" | "book" | "donate" | "pay";
+                    submit_type?: "auto" | "book" | "donate" | "pay" | "subscribe";
                     /**
                      * subscription_data_params
                      * @description A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
@@ -32334,7 +35903,10 @@ export interface operations {
                     applies_to?: {
                         products?: string[];
                     };
-                    /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed).
+                     */
                     currency?: string;
                     /** @description Coupons defined in each available currency option (only supported if `amount_off` is passed). Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
                     currency_options?: {
@@ -33239,7 +36811,7 @@ export interface operations {
                     promotion_code?: string;
                     /** @description The customer's shipping information. Appears on invoices emailed to this customer. */
                     shipping?: {
-                        /** optional_fields_address */
+                        /** optional_fields_customer_address */
                         address: {
                             city?: string;
                             country?: string;
@@ -33253,7 +36825,7 @@ export interface operations {
                     } | "";
                     source?: string;
                     /**
-                     * tax_param
+                     * shared_tax_create_param
                      * @description Tax details about the customer.
                      */
                     tax?: {
@@ -33269,7 +36841,7 @@ export interface operations {
                     /** @description The customer's tax IDs. */
                     tax_id_data?: {
                         /** @enum {string} */
-                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                        type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
                         value: string;
                     }[];
                     /** @description ID of the test clock to attach to the customer. */
@@ -33420,6 +36992,7 @@ export interface operations {
                         account_holder_type?: "company" | "individual";
                         account_number: string;
                         country: string;
+                        /** Format: currency */
                         currency?: string;
                         /** @enum {string} */
                         object?: "bank_account";
@@ -33509,7 +37082,7 @@ export interface operations {
                     promotion_code?: string;
                     /** @description The customer's shipping information. Appears on invoices emailed to this customer. */
                     shipping?: {
-                        /** optional_fields_address */
+                        /** optional_fields_customer_address */
                         address: {
                             city?: string;
                             country?: string;
@@ -33523,13 +37096,13 @@ export interface operations {
                     } | "";
                     source?: string;
                     /**
-                     * tax_param
+                     * shared_tax_update_param
                      * @description Tax details about the customer.
                      */
                     tax?: {
                         ip_address?: string | "";
                         /** @enum {string} */
-                        validate_location?: "deferred" | "immediately";
+                        validate_location?: "auto" | "deferred" | "immediately";
                     };
                     /**
                      * @description The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
@@ -33665,7 +37238,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description The integer amount in **cents (or local equivalent)** to apply to the customer's credit balance. */
                     amount: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Specifies the [`invoice_credit_balance`](https://stripe.com/docs/api/customers/object#customer_object-invoice_credit_balance) that this transaction will apply to. If the customer's `currency` is not set, it will be updated to this value. */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Specifies the [`invoice_credit_balance`](https://stripe.com/docs/api/customers/object#customer_object-invoice_credit_balance) that this transaction will apply to. If the customer's `currency` is not set, it will be updated to this value.
+                     */
                     currency: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -33860,6 +37436,7 @@ export interface operations {
                         account_holder_type?: "company" | "individual";
                         account_number: string;
                         country: string;
+                        /** Format: currency */
                         currency?: string;
                         /** @enum {string} */
                         object?: "bank_account";
@@ -34194,6 +37771,7 @@ export interface operations {
                         account_holder_type?: "company" | "individual";
                         account_number: string;
                         country: string;
+                        /** Format: currency */
                         currency?: string;
                         /** @enum {string} */
                         object?: "bank_account";
@@ -34688,7 +38266,10 @@ export interface operations {
                         /** @enum {string} */
                         type: "eu_bank_transfer" | "gb_bank_transfer" | "jp_bank_transfer" | "mx_bank_transfer" | "us_bank_transfer";
                     };
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -34735,7 +38316,7 @@ export interface operations {
                 /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
                 starting_after?: string;
                 /** @description An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request. */
-                type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
             };
             header?: never;
             path: {
@@ -34898,6 +38479,7 @@ export interface operations {
                         account_holder_type?: "company" | "individual";
                         account_number: string;
                         country: string;
+                        /** Format: currency */
                         currency?: string;
                         /** @enum {string} */
                         object?: "bank_account";
@@ -35234,6 +38816,7 @@ export interface operations {
                         price?: string;
                         /** one_time_price_data_with_negative_amounts */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** @enum {string} */
@@ -35289,7 +38872,10 @@ export interface operations {
                     collection_method?: "charge_automatically" | "send_invoice";
                     /** @description The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead. */
                     coupon?: string;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description Number of days a customer has to pay invoices generated by this subscription. Valid only for subscriptions where `collection_method` is set to `send_invoice`. */
                     days_until_due?: number;
@@ -35336,6 +38922,7 @@ export interface operations {
                         price?: string;
                         /** recurring_price_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** recurring_adhoc */
@@ -35403,7 +38990,7 @@ export interface operations {
                                     description?: string;
                                 };
                                 /** @enum {string} */
-                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                                 /** @enum {string} */
                                 request_three_d_secure?: "any" | "automatic" | "challenge";
                             } | "";
@@ -35434,7 +39021,7 @@ export interface operations {
                                 verification_method?: "automatic" | "instant" | "microdeposits";
                             } | "";
                         };
-                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "multibanco" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
+                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "jp_credit_transfer" | "kakao_pay" | "konbini" | "kr_card" | "link" | "multibanco" | "naver_pay" | "p24" | "payco" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_credit_transfer" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
                         /** @enum {string} */
                         save_default_payment_method?: "off" | "on_subscription";
                     };
@@ -35562,6 +39149,7 @@ export interface operations {
                         price?: string;
                         /** one_time_price_data_with_negative_amounts */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** @enum {string} */
@@ -35666,6 +39254,7 @@ export interface operations {
                         price?: string;
                         /** recurring_price_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** recurring_adhoc */
@@ -35689,7 +39278,7 @@ export interface operations {
                     } | "";
                     /** @description Indicates if a customer is on or off-session while an invoice payment is attempted. Defaults to `false` (on-session). */
                     off_session?: boolean;
-                    /** @description If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](/billing/subscriptions/pause-payment). */
+                    /** @description If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment). */
                     pause_collection?: {
                         /** @enum {string} */
                         behavior: "keep_as_draft" | "mark_uncollectible" | "void";
@@ -35736,7 +39325,7 @@ export interface operations {
                                     description?: string;
                                 };
                                 /** @enum {string} */
-                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                                 /** @enum {string} */
                                 request_three_d_secure?: "any" | "automatic" | "challenge";
                             } | "";
@@ -35767,7 +39356,7 @@ export interface operations {
                                 verification_method?: "automatic" | "instant" | "microdeposits";
                             } | "";
                         };
-                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "multibanco" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
+                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "jp_credit_transfer" | "kakao_pay" | "konbini" | "kr_card" | "link" | "multibanco" | "naver_pay" | "p24" | "payco" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_credit_transfer" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
                         /** @enum {string} */
                         save_default_payment_method?: "off" | "on_subscription";
                     };
@@ -36022,10 +39611,10 @@ export interface operations {
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     /**
-                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
+                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `ba_tin`, `bb_tin`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kh_tin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
                      * @enum {string}
                      */
-                    type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                    type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
                     /** @description Value of the tax ID. */
                     value: string;
                 };
@@ -36259,6 +39848,53 @@ export interface operations {
                         duplicate_charge_documentation?: string;
                         duplicate_charge_explanation?: string;
                         duplicate_charge_id?: string;
+                        enhanced_evidence?: {
+                            /** visa_compelling_evidence3 */
+                            visa_compelling_evidence_3?: {
+                                /** visa_compelling_evidence3_disputed_transaction */
+                                disputed_transaction?: {
+                                    customer_account_id?: string | "";
+                                    customer_device_fingerprint?: string | "";
+                                    customer_device_id?: string | "";
+                                    customer_email_address?: string | "";
+                                    customer_purchase_ip?: string | "";
+                                    /** @enum {string} */
+                                    merchandise_or_services?: "merchandise" | "services";
+                                    product_description?: string | "";
+                                    /** shipping_address */
+                                    shipping_address?: {
+                                        city?: string | "";
+                                        country?: string | "";
+                                        line1?: string | "";
+                                        line2?: string | "";
+                                        postal_code?: string | "";
+                                        state?: string | "";
+                                    };
+                                };
+                                prior_undisputed_transactions?: {
+                                    charge: string;
+                                    customer_account_id?: string | "";
+                                    customer_device_fingerprint?: string | "";
+                                    customer_device_id?: string | "";
+                                    customer_email_address?: string | "";
+                                    customer_purchase_ip?: string | "";
+                                    product_description?: string | "";
+                                    /** shipping_address */
+                                    shipping_address?: {
+                                        city?: string | "";
+                                        country?: string | "";
+                                        line1?: string | "";
+                                        line2?: string | "";
+                                        postal_code?: string | "";
+                                        state?: string | "";
+                                    };
+                                }[];
+                            };
+                            /** visa_compliance */
+                            visa_compliance?: {
+                                fee_acknowledged?: boolean;
+                            };
+                        } | "";
                         product_description?: string;
                         receipt?: string;
                         refund_policy?: string;
@@ -36983,7 +40619,7 @@ export interface operations {
                      * @description The link isn't usable after this future timestamp.
                      */
                     expires_at?: number;
-                    /** @description The ID of the file. The file's `purpose` must be one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `identity_document_downloadable`, `issuing_regulatory_reporting`, `pci_document`, `selfie`, `sigma_scheduled_query`, `tax_document_user_upload`, or `terminal_reader_splashscreen`. */
+                    /** @description The ID of the file. The file's `purpose` must be one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `financial_account_statement`, `identity_document_downloadable`, `issuing_regulatory_reporting`, `pci_document`, `selfie`, `sigma_scheduled_query`, `tax_document_user_upload`, or `terminal_reader_splashscreen`. */
                     file: string;
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
@@ -37112,7 +40748,7 @@ export interface operations {
                 /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
                 limit?: number;
                 /** @description Filter queries by the file purpose. If you don't provide a purpose, the queries return unfiltered files. */
-                purpose?: "account_requirement" | "additional_verification" | "business_icon" | "business_logo" | "customer_signature" | "dispute_evidence" | "document_provider_identity_document" | "finance_report_run" | "identity_document" | "identity_document_downloadable" | "issuing_regulatory_reporting" | "pci_document" | "selfie" | "sigma_scheduled_query" | "tax_document_user_upload" | "terminal_reader_splashscreen";
+                purpose?: "account_requirement" | "additional_verification" | "business_icon" | "business_logo" | "customer_signature" | "dispute_evidence" | "document_provider_identity_document" | "finance_report_run" | "financial_account_statement" | "identity_document" | "identity_document_downloadable" | "issuing_regulatory_reporting" | "pci_document" | "selfie" | "sigma_scheduled_query" | "tax_document_user_upload" | "terminal_reader_splashscreen";
                 /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
                 starting_after?: string;
             };
@@ -37845,10 +41481,14 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
+                    /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
+                    metadata?: {
+                        [key: string]: string;
+                    };
                     /** @description The PaymentMethod to insert into the forwarded request. Forwarding previously consumed PaymentMethods is allowed. */
                     payment_method: string;
                     /** @description The field kinds to be replaced in the forwarded request. */
-                    replacements: ("card_cvc" | "card_expiry" | "card_number" | "cardholder_name")[];
+                    replacements: ("card_cvc" | "card_expiry" | "card_number" | "cardholder_name" | "request_signature")[];
                     /**
                      * request_param
                      * @description The request body and headers to be sent to the destination endpoint.
@@ -38140,7 +41780,7 @@ export interface operations {
                      * @enum {string}
                      */
                     type?: "document" | "id_number";
-                    /** @description The ID of a Verification Flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows. */
+                    /** @description The ID of a verification flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows. */
                     verification_flow?: string;
                 };
             };
@@ -38595,7 +42235,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description The integer amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. Passing in a negative `amount` will reduce the `amount_due` on the invoice. */
                     amount?: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description The ID of the customer who will be billed when this invoice item is billed. */
                     customer: string;
@@ -38634,6 +42277,7 @@ export interface operations {
                      * @description Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
                      */
                     price_data?: {
+                        /** Format: currency */
                         currency: string;
                         product: string;
                         /** @enum {string} */
@@ -38771,6 +42415,7 @@ export interface operations {
                      * @description Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
                      */
                     price_data?: {
+                        /** Format: currency */
                         currency: string;
                         product: string;
                         /** @enum {string} */
@@ -38960,11 +42605,19 @@ export interface operations {
                         };
                     };
                     /**
+                     * Format: unix-time
+                     * @description The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state.
+                     */
+                    automatically_finalizes_at?: number;
+                    /**
                      * @description Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions. Defaults to `charge_automatically`.
                      * @enum {string}
                      */
                     collection_method?: "charge_automatically" | "send_invoice";
-                    /** @description The currency to create this invoice in. Defaults to that of `customer` if not specified. */
+                    /**
+                     * Format: currency
+                     * @description The currency to create this invoice in. Defaults to that of `customer` if not specified.
+                     */
                     currency?: string;
                     /** @description A list of up to 4 custom fields to be displayed on the invoice. */
                     custom_fields?: {
@@ -39092,7 +42745,7 @@ export interface operations {
                                 verification_method?: "automatic" | "instant" | "microdeposits";
                             } | "";
                         };
-                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "multibanco" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
+                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "jp_credit_transfer" | "kakao_pay" | "konbini" | "kr_card" | "link" | "multibanco" | "naver_pay" | "p24" | "payco" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_credit_transfer" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
                     };
                     /**
                      * @description How to handle pending invoice items on invoice creation. Defaults to `exclude` if the parameter is omitted.
@@ -39141,6 +42794,7 @@ export interface operations {
                             /** fixed_amount */
                             fixed_amount?: {
                                 amount: number;
+                                /** Format: currency */
                                 currency: string;
                                 currency_options?: {
                                     [key: string]: {
@@ -39238,7 +42892,10 @@ export interface operations {
                     };
                     /** @description The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead. */
                     coupon?: string;
-                    /** @description The currency to preview this invoice in. Defaults to that of `customer` if not specified. */
+                    /**
+                     * Format: currency
+                     * @description The currency to preview this invoice in. Defaults to that of `customer` if not specified.
+                     */
                     currency?: string;
                     /** @description The identifier of the customer whose upcoming invoice you'd like to retrieve. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set. */
                     customer?: string;
@@ -39256,7 +42913,7 @@ export interface operations {
                             state?: string;
                         } | "";
                         shipping?: {
-                            /** optional_fields_address */
+                            /** optional_fields_customer_address */
                             address: {
                                 city?: string;
                                 country?: string;
@@ -39276,7 +42933,7 @@ export interface operations {
                         tax_exempt?: "" | "exempt" | "none" | "reverse";
                         tax_ids?: {
                             /** @enum {string} */
-                            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                            type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
                             value: string;
                         }[];
                     };
@@ -39291,6 +42948,7 @@ export interface operations {
                     /** @description List of invoice items to add or update in the upcoming invoice preview (up to 250). */
                     invoice_items?: {
                         amount?: number;
+                        /** Format: currency */
                         currency?: string;
                         description?: string;
                         discountable?: boolean;
@@ -39313,6 +42971,7 @@ export interface operations {
                         price?: string;
                         /** one_time_price_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** @enum {string} */
@@ -39365,6 +43024,7 @@ export interface operations {
                                 price?: string;
                                 /** one_time_price_data_with_negative_amounts */
                                 price_data?: {
+                                    /** Format: currency */
                                     currency: string;
                                     product: string;
                                     /** @enum {string} */
@@ -39431,6 +43091,7 @@ export interface operations {
                                 price?: string;
                                 /** recurring_price_data */
                                 price_data?: {
+                                    /** Format: currency */
                                     currency: string;
                                     product: string;
                                     /** recurring_adhoc */
@@ -39497,6 +43158,7 @@ export interface operations {
                             price?: string;
                             /** recurring_price_data */
                             price_data?: {
+                                /** Format: currency */
                                 currency: string;
                                 product: string;
                                 /** recurring_adhoc */
@@ -39632,7 +43294,7 @@ export interface operations {
                         state?: string;
                     } | "";
                     shipping?: {
-                        /** optional_fields_address */
+                        /** optional_fields_customer_address */
                         address: {
                             city?: string;
                             country?: string;
@@ -39652,7 +43314,7 @@ export interface operations {
                     tax_exempt?: "" | "exempt" | "none" | "reverse";
                     tax_ids?: {
                         /** @enum {string} */
-                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                        type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
                         value: string;
                     }[];
                 };
@@ -39667,6 +43329,7 @@ export interface operations {
                 /** @description List of invoice items to add or update in the upcoming invoice preview (up to 250). */
                 invoice_items?: {
                     amount?: number;
+                    /** Format: currency */
                     currency?: string;
                     description?: string;
                     discountable?: boolean;
@@ -39689,6 +43352,7 @@ export interface operations {
                     price?: string;
                     /** one_time_price_data */
                     price_data?: {
+                        /** Format: currency */
                         currency: string;
                         product: string;
                         /** @enum {string} */
@@ -39732,6 +43396,7 @@ export interface operations {
                             price?: string;
                             /** one_time_price_data_with_negative_amounts */
                             price_data?: {
+                                /** Format: currency */
                                 currency: string;
                                 product: string;
                                 /** @enum {string} */
@@ -39798,6 +43463,7 @@ export interface operations {
                             price?: string;
                             /** recurring_price_data */
                             price_data?: {
+                                /** Format: currency */
                                 currency: string;
                                 product: string;
                                 /** recurring_adhoc */
@@ -39871,6 +43537,7 @@ export interface operations {
                         price?: string;
                         /** recurring_price_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** recurring_adhoc */
@@ -39917,6 +43584,7 @@ export interface operations {
                     price?: string;
                     /** recurring_price_data */
                     price_data?: {
+                        /** Format: currency */
                         currency: string;
                         product: string;
                         /** recurring_adhoc */
@@ -40005,7 +43673,7 @@ export interface operations {
                         state?: string;
                     } | "";
                     shipping?: {
-                        /** optional_fields_address */
+                        /** optional_fields_customer_address */
                         address: {
                             city?: string;
                             country?: string;
@@ -40025,7 +43693,7 @@ export interface operations {
                     tax_exempt?: "" | "exempt" | "none" | "reverse";
                     tax_ids?: {
                         /** @enum {string} */
-                        type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                        type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
                         value: string;
                     }[];
                 };
@@ -40042,6 +43710,7 @@ export interface operations {
                 /** @description List of invoice items to add or update in the upcoming invoice preview (up to 250). */
                 invoice_items?: {
                     amount?: number;
+                    /** Format: currency */
                     currency?: string;
                     description?: string;
                     discountable?: boolean;
@@ -40064,6 +43733,7 @@ export interface operations {
                     price?: string;
                     /** one_time_price_data */
                     price_data?: {
+                        /** Format: currency */
                         currency: string;
                         product: string;
                         /** @enum {string} */
@@ -40109,6 +43779,7 @@ export interface operations {
                             price?: string;
                             /** one_time_price_data_with_negative_amounts */
                             price_data?: {
+                                /** Format: currency */
                                 currency: string;
                                 product: string;
                                 /** @enum {string} */
@@ -40175,6 +43846,7 @@ export interface operations {
                             price?: string;
                             /** recurring_price_data */
                             price_data?: {
+                                /** Format: currency */
                                 currency: string;
                                 product: string;
                                 /** recurring_adhoc */
@@ -40250,6 +43922,7 @@ export interface operations {
                         price?: string;
                         /** recurring_price_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** recurring_adhoc */
@@ -40296,6 +43969,7 @@ export interface operations {
                     price?: string;
                     /** recurring_price_data */
                     price_data?: {
+                        /** Format: currency */
                         currency: string;
                         product: string;
                         /** recurring_adhoc */
@@ -40436,6 +44110,11 @@ export interface operations {
                         };
                     };
                     /**
+                     * Format: unix-time
+                     * @description The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state. To turn off automatic finalization, set `auto_advance` to false.
+                     */
+                    automatically_finalizes_at?: number;
+                    /**
                      * @description Either `charge_automatically` or `send_invoice`. This field can be updated only on `draft` invoices.
                      * @enum {string}
                      */
@@ -40552,7 +44231,7 @@ export interface operations {
                                 verification_method?: "automatic" | "instant" | "microdeposits";
                             } | "";
                         };
-                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "multibanco" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
+                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "jp_credit_transfer" | "kakao_pay" | "konbini" | "kr_card" | "link" | "multibanco" | "naver_pay" | "p24" | "payco" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_credit_transfer" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
                     };
                     /**
                      * rendering_param
@@ -40593,6 +44272,7 @@ export interface operations {
                             /** fixed_amount */
                             fixed_amount?: {
                                 amount: number;
+                                /** Format: currency */
                                 currency: string;
                                 currency_options?: {
                                     [key: string]: {
@@ -40734,6 +44414,7 @@ export interface operations {
                         price?: string;
                         /** one_time_price_data_with_product_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product?: string;
                             /** product_data */
@@ -40765,7 +44446,7 @@ export interface operations {
                                 percentage: number;
                                 state?: string;
                                 /** @enum {string} */
-                                tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
+                                tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "service_tax" | "vat";
                             };
                             taxable_amount: number;
                         }[] | "";
@@ -40941,6 +44622,7 @@ export interface operations {
                      * @description Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
                      */
                     price_data?: {
+                        /** Format: currency */
                         currency: string;
                         product?: string;
                         /** product_data */
@@ -40974,7 +44656,7 @@ export interface operations {
                             percentage: number;
                             state?: string;
                             /** @enum {string} */
-                            tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
+                            tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "service_tax" | "vat";
                         };
                         taxable_amount: number;
                     }[] | "";
@@ -41222,6 +44904,7 @@ export interface operations {
                         price?: string;
                         /** one_time_price_data_with_product_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product?: string;
                             /** product_data */
@@ -41253,7 +44936,7 @@ export interface operations {
                                 percentage: number;
                                 state?: string;
                                 /** @enum {string} */
-                                tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
+                                tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "service_tax" | "vat";
                             };
                             taxable_amount: number;
                         }[] | "";
@@ -42024,7 +45707,7 @@ export interface operations {
                      * @enum {string}
                      */
                     replacement_reason?: "damaged" | "expired" | "lost" | "stolen";
-                    /** @description The second line to print on the card. */
+                    /** @description The second line to print on the card. Max length: 24 characters. */
                     second_line?: string | "";
                     /**
                      * shipping_specs
@@ -43802,7 +47485,10 @@ export interface operations {
                      *
                      *     If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence. */
                     confirmation_token?: string;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description ID of the Customer this PaymentIntent belongs to, if one exists.
                      *
@@ -43847,7 +47533,7 @@ export interface operations {
                      *
                      *     If you omit this parameter with `confirm=true`, `customer.default_source` attaches as this PaymentIntent's payment instrument to improve migration for users of the Charges API. We recommend that you explicitly provide the `payment_method` moving forward. */
                     payment_method?: string;
-                    /** @description The ID of the payment method configuration to use with this PaymentIntent. */
+                    /** @description The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this PaymentIntent. */
                     payment_method_configuration?: string;
                     /**
                      * payment_method_data_params
@@ -43870,6 +47556,8 @@ export interface operations {
                         alipay?: Record<string, never>;
                         /** @enum {string} */
                         allow_redisplay?: "always" | "limited" | "unspecified";
+                        /** param */
+                        alma?: Record<string, never>;
                         /** param */
                         amazon_pay?: Record<string, never>;
                         /** param */
@@ -43930,6 +47618,8 @@ export interface operations {
                         /** param */
                         interac_present?: Record<string, never>;
                         /** param */
+                        kakao_pay?: Record<string, never>;
+                        /** param */
                         klarna?: {
                             /** date_of_birth */
                             dob?: {
@@ -43941,6 +47631,8 @@ export interface operations {
                         /** param */
                         konbini?: Record<string, never>;
                         /** param */
+                        kr_card?: Record<string, never>;
+                        /** param */
                         link?: Record<string, never>;
                         metadata?: {
                             [key: string]: string;
@@ -43950,12 +47642,19 @@ export interface operations {
                         /** param */
                         multibanco?: Record<string, never>;
                         /** param */
+                        naver_pay?: {
+                            /** @enum {string} */
+                            funding?: "card" | "points";
+                        };
+                        /** param */
                         oxxo?: Record<string, never>;
                         /** param */
                         p24?: {
                             /** @enum {string} */
                             bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank";
                         };
+                        /** param */
+                        payco?: Record<string, never>;
                         /** param */
                         paynow?: Record<string, never>;
                         /** param */
@@ -43971,6 +47670,8 @@ export interface operations {
                         /** param */
                         revolut_pay?: Record<string, never>;
                         /** param */
+                        samsung_pay?: Record<string, never>;
+                        /** param */
                         sepa_debit?: {
                             iban: string;
                         };
@@ -43984,7 +47685,7 @@ export interface operations {
                         /** param */
                         twint?: Record<string, never>;
                         /** @enum {string} */
-                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
                         /** payment_method_param */
                         us_bank_account?: {
                             /** @enum {string} */
@@ -44038,6 +47739,10 @@ export interface operations {
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session";
                         } | "";
+                        alma?: {
+                            /** @enum {string} */
+                            capture_method?: "" | "manual";
+                        } | "";
                         amazon_pay?: {
                             /** @enum {string} */
                             capture_method?: "" | "manual";
@@ -44050,7 +47755,9 @@ export interface operations {
                         } | "";
                         bacs_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
                         } | "";
@@ -44102,7 +47809,7 @@ export interface operations {
                                 supported_types?: "india"[];
                             };
                             /** @enum {string} */
-                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
                             request_extended_authorization?: "if_available" | "never";
                             /** @enum {string} */
@@ -44195,6 +47902,12 @@ export interface operations {
                             setup_future_usage?: "" | "none" | "off_session";
                         } | "";
                         interac_present?: Record<string, never> | "";
+                        kakao_pay?: {
+                            /** @enum {string} */
+                            capture_method?: "" | "manual";
+                            /** @enum {string} */
+                            setup_future_usage?: "" | "none" | "off_session";
+                        } | "";
                         klarna?: {
                             /** @enum {string} */
                             capture_method?: "" | "manual";
@@ -44210,6 +47923,12 @@ export interface operations {
                             product_description?: string | "";
                             /** @enum {string} */
                             setup_future_usage?: "none";
+                        } | "";
+                        kr_card?: {
+                            /** @enum {string} */
+                            capture_method?: "" | "manual";
+                            /** @enum {string} */
+                            setup_future_usage?: "" | "none" | "off_session";
                         } | "";
                         link?: {
                             /** @enum {string} */
@@ -44227,6 +47946,10 @@ export interface operations {
                             /** @enum {string} */
                             setup_future_usage?: "none";
                         } | "";
+                        naver_pay?: {
+                            /** @enum {string} */
+                            capture_method?: "" | "manual";
+                        } | "";
                         oxxo?: {
                             expires_after_days?: number;
                             /** @enum {string} */
@@ -44236,6 +47959,10 @@ export interface operations {
                             /** @enum {string} */
                             setup_future_usage?: "none";
                             tos_shown_and_accepted?: boolean;
+                        } | "";
+                        payco?: {
+                            /** @enum {string} */
+                            capture_method?: "" | "manual";
                         } | "";
                         paynow?: {
                             /** @enum {string} */
@@ -44268,9 +47995,15 @@ export interface operations {
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session";
                         } | "";
+                        samsung_pay?: {
+                            /** @enum {string} */
+                            capture_method?: "" | "manual";
+                        } | "";
                         sepa_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
                         } | "";
@@ -44328,7 +48061,7 @@ export interface operations {
                             setup_future_usage?: "none";
                         } | "";
                     };
-                    /** @description The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, it defaults to ["card"]. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). */
+                    /** @description The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
                     payment_method_types?: string[];
                     /**
                      * radar_options_with_hidden_options
@@ -44529,7 +48262,10 @@ export interface operations {
                      * @enum {string}
                      */
                     capture_method?: "automatic" | "automatic_async" | "manual";
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description ID of the Customer this PaymentIntent belongs to, if one exists.
                      *
@@ -44547,7 +48283,7 @@ export interface operations {
                     } | "";
                     /** @description ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent. To unset this field to null, pass in an empty string. */
                     payment_method?: string;
-                    /** @description The ID of the payment method configuration to use with this PaymentIntent. */
+                    /** @description The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this PaymentIntent. */
                     payment_method_configuration?: string;
                     /**
                      * payment_method_data_params
@@ -44570,6 +48306,8 @@ export interface operations {
                         alipay?: Record<string, never>;
                         /** @enum {string} */
                         allow_redisplay?: "always" | "limited" | "unspecified";
+                        /** param */
+                        alma?: Record<string, never>;
                         /** param */
                         amazon_pay?: Record<string, never>;
                         /** param */
@@ -44630,6 +48368,8 @@ export interface operations {
                         /** param */
                         interac_present?: Record<string, never>;
                         /** param */
+                        kakao_pay?: Record<string, never>;
+                        /** param */
                         klarna?: {
                             /** date_of_birth */
                             dob?: {
@@ -44641,6 +48381,8 @@ export interface operations {
                         /** param */
                         konbini?: Record<string, never>;
                         /** param */
+                        kr_card?: Record<string, never>;
+                        /** param */
                         link?: Record<string, never>;
                         metadata?: {
                             [key: string]: string;
@@ -44650,12 +48392,19 @@ export interface operations {
                         /** param */
                         multibanco?: Record<string, never>;
                         /** param */
+                        naver_pay?: {
+                            /** @enum {string} */
+                            funding?: "card" | "points";
+                        };
+                        /** param */
                         oxxo?: Record<string, never>;
                         /** param */
                         p24?: {
                             /** @enum {string} */
                             bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank";
                         };
+                        /** param */
+                        payco?: Record<string, never>;
                         /** param */
                         paynow?: Record<string, never>;
                         /** param */
@@ -44671,6 +48420,8 @@ export interface operations {
                         /** param */
                         revolut_pay?: Record<string, never>;
                         /** param */
+                        samsung_pay?: Record<string, never>;
+                        /** param */
                         sepa_debit?: {
                             iban: string;
                         };
@@ -44684,7 +48435,7 @@ export interface operations {
                         /** param */
                         twint?: Record<string, never>;
                         /** @enum {string} */
-                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
                         /** payment_method_param */
                         us_bank_account?: {
                             /** @enum {string} */
@@ -44738,6 +48489,10 @@ export interface operations {
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session";
                         } | "";
+                        alma?: {
+                            /** @enum {string} */
+                            capture_method?: "" | "manual";
+                        } | "";
                         amazon_pay?: {
                             /** @enum {string} */
                             capture_method?: "" | "manual";
@@ -44750,7 +48505,9 @@ export interface operations {
                         } | "";
                         bacs_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
                         } | "";
@@ -44802,7 +48559,7 @@ export interface operations {
                                 supported_types?: "india"[];
                             };
                             /** @enum {string} */
-                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
                             request_extended_authorization?: "if_available" | "never";
                             /** @enum {string} */
@@ -44895,6 +48652,12 @@ export interface operations {
                             setup_future_usage?: "" | "none" | "off_session";
                         } | "";
                         interac_present?: Record<string, never> | "";
+                        kakao_pay?: {
+                            /** @enum {string} */
+                            capture_method?: "" | "manual";
+                            /** @enum {string} */
+                            setup_future_usage?: "" | "none" | "off_session";
+                        } | "";
                         klarna?: {
                             /** @enum {string} */
                             capture_method?: "" | "manual";
@@ -44910,6 +48673,12 @@ export interface operations {
                             product_description?: string | "";
                             /** @enum {string} */
                             setup_future_usage?: "none";
+                        } | "";
+                        kr_card?: {
+                            /** @enum {string} */
+                            capture_method?: "" | "manual";
+                            /** @enum {string} */
+                            setup_future_usage?: "" | "none" | "off_session";
                         } | "";
                         link?: {
                             /** @enum {string} */
@@ -44927,6 +48696,10 @@ export interface operations {
                             /** @enum {string} */
                             setup_future_usage?: "none";
                         } | "";
+                        naver_pay?: {
+                            /** @enum {string} */
+                            capture_method?: "" | "manual";
+                        } | "";
                         oxxo?: {
                             expires_after_days?: number;
                             /** @enum {string} */
@@ -44936,6 +48709,10 @@ export interface operations {
                             /** @enum {string} */
                             setup_future_usage?: "none";
                             tos_shown_and_accepted?: boolean;
+                        } | "";
+                        payco?: {
+                            /** @enum {string} */
+                            capture_method?: "" | "manual";
                         } | "";
                         paynow?: {
                             /** @enum {string} */
@@ -44968,9 +48745,15 @@ export interface operations {
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session";
                         } | "";
+                        samsung_pay?: {
+                            /** @enum {string} */
+                            capture_method?: "" | "manual";
+                        } | "";
                         sepa_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
                         } | "";
@@ -45112,15 +48895,16 @@ export interface operations {
         requestBody?: {
             content: {
                 "application/x-www-form-urlencoded": {
-                    /** @description Amount that you intend to apply to this PaymentIntent from the customer’s cash balance.
+                    /** @description Amount that you intend to apply to this PaymentIntent from the customer’s cash balance. If the PaymentIntent was created by an Invoice, the full amount of the PaymentIntent is applied regardless of this parameter.
                      *
-                     *     A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (for example, 100 cents to charge 1 USD or 100 to charge 100 JPY, a zero-decimal currency).
-                     *
-                     *     The maximum amount is the amount of the PaymentIntent.
+                     *     A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (for example, 100 cents to charge 1 USD or 100 to charge 100 JPY, a zero-decimal currency). The maximum amount is the amount of the PaymentIntent.
                      *
                      *     When you omit the amount, it defaults to the remaining amount requested on the PaymentIntent. */
                     amount?: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -45335,6 +49119,8 @@ export interface operations {
                         /** @enum {string} */
                         allow_redisplay?: "always" | "limited" | "unspecified";
                         /** param */
+                        alma?: Record<string, never>;
+                        /** param */
                         amazon_pay?: Record<string, never>;
                         /** param */
                         au_becs_debit?: {
@@ -45394,6 +49180,8 @@ export interface operations {
                         /** param */
                         interac_present?: Record<string, never>;
                         /** param */
+                        kakao_pay?: Record<string, never>;
+                        /** param */
                         klarna?: {
                             /** date_of_birth */
                             dob?: {
@@ -45405,6 +49193,8 @@ export interface operations {
                         /** param */
                         konbini?: Record<string, never>;
                         /** param */
+                        kr_card?: Record<string, never>;
+                        /** param */
                         link?: Record<string, never>;
                         metadata?: {
                             [key: string]: string;
@@ -45414,12 +49204,19 @@ export interface operations {
                         /** param */
                         multibanco?: Record<string, never>;
                         /** param */
+                        naver_pay?: {
+                            /** @enum {string} */
+                            funding?: "card" | "points";
+                        };
+                        /** param */
                         oxxo?: Record<string, never>;
                         /** param */
                         p24?: {
                             /** @enum {string} */
                             bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank";
                         };
+                        /** param */
+                        payco?: Record<string, never>;
                         /** param */
                         paynow?: Record<string, never>;
                         /** param */
@@ -45435,6 +49232,8 @@ export interface operations {
                         /** param */
                         revolut_pay?: Record<string, never>;
                         /** param */
+                        samsung_pay?: Record<string, never>;
+                        /** param */
                         sepa_debit?: {
                             iban: string;
                         };
@@ -45448,7 +49247,7 @@ export interface operations {
                         /** param */
                         twint?: Record<string, never>;
                         /** @enum {string} */
-                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
                         /** payment_method_param */
                         us_bank_account?: {
                             /** @enum {string} */
@@ -45502,6 +49301,10 @@ export interface operations {
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session";
                         } | "";
+                        alma?: {
+                            /** @enum {string} */
+                            capture_method?: "" | "manual";
+                        } | "";
                         amazon_pay?: {
                             /** @enum {string} */
                             capture_method?: "" | "manual";
@@ -45514,7 +49317,9 @@ export interface operations {
                         } | "";
                         bacs_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
                         } | "";
@@ -45566,7 +49371,7 @@ export interface operations {
                                 supported_types?: "india"[];
                             };
                             /** @enum {string} */
-                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
                             request_extended_authorization?: "if_available" | "never";
                             /** @enum {string} */
@@ -45659,6 +49464,12 @@ export interface operations {
                             setup_future_usage?: "" | "none" | "off_session";
                         } | "";
                         interac_present?: Record<string, never> | "";
+                        kakao_pay?: {
+                            /** @enum {string} */
+                            capture_method?: "" | "manual";
+                            /** @enum {string} */
+                            setup_future_usage?: "" | "none" | "off_session";
+                        } | "";
                         klarna?: {
                             /** @enum {string} */
                             capture_method?: "" | "manual";
@@ -45674,6 +49485,12 @@ export interface operations {
                             product_description?: string | "";
                             /** @enum {string} */
                             setup_future_usage?: "none";
+                        } | "";
+                        kr_card?: {
+                            /** @enum {string} */
+                            capture_method?: "" | "manual";
+                            /** @enum {string} */
+                            setup_future_usage?: "" | "none" | "off_session";
                         } | "";
                         link?: {
                             /** @enum {string} */
@@ -45691,6 +49508,10 @@ export interface operations {
                             /** @enum {string} */
                             setup_future_usage?: "none";
                         } | "";
+                        naver_pay?: {
+                            /** @enum {string} */
+                            capture_method?: "" | "manual";
+                        } | "";
                         oxxo?: {
                             expires_after_days?: number;
                             /** @enum {string} */
@@ -45700,6 +49521,10 @@ export interface operations {
                             /** @enum {string} */
                             setup_future_usage?: "none";
                             tos_shown_and_accepted?: boolean;
+                        } | "";
+                        payco?: {
+                            /** @enum {string} */
+                            capture_method?: "" | "manual";
                         } | "";
                         paynow?: {
                             /** @enum {string} */
@@ -45732,9 +49557,15 @@ export interface operations {
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session";
                         } | "";
+                        samsung_pay?: {
+                            /** @enum {string} */
+                            capture_method?: "" | "manual";
+                        } | "";
                         sepa_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                             /** @enum {string} */
                             setup_future_usage?: "" | "none" | "off_session" | "on_session";
                         } | "";
@@ -46084,7 +49915,10 @@ export interface operations {
                         /** @enum {string} */
                         terms_of_service?: "none" | "required";
                     };
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies) and supported by each line item's price. */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies) and supported by each line item's price.
+                     */
                     currency?: string;
                     /** @description Collect additional information from your customer using custom fields. Up to 3 fields are supported. */
                     custom_fields?: {
@@ -46217,7 +50051,7 @@ export interface operations {
                      */
                     payment_method_collection?: "always" | "if_required";
                     /** @description The list of payment method types that customers can use. If no value is passed, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods) (20+ payment methods [supported](https://stripe.com/docs/payments/payment-methods/integration-options#payment-method-product-support)). */
-                    payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[];
+                    payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "alma" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[];
                     /**
                      * phone_number_collection_params
                      * @description Controls phone number collection settings during checkout.
@@ -46252,7 +50086,7 @@ export interface operations {
                      * @description Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
                      * @enum {string}
                      */
-                    submit_type?: "auto" | "book" | "donate" | "pay";
+                    submit_type?: "auto" | "book" | "donate" | "pay" | "subscribe";
                     /**
                      * subscription_data_params
                      * @description When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
@@ -46535,7 +50369,7 @@ export interface operations {
                      */
                     payment_method_collection?: "always" | "if_required";
                     /** @description The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
-                    payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[] | "";
+                    payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "alma" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[] | "";
                     /** @description Settings that restrict the usage of a payment link. */
                     restrictions?: {
                         /** completed_sessions_params */
@@ -46547,6 +50381,11 @@ export interface operations {
                     shipping_address_collection?: {
                         allowed_countries: ("AC" | "AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CV" | "CW" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MK" | "ML" | "MM" | "MN" | "MO" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SZ" | "TA" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VN" | "VU" | "WF" | "WS" | "XK" | "YE" | "YT" | "ZA" | "ZM" | "ZW" | "ZZ")[];
                     } | "";
+                    /**
+                     * @description Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
+                     * @enum {string}
+                     */
+                    submit_type?: "auto" | "book" | "donate" | "pay" | "subscribe";
                     /**
                      * subscription_data_update_params
                      * @description When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
@@ -46564,6 +50403,7 @@ export interface operations {
                         metadata?: {
                             [key: string]: string;
                         } | "";
+                        trial_period_days?: number | "";
                         trial_settings?: {
                             /** end_behavior */
                             end_behavior: {
@@ -46764,6 +50604,17 @@ export interface operations {
                      * @description Alipay is a digital wallet in China that has more than a billion active users worldwide. Alipay users can pay on the web or on a mobile device using login credentials or their Alipay app. Alipay has a low dispute rate and reduces fraud by authenticating payments using the customer's login credentials. Check this [page](https://stripe.com/docs/payments/alipay) for more details.
                      */
                     alipay?: {
+                        /** display_preference_param */
+                        display_preference?: {
+                            /** @enum {string} */
+                            preference?: "none" | "off" | "on";
+                        };
+                    };
+                    /**
+                     * payment_method_param
+                     * @description Alma is a Buy Now, Pay Later payment method that offers customers the ability to pay in 2, 3, or 4 installments.
+                     */
+                    alma?: {
                         /** display_preference_param */
                         display_preference?: {
                             /** @enum {string} */
@@ -47152,7 +51003,7 @@ export interface operations {
                     };
                     /**
                      * payment_method_param
-                     * @description Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://stripe.com/docs/payments/ach-debit) for more details.
+                     * @description Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://stripe.com/docs/payments/ach-direct-debit) for more details.
                      */
                     us_bank_account?: {
                         /** display_preference_param */
@@ -47297,6 +51148,17 @@ export interface operations {
                      * @description Alipay is a digital wallet in China that has more than a billion active users worldwide. Alipay users can pay on the web or on a mobile device using login credentials or their Alipay app. Alipay has a low dispute rate and reduces fraud by authenticating payments using the customer's login credentials. Check this [page](https://stripe.com/docs/payments/alipay) for more details.
                      */
                     alipay?: {
+                        /** display_preference_param */
+                        display_preference?: {
+                            /** @enum {string} */
+                            preference?: "none" | "off" | "on";
+                        };
+                    };
+                    /**
+                     * payment_method_param
+                     * @description Alma is a Buy Now, Pay Later payment method that offers customers the ability to pay in 2, 3, or 4 installments.
+                     */
+                    alma?: {
                         /** display_preference_param */
                         display_preference?: {
                             /** @enum {string} */
@@ -47683,7 +51545,7 @@ export interface operations {
                     };
                     /**
                      * payment_method_param
-                     * @description Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://stripe.com/docs/payments/ach-debit) for more details.
+                     * @description Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://stripe.com/docs/payments/ach-direct-debit) for more details.
                      */
                     us_bank_account?: {
                         /** display_preference_param */
@@ -47965,7 +51827,7 @@ export interface operations {
                 /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
                 starting_after?: string;
                 /** @description An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request. */
-                type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
             };
             header?: never;
             path?: never;
@@ -48047,6 +51909,11 @@ export interface operations {
                      * @enum {string}
                      */
                     allow_redisplay?: "always" | "limited" | "unspecified";
+                    /**
+                     * param
+                     * @description If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+                     */
+                    alma?: Record<string, never>;
                     /**
                      * param
                      * @description If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
@@ -48171,6 +52038,11 @@ export interface operations {
                     interac_present?: Record<string, never>;
                     /**
                      * param
+                     * @description If this is a `kakao_pay` PaymentMethod, this hash contains details about the Kakao Pay payment method.
+                     */
+                    kakao_pay?: Record<string, never>;
+                    /**
+                     * param
                      * @description If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method.
                      */
                     klarna?: {
@@ -48186,6 +52058,11 @@ export interface operations {
                      * @description If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
                      */
                     konbini?: Record<string, never>;
+                    /**
+                     * param
+                     * @description If this is a `kr_card` PaymentMethod, this hash contains details about the Korean Card payment method.
+                     */
+                    kr_card?: Record<string, never>;
                     /**
                      * param
                      * @description If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
@@ -48207,6 +52084,14 @@ export interface operations {
                     multibanco?: Record<string, never>;
                     /**
                      * param
+                     * @description If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
+                     */
+                    naver_pay?: {
+                        /** @enum {string} */
+                        funding?: "card" | "points";
+                    };
+                    /**
+                     * param
                      * @description If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
                      */
                     oxxo?: Record<string, never>;
@@ -48218,6 +52103,11 @@ export interface operations {
                         /** @enum {string} */
                         bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank";
                     };
+                    /**
+                     * param
+                     * @description If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
+                     */
+                    payco?: Record<string, never>;
                     /** @description The PaymentMethod to share. */
                     payment_method?: string;
                     /**
@@ -48254,6 +52144,11 @@ export interface operations {
                     revolut_pay?: Record<string, never>;
                     /**
                      * param
+                     * @description If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
+                     */
+                    samsung_pay?: Record<string, never>;
+                    /**
+                     * param
                      * @description If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
                      */
                     sepa_debit?: {
@@ -48281,7 +52176,7 @@ export interface operations {
                      * @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
                      * @enum {string}
                      */
-                    type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                    type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
                     /**
                      * payment_method_param
                      * @description If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
@@ -48425,6 +52320,14 @@ export interface operations {
                     metadata?: {
                         [key: string]: string;
                     } | "";
+                    /**
+                     * param
+                     * @description If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
+                     */
+                    naver_pay?: {
+                        /** @enum {string} */
+                        funding?: "card" | "points";
+                    };
                     /**
                      * update_param
                      * @description If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
@@ -48620,7 +52523,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description A positive integer in cents representing how much to payout. */
                     amount: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -48922,7 +52828,10 @@ export interface operations {
                      * @enum {string}
                      */
                     billing_scheme?: "per_unit" | "tiered";
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -49229,7 +53138,10 @@ export interface operations {
                      * @enum {string}
                      */
                     billing_scheme?: "per_unit" | "tiered";
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description Prices defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). */
                     currency_options?: {
@@ -49630,6 +53542,7 @@ export interface operations {
                      * @description Data used to generate a new [Price](https://stripe.com/docs/api/prices) object. This Price will be set as the default price for this product.
                      */
                     default_price_data?: {
+                        /** Format: currency */
                         currency: string;
                         currency_options?: {
                             [key: string]: {
@@ -49655,6 +53568,13 @@ export interface operations {
                                 /** Format: decimal */
                                 unit_amount_decimal?: string;
                             };
+                        };
+                        /** custom_unit_amount */
+                        custom_unit_amount?: {
+                            enabled: boolean;
+                            maximum?: number;
+                            minimum?: number;
+                            preset?: number;
                         };
                         /** recurring_adhoc */
                         recurring?: {
@@ -50188,7 +54108,9 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Whether the promotion code is currently active. */
                     active?: boolean;
-                    /** @description The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for a specific customer. If left blank, we will generate one automatically. */
+                    /** @description The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for a specific customer. Valid characters are lower case letters (a-z), upper case letters (A-Z), and digits (0-9).
+                     *
+                     *     If left blank, we will generate one automatically. */
                     code?: string;
                     /** @description The coupon for this promotion code. */
                     coupon: string;
@@ -50219,6 +54141,7 @@ export interface operations {
                         };
                         first_time_transaction?: boolean;
                         minimum_amount?: number;
+                        /** Format: currency */
                         minimum_amount_currency?: string;
                     };
                 };
@@ -50483,6 +54406,7 @@ export interface operations {
                         price?: string;
                         /** price_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** recurring_adhoc */
@@ -50669,6 +54593,7 @@ export interface operations {
                         price?: string;
                         /** price_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** recurring_adhoc */
@@ -51591,7 +55516,10 @@ export interface operations {
                     amount?: number;
                     /** @description The identifier of the charge to refund. */
                     charge?: string;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description Customer whose customer balance to refund from. */
                     customer?: string;
@@ -51840,6 +55768,7 @@ export interface operations {
                     parameters?: {
                         columns?: string[];
                         connected_account?: string;
+                        /** Format: currency */
                         currency?: string;
                         /** Format: unix-time */
                         interval_end?: number;
@@ -52335,7 +56264,7 @@ export interface operations {
                     on_behalf_of?: string;
                     /** @description ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. */
                     payment_method?: string;
-                    /** @description The ID of the payment method configuration to use with this SetupIntent. */
+                    /** @description The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this SetupIntent. */
                     payment_method_configuration?: string;
                     /**
                      * payment_method_data_params
@@ -52357,6 +56286,8 @@ export interface operations {
                         alipay?: Record<string, never>;
                         /** @enum {string} */
                         allow_redisplay?: "always" | "limited" | "unspecified";
+                        /** param */
+                        alma?: Record<string, never>;
                         /** param */
                         amazon_pay?: Record<string, never>;
                         /** param */
@@ -52417,6 +56348,8 @@ export interface operations {
                         /** param */
                         interac_present?: Record<string, never>;
                         /** param */
+                        kakao_pay?: Record<string, never>;
+                        /** param */
                         klarna?: {
                             /** date_of_birth */
                             dob?: {
@@ -52428,6 +56361,8 @@ export interface operations {
                         /** param */
                         konbini?: Record<string, never>;
                         /** param */
+                        kr_card?: Record<string, never>;
+                        /** param */
                         link?: Record<string, never>;
                         metadata?: {
                             [key: string]: string;
@@ -52437,12 +56372,19 @@ export interface operations {
                         /** param */
                         multibanco?: Record<string, never>;
                         /** param */
+                        naver_pay?: {
+                            /** @enum {string} */
+                            funding?: "card" | "points";
+                        };
+                        /** param */
                         oxxo?: Record<string, never>;
                         /** param */
                         p24?: {
                             /** @enum {string} */
                             bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank";
                         };
+                        /** param */
+                        payco?: Record<string, never>;
                         /** param */
                         paynow?: Record<string, never>;
                         /** param */
@@ -52458,6 +56400,8 @@ export interface operations {
                         /** param */
                         revolut_pay?: Record<string, never>;
                         /** param */
+                        samsung_pay?: Record<string, never>;
+                        /** param */
                         sepa_debit?: {
                             iban: string;
                         };
@@ -52471,7 +56415,7 @@ export interface operations {
                         /** param */
                         twint?: Record<string, never>;
                         /** @enum {string} */
-                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
                         /** payment_method_param */
                         us_bank_account?: {
                             /** @enum {string} */
@@ -52514,7 +56458,9 @@ export interface operations {
                         /** setup_intent_payment_method_options_param */
                         bacs_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                         };
                         /** setup_intent_param */
                         card?: {
@@ -52523,6 +56469,7 @@ export interface operations {
                                 amount: number;
                                 /** @enum {string} */
                                 amount_type: "fixed" | "maximum";
+                                /** Format: currency */
                                 currency: string;
                                 description?: string;
                                 /** Format: unix-time */
@@ -52536,7 +56483,7 @@ export interface operations {
                                 supported_types?: "india"[];
                             };
                             /** @enum {string} */
-                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
                             request_three_d_secure?: "any" | "automatic" | "challenge";
                             /** setup_intent_payment_method_options_param */
@@ -52573,7 +56520,9 @@ export interface operations {
                         /** setup_intent_payment_method_options_param */
                         sepa_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                         };
                         /** setup_intent_payment_method_options_param */
                         us_bank_account?: {
@@ -52600,7 +56549,7 @@ export interface operations {
                             verification_method?: "automatic" | "instant" | "microdeposits";
                         };
                     };
-                    /** @description The list of payment method types (for example, card) that this SetupIntent can use. If you don't provide this, it defaults to ["card"]. */
+                    /** @description The list of payment method types (for example, card) that this SetupIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
                     payment_method_types?: string[];
                     /** @description The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. To redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm). */
                     return_url?: string;
@@ -52610,6 +56559,7 @@ export interface operations {
                      */
                     single_use?: {
                         amount: number;
+                        /** Format: currency */
                         currency: string;
                     };
                     /**
@@ -52717,7 +56667,7 @@ export interface operations {
                     } | "";
                     /** @description ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent. To unset this field to null, pass in an empty string. */
                     payment_method?: string;
-                    /** @description The ID of the payment method configuration to use with this SetupIntent. */
+                    /** @description The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this SetupIntent. */
                     payment_method_configuration?: string;
                     /**
                      * payment_method_data_params
@@ -52739,6 +56689,8 @@ export interface operations {
                         alipay?: Record<string, never>;
                         /** @enum {string} */
                         allow_redisplay?: "always" | "limited" | "unspecified";
+                        /** param */
+                        alma?: Record<string, never>;
                         /** param */
                         amazon_pay?: Record<string, never>;
                         /** param */
@@ -52799,6 +56751,8 @@ export interface operations {
                         /** param */
                         interac_present?: Record<string, never>;
                         /** param */
+                        kakao_pay?: Record<string, never>;
+                        /** param */
                         klarna?: {
                             /** date_of_birth */
                             dob?: {
@@ -52810,6 +56764,8 @@ export interface operations {
                         /** param */
                         konbini?: Record<string, never>;
                         /** param */
+                        kr_card?: Record<string, never>;
+                        /** param */
                         link?: Record<string, never>;
                         metadata?: {
                             [key: string]: string;
@@ -52819,12 +56775,19 @@ export interface operations {
                         /** param */
                         multibanco?: Record<string, never>;
                         /** param */
+                        naver_pay?: {
+                            /** @enum {string} */
+                            funding?: "card" | "points";
+                        };
+                        /** param */
                         oxxo?: Record<string, never>;
                         /** param */
                         p24?: {
                             /** @enum {string} */
                             bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank";
                         };
+                        /** param */
+                        payco?: Record<string, never>;
                         /** param */
                         paynow?: Record<string, never>;
                         /** param */
@@ -52840,6 +56803,8 @@ export interface operations {
                         /** param */
                         revolut_pay?: Record<string, never>;
                         /** param */
+                        samsung_pay?: Record<string, never>;
+                        /** param */
                         sepa_debit?: {
                             iban: string;
                         };
@@ -52853,7 +56818,7 @@ export interface operations {
                         /** param */
                         twint?: Record<string, never>;
                         /** @enum {string} */
-                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
                         /** payment_method_param */
                         us_bank_account?: {
                             /** @enum {string} */
@@ -52896,7 +56861,9 @@ export interface operations {
                         /** setup_intent_payment_method_options_param */
                         bacs_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                         };
                         /** setup_intent_param */
                         card?: {
@@ -52905,6 +56872,7 @@ export interface operations {
                                 amount: number;
                                 /** @enum {string} */
                                 amount_type: "fixed" | "maximum";
+                                /** Format: currency */
                                 currency: string;
                                 description?: string;
                                 /** Format: unix-time */
@@ -52918,7 +56886,7 @@ export interface operations {
                                 supported_types?: "india"[];
                             };
                             /** @enum {string} */
-                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
                             request_three_d_secure?: "any" | "automatic" | "challenge";
                             /** setup_intent_payment_method_options_param */
@@ -52955,7 +56923,9 @@ export interface operations {
                         /** setup_intent_payment_method_options_param */
                         sepa_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                         };
                         /** setup_intent_payment_method_options_param */
                         us_bank_account?: {
@@ -52982,7 +56952,7 @@ export interface operations {
                             verification_method?: "automatic" | "instant" | "microdeposits";
                         };
                     };
-                    /** @description The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this array, it defaults to ["card"]. */
+                    /** @description The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
                     payment_method_types?: string[];
                 };
             };
@@ -53121,6 +57091,8 @@ export interface operations {
                         /** @enum {string} */
                         allow_redisplay?: "always" | "limited" | "unspecified";
                         /** param */
+                        alma?: Record<string, never>;
+                        /** param */
                         amazon_pay?: Record<string, never>;
                         /** param */
                         au_becs_debit?: {
@@ -53180,6 +57152,8 @@ export interface operations {
                         /** param */
                         interac_present?: Record<string, never>;
                         /** param */
+                        kakao_pay?: Record<string, never>;
+                        /** param */
                         klarna?: {
                             /** date_of_birth */
                             dob?: {
@@ -53191,6 +57165,8 @@ export interface operations {
                         /** param */
                         konbini?: Record<string, never>;
                         /** param */
+                        kr_card?: Record<string, never>;
+                        /** param */
                         link?: Record<string, never>;
                         metadata?: {
                             [key: string]: string;
@@ -53200,12 +57176,19 @@ export interface operations {
                         /** param */
                         multibanco?: Record<string, never>;
                         /** param */
+                        naver_pay?: {
+                            /** @enum {string} */
+                            funding?: "card" | "points";
+                        };
+                        /** param */
                         oxxo?: Record<string, never>;
                         /** param */
                         p24?: {
                             /** @enum {string} */
                             bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank";
                         };
+                        /** param */
+                        payco?: Record<string, never>;
                         /** param */
                         paynow?: Record<string, never>;
                         /** param */
@@ -53221,6 +57204,8 @@ export interface operations {
                         /** param */
                         revolut_pay?: Record<string, never>;
                         /** param */
+                        samsung_pay?: Record<string, never>;
+                        /** param */
                         sepa_debit?: {
                             iban: string;
                         };
@@ -53234,7 +57219,7 @@ export interface operations {
                         /** param */
                         twint?: Record<string, never>;
                         /** @enum {string} */
-                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
                         /** payment_method_param */
                         us_bank_account?: {
                             /** @enum {string} */
@@ -53277,7 +57262,9 @@ export interface operations {
                         /** setup_intent_payment_method_options_param */
                         bacs_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                         };
                         /** setup_intent_param */
                         card?: {
@@ -53286,6 +57273,7 @@ export interface operations {
                                 amount: number;
                                 /** @enum {string} */
                                 amount_type: "fixed" | "maximum";
+                                /** Format: currency */
                                 currency: string;
                                 description?: string;
                                 /** Format: unix-time */
@@ -53299,7 +57287,7 @@ export interface operations {
                                 supported_types?: "india"[];
                             };
                             /** @enum {string} */
-                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                            network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                             /** @enum {string} */
                             request_three_d_secure?: "any" | "automatic" | "challenge";
                             /** setup_intent_payment_method_options_param */
@@ -53336,7 +57324,9 @@ export interface operations {
                         /** setup_intent_payment_method_options_param */
                         sepa_debit?: {
                             /** payment_method_options_mandate_options_param */
-                            mandate_options?: Record<string, never>;
+                            mandate_options?: {
+                                reference_prefix?: string | "";
+                            };
                         };
                         /** setup_intent_payment_method_options_param */
                         us_bank_account?: {
@@ -53539,6 +57529,7 @@ export interface operations {
                      */
                     fixed_amount?: {
                         amount: number;
+                        /** Format: currency */
                         currency: string;
                         currency_options?: {
                             [key: string]: {
@@ -53791,7 +57782,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Amount associated with the source. This is the amount for which the source will be chargeable once ready. Required for `single_use` sources. Not supported for `receiver` type sources, where charge amount may not be specified until funds land. */
                     amount?: number;
-                    /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) associated with the source. This is the currency for which the source will be chargeable once ready. */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) associated with the source. This is the currency for which the source will be chargeable once ready.
+                     */
                     currency?: string;
                     /** @description The `Customer` to whom the original source is attached to. Must be set when the original source is not a `Source` (e.g., `Card`). */
                     customer?: string;
@@ -53830,6 +57824,7 @@ export interface operations {
                             user_agent?: string;
                         };
                         amount?: number | "";
+                        /** Format: currency */
                         currency?: string;
                         /** @enum {string} */
                         interval?: "one_time" | "scheduled" | "variable";
@@ -53881,6 +57876,7 @@ export interface operations {
                     source_order?: {
                         items?: {
                             amount?: number;
+                            /** Format: currency */
                             currency?: string;
                             description?: string;
                             parent?: string;
@@ -54021,6 +58017,7 @@ export interface operations {
                             user_agent?: string;
                         };
                         amount?: number | "";
+                        /** Format: currency */
                         currency?: string;
                         /** @enum {string} */
                         interval?: "one_time" | "scheduled" | "variable";
@@ -54056,6 +58053,7 @@ export interface operations {
                     source_order?: {
                         items?: {
                             amount?: number;
+                            /** Format: currency */
                             currency?: string;
                             description?: string;
                             parent?: string;
@@ -54376,6 +58374,7 @@ export interface operations {
                      * @description Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
                      */
                     price_data?: {
+                        /** Format: currency */
                         currency: string;
                         product: string;
                         /** recurring_adhoc */
@@ -54516,6 +58515,7 @@ export interface operations {
                      * @description Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
                      */
                     price_data?: {
+                        /** Format: currency */
                         currency: string;
                         product: string;
                         /** recurring_adhoc */
@@ -54882,6 +58882,7 @@ export interface operations {
                             price?: string;
                             /** one_time_price_data_with_negative_amounts */
                             price_data?: {
+                                /** Format: currency */
                                 currency: string;
                                 product: string;
                                 /** @enum {string} */
@@ -54913,6 +58914,7 @@ export interface operations {
                         /** @enum {string} */
                         collection_method?: "charge_automatically" | "send_invoice";
                         coupon?: string;
+                        /** Format: currency */
                         currency?: string;
                         default_payment_method?: string;
                         default_tax_rates?: string[] | "";
@@ -54950,6 +58952,7 @@ export interface operations {
                             price?: string;
                             /** recurring_price_data */
                             price_data?: {
+                                /** Format: currency */
                                 currency: string;
                                 product: string;
                                 /** recurring_adhoc */
@@ -55124,6 +59127,7 @@ export interface operations {
                             price?: string;
                             /** one_time_price_data_with_negative_amounts */
                             price_data?: {
+                                /** Format: currency */
                                 currency: string;
                                 product: string;
                                 /** @enum {string} */
@@ -55190,6 +59194,7 @@ export interface operations {
                             price?: string;
                             /** recurring_price_data */
                             price_data?: {
+                                /** Format: currency */
                                 currency: string;
                                 product: string;
                                 /** recurring_adhoc */
@@ -55442,6 +59447,7 @@ export interface operations {
                         price?: string;
                         /** one_time_price_data_with_negative_amounts */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** @enum {string} */
@@ -55508,7 +59514,10 @@ export interface operations {
                     collection_method?: "charge_automatically" | "send_invoice";
                     /** @description The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead. */
                     coupon?: string;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description The identifier of the customer to subscribe. */
                     customer: string;
@@ -55559,6 +59568,7 @@ export interface operations {
                         price?: string;
                         /** recurring_price_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** recurring_adhoc */
@@ -55628,7 +59638,7 @@ export interface operations {
                                     description?: string;
                                 };
                                 /** @enum {string} */
-                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                                 /** @enum {string} */
                                 request_three_d_secure?: "any" | "automatic" | "challenge";
                             } | "";
@@ -55659,7 +59669,7 @@ export interface operations {
                                 verification_method?: "automatic" | "instant" | "microdeposits";
                             } | "";
                         };
-                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "multibanco" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
+                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "jp_credit_transfer" | "kakao_pay" | "konbini" | "kr_card" | "link" | "multibanco" | "naver_pay" | "p24" | "payco" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_credit_transfer" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
                         /** @enum {string} */
                         save_default_payment_method?: "off" | "on_subscription";
                     };
@@ -55839,6 +59849,7 @@ export interface operations {
                         price?: string;
                         /** one_time_price_data_with_negative_amounts */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** @enum {string} */
@@ -55945,6 +59956,7 @@ export interface operations {
                         price?: string;
                         /** recurring_price_data */
                         price_data?: {
+                            /** Format: currency */
                             currency: string;
                             product: string;
                             /** recurring_adhoc */
@@ -55970,7 +59982,7 @@ export interface operations {
                     off_session?: boolean;
                     /** @description The account on behalf of which to charge, for each of the subscription's invoices. */
                     on_behalf_of?: string | "";
-                    /** @description If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](/billing/subscriptions/pause-payment). */
+                    /** @description If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment). */
                     pause_collection?: {
                         /** @enum {string} */
                         behavior: "keep_as_draft" | "mark_uncollectible" | "void";
@@ -56017,7 +60029,7 @@ export interface operations {
                                     description?: string;
                                 };
                                 /** @enum {string} */
-                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "mastercard" | "unionpay" | "unknown" | "visa";
+                                network?: "amex" | "cartes_bancaires" | "diners" | "discover" | "eftpos_au" | "girocard" | "interac" | "jcb" | "link" | "mastercard" | "unionpay" | "unknown" | "visa";
                                 /** @enum {string} */
                                 request_three_d_secure?: "any" | "automatic" | "challenge";
                             } | "";
@@ -56048,7 +60060,7 @@ export interface operations {
                                 verification_method?: "automatic" | "instant" | "microdeposits";
                             } | "";
                         };
-                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "konbini" | "link" | "multibanco" | "p24" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
+                        payment_method_types?: ("ach_credit_transfer" | "ach_debit" | "acss_debit" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "jp_credit_transfer" | "kakao_pay" | "konbini" | "kr_card" | "link" | "multibanco" | "naver_pay" | "p24" | "payco" | "paynow" | "paypal" | "promptpay" | "revolut_pay" | "sepa_credit_transfer" | "sepa_debit" | "sofort" | "swish" | "us_bank_account" | "wechat_pay")[] | "";
                         /** @enum {string} */
                         save_default_payment_method?: "off" | "on_subscription";
                     };
@@ -56137,7 +60149,7 @@ export interface operations {
                     };
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
-                    /** @description Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items. Defaults to `true`. */
+                    /** @description Will generate a final invoice that invoices for any un-invoiced metered usage and new/pending proration invoice items. Defaults to `false`. */
                     invoice_now?: boolean;
                     /** @description Will generate a proration invoice item that credits remaining unused time until the subscription period end. Defaults to `false`. */
                     prorate?: boolean;
@@ -56213,7 +60225,7 @@ export interface operations {
             content: {
                 "application/x-www-form-urlencoded": {
                     /**
-                     * @description Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). Setting the value to `unchanged` advances the subscription's billing cycle anchor to the period that surrounds the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+                     * @description The billing cycle anchor that applies when the subscription is resumed. Either `now` or `unchanged`. The default is `now`. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
                      * @enum {string}
                      */
                     billing_cycle_anchor?: "now" | "unchanged";
@@ -56263,7 +60275,10 @@ export interface operations {
         requestBody: {
             content: {
                 "application/x-www-form-urlencoded": {
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description The ID of an existing customer to use for this calculation. If provided, the customer's address and tax IDs are copied to `customer_details`. */
                     customer?: string;
@@ -56286,7 +60301,7 @@ export interface operations {
                         ip_address?: string;
                         tax_ids?: {
                             /** @enum {string} */
-                            type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                            type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
                             value: string;
                         }[];
                         /** @enum {string} */
@@ -56529,6 +60544,21 @@ export interface operations {
                             /** @enum {string} */
                             type: "standard";
                         };
+                        /** default */
+                        al?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
+                        /** simplified */
+                        am?: {
+                            /** @enum {string} */
+                            type: "simplified";
+                        };
+                        /** default */
+                        ao?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
                         /** europe */
                         at?: {
                             /** standard */
@@ -56541,6 +60571,16 @@ export interface operations {
                         };
                         /** default */
                         au?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
+                        /** default */
+                        ba?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
+                        /** default */
+                        bb?: {
                             /** @enum {string} */
                             type: "standard";
                         };
@@ -56569,6 +60609,16 @@ export interface operations {
                             /** @enum {string} */
                             type: "standard";
                         };
+                        /** default */
+                        bs?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
+                        /** simplified */
+                        by?: {
+                            /** @enum {string} */
+                            type: "simplified";
+                        };
                         /** canada */
                         ca?: {
                             /** province_standard */
@@ -56577,6 +60627,11 @@ export interface operations {
                             };
                             /** @enum {string} */
                             type: "province_standard" | "simplified" | "standard";
+                        };
+                        /** default */
+                        cd?: {
+                            /** @enum {string} */
+                            type: "standard";
                         };
                         /** default */
                         ch?: {
@@ -56590,6 +60645,11 @@ export interface operations {
                         };
                         /** simplified */
                         co?: {
+                            /** @enum {string} */
+                            type: "simplified";
+                        };
+                        /** simplified */
+                        cr?: {
                             /** @enum {string} */
                             type: "simplified";
                         };
@@ -56632,6 +60692,11 @@ export interface operations {
                             };
                             /** @enum {string} */
                             type: "ioss" | "oss_non_union" | "oss_union" | "standard";
+                        };
+                        /** simplified */
+                        ec?: {
+                            /** @enum {string} */
+                            type: "simplified";
                         };
                         /** europe */
                         ee?: {
@@ -56687,6 +60752,11 @@ export interface operations {
                         ge?: {
                             /** @enum {string} */
                             type: "simplified";
+                        };
+                        /** default */
+                        gn?: {
+                            /** @enum {string} */
+                            type: "standard";
                         };
                         /** europe */
                         gr?: {
@@ -56759,6 +60829,11 @@ export interface operations {
                             type: "simplified";
                         };
                         /** simplified */
+                        kh?: {
+                            /** @enum {string} */
+                            type: "simplified";
+                        };
+                        /** simplified */
                         kr?: {
                             /** @enum {string} */
                             type: "simplified";
@@ -56797,6 +60872,31 @@ export interface operations {
                             };
                             /** @enum {string} */
                             type: "ioss" | "oss_non_union" | "oss_union" | "standard";
+                        };
+                        /** simplified */
+                        ma?: {
+                            /** @enum {string} */
+                            type: "simplified";
+                        };
+                        /** simplified */
+                        md?: {
+                            /** @enum {string} */
+                            type: "simplified";
+                        };
+                        /** default */
+                        me?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
+                        /** default */
+                        mk?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
+                        /** default */
+                        mr?: {
+                            /** @enum {string} */
+                            type: "standard";
                         };
                         /** europe */
                         mt?: {
@@ -56838,6 +60938,11 @@ export interface operations {
                             /** @enum {string} */
                             type: "standard";
                         };
+                        /** simplified */
+                        np?: {
+                            /** @enum {string} */
+                            type: "simplified";
+                        };
                         /** default */
                         nz?: {
                             /** @enum {string} */
@@ -56847,6 +60952,11 @@ export interface operations {
                         om?: {
                             /** @enum {string} */
                             type: "standard";
+                        };
+                        /** simplified */
+                        pe?: {
+                            /** @enum {string} */
+                            type: "simplified";
                         };
                         /** europe */
                         pl?: {
@@ -56877,6 +60987,16 @@ export interface operations {
                             };
                             /** @enum {string} */
                             type: "ioss" | "oss_non_union" | "oss_union" | "standard";
+                        };
+                        /** default */
+                        rs?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
+                        /** simplified */
+                        ru?: {
+                            /** @enum {string} */
+                            type: "simplified";
                         };
                         /** simplified */
                         sa?: {
@@ -56919,12 +61039,37 @@ export interface operations {
                             type: "ioss" | "oss_non_union" | "oss_union" | "standard";
                         };
                         /** simplified */
+                        sn?: {
+                            /** @enum {string} */
+                            type: "simplified";
+                        };
+                        /** default */
+                        sr?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
+                        /** simplified */
                         th?: {
                             /** @enum {string} */
                             type: "simplified";
                         };
                         /** simplified */
+                        tj?: {
+                            /** @enum {string} */
+                            type: "simplified";
+                        };
+                        /** simplified */
                         tr?: {
+                            /** @enum {string} */
+                            type: "simplified";
+                        };
+                        /** simplified */
+                        tz?: {
+                            /** @enum {string} */
+                            type: "simplified";
+                        };
+                        /** simplified */
+                        ug?: {
                             /** @enum {string} */
                             type: "simplified";
                         };
@@ -56948,7 +61093,17 @@ export interface operations {
                                 }[];
                             };
                             /** @enum {string} */
-                            type: "local_amusement_tax" | "local_lease_tax" | "state_communications_tax" | "state_sales_tax";
+                            type: "local_amusement_tax" | "local_lease_tax" | "state_communications_tax" | "state_retail_delivery_fee" | "state_sales_tax";
+                        };
+                        /** default */
+                        uy?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
+                        /** simplified */
+                        uz?: {
+                            /** @enum {string} */
+                            type: "simplified";
                         };
                         /** simplified */
                         vn?: {
@@ -56957,6 +61112,16 @@ export interface operations {
                         };
                         /** default */
                         za?: {
+                            /** @enum {string} */
+                            type: "standard";
+                        };
+                        /** simplified */
+                        zm?: {
+                            /** @enum {string} */
+                            type: "simplified";
+                        };
+                        /** default */
+                        zw?: {
                             /** @enum {string} */
                             type: "standard";
                         };
@@ -57556,10 +61721,10 @@ export interface operations {
                         type: "account" | "application" | "customer" | "self";
                     };
                     /**
-                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
+                     * @description Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `ba_tin`, `bb_tin`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kh_tin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
                      * @enum {string}
                      */
-                    type: "ad_nrt" | "ae_trn" | "ar_cuit" | "au_abn" | "au_arn" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kr_brn" | "kz_bin" | "li_uid" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sv_nit" | "th_vat" | "tr_tin" | "tw_vat" | "ua_vat" | "us_ein" | "uy_ruc" | "ve_rif" | "vn_tin" | "za_vat";
+                    type: "ad_nrt" | "ae_trn" | "al_tin" | "am_tin" | "ao_tin" | "ar_cuit" | "au_abn" | "au_arn" | "ba_tin" | "bb_tin" | "bg_uic" | "bh_vat" | "bo_tin" | "br_cnpj" | "br_cpf" | "bs_tin" | "by_tin" | "ca_bn" | "ca_gst_hst" | "ca_pst_bc" | "ca_pst_mb" | "ca_pst_sk" | "ca_qst" | "cd_nif" | "ch_uid" | "ch_vat" | "cl_tin" | "cn_tin" | "co_nit" | "cr_tin" | "de_stn" | "do_rcn" | "ec_ruc" | "eg_tin" | "es_cif" | "eu_oss_vat" | "eu_vat" | "gb_vat" | "ge_vat" | "gn_nif" | "hk_br" | "hr_oib" | "hu_tin" | "id_npwp" | "il_vat" | "in_gst" | "is_vat" | "jp_cn" | "jp_rn" | "jp_trn" | "ke_pin" | "kh_tin" | "kr_brn" | "kz_bin" | "li_uid" | "li_vat" | "ma_vat" | "md_vat" | "me_pib" | "mk_vat" | "mr_nif" | "mx_rfc" | "my_frp" | "my_itn" | "my_sst" | "ng_tin" | "no_vat" | "no_voec" | "np_pan" | "nz_gst" | "om_vat" | "pe_ruc" | "ph_tin" | "ro_tin" | "rs_pib" | "ru_inn" | "ru_kpp" | "sa_vat" | "sg_gst" | "sg_uen" | "si_tin" | "sn_ninea" | "sr_fin" | "sv_nit" | "th_vat" | "tj_tin" | "tr_tin" | "tw_vat" | "tz_vat" | "ua_vat" | "ug_tin" | "us_ein" | "uy_ruc" | "uz_tin" | "uz_vat" | "ve_rif" | "vn_tin" | "za_vat" | "zm_tin" | "zw_tin";
                     /** @description Value of the tax ID. */
                     value: string;
                 };
@@ -57759,7 +61924,7 @@ export interface operations {
                      * @description The high-level tax type, such as `vat` or `sales_tax`.
                      * @enum {string}
                      */
-                    tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
+                    tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "service_tax" | "vat";
                 };
             };
         };
@@ -57856,7 +62021,7 @@ export interface operations {
                      * @description The high-level tax type, such as `vat` or `sales_tax`.
                      * @enum {string}
                      */
-                    tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "rst" | "sales_tax" | "vat";
+                    tax_type?: "amusement_tax" | "communications_tax" | "gst" | "hst" | "igst" | "jct" | "lease_tax" | "pst" | "qst" | "retail_delivery_fee" | "rst" | "sales_tax" | "service_tax" | "vat";
                 };
             };
         };
@@ -58040,6 +62205,12 @@ export interface operations {
                         };
                         /** currency_specific_config */
                         nzd?: {
+                            fixed_amounts?: number[];
+                            percentages?: number[];
+                            smart_tip_threshold?: number;
+                        };
+                        /** currency_specific_config */
+                        pln?: {
                             fixed_amounts?: number[];
                             percentages?: number[];
                             smart_tip_threshold?: number;
@@ -58229,6 +62400,12 @@ export interface operations {
                         };
                         /** currency_specific_config */
                         nzd?: {
+                            fixed_amounts?: number[];
+                            percentages?: number[];
+                            smart_tip_threshold?: number;
+                        };
+                        /** currency_specific_config */
+                        pln?: {
                             fixed_amounts?: number[];
                             percentages?: number[];
                             smart_tip_threshold?: number;
@@ -58514,7 +62691,7 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /**
                      * optional_fields_address
-                     * @description The full address of the location. If you're updating the `address` field, avoid changing the `country`. If you need to modify the `country` field, create a new `Location` object and re-register any existing readers to that location.
+                     * @description The full address of the location. You can't change the location's `country`. If you need to modify the `country` field, create a new `Location` object and re-register any existing readers to that location.
                      */
                     address?: {
                         city?: string;
@@ -58877,6 +63054,8 @@ export interface operations {
                      * @description Configuration overrides
                      */
                     process_config?: {
+                        /** @enum {string} */
+                        allow_redisplay?: "always" | "limited" | "unspecified";
                         enable_customer_cancellation?: boolean;
                         skip_tipping?: boolean;
                         /** tipping_config */
@@ -58920,8 +63099,11 @@ export interface operations {
         requestBody: {
             content: {
                 "application/x-www-form-urlencoded": {
-                    /** @description Customer Consent Collected */
-                    customer_consent_collected?: boolean;
+                    /**
+                     * @description This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
+                     * @enum {string}
+                     */
+                    allow_redisplay: "always" | "limited" | "unspecified";
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     /**
@@ -59033,6 +63215,7 @@ export interface operations {
                      * @description Cart
                      */
                     cart?: {
+                        /** Format: currency */
                         currency: string;
                         line_items: {
                             amount: number;
@@ -59107,6 +63290,8 @@ export interface operations {
                         /** @enum {string} */
                         allow_redisplay?: "always" | "limited" | "unspecified";
                         /** param */
+                        alma?: Record<string, never>;
+                        /** param */
                         amazon_pay?: Record<string, never>;
                         /** param */
                         au_becs_debit?: {
@@ -59166,6 +63351,8 @@ export interface operations {
                         /** param */
                         interac_present?: Record<string, never>;
                         /** param */
+                        kakao_pay?: Record<string, never>;
+                        /** param */
                         klarna?: {
                             /** date_of_birth */
                             dob?: {
@@ -59177,6 +63364,8 @@ export interface operations {
                         /** param */
                         konbini?: Record<string, never>;
                         /** param */
+                        kr_card?: Record<string, never>;
+                        /** param */
                         link?: Record<string, never>;
                         metadata?: {
                             [key: string]: string;
@@ -59186,12 +63375,19 @@ export interface operations {
                         /** param */
                         multibanco?: Record<string, never>;
                         /** param */
+                        naver_pay?: {
+                            /** @enum {string} */
+                            funding?: "card" | "points";
+                        };
+                        /** param */
                         oxxo?: Record<string, never>;
                         /** param */
                         p24?: {
                             /** @enum {string} */
                             bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank";
                         };
+                        /** param */
+                        payco?: Record<string, never>;
                         /** param */
                         paynow?: Record<string, never>;
                         /** param */
@@ -59207,6 +63403,8 @@ export interface operations {
                         /** param */
                         revolut_pay?: Record<string, never>;
                         /** param */
+                        samsung_pay?: Record<string, never>;
+                        /** param */
                         sepa_debit?: {
                             iban: string;
                         };
@@ -59220,7 +63418,7 @@ export interface operations {
                         /** param */
                         twint?: Record<string, never>;
                         /** @enum {string} */
-                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
                         /** payment_method_param */
                         us_bank_account?: {
                             /** @enum {string} */
@@ -59300,7 +63498,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Amount to be used for this test cash balance transaction. A positive integer representing how much to fund in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to fund $1.00 or 100 to fund ¥100, a zero-decimal currency). */
                     amount: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -59341,7 +63542,7 @@ export interface operations {
             content: {
                 "application/x-www-form-urlencoded": {
                     /** @description The total amount to attempt to authorize. This amount is in the provided currency, or defaults to the card's currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
-                    amount: number;
+                    amount?: number;
                     /**
                      * amount_details_specs
                      * @description Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
@@ -59357,7 +63558,10 @@ export interface operations {
                     authorization_method?: "chip" | "contactless" | "keyed_in" | "online" | "swipe";
                     /** @description Card associated with this authorization. */
                     card: string;
-                    /** @description The currency of the authorization. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description The currency of the authorization. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -59416,6 +63620,13 @@ export interface operations {
                     };
                     /** @description If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization. */
                     is_amount_controllable?: boolean;
+                    /** @description The total amount to attempt to authorize. This amount is in the provided merchant currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). */
+                    merchant_amount?: number;
+                    /**
+                     * Format: currency
+                     * @description The currency of the authorization. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
+                    merchant_currency?: string;
                     /**
                      * merchant_data_specs
                      * @description Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
@@ -59750,6 +63961,46 @@ export interface operations {
             };
         };
     };
+    PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                authorization: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /** @description Whether to simulate the user confirming that the transaction was legitimate (true) or telling Stripe that it was fraudulent (false). */
+                    confirmed: boolean;
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["issuing.authorization"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
     PostTestHelpersIssuingAuthorizationsAuthorizationIncrement: {
         parameters: {
             query?: never;
@@ -59984,6 +64235,44 @@ export interface operations {
             };
         };
     };
+    PostTestHelpersIssuingCardsCardShippingSubmit: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                card: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["issuing.card"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
     PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate: {
         parameters: {
             query?: never;
@@ -60120,7 +64409,10 @@ export interface operations {
                     bin: string;
                     /** @description The date that the transactions are cleared and posted to user's accounts. */
                     clearing_date: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -60172,7 +64464,10 @@ export interface operations {
                     amount: number;
                     /** @description Card associated with this transaction. */
                     card: string;
-                    /** @description The currency of the capture. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description The currency of the capture. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -60313,7 +64608,10 @@ export interface operations {
                     amount: number;
                     /** @description Card associated with this unlinked refund transaction. */
                     card: string;
-                    /** @description The currency of the unlinked refund. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description The currency of the unlinked refund. If not provided, defaults to the currency of the card. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency?: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -60804,7 +65102,7 @@ export interface operations {
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     /**
-                     * failure_details_params
+                     * failure_details_param
                      * @description Details about a failed InboundTransfer.
                      */
                     failure_details?: {
@@ -61279,7 +65577,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Amount (in cents) to be transferred. */
                     amount: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -61342,7 +65643,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Amount (in cents) to be transferred. */
                     amount: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -61573,6 +65877,7 @@ export interface operations {
                         /** @enum {string} */
                         account_type?: "checking" | "futsu" | "savings" | "toza";
                         country: string;
+                        /** Format: currency */
                         currency?: string;
                         payment_method?: string;
                         routing_number?: string;
@@ -61701,6 +66006,7 @@ export interface operations {
                         };
                         /** relationship_specs */
                         relationship?: {
+                            authorizer?: boolean;
                             director?: boolean;
                             executive?: boolean;
                             legal_guardian?: boolean;
@@ -62111,7 +66417,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description A positive integer in cents (or local equivalent) representing how much to transfer. */
                     amount?: number;
-                    /** @description Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies).
+                     */
                     currency: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -63231,7 +67540,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Amount (in cents) to be transferred. */
                     amount: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -63426,7 +67738,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Amount (in cents) to be transferred. */
                     amount: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description ID of the customer to whom the OutboundPayment is sent. Must match the Customer attached to the `destination_payment_method` passed in. */
                     customer?: string;
@@ -63668,7 +67983,10 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Amount (in cents) to be transferred. */
                     amount: number;
-                    /** @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). */
+                    /**
+                     * Format: currency
+                     * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                     */
                     currency: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -64283,13 +68601,13 @@ export interface operations {
                      * @description Events sent to this endpoint will be generated with this Stripe Version instead of your account's default Stripe Version.
                      * @enum {string}
                      */
-                    api_version?: "2011-01-01" | "2011-06-21" | "2011-06-28" | "2011-08-01" | "2011-09-15" | "2011-11-17" | "2012-02-23" | "2012-03-25" | "2012-06-18" | "2012-06-28" | "2012-07-09" | "2012-09-24" | "2012-10-26" | "2012-11-07" | "2013-02-11" | "2013-02-13" | "2013-07-05" | "2013-08-12" | "2013-08-13" | "2013-10-29" | "2013-12-03" | "2014-01-31" | "2014-03-13" | "2014-03-28" | "2014-05-19" | "2014-06-13" | "2014-06-17" | "2014-07-22" | "2014-07-26" | "2014-08-04" | "2014-08-20" | "2014-09-08" | "2014-10-07" | "2014-11-05" | "2014-11-20" | "2014-12-08" | "2014-12-17" | "2014-12-22" | "2015-01-11" | "2015-01-26" | "2015-02-10" | "2015-02-16" | "2015-02-18" | "2015-03-24" | "2015-04-07" | "2015-06-15" | "2015-07-07" | "2015-07-13" | "2015-07-28" | "2015-08-07" | "2015-08-19" | "2015-09-03" | "2015-09-08" | "2015-09-23" | "2015-10-01" | "2015-10-12" | "2015-10-16" | "2016-02-03" | "2016-02-19" | "2016-02-22" | "2016-02-23" | "2016-02-29" | "2016-03-07" | "2016-06-15" | "2016-07-06" | "2016-10-19" | "2017-01-27" | "2017-02-14" | "2017-04-06" | "2017-05-25" | "2017-06-05" | "2017-08-15" | "2017-12-14" | "2018-01-23" | "2018-02-05" | "2018-02-06" | "2018-02-28" | "2018-05-21" | "2018-07-27" | "2018-08-23" | "2018-09-06" | "2018-09-24" | "2018-10-31" | "2018-11-08" | "2019-02-11" | "2019-02-19" | "2019-03-14" | "2019-05-16" | "2019-08-14" | "2019-09-09" | "2019-10-08" | "2019-10-17" | "2019-11-05" | "2019-12-03" | "2020-03-02" | "2020-08-27" | "2022-08-01" | "2022-11-15" | "2023-08-16" | "2023-10-16" | "2024-04-10" | "2024-06-20";
+                    api_version?: "2011-01-01" | "2011-06-21" | "2011-06-28" | "2011-08-01" | "2011-09-15" | "2011-11-17" | "2012-02-23" | "2012-03-25" | "2012-06-18" | "2012-06-28" | "2012-07-09" | "2012-09-24" | "2012-10-26" | "2012-11-07" | "2013-02-11" | "2013-02-13" | "2013-07-05" | "2013-08-12" | "2013-08-13" | "2013-10-29" | "2013-12-03" | "2014-01-31" | "2014-03-13" | "2014-03-28" | "2014-05-19" | "2014-06-13" | "2014-06-17" | "2014-07-22" | "2014-07-26" | "2014-08-04" | "2014-08-20" | "2014-09-08" | "2014-10-07" | "2014-11-05" | "2014-11-20" | "2014-12-08" | "2014-12-17" | "2014-12-22" | "2015-01-11" | "2015-01-26" | "2015-02-10" | "2015-02-16" | "2015-02-18" | "2015-03-24" | "2015-04-07" | "2015-06-15" | "2015-07-07" | "2015-07-13" | "2015-07-28" | "2015-08-07" | "2015-08-19" | "2015-09-03" | "2015-09-08" | "2015-09-23" | "2015-10-01" | "2015-10-12" | "2015-10-16" | "2016-02-03" | "2016-02-19" | "2016-02-22" | "2016-02-23" | "2016-02-29" | "2016-03-07" | "2016-06-15" | "2016-07-06" | "2016-10-19" | "2017-01-27" | "2017-02-14" | "2017-04-06" | "2017-05-25" | "2017-06-05" | "2017-08-15" | "2017-12-14" | "2018-01-23" | "2018-02-05" | "2018-02-06" | "2018-02-28" | "2018-05-21" | "2018-07-27" | "2018-08-23" | "2018-09-06" | "2018-09-24" | "2018-10-31" | "2018-11-08" | "2019-02-11" | "2019-02-19" | "2019-03-14" | "2019-05-16" | "2019-08-14" | "2019-09-09" | "2019-10-08" | "2019-10-17" | "2019-11-05" | "2019-12-03" | "2020-03-02" | "2020-08-27" | "2022-08-01" | "2022-11-15" | "2023-08-16" | "2023-10-16" | "2024-04-10" | "2024-06-20" | "2024-09-30.acacia" | "2024-10-28.acacia" | "2024-11-20.acacia" | "2024-12-18.acacia";
                     /** @description Whether this endpoint should receive events from connected accounts (`true`), or from your account (`false`). Defaults to `false`. */
                     connect?: boolean;
                     /** @description An optional description of what the webhook is used for. */
                     description?: string | "";
                     /** @description The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection. */
-                    enabled_events: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing.alert.triggered" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "climate.order.canceled" | "climate.order.created" | "climate.order.delayed" | "climate.order.delivered" | "climate.order.product_substituted" | "climate.product.created" | "climate.product.pricing_updated" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "entitlements.active_entitlement_summary.updated" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "financial_connections.account.refreshed_ownership" | "financial_connections.account.refreshed_transactions" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.overdue" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoice.will_be_due" | "invoiceitem.created" | "invoiceitem.deleted" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.funds_rescinded" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_personalization_design.activated" | "issuing_personalization_design.deactivated" | "issuing_personalization_design.rejected" | "issuing_personalization_design.updated" | "issuing_token.created" | "issuing_token.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax.settings.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_payment.tracking_details_updated" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.outbound_transfer.tracking_details_updated" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
+                    enabled_events: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing.alert.triggered" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "climate.order.canceled" | "climate.order.created" | "climate.order.delayed" | "climate.order.delivered" | "climate.order.product_substituted" | "climate.product.created" | "climate.product.pricing_updated" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "entitlements.active_entitlement_summary.updated" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "financial_connections.account.refreshed_ownership" | "financial_connections.account.refreshed_transactions" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.overdue" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoice.will_be_due" | "invoiceitem.created" | "invoiceitem.deleted" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.funds_rescinded" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_personalization_design.activated" | "issuing_personalization_design.deactivated" | "issuing_personalization_design.rejected" | "issuing_personalization_design.updated" | "issuing_token.created" | "issuing_token.updated" | "issuing_transaction.created" | "issuing_transaction.purchase_details_receipt_updated" | "issuing_transaction.updated" | "mandate.updated" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "refund.created" | "refund.failed" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax.settings.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_payment.tracking_details_updated" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.outbound_transfer.tracking_details_updated" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
@@ -64377,7 +68695,7 @@ export interface operations {
                     /** @description Disable the webhook endpoint if set to true. */
                     disabled?: boolean;
                     /** @description The list of events to enable for this endpoint. You may specify `['*']` to enable all events, except those that require explicit selection. */
-                    enabled_events?: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing.alert.triggered" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "climate.order.canceled" | "climate.order.created" | "climate.order.delayed" | "climate.order.delivered" | "climate.order.product_substituted" | "climate.product.created" | "climate.product.pricing_updated" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "entitlements.active_entitlement_summary.updated" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "financial_connections.account.refreshed_ownership" | "financial_connections.account.refreshed_transactions" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.overdue" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoice.will_be_due" | "invoiceitem.created" | "invoiceitem.deleted" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.funds_rescinded" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_personalization_design.activated" | "issuing_personalization_design.deactivated" | "issuing_personalization_design.rejected" | "issuing_personalization_design.updated" | "issuing_token.created" | "issuing_token.updated" | "issuing_transaction.created" | "issuing_transaction.updated" | "mandate.updated" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "refund.created" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax.settings.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_payment.tracking_details_updated" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.outbound_transfer.tracking_details_updated" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
+                    enabled_events?: ("*" | "account.application.authorized" | "account.application.deauthorized" | "account.external_account.created" | "account.external_account.deleted" | "account.external_account.updated" | "account.updated" | "application_fee.created" | "application_fee.refund.updated" | "application_fee.refunded" | "balance.available" | "billing.alert.triggered" | "billing_portal.configuration.created" | "billing_portal.configuration.updated" | "billing_portal.session.created" | "capability.updated" | "cash_balance.funds_available" | "charge.captured" | "charge.dispute.closed" | "charge.dispute.created" | "charge.dispute.funds_reinstated" | "charge.dispute.funds_withdrawn" | "charge.dispute.updated" | "charge.expired" | "charge.failed" | "charge.pending" | "charge.refund.updated" | "charge.refunded" | "charge.succeeded" | "charge.updated" | "checkout.session.async_payment_failed" | "checkout.session.async_payment_succeeded" | "checkout.session.completed" | "checkout.session.expired" | "climate.order.canceled" | "climate.order.created" | "climate.order.delayed" | "climate.order.delivered" | "climate.order.product_substituted" | "climate.product.created" | "climate.product.pricing_updated" | "coupon.created" | "coupon.deleted" | "coupon.updated" | "credit_note.created" | "credit_note.updated" | "credit_note.voided" | "customer.created" | "customer.deleted" | "customer.discount.created" | "customer.discount.deleted" | "customer.discount.updated" | "customer.source.created" | "customer.source.deleted" | "customer.source.expiring" | "customer.source.updated" | "customer.subscription.created" | "customer.subscription.deleted" | "customer.subscription.paused" | "customer.subscription.pending_update_applied" | "customer.subscription.pending_update_expired" | "customer.subscription.resumed" | "customer.subscription.trial_will_end" | "customer.subscription.updated" | "customer.tax_id.created" | "customer.tax_id.deleted" | "customer.tax_id.updated" | "customer.updated" | "customer_cash_balance_transaction.created" | "entitlements.active_entitlement_summary.updated" | "file.created" | "financial_connections.account.created" | "financial_connections.account.deactivated" | "financial_connections.account.disconnected" | "financial_connections.account.reactivated" | "financial_connections.account.refreshed_balance" | "financial_connections.account.refreshed_ownership" | "financial_connections.account.refreshed_transactions" | "identity.verification_session.canceled" | "identity.verification_session.created" | "identity.verification_session.processing" | "identity.verification_session.redacted" | "identity.verification_session.requires_input" | "identity.verification_session.verified" | "invoice.created" | "invoice.deleted" | "invoice.finalization_failed" | "invoice.finalized" | "invoice.marked_uncollectible" | "invoice.overdue" | "invoice.paid" | "invoice.payment_action_required" | "invoice.payment_failed" | "invoice.payment_succeeded" | "invoice.sent" | "invoice.upcoming" | "invoice.updated" | "invoice.voided" | "invoice.will_be_due" | "invoiceitem.created" | "invoiceitem.deleted" | "issuing_authorization.created" | "issuing_authorization.request" | "issuing_authorization.updated" | "issuing_card.created" | "issuing_card.updated" | "issuing_cardholder.created" | "issuing_cardholder.updated" | "issuing_dispute.closed" | "issuing_dispute.created" | "issuing_dispute.funds_reinstated" | "issuing_dispute.funds_rescinded" | "issuing_dispute.submitted" | "issuing_dispute.updated" | "issuing_personalization_design.activated" | "issuing_personalization_design.deactivated" | "issuing_personalization_design.rejected" | "issuing_personalization_design.updated" | "issuing_token.created" | "issuing_token.updated" | "issuing_transaction.created" | "issuing_transaction.purchase_details_receipt_updated" | "issuing_transaction.updated" | "mandate.updated" | "payment_intent.amount_capturable_updated" | "payment_intent.canceled" | "payment_intent.created" | "payment_intent.partially_funded" | "payment_intent.payment_failed" | "payment_intent.processing" | "payment_intent.requires_action" | "payment_intent.succeeded" | "payment_link.created" | "payment_link.updated" | "payment_method.attached" | "payment_method.automatically_updated" | "payment_method.detached" | "payment_method.updated" | "payout.canceled" | "payout.created" | "payout.failed" | "payout.paid" | "payout.reconciliation_completed" | "payout.updated" | "person.created" | "person.deleted" | "person.updated" | "plan.created" | "plan.deleted" | "plan.updated" | "price.created" | "price.deleted" | "price.updated" | "product.created" | "product.deleted" | "product.updated" | "promotion_code.created" | "promotion_code.updated" | "quote.accepted" | "quote.canceled" | "quote.created" | "quote.finalized" | "radar.early_fraud_warning.created" | "radar.early_fraud_warning.updated" | "refund.created" | "refund.failed" | "refund.updated" | "reporting.report_run.failed" | "reporting.report_run.succeeded" | "reporting.report_type.updated" | "review.closed" | "review.opened" | "setup_intent.canceled" | "setup_intent.created" | "setup_intent.requires_action" | "setup_intent.setup_failed" | "setup_intent.succeeded" | "sigma.scheduled_query_run.created" | "source.canceled" | "source.chargeable" | "source.failed" | "source.mandate_notification" | "source.refund_attributes_required" | "source.transaction.created" | "source.transaction.updated" | "subscription_schedule.aborted" | "subscription_schedule.canceled" | "subscription_schedule.completed" | "subscription_schedule.created" | "subscription_schedule.expiring" | "subscription_schedule.released" | "subscription_schedule.updated" | "tax.settings.updated" | "tax_rate.created" | "tax_rate.updated" | "terminal.reader.action_failed" | "terminal.reader.action_succeeded" | "test_helpers.test_clock.advancing" | "test_helpers.test_clock.created" | "test_helpers.test_clock.deleted" | "test_helpers.test_clock.internal_failure" | "test_helpers.test_clock.ready" | "topup.canceled" | "topup.created" | "topup.failed" | "topup.reversed" | "topup.succeeded" | "transfer.created" | "transfer.reversed" | "transfer.updated" | "treasury.credit_reversal.created" | "treasury.credit_reversal.posted" | "treasury.debit_reversal.completed" | "treasury.debit_reversal.created" | "treasury.debit_reversal.initial_credit_granted" | "treasury.financial_account.closed" | "treasury.financial_account.created" | "treasury.financial_account.features_status_updated" | "treasury.inbound_transfer.canceled" | "treasury.inbound_transfer.created" | "treasury.inbound_transfer.failed" | "treasury.inbound_transfer.succeeded" | "treasury.outbound_payment.canceled" | "treasury.outbound_payment.created" | "treasury.outbound_payment.expected_arrival_date_updated" | "treasury.outbound_payment.failed" | "treasury.outbound_payment.posted" | "treasury.outbound_payment.returned" | "treasury.outbound_payment.tracking_details_updated" | "treasury.outbound_transfer.canceled" | "treasury.outbound_transfer.created" | "treasury.outbound_transfer.expected_arrival_date_updated" | "treasury.outbound_transfer.failed" | "treasury.outbound_transfer.posted" | "treasury.outbound_transfer.returned" | "treasury.outbound_transfer.tracking_details_updated" | "treasury.received_credit.created" | "treasury.received_credit.failed" | "treasury.received_credit.succeeded" | "treasury.received_debit.created")[];
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */

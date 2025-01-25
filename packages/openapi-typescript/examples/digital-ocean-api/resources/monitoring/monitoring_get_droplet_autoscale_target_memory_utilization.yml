@@ -1,0 +1,38 @@
+operationId: monitoring_get_droplet_autoscale_target_memory_utilization
+
+summary: Get Droplet Autoscale Pool Target Average Memory utilization
+
+description: >-
+  To retrieve the target average memory utilization for a given Droplet Autoscale Pool,
+  send a GET request to `/v2/monitoring/metrics/droplet_autoscale/target_memory_utilization`.
+
+tags:
+  - Monitoring
+
+responses:
+  '200':
+    $ref: 'responses/metric_response.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+parameters:
+  - $ref: 'parameters.yml#/autoscale_pool_id'
+  - $ref: 'parameters.yml#/metric_timestamp_start'
+  - $ref: 'parameters.yml#/metric_timestamp_end'
+
+x-codeSamples:
+  - $ref: 'examples/curl/monitoring_get_droplet_autoscale_target_memory_utilization.yml'
+
+security:
+  - bearer_auth:
+      - 'monitoring:read'

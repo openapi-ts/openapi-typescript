@@ -1,0 +1,39 @@
+operationId: autoscalepools_get
+
+summary: Retrieve an Existing Autoscale Pool
+
+description: |
+  To show information about an individual autoscale pool, send a GET request to
+  `/v2/droplets/autoscale/$AUTOSCALE_POOL_ID`.
+
+tags:
+  - Droplet Autoscale Pools
+
+parameters:
+  - $ref: 'parameters.yml#/autoscale_pool_id'
+
+responses:
+  '200':
+    $ref: 'responses/existing_autoscale_pool.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/autoscale_pool_get.yml'
+
+security:
+  - bearer_auth:
+    - 'droplet:read'

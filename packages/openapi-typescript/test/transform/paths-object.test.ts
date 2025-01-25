@@ -274,13 +274,18 @@ describe("transformPathsObject", () => {
       "options > pathParamsAsTypes: true",
       {
         given: {
-          "/api/v1/user/me": {
+          "/api/v1/user/{user_id}": {
             parameters: [
               {
                 name: "page",
                 in: "query",
                 schema: { type: "number" },
                 description: "Page number.",
+              },
+              {
+                name: "user_id",
+                in: "path",
+                schema: { format: "int64", type: "integer" },
               },
             ],
             get: {
@@ -315,14 +320,16 @@ describe("transformPathsObject", () => {
           },
         },
         want: `{
-    "/api/v1/user/me": {
+    [path: \`/api/v1/user/\${number}\`]: {
         parameters: {
             query?: {
                 /** @description Page number. */
                 page?: number;
             };
             header?: never;
-            path?: never;
+            path: {
+                user_id: number;
+            };
             cookie?: never;
         };
         get: {
@@ -332,7 +339,9 @@ describe("transformPathsObject", () => {
                     page?: number;
                 };
                 header?: never;
-                path?: never;
+                path: {
+                    user_id: number;
+                };
                 cookie?: never;
             };
             requestBody?: never;

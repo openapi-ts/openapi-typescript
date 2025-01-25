@@ -1,0 +1,75 @@
+description: To list all models, send a GET request to `/v2/gen-ai/models`.
+operationId: genai_list_models
+parameters:
+- description: |-
+    Include only models defined for the listed usecases.
+
+     - MODEL_USECASE_UNKNOWN: The use case of the model is unknown
+     - MODEL_USECASE_AGENT: The model maybe used in an agent
+     - MODEL_USECASE_FINETUNED: The model maybe used for fine tuning
+     - MODEL_USECASE_KNOWLEDGEBASE: The model maybe used for knowledge bases (embedding models)
+     - MODEL_USECASE_GUARDRAIL: The model maybe used for guardrails
+  example:
+  - MODEL_USECASE_UNKNOWN
+  in: query
+  name: usecases
+  schema:
+    items:
+      enum:
+      - MODEL_USECASE_UNKNOWN
+      - MODEL_USECASE_AGENT
+      - MODEL_USECASE_FINETUNED
+      - MODEL_USECASE_KNOWLEDGEBASE
+      - MODEL_USECASE_GUARDRAIL
+      type: string
+    type: array
+- description: Only include models that are publicly available.
+  example: true
+  in: query
+  name: public_only
+  schema:
+    type: boolean
+- description: Page number.
+  example: 1
+  in: query
+  name: page
+  schema:
+    type: integer
+- description: Items per page.
+  example: 1
+  in: query
+  name: per_page
+  schema:
+    type: integer
+responses:
+  "200":
+    content:
+      application/json:
+        schema:
+          $ref: ./definitions.yml#/apiListModelsOutputPublic
+    description: A successful response.
+    headers:
+      ratelimit-limit:
+        $ref: ../../shared/headers.yml#/ratelimit-limit
+      ratelimit-remaining:
+        $ref: ../../shared/headers.yml#/ratelimit-remaining
+      ratelimit-reset:
+        $ref: ../../shared/headers.yml#/ratelimit-reset
+  "401":
+    $ref: ../../shared/responses/unauthorized.yml
+  "404":
+    $ref: ../../shared/responses/not_found.yml
+  "429":
+    $ref: ../../shared/responses/too_many_requests.yml
+  "500":
+    $ref: ../../shared/responses/server_error.yml
+  default:
+    $ref: ../../shared/responses/unexpected_error.yml
+security:
+- bearer_auth:
+  - genai:read
+summary: List Available Models
+tags:
+- GenAI Platform (Public Preview)
+x-codeSamples:
+- $ref: examples/curl/genai_list_models.yml

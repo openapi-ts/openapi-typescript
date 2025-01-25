@@ -1,5 +1,53 @@
 # openapi-react-query
 
+## 0.2.10
+
+### Patch Changes
+
+- [#2105](https://github.com/openapi-ts/openapi-typescript/pull/2105) [`af0e72f`](https://github.com/openapi-ts/openapi-typescript/commit/af0e72f16f1515f2953a719d7f58c76ec27637ea) Thanks [@HagenMorano](https://github.com/HagenMorano)! - [#1845](https://github.com/openapi-ts/openapi-typescript/pull/2105): The return value of the `select` property is now considered when inferring the `data` type.
+
+## 0.2.9
+
+### Patch Changes
+
+- Updated dependencies [[`5935cd2`](https://github.com/openapi-ts/openapi-typescript/commit/5935cd25a05d3ec1f4c8bf222d65395a0b9ae5b4)]:
+  - openapi-fetch@0.13.4
+
+## 0.2.8
+
+### Patch Changes
+
+Refresh of 0.2.7; corrupted package
+
+## 0.2.7
+
+### Patch Changes
+
+- Updated dependencies [[`7081842`](https://github.com/openapi-ts/openapi-typescript/commit/70818420c1cd6ca2ad2529bf2d7936bd01f3ef42)]:
+  - openapi-fetch@0.13.2
+
+## 0.2.6
+
+### Patch Changes
+
+- Updated dependencies [[`35c576c`](https://github.com/openapi-ts/openapi-typescript/commit/35c576c8b2852f66e641014d13ffcfdeb21e98a1)]:
+  - openapi-fetch@0.13.1
+
+## 0.2.5
+
+### Patch Changes
+
+- [#1975](https://github.com/openapi-ts/openapi-typescript/pull/1975) [`621792f`](https://github.com/openapi-ts/openapi-typescript/commit/621792f23b0b8830949f3c1e25fe480557016b9a) Thanks [@HugeLetters](https://github.com/HugeLetters)! - - Fixed empty value check in queryFn: only throws error for undefined, other falsy values are allowed
+  - Fixed empty value check in mutationFn: allow falsy values
+
+## 0.2.4
+
+### Patch Changes
+
+- [#1952](https://github.com/openapi-ts/openapi-typescript/pull/1952) [`455b735`](https://github.com/openapi-ts/openapi-typescript/commit/455b73527c788918d665a3d607e8ac240a4e5e52) Thanks [@zsugabubus](https://github.com/zsugabubus)! - Fix return type inference for `queryOptions()` when used inside `useQuery` or `useSuspenseQuery`.
+
+- [#1952](https://github.com/openapi-ts/openapi-typescript/pull/1952) [`455b735`](https://github.com/openapi-ts/openapi-typescript/commit/455b73527c788918d665a3d607e8ac240a4e5e52) Thanks [@zsugabubus](https://github.com/zsugabubus)! - Narrow `queryFn` returned by `queryOptions()` to be a function.
+
 ## 0.2.3
 
 ### Patch Changes

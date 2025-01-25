@@ -1,5 +1,29 @@
 # openapi-fetch
 
+## 0.13.4
+
+### Patch Changes
+
+- [#2063](https://github.com/openapi-ts/openapi-typescript/pull/2063) [`5935cd2`](https://github.com/openapi-ts/openapi-typescript/commit/5935cd25a05d3ec1f4c8bf222d65395a0b9ae5b4) Thanks [@kerwanp](https://github.com/kerwanp)! - add support for arbitrary method
+
+## 0.13.3
+
+### Patch Changes
+
+Refresh of 0.13.2; corrupted package
+
+## 0.13.2
+
+### Patch Changes
+
+- [#2020](https://github.com/openapi-ts/openapi-typescript/pull/2020) [`7081842`](https://github.com/openapi-ts/openapi-typescript/commit/70818420c1cd6ca2ad2529bf2d7936bd01f3ef42) Thanks [@mellster2012](https://github.com/mellster2012)! - Add client option to pass custom RequestInit object into fetch requests for supported implementations
+
+## 0.13.1
+
+### Patch Changes
+
+- [#1974](https://github.com/openapi-ts/openapi-typescript/pull/1974) [`35c576c`](https://github.com/openapi-ts/openapi-typescript/commit/35c576c8b2852f66e641014d13ffcfdeb21e98a1) Thanks [@luchsamapparat](https://github.com/luchsamapparat)! - add onError handler to middleware
+
 ## 0.13.0
 
 ### Minor Changes

@@ -1,0 +1,58 @@
+vpc_peering:
+  type: object
+  allOf:
+  - $ref: '#/vpc_peering_base'
+  - $ref: '#/vpc_peering_create'
+  - $ref: '#/vpc_peering_updatable'
+
+vpc_peering_base:
+  type: object
+  properties:
+    id:
+      type: string
+      format: uuid
+      readOnly: true
+      example: 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+      description: A unique ID that can be used to identify and reference the VPC peering.
+
+    created_at:
+      type: string
+      format: date-time
+      readOnly: true
+      example: "2020-03-13T19:20:47.442049222Z"
+      description: A time value given in ISO8601 combined date and time format.
+
+    status:
+      type: string
+      enum:
+        - PROVISIONING
+        - ACTIVE
+        - DELETING
+      readOnly: true
+      example: "ACTIVE"
+      description: The current status of the VPC peering.
+
+vpc_peering_create:
+  type: object
+  properties:
+      vpc_ids:
+        type: array
+        items:
+          type: string
+          format: uuid
+        minItems: 2
+        maxItems: 2
+        example:
+        - c140286f-e6ce-4131-8b7b-df4590ce8d6a
+        - 994a2735-dc84-11e8-80bc-3cfdfea9fba1
+        description: An array of the two peered VPCs IDs.
+
+vpc_peering_updatable:
+  type: object
+  properties:
+    name:
+      type: string
+      pattern: '^[a-zA-Z0-9\-]+$'
+      example: nyc1-blr1-peering
+      description: The name of the VPC peering. Must be unique within the team 
+        and may only contain alphanumeric characters and dashes.

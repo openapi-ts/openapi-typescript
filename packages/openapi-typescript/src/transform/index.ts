@@ -7,6 +7,7 @@ import transformComponentsObject from "./components-object.js";
 import transformPathsObject from "./paths-object.js";
 import transformSchemaObject from "./schema-object.js";
 import transformWebhooksObject from "./webhooks-object.js";
+import makeApiPathsEnum from "./paths-enum.js";
 
 type SchemaTransforms = keyof Pick<OpenAPI3, "paths" | "webhooks" | "components" | "$defs">;
 
@@ -14,7 +15,7 @@ const transformers: Record<SchemaTransforms, (node: any, options: GlobalContext)
   paths: transformPathsObject,
   webhooks: transformWebhooksObject,
   components: transformComponentsObject,
-  $defs: (node, options) => transformSchemaObject(node, { path: createRef(["$defs"]), ctx: options }),
+  $defs: (node, options) => transformSchemaObject(node, { path: createRef(["$defs"]), ctx: options, schema: node }),
 };
 
 export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
@@ -91,6 +92,10 @@ export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
         /* type           */ tsRecord(STRING, NEVER),
       ),
     );
+  }
+
+  if (ctx.makePathsEnum && schema.paths) {
+    type.push(makeApiPathsEnum(schema.paths));
   }
 
   return type;

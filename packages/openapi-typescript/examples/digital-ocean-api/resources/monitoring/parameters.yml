@@ -25,6 +25,14 @@ load_balancer_id:
     type: string
   example: 4de7ac8b-495b-4884-9a69-1050c6793cd6
 
+resource_id:
+  in: query
+  name: resource_id
+  description: A unique URN for a resource.
+  schema:
+    $ref: '../../shared/attributes/urn.yml' 
+  example: do:kubernetes:5ba4518b-b9e2-4978-aa92-2d4c727e8824
+
 app_component:
   in: query
   name: app_component
@@ -45,6 +53,7 @@ network_interface:
     enum:
       - private
       - public
+
 network_direction:
   in: query
   name: direction
@@ -56,6 +65,16 @@ network_direction:
     enum:
       - inbound
       - outbound
+
+autoscale_pool_id:
+  in: query
+  name: autoscale_pool_id
+  description: A unique identifier for an autoscale pool.
+  required: true
+  schema:
+    type: string
+  example: 0d3db13e-a604-4944-9827-7ec2642d32ac
+
 metric_timestamp_start:
   in: query
   name: start
@@ -82,3 +101,21 @@ alert_uuid:
   schema:
     type: string
   example: 4de7ac8b-495b-4884-9a69-1050c6793cd6
+
+destination_uuid:
+  in: path
+  name: destination_uuid
+  description: A unique identifier for a destination.
+  required: true
+  schema:
+    type: string
+  example: 1a64809f-1708-48ee-a742-dec8d481b8d1
+
+sink_uuid:
+  in: path
+  name: sink_uuid
+  description: A unique identifier for a sink.
+  required: true
+  schema:
+    type: string
+  example: 78b172b6-52c3-4a4b-96d5-78d3f1a0b18c

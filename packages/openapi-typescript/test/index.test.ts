@@ -694,6 +694,330 @@ export type operations = Record<string, never>;`,
         },
       },
     ],
+    [
+      "$refs > path object & paths enum",
+      {
+        given: new URL("./fixtures/path-object-refs.yaml", import.meta.url),
+        want: `export interface paths {
+    "/get-item": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Item"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        Item: {
+            id: string;
+            name: string;
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;
+export enum ApiPaths {
+    GetGetitem = "/get-item"
+}`,
+        options: {
+          makePathsEnum: true,
+        },
+      },
+    ],
+    [
+      "Generates path parameters",
+      {
+        given: new URL("./fixtures/generate-params-test.yaml", import.meta.url),
+        want: `export interface paths {
+    "/{id}/get-item-undefined-path-param": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Item"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/{id}/get-item-undefined-nested-path-param/{secondId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+                secondId: string;
+            };
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                    secondId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Item"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/{id}/get-item-defined-path-param": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Item"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        Item: {
+            id: string;
+            name: string;
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+        options: {
+          generatePathParams: true,
+        },
+      },
+    ],
+    [
+      "nullable > 3.0 syntax",
+      {
+        given: {
+          openapi: "3.0.3",
+          info: {
+            title: "Test",
+            version: "0",
+          },
+          paths: {},
+          components: {
+            schemas: {
+              obj1: {
+                title: "Nullable object",
+                type: "object",
+                properties: {
+                  id: {
+                    type: "string",
+                  },
+                },
+                nullable: true,
+              },
+              obj2: {
+                title: "Nullable empty object",
+                type: "object",
+                nullable: true,
+              },
+              str: {
+                title: "Nullable string",
+                type: "string",
+                nullable: true,
+              },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        /** Nullable object */
+        obj1: {
+            id?: string;
+        } | null;
+        /** Nullable empty object */
+        obj2: Record<string, never> | null;
+        /** Nullable string */
+        str: string | null;
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+      },
+    ],
+    [
+      "nullable > 3.1 syntax",
+      {
+        given: {
+          openapi: "3.1.0",
+          info: {
+            title: "Test",
+            version: "0",
+          },
+          paths: {},
+          components: {
+            schemas: {
+              obj1: {
+                title: "Nullable object",
+                type: ["object", "null"],
+                properties: {
+                  id: {
+                    type: "string",
+                  },
+                },
+              },
+              obj2: {
+                title: "Nullable empty object",
+                type: ["object", "null"],
+              },
+              str: {
+                title: "Nullable string",
+                type: ["string", "null"],
+              },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        /** Nullable object */
+        obj1: {
+            id?: string;
+        } | null;
+        /** Nullable empty object */
+        obj2: Record<string, never> | null;
+        /** Nullable string */
+        str: string | null;
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options, ci }] of tests) {

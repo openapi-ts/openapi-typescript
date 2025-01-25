@@ -1,6 +1,14 @@
 // settings & const
 const PATH_PARAM_RE = /\{[^{}]+\}/g;
 
+const supportsRequestInitExt = () => {
+  return (
+    typeof process === "object" &&
+    Number.parseInt(process?.versions?.node?.substring(0, 2)) >= 18 &&
+    process.versions.undici
+  );
+};
+
 /**
  * Returns a cheap, non-cryptographically-secure random ID
  * Courtesy of @imranbarbhuiya (https://github.com/imranbarbhuiya)
@@ -21,8 +29,10 @@ export default function createClient(clientOptions) {
     querySerializer: globalQuerySerializer,
     bodySerializer: globalBodySerializer,
     headers: baseHeaders,
+    requestInitExt = undefined,
     ...baseOptions
   } = { ...clientOptions };
+  requestInitExt = supportsRequestInitExt() ? requestInitExt : undefined;
   baseUrl = removeTrailingSlash(baseUrl);
   const middlewares = [];
 
@@ -124,7 +134,49 @@ export default function createClient(clientOptions) {
     }
 
     // fetch!
-    let response = await fetch(request);
+    let response;
+    try {
+      response = await fetch(request, requestInitExt);
+    } catch (error) {
+      let errorAfterMiddleware = error;
+      // middleware (error)
+      // execute in reverse-array order (first priority gets last transform)
+      if (middlewares.length) {
+        for (let i = middlewares.length - 1; i >= 0; i--) {
+          const m = middlewares[i];
+          if (m && typeof m === "object" && typeof m.onError === "function") {
+            const result = await m.onError({
+              request,
+              error: errorAfterMiddleware,
+              schemaPath,
+              params,
+              options,
+              id,
+            });
+            if (result) {
+              // if error is handled by returning a response, skip remaining middleware
+              if (result instanceof Response) {
+                errorAfterMiddleware = undefined;
+                response = result;
+                break;
+              }
+
+              if (result instanceof Error) {
+                errorAfterMiddleware = result;
+                continue;
+              }
+
+              throw new Error("onError: must return new Response() or instance of Error");
+            }
+          }
+        }
+      }
+
+      // rethrow error if not handled by middleware
+      if (errorAfterMiddleware) {
+        throw errorAfterMiddleware;
+      }
+    }
 
     // middleware (response)
     // execute in reverse-array order (first priority gets last transform)
@@ -177,6 +229,9 @@ export default function createClient(clientOptions) {
   }
 
   return {
+    request(method, url, init) {
+      return coreFetch(url, { ...init, method: method.toUpperCase() });
+    },
     /** Call a GET endpoint */
     GET(url, init) {
       return coreFetch(url, { ...init, method: "GET" });
@@ -215,8 +270,8 @@ export default function createClient(clientOptions) {
         if (!m) {
           continue;
         }
-        if (typeof m !== "object" || !("onRequest" in m || "onResponse" in m)) {
-          throw new Error("Middleware must be an object with one of `onRequest()` or `onResponse()`");
+        if (typeof m !== "object" || !("onRequest" in m || "onResponse" in m || "onError" in m)) {
+          throw new Error("Middleware must be an object with one of `onRequest()`, `onResponse() or `onError()`");
         }
         middlewares.push(m);
       }

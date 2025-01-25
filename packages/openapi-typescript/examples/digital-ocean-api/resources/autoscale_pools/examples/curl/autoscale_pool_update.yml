@@ -1,0 +1,32 @@
+lang: cURL
+source: |-
+  curl -X PUT \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{
+      "name": "test-autoscalergroup-01",
+      "config": {
+        "min_instances": 1,
+        "max_instances": 5,
+        "target_cpu_utilization": 0.5,
+        "cooldown_minutes": 10
+      },
+      "droplet_template": {
+        "size": "c-2",
+        "region": "tor1",
+        "image": "ubuntu-20-04-x64",
+        "tags": [
+          "test-ag-01"
+        ],
+        "ssh_keys": [
+          "372862",
+          "367582",
+          "355790"
+        ],
+        "vpc_uuid": "4637280e-3842-4661-a628-a6f0392959d3",
+        "with_droplet_agent": true,
+        "ipv6": true,
+        "user_data": "\n#cloud-config\nruncmd:\n- apt-get update\n"
+      }
+    }' \
+    "https://api.digitalocean.com/v2/droplets/autoscale/d0067f19-c9bd-4d8c-b28b-e464fd1fb250"

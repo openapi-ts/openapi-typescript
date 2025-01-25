@@ -10,7 +10,7 @@ description: |
   The request may contain a maintenance window policy describing a time period
   when disruptive maintenance tasks may be carried out. Omitting the policy
   implies that a window will be chosen automatically. See
-  [here](https://www.digitalocean.com/docs/kubernetes/how-to/upgrade-cluster/)
+  [here](https://docs.digitalocean.com/products/kubernetes/how-to/upgrade-cluster/)
   for details.
 
 tags:

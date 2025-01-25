@@ -31,6 +31,9 @@ Options
   --alphabetize              Sort object keys alphabetically
   --exclude-deprecated       Exclude deprecated types
   --root-types (optional)    Export schemas types at root level
+  --root-types-no-schema-prefix (optional)
+                             Do not add "Schema" prefix to types at the root level (should only be used with --root-types)
+  --make-paths-enum          Generate ApiPaths enum for all paths
 `;
 
 const OUTPUT_FILE = "FILE";
@@ -56,6 +59,9 @@ if (args.includes("-it")) {
 if (args.includes("--redoc")) {
   errorAndExit(`The --redoc config flag has been renamed to "--redocly" (or -c as shorthand).`);
 }
+if (args.includes("--root-types-no-schema-prefix") && !args.includes("--root-types")) {
+  console.warn("--root-types-no-schema-prefix has no effect without --root-types flag");
+}
 
 const flags = parser(args, {
   boolean: [
@@ -76,6 +82,9 @@ const flags = parser(args, {
     "immutable",
     "pathParamsAsTypes",
     "rootTypes",
+    "rootTypesNoSchemaPrefix",
+    "makePathsEnum",
+    "generatePathParams",
   ],
   string: ["output", "redocly"],
   alias: {
@@ -136,6 +145,9 @@ async function generateSchema(schema, { redocly, silent = false }) {
       immutable: flags.immutable,
       pathParamsAsTypes: flags.pathParamsAsTypes,
       rootTypes: flags.rootTypes,
+      rootTypesNoSchemaPrefix: flags.rootTypesNoSchemaPrefix,
+      makePathsEnum: flags.makePathsEnum,
+      generatePathParams: flags.generatePathParams,
       redocly,
       silent,
     }),

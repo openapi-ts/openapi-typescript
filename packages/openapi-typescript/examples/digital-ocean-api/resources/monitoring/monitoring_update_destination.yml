@@ -1,0 +1,44 @@
+operationId: monitoring_update_destination
+
+summary: Update Logging Destination
+
+description: To update the details of a destination, send a PATCH request to `/v2/monitoring/sinks/destinations/${destination_uuid}`.
+
+tags:
+  - Monitoring
+
+parameters:
+  - $ref: 'parameters.yml#/destination_uuid'
+
+responses:
+  '204':
+    $ref: '../../shared/responses/no_content.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: 'models/destination_request.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/monitoring_update_destination.yml'
+  
+security:
+  - bearer_auth:
+    - 'monitoring:update'
