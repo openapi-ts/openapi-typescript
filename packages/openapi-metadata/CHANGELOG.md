@@ -1,5 +1,11 @@
 # openapi-metadata
 
+## 0.2.0
+
+### Minor Changes
+
+- [#2115](https://github.com/openapi-ts/openapi-typescript/pull/2115) [`0a01774`](https://github.com/openapi-ts/openapi-typescript/commit/0a01774c8b3a091545ae5c1e615adc9fabb9d475) Thanks [@kerwanp](https://github.com/kerwanp)! - [#2097](https://github.com/openapi-ts/openapi-typescript/pull/2097): Migrate to unbuild and provide CJS support
+
 ## 0.1.1
 
 ### Patch Changes

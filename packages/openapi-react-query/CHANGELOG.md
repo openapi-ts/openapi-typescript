@@ -1,5 +1,24 @@
 # openapi-react-query
 
+## 0.3.0
+
+### Minor Changes
+
+- [#1881](https://github.com/openapi-ts/openapi-typescript/pull/1881) [`ccbc2e3`](https://github.com/openapi-ts/openapi-typescript/commit/ccbc2e3f68ced4d3038b9003064fe449925b55dc), [#2117](https://github.com/openapi-ts/openapi-typescript/pull/2117) [`3ef38b8`](https://github.com/openapi-ts/openapi-typescript/commit/3ef38b8b9371bc2a2ade202a6dc864b765446305) Thanks [@jungwoo3490](https://github.com/jungwoo3490), [@lukasedw](https://github.com/lukasedw)! - Implements useInfiniteQuery() in openapi-react-query
+
+### Patch Changes
+
+- [#2120](https://github.com/openapi-ts/openapi-typescript/pull/2120) [`efea325`](https://github.com/openapi-ts/openapi-typescript/commit/efea32521ffa1557547a0000051cc73157be5a61) Thanks [@drwpow](https://github.com/drwpow)! - Fix minor type error with latest version of TanStack Query
+
+- [#2061](https://github.com/openapi-ts/openapi-typescript/pull/2061) [`6871e73`](https://github.com/openapi-ts/openapi-typescript/commit/6871e73b4c004560ba514d19c0f1f948ba63f5c8) Thanks [@kevmo314](https://github.com/kevmo314)! - Drop init argument when not needed in query key
+
+- [#2114](https://github.com/openapi-ts/openapi-typescript/pull/2114) [`0c35b32`](https://github.com/openapi-ts/openapi-typescript/commit/0c35b321778afe0705d7fd7a8375c4e10d5f95c2) Thanks [@kerwanp](https://github.com/kerwanp)! - [#2098](https://github.com/openapi-ts/openapi-typescript/pull/2098): Fix CJS type issues by pointing to proper d.ts file
+
+- [#1945](https://github.com/openapi-ts/openapi-typescript/pull/1945) [`248195d`](https://github.com/openapi-ts/openapi-typescript/commit/248195df11f186e379005d487ad9113c3bdd32a9) Thanks [@freshgiammi](https://github.com/freshgiammi)! - Add MethodResponse to get the return type of an endpoint from an `OpenapiQueryClient` client.
+
+- Updated dependencies []:
+  - openapi-fetch@0.13.4
+
 ## 0.2.10
 
 ### Patch Changes
