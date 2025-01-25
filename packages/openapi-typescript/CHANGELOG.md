@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.6.0
+
+### Minor Changes
+
+- [#2102](https://github.com/openapi-ts/openapi-typescript/pull/2102) [`0cdfc47`](https://github.com/openapi-ts/openapi-typescript/commit/0cdfc479b981c26ead188f8883b856c0c8e3c841) Thanks [@ViktorPontinen](https://github.com/ViktorPontinen)! - Support generating path params for flaky schemas using --generate-path-params option
+
 ## 7.5.2
 
 ### Patch Changes
