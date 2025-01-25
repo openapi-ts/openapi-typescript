@@ -8380,6 +8380,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/treasury/financial_accounts/{financial_account}/close": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Close a FinancialAccount
+         * @description <p>Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.</p>
+         */
+        post: operations["PostTreasuryFinancialAccountsFinancialAccountClose"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/treasury/financial_accounts/{financial_account}/features": {
         parameters: {
             query?: never;
@@ -9134,6 +9154,11 @@ export interface components {
              */
             p24_payments?: "active" | "inactive" | "pending";
             /**
+             * @description The status of the pay_by_bank payments capability of the account, or whether the account can directly process pay_by_bank charges.
+             * @enum {string}
+             */
+            pay_by_bank_payments?: "active" | "inactive" | "pending";
+            /**
              * @description The status of the Payco capability of the account, or whether the account can directly process Payco payments.
              * @enum {string}
              */
@@ -9579,6 +9604,8 @@ export interface components {
         };
         /** APIErrors */
         api_errors: {
+            /** @description For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one. */
+            advice_code?: string;
             /** @description For card errors, the ID of the failed charge. */
             charge?: string;
             /** @description For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported. */
@@ -10878,6 +10905,11 @@ export interface components {
         };
         /** ChargeOutcome */
         charge_outcome: {
+            /**
+             * @description An enumerated value providing a more detailed explanation on [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines).
+             * @enum {string|null}
+             */
+            advice_code?: "confirm_card_data" | "do_not_try_again" | "try_again_later" | null;
             /** @description For charges declined by the network, a 2 digit code which indicates the advice returned by the network on how to proceed with an error. */
             network_advice_code?: string | null;
             /** @description For charges declined by the network, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed. */
@@ -10984,6 +11016,8 @@ export interface components {
              *     on file. To access information about the customer once the payment flow is
              *     complete, use the `customer` attribute. */
             customer_email?: string | null;
+            /** @description List of coupons and promotion codes attached to the Checkout Session. */
+            discounts?: components["schemas"]["payment_pages_checkout_session_discount"][] | null;
             /**
              * Format: unix-time
              * @description The timestamp at which the Checkout Session will expire.
@@ -12087,6 +12121,7 @@ export interface components {
             naver_pay?: components["schemas"]["payment_method_naver_pay"];
             oxxo?: components["schemas"]["payment_method_oxxo"];
             p24?: components["schemas"]["payment_method_p24"];
+            pay_by_bank?: components["schemas"]["payment_method_pay_by_bank"];
             payco?: components["schemas"]["payment_method_payco"];
             paynow?: components["schemas"]["payment_method_paynow"];
             paypal?: components["schemas"]["payment_method_paypal"];
@@ -12102,7 +12137,7 @@ export interface components {
              * @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
              * @enum {string}
              */
-            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "card_present" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "interac_present" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "card_present" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "interac_present" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "pay_by_bank" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
             us_bank_account?: components["schemas"]["payment_method_us_bank_account"];
             wechat_pay?: components["schemas"]["payment_method_wechat_pay"];
             zip?: components["schemas"]["payment_method_zip"];
@@ -12165,6 +12200,10 @@ export interface components {
             account_onboarding: components["schemas"]["connect_embedded_account_config_claim"];
             balances: components["schemas"]["connect_embedded_payouts_config_claim"];
             documents: components["schemas"]["connect_embedded_base_config_claim"];
+            financial_account: components["schemas"]["connect_embedded_financial_account_config_claim"];
+            financial_account_transactions: components["schemas"]["connect_embedded_financial_account_transactions_config_claim"];
+            issuing_card: components["schemas"]["connect_embedded_issuing_card_config_claim"];
+            issuing_cards_list: components["schemas"]["connect_embedded_issuing_cards_list_config_claim"];
             notification_banner: components["schemas"]["connect_embedded_account_config_claim"];
             payment_details: components["schemas"]["connect_embedded_payments_config_claim"];
             payments: components["schemas"]["connect_embedded_payments_config_claim"];
@@ -12181,6 +12220,70 @@ export interface components {
         };
         /** ConnectEmbeddedBaseFeatures */
         connect_embedded_base_features: Record<string, never>;
+        /** ConnectEmbeddedFinancialAccountConfigClaim */
+        connect_embedded_financial_account_config_claim: {
+            /** @description Whether the embedded component is enabled. */
+            enabled: boolean;
+            features: components["schemas"]["connect_embedded_financial_account_features"];
+        };
+        /** ConnectEmbeddedFinancialAccountFeatures */
+        connect_embedded_financial_account_features: {
+            /** @description Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don’t set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false. */
+            disable_stripe_user_authentication: boolean;
+            /** @description Whether to allow external accounts to be linked for money transfer. */
+            external_account_collection: boolean;
+            /** @description Whether to allow sending money. */
+            send_money: boolean;
+            /** @description Whether to allow transferring balance. */
+            transfer_balance: boolean;
+        };
+        /** ConnectEmbeddedFinancialAccountTransactionsConfigClaim */
+        connect_embedded_financial_account_transactions_config_claim: {
+            /** @description Whether the embedded component is enabled. */
+            enabled: boolean;
+            features: components["schemas"]["connect_embedded_financial_account_transactions_features"];
+        };
+        /** ConnectEmbeddedFinancialAccountTransactionsFeatures */
+        connect_embedded_financial_account_transactions_features: {
+            /** @description Whether to allow card spend dispute management features. */
+            card_spend_dispute_management: boolean;
+        };
+        /** ConnectEmbeddedIssuingCardConfigClaim */
+        connect_embedded_issuing_card_config_claim: {
+            /** @description Whether the embedded component is enabled. */
+            enabled: boolean;
+            features: components["schemas"]["connect_embedded_issuing_card_features"];
+        };
+        /** ConnectEmbeddedIssuingCardFeatures */
+        connect_embedded_issuing_card_features: {
+            /** @description Whether to allow card management features. */
+            card_management: boolean;
+            /** @description Whether to allow card spend dispute management features. */
+            card_spend_dispute_management: boolean;
+            /** @description Whether to allow cardholder management features. */
+            cardholder_management: boolean;
+            /** @description Whether to allow spend control management features. */
+            spend_control_management: boolean;
+        };
+        /** ConnectEmbeddedIssuingCardsListConfigClaim */
+        connect_embedded_issuing_cards_list_config_claim: {
+            /** @description Whether the embedded component is enabled. */
+            enabled: boolean;
+            features: components["schemas"]["connect_embedded_issuing_cards_list_features"];
+        };
+        /** ConnectEmbeddedIssuingCardsListFeatures */
+        connect_embedded_issuing_cards_list_features: {
+            /** @description Whether to allow card management features. */
+            card_management: boolean;
+            /** @description Whether to allow card spend dispute management features. */
+            card_spend_dispute_management: boolean;
+            /** @description Whether to allow cardholder management features. */
+            cardholder_management: boolean;
+            /** @description Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you’re responsible for collecting updated information when requirements are due or change, like custom accounts. */
+            disable_stripe_user_authentication: boolean;
+            /** @description Whether to allow spend control management features. */
+            spend_control_management: boolean;
+        };
         /** ConnectEmbeddedPaymentsConfigClaim */
         connect_embedded_payments_config_claim: {
             /** @description Whether the embedded component is enabled. */
@@ -12410,7 +12513,7 @@ export interface components {
             /** @description The link to download the PDF of the credit note. */
             pdf: string;
             /** @description The pretax credit amounts (ex: discount, credit grants, etc) for all line items. */
-            pretax_credit_amounts?: components["schemas"]["credit_notes_pretax_credit_amount"][];
+            pretax_credit_amounts: components["schemas"]["credit_notes_pretax_credit_amount"][];
             /**
              * @description Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
              * @enum {string|null}
@@ -12473,7 +12576,7 @@ export interface components {
              */
             object: "credit_note_line_item";
             /** @description The pretax credit amounts (ex: discount, credit grants, etc) for this line item. */
-            pretax_credit_amounts?: components["schemas"]["credit_notes_pretax_credit_amount"][];
+            pretax_credit_amounts: components["schemas"]["credit_notes_pretax_credit_amount"][];
             /** @description The number of units of product being credited. */
             quantity?: number | null;
             /** @description The amount of tax calculated per tax rate for this line item */
@@ -17278,6 +17381,8 @@ export interface components {
             address_kanji?: components["schemas"]["legal_entity_japan_address"] | null;
             /** @description Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-directors_provided). */
             directors_provided?: boolean;
+            /** @description This hash is used to attest that the director information provided to Stripe is both current and correct. */
+            directorship_declaration?: components["schemas"]["legal_entity_directorship_declaration"] | null;
             /** @description Whether the company's executives have been provided. This Boolean will be `true` if you've manually indicated that all executives are provided via [the `executives_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-executives_provided), or if Stripe determined that sufficient executives were provided. */
             executives_provided?: boolean;
             /** @description The export license ID number of the company, also referred as Import Export Code (India only). */
@@ -17294,6 +17399,8 @@ export interface components {
             owners_provided?: boolean;
             /** @description This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct. */
             ownership_declaration?: components["schemas"]["legal_entity_ubo_declaration"] | null;
+            /** @enum {string} */
+            ownership_exemption_reason?: "qualified_entity_exceeds_ownership_threshold" | "qualifies_as_financial_institution";
             /** @description The company's phone number (used for verification). */
             phone?: string | null;
             /**
@@ -17324,6 +17431,18 @@ export interface components {
             details_code?: string | null;
             /** @description The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. */
             front?: (string | components["schemas"]["file"]) | null;
+        };
+        /** LegalEntityDirectorshipDeclaration */
+        legal_entity_directorship_declaration: {
+            /**
+             * Format: unix-time
+             * @description The Unix timestamp marking when the directorship declaration attestation was made.
+             */
+            date?: number | null;
+            /** @description The IP address from which the directorship declaration attestation was made. */
+            ip?: string | null;
+            /** @description The user-agent string from the browser where the directorship declaration attestation was made. */
+            user_agent?: string | null;
         };
         /** LegalEntityDOB */
         legal_entity_dob: {
@@ -17722,12 +17841,23 @@ export interface components {
         /** OutboundTransfersPaymentMethodDetails */
         outbound_transfers_payment_method_details: {
             billing_details: components["schemas"]["treasury_shared_resource_billing_details"];
+            financial_account?: components["schemas"]["outbound_transfers_payment_method_details_financial_account"];
             /**
              * @description The type of the payment method used in the OutboundTransfer.
              * @enum {string}
              */
-            type: "us_bank_account";
+            type: "financial_account" | "us_bank_account";
             us_bank_account?: components["schemas"]["outbound_transfers_payment_method_details_us_bank_account"];
+        };
+        /** outbound_transfers_payment_method_details_financial_account */
+        outbound_transfers_payment_method_details_financial_account: {
+            /** @description Token of the FinancialAccount. */
+            id: string;
+            /**
+             * @description The rails used to send funds.
+             * @enum {string}
+             */
+            network: "stripe";
         };
         /** outbound_transfers_payment_method_details_us_bank_account */
         outbound_transfers_payment_method_details_us_bank_account: {
@@ -18378,6 +18508,7 @@ export interface components {
             naver_pay?: components["schemas"]["payment_flows_private_payment_methods_naver_pay_payment_method_options"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             oxxo?: components["schemas"]["payment_method_options_oxxo"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             p24?: components["schemas"]["payment_method_options_p24"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
+            pay_by_bank?: components["schemas"]["payment_method_options_pay_by_bank"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             payco?: components["schemas"]["payment_flows_private_payment_methods_payco_payment_method_options"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             paynow?: components["schemas"]["payment_method_options_paynow"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
             paypal?: components["schemas"]["payment_method_options_paypal"] | components["schemas"]["payment_intent_type_specific_payment_method_options_client"];
@@ -18787,7 +18918,7 @@ export interface components {
              */
             payment_method_collection: "always" | "if_required";
             /** @description The list of payment method types that customers can use. When `null`, Stripe will dynamically show relevant payment methods you've enabled in your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
-            payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "alma" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[] | null;
+            payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "alma" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "pay_by_bank" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[] | null;
             phone_number_collection: components["schemas"]["payment_links_resource_phone_number_collection"];
             /** @description Settings that restrict the usage of a payment link. */
             restrictions?: components["schemas"]["payment_links_resource_restrictions"] | null;
@@ -18998,7 +19129,7 @@ export interface components {
         /** PaymentLinksResourceShippingAddressCollection */
         payment_links_resource_shipping_address_collection: {
             /** @description An array of two-letter ISO country codes representing which countries Checkout should provide as options for shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`. */
-            allowed_countries: ("AC" | "AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CV" | "CW" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MK" | "ML" | "MM" | "MN" | "MO" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SZ" | "TA" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VN" | "VU" | "WF" | "WS" | "XK" | "YE" | "YT" | "ZA" | "ZM" | "ZW" | "ZZ")[];
+            allowed_countries: ("AC" | "AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CV" | "CW" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MK" | "ML" | "MM" | "MN" | "MO" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SD" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SZ" | "TA" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VN" | "VU" | "WF" | "WS" | "XK" | "YE" | "YT" | "ZA" | "ZM" | "ZW" | "ZZ")[];
         };
         /** PaymentLinksResourceShippingOption */
         payment_links_resource_shipping_option: {
@@ -19105,6 +19236,7 @@ export interface components {
             object: "payment_method";
             oxxo?: components["schemas"]["payment_method_oxxo"];
             p24?: components["schemas"]["payment_method_p24"];
+            pay_by_bank?: components["schemas"]["payment_method_pay_by_bank"];
             payco?: components["schemas"]["payment_method_payco"];
             paynow?: components["schemas"]["payment_method_paynow"];
             paypal?: components["schemas"]["payment_method_paypal"];
@@ -19121,7 +19253,7 @@ export interface components {
              * @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
              * @enum {string}
              */
-            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "card_present" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "interac_present" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+            type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "card_present" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "interac_present" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "pay_by_bank" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
             us_bank_account?: components["schemas"]["payment_method_us_bank_account"];
             wechat_pay?: components["schemas"]["payment_method_wechat_pay"];
             zip?: components["schemas"]["payment_method_zip"];
@@ -19425,6 +19557,7 @@ export interface components {
             p24?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
             /** @description For child configs, the configuration's parent configuration. */
             parent?: string | null;
+            pay_by_bank?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
             paynow?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
             paypal?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
             promptpay?: components["schemas"]["payment_method_config_resource_payment_method_properties"];
@@ -19474,6 +19607,7 @@ export interface components {
             naver_pay?: components["schemas"]["payment_method_details_naver_pay"];
             oxxo?: components["schemas"]["payment_method_details_oxxo"];
             p24?: components["schemas"]["payment_method_details_p24"];
+            pay_by_bank?: components["schemas"]["payment_method_details_pay_by_bank"];
             payco?: components["schemas"]["payment_method_details_payco"];
             paynow?: components["schemas"]["payment_method_details_paynow"];
             paypal?: components["schemas"]["payment_method_details_paypal"];
@@ -20082,6 +20216,8 @@ export interface components {
             /** @description The last four digits of the card. */
             last4?: string | null;
         };
+        /** payment_method_details_pay_by_bank */
+        payment_method_details_pay_by_bank: Record<string, never>;
         /** payment_method_details_payco */
         payment_method_details_payco: {
             /** @description A unique identifier for the buyer as determined by the local payment processor. */
@@ -20094,6 +20230,8 @@ export interface components {
         };
         /** payment_method_details_paypal */
         payment_method_details_paypal: {
+            /** @description Two-letter ISO code representing the buyer's country. Values are provided by PayPal directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
+            country?: string | null;
             /** @description Owner's email. Values are provided by PayPal directly
              *     (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
             payer_email?: string | null;
@@ -20775,6 +20913,8 @@ export interface components {
              */
             setup_future_usage?: "none";
         };
+        /** payment_method_options_pay_by_bank */
+        payment_method_options_pay_by_bank: Record<string, never>;
         /** payment_method_options_paynow */
         payment_method_options_paynow: {
             /**
@@ -20949,12 +21089,16 @@ export interface components {
              */
             bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank" | null;
         };
+        /** payment_method_pay_by_bank */
+        payment_method_pay_by_bank: Record<string, never>;
         /** payment_method_payco */
         payment_method_payco: Record<string, never>;
         /** payment_method_paynow */
         payment_method_paynow: Record<string, never>;
         /** payment_method_paypal */
         payment_method_paypal: {
+            /** @description Two-letter ISO code representing the buyer's country. Values are provided by PayPal directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
+            country?: string | null;
             /** @description Owner's email. Values are provided by PayPal directly
              *     (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
             payer_email?: string | null;
@@ -21223,6 +21367,13 @@ export interface components {
             /** @description The customer’s tax IDs after a completed Checkout Session. */
             tax_ids?: components["schemas"]["payment_pages_checkout_session_tax_id"][] | null;
         };
+        /** PaymentPagesCheckoutSessionDiscount */
+        payment_pages_checkout_session_discount: {
+            /** @description Coupon attached to the Checkout Session. */
+            coupon?: (string | components["schemas"]["coupon"]) | null;
+            /** @description Promotion code attached to the Checkout Session. */
+            promotion_code?: (string | components["schemas"]["promotion_code"]) | null;
+        };
         /** PaymentPagesCheckoutSessionInvoiceCreation */
         payment_pages_checkout_session_invoice_creation: {
             /** @description Indicates whether invoice creation is enabled for the Checkout Session. */
@@ -21281,8 +21432,8 @@ export interface components {
         /** PaymentPagesCheckoutSessionShippingAddressCollection */
         payment_pages_checkout_session_shipping_address_collection: {
             /** @description An array of two-letter ISO country codes representing which countries Checkout should provide as options for
-             *     shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`. */
-            allowed_countries: ("AC" | "AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CV" | "CW" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MK" | "ML" | "MM" | "MN" | "MO" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SZ" | "TA" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VN" | "VU" | "WF" | "WS" | "XK" | "YE" | "YT" | "ZA" | "ZM" | "ZW" | "ZZ")[];
+             *     shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SY, UM, VI`. */
+            allowed_countries: ("AC" | "AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CV" | "CW" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MK" | "ML" | "MM" | "MN" | "MO" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SD" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SZ" | "TA" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VN" | "VU" | "WF" | "WS" | "XK" | "YE" | "YT" | "ZA" | "ZM" | "ZW" | "ZZ")[];
         };
         /** PaymentPagesCheckoutSessionShippingCost */
         payment_pages_checkout_session_shipping_cost: {
@@ -25677,6 +25828,7 @@ export interface components {
             eur?: components["schemas"]["terminal_configuration_configuration_resource_currency_specific_config"];
             gbp?: components["schemas"]["terminal_configuration_configuration_resource_currency_specific_config"];
             hkd?: components["schemas"]["terminal_configuration_configuration_resource_currency_specific_config"];
+            jpy?: components["schemas"]["terminal_configuration_configuration_resource_currency_specific_config"];
             myr?: components["schemas"]["terminal_configuration_configuration_resource_currency_specific_config"];
             nok?: components["schemas"]["terminal_configuration_configuration_resource_currency_specific_config"];
             nzd?: components["schemas"]["terminal_configuration_configuration_resource_currency_specific_config"];
@@ -26371,12 +26523,15 @@ export interface components {
             financial_addresses: components["schemas"]["treasury_financial_accounts_resource_financial_address"][];
             /** @description Unique identifier for the object. */
             id: string;
+            is_default?: boolean;
             /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
             livemode: boolean;
             /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. */
             metadata?: {
                 [key: string]: string;
             } | null;
+            /** @description The nickname for the FinancialAccount. */
+            nickname?: string | null;
             /**
              * @description String representing the object's type. Objects of the same type share the same value.
              * @enum {string}
@@ -27201,12 +27356,13 @@ export interface components {
         treasury_received_credits_resource_source_flows_details: {
             credit_reversal?: components["schemas"]["treasury.credit_reversal"];
             outbound_payment?: components["schemas"]["treasury.outbound_payment"];
+            outbound_transfer?: components["schemas"]["treasury.outbound_transfer"];
             payout?: components["schemas"]["payout"];
             /**
              * @description The type of the source flow that originated the ReceivedCredit.
              * @enum {string}
              */
-            type: "credit_reversal" | "other" | "outbound_payment" | "payout";
+            type: "credit_reversal" | "other" | "outbound_payment" | "outbound_transfer" | "payout";
         };
         /** TreasuryReceivedCreditsResourceStatusTransitions */
         treasury_received_credits_resource_status_transitions: {
@@ -27601,6 +27757,48 @@ export interface operations {
                             /** base_features_param */
                             features?: Record<string, never>;
                         };
+                        /** financial_account_config_param */
+                        financial_account?: {
+                            enabled: boolean;
+                            /** financial_account_features_param */
+                            features?: {
+                                disable_stripe_user_authentication?: boolean;
+                                external_account_collection?: boolean;
+                                send_money?: boolean;
+                                transfer_balance?: boolean;
+                            };
+                        };
+                        /** financial_account_transactions_config_param */
+                        financial_account_transactions?: {
+                            enabled: boolean;
+                            /** financial_account_transactions_features_param */
+                            features?: {
+                                card_spend_dispute_management?: boolean;
+                            };
+                        };
+                        /** issuing_card_config_param */
+                        issuing_card?: {
+                            enabled: boolean;
+                            /** issuing_card_features_param */
+                            features?: {
+                                card_management?: boolean;
+                                card_spend_dispute_management?: boolean;
+                                cardholder_management?: boolean;
+                                spend_control_management?: boolean;
+                            };
+                        };
+                        /** issuing_cards_list_config_param */
+                        issuing_cards_list?: {
+                            enabled: boolean;
+                            /** issuing_cards_list_features_param */
+                            features?: {
+                                card_management?: boolean;
+                                card_spend_dispute_management?: boolean;
+                                cardholder_management?: boolean;
+                                disable_stripe_user_authentication?: boolean;
+                                spend_control_management?: boolean;
+                            };
+                        };
                         /** account_config_param */
                         notification_banner?: {
                             enabled: boolean;
@@ -27981,6 +28179,10 @@ export interface operations {
                             requested?: boolean;
                         };
                         /** capability_param */
+                        pay_by_bank_payments?: {
+                            requested?: boolean;
+                        };
+                        /** capability_param */
                         payco_payments?: {
                             requested?: boolean;
                         };
@@ -28084,6 +28286,13 @@ export interface operations {
                             town?: string;
                         };
                         directors_provided?: boolean;
+                        /** company_directorship_declaration */
+                        directorship_declaration?: {
+                            /** Format: unix-time */
+                            date?: number;
+                            ip?: string;
+                            user_agent?: string;
+                        };
                         executives_provided?: boolean;
                         export_license_id?: string;
                         export_purpose_code?: string;
@@ -28098,6 +28307,8 @@ export interface operations {
                             ip?: string;
                             user_agent?: string;
                         };
+                        /** @enum {string} */
+                        ownership_exemption_reason?: "" | "qualified_entity_exceeds_ownership_threshold" | "qualifies_as_financial_institution";
                         phone?: string;
                         registration_number?: string;
                         /** @enum {string} */
@@ -28175,6 +28386,10 @@ export interface operations {
                         };
                         /** documents_param */
                         proof_of_registration?: {
+                            files?: string[];
+                        };
+                        /** documents_param */
+                        proof_of_ultimate_beneficial_ownership?: {
                             files?: string[];
                         };
                     };
@@ -28642,6 +28857,10 @@ export interface operations {
                             requested?: boolean;
                         };
                         /** capability_param */
+                        pay_by_bank_payments?: {
+                            requested?: boolean;
+                        };
+                        /** capability_param */
                         payco_payments?: {
                             requested?: boolean;
                         };
@@ -28745,6 +28964,13 @@ export interface operations {
                             town?: string;
                         };
                         directors_provided?: boolean;
+                        /** company_directorship_declaration */
+                        directorship_declaration?: {
+                            /** Format: unix-time */
+                            date?: number;
+                            ip?: string;
+                            user_agent?: string;
+                        };
                         executives_provided?: boolean;
                         export_license_id?: string;
                         export_purpose_code?: string;
@@ -28759,6 +28985,8 @@ export interface operations {
                             ip?: string;
                             user_agent?: string;
                         };
+                        /** @enum {string} */
+                        ownership_exemption_reason?: "" | "qualified_entity_exceeds_ownership_threshold" | "qualifies_as_financial_institution";
                         phone?: string;
                         registration_number?: string;
                         /** @enum {string} */
@@ -28811,6 +29039,10 @@ export interface operations {
                         };
                         /** documents_param */
                         proof_of_registration?: {
+                            files?: string[];
+                        };
+                        /** documents_param */
+                        proof_of_ultimate_beneficial_ownership?: {
                             files?: string[];
                         };
                     };
@@ -34835,6 +35067,8 @@ export interface operations {
                             tos_shown_and_accepted?: boolean;
                         };
                         /** payment_method_options_param */
+                        pay_by_bank?: Record<string, never>;
+                        /** payment_method_options_param */
                         payco?: {
                             /** @enum {string} */
                             capture_method?: "manual";
@@ -34919,7 +35153,7 @@ export interface operations {
                      *     If multiple payment methods are passed, Checkout will dynamically reorder them to
                      *     prioritize the most relevant payment methods based on the customer's location and
                      *     other characteristics. */
-                    payment_method_types?: ("acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[];
+                    payment_method_types?: ("acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "pay_by_bank" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[];
                     /**
                      * phone_number_collection_params
                      * @description Controls phone number collection settings for the session.
@@ -34964,7 +35198,7 @@ export interface operations {
                      * @description When set, provides configuration for Checkout to collect a shipping address from a customer.
                      */
                     shipping_address_collection?: {
-                        allowed_countries: ("AC" | "AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CV" | "CW" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MK" | "ML" | "MM" | "MN" | "MO" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SZ" | "TA" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VN" | "VU" | "WF" | "WS" | "XK" | "YE" | "YT" | "ZA" | "ZM" | "ZW" | "ZZ")[];
+                        allowed_countries: ("AC" | "AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CV" | "CW" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MK" | "ML" | "MM" | "MN" | "MO" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SD" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SZ" | "TA" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VN" | "VU" | "WF" | "WS" | "XK" | "YE" | "YT" | "ZA" | "ZM" | "ZW" | "ZZ")[];
                     };
                     /** @description The shipping rate options to apply to this Session. Up to a maximum of 5. */
                     shipping_options?: {
@@ -38316,7 +38550,7 @@ export interface operations {
                 /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
                 starting_after?: string;
                 /** @description An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request. */
-                type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "pay_by_bank" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
             };
             header?: never;
             path: {
@@ -41307,7 +41541,7 @@ export interface operations {
     GetFinancialConnectionsTransactions: {
         parameters: {
             query: {
-                /** @description The ID of the Stripe account whose transactions will be retrieved. */
+                /** @description The ID of the Financial Connections Account whose transactions will be retrieved. */
                 account: string;
                 /** @description A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list. */
                 ending_before?: string;
@@ -47654,6 +47888,8 @@ export interface operations {
                             bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank";
                         };
                         /** param */
+                        pay_by_bank?: Record<string, never>;
+                        /** param */
                         payco?: Record<string, never>;
                         /** param */
                         paynow?: Record<string, never>;
@@ -47685,7 +47921,7 @@ export interface operations {
                         /** param */
                         twint?: Record<string, never>;
                         /** @enum {string} */
-                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "pay_by_bank" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
                         /** payment_method_param */
                         us_bank_account?: {
                             /** @enum {string} */
@@ -47960,6 +48196,7 @@ export interface operations {
                             setup_future_usage?: "none";
                             tos_shown_and_accepted?: boolean;
                         } | "";
+                        pay_by_bank?: Record<string, never> | "";
                         payco?: {
                             /** @enum {string} */
                             capture_method?: "" | "manual";
@@ -48404,6 +48641,8 @@ export interface operations {
                             bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank";
                         };
                         /** param */
+                        pay_by_bank?: Record<string, never>;
+                        /** param */
                         payco?: Record<string, never>;
                         /** param */
                         paynow?: Record<string, never>;
@@ -48435,7 +48674,7 @@ export interface operations {
                         /** param */
                         twint?: Record<string, never>;
                         /** @enum {string} */
-                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "pay_by_bank" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
                         /** payment_method_param */
                         us_bank_account?: {
                             /** @enum {string} */
@@ -48710,6 +48949,7 @@ export interface operations {
                             setup_future_usage?: "none";
                             tos_shown_and_accepted?: boolean;
                         } | "";
+                        pay_by_bank?: Record<string, never> | "";
                         payco?: {
                             /** @enum {string} */
                             capture_method?: "" | "manual";
@@ -49216,6 +49456,8 @@ export interface operations {
                             bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank";
                         };
                         /** param */
+                        pay_by_bank?: Record<string, never>;
+                        /** param */
                         payco?: Record<string, never>;
                         /** param */
                         paynow?: Record<string, never>;
@@ -49247,7 +49489,7 @@ export interface operations {
                         /** param */
                         twint?: Record<string, never>;
                         /** @enum {string} */
-                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "pay_by_bank" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
                         /** payment_method_param */
                         us_bank_account?: {
                             /** @enum {string} */
@@ -49522,6 +49764,7 @@ export interface operations {
                             setup_future_usage?: "none";
                             tos_shown_and_accepted?: boolean;
                         } | "";
+                        pay_by_bank?: Record<string, never> | "";
                         payco?: {
                             /** @enum {string} */
                             capture_method?: "" | "manual";
@@ -50051,7 +50294,7 @@ export interface operations {
                      */
                     payment_method_collection?: "always" | "if_required";
                     /** @description The list of payment method types that customers can use. If no value is passed, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods) (20+ payment methods [supported](https://stripe.com/docs/payments/payment-methods/integration-options#payment-method-product-support)). */
-                    payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "alma" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[];
+                    payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "alma" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "pay_by_bank" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[];
                     /**
                      * phone_number_collection_params
                      * @description Controls phone number collection settings during checkout.
@@ -50076,7 +50319,7 @@ export interface operations {
                      * @description Configuration for collecting the customer's shipping address.
                      */
                     shipping_address_collection?: {
-                        allowed_countries: ("AC" | "AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CV" | "CW" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MK" | "ML" | "MM" | "MN" | "MO" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SZ" | "TA" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VN" | "VU" | "WF" | "WS" | "XK" | "YE" | "YT" | "ZA" | "ZM" | "ZW" | "ZZ")[];
+                        allowed_countries: ("AC" | "AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CV" | "CW" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MK" | "ML" | "MM" | "MN" | "MO" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SD" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SZ" | "TA" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VN" | "VU" | "WF" | "WS" | "XK" | "YE" | "YT" | "ZA" | "ZM" | "ZW" | "ZZ")[];
                     };
                     /** @description The shipping rate options to apply to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link. */
                     shipping_options?: {
@@ -50369,7 +50612,16 @@ export interface operations {
                      */
                     payment_method_collection?: "always" | "if_required";
                     /** @description The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). */
-                    payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "alma" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[] | "";
+                    payment_method_types?: ("affirm" | "afterpay_clearpay" | "alipay" | "alma" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "klarna" | "konbini" | "link" | "mobilepay" | "multibanco" | "oxxo" | "p24" | "pay_by_bank" | "paynow" | "paypal" | "pix" | "promptpay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[] | "";
+                    /**
+                     * phone_number_collection_params
+                     * @description Controls phone number collection settings during checkout.
+                     *
+                     *     We recommend that you review your privacy policy and check with your legal contacts.
+                     */
+                    phone_number_collection?: {
+                        enabled: boolean;
+                    };
                     /** @description Settings that restrict the usage of a payment link. */
                     restrictions?: {
                         /** completed_sessions_params */
@@ -50379,7 +50631,7 @@ export interface operations {
                     } | "";
                     /** @description Configuration for collecting the customer's shipping address. */
                     shipping_address_collection?: {
-                        allowed_countries: ("AC" | "AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CV" | "CW" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MK" | "ML" | "MM" | "MN" | "MO" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SZ" | "TA" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VN" | "VU" | "WF" | "WS" | "XK" | "YE" | "YT" | "ZA" | "ZM" | "ZW" | "ZZ")[];
+                        allowed_countries: ("AC" | "AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CV" | "CW" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MK" | "ML" | "MM" | "MN" | "MO" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SD" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SZ" | "TA" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VN" | "VU" | "WF" | "WS" | "XK" | "YE" | "YT" | "ZA" | "ZM" | "ZW" | "ZZ")[];
                     } | "";
                     /**
                      * @description Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
@@ -50913,6 +51165,17 @@ export interface operations {
                     };
                     /** @description Configuration's parent configuration. Specify to create a child configuration. */
                     parent?: string;
+                    /**
+                     * payment_method_param
+                     * @description Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
+                     */
+                    pay_by_bank?: {
+                        /** display_preference_param */
+                        display_preference?: {
+                            /** @enum {string} */
+                            preference?: "none" | "off" | "on";
+                        };
+                    };
                     /**
                      * payment_method_param
                      * @description PayNow is a Singapore-based payment method that allows customers to make a payment using their preferred app from participating banks and participating non-bank financial institutions. Check this [page](https://stripe.com/docs/payments/paynow) for more details.
@@ -51457,6 +51720,17 @@ export interface operations {
                     };
                     /**
                      * payment_method_param
+                     * @description Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
+                     */
+                    pay_by_bank?: {
+                        /** display_preference_param */
+                        display_preference?: {
+                            /** @enum {string} */
+                            preference?: "none" | "off" | "on";
+                        };
+                    };
+                    /**
+                     * payment_method_param
                      * @description PayNow is a Singapore-based payment method that allows customers to make a payment using their preferred app from participating banks and participating non-bank financial institutions. Check this [page](https://stripe.com/docs/payments/paynow) for more details.
                      */
                     paynow?: {
@@ -51827,7 +52101,7 @@ export interface operations {
                 /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
                 starting_after?: string;
                 /** @description An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request. */
-                type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "pay_by_bank" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
             };
             header?: never;
             path?: never;
@@ -52105,6 +52379,11 @@ export interface operations {
                     };
                     /**
                      * param
+                     * @description If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+                     */
+                    pay_by_bank?: Record<string, never>;
+                    /**
+                     * param
                      * @description If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
                      */
                     payco?: Record<string, never>;
@@ -52176,7 +52455,7 @@ export interface operations {
                      * @description The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
                      * @enum {string}
                      */
-                    type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                    type?: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "pay_by_bank" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
                     /**
                      * payment_method_param
                      * @description If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
@@ -52328,6 +52607,11 @@ export interface operations {
                         /** @enum {string} */
                         funding?: "card" | "points";
                     };
+                    /**
+                     * param
+                     * @description If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+                     */
+                    pay_by_bank?: Record<string, never>;
                     /**
                      * update_param
                      * @description If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
@@ -56384,6 +56668,8 @@ export interface operations {
                             bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank";
                         };
                         /** param */
+                        pay_by_bank?: Record<string, never>;
+                        /** param */
                         payco?: Record<string, never>;
                         /** param */
                         paynow?: Record<string, never>;
@@ -56415,7 +56701,7 @@ export interface operations {
                         /** param */
                         twint?: Record<string, never>;
                         /** @enum {string} */
-                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "pay_by_bank" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
                         /** payment_method_param */
                         us_bank_account?: {
                             /** @enum {string} */
@@ -56787,6 +57073,8 @@ export interface operations {
                             bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank";
                         };
                         /** param */
+                        pay_by_bank?: Record<string, never>;
+                        /** param */
                         payco?: Record<string, never>;
                         /** param */
                         paynow?: Record<string, never>;
@@ -56818,7 +57106,7 @@ export interface operations {
                         /** param */
                         twint?: Record<string, never>;
                         /** @enum {string} */
-                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "pay_by_bank" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
                         /** payment_method_param */
                         us_bank_account?: {
                             /** @enum {string} */
@@ -57188,6 +57476,8 @@ export interface operations {
                             bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank";
                         };
                         /** param */
+                        pay_by_bank?: Record<string, never>;
+                        /** param */
                         payco?: Record<string, never>;
                         /** param */
                         paynow?: Record<string, never>;
@@ -57219,7 +57509,7 @@ export interface operations {
                         /** param */
                         twint?: Record<string, never>;
                         /** @enum {string} */
-                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "pay_by_bank" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
                         /** payment_method_param */
                         us_bank_account?: {
                             /** @enum {string} */
@@ -62192,6 +62482,12 @@ export interface operations {
                             smart_tip_threshold?: number;
                         };
                         /** currency_specific_config */
+                        jpy?: {
+                            fixed_amounts?: number[];
+                            percentages?: number[];
+                            smart_tip_threshold?: number;
+                        };
+                        /** currency_specific_config */
                         myr?: {
                             fixed_amounts?: number[];
                             percentages?: number[];
@@ -62382,6 +62678,12 @@ export interface operations {
                         };
                         /** currency_specific_config */
                         hkd?: {
+                            fixed_amounts?: number[];
+                            percentages?: number[];
+                            smart_tip_threshold?: number;
+                        };
+                        /** currency_specific_config */
+                        jpy?: {
                             fixed_amounts?: number[];
                             percentages?: number[];
                             smart_tip_threshold?: number;
@@ -63387,6 +63689,8 @@ export interface operations {
                             bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank";
                         };
                         /** param */
+                        pay_by_bank?: Record<string, never>;
+                        /** param */
                         payco?: Record<string, never>;
                         /** param */
                         paynow?: Record<string, never>;
@@ -63418,7 +63722,7 @@ export interface operations {
                         /** param */
                         twint?: Record<string, never>;
                         /** @enum {string} */
-                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
+                        type: "acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "pay_by_bank" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip";
                         /** payment_method_param */
                         us_bank_account?: {
                             /** @enum {string} */
@@ -65746,6 +66050,13 @@ export interface operations {
                                 town?: string;
                             };
                             directors_provided?: boolean;
+                            /** company_directorship_declaration */
+                            directorship_declaration?: {
+                                /** Format: unix-time */
+                                date?: number;
+                                ip?: string;
+                                user_agent?: string;
+                            };
                             executives_provided?: boolean;
                             export_license_id?: string;
                             export_purpose_code?: string;
@@ -65761,6 +66072,8 @@ export interface operations {
                                 user_agent?: string;
                             };
                             ownership_declaration_shown_and_signed?: boolean;
+                            /** @enum {string} */
+                            ownership_exemption_reason?: "" | "qualified_entity_exceeds_ownership_threshold" | "qualifies_as_financial_institution";
                             phone?: string;
                             registration_number?: string;
                             /** @enum {string} */
@@ -67145,6 +67458,8 @@ export interface operations {
                     metadata?: {
                         [key: string]: string;
                     };
+                    /** @description The nickname for the FinancialAccount. */
+                    nickname?: string | "";
                     /**
                      * platform_restrictions
                      * @description The set of functionalities that the platform can restrict on the FinancialAccount.
@@ -67287,10 +67602,22 @@ export interface operations {
                             };
                         };
                     };
+                    /**
+                     * forwarding_settings
+                     * @description A different bank account where funds can be deposited/debited in order to get the closing FA's balance to $0
+                     */
+                    forwarding_settings?: {
+                        financial_account?: string;
+                        payment_method?: string;
+                        /** @enum {string} */
+                        type: "financial_account" | "payment_method";
+                    };
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
                         [key: string]: string;
                     };
+                    /** @description The nickname for the FinancialAccount. */
+                    nickname?: string | "";
                     /**
                      * platform_restrictions
                      * @description The set of functionalities that the platform can restrict on the FinancialAccount.
@@ -67300,6 +67627,54 @@ export interface operations {
                         inbound_flows?: "restricted" | "unrestricted";
                         /** @enum {string} */
                         outbound_flows?: "restricted" | "unrestricted";
+                    };
+                };
+            };
+        };
+        responses: {
+            /** @description Successful response. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["treasury.financial_account"];
+                };
+            };
+            /** @description Error response. */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["error"];
+                };
+            };
+        };
+    };
+    PostTreasuryFinancialAccountsFinancialAccountClose: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                financial_account: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/x-www-form-urlencoded": {
+                    /** @description Specifies which fields in the response should be expanded. */
+                    expand?: string[];
+                    /**
+                     * forwarding_settings
+                     * @description A different bank account where funds can be deposited/debited in order to get the closing FA's balance to $0
+                     */
+                    forwarding_settings?: {
+                        financial_account?: string;
+                        payment_method?: string;
+                        /** @enum {string} */
+                        type: "financial_account" | "payment_method";
                     };
                 };
             };
@@ -67993,6 +68368,15 @@ export interface operations {
                     /** @description The PaymentMethod to use as the payment instrument for the OutboundTransfer. */
                     destination_payment_method?: string;
                     /**
+                     * payment_method_data
+                     * @description Hash used to generate the PaymentMethod to be used for this OutboundTransfer. Exclusive with `destination_payment_method`.
+                     */
+                    destination_payment_method_data?: {
+                        financial_account?: string;
+                        /** @enum {string} */
+                        type: "financial_account";
+                    };
+                    /**
                      * payment_method_options
                      * @description Hash describing payment method configuration details.
                      */
@@ -68126,7 +68510,7 @@ export interface operations {
                 /** @description Only return ReceivedCredits described by the flow. */
                 linked_flows?: {
                     /** @enum {string} */
-                    source_flow_type: "credit_reversal" | "other" | "outbound_payment" | "payout";
+                    source_flow_type: "credit_reversal" | "other" | "outbound_payment" | "outbound_transfer" | "payout";
                 };
                 /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
                 starting_after?: string;
@@ -68601,7 +68985,7 @@ export interface operations {
                      * @description Events sent to this endpoint will be generated with this Stripe Version instead of your account's default Stripe Version.
                      * @enum {string}
                      */
-                    api_version?: "2011-01-01" | "2011-06-21" | "2011-06-28" | "2011-08-01" | "2011-09-15" | "2011-11-17" | "2012-02-23" | "2012-03-25" | "2012-06-18" | "2012-06-28" | "2012-07-09" | "2012-09-24" | "2012-10-26" | "2012-11-07" | "2013-02-11" | "2013-02-13" | "2013-07-05" | "2013-08-12" | "2013-08-13" | "2013-10-29" | "2013-12-03" | "2014-01-31" | "2014-03-13" | "2014-03-28" | "2014-05-19" | "2014-06-13" | "2014-06-17" | "2014-07-22" | "2014-07-26" | "2014-08-04" | "2014-08-20" | "2014-09-08" | "2014-10-07" | "2014-11-05" | "2014-11-20" | "2014-12-08" | "2014-12-17" | "2014-12-22" | "2015-01-11" | "2015-01-26" | "2015-02-10" | "2015-02-16" | "2015-02-18" | "2015-03-24" | "2015-04-07" | "2015-06-15" | "2015-07-07" | "2015-07-13" | "2015-07-28" | "2015-08-07" | "2015-08-19" | "2015-09-03" | "2015-09-08" | "2015-09-23" | "2015-10-01" | "2015-10-12" | "2015-10-16" | "2016-02-03" | "2016-02-19" | "2016-02-22" | "2016-02-23" | "2016-02-29" | "2016-03-07" | "2016-06-15" | "2016-07-06" | "2016-10-19" | "2017-01-27" | "2017-02-14" | "2017-04-06" | "2017-05-25" | "2017-06-05" | "2017-08-15" | "2017-12-14" | "2018-01-23" | "2018-02-05" | "2018-02-06" | "2018-02-28" | "2018-05-21" | "2018-07-27" | "2018-08-23" | "2018-09-06" | "2018-09-24" | "2018-10-31" | "2018-11-08" | "2019-02-11" | "2019-02-19" | "2019-03-14" | "2019-05-16" | "2019-08-14" | "2019-09-09" | "2019-10-08" | "2019-10-17" | "2019-11-05" | "2019-12-03" | "2020-03-02" | "2020-08-27" | "2022-08-01" | "2022-11-15" | "2023-08-16" | "2023-10-16" | "2024-04-10" | "2024-06-20" | "2024-09-30.acacia" | "2024-10-28.acacia" | "2024-11-20.acacia" | "2024-12-18.acacia";
+                    api_version?: "2011-01-01" | "2011-06-21" | "2011-06-28" | "2011-08-01" | "2011-09-15" | "2011-11-17" | "2012-02-23" | "2012-03-25" | "2012-06-18" | "2012-06-28" | "2012-07-09" | "2012-09-24" | "2012-10-26" | "2012-11-07" | "2013-02-11" | "2013-02-13" | "2013-07-05" | "2013-08-12" | "2013-08-13" | "2013-10-29" | "2013-12-03" | "2014-01-31" | "2014-03-13" | "2014-03-28" | "2014-05-19" | "2014-06-13" | "2014-06-17" | "2014-07-22" | "2014-07-26" | "2014-08-04" | "2014-08-20" | "2014-09-08" | "2014-10-07" | "2014-11-05" | "2014-11-20" | "2014-12-08" | "2014-12-17" | "2014-12-22" | "2015-01-11" | "2015-01-26" | "2015-02-10" | "2015-02-16" | "2015-02-18" | "2015-03-24" | "2015-04-07" | "2015-06-15" | "2015-07-07" | "2015-07-13" | "2015-07-28" | "2015-08-07" | "2015-08-19" | "2015-09-03" | "2015-09-08" | "2015-09-23" | "2015-10-01" | "2015-10-12" | "2015-10-16" | "2016-02-03" | "2016-02-19" | "2016-02-22" | "2016-02-23" | "2016-02-29" | "2016-03-07" | "2016-06-15" | "2016-07-06" | "2016-10-19" | "2017-01-27" | "2017-02-14" | "2017-04-06" | "2017-05-25" | "2017-06-05" | "2017-08-15" | "2017-12-14" | "2018-01-23" | "2018-02-05" | "2018-02-06" | "2018-02-28" | "2018-05-21" | "2018-07-27" | "2018-08-23" | "2018-09-06" | "2018-09-24" | "2018-10-31" | "2018-11-08" | "2019-02-11" | "2019-02-19" | "2019-03-14" | "2019-05-16" | "2019-08-14" | "2019-09-09" | "2019-10-08" | "2019-10-17" | "2019-11-05" | "2019-12-03" | "2020-03-02" | "2020-08-27" | "2022-08-01" | "2022-11-15" | "2023-08-16" | "2023-10-16" | "2024-04-10" | "2024-06-20" | "2024-09-30.acacia" | "2024-10-28.acacia" | "2024-11-20.acacia" | "2024-12-18.acacia" | "2025-01-27.acacia";
                     /** @description Whether this endpoint should receive events from connected accounts (`true`), or from your account (`false`). Defaults to `false`. */
                     connect?: boolean;
                     /** @description An optional description of what the webhook is used for. */
