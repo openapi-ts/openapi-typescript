@@ -11,6 +11,11 @@ paths:
           required: true
           schema:
             type: integer
+        - in: query
+          name: cursor
+          required: false
+          schema:
+            type: integer
       responses:
         '200':
           description: Successful response
