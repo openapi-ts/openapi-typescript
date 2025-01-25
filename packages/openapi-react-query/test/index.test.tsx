@@ -3,7 +3,7 @@ import { server, baseUrl, useMockRequestHandler } from "./fixtures/mock-server.j
 import type { paths } from "./fixtures/api.js";
 import createClient from "../src/index.js";
 import createFetchClient from "openapi-fetch";
-import { fireEvent, render, renderHook, screen, waitFor, act } from "@testing-library/react";
+import { act, fireEvent, render, renderHook, screen, waitFor } from "@testing-library/react";
 import {
   QueryClient,
   QueryClientProvider,
@@ -820,6 +820,67 @@ describe("client", () => {
 
         await waitFor(() => rendered.findByText("data: Hello, status: success"));
       });
+    });
+  });
+  describe("useInfiniteQuery", () => {
+    it("should fetch data correctly with pagination", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/paginated-data",
+        status: 200,
+        body: { items: [1, 2, 3], nextPage: 1 },
+      });
+
+      const { result } = renderHook(
+        () => client.useInfiniteQuery("get", "/paginated-data", { params: { query: { limit: 3 } } }),
+        { wrapper },
+      );
+
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+      expect((result.current.data as any).pages[0]).toEqual({ items: [1, 2, 3], nextPage: 1 });
+
+      // Set up mock for second page
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/paginated-data",
+        status: 200,
+        body: { items: [4, 5, 6], nextPage: 2 },
+      });
+
+      await result.current.fetchNextPage();
+
+      await waitFor(() => expect(result.current.isFetching).toBe(false));
+
+      expect((result.current.data as any).pages).toHaveLength(2);
+      expect((result.current.data as any).pages[1]).toEqual({ items: [4, 5, 6], nextPage: 2 });
+    });
+
+    it("should handle errors correctly", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/paginated-data",
+        status: 500,
+        body: { code: 500, message: "Internal Server Error" },
+      });
+
+      const { result } = renderHook(
+        () => client.useInfiniteQuery("get", "/paginated-data", { params: { query: { limit: 3 } } }),
+        { wrapper },
+      );
+
+      await waitFor(() => expect(result.current.isError).toBe(true));
+
+      expect(result.current.error).toEqual({ code: 500, message: "Internal Server Error" });
     });
   });
 });

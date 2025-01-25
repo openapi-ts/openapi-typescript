@@ -5,12 +5,15 @@ import {
   type UseQueryResult,
   type UseSuspenseQueryOptions,
   type UseSuspenseQueryResult,
+  type UseInfiniteQueryOptions,
+  type UseInfiniteQueryResult,
   type QueryClient,
   type QueryFunctionContext,
   type SkipToken,
   useMutation,
   useQuery,
   useSuspenseQuery,
+  useInfiniteQuery,
 } from "@tanstack/react-query";
 import type { ClientMethod, FetchResponse, MaybeOptionalInit, Client as FetchClient } from "openapi-fetch";
 import type { HttpMethod, MediaType, PathsWithMethod, RequiredKeysOf } from "openapi-typescript-helpers";
@@ -112,6 +115,45 @@ export type UseSuspenseQueryMethod<Paths extends Record<string, Record<HttpMetho
     : [InitWithUnknowns<Init>, Options?, QueryClient?]
 ) => UseSuspenseQueryResult<InferSelectReturnType<Response["data"], Options["select"]>, Response["error"]>;
 
+export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
+  Method extends HttpMethod,
+  Path extends PathsWithMethod<Paths, Method>,
+  Init extends MaybeOptionalInit<Paths[Path], Method>,
+  Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>,
+>(
+  method: Method,
+  url: Path,
+  ...[init, options, queryClient]: RequiredKeysOf<Init> extends never
+    ? [
+        InitWithUnknowns<Init>?,
+        Omit<
+          UseInfiniteQueryOptions<
+            Response["data"],
+            Response["error"],
+            Response["data"],
+            number,
+            QueryKey<Paths, Method, Path>
+          >,
+          "queryKey" | "queryFn"
+        >?,
+        QueryClient?,
+      ]
+    : [
+        InitWithUnknowns<Init>,
+        Omit<
+          UseInfiniteQueryOptions<
+            Response["data"],
+            Response["error"],
+            Response["data"],
+            number,
+            QueryKey<Paths, Method, Path>
+          >,
+          "queryKey" | "queryFn"
+        >?,
+        QueryClient?,
+      ]
+) => UseInfiniteQueryResult<Response["data"], Response["error"]>;
+
 export type UseMutationMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
@@ -129,6 +171,7 @@ export interface OpenapiQueryClient<Paths extends {}, Media extends MediaType = 
   queryOptions: QueryOptionsFunction<Paths, Media>;
   useQuery: UseQueryMethod<Paths, Media>;
   useSuspenseQuery: UseSuspenseQueryMethod<Paths, Media>;
+  useInfiniteQuery: UseInfiniteQueryMethod<Paths, Media>;
   useMutation: UseMutationMethod<Paths, Media>;
 }
 
@@ -156,12 +199,49 @@ export default function createClient<Paths extends {}, Media extends MediaType =
     ...options,
   });
 
+  const infiniteQueryOptions = <
+    Method extends HttpMethod,
+    Path extends PathsWithMethod<Paths, Method>,
+    Init extends MaybeOptionalInit<Paths[Path], Method & keyof Paths[Path]>,
+    Response extends Required<FetchResponse<any, Init, Media>>,
+  >(
+    method: Method,
+    path: Path,
+    init?: InitWithUnknowns<Init>,
+    options?: Omit<
+      UseInfiniteQueryOptions<
+        Response["data"],
+        Response["error"],
+        Response["data"],
+        number,
+        QueryKey<Paths, Method, Path>
+      >,
+      "queryKey" | "queryFn"
+    >,
+  ) => ({
+    queryKey: [method, path, init] as const,
+    queryFn,
+    ...options,
+  });
+
   return {
     queryOptions,
     useQuery: (method, path, ...[init, options, queryClient]) =>
       useQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
     useSuspenseQuery: (method, path, ...[init, options, queryClient]) =>
       useSuspenseQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
+    useInfiniteQuery: (method, path, ...[init, options, queryClient]) => {
+      const baseOptions = infiniteQueryOptions(method, path, init as InitWithUnknowns<typeof init>, options as any); // TODO: find a way to avoid as any
+      return useInfiniteQuery(
+        {
+          ...baseOptions,
+          initialPageParam: 0,
+          getNextPageParam: (lastPage: any, allPages: any[], lastPageParam: number, allPageParams: number[]) =>
+            options?.getNextPageParam?.(lastPage, allPages, lastPageParam, allPageParams) ?? allPages.length,
+        } as any,
+        queryClient,
+      );
+    },
     useMutation: (method, path, options, queryClient) =>
       useMutation(
         {
