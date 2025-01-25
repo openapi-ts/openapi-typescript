@@ -1,6 +1,6 @@
 import { fileURLToPath } from "node:url";
 import { astToString } from "../../src/lib/ts.js";
-import transformPathsObject from "../../src/transform/paths-object.js";
+import { transformPathsObject, transformDynamicPathsObject } from "../../src/transform/paths-object.js";
 import type { GlobalContext } from "../../src/types.js";
 import { DEFAULT_CTX, type TestCase } from "../test-helpers.js";
 
@@ -319,28 +319,112 @@ describe("transformPathsObject", () => {
             },
           },
         },
+        want: "{}",
+        options: { ...DEFAULT_OPTIONS, pathParamsAsTypes: true },
+      },
+    ],
+  ];
+
+  for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
+    test.skipIf(ci?.skipIf)(
+      testName,
+      async () => {
+        const result = astToString(transformPathsObject(given, options));
+        if (want instanceof URL) {
+          expect(result).toMatchFileSnapshot(fileURLToPath(want));
+        } else {
+          expect(result).toBe(`${want}\n`);
+        }
+      },
+      ci?.timeout,
+    );
+  }
+});
+
+describe("transformDynamicPathsObject", () => {
+  const tests: TestCase<any, GlobalContext>[] = [
+    [
+      "basic path parameters with different types",
+      {
+        given: {
+          "/api/v1/users/{userId}": {
+            parameters: [
+              {
+                name: "userId",
+                in: "path",
+                schema: { type: "integer" },
+                description: "User ID.",
+              },
+            ],
+            get: {
+              responses: {
+                200: {
+                  description: "OK",
+                  content: {
+                    "application/json": {
+                      schema: {
+                        type: "object",
+                        properties: {
+                          id: { type: "integer" },
+                          name: { type: "string" },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "/api/v1/items/{itemId}/tags/{tagName}": {
+            parameters: [
+              {
+                name: "itemId",
+                in: "path",
+                schema: { type: "integer" },
+                description: "Item ID.",
+              },
+              {
+                name: "tagName",
+                in: "path",
+                schema: { type: "string" },
+                description: "Tag name.",
+              },
+            ],
+            get: {
+              responses: {
+                200: {
+                  description: "OK",
+                  content: {
+                    "application/json": {
+                      schema: {
+                        type: "array",
+                        items: { type: "string" },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
         want: `{
-    [path: \`/api/v1/user/\${number}\`]: {
+    [path: \`/api/v1/users/\${number}\`]: {
         parameters: {
-            query?: {
-                /** @description Page number. */
-                page?: number;
-            };
+            query?: never;
             header?: never;
             path: {
-                user_id: number;
+                /** @description User ID. */
+                userId: number;
             };
             cookie?: never;
         };
         get: {
             parameters: {
-                query?: {
-                    /** @description Page number. */
-                    page?: number;
-                };
+                query?: never;
                 header?: never;
                 path: {
-                    user_id: number;
+                    /** @description User ID. */
+                    userId: number;
                 };
                 cookie?: never;
             };
@@ -349,18 +433,61 @@ describe("transformPathsObject", () => {
                 /** @description OK */
                 200: {
                     headers: {
-                        Link: components["headers"]["link"];
                         [name: string]: unknown;
                     };
                     content: {
                         "application/json": {
-                            id: string;
-                            email: string;
+                            id?: number;
                             name?: string;
                         };
                     };
                 };
-                404: components["responses"]["NotFound"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+} & {
+    [path: \`/api/v1/items/\${number}/tags/\${string}\`]: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Item ID. */
+                itemId: number;
+                /** @description Tag name. */
+                tagName: string;
+            };
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Item ID. */
+                    itemId: number;
+                    /** @description Tag name. */
+                    tagName: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": string[];
+                    };
+                };
             };
         };
         put?: never;
@@ -375,13 +502,131 @@ describe("transformPathsObject", () => {
         options: { ...DEFAULT_OPTIONS, pathParamsAsTypes: true },
       },
     ],
+    [
+      "path parameters with $ref",
+      {
+        given: {
+          "/api/v1/users/{userId}/posts/{postId}": {
+            parameters: [{ $ref: "#/components/parameters/userId" }, { $ref: "#/components/parameters/postId" }],
+            get: {
+              responses: {
+                200: {
+                  description: "OK",
+                  content: {
+                    "application/json": {
+                      schema: {
+                        type: "object",
+                        properties: {
+                          title: { type: "string" },
+                          content: { type: "string" },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        want: `{
+    [path: \`/api/v1/users/\${number}/posts/\${string}\`]: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                userId: components["parameters"]["userId"];
+                postId: components["parameters"]["postId"];
+            };
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    userId: components["parameters"]["userId"];
+                    postId: components["parameters"]["postId"];
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            title?: string;
+                            content?: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          pathParamsAsTypes: true,
+          resolve($ref) {
+            switch ($ref) {
+              case "#/components/parameters/userId": {
+                return {
+                  in: "path",
+                  name: "userId",
+                  schema: { type: "integer" },
+                };
+              }
+              case "#/components/parameters/postId": {
+                return {
+                  in: "path",
+                  name: "postId",
+                  schema: { type: "string" },
+                };
+              }
+              default: {
+                return undefined as any;
+              }
+            }
+          },
+        },
+      },
+    ],
+    [
+      "pathParamsAsTypes: false",
+      {
+        given: {
+          "/api/v1/users/{userId}": {
+            parameters: [
+              {
+                name: "userId",
+                in: "path",
+                schema: { type: "integer" },
+                description: "User ID.",
+              },
+            ],
+          },
+        },
+        want: "{}",
+        options: { ...DEFAULT_OPTIONS, pathParamsAsTypes: false },
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
     test.skipIf(ci?.skipIf)(
       testName,
       async () => {
-        const result = astToString(transformPathsObject(given, options));
+        const result = astToString(transformDynamicPathsObject(given, options));
         if (want instanceof URL) {
           expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {
