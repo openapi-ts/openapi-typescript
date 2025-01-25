@@ -822,7 +822,6 @@ describe("client", () => {
       });
     });
   });
-  // >: {"tests": ["infiniteQuery"]}
   describe("useInfiniteQuery", () => {
     it("should fetch data correctly with pagination and include cursor", async () => {
       const fetchClient = createFetchClient<paths>({ baseUrl });
@@ -1078,5 +1077,4 @@ describe("client", () => {
       expect(allItems).toEqual([1, 2, 3, 4, 5, 6]);
     });
   });
-  // <: {"tests": ["infiniteQuery"]}
 });
