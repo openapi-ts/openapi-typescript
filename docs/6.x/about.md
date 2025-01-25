@@ -5,7 +5,8 @@ description: Additional info about this project
 
 <script setup>
   import { VPTeamMembers } from 'vitepress/theme';
-  import contributors from '../data/contributors.json';
+  import Contributors from '../.vitepress/theme/Contributors.vue'
+  import data from '../data/contributors.json';
 </script>
 
 # About openapi-typescript
@@ -27,7 +28,6 @@ description: Additional info about this project
 - [**Revolt**](https://github.com/revoltchat/api): open source user-first chat platform
 - [**Spacebar**](https://github.com/spacebarchat): a free, open source, self-hostable Discord-compatible chat/voice/video platform
 - [**Supabase**](https://github.com/supabase/supabase): The open source Firebase alternative.
-- [**Twitter API**](https://github.com/twitterdev/twitter-api-typescript-sdk): Official SDK for the Twitter API
 
 ## Project goals
 
@@ -54,8 +54,14 @@ These 2 projects are unrelated. openapi-typescript-codegen is a Node.js alternat
 
 If you fit into this usecase, it’s a great experience! But for everyone else, openapi-typescript (and openapi-fetch) is a more flexible, lower-level solution that can work for any technology choice (or even be incrementally-adopted without any cost).
 
+## Maintainers
+
+This library is currently maintained by these amazing individuals:
+
+<VPTeamMembers size="small" :members="data.maintainers" />
+
 ## Contributors
 
-This library wouldn’t be possible without all these amazing contributors:
+And thanks to 100+ amazing contributors, without whom these projects wouldn’t be possible:
 
-<VPTeamMembers size="small" :members="contributors['openapi-typescript']" />
+<Contributors :contributors="data.contributors" />

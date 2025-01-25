@@ -5,7 +5,8 @@ description: このプロジェクトに関する追加情報
 
 <script setup>
   import { VPTeamMembers } from 'vitepress/theme';
-  import contributors from '../data/contributors.json';
+  import Contributors from '../.vitepress/theme/Contributors.vue'
+  import data from '../data/contributors.json';
 </script>
 
 # openapi-typescriptについて
@@ -27,9 +28,10 @@ description: このプロジェクトに関する追加情報
 - [**Revolt**](https://github.com/revoltchat/api): オープンソースのユーザー優先チャットプラットフォーム
 - [**Spacebar**](https://github.com/spacebarchat): 無料でオープンソースの自ホスト可能な Discord 互換のチャット/音声/ビデオプラットフォーム
 - [**Supabase**](https://github.com/supabase/supabase): オープンソースの Firebase 代替
-- [**Twitter API**](https://github.com/twitterdev/twitter-api-typescript-sdk): Twitter API の公式 SDK
 
 ## プロジェクトの目標
+
+### openapi-typescript
 
 1. 任意の有効な OpenAPI スキーマを TypeScript 型に変換できるようにすること。どんなに複雑なスキーマでも対応可能です。
 2. 生成される型は静的に解析可能で、実行時の依存関係がない（ただし、[enums](https://www.typescriptlang.org/docs/handbook/enums.html) のような例外はあります）。
@@ -37,24 +39,26 @@ description: このプロジェクトに関する追加情報
 4. 型の生成 は Node.js だけで実行可能であり、（Java、Python などは不要）どんな環境でも実行できます。
 5. ファイルからの OpenAPI スキーマのフェッチや、ローカルおよびリモートサーバーからのフェッチをサポートします。
 
-## 比較
+### openapi-fetch
 
-### vs. swagger-codegen
+1. 型は厳密で、最小限のジェネリクスで OpenAPI スキーマから自動的に推論されるべきです。
+2. ネイティブの Fetch API を尊重しつつ、（`await res.json()` などの）ボイラープレートを削減すること。
+3. 可能な限り軽量で高性能であること。
 
-openapi-typescript は、swagger-codegen の軽量で使いやすい代替手段として作成されており、Java ランタイムや OpenAPI サーバーを実行する必要はありません。また、大規模なクライアントサイドコードも生成しません。実際、openapi-typescript が生成するすべてのコードは、**実行時の依存関係がない静的型** であり、最大のパフォーマンスと最小のクライアント負荷を実現します。
+### openapi-react-query
 
-### vs. openapi-typescript-codegen
+1. 型は厳格であり、必要最小限のジェネリクスでOpenAPIスキーマから自動的に推論されるべきです。
+2. 元の `@tanstack/react-query` API を尊重しつつ、ボイラープレートを減らします。
+3. できるだけ軽量でパフォーマンスが高くなるようにします。
 
-openapi-typescript-codegen は、元の swagger-codegen の Node.js 代替手段ですが、実際には同じものです。openapi-typescript は、openapi-typescript-codegen と同様に、**実行時の依存関係がない** という利点を持っていますが、openapi-typescript-codegen は、スキーマの複雑さに応じて `250 kB` 以上になるかなり大きなバンドルを生成する可能性があります。
+## メインテナー
 
-### vs. tRPC
+This library is currently maintained by these amazing individuals:
 
-[tRPC](https://trpc.io/) は、強い設計方針を持ったサーバーとクライアントの両方で型の安全性を提供するフレームワークです。これは、サーバーとクライアントの両方が tRPC で記述されていることを要求します（つまり、バックエンドが Node.js を使用しています）。
-
-このユースケースに合っているならば、素晴らしい体験ができるでしょう！しかし、他のすべての場合において、openapi-typescript（および openapi-fetch）は、あらゆる技術選択に適応できる、より柔軟で低レベルなソリューションです（コストなしで段階的に導入することさえできます）。
+<VPTeamMembers size="small" :members="data.maintainers" />
 
 ## 貢献者
 
-これらの素晴らしい貢献者がいなければ、このライブラリは存在しなかったでしょう：
+And thanks to 100+ amazing contributors, without whom these projects wouldn’t be possible:
 
-<VPTeamMembers size="small" :members="contributors['openapi-typescript']" />
+<Contributors :contributors="data.contributors" />
