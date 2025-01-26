@@ -443,3 +443,64 @@ test("type error occurs only when neither onRequest nor onResponse is specified"
   assertType<Middleware>({ onResponse });
   assertType<Middleware>({ onRequest, onResponse });
 });
+
+test("can return response directly from onRequest", async () => {
+  const customResponse = Response.json({});
+  const client = createObservedClient<paths>();
+
+  client.use({
+    async onRequest() {
+      return customResponse;
+    },
+  });
+
+  const { response } = await client.GET("/posts/{id}", {
+    params: { path: { id: 123 } },
+  });
+
+  expect(response).toBe(customResponse);
+});
+
+test("skips subsequent onRequest handlers when response is returned", async () => {
+  let onRequestCalled = false;
+  const customResponse = Response.json({});
+  const client = createObservedClient<paths>();
+
+  client.use(
+    {
+      async onRequest() {
+        return customResponse;
+      },
+    },
+    {
+      async onRequest() {
+        onRequestCalled = true;
+        return undefined;
+      },
+    },
+  );
+
+  await client.GET("/posts/{id}", { params: { path: { id: 123 } } });
+
+  expect(onRequestCalled).toBe(false);
+});
+
+test("skips onResponse handlers when response is returned from onRequest", async () => {
+  let onResponseCalled = false;
+  const customResponse = Response.json({});
+  const client = createObservedClient<paths>();
+
+  client.use({
+    async onRequest() {
+      return customResponse;
+    },
+    async onResponse() {
+      onResponseCalled = true;
+      return undefined;
+    },
+  });
+
+  await client.GET("/posts/{id}", { params: { path: { id: 123 } } });
+
+  expect(onResponseCalled).toBe(false);
+});

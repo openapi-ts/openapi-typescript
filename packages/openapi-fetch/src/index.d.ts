@@ -150,7 +150,7 @@ export interface MiddlewareCallbackParams {
 
 type MiddlewareOnRequest = (
   options: MiddlewareCallbackParams,
-) => void | Request | undefined | Promise<Request | undefined | void>;
+) => void | Request | Response | undefined | Promise<Request | Response | undefined | void>;
 type MiddlewareOnResponse = (
   options: MiddlewareCallbackParams & { response: Response },
 ) => void | Response | undefined | Promise<Response | undefined | void>;
