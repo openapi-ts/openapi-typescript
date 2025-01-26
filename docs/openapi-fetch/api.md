@@ -192,6 +192,22 @@ or when instantiating the client.
 
 :::
 
+### URL-encoded body
+
+To send a body request in `application/x-www-form-urlencoded` format, which is commonly used to transmit key-value pairs in APIs like OAuth 2.0, pass the appropriate header and body as an object. `openapi-fetch` will automatically encode the body to the correct format.
+
+```ts
+const { data, error } = await client.POST("/tokens", {
+  body: {
+    clientId: "someClientId",
+    clientSecret: "someClientSecret",
+  },
+  headers: {
+    "Content-Type": "application/x-www-form-encoded",
+  },
+});
+```
+
 ## Path serialization
 
 openapi-fetch supports path serialization as [outlined in the 3.1 spec](https://swagger.io/docs/specification/serialization/#path). This happens automatically, based on the specific format in your OpenAPI schema:
