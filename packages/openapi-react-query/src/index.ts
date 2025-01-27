@@ -15,7 +15,7 @@ import {
   type DataTag,
   useMutation,
   useQuery,
-  useSuspenseQuery,  
+  useSuspenseQuery,
   dataTagSymbol,
   dataTagErrorSymbol,
 } from "@tanstack/react-query";
@@ -39,10 +39,10 @@ export type QueryKey<
   Path extends PathsWithMethod<Paths, Method>,
   Media extends MediaType,
   Init extends MaybeOptionalInit<Paths[Path], Method> = MaybeOptionalInit<Paths[Path], Method>,
-Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>> = Required<
-  FetchResponse<Paths[Path][Method], Init, Media>
->,
-> = DataTag<readonly [Method, Path, Init], Response["data"]>
+  Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>> = Required<
+    FetchResponse<Paths[Path][Method], Init, Media>
+  >,
+> = DataTag<readonly [Method, Path, Init], Response["data"]>;
 
 export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
@@ -207,15 +207,10 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   };
 
   const queryOptions: QueryOptionsFunction<Paths, Media> = (method, path, ...[init, options]) => ({
-    queryKey: Object.assign(init === undefined ? [method, path] as const : [method, path, init] as const, {
+    queryKey: Object.assign(init === undefined ? ([method, path] as const) : ([method, path, init] as const), {
       [dataTagSymbol]: {} as any,
       [dataTagErrorSymbol]: {} as any,
-    }) as QueryKey<
-    Paths,
-    typeof method,
-    typeof path,
-    Media
-  >,
+    }) as QueryKey<Paths, typeof method, typeof path, Media>,
     queryFn,
     ...options,
   });
