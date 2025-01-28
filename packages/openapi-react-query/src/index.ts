@@ -126,7 +126,7 @@ export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMetho
   init: InitWithUnknowns<Init>,
   options: Options & {
     pageParamName: PageParamName;
-    initialPageParam: Query[PageParamName];
+    initialPageParam: NonNullable<Query[PageParamName]>;
   },
   queryClient?: QueryClient,
 ) => UseInfiniteQueryResult<InfiniteData<Response["data"]>, Response["error"]>;
