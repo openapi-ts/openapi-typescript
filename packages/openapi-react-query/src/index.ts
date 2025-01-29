@@ -116,9 +116,9 @@ export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMetho
       InfiniteData<Response["data"]>,
       Response["data"],
       QueryKey<Paths, Method, Path>,
-      Query[PageParamName]
+      NonNullable<Query[PageParamName]>
     >,
-    "queryKey" | "queryFn" | "initialPageParam"
+    "queryKey" | "queryFn"
   >,
 >(
   method: Method,
@@ -126,7 +126,6 @@ export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMetho
   init: InitWithUnknowns<Init>,
   options: Options & {
     pageParamName: PageParamName;
-    initialPageParam: NonNullable<Query[PageParamName]>;
   },
   queryClient?: QueryClient,
 ) => UseInfiniteQueryResult<InfiniteData<Response["data"]>, Response["error"]>;
