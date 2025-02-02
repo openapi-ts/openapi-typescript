@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.6.1
+
+### Patch Changes
+
+- [#2131](https://github.com/openapi-ts/openapi-typescript/pull/2131) [`41bed98`](https://github.com/openapi-ts/openapi-typescript/commit/41bed98f2ff6b41f4f4759724af2d9582f8c4449) Thanks [@htunnicliff](https://github.com/htunnicliff)! - Update @redocly/openapi-core to fix punycode deprecation bug
+
 ## 7.6.0
 
 ### Minor Changes
