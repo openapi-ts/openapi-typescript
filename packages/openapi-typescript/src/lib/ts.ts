@@ -116,13 +116,13 @@ export function addJSDocComment(schemaObject: AnnotatedSchemaObject, node: ts.Pr
 }
 
 /** Convert OpenAPI ref into TS indexed access node (ex: `components["schemas"]["Foo"]`) */
-export function oapiRef(path: string, deepRequired = false): ts.TypeNode {
+export function oapiRef(path: string, deep = false): ts.TypeNode {
   const { pointer } = parseRef(path);
   if (pointer.length === 0) {
     throw new Error(`Error parsing $ref: ${path}. Is this a valid $ref?`);
   }
   let t: ts.TypeReferenceNode | ts.IndexedAccessTypeNode = ts.factory.createTypeReferenceNode(
-    ts.factory.createIdentifier(deepRequired ? `DeepRequired<${String(pointer[0])}>` : String(pointer[0])),
+    ts.factory.createIdentifier(deep ? `FlattenedDeepRequired<${String(pointer[0])}>` : String(pointer[0])),
   );
   if (pointer.length > 1) {
     for (let i = 1; i < pointer.length; i++) {
@@ -253,10 +253,10 @@ export function tsArrayLiteralExpression(
 
   if (
     options?.injectFooter &&
-    !options.injectFooter.some((node) => ts.isTypeAliasDeclaration(node) && node?.name?.escapedText === "DeepRequired")
+    !options.injectFooter.some((node) => ts.isTypeAliasDeclaration(node) && node?.name?.escapedText === "FlattenedDeepRequired")
   ) {
     const helper = stringToAST(
-      "type DeepRequired<T> = { [K in keyof T]: Required<DeepRequired<T[K]>> };",
+      "type FlattenedDeepRequired<T> = { [K in keyof T]: Required<FlattenedDeepRequired<T[K] extends unknown[] ? T[K][number] : T[K]>>; };",
     )[0] as any;
     options.injectFooter.push(helper);
   }
