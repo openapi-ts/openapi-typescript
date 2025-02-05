@@ -180,7 +180,7 @@ export function oapiRef(path: string, resolved?: OapiRefResolved, deep = false):
 
   const leadingType = addIndexedAccess(
     ts.factory.createTypeReferenceNode(
-      ts.factory.createIdentifier(deep ? `DeepRequired<${String(initialSegment)}>` : String(initialSegment)),
+      ts.factory.createIdentifier(deep ? `FlattenedDeepRequired<${String(initialSegment)}>` : String(initialSegment)),
     ),
     ...leadingSegments,
   );
@@ -309,10 +309,12 @@ export function tsArrayLiteralExpression(
 
   if (
     options?.injectFooter &&
-    !options.injectFooter.some((node) => ts.isTypeAliasDeclaration(node) && node?.name?.escapedText === "DeepRequired")
+    !options.injectFooter.some(
+      (node) => ts.isTypeAliasDeclaration(node) && node?.name?.escapedText === "FlattenedDeepRequired",
+    )
   ) {
     const helper = stringToAST(
-      "type DeepRequired<T> = { [K in keyof T]: Required<DeepRequired<T[K]>> };",
+      "type FlattenedDeepRequired<T> = { [K in keyof T]: Required<FlattenedDeepRequired<T[K] extends unknown[] ? T[K][number] : T[K]>>; };",
     )[0] as any;
     options.injectFooter.push(helper);
   }
