@@ -314,7 +314,7 @@ export function tsArrayLiteralExpression(
     )
   ) {
     const helper = stringToAST(
-      "type FlattenedDeepRequired<T> = { [K in keyof T]: Required<FlattenedDeepRequired<T[K] extends unknown[] ? T[K][number] : T[K]>>; };",
+      "type FlattenedDeepRequired<T> = { [K in keyof T]-?: FlattenedDeepRequired<T[K] extends unknown[] | undefined | null ? Extract<T[K], unknown[]>[number] : T[K]>; };",
     )[0] as any;
     options.injectFooter.push(helper);
   }
