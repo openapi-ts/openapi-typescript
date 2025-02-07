@@ -130,10 +130,7 @@ export function transformSchemaObjectWithComposition(
       return hasNull ? tsUnion([ref, NULL]) : ref;
     }
     const enumType = schemaObject.enum.map(tsLiteral);
-    if (
-      ((Array.isArray(schemaObject.type) && schemaObject.type.includes("null")) || schemaObject.nullable) &&
-      !schemaObject.default
-    ) {
+    if ((Array.isArray(schemaObject.type) && schemaObject.type.includes("null")) || schemaObject.nullable) {
       enumType.push(NULL);
     }
 
