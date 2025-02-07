@@ -102,7 +102,7 @@ describe("transformSchemaObject > string", () => {
       "default + nullable",
       {
         given: { type: ["string", "null"], default: "en" },
-        want: "string",
+        want: "string | null",
       },
     ],
     [

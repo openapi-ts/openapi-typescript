@@ -405,9 +405,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
       } else {
         for (const t of schemaObject.type) {
           if (t === "null" || t === null) {
-            if (!schemaObject.default) {
-              uniqueTypes.push(NULL);
-            }
+            uniqueTypes.push(NULL);
           } else {
             uniqueTypes.push(transformSchemaObject({ ...schemaObject, type: t } as SchemaObject, options));
           }
