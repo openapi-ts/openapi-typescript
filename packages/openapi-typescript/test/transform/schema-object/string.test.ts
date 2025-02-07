@@ -116,7 +116,7 @@ describe("transformSchemaObject > string", () => {
       "default + nullable (deprecated syntax)",
       {
         given: { type: "string", default: "en", nullable: true },
-        want: "string",
+        want: "string | null",
       },
     ],
   ];

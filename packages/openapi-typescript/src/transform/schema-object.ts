@@ -263,7 +263,7 @@ export function transformSchemaObjectWithComposition(
     }
   }
 
-  if (finalType !== UNKNOWN && schemaObject.nullable && !schemaObject.default) {
+  if (finalType !== UNKNOWN && schemaObject.nullable) {
     finalType = tsNullable([finalType]);
   }
 
