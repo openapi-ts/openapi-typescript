@@ -54,7 +54,7 @@ _Thanks, [@psmyrdek](https://github.com/psmyrdek)!_
 | `--default-non-nullable`  |       | `false`  | Treat schema objects with default values as non-nullable                                                                     |
 | `--export-type`           | `-t`  | `false`  | Export `type` instead of `interface`                                                                                         |
 | `--path-params-as-types`  |       | `false`  | Allow dynamic string lookups on the `paths` object                                                                           |
-| `--support-array-length`  |       | `false`  | Generate tuples using array `minItems` / `maxItems`                                                                          |
+| `--array-length`          |       | `false`  | Generate tuples using array `minItems` / `maxItems`                                                                          |
 | `--alphabetize`           |       | `false`  | Sort types alphabetically                                                                                                    |
 | `--exclude-deprecated`    |       | `false`  | Exclude deprecated fields from types                                                                                         |
 
@@ -90,7 +90,7 @@ Though this is a contrived example, you could use this feature to automatically 
 
 _Thanks, [@Powell-v2](https://github.com/Powell-v2)!_
 
-### `--support-array-length`
+### `--array-length`
 
 This option is useful for generating tuples if an array type specifies `minItems` or `maxItems`.
 
@@ -107,7 +107,7 @@ components:
       maxItems: 2
 ```
 
-Enabling `--support-array-length` would change the typing like so:
+Enabling `--array-length` would change the typing like so:
 
 ```diff
   export interface components {
