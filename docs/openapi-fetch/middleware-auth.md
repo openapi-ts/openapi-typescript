@@ -84,7 +84,7 @@ const cacheMiddleware: Middleware = {
   onResponse({ request, response }) {
     if (response.ok) {
       const key = getCacheKey(request);
-      cache.set(key, response);
+      cache.set(key, response.clone());
     }
   }
 };

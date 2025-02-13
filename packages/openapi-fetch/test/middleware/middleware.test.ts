@@ -446,7 +446,10 @@ test("type error occurs only when neither onRequest nor onResponse is specified"
 
 test("can return response directly from onRequest", async () => {
   const customResponse = Response.json({});
-  const client = createObservedClient<paths>();
+
+  const client = createObservedClient<paths>({}, () => {
+    throw new Error("unexpected call to fetch");
+  });
 
   client.use({
     async onRequest() {
@@ -463,13 +466,12 @@ test("can return response directly from onRequest", async () => {
 
 test("skips subsequent onRequest handlers when response is returned", async () => {
   let onRequestCalled = false;
-  const customResponse = Response.json({});
   const client = createObservedClient<paths>();
 
   client.use(
     {
       async onRequest() {
-        return customResponse;
+        return Response.json({});
       },
     },
     {
@@ -487,12 +489,11 @@ test("skips subsequent onRequest handlers when response is returned", async () =
 
 test("skips onResponse handlers when response is returned from onRequest", async () => {
   let onResponseCalled = false;
-  const customResponse = Response.json({});
   const client = createObservedClient<paths>();
 
   client.use({
     async onRequest() {
-      return customResponse;
+      return Response.json({});
     },
     async onResponse() {
       onResponseCalled = true;
