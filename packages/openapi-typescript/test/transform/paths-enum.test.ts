@@ -38,7 +38,7 @@ describe("transformPathsObjectToEnum", () => {
           },
         },
         want: `export enum ApiPaths {
-    GetApiV1User = "/api/v1/user/:user_id"
+    GetApiV1User = "/api/v1/user/{user_id}"
 }`,
       },
     ],
@@ -62,7 +62,7 @@ describe("transformPathsObjectToEnum", () => {
           },
         },
         want: `export enum ApiPaths {
-    GetUserById = "/api/v1/user/:user_id"
+    GetUserById = "/api/v1/user/{user_id}"
 }`,
       },
     ],
@@ -89,8 +89,8 @@ describe("transformPathsObjectToEnum", () => {
           },
         },
         want: `export enum ApiPaths {
-    GetUserById = "/api/v1/user/:user_id",
-    PostApiV1User = "/api/v1/user/:user_id"
+    GetUserById = "/api/v1/user/{user_id}",
+    PostApiV1User = "/api/v1/user/{user_id}"
 }`,
       },
     ],
