@@ -32,7 +32,7 @@ export default function makeApiPathsEnum(pathsObject: PathsObject): ts.EnumDecla
       }
 
       // Replace {parameters} with :parameters
-      const adaptedUrl = url.replace(/{(\w+)}/g, ":$1");
+      const adaptedUrl = url.replace(/{(\w+)}/g, "{$1}");
 
       enumKeys.push(adaptedUrl);
       enumMetaData.push({
