@@ -54,8 +54,9 @@ export default function createClient(clientOptions) {
       body,
       ...init
     } = fetchOptions || {};
+    let finalBaseUrl = baseUrl;
     if (localBaseUrl) {
-      baseUrl = removeTrailingSlash(localBaseUrl);
+      finalBaseUrl = removeTrailingSlash(localBaseUrl) ?? baseUrl;
     }
 
     let querySerializer =
@@ -94,7 +95,10 @@ export default function createClient(clientOptions) {
 
     let id;
     let options;
-    let request = new CustomRequest(createFinalURL(schemaPath, { baseUrl, params, querySerializer }), requestInit);
+    let request = new CustomRequest(
+      createFinalURL(schemaPath, { baseUrl: finalBaseUrl, params, querySerializer }),
+      requestInit,
+    );
 
     /** Add custom parameters to Request object */
     for (const key in init) {
@@ -108,7 +112,7 @@ export default function createClient(clientOptions) {
 
       // middleware (request)
       options = Object.freeze({
-        baseUrl,
+        baseUrl: finalBaseUrl,
         fetch,
         parseAs,
         querySerializer,
