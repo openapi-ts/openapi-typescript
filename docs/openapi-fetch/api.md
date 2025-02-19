@@ -268,7 +268,7 @@ And the `onError` callback receives an additional `error` property:
 
 Each middleware callback can return:
 
-- **onRequest**: Either a `Request` to modify the request, or `undefined` to leave it untouched (skip)
+- **onRequest**: A `Request` to modify the request, a `Response` to short-circuit the middleware chain, or `undefined` to leave request untouched (skip)
 - **onResponse**: Either a `Response` to modify the response, or `undefined` to leave it untouched (skip)
 - **onError**: Either an `Error` to modify the error that is thrown, a `Response` which means that the `fetch` call will proceed as successful, or `undefined` to leave the error untouched (skip)
 

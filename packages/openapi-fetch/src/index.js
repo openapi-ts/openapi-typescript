@@ -95,6 +95,7 @@ export default function createClient(clientOptions) {
     let id;
     let options;
     let request = new CustomRequest(createFinalURL(schemaPath, { baseUrl, params, querySerializer }), requestInit);
+    let response;
 
     /** Add custom parameters to Request object */
     for (const key in init) {
@@ -124,79 +125,84 @@ export default function createClient(clientOptions) {
             id,
           });
           if (result) {
-            if (!(result instanceof CustomRequest)) {
-              throw new Error("onRequest: must return new Request() when modifying the request");
+            if (result instanceof CustomRequest) {
+              request = result;
+            } else if (result instanceof Response) {
+              response = result;
+              break;
+            } else {
+              throw new Error("onRequest: must return new Request() or Response() when modifying the request");
             }
-            request = result;
           }
         }
       }
     }
 
-    // fetch!
-    let response;
-    try {
-      response = await fetch(request, requestInitExt);
-    } catch (error) {
-      let errorAfterMiddleware = error;
-      // middleware (error)
+    if (!response) {
+      // fetch!
+      try {
+        response = await fetch(request, requestInitExt);
+      } catch (error) {
+        let errorAfterMiddleware = error;
+        // middleware (error)
+        // execute in reverse-array order (first priority gets last transform)
+        if (middlewares.length) {
+          for (let i = middlewares.length - 1; i >= 0; i--) {
+            const m = middlewares[i];
+            if (m && typeof m === "object" && typeof m.onError === "function") {
+              const result = await m.onError({
+                request,
+                error: errorAfterMiddleware,
+                schemaPath,
+                params,
+                options,
+                id,
+              });
+              if (result) {
+                // if error is handled by returning a response, skip remaining middleware
+                if (result instanceof Response) {
+                  errorAfterMiddleware = undefined;
+                  response = result;
+                  break;
+                }
+
+                if (result instanceof Error) {
+                  errorAfterMiddleware = result;
+                  continue;
+                }
+
+                throw new Error("onError: must return new Response() or instance of Error");
+              }
+            }
+          }
+        }
+
+        // rethrow error if not handled by middleware
+        if (errorAfterMiddleware) {
+          throw errorAfterMiddleware;
+        }
+      }
+
+      // middleware (response)
       // execute in reverse-array order (first priority gets last transform)
       if (middlewares.length) {
         for (let i = middlewares.length - 1; i >= 0; i--) {
           const m = middlewares[i];
-          if (m && typeof m === "object" && typeof m.onError === "function") {
-            const result = await m.onError({
+          if (m && typeof m === "object" && typeof m.onResponse === "function") {
+            const result = await m.onResponse({
               request,
-              error: errorAfterMiddleware,
+              response,
               schemaPath,
               params,
               options,
               id,
             });
             if (result) {
-              // if error is handled by returning a response, skip remaining middleware
-              if (result instanceof Response) {
-                errorAfterMiddleware = undefined;
-                response = result;
-                break;
+              if (!(result instanceof Response)) {
+                throw new Error("onResponse: must return new Response() when modifying the response");
               }
-
-              if (result instanceof Error) {
-                errorAfterMiddleware = result;
-                continue;
-              }
-
-              throw new Error("onError: must return new Response() or instance of Error");
+              response = result;
             }
-          }
-        }
-      }
-
-      // rethrow error if not handled by middleware
-      if (errorAfterMiddleware) {
-        throw errorAfterMiddleware;
-      }
-    }
-
-    // middleware (response)
-    // execute in reverse-array order (first priority gets last transform)
-    if (middlewares.length) {
-      for (let i = middlewares.length - 1; i >= 0; i--) {
-        const m = middlewares[i];
-        if (m && typeof m === "object" && typeof m.onResponse === "function") {
-          const result = await m.onResponse({
-            request,
-            response,
-            schemaPath,
-            params,
-            options,
-            id,
-          });
-          if (result) {
-            if (!(result instanceof Response)) {
-              throw new Error("onResponse: must return new Response() when modifying the response");
-            }
-            response = result;
           }
         }
       }
