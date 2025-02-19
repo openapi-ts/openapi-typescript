@@ -1,0 +1,764 @@
+openapi: 3.1.0
+info:
+  title: Test Specification
+  version: "1.0"
+paths:
+  /paginated-data:
+    get:
+      parameters:
+        - in: query
+          name: limit
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: cursor
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: integer
+                  nextPage:
+                    type: integer
+        '500':
+          description: Error response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  message:
+                    type: string
+  /comment:
+    put:
+      requestBody:
+        $ref: "#/components/requestBodies/CreateReply"
+      responses:
+        201:
+          $ref: "#/components/responses/CreateReply"
+        500:
+          $ref: "#/components/responses/Error"
+  /blogposts:
+    get:
+      parameters:
+        - in: query
+          name: tags
+          schema:
+            type: array
+            items:
+              type: string
+        - in: query
+          name: published
+          schema:
+            type: boolean
+      responses:
+        200:
+          $ref: "#/components/responses/AllPostsGet"
+        500:
+          $ref: "#/components/responses/Error"
+    put:
+      requestBody:
+        $ref: "#/components/requestBodies/CreatePost"
+      responses:
+        201:
+          $ref: "#/components/responses/CreatePost"
+        500:
+          $ref: "#/components/responses/Error"
+    patch:
+      requestBody:
+        $ref: "#/components/requestBodies/PatchPost"
+      responses:
+        201:
+          $ref: "#/components/responses/PatchPost"
+  /blogposts/{post_id}:
+    parameters:
+      - in: path
+        name: post_id
+        schema:
+          type: string
+        required: true
+    get:
+      parameters:
+        - in: query
+          name: version
+          schema:
+            type: number
+        - in: query
+          name: format
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: "#/components/responses/PostGet"
+        404:
+          $ref: "#/components/responses/Error"
+        500:
+          $ref: "#/components/responses/Error"
+    patch:
+      requestBody:
+        $ref: "#/components/requestBodies/PatchPost"
+      responses:
+        200:
+          $ref: "#/components/responses/PatchPost"
+        404:
+          $ref: "#/components/responses/Error"
+        500:
+          $ref: "#/components/responses/Error"
+    delete:
+      responses:
+        200:
+          $ref: "#/components/responses/PostDelete"
+        500:
+          $ref: "#/components/responses/Error"
+  /blogposts-optional:
+    put:
+      requestBody:
+        $ref: "#/components/requestBodies/CreatePostOptional"
+      responses:
+        201:
+          $ref: "#/components/responses/CreatePost"
+        500:
+          $ref: "#/components/responses/Error"
+  /blogposts-optional-inline:
+    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Post"
+      responses:
+        201:
+          $ref: "#/components/responses/CreatePost"
+        500:
+          $ref: "#/components/responses/Error"
+  /header-params:
+    get:
+      operationId: getHeaderParams
+      parameters:
+        - name: x-required-header
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                required:
+                  - status
+        500:
+          $ref: "#/components/responses/Error"
+  /media:
+    put:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                media:
+                  type: string
+                  format: blob
+                name:
+                  type: string
+              required:
+                - media
+                - name
+      responses:
+        2XX:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                required:
+                  - status
+        4XX:
+          $ref: "#/components/responses/Error"
+  /mismatched-data:
+    get:
+      responses:
+        200:
+          $ref: "#/components/responses/User"
+        201:
+          $ref: "#/components/responses/PostGet"
+        500:
+          $ref: "#/components/responses/Error"
+  /mismatched-errors:
+    get:
+      responses:
+        200:
+          $ref: "#/components/responses/User"
+        401:
+          $ref: "#/components/responses/EmptyError"
+        500:
+          $ref: "#/components/responses/Error"
+  /self:
+    get:
+      responses:
+        200:
+          $ref: "#/components/responses/User"
+        404:
+          $ref: "#/components/responses/Error"
+        500:
+          $ref: "#/components/responses/Error"
+  /string-array:
+    get:
+      responses:
+        200:
+          $ref: "#/components/responses/StringArray"
+        500:
+          $ref: "#/components/responses/Error"
+  /tag/{name}:
+    parameters:
+      - in: path
+        name: name
+        schema:
+          type: string
+        required: true
+    get:
+      responses:
+        200:
+          $ref: "#/components/responses/Tag"
+        500:
+          $ref: "#/components/responses/Error"
+    put:
+      requestBody:
+        $ref: "#/components/requestBodies/CreateTag"
+      responses:
+        201:
+          $ref: "#/components/responses/CreateTag"
+        500:
+          $ref: "#/components/responses/Error"
+    delete:
+      responses:
+        204:
+          description: No Content
+        500:
+          $ref: "#/components/responses/Error"
+  /query-params:
+    parameters:
+      - in: query
+        name: string
+        schema:
+          type: string
+      - in: query
+        name: number
+        schema:
+          type: number
+      - in: query
+        name: boolean
+        schema:
+          type: boolean
+      - in: query
+        name: array
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: object
+        schema:
+          type: object
+          required:
+            - foo
+            - bar
+          properties:
+            foo:
+              type: string
+            bar:
+              type: string
+    get:
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                required:
+                  - status
+        default:
+          $ref: "#/components/responses/Error"
+  /path-params/{simple_primitive}/{simple_obj_flat}/{simple_arr_flat}/{simple_obj_explode*}/{simple_arr_explode*}/{.label_primitive}/{.label_obj_flat}/{.label_arr_flat}/{.label_obj_explode*}/{.label_arr_explode*}/{;matrix_primitive}/{;matrix_obj_flat}/{;matrix_arr_flat}/{;matrix_obj_explode*}/{;matrix_arr_explode*}:
+    parameters:
+      - in: path
+        name: simple_primitive
+        schema:
+          type: string
+      - in: path
+        name: simple_obj_flat
+        schema:
+          type: object
+          required: [a, c]
+          properties:
+            a:
+              type: string
+            c:
+              type: string
+      - in: path
+        name: simple_arr_flat
+        schema:
+          type: array
+          items:
+            type: number
+      - in: path
+        name: simple_obj_explode
+        schema:
+          type: object
+          required: [e, g]
+          properties:
+            e:
+              type: string
+            g:
+              type: string
+      - in: path
+        name: simple_arr_explode
+        schema:
+          type: array
+          items:
+            type: number
+      - in: path
+        name: label_primitive
+        schema:
+          type: string
+      - in: path
+        name: label_obj_flat
+        schema:
+          type: object
+          required: [a, c]
+          properties:
+            a:
+              type: string
+            c:
+              type: string
+      - in: path
+        name: label_arr_flat
+        schema:
+          type: array
+          items:
+            type: number
+      - in: path
+        name: label_obj_explode
+        schema:
+          type: object
+          required: [e, g]
+          properties:
+            e:
+              type: string
+            g:
+              type: string
+      - in: path
+        name: label_arr_explode
+        schema:
+          type: array
+          items:
+            type: number
+      - in: path
+        name: matrix_primitive
+        schema:
+          type: string
+      - in: path
+        name: matrix_obj_flat
+        schema:
+          type: object
+          required: [a, c]
+          properties:
+            a:
+              type: string
+            c:
+              type: string
+      - in: path
+        name: matrix_arr_flat
+        schema:
+          type: array
+          items:
+            type: number
+      - in: path
+        name: matrix_obj_explode
+        schema:
+          type: object
+          required: [e, g]
+          properties:
+            e:
+              type: string
+            g:
+              type: string
+      - in: path
+        name: matrix_arr_explode
+        schema:
+          type: array
+          items:
+            type: number
+    get:
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                required:
+                  - status
+        default:
+          $ref: "#/components/responses/Error"
+  /default-as-error:
+    get:
+      responses:
+        default:
+          $ref: "#/components/responses/Error"
+  /anyMethod:
+    get:
+      responses:
+        200:
+          $ref: "#/components/responses/User"
+        404:
+          $ref: "#/components/responses/Error"
+        500:
+          $ref: "#/components/responses/Error"
+    put:
+      responses:
+        200:
+          $ref: "#/components/responses/User"
+        404:
+          $ref: "#/components/responses/Error"
+        500:
+          $ref: "#/components/responses/Error"
+    post:
+      responses:
+        200:
+          $ref: "#/components/responses/User"
+        404:
+          $ref: "#/components/responses/Error"
+        500:
+          $ref: "#/components/responses/Error"
+    delete:
+      responses:
+        200:
+          $ref: "#/components/responses/User"
+        404:
+          $ref: "#/components/responses/Error"
+        500:
+          $ref: "#/components/responses/Error"
+    options:
+      responses:
+        200:
+          $ref: "#/components/responses/User"
+        404:
+          $ref: "#/components/responses/Error"
+        500:
+          $ref: "#/components/responses/Error"
+    head:
+      responses:
+        200:
+          $ref: "#/components/responses/User"
+        404:
+          $ref: "#/components/responses/Error"
+        500:
+          $ref: "#/components/responses/Error"
+    patch:
+      responses:
+        200:
+          $ref: "#/components/responses/User"
+        404:
+          $ref: "#/components/responses/Error"
+        500:
+          $ref: "#/components/responses/Error"
+    trace:
+      responses:
+        200:
+          $ref: "#/components/responses/User"
+        404:
+          $ref: "#/components/responses/Error"
+        500:
+          $ref: "#/components/responses/Error"
+  /contact:
+    put:
+      requestBody:
+        $ref: "#/components/requestBodies/Contact"
+      responses:
+        200:
+          $ref: "#/components/responses/Contact"
+  /multiple-response-content:
+    get:
+      responses:
+        200:
+          $ref: "#/components/responses/MultipleResponse"
+components:
+  schemas:
+    Post:
+      type: object
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        publish_date:
+          type: number
+      required:
+        - title
+        - body
+    StringArray:
+      type: array
+      items:
+        type: string
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+        age:
+          type: number
+        avatar:
+          type: string
+        created_at:
+          type: number
+          format: date
+        updated_at:
+          type: number
+          format: date
+      required:
+        - email
+        - created_at
+        - updated_at
+  requestBodies:
+    CreatePost:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              body:
+                type: string
+              publish_date:
+                type: number
+            required:
+              - title
+              - body
+              - publish_date
+    CreatePostOptional:
+      required: false
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              body:
+                type: string
+              publish_date:
+                type: number
+            required:
+              - title
+              - body
+              - publish_date
+    CreateTag:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description:
+                type: string
+    CreateReply:
+      required: true
+      content:
+        "application/json;charset=utf-8":
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              replied_at:
+                type: number
+            required:
+              - message
+              - replied_at
+    Contact:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              email:
+                type: string
+              subject:
+                type: string
+              message:
+                type: string
+            required:
+              - name
+              - email
+              - subject
+              - message
+    PatchPost:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              body:
+                type: string
+              publish_date:
+                type: number
+  responses:
+    AllPostsGet:
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/Post"
+    CreatePost:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+            required:
+              - status
+    CreateTag:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+            required:
+              - status
+    CreateReply:
+      content:
+        "application/json;charset=utf-8":
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            required:
+              - message
+    Contact:
+      content:
+        text/html:
+          schema:
+            type: string
+    EmptyError:
+      content: {}
+    Error:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: number
+              message:
+                type: string
+            required:
+              - code
+              - message
+    PatchPost:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+            required:
+              - status
+    PostDelete:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+            required:
+              - status
+    PostGet:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Post"
+    StringArray:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/StringArray"
+    Tag:
+      content:
+        application/json:
+          schema:
+            type: string
+    User:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/User"
+    MultipleResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              email:
+                type: string
+              name:
+                type: string
+            required:
+              - id
+              - email
+        application/ld+json:
+          schema:
+            type: object
+            properties:
+              "@id":
+                type: string
+              email:
+                type: string
+              name:
+                type: string
+            required:
+              - "@id"
+              - email
