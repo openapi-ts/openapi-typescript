@@ -647,6 +647,8 @@ export interface OpenAPITSOptions {
   version?: number;
   /** (optional) Export type instead of interface */
   exportType?: boolean;
+  /** (optional) Experimental: Array schemas with prefixItems spread members */
+  experimentalArraySpreadMembers?: boolean;
   /** Export true TypeScript enums instead of unions */
   enum?: boolean;
   /** Export union values as arrays */
@@ -690,6 +692,7 @@ export interface GlobalContext {
   enumValues: boolean;
   dedupeEnums: boolean;
   excludeDeprecated: boolean;
+  experimentalArraySpreadMembers: boolean;
   exportType: boolean;
   immutable: boolean;
   injectFooter: ts.Node[];
