@@ -5,7 +5,8 @@ description: Additional info about this project
 
 <script setup>
   import { VPTeamMembers } from 'vitepress/theme';
-  import contributors from '../data/contributors.json';
+  import Contributors from '../.vitepress/theme/Contributors.vue'
+  import data from '../data/contributors.json';
 </script>
 
 # 关于 openapi-typescript
@@ -27,9 +28,10 @@ description: Additional info about this project
 - [**Revolt**](https://github.com/revoltchat/api): 开源用户优先的聊天平台
 - [**Spacebar**](https://github.com/spacebarchat): 免费、开源、可自托管的与 Discord 兼容的聊天/语音/视频平台
 - [**Supabase**](https://github.com/supabase/supabase): 开源的 Firebase 替代方案
-- [**Twitter API**](https://github.com/twitterdev/twitter-api-typescript-sdk): Twitter API 的官方 SDK
 
 ## 项目目标
+
+### openapi-typescript
 
 1. 支持将任何有效的 OpenAPI 模式转换为 TypeScript 类型，无论多么复杂。
 2. 生成的类型应该是静态分析的、无运行时依赖的（有一些例外，比如 [enums](https://www.typescriptlang.org/docs/handbook/enums.html)）。
@@ -37,24 +39,20 @@ description: Additional info about this project
 4. Typegen 只需要 Node.js 来运行（不需要 Java、Python 等），可以在任何环境中运行。
 5. 支持从文件以及本地和远程服务器获取 OpenAPI 模式。
 
-## 差异
+### openapi-fetch
 
-### 与 swagger-codegen 比较
+1. 类型应该严格，并且应该从 OpenAPI 模式中自动推断出绝对最少数量的泛型。
+2. 使用原生的 Fetch API，同时减少样板代码（例如 `await res.json()`）。
+3. 尽可能轻巧和高性能。
 
-openapi-typescript 专门为 swagger-codegen 的轻量、易于使用的替代方案而创建，它不需要 Java 运行时或运行 OpenAPI 服务器。它也不生成庞大的客户端端代码。实际上，openapi-typescript 生成的所有代码都是**无运行时的静态类型**，以实现最大性能和最小的客户端体积。
+## Maintainers
 
-### 与 openapi-typescript-codegen 比较
+This library is currently maintained by these amazing individuals:
 
-这两个项目无关。openapi-typescript-codegen 是原始 swagger-codegen 的 Node.js 替代方案，但实际上是一样的。openapi-typescript 具有与 openapi-typescript-codegen 相同的优势，即**无运行时**，而 openapi-typescript-codegen 可以生成相当庞大的捆绑包，取决于模式的复杂性，可以达到 `250 kB` 或更多。
+<VPTeamMembers size="small" :members="data.maintainers" />
 
-### 与 tRPC 比较
+## Contributors
 
-[tRPC](https://trpc.io/) 是一个对服务器和客户端都进行类型安全的框架。它要求服务器和客户端都使用 tRPC 编写（这意味着后端使用 Node.js）。
+And thanks to 100+ amazing contributors, without whom these projects wouldn’t be possible:
 
-如果您符合此用例，那么这将是一次很好的体验！但对于其他所有人，openapi-typescript（和 openapi-fetch）是一个更灵活、更低级的解决方案，可以适用于任何技术选择（甚至可以在没有任何成本的情况下逐步采用）。
-
-## 贡献者
-
-没有这些出色的贡献者，这个库将不可能存在：
-
-<VPTeamMembers size="small" :members="contributors['openapi-typescript']" />
+<Contributors :contributors="data.contributors" />
