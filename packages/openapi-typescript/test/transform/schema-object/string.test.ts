@@ -102,21 +102,21 @@ describe("transformSchemaObject > string", () => {
       "default + nullable",
       {
         given: { type: ["string", "null"], default: "en" },
-        want: "string",
+        want: "string | null",
       },
     ],
     [
       "default + nullable + enum",
       {
         given: { type: ["string", "null"], enum: ["en", "es", "fr", "de"], default: "en" },
-        want: '"en" | "es" | "fr" | "de"',
+        want: '"en" | "es" | "fr" | "de" | null',
       },
     ],
     [
       "default + nullable (deprecated syntax)",
       {
         given: { type: "string", default: "en", nullable: true },
-        want: "string",
+        want: "string | null",
       },
     ],
   ];
