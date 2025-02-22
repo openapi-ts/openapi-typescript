@@ -1026,7 +1026,7 @@ export type operations = Record<string, never>;`,
       async () => {
         const result = astToString(await openapiTS(given, options));
         if (want instanceof URL) {
-          expect(want).toMatchFileSnapshot(fileURLToPath(want));
+          await expect(want).toMatchFileSnapshot(fileURLToPath(want));
         } else {
           expect(result).toBe(`${want}\n`);
         }

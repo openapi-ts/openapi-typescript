@@ -89,7 +89,7 @@ export interface operations {
     };
 }`);
     },
-    { timeout: TIMEOUT },
+    TIMEOUT,
   );
 
   test(
@@ -174,6 +174,6 @@ export interface operations {
     };
 }`);
     },
-    { timeout: TIMEOUT },
+    TIMEOUT,
   );
 });
