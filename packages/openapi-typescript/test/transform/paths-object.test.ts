@@ -383,7 +383,7 @@ describe("transformPathsObject", () => {
       async () => {
         const result = astToString(transformPathsObject(given, options));
         if (want instanceof URL) {
-          expect(result).toMatchFileSnapshot(fileURLToPath(want));
+          await expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {
           expect(result).toBe(`${want}\n`);
         }

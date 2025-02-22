@@ -862,7 +862,7 @@ export type Error = components['schemas']['Error'];
       async () => {
         const result = astToString(transformComponentsObject(given, options ?? DEFAULT_OPTIONS));
         if (want instanceof URL) {
-          expect(result).toMatchFileSnapshot(fileURLToPath(want));
+          await expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {
           expect(result.trim()).toBe(want.trim());
         }

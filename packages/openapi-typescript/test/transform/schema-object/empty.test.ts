@@ -42,7 +42,7 @@ describe("transformSchemaObject > empty/unknown", () => {
       async () => {
         const result = astToString(transformSchemaObject(given, options));
         if (want instanceof URL) {
-          expect(result).toMatchFileSnapshot(fileURLToPath(want));
+          await expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {
           expect(result).toBe(`${want}\n`);
         }

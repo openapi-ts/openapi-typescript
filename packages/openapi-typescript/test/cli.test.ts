@@ -84,7 +84,7 @@ describe("CLI", () => {
       async () => {
         const { stdout } = await execa(cmd, given, { cwd, stripFinalNewline: false });
         if (want instanceof URL) {
-          expect(stdout).toMatchFileSnapshot(fileURLToPath(want));
+          await expect(stdout).toMatchFileSnapshot(fileURLToPath(want));
         } else {
           expect(stdout).toBe(`${want}\n`);
         }
@@ -98,7 +98,7 @@ describe("CLI", () => {
     async () => {
       const input = fs.readFileSync(new URL("./examples/stripe-api.yaml", root));
       const { stdout } = await execa(cmd, { input, cwd, stripFinalNewline: false });
-      expect(stdout).toMatchFileSnapshot(fileURLToPath(new URL("./examples/stripe-api.ts", root)));
+      await expect(stdout).toMatchFileSnapshot(fileURLToPath(new URL("./examples/stripe-api.ts", root)));
     },
     TIMEOUT,
   );
@@ -121,7 +121,7 @@ describe("CLI", () => {
           cwd,
           stripFinalNewline: false,
         });
-        expect(stdout).toMatchFileSnapshot(fileURLToPath(new URL("./examples/github-api-required.ts", root)));
+        await expect(stdout).toMatchFileSnapshot(fileURLToPath(new URL("./examples/github-api-required.ts", root)));
       },
       TIMEOUT,
     );
@@ -135,7 +135,7 @@ describe("CLI", () => {
         cwd: fileURLToPath(cwd),
       });
       for (const schema of ["a", "b", "c"]) {
-        expect(fs.readFileSync(new URL(`./output/${schema}.ts`, cwd), "utf8")).toMatchFileSnapshot(
+        await expect(fs.readFileSync(new URL(`./output/${schema}.ts`, cwd), "utf8")).toMatchFileSnapshot(
           fileURLToPath(new URL("../../../examples/simple-example.ts", cwd)),
         );
       }
@@ -146,7 +146,7 @@ describe("CLI", () => {
         cwd,
       });
       for (const schema of ["a", "b", "c"]) {
-        expect(
+        await expect(
           fs.readFileSync(new URL(`./test/fixtures/redocly-flag/output/${schema}.ts`, root), "utf8"),
         ).toMatchFileSnapshot(fileURLToPath(new URL("./examples/simple-example.ts", root)));
       }

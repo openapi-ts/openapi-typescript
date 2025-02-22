@@ -90,7 +90,7 @@ describe("transformResponseObject", () => {
       async () => {
         const result = astToString(transformResponseObject(given, options));
         if (want instanceof URL) {
-          expect(result).toMatchFileSnapshot(fileURLToPath(want));
+          await expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {
           expect(result).toBe(`${want}\n`);
         }
