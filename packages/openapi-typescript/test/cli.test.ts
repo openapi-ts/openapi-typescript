@@ -82,7 +82,7 @@ describe("CLI", () => {
     test.skipIf(ci?.skipIf)(
       testName,
       async () => {
-        const { stdout } = await execa(cmd, given, { cwd });
+        const { stdout } = await execa(cmd, given, { cwd, stripFinalNewline: false });
         if (want instanceof URL) {
           expect(stdout).toMatchFileSnapshot(fileURLToPath(want));
         } else {
@@ -97,7 +97,7 @@ describe("CLI", () => {
     "stdin",
     async () => {
       const input = fs.readFileSync(new URL("./examples/stripe-api.yaml", root));
-      const { stdout } = await execa(cmd, { input, cwd });
+      const { stdout } = await execa(cmd, { input, cwd, stripFinalNewline: false });
       expect(stdout).toMatchFileSnapshot(fileURLToPath(new URL("./examples/stripe-api.ts", root)));
     },
     TIMEOUT,
@@ -119,6 +119,7 @@ describe("CLI", () => {
       async () => {
         const { stdout } = await execa(cmd, ["--properties-required-by-default=true", "./examples/github-api.yaml"], {
           cwd,
+          stripFinalNewline: false,
         });
         expect(stdout).toMatchFileSnapshot(fileURLToPath(new URL("./examples/github-api-required.ts", root)));
       },

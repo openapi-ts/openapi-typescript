@@ -71,7 +71,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "del-cli": "^5.1.0",
     "esbuild": "^0.24.2",
-    "execa": "^8.0.1",
+    "execa": "^9.5.2",
     "msw": "^2.7.0",
     "openapi-fetch": "workspace:^",
     "openapi-typescript": "workspace:^",
