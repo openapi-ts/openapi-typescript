@@ -221,8 +221,8 @@ importers:
         specifier: ^22.10.5
         version: 22.13.5
       '@vitest/coverage-v8':
-        specifier: ^2.1.8
-        version: 2.1.9(vitest@3.0.6(@types/debug@4.1.12)(@types/node@22.13.5)(jiti@2.4.2)(jsdom@20.0.3)(msw@2.7.1(@types/node@22.13.5)(typescript@5.7.3))(yaml@2.7.0))
+        specifier: ^3.0.6
+        version: 3.0.6(vitest@3.0.6(@types/debug@4.1.12)(@types/node@22.13.5)(jiti@2.4.2)(jsdom@20.0.3)(msw@2.7.1(@types/node@22.13.5)(typescript@5.7.3))(yaml@2.7.0))
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
@@ -575,8 +575,9 @@ packages:
     resolution: {integrity: sha512-Y3IR1cRnOxOCDvMmNiym7XpXQ93iGDDPHx+Zj+NM+rg0fBaShfQLkg+hKPaZCEvg5N/LeCo4+Rj/i3FuJsIQaw==}
     engines: {node: '>=6.9.0'}
 
-  '@bcoe/v8-coverage@0.2.3':
-    resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
+  '@bcoe/v8-coverage@1.0.2':
+    resolution: {integrity: sha512-6zABk/ECA/QYSCQ1NGiVwwbQerUCZ+TQbp64Q3AgmfNvurHH0j8TtXa1qbShXA6qqkpAj4V5W8pP6mLe1mcMqA==}
+    engines: {node: '>=18'}
 
   '@biomejs/biome@1.9.4':
     resolution: {integrity: sha512-1rkd7G70+o9KkTn5KLmDYXihGoTaIGO9PIIN2ZB7UJxFrWw04CZHPYiMRjYsaDvVV7hP1dYNRLxSANLaBFGpog==}
@@ -1951,11 +1952,11 @@ packages:
       vite: ^5.0.0 || ^6.0.0
       vue: ^3.2.25
 
-  '@vitest/coverage-v8@2.1.9':
-    resolution: {integrity: sha512-Z2cOr0ksM00MpEfyVE8KXIYPEcBFxdbLSs56L8PO0QQMxt/6bDj45uQfxoc96v05KW3clk7vvgP0qfDit9DmfQ==}
+  '@vitest/coverage-v8@3.0.6':
+    resolution: {integrity: sha512-JRTlR8Bw+4BcmVTICa7tJsxqphAktakiLsAmibVLAWbu1lauFddY/tXeM6sAyl1cgkPuXtpnUgaCPhTdz1Qapg==}
     peerDependencies:
-      '@vitest/browser': 2.1.9
-      vitest: 2.1.9
+      '@vitest/browser': 3.0.6
+      vitest: 3.0.6
     peerDependenciesMeta:
       '@vitest/browser':
         optional: true
@@ -4763,10 +4764,6 @@ packages:
     resolution: {integrity: sha512-al6n+QEANGFOMf/dmUMsuS5/r9B06uwlyNjZZql/zv8J7ybHCgoihBNORZCY2mzUuAnomQa2JdhyHKzZxPCrFA==}
     engines: {node: ^18.0.0 || >=20.0.0}
 
-  tinyrainbow@1.2.0:
-    resolution: {integrity: sha512-weEDEq7Z5eTHPDh4xjX789+fHfF+P8boiFB+0vbWzpbnbsEr/GRaohi/uMKxg8RZMXnl1ItAi/IUHWMsjDV7kQ==}
-    engines: {node: '>=14.0.0'}
-
   tinyrainbow@2.0.0:
     resolution: {integrity: sha512-op4nsTR47R6p0vMUUoYl/a+ljLFVtlfaXkLQmqfLR1qHma1h/ysYk4hEXZ880bf2CYgTskvTa/e196Vd5dDQXw==}
     engines: {node: '>=14.0.0'}
@@ -5559,7 +5556,7 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  '@bcoe/v8-coverage@0.2.3': {}
+  '@bcoe/v8-coverage@1.0.2': {}
 
   '@biomejs/biome@1.9.4':
     optionalDependencies:
@@ -6768,10 +6765,10 @@ snapshots:
       vite: 6.1.1(@types/node@22.13.5)(jiti@2.4.2)(yaml@2.7.0)
       vue: 3.5.13(typescript@5.7.3)
 
-  '@vitest/coverage-v8@2.1.9(vitest@3.0.6(@types/debug@4.1.12)(@types/node@22.13.5)(jiti@2.4.2)(jsdom@20.0.3)(msw@2.7.1(@types/node@22.13.5)(typescript@5.7.3))(yaml@2.7.0))':
+  '@vitest/coverage-v8@3.0.6(vitest@3.0.6(@types/debug@4.1.12)(@types/node@22.13.5)(jiti@2.4.2)(jsdom@20.0.3)(msw@2.7.1(@types/node@22.13.5)(typescript@5.7.3))(yaml@2.7.0))':
     dependencies:
       '@ampproject/remapping': 2.3.0
-      '@bcoe/v8-coverage': 0.2.3
+      '@bcoe/v8-coverage': 1.0.2
       debug: 4.4.0(supports-color@9.4.0)
       istanbul-lib-coverage: 3.2.2
       istanbul-lib-report: 3.0.1
@@ -6781,7 +6778,7 @@ snapshots:
       magicast: 0.3.5
       std-env: 3.8.0
       test-exclude: 7.0.1
-      tinyrainbow: 1.2.0
+      tinyrainbow: 2.0.0
       vitest: 3.0.6(@types/debug@4.1.12)(@types/node@22.13.5)(jiti@2.4.2)(jsdom@20.0.3)(msw@2.7.1(@types/node@22.13.5)(typescript@5.7.3))(yaml@2.7.0)
     transitivePeerDependencies:
       - supports-color
@@ -9899,8 +9896,6 @@ snapshots:
       picomatch: 4.0.2
 
   tinypool@1.0.2: {}
-
-  tinyrainbow@1.2.0: {}
 
   tinyrainbow@2.0.0: {}
 
