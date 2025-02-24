@@ -782,7 +782,7 @@ describe("client", () => {
           wrapper,
         });
 
-        expect(result.current.mutateAsync({ body: { message: "Hello", replied_at: 0 } })).rejects.toThrow();
+        await expect(result.current.mutateAsync({ body: { message: "Hello", replied_at: 0 } })).rejects.toThrow();
       });
 
       it("should use provided custom queryClient", async () => {
