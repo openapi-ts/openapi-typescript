@@ -125,7 +125,10 @@ export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMetho
   init: InitWithUnknowns<Init>,
   options: Options,
   queryClient?: QueryClient,
-) => UseInfiniteQueryResult<InferSelectReturnType<InfiniteData<Response["data"]>, Options["select"]>, Response["error"]>;
+) => UseInfiniteQueryResult<
+  InferSelectReturnType<InfiniteData<Response["data"]>, Options["select"]>,
+  Response["error"]
+>;
 
 export type UseSuspenseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,

@@ -1087,7 +1087,7 @@ describe("client", () => {
       const allItems = result.current.data?.pages.flatMap((page) => page.items);
       expect(allItems).toEqual([1, 2, 3, 4, 5, 6]);
     });
-    it('should use return type from select option', async () => {
+    it("should use return type from select option", async () => {
       const fetchClient = createFetchClient<paths>({ baseUrl });
       const client = createClient(fetchClient);
 
