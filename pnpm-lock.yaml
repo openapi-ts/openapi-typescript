@@ -73,8 +73,8 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0
       esbuild:
-        specifier: ^0.24.2
-        version: 0.24.2
+        specifier: ^0.25.0
+        version: 0.25.0
       execa:
         specifier: ^9.5.2
         version: 9.5.2
@@ -261,8 +261,8 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0
       esbuild:
-        specifier: ^0.24.2
-        version: 0.24.2
+        specifier: ^0.25.0
+        version: 0.25.0
       execa:
         specifier: ^9.5.2
         version: 9.5.2
@@ -319,8 +319,8 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0
       esbuild:
-        specifier: ^0.24.2
-        version: 0.24.2
+        specifier: ^0.25.0
+        version: 0.25.0
       execa:
         specifier: ^9.5.2
         version: 9.5.2
