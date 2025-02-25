@@ -208,28 +208,40 @@ export default function createClient(clientOptions) {
       }
     }
 
-    // handle empty content
-    if (response.status === 204 || response.headers.get("Content-Length") === "0") {
-      return response.ok ? { data: undefined, response } : { error: undefined, response };
+    const resultKey = response.ok ? "data" : "error";
+
+    /**
+     * handle empty content
+     * NOTE: Current browsers don't actually conform to the spec requirement to set the body property to null for responses with no body
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Response/body
+     */
+    if (response.body === null || response.headers.get("Content-Length") === "0") {
+      return { [resultKey]: undefined, response };
+    }
+
+    if (parseAs === "stream") {
+      return { [resultKey]: response.body, response };
     }
 
     // parse response (falling back to .text() when necessary)
-    if (response.ok) {
-      // if "stream", skip parsing entirely
-      if (parseAs === "stream") {
-        return { data: response.body, response };
-      }
-      return { data: await response[parseAs](), response };
-    }
-
-    // handle errors
-    let error = await response.text();
     try {
-      error = JSON.parse(error); // attempt to parse as JSON
+      const fallbackResponseClone = response.clone();
+
+      return { [resultKey]: await fallbackResponseClone[parseAs](), response };
     } catch {
-      // noop
+      // handle errors
+      let data = await response.text();
+      try {
+        data = JSON.parse(data); // attempt to parse as JSON
+      } catch {
+        // Handle empty content
+        if (data === "") {
+          data = undefined;
+        }
+      }
+
+      return { [resultKey]: data, response };
     }
-    return { error, response };
   }
 
   return {

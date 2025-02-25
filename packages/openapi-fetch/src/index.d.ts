@@ -108,7 +108,7 @@ export type FetchResponse<T extends Record<string | number, any>, Options, Media
     }
   | {
       data?: never;
-      error: ErrorResponse<ResponseObjectMap<T>, Media>;
+      error: ParseAsResponse<ErrorResponse<ResponseObjectMap<T>, Media>, Options>;
       response: Response;
     };
 
