@@ -67,10 +67,10 @@
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
-    "@types/node": "^22.10.5",
+    "@types/node": "^22.13.5",
     "@vitest/coverage-v8": "^3.0.6",
     "reflect-metadata": "^0.2.2",
-    "typescript": "^5.7.2",
+    "typescript": "^5.7.3",
     "unbuild": "^3.3.1",
     "unplugin-swc": "^1.5.1"
   }

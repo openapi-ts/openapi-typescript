@@ -65,7 +65,7 @@
     "openapi-typescript-helpers": "workspace:^"
   },
   "devDependencies": {
-    "@tanstack/react-query": "^5.64.2",
+    "@tanstack/react-query": "^5.66.9",
     "@testing-library/react": "^16.2.0",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",
@@ -73,7 +73,7 @@
     "del-cli": "^5.1.0",
     "esbuild": "^0.24.2",
     "execa": "^9.5.2",
-    "msw": "^2.7.0",
+    "msw": "^2.7.1",
     "openapi-fetch": "workspace:^",
     "openapi-typescript": "workspace:^",
     "react": "^18.3.1",
