@@ -38,6 +38,25 @@ describe("createClient options", () => {
     expect(actualURL.href).toBe("https://api.foo.bar/v3/resources");
   });
 
+  test("baseUrl per request causes no override on default baseUrl", async () => {
+    let actualURL = new URL("https://fakeurl.example");
+    const client = createObservedClient<paths>({ baseUrl: "https://api.foo.bar/v2/" }, async (req) => {
+      actualURL = new URL(req.url);
+      return Response.json([]);
+    });
+
+    const localBaseUrl = "https://api.foo.bar/v3";
+    await client.GET("/resources", { baseUrl: localBaseUrl });
+
+    // assert baseUrl and path mesh as expected
+    expect(actualURL.href).toBe("https://api.foo.bar/v3/resources");
+
+    await client.GET("/resources");
+
+    // assert baseUrl and path mesh as expected
+    expect(actualURL.href).toBe("https://api.foo.bar/v2/resources");
+  });
+
   describe("content-type", () => {
     const BODY_ACCEPTING_METHODS = [["PUT"], ["POST"], ["DELETE"], ["OPTIONS"], ["PATCH"]] as const;
     const ALL_METHODS = [...BODY_ACCEPTING_METHODS, ["GET"], ["HEAD"]] as const;
