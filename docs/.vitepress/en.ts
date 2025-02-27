@@ -81,6 +81,10 @@ export default defineConfig({
               link: "/use-suspense-query",
             },
             {
+              text: "useInfiniteQuery",
+              link: "/use-infinite-query",
+            },
+            {
               text: "queryOptions",
               link: "/query-options",
             },
