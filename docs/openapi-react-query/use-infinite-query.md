@@ -35,6 +35,7 @@ const PostList = () => {
       },
       {
         getNextPageParam: (lastPage) => lastPage.nextPage,
+        pageParamName: "cursor",
         initialPageParam: 0,
       }
     );
