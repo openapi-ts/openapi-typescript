@@ -5,7 +5,8 @@ description: Additional info about this project
 
 <script setup>
   import { VPTeamMembers } from 'vitepress/theme';
-  import contributors from './data/contributors.json';
+  import Contributors from './.vitepress/theme/Contributors.vue'
+  import data from './data/contributors.json';
 </script>
 
 # About openapi-typescript
@@ -27,9 +28,10 @@ description: Additional info about this project
 - [**Revolt**](https://github.com/revoltchat/api): open source user-first chat platform
 - [**Spacebar**](https://github.com/spacebarchat): a free, open source, self-hostable Discord-compatible chat/voice/video platform
 - [**Supabase**](https://github.com/supabase/supabase): The open source Firebase alternative.
-- [**Twitter API**](https://github.com/twitterdev/twitter-api-typescript-sdk): Official SDK for the Twitter API
 
 ## Project goals
+
+### openapi-typescript
 
 1. Support converting any valid OpenAPI schema to TypeScript types, no matter how complicated.
 1. Generated types should be statically-analyzable and runtime-free (with minor exceptions like [enums](https://www.typescriptlang.org/docs/handbook/enums.html).
@@ -37,24 +39,38 @@ description: Additional info about this project
 1. Typegen only needs Node.js to run (no Java, Python, etc.) and works in any environment.
 1. Support fetching OpenAPI schemas from files as well as local and remote servers.
 
-## Differences
+### openapi-fetch
 
-### vs. swagger-codegen
+1. Types should be strict and inferred automatically from OpenAPI schemas with the absolute minimum number of generics needed.
+2. Respect the native Fetch API while reducing boilerplate (such as `await res.json()`).
+3. Be as light and performant as possible.
 
-openapi-typescript was created specifically to be a lighter-weight, easier-to-use alternative to swagger-codegen that doesn’t require the Java runtime or running an OpenAPI server. Nor does it generate heavyweight client-side code. In fact, all the code openapi-typescript generates is **runtime free static types** for maximum performance and minimum client weight.
+### openapi-react-query
 
-### vs. openapi-typescript-codegen
+1. Types should be strict and inferred automatically from OpenAPI schemas with the absolute minimum number of generics needed.
+2. Respect the original `@tanstack/react-query` APIs while reducing boilerplate.
+3. Be as light and performant as possible.
 
-These 2 projects are unrelated. openapi-typescript-codegen is a Node.js alternative to the original swagger-codegen, but ends up being the same in practice. openapi-typescript has the same advantage of being **runtime free** whereas openapi-typescript-codegen can generate some pretty heavy bundles, up to `250 kB` or more depending on the schema complexity.
+### swr-openapi
 
-### vs. tRPC
+1. Types should be strict and inferred automatically from OpenAPI schemas with the absolute minimum number of generics needed.
+2. Respect the original `swr` APIs while reducing boilerplate.
+3. Be as light and performant as possible.
 
-[tRPC](https://trpc.io/) is an opinionated type-safe framework for both server and client. It demands both your server and client be written in tRPC (which means Node.js for the backend).
+### openapi-metadata
 
-If you fit into this use case, it’s a great experience! But for everyone else, openapi-typescript (and openapi-fetch) is a more flexible, lower-level solution that can work for any technology choice (or even be incrementally-adopted without any cost).
+1. Must respect the OpenAPI V3 specification
+2. Be extensible and easily integrated inside backend frameworks
+3. Be focused around developer experience
+
+## Maintainers
+
+This library is currently maintained by these amazing individuals:
+
+<VPTeamMembers size="small" :members="data.maintainers" />
 
 ## Contributors
 
-This library wouldn’t be possible without all these amazing contributors:
+And thanks to 100+ amazing contributors, without whom these projects wouldn’t be possible:
 
-<VPTeamMembers size="small" :members="contributors['openapi-typescript']" />
+<Contributors :contributors="data.contributors" />

@@ -23,7 +23,6 @@ export default defineConfig({
             { text: "Node.js API", link: "/zh/node" },
             { text: "示例", link: "/zh/examples" },
             { text: "高级功能", link: "/zh/advanced" },
-            { text: "关于", link: "/zh/about" },
           ],
         },
         {
@@ -37,7 +36,6 @@ export default defineConfig({
             { text: "测试", link: "/zh/openapi-fetch/testing" },
             { text: "示例", link: "/zh/openapi-fetch/examples" },
             { text: "API", link: "/zh/openapi-fetch/api" },
-            { text: "关于", link: "/zh/openapi-fetch/about" },
           ],
         },
       ],
