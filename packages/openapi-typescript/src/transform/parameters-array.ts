@@ -92,7 +92,7 @@ export function transformParametersArray(
       }
       const subType =
         "$ref" in original
-          ? oapiRef(original.$ref)
+          ? oapiRef(original.$ref, resolved)
           : transformParameterObject(resolved as ParameterObject, {
               ...options,
               path: createRef([options.path, "parameters", resolved.in, resolved.name]),

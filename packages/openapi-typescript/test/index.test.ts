@@ -172,6 +172,25 @@ export type operations = Record<string, never>;`,
         patch?: never;
         trace?: never;
     };
+    "/endpoint2": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description This overrides parameters */
+                local_param_a: paths["/endpoint"]["get"]["parameters"]["path"]["local_param_a"];
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
