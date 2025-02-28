@@ -91,8 +91,8 @@ importers:
         specifier: workspace:^
         version: link:../openapi-typescript
       openapi-typescript-codegen:
-        specifier: ^0.25.0
-        version: 0.25.0
+        specifier: ^0.29.0
+        version: 0.29.0
       openapi-typescript-fetch:
         specifier: ^2.1.0
         version: 2.1.0
@@ -467,8 +467,9 @@ packages:
   '@andrewbranch/untar.js@1.0.3':
     resolution: {integrity: sha512-Jh15/qVmrLGhkKJBdXlK1+9tY4lZruYjsgkDFj08ZmDiWVBLJcqkok7Z0/R0In+i1rScBpJlSvrTS2Lm41Pbnw==}
 
-  '@apidevtools/json-schema-ref-parser@9.0.9':
-    resolution: {integrity: sha512-GBD2Le9w2+lVFoc4vswGI/TjkNIZSVp7+9xPf+X3uidBfWnAeUWmquteSyt0+VCrhNMWj/FTABISQrD3Z/YA+w==}
+  '@apidevtools/json-schema-ref-parser@11.9.2':
+    resolution: {integrity: sha512-q/UMCDNrMV3teJ4oJPgr07qoq7DvZ8B/0Vn1oq7i6NhJuxmIb506pVarKsUPc8GJyk8qP6HSFvOJt6B7CGvFSg==}
+    engines: {node: '>= 16'}
 
   '@arethetypeswrong/cli@0.16.4':
     resolution: {integrity: sha512-qMmdVlJon5FtA+ahn0c1oAVNxiq4xW5lqFiTZ21XHIeVwAVIQ+uRz4UEivqRMsjVV1grzRgJSKqaOrq1MvlVyQ==}
@@ -2307,9 +2308,6 @@ packages:
     resolution: {integrity: sha512-YTd+6wGlNlPxSuri7Y6X8tY2dmm12UMH66RpKMhiX6rsk5wXXnYgbUcOt8kiS31/AjfoTOvCsE+w8nZQLQnzHA==}
     engines: {node: '>= 0.4'}
 
-  call-me-maybe@1.0.2:
-    resolution: {integrity: sha512-HpX65o1Hnr9HH25ojC1YGs7HCQLq0GCOibSaWER0eNpgJ/Z1MZv2mTc7+xh6WOPxbRVcmgbv4hGU+uSQ/2xFZQ==}
-
   camelcase-keys@7.0.2:
     resolution: {integrity: sha512-Rjs1H+A9R+Ig+4E/9oyB66UC5Mj9Xq3N//vcLf2WzgdTi/3gUu3Z9KoqmlrEG4VuuLK8wJHofxzdQXz/knhiYg==}
     engines: {node: '>=12'}
@@ -2453,9 +2451,9 @@ packages:
     resolution: {integrity: sha512-y4Mg2tXshplEbSGzx7amzPwKKOCGuoSRP/CjEdwwk0FOGlUbq6lKuoyDZTNZkmxHdJtp54hdfY/JUrdL7Xfdug==}
     engines: {node: '>=14'}
 
-  commander@11.1.0:
-    resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
-    engines: {node: '>=16'}
+  commander@12.1.0:
+    resolution: {integrity: sha512-Vw8qHK3bZM9y/P10u3Vib8o/DdkvA2OtPtZvD871QKjy74Wj1WSKFILMPRPSdUSx5RFK1arlJzEtA4PkFgnbuA==}
+    engines: {node: '>=18'}
 
   commander@13.1.0:
     resolution: {integrity: sha512-/rFeCpNJQbhSZjGVwO9RFV3xPqbnERS8MmIQzCtD/zl6gpJuV/bMLuN92oG3F7d8oDEHHRrujSXNUr8fpjntKw==}
@@ -3335,11 +3333,6 @@ packages:
   json-parse-even-better-errors@2.3.1:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
 
-  json-schema-ref-parser@9.0.9:
-    resolution: {integrity: sha512-qcP2lmGy+JUoQJ4DOQeLaZDqH9qSkeGCK3suKWxJXS82dg728Mn3j97azDMaOUmJAN4uCq91LdPx4K7E8F1a7Q==}
-    engines: {node: '>=10'}
-    deprecated: Please switch to @apidevtools/json-schema-ref-parser
-
   json-schema-traverse@1.0.0:
     resolution: {integrity: sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==}
 
@@ -3842,8 +3835,8 @@ packages:
   openapi-types@12.1.3:
     resolution: {integrity: sha512-N4YtSYJqghVu4iek2ZUvcN/0aqH1kRDuNqzcycDxhOUpg7GdvLa2F3DgS6yBNhInhv2r/6I0Flkn7CqL8+nIcw==}
 
-  openapi-typescript-codegen@0.25.0:
-    resolution: {integrity: sha512-nN/TnIcGbP58qYgwEEy5FrAAjePcYgfMaCe3tsmYyTgI3v4RR9v8os14L+LEWDvV50+CmqiyTzRkKKtJeb6Ybg==}
+  openapi-typescript-codegen@0.29.0:
+    resolution: {integrity: sha512-/wC42PkD0LGjDTEULa/XiWQbv4E9NwLjwLjsaJ/62yOsoYhwvmBR31kPttn1DzQ2OlGe5stACcF/EIkZk43M6w==}
     hasBin: true
 
   openapi-typescript-fetch@2.1.0:
@@ -5386,11 +5379,10 @@ snapshots:
 
   '@andrewbranch/untar.js@1.0.3': {}
 
-  '@apidevtools/json-schema-ref-parser@9.0.9':
+  '@apidevtools/json-schema-ref-parser@11.9.2':
     dependencies:
       '@jsdevtools/ono': 7.1.3
       '@types/json-schema': 7.0.15
-      call-me-maybe: 1.0.2
       js-yaml: 4.1.0
 
   '@arethetypeswrong/cli@0.16.4':
@@ -7155,8 +7147,6 @@ snapshots:
       call-bind-apply-helpers: 1.0.2
       get-intrinsic: 1.2.7
 
-  call-me-maybe@1.0.2: {}
-
   camelcase-keys@7.0.2:
     dependencies:
       camelcase: 6.3.0
@@ -7308,7 +7298,7 @@ snapshots:
 
   commander@10.0.1: {}
 
-  commander@11.1.0: {}
+  commander@12.1.0: {}
 
   commander@13.1.0: {}
 
@@ -8287,10 +8277,6 @@ snapshots:
 
   json-parse-even-better-errors@2.3.1: {}
 
-  json-schema-ref-parser@9.0.9:
-    dependencies:
-      '@apidevtools/json-schema-ref-parser': 9.0.9
-
   json-schema-traverse@1.0.0: {}
 
   json5@2.2.3: {}
@@ -8935,13 +8921,13 @@ snapshots:
 
   openapi-types@12.1.3: {}
 
-  openapi-typescript-codegen@0.25.0:
+  openapi-typescript-codegen@0.29.0:
     dependencies:
+      '@apidevtools/json-schema-ref-parser': 11.9.2
       camelcase: 6.3.0
-      commander: 11.1.0
+      commander: 12.1.0
       fs-extra: 11.3.0
       handlebars: 4.7.8
-      json-schema-ref-parser: 9.0.9
 
   openapi-typescript-fetch@2.1.0: {}
 
