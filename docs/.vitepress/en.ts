@@ -37,7 +37,6 @@ export default defineConfig({
             { text: "Testing", link: "/openapi-fetch/testing" },
             { text: "Examples", link: "/openapi-fetch/examples" },
             { text: "API", link: "/openapi-fetch/api" },
-            { text: "About", link: "/openapi-fetch/about" },
           ],
         },
       ],
@@ -52,7 +51,6 @@ export default defineConfig({
             { text: "Examples", link: "/examples" },
             { text: "Migrating from 6.x", link: "/migration-guide" },
             { text: "Advanced", link: "/advanced" },
-            { text: "About", link: "/about" },
           ],
         },
         {
@@ -66,7 +64,6 @@ export default defineConfig({
             { text: "Testing", link: "/openapi-fetch/testing" },
             { text: "Examples", link: "/openapi-fetch/examples" },
             { text: "API", link: "/openapi-fetch/api" },
-            { text: "About", link: "/openapi-fetch/about" },
           ],
         },
         {
@@ -76,15 +73,8 @@ export default defineConfig({
             { text: "Getting Started", link: "/" },
             { text: "useQuery", link: "/use-query" },
             { text: "useMutation", link: "/use-mutation" },
-            {
-              text: "useSuspenseQuery",
-              link: "/use-suspense-query",
-            },
-            {
-              text: "queryOptions",
-              link: "/query-options",
-            },
-            { text: "About", link: "/about" },
+            { text: "useSuspenseQuery", link: "/use-suspense-query" },
+            { text: "queryOptions", link: "/query-options" },
           ],
         },
         {
@@ -97,7 +87,6 @@ export default defineConfig({
             { text: "useImmutable", link: "/use-immutable" },
             { text: "useInfinite", link: "/use-infinite" },
             { text: "useMutate", link: "/use-mutate" },
-            { text: "About", link: "/about" },
           ],
         },
         {
@@ -118,9 +107,9 @@ export default defineConfig({
               ],
             },
             { text: "Examples", link: "/openapi-metadata/examples" },
-            { text: "About", link: "/openapi-metadata/about" },
           ],
         },
+        { text: "About", link: "/about" },
       ],
     },
     search: {

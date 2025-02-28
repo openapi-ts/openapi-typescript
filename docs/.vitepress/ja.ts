@@ -24,7 +24,6 @@ export default defineConfig({
             { text: "使用例", link: "/ja/examples" },
             { text: "6.xからのマイグレーション", link: "/ja/migration-guide" },
             { text: "高度な機能", link: "/ja/advanced" },
-            { text: "概要", link: "/ja/about" },
           ],
         },
         {
@@ -38,7 +37,6 @@ export default defineConfig({
             { text: "テスト", link: "/ja/openapi-fetch/testing" },
             { text: "使用例", link: "/ja/openapi-fetch/examples" },
             { text: "API", link: "/ja/openapi-fetch/api" },
-            { text: "概要", link: "/ja/openapi-fetch/about" },
           ],
         },
         {
@@ -48,7 +46,6 @@ export default defineConfig({
             { text: "useQuery", link: "/ja/openapi-react-query/use-query" },
             { text: "useMutation", link: "/ja/openapi-react-query/use-mutation" },
             { text: "useSuspenseQuery", link: "/ja/openapi-react-query/use-suspense-query" },
-            { text: "概要", link: "/ja/openapi-react-query/about" },
           ],
         },
       ],
