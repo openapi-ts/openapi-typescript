@@ -41,7 +41,7 @@ export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod,
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
   Init extends MaybeOptionalInit<Paths[Path], Method>,
-  Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>, // note: Required is used to avoid repeating NonNullable in UseQuery types
+  Response extends FetchResponse<Paths[Path][Method], Init, Media>,
   Options extends Omit<
     UseQueryOptions<
       Response["data"],
@@ -83,7 +83,7 @@ export type UseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>,
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
   Init extends MaybeOptionalInit<Paths[Path], Method>,
-  Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>, // note: Required is used to avoid repeating NonNullable in UseQuery types
+  Response extends FetchResponse<Paths[Path][Method], Init, Media>,
   Options extends Omit<
     UseQueryOptions<
       Response["data"],
@@ -131,7 +131,7 @@ export type UseSuspenseQueryMethod<Paths extends Record<string, Record<HttpMetho
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
   Init extends MaybeOptionalInit<Paths[Path], Method>,
-  Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>, // note: Required is used to avoid repeating NonNullable in UseQuery types
+  Response extends FetchResponse<Paths[Path][Method], Init, Media>,
   Options extends Omit<
     UseSuspenseQueryOptions<
       Response["data"],
@@ -153,7 +153,7 @@ export type UseMutationMethod<Paths extends Record<string, Record<HttpMethod, {}
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
   Init extends MaybeOptionalInit<Paths[Path], Method>,
-  Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>, // note: Required is used to avoid repeating NonNullable in UseQuery types
+  Response extends FetchResponse<Paths[Path][Method], Init, Media>,
   Options extends Omit<UseMutationOptions<Response["data"], Response["error"], Init>, "mutationKey" | "mutationFn">,
 >(
   method: Method,
