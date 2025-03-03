@@ -123,6 +123,22 @@ describe("response", () => {
         assertType<Error>(error);
       }
     });
+
+    test("fallback on null response", async () => {
+      const client = createObservedClient<paths>({}, async () => new Response(undefined, { status: 200 }));
+
+      const { data, error } = await client.GET("/error-empty-response");
+      expect(data).toBe(undefined);
+      expect(error).toBe(undefined);
+    });
+
+    test("fallback on empty body steam", async () => {
+      const client = createObservedClient<paths>({}, async () => new Response("", { status: 200 }));
+
+      const { data, error } = await client.GET("/error-empty-response");
+      expect(data).toBe(undefined);
+      expect(error).toBe(undefined);
+    });
   });
 
   describe("response object", () => {
@@ -135,7 +151,7 @@ describe("response", () => {
     });
   });
 
-  describe("parseAs", () => {
+  describe("data parseAs", () => {
     const client = createObservedClient<paths>({}, async () => Response.json({}));
 
     test("text", async () => {
@@ -189,6 +205,66 @@ describe("response", () => {
       });
       if (data) {
         assertType<{ bar: string }>(data);
+      }
+    });
+  });
+
+  describe("error parseAs", () => {
+    const client = createObservedClient<paths>({}, async () => Response.json({}, { status: 500 }));
+
+    test("text", async () => {
+      const { data, error } = (await client.GET("/resources", {
+        parseAs: "text",
+      })) satisfies { error?: string };
+      if (data) {
+        throw new Error("parseAs text: error");
+      }
+      expect(error).toBe("{}");
+    });
+
+    test("arrayBuffer", async () => {
+      const { data, error } = (await client.GET("/resources", {
+        parseAs: "arrayBuffer",
+      })) satisfies { error?: ArrayBuffer };
+      if (data) {
+        throw new Error("parseAs arrayBuffer: error");
+      }
+      expect(error.byteLength).toBe("{}".length);
+    });
+
+    test("blob", async () => {
+      const { data, error } = (await client.GET("/resources", {
+        parseAs: "blob",
+      })) satisfies { error?: Blob };
+      if (data) {
+        throw new Error("parseAs blob: error");
+      }
+      expect(error.constructor.name).toBe("Blob");
+    });
+
+    test("stream", async () => {
+      const { error } = (await client.GET("/resources", {
+        parseAs: "stream",
+      })) satisfies { error?: ReadableStream<Uint8Array> | null };
+      if (!error) {
+        throw new Error("parseAs stream: error");
+      }
+
+      expect(error).toBeInstanceOf(ReadableStream);
+      const reader = error.getReader();
+      const result = await reader.read();
+      expect(result.value?.length).toBe(2);
+    });
+
+    test("use the selected content", async () => {
+      const client = createObservedClient<paths, "application/ld+json">({}, async () =>
+        Response.json({ bar: "bar" }, { status: 500 }),
+      );
+      const { error } = await client.GET("/media-multiple", {
+        headers: { Accept: "application/ld+json" },
+      });
+      if (error) {
+        assertType<{ bar: string }>(error);
       }
     });
   });
