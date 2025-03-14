@@ -54,6 +54,18 @@ describe("addJSDocComment", () => {
     comment: boolean;
 }`);
   });
+
+  test("anyOf", () => {
+    const property = ts.factory.createPropertySignature(undefined, "comment", undefined, tsUnion([BOOLEAN, BOOLEAN]));
+    addJSDocComment(
+      { anyOf: [{ description: "This is the comment 1" }, { description: "This is the comment 2" }] },
+      property,
+    );
+    expect(astToString(ts.factory.createTypeLiteralNode([property])).trim()).toBe(`{
+    /** @description This is the comment 1 | This is the comment 2 */
+    comment: boolean;
+}`);
+  });
 });
 
 describe("oapiRef", () => {
