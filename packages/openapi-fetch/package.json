@@ -70,7 +70,7 @@
     "openapi-typescript-helpers": "workspace:^"
   },
   "devDependencies": {
-    "axios": "^1.7.9",
+    "axios": "^1.8.2",
     "del-cli": "^5.1.0",
     "esbuild": "^0.25.0",
     "execa": "^9.5.2",
