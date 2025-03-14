@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.13.5
+
+### Patch Changes
+
+- [#2091](https://github.com/openapi-ts/openapi-typescript/pull/2091) [`ebe56f3`](https://github.com/openapi-ts/openapi-typescript/commit/ebe56f337561bfdd1bf1abdc56ba3d2f48c4d393) Thanks [@p-dubovitsky](https://github.com/p-dubovitsky)! - Allow returning Response from onRequest callback
+
 ## 0.13.4
 
 ### Patch Changes
