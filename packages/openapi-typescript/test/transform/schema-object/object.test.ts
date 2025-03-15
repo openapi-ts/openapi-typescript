@@ -29,6 +29,23 @@ describe("transformSchemaObject > object", () => {
       },
     ],
     [
+      "property > boolean",
+      {
+        given: {
+          type: "object",
+          required: ["truthy", "falsy"],
+          properties: {
+            truthy: true,
+            falsy: false,
+          },
+        },
+        want: `{
+    truthy: unknown;
+    falsy: never;
+}`,
+      },
+    ],
+    [
       "empty",
       {
         given: { type: "object" },

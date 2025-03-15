@@ -453,38 +453,46 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
     // properties
     if (Object.keys(schemaObject.properties ?? {}).length) {
       for (const [k, v] of getEntries(schemaObject.properties ?? {}, options.ctx)) {
-        if (typeof v !== "object" || Array.isArray(v)) {
+        if ((typeof v !== "object" && typeof v !== "boolean") || Array.isArray(v)) {
           throw new Error(
-            `${options.path}: invalid property ${k}. Expected Schema Object, got ${
+            `${options.path}: invalid property ${k}. Expected Schema Object or boolean, got ${
               Array.isArray(v) ? "Array" : typeof v
             }`,
           );
         }
 
+        const { $ref, readOnly, hasDefault } =
+          typeof v === "object"
+            ? {
+                $ref: "$ref" in v && v.$ref,
+                readOnly: "readOnly" in v && v.readOnly,
+                hasDefault: "default" in v && v.default !== undefined,
+              }
+            : {};
+
         // handle excludeDeprecated option
         if (options.ctx.excludeDeprecated) {
-          const resolved = "$ref" in v ? options.ctx.resolve<SchemaObject>(v.$ref) : v;
-          if (resolved?.deprecated) {
+          const resolved = $ref ? options.ctx.resolve<SchemaObject>($ref) : v;
+          if ((resolved as SchemaObject)?.deprecated) {
             continue;
           }
         }
         let optional =
           schemaObject.required?.includes(k) ||
           (schemaObject.required === undefined && options.ctx.propertiesRequiredByDefault) ||
-          ("default" in v &&
+          (hasDefault &&
             options.ctx.defaultNonNullable &&
             !options.path?.includes("parameters") &&
             !options.path?.includes("requestBody") &&
             !options.path?.includes("requestBodies")) // can’t be required, even with defaults
             ? undefined
             : QUESTION_TOKEN;
-        let type =
-          "$ref" in v
-            ? oapiRef(v.$ref)
-            : transformSchemaObject(v, {
-                ...options,
-                path: createRef([options.path, k]),
-              });
+        let type = $ref
+          ? oapiRef($ref)
+          : transformSchemaObject(v, {
+              ...options,
+              path: createRef([options.path, k]),
+            });
 
         if (typeof options.ctx.transform === "function") {
           const result = options.ctx.transform(v as SchemaObject, options);
@@ -500,7 +508,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
 
         const property = ts.factory.createPropertySignature(
           /* modifiers     */ tsModifiers({
-            readonly: options.ctx.immutable || ("readOnly" in v && !!v.readOnly),
+            readonly: options.ctx.immutable || readOnly,
           }),
           /* name          */ tsPropertyIndex(k),
           /* questionToken */ optional,
