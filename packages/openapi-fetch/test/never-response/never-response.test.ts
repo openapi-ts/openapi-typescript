@@ -140,4 +140,39 @@ describe("GET", () => {
     expect(data).toBeUndefined();
     expect(error).toBe("Unauthorized");
   });
+
+  test("type narrowing on status", async () => {
+    const mockData = {
+      id: 123,
+      title: "My Post",
+    };
+
+    let actualPathname = "";
+    const client = createObservedClient<paths>({}, async (req) => {
+      actualPathname = new URL(req.url).pathname;
+      return Response.json(mockData);
+    });
+
+    const { data, error, status } = await client.GET("/posts/{id}", {
+      params: { path: { id: 123 } },
+    });
+
+    if (status === 200) {
+      assertType<typeof mockData>(data);
+      assertType<never>(error);
+    } else if (status === 204) {
+      assertType<undefined>(data);
+    } else if (status === 400) {
+      assertType<components["schemas"]["Error"]>(error);
+    } else if (status === 201) {
+      // Grabs the 'default' response
+      assertType<components["schemas"]["Error"]>(error);
+    } else if (status === 500) {
+      assertType<never>(data);
+      assertType<undefined>(error);
+    } else {
+      // All other status codes are handles with the 'default' response
+      assertType<components["schemas"]["Error"]>(error);
+    }
+  });
 });

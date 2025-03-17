@@ -30,6 +30,7 @@ const client = createClient<paths>({ baseUrl: "https://myapi.dev/v1/" });
 const {
   data, // only present if 2XX response
   error, // only present if 4XX or 5XX response
+  status, // HTTP Status code
 } = await client.GET("/blogposts/{post_id}", {
   params: {
     path: { post_id: "123" },
@@ -46,6 +47,8 @@ await client.PUT("/blogposts", {
 :::
 
 `data` and `error` are typechecked and expose their shapes to Intellisense in VS Code (and any other IDE with TypeScript support). Likewise, the request `body` will also typecheck its fields, erring if any required params are missing, or if there’s a type mismatch.
+
+The `status` property is also available and contains the HTTP status code of the response (`response.status`). This property is useful for handling different status codes in your application and narrowing down the `data` and `error` properties.
 
 `GET()`, `PUT()`, `POST()`, etc. are thin wrappers around the native [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) (which you can [swap for any call](/openapi-fetch/api#create-client)).
 
@@ -158,17 +161,18 @@ The `POST()` request required a `body` object that provided all necessary [reque
 
 ### Response
 
-All methods return an object with **data**, **error**, and **response**.
+All methods return an object with **data**, **error**, **status** and **response**.
 
 ```ts
-const { data, error, response } = await client.GET("/url");
+const { data, error, status, response } = await client.GET("/url");
 ```
 
-| Object     | Response                                                                                                                    |
-| :--------- | :-------------------------------------------------------------------------------------------------------------------------- |
-| `data`     | `2xx` response if OK; otherwise `undefined`                                                                                 |
-| `error`    | `5xx`, `4xx`, or `default` response if not OK; otherwise `undefined`                                                        |
-| `response` | [The original Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) which contains `status`, `headers`, etc. |
+| Object     | Response                                                                                                                      |
+|:-----------|:------------------------------------------------------------------------------------------------------------------------------|
+| `data`     | `2xx` response if OK; otherwise `undefined`                                                                                   |
+| `error`    | `5xx`, `4xx`, or `default` response if not OK; otherwise `undefined`                                                          |
+| `status`   | The HTTP response status code of [the original response](https://developer.mozilla.org/en-US/docs/Web/API/Response/status)    |
+| `response` | [The original Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) which contains `status`, `headers`, etc.   |
 
 ### Path-property style
 

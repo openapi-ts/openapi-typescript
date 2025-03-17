@@ -1,5 +1,11 @@
 import { assertType, describe, test } from "vitest";
-import type { ErrorResponse, GetResponseContent, OkStatus, SuccessResponse } from "openapi-typescript-helpers";
+import type {
+  ErrorResponse,
+  GetResponseContent,
+  OkStatus,
+  OpenApiStatusToHttpStatus,
+  SuccessResponse,
+} from "openapi-typescript-helpers";
 
 describe("types", () => {
   describe("GetResponseContent", () => {
@@ -278,6 +284,181 @@ describe("types", () => {
       );
       assertType<Response>({ error: "500 application/json" });
       assertType<Response>({ error: "default application/json" });
+    });
+  });
+
+  describe("OpenApiStatusToHttpStatus", () => {
+    test("returns numeric status code", () => {
+      assertType<OpenApiStatusToHttpStatus<200, number>>(200);
+      assertType<OpenApiStatusToHttpStatus<200, string>>(200);
+      assertType<OpenApiStatusToHttpStatus<204, string>>(204);
+
+      assertType<OpenApiStatusToHttpStatus<204, string>>(
+        // @ts-expect-error 200 is not a valid
+        200,
+      );
+      assertType<OpenApiStatusToHttpStatus<204, number>>(
+        // @ts-expect-error 200 is not a valid
+        200,
+      );
+
+      assertType<OpenApiStatusToHttpStatus<404, 200 | 204 | 206 | 404 | 500 | "default">>(404);
+    });
+
+    test("returns default response", () => {
+      type Status = OpenApiStatusToHttpStatus<"default", 200 | 204 | 206 | 404 | 500 | "default">;
+      assertType<Status>(
+        // @ts-expect-error 200 has been manually defined
+        200,
+      );
+      assertType<Status>(
+        // @ts-expect-error 204 has been manually defined
+        204,
+      );
+      assertType<Status>(201);
+      assertType<Status>(504);
+    });
+
+    test("returns 200 likes response", () => {
+      type Status = OpenApiStatusToHttpStatus<"2XX", 200 | 204 | 206 | 404 | 500 | "default">;
+      assertType<Status>(200);
+      assertType<Status>(201);
+      assertType<Status>(202);
+      assertType<Status>(203);
+      assertType<Status>(204);
+      assertType<Status>(
+        // @ts-expect-error 205 is not a valid 2XX status code
+        205,
+      );
+      assertType<Status>(206);
+      assertType<Status>(207);
+      assertType<Status>(
+        // @ts-expect-error '2XX' is not a numeric status code
+        "2XX",
+      );
+      assertType<Status>(
+        // @ts-expect-error 205 is not a valid 2XX status code
+        208,
+      );
+
+      assertType<Status>(
+        // @ts-expect-error '4XX' is not a numeric status code
+        "4XX",
+      );
+      assertType<Status>(
+        // @ts-expect-error '5XX' is not a numeric status code
+        "5XX",
+      );
+    });
+
+    test("returns error responses for 4XX", () => {
+      type Status = OpenApiStatusToHttpStatus<"4XX", 200 | 204 | 206 | 404 | 500 | "default">;
+      assertType<Status>(400);
+      assertType<Status>(401);
+      assertType<Status>(402);
+      assertType<Status>(403);
+      assertType<Status>(404);
+      assertType<Status>(405);
+      assertType<Status>(406);
+      assertType<Status>(407);
+      assertType<Status>(408);
+      assertType<Status>(409);
+      assertType<Status>(410);
+      assertType<Status>(411);
+      assertType<Status>(412);
+      assertType<Status>(413);
+      assertType<Status>(414);
+      assertType<Status>(415);
+      assertType<Status>(416);
+      assertType<Status>(417);
+      assertType<Status>(418);
+      assertType<Status>(500);
+      assertType<Status>(501);
+      assertType<Status>(502);
+      assertType<Status>(503);
+      assertType<Status>(504);
+      assertType<Status>(505);
+      assertType<Status>(506);
+      assertType<Status>(507);
+      assertType<Status>(508);
+      assertType<Status>(
+        // @ts-expect-error 509 is not a valid error status code
+        509,
+      );
+      assertType<Status>(510);
+      assertType<Status>(511);
+
+      assertType<Status>(
+        // @ts-expect-error 200 is not a valid error status code
+        200,
+      );
+      assertType<Status>(
+        // @ts-expect-error '2XX' is not a numeric status code
+        "2XX",
+      );
+      assertType<Status>(
+        // @ts-expect-error '4XX' is not a numeric status code
+        "4XX",
+      );
+      assertType<Status>(
+        // @ts-expect-error '5XX' is not a numeric status code
+        "5XX",
+      );
+    });
+
+    test("returns error responses for 5XX", () => {
+      type Status = OpenApiStatusToHttpStatus<"5XX", 200 | 204 | 206 | 404 | 500 | "default">;
+      assertType<Status>(400);
+      assertType<Status>(401);
+      assertType<Status>(402);
+      assertType<Status>(403);
+      assertType<Status>(404);
+      assertType<Status>(405);
+      assertType<Status>(406);
+      assertType<Status>(407);
+      assertType<Status>(408);
+      assertType<Status>(409);
+      assertType<Status>(410);
+      assertType<Status>(411);
+      assertType<Status>(412);
+      assertType<Status>(413);
+      assertType<Status>(414);
+      assertType<Status>(415);
+      assertType<Status>(416);
+      assertType<Status>(417);
+      assertType<Status>(418);
+      assertType<Status>(500);
+      assertType<Status>(501);
+      assertType<Status>(502);
+      assertType<Status>(503);
+      assertType<Status>(504);
+      assertType<Status>(505);
+      assertType<Status>(506);
+      assertType<Status>(507);
+      assertType<Status>(508);
+      assertType<Status>(
+        // @ts-expect-error 509 is not a valid error status code
+        509,
+      );
+      assertType<Status>(510);
+      assertType<Status>(511);
+
+      assertType<Status>(
+        // @ts-expect-error 200 is not a valid error status code
+        200,
+      );
+      assertType<Status>(
+        // @ts-expect-error '2XX' is not a numeric status code
+        "2XX",
+      );
+      assertType<Status>(
+        // @ts-expect-error '4XX' is not a numeric status code
+        "4XX",
+      );
+      assertType<Status>(
+        // @ts-expect-error '5XX' is not a numeric status code
+        "5XX",
+      );
     });
   });
 });
