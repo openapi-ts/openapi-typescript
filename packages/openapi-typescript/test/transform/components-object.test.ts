@@ -761,6 +761,74 @@ export type Error = components['schemas']['Error'];
       },
     ],
     [
+      "options > rootTypes: true and rootTypesNoSchemaPrefix: true and enum: true",
+      {
+        given: {
+          schemas: {
+            Item: {
+              type: "object",
+              required: ["name", "url"],
+              properties: {
+                name: { type: "string" },
+                url: { type: "string" },
+              },
+            },
+            Document: {
+              type: "object",
+              required: ["name", "size", "url"],
+              properties: {
+                name: { type: "string" },
+                size: { type: "number" },
+                url: { type: "string" },
+              },
+            },
+            Error: {
+              type: "object",
+              required: ["code", "message"],
+              properties: {
+                code: { type: "string" },
+                message: { type: "string" },
+              },
+            },
+            MyEnum: {
+              type: "string",
+              enum: ["first", "second", "last"],
+            },
+          },
+        },
+        want: `{
+    schemas: {
+        Item: {
+            name: string;
+            url: string;
+        };
+        Document: {
+            name: string;
+            size: number;
+            url: string;
+        };
+        Error: {
+            code: string;
+            message: string;
+        };
+        /** @enum {string} */
+        MyEnum: MyEnum;
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type SchemaItem = components['schemas']['Item'];
+export type SchemaDocument = components['schemas']['Document'];
+export type SchemaError = components['schemas']['Error'];
+export type SchemaMyEnum = components['schemas']['MyEnum'];
+`,
+        options: { ...DEFAULT_OPTIONS, rootTypes: true, rootTypesNoSchemaPrefix: true, enum: true },
+      },
+    ],
+    [
       "transform > with transform object",
       {
         given: {

@@ -61,6 +61,9 @@ if (args.includes("--redoc")) {
 }
 if (args.includes("--root-types-no-schema-prefix") && !args.includes("--root-types")) {
   console.warn("--root-types-no-schema-prefix has no effect without --root-types flag");
+  if (args.includes("--enum")) {
+    console.warn("--root-types-no-schema-prefix has no effect when --enum used");
+  }
 }
 
 const flags = parser(args, {

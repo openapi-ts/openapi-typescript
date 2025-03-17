@@ -78,8 +78,10 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
             conflictCounter++;
             aliasName = `${componentKey}${changeCase.pascalCase(name)}_${conflictCounter}`;
           }
+
           const ref = ts.factory.createTypeReferenceNode(`components['${key}']['${name}']`);
-          if (ctx.rootTypesNoSchemaPrefix && key === "schemas") {
+          // We skip schema prefix replacement when --enum flag is present
+          if (ctx.rootTypesNoSchemaPrefix && key === "schemas" && !ctx.enum) {
             aliasName = aliasName.replace(componentKey, "");
           }
           const typeAlias = ts.factory.createTypeAliasDeclaration(
