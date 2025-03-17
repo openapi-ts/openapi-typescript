@@ -13,4 +13,16 @@ describe("HEAD", () => {
     await client.HEAD("/resources/{id}", { params: { path: { id: 123 } } });
     expect(method).toBe("HEAD");
   });
+
+  test("handles HEAD requests with non-zero Content-Length without parsing the body", async () => {
+    const client = createObservedClient<paths>({}, async () => {
+      return new Response(null, {
+        headers: { "Content-Length": "42", "Content-Type": "application/json" },
+        status: 200,
+      });
+    });
+    const result = await client.HEAD("/resources/{id}", { params: { path: { id: 123 } } });
+    expect(result.data).toBeUndefined();
+    expect(result.response.ok).toBe(true);
+  });
 });
