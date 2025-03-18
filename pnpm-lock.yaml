@@ -231,10 +231,10 @@ importers:
         version: 5.7.3
       unbuild:
         specifier: ^3.3.1
-        version: 3.3.1(typescript@5.7.3)(vue-tsc@2.2.2(typescript@5.7.3))(vue@3.5.13(typescript@5.7.3))
+        version: 3.5.0(typescript@5.7.3)(vue-tsc@2.2.2(typescript@5.7.3))(vue@3.5.13(typescript@5.7.3))
       unplugin-swc:
         specifier: ^1.5.1
-        version: 1.5.1(@swc/core@1.10.4(@swc/helpers@0.5.15))(rollup@4.34.8)
+        version: 1.5.1(@swc/core@1.10.4(@swc/helpers@0.5.15))(rollup@4.36.0)
 
   packages/openapi-react-query:
     dependencies:
@@ -571,10 +571,6 @@ packages:
 
   '@babel/runtime@7.26.9':
     resolution: {integrity: sha512-aA63XwOkcl4xxQa3HjPMqOP6LiK0ZDv3mUPYEFXkpHbaFjtGggE1A61FjFzJnB+p7/oy2gA8E+rcBNl/zC1tMg==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/standalone@7.26.9':
-    resolution: {integrity: sha512-UTeQKy0kzJwWRe55kT1uK4G9H6D0lS6G4207hCU/bDaOhA5t2aC0qHN6GmID0Axv3OFLNXm27NdqcWp+BXcGtA==}
     engines: {node: '>=6.9.0'}
 
   '@babel/template@7.26.9':
@@ -1647,8 +1643,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/plugin-commonjs@28.0.2':
-    resolution: {integrity: sha512-BEFI2EDqzl+vA1rl97IDRZ61AIwGH093d9nz8+dThxJNH8oSoB7MjWvPCX3dkaK1/RCJ/1v/R1XB15FuSs0fQw==}
+  '@rollup/plugin-commonjs@28.0.3':
+    resolution: {integrity: sha512-pyltgilam1QPdn+Zd9gaCfOLcnjMEJ9gV+bTw6/r73INdvzf1ah9zLIJBm+kW7R6IUFIQ1YO+VqZtYxZNWFPEQ==}
     engines: {node: '>=16.0.0 || 14 >= 14.17'}
     peerDependencies:
       rollup: ^2.68.0||^3.0.0||^4.0.0
@@ -1665,8 +1661,8 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/plugin-node-resolve@16.0.0':
-    resolution: {integrity: sha512-0FPvAeVUT/zdWoO0jnb/V5BlBsUSNfkIOtFHzMO4H9MOklrmQFY6FduVHKucNb/aTFxvnGhj4MNj/T1oNdDfNg==}
+  '@rollup/plugin-node-resolve@16.0.1':
+    resolution: {integrity: sha512-tk5YCxJWIG81umIvNkSod2qK5KyQW19qcBF/B78n1bjtOON6gzKoVeSzAE8yHCZEDmqkHKkxplExA8KzdJLJpA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       rollup: ^2.78.0||^3.0.0||^4.0.0
@@ -2507,8 +2503,8 @@ packages:
   asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
 
-  autoprefixer@10.4.20:
-    resolution: {integrity: sha512-XY25y5xSv/wEoqzDyXXME4AFfkZI0P23z6Fs3YgymDnKJkCGOnkL0iTxCa85UTqaSgfcqyf3UA6+c7wUvx/16g==}
+  autoprefixer@10.4.21:
+    resolution: {integrity: sha512-O+A6LWV5LDHSJD3LjHYoNi4VLsj/Whi7k6zG12xTYaU4cQ8oxQGckXNX8cRHK5yOZ/ppVHe0ZBXGzSV9jXdVbQ==}
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
     peerDependencies:
@@ -2598,6 +2594,9 @@ packages:
 
   caniuse-lite@1.0.30001700:
     resolution: {integrity: sha512-2S6XIXwaE7K7erT8dY+kLQcpa5ms63XlRkMkReXjle+kf6c5g38vyMl+Z5y8dSxOFDhcFe+nxnn261PLxBSQsQ==}
+
+  caniuse-lite@1.0.30001706:
+    resolution: {integrity: sha512-3ZczoTApMAZwPKYWmwVbQMFpXBDds3/0VciVoUwPUbldlYyVLmRVuRs/PcUZtHpbLRpzzDvrvnFuREsGt6lUug==}
 
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
@@ -2752,8 +2751,11 @@ packages:
   confbox@0.1.8:
     resolution: {integrity: sha512-RMtmw0iFkeR4YV+fUOSucriAQNb9g8zFR52MWCtl+cCZOFRNL6zeB395vPzFhEjjn4fMxXudmELnl/KF/WrK6w==}
 
-  consola@3.4.0:
-    resolution: {integrity: sha512-EiPU8G6dQG0GFHNR8ljnZFki/8a+cQwEQ+7wpxdChl02Q8HXlwEZWD5lqAF8vC2sEC3Tehr8hy7vErz88LHyUA==}
+  confbox@0.2.1:
+    resolution: {integrity: sha512-hkT3yDPFbs95mNCy1+7qNKC6Pro+/ibzYxtM2iqEigpf0sVw+bg4Zh9/snjsBcf990vfIsg5+1U7VyiyBb3etg==}
+
+  consola@3.4.2:
+    resolution: {integrity: sha512-5IKcdX0nnYavi6G7TtOhwkYzyjfJlatbjMjuLSfE2kYT5pMDOilZ4OvMhi637CcDICTmz3wARPoyhqyX1Y+XvA==}
     engines: {node: ^14.18.0 || >=16.10.0}
 
   content-disposition@0.5.4:
@@ -3143,6 +3145,9 @@ packages:
     resolution: {integrity: sha512-28HqgMZAmih1Czt9ny7qr6ek2qddF4FclbMzwhCREB6OFfH+rXAnuNCwo1/wFvrtbgsQDb4kSbX9de9lFbrXnA==}
     engines: {node: '>= 0.10.0'}
 
+  exsolve@1.0.4:
+    resolution: {integrity: sha512-xsZH6PXaER4XoV+NiT7JHp1bJodJVT+cxeSH1G0f0tlT0lJqYuHUP3bUx2HtfTDvOagMINYp8rsqusxud3RXhw==}
+
   extendable-error@0.1.7:
     resolution: {integrity: sha512-UOiS2in6/Q0FK0R0q6UY9vYpQ21mr/Qn1KOnte7vsACuNJf514WvCCUHSRCPcgjPT2bAhNIJdlE6bVap1GKmeg==}
 
@@ -3196,6 +3201,9 @@ packages:
   find-up@5.0.0:
     resolution: {integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==}
     engines: {node: '>=10'}
+
+  fix-dts-default-cjs-exports@1.0.1:
+    resolution: {integrity: sha512-pVIECanWFC61Hzl2+oOCtoJ3F17kglZC/6N94eRWycFgBH35hHx0Li604ZIzhseh97mf2p0cv7vVrOZGoqhlEg==}
 
   floating-vue@5.2.2:
     resolution: {integrity: sha512-afW+h2CFafo+7Y9Lvw/xsqjaQlKLdJV7h1fCHfcYQ1C4SVMlu7OAekqWgu5d4SgvkBVU0pVpLlVsrSTBURFRkg==}
@@ -4273,6 +4281,9 @@ packages:
   pkg-types@1.3.1:
     resolution: {integrity: sha512-/Jm5M4RvtBFVkKWRu2BLUTNP8/M2a+UwuAX+ae4770q1qVGtfjG+WTCupoZixokjmHiry8uI+dlY8KXYV5HVVQ==}
 
+  pkg-types@2.1.0:
+    resolution: {integrity: sha512-wmJwA+8ihJixSoHKxZJRBQG1oY8Yr9pGLzRmSsNms0iNWyHHAlZCa7mmKiFR10YPZuz/2k169JiS/inOjBCZ2A==}
+
   playwright-core@1.50.1:
     resolution: {integrity: sha512-ra9fsNWayuYumt+NiM069M6OkcRb1FZSK8bgi66AtpFoWkg2+y0bJSNmkFrWhMbEBbVKC/EruAHH3g0zmtwGmQ==}
     engines: {node: '>=18'}
@@ -5161,8 +5172,8 @@ packages:
     engines: {node: '>=0.8.0'}
     hasBin: true
 
-  unbuild@3.3.1:
-    resolution: {integrity: sha512-/5OeeHmW1JlWEyQw3SPkB9BV16lzr6C5i8D+O17NLx6ETgvCZ3ZlyXfWkVVfG2YCsv8xAVQCqJNJtbEAGwHg7A==}
+  unbuild@3.5.0:
+    resolution: {integrity: sha512-DPFttsiADnHRb/K+yJ9r9jdn6JyXlsmdT0S12VFC14DFSJD+cxBnHq+v0INmqqPVPxOoUjvJFYUVIb02rWnVeA==}
     hasBin: true
     peerDependencies:
       typescript: ^5.7.3
@@ -5225,8 +5236,8 @@ packages:
     resolution: {integrity: sha512-4/u/j4FrCKdi17jaxuJA0jClGxB1AvU2hw/IuayPc4ay1XGaJs/rbb4v5WKwAjNifjmXK9PIFyuPiaK8azyR9w==}
     engines: {node: '>=14.0.0'}
 
-  untyped@1.5.2:
-    resolution: {integrity: sha512-eL/8PlhLcMmlMDtNPKhyyz9kEBDS3Uk4yMu/ewlkT2WFbtzScjHWPJLdQLmaGPUKjXzwe9MumOtOgc4Fro96Kg==}
+  untyped@2.0.0:
+    resolution: {integrity: sha512-nwNCjxJTjNuLCgFr42fEak5OcLuB3ecca+9ksPFNvtfYSLpjf+iJqSIaSnIile6ZPbKYxI5k2AfXqeopGudK/g==}
     hasBin: true
 
   update-browserslist-db@1.1.2:
@@ -5840,8 +5851,6 @@ snapshots:
   '@babel/runtime@7.26.9':
     dependencies:
       regenerator-runtime: 0.14.1
-
-  '@babel/standalone@7.26.9': {}
 
   '@babel/template@7.26.9':
     dependencies:
@@ -6673,13 +6682,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@rollup/plugin-alias@5.1.1(rollup@4.34.8)':
+  '@rollup/plugin-alias@5.1.1(rollup@4.36.0)':
     optionalDependencies:
-      rollup: 4.34.8
+      rollup: 4.36.0
 
-  '@rollup/plugin-commonjs@28.0.2(rollup@4.34.8)':
+  '@rollup/plugin-commonjs@28.0.3(rollup@4.36.0)':
     dependencies:
-      '@rollup/pluginutils': 5.1.4(rollup@4.34.8)
+      '@rollup/pluginutils': 5.1.4(rollup@4.36.0)
       commondir: 1.0.1
       estree-walker: 2.0.2
       fdir: 6.4.3(picomatch@4.0.2)
@@ -6687,38 +6696,38 @@ snapshots:
       magic-string: 0.30.17
       picomatch: 4.0.2
     optionalDependencies:
-      rollup: 4.34.8
+      rollup: 4.36.0
 
-  '@rollup/plugin-json@6.1.0(rollup@4.34.8)':
+  '@rollup/plugin-json@6.1.0(rollup@4.36.0)':
     dependencies:
-      '@rollup/pluginutils': 5.1.4(rollup@4.34.8)
+      '@rollup/pluginutils': 5.1.4(rollup@4.36.0)
     optionalDependencies:
-      rollup: 4.34.8
+      rollup: 4.36.0
 
-  '@rollup/plugin-node-resolve@16.0.0(rollup@4.34.8)':
+  '@rollup/plugin-node-resolve@16.0.1(rollup@4.36.0)':
     dependencies:
-      '@rollup/pluginutils': 5.1.4(rollup@4.34.8)
+      '@rollup/pluginutils': 5.1.4(rollup@4.36.0)
       '@types/resolve': 1.20.2
       deepmerge: 4.3.1
       is-module: 1.0.0
       resolve: 1.22.10
     optionalDependencies:
-      rollup: 4.34.8
+      rollup: 4.36.0
 
-  '@rollup/plugin-replace@6.0.2(rollup@4.34.8)':
+  '@rollup/plugin-replace@6.0.2(rollup@4.36.0)':
     dependencies:
-      '@rollup/pluginutils': 5.1.4(rollup@4.34.8)
+      '@rollup/pluginutils': 5.1.4(rollup@4.36.0)
       magic-string: 0.30.17
     optionalDependencies:
-      rollup: 4.34.8
+      rollup: 4.36.0
 
-  '@rollup/pluginutils@5.1.4(rollup@4.34.8)':
+  '@rollup/pluginutils@5.1.4(rollup@4.36.0)':
     dependencies:
       '@types/estree': 1.0.6
       estree-walker: 2.0.2
       picomatch: 4.0.2
     optionalDependencies:
-      rollup: 4.34.8
+      rollup: 4.36.0
 
   '@rollup/rollup-android-arm-eabi@4.34.8':
     optional: true
@@ -7453,8 +7462,7 @@ snapshots:
 
   acorn@8.14.0: {}
 
-  acorn@8.14.1:
-    optional: true
+  acorn@8.14.1: {}
 
   agent-base@6.0.2:
     dependencies:
@@ -7543,10 +7551,10 @@ snapshots:
 
   asynckit@0.4.0: {}
 
-  autoprefixer@10.4.20(postcss@8.5.3):
+  autoprefixer@10.4.21(postcss@8.5.3):
     dependencies:
       browserslist: 4.24.4
-      caniuse-lite: 1.0.30001700
+      caniuse-lite: 1.0.30001706
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.1.1
@@ -7646,11 +7654,13 @@ snapshots:
   caniuse-api@3.0.0:
     dependencies:
       browserslist: 4.24.4
-      caniuse-lite: 1.0.30001700
+      caniuse-lite: 1.0.30001706
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
 
   caniuse-lite@1.0.30001700: {}
+
+  caniuse-lite@1.0.30001706: {}
 
   ccount@2.0.1: {}
 
@@ -7703,7 +7713,7 @@ snapshots:
 
   citty@0.1.6:
     dependencies:
-      consola: 3.4.0
+      consola: 3.4.2
 
   cjs-module-lexer@1.4.3: {}
 
@@ -7799,7 +7809,9 @@ snapshots:
 
   confbox@0.1.8: {}
 
-  consola@3.4.0: {}
+  confbox@0.2.1: {}
+
+  consola@3.4.2: {}
 
   content-disposition@0.5.4:
     dependencies:
@@ -8304,6 +8316,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  exsolve@1.0.4: {}
+
   extendable-error@0.1.7: {}
 
   external-editor@3.1.0:
@@ -8371,6 +8385,12 @@ snapshots:
     dependencies:
       locate-path: 6.0.0
       path-exists: 4.0.0
+
+  fix-dts-default-cjs-exports@1.0.1:
+    dependencies:
+      magic-string: 0.30.17
+      mlly: 1.7.4
+      rollup: 4.36.0
 
   floating-vue@5.2.2(vue@3.5.13(typescript@5.7.3)):
     dependencies:
@@ -9256,7 +9276,7 @@ snapshots:
 
   mkdist@2.2.0(typescript@5.7.3)(vue-tsc@2.2.2(typescript@5.7.3))(vue@3.5.13(typescript@5.7.3)):
     dependencies:
-      autoprefixer: 10.4.20(postcss@8.5.3)
+      autoprefixer: 10.4.21(postcss@8.5.3)
       citty: 0.1.6
       cssnano: 7.0.6(postcss@8.5.3)
       defu: 6.1.4
@@ -9276,7 +9296,7 @@ snapshots:
 
   mlly@1.7.4:
     dependencies:
-      acorn: 8.14.0
+      acorn: 8.14.1
       pathe: 2.0.3
       pkg-types: 1.3.1
       ufo: 1.5.4
@@ -9561,6 +9581,12 @@ snapshots:
     dependencies:
       confbox: 0.1.8
       mlly: 1.7.4
+      pathe: 2.0.3
+
+  pkg-types@2.1.0:
+    dependencies:
+      confbox: 0.2.1
+      exsolve: 1.0.4
       pathe: 2.0.3
 
   playwright-core@1.50.1: {}
@@ -9917,10 +9943,10 @@ snapshots:
     dependencies:
       glob: 7.2.3
 
-  rollup-plugin-dts@6.1.1(rollup@4.34.8)(typescript@5.7.3):
+  rollup-plugin-dts@6.1.1(rollup@4.36.0)(typescript@5.7.3):
     dependencies:
       magic-string: 0.30.17
-      rollup: 4.34.8
+      rollup: 4.36.0
       typescript: 5.7.3
     optionalDependencies:
       '@babel/code-frame': 7.26.2
@@ -10505,36 +10531,36 @@ snapshots:
   uglify-js@3.19.3:
     optional: true
 
-  unbuild@3.3.1(typescript@5.7.3)(vue-tsc@2.2.2(typescript@5.7.3))(vue@3.5.13(typescript@5.7.3)):
+  unbuild@3.5.0(typescript@5.7.3)(vue-tsc@2.2.2(typescript@5.7.3))(vue@3.5.13(typescript@5.7.3)):
     dependencies:
-      '@rollup/plugin-alias': 5.1.1(rollup@4.34.8)
-      '@rollup/plugin-commonjs': 28.0.2(rollup@4.34.8)
-      '@rollup/plugin-json': 6.1.0(rollup@4.34.8)
-      '@rollup/plugin-node-resolve': 16.0.0(rollup@4.34.8)
-      '@rollup/plugin-replace': 6.0.2(rollup@4.34.8)
-      '@rollup/pluginutils': 5.1.4(rollup@4.34.8)
+      '@rollup/plugin-alias': 5.1.1(rollup@4.36.0)
+      '@rollup/plugin-commonjs': 28.0.3(rollup@4.36.0)
+      '@rollup/plugin-json': 6.1.0(rollup@4.36.0)
+      '@rollup/plugin-node-resolve': 16.0.1(rollup@4.36.0)
+      '@rollup/plugin-replace': 6.0.2(rollup@4.36.0)
+      '@rollup/pluginutils': 5.1.4(rollup@4.36.0)
       citty: 0.1.6
-      consola: 3.4.0
+      consola: 3.4.2
       defu: 6.1.4
-      esbuild: 0.24.2
+      esbuild: 0.25.1
+      fix-dts-default-cjs-exports: 1.0.1
       hookable: 5.5.3
       jiti: 2.4.2
       magic-string: 0.30.17
       mkdist: 2.2.0(typescript@5.7.3)(vue-tsc@2.2.2(typescript@5.7.3))(vue@3.5.13(typescript@5.7.3))
       mlly: 1.7.4
       pathe: 2.0.3
-      pkg-types: 1.3.1
+      pkg-types: 2.1.0
       pretty-bytes: 6.1.1
-      rollup: 4.34.8
-      rollup-plugin-dts: 6.1.1(rollup@4.34.8)(typescript@5.7.3)
+      rollup: 4.36.0
+      rollup-plugin-dts: 6.1.1(rollup@4.36.0)(typescript@5.7.3)
       scule: 1.3.0
       tinyglobby: 0.2.12
-      untyped: 1.5.2
+      untyped: 2.0.0
     optionalDependencies:
       typescript: 5.7.3
     transitivePeerDependencies:
       - sass
-      - supports-color
       - vue
       - vue-tsc
 
@@ -10577,9 +10603,9 @@ snapshots:
 
   unpipe@1.0.0: {}
 
-  unplugin-swc@1.5.1(@swc/core@1.10.4(@swc/helpers@0.5.15))(rollup@4.34.8):
+  unplugin-swc@1.5.1(@swc/core@1.10.4(@swc/helpers@0.5.15))(rollup@4.36.0):
     dependencies:
-      '@rollup/pluginutils': 5.1.4(rollup@4.34.8)
+      '@rollup/pluginutils': 5.1.4(rollup@4.36.0)
       '@swc/core': 1.10.4(@swc/helpers@0.5.15)
       load-tsconfig: 0.2.5
       unplugin: 1.16.1
@@ -10591,18 +10617,13 @@ snapshots:
       acorn: 8.14.0
       webpack-virtual-modules: 0.6.2
 
-  untyped@1.5.2:
+  untyped@2.0.0:
     dependencies:
-      '@babel/core': 7.26.9
-      '@babel/standalone': 7.26.9
-      '@babel/types': 7.26.9
       citty: 0.1.6
       defu: 6.1.4
       jiti: 2.4.2
       knitwork: 1.2.0
       scule: 1.3.0
-    transitivePeerDependencies:
-      - supports-color
 
   update-browserslist-db@1.1.2(browserslist@4.24.4):
     dependencies:
