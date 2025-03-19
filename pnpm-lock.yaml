@@ -215,7 +215,7 @@ importers:
         version: 12.1.3
       type-fest:
         specifier: ^4.31.0
-        version: 4.35.0
+        version: 4.37.0
     devDependencies:
       '@types/node':
         specifier: ^22.13.5
@@ -347,7 +347,7 @@ importers:
         version: link:../openapi-typescript-helpers
       type-fest:
         specifier: ^4.33.0
-        version: 4.35.0
+        version: 4.37.0
     devDependencies:
       '@arethetypeswrong/cli':
         specifier: ^0.17.0
@@ -4992,10 +4992,6 @@ packages:
     resolution: {integrity: sha512-yGSza74xk0UG8k+pLh5oeoYirvIiWo5t0/o3zHHAO2tRDiZcxWP7fywNlXhqb6/r6sWvwi+RsyQMWhVLe4BVuA==}
     engines: {node: '>=10'}
 
-  type-fest@4.35.0:
-    resolution: {integrity: sha512-2/AwEFQDFEy30iOLjrvHDIH7e4HEWH+f1Yl1bI5XMqzuoCUqwYCdxachgsgv0og/JdVZUhbfjcJAoHj5L1753A==}
-    engines: {node: '>=16'}
-
   type-fest@4.37.0:
     resolution: {integrity: sha512-S/5/0kFftkq27FPNye0XM1e2NsnoD/3FS+pBmbjmmtLT6I+i344KoOf7pvXreaFsDamWeaJX55nczA1m5PsBDg==}
     engines: {node: '>=16'}
@@ -9226,7 +9222,7 @@ snapshots:
     dependencies:
       '@babel/code-frame': 7.26.2
       index-to-position: 0.1.2
-      type-fest: 4.35.0
+      type-fest: 4.37.0
 
   parse-ms@4.0.0: {}
 
@@ -10221,8 +10217,6 @@ snapshots:
   type-fest@0.21.3: {}
 
   type-fest@1.4.0: {}
-
-  type-fest@4.35.0: {}
 
   type-fest@4.37.0: {}
 
