@@ -25,7 +25,7 @@
     "@playwright/test": "^1.50.1",
     "@size-limit/preset-small-lib": "^11.2.0",
     "@types/node": "^22.13.5",
-    "del-cli": "^5.1.0",
+    "del-cli": "^6.0.0",
     "prettier": "^3.5.2",
     "size-limit": "^11.2.0",
     "turbo": "^2.4.2",
