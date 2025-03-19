@@ -336,6 +336,52 @@ describe("types", () => {
       });
     });
   });
+
+  describe("custom error types", () => {
+    const uniqueKey = "<unique-key>";
+    type Key = typeof uniqueKey;
+    const useQuery = createQueryHook<paths, `${string}/${string}`, Key, Error>(client, uniqueKey);
+    const useImmutable = createImmutableHook<paths, `${string}/${string}`, Key, Error>(client, uniqueKey);
+    const useInfinite = createInfiniteHook<paths, `${string}/${string}`, Key, Error>(client, uniqueKey);
+
+    describe("useQuery", () => {
+      it("returns correct error", () => {
+        const { error } = useQuery("/pet/{petId}", {
+          params: {
+            path: {
+              petId: 5,
+            },
+          },
+        });
+
+        expectTypeOf(error).toEqualTypeOf<PetInvalid | Error | undefined>();
+      });
+    });
+
+    describe("useImmutable", () => {
+      it("returns correct error", () => {
+        const { error } = useImmutable("/pet/{petId}", {
+          params: {
+            path: {
+              petId: 5,
+            },
+          },
+        });
+
+        expectTypeOf(error).toEqualTypeOf<PetInvalid | Error | undefined>();
+      });
+    });
+
+    describe("useInfinite", () => {
+      it("returns correct error", () => {
+        const { error } = useInfinite("/pet/findByStatus", (_index, _prev) => ({
+          params: { query: { status: "available" } },
+        }));
+
+        expectTypeOf(error).toEqualTypeOf<PetStatusInvalid | Error | undefined>();
+      });
+    });
+  });
 });
 
 describe("TypesForRequest", () => {
