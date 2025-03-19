@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.6.2
+
+### Patch Changes
+
+- [#2199](https://github.com/openapi-ts/openapi-typescript/pull/2199) [`fc3f7f8`](https://github.com/openapi-ts/openapi-typescript/commit/fc3f7f8b9cf52f0d4daf31ed4579d588c5b0f3e6) Thanks [@StefanTerdell](https://github.com/StefanTerdell)! - Fix boolean object property schemas
+
 ## 7.6.1
 
 ### Patch Changes
