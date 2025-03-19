@@ -3,7 +3,6 @@
 dist
 node_modules
 coverage
-mise.toml
 
 packages/openapi-typescript/test/fixtures/cli-outputs/out
 

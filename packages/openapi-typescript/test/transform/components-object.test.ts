@@ -820,9 +820,9 @@ export type Error = components['schemas']['Error'];
     headers: never;
     pathItems: never;
 }
-export type SchemaItem = components['schemas']['Item'];
-export type SchemaDocument = components['schemas']['Document'];
-export type SchemaError = components['schemas']['Error'];
+export type Item = components['schemas']['Item'];
+export type Document = components['schemas']['Document'];
+export type Error = components['schemas']['Error'];
 export type SchemaMyEnum = components['schemas']['MyEnum'];
 `,
         options: { ...DEFAULT_OPTIONS, rootTypes: true, rootTypesNoSchemaPrefix: true, enum: true },

@@ -80,9 +80,12 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
           }
 
           const ref = ts.factory.createTypeReferenceNode(`components['${key}']['${name}']`);
-          // We skip schema prefix replacement when --enum flag is present
-          if (ctx.rootTypesNoSchemaPrefix && key === "schemas" && !ctx.enum) {
-            aliasName = aliasName.replace(componentKey, "");
+          if (ctx.rootTypesNoSchemaPrefix && key === "schemas") {
+            // Skipping --root-types generation only for enums if --enum is set
+            // while still applying --root-types-no-schema-prefix to other types.
+            if (!(ctx.enum && item.enum !== undefined)) {
+              aliasName = aliasName.replace(componentKey, "");
+            }
           }
           const typeAlias = ts.factory.createTypeAliasDeclaration(
             /* modifiers      */ tsModifiers({ export: true }),
