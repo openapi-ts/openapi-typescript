@@ -22,8 +22,9 @@ import type {
   MaybeOptionalInit,
   Client as FetchClient,
   DefaultParamsOption,
+  ParamsOption,
 } from "openapi-fetch";
-import type { HttpMethod, MediaType, PathsWithMethod, RequiredKeysOf } from "openapi-typescript-helpers";
+import type { FilterKeys, HttpMethod, MediaType, PathsWithMethod, RequiredKeysOf } from "openapi-typescript-helpers";
 
 // Helper type to dynamically infer the type from the `select` property
 type InferSelectReturnType<TData, TSelect> = TSelect extends (data: TData) => infer R ? R : TData;
@@ -106,6 +107,8 @@ export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMetho
   Path extends PathsWithMethod<Paths, Method>,
   Init extends MaybeOptionalInit<Paths[Path], Method>,
   Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>,
+  Query extends ParamsOption<FilterKeys<Paths[Path], Method>>["params"] extends { query: infer Query } ? Query : never,
+  PageParamName extends keyof Query,
   Options extends Omit<
     UseInfiniteQueryOptions<
       Response["data"],
@@ -113,17 +116,17 @@ export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMetho
       InfiniteData<Response["data"]>,
       Response["data"],
       QueryKey<Paths, Method, Path>,
-      unknown
+      NonNullable<Query[PageParamName]>
     >,
     "queryKey" | "queryFn"
-  > & {
-    pageParamName?: string;
-  },
+  >,
 >(
   method: Method,
   url: Path,
   init: InitWithUnknowns<Init>,
-  options: Options,
+  options: Options & {
+    pageParamName: PageParamName;
+  },
   queryClient?: QueryClient,
 ) => UseInfiniteQueryResult<InfiniteData<Response["data"]>, Response["error"]>;
 
@@ -216,12 +219,12 @@ export default function createClient<Paths extends {}, Media extends MediaType =
     useSuspenseQuery: (method, path, ...[init, options, queryClient]) =>
       useSuspenseQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
     useInfiniteQuery: (method, path, init, options, queryClient) => {
-      const { pageParamName = "cursor", ...restOptions } = options;
+      const { pageParamName, ...restOptions } = options;
       const { queryKey } = queryOptions(method, path, init);
       return useInfiniteQuery(
         {
           queryKey,
-          queryFn: async ({ queryKey: [method, path, init], pageParam = 0, signal }) => {
+          queryFn: async ({ queryKey: [method, path, init], pageParam, signal }) => {
             const mth = method.toUpperCase() as Uppercase<typeof method>;
             const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
             const mergedInit = {
