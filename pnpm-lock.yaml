@@ -98,7 +98,7 @@ importers:
         version: 2.1.0
       superagent:
         specifier: ^10.1.1
-        version: 10.1.1
+        version: 10.2.0
       typescript:
         specifier: ^5.7.3
         version: 5.7.3
@@ -4776,8 +4776,8 @@ packages:
     peerDependencies:
       postcss: ^8.4.31
 
-  superagent@10.1.1:
-    resolution: {integrity: sha512-9pIwrHrOj3uAnqg9gDlW7EA2xv+N5au/dSM0kM22HTqmUu8jBxNT+8uA7tA3UoCnmiqzpSbu8rasIUZvbyamMQ==}
+  superagent@10.2.0:
+    resolution: {integrity: sha512-IKeoGox6oG9zyDeizaezkJ2/aK0wc5la9st7WsAKyrAkfJ56W3whVbVtF68k6wuc87/y9T85NyON5FLz7Mrzzw==}
     engines: {node: '>=14.18.0'}
 
   superjson@2.2.2:
@@ -10007,7 +10007,7 @@ snapshots:
       postcss: 8.5.3
       postcss-selector-parser: 6.1.2
 
-  superagent@10.1.1:
+  superagent@10.2.0:
     dependencies:
       component-emitter: 1.3.1
       cookiejar: 2.1.4
