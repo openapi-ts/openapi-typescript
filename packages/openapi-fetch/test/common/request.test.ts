@@ -265,6 +265,19 @@ describe("request", () => {
       expect(bodyUsed).toBe(true);
       expect(bodyText).toBe("0");
     });
+
+    test("`application/x-www-form-urlencoded` body", async () => {
+      const { bodyUsed, bodyText } = await fireRequestAndGetBodyInformation({
+        method: "POST",
+        fetchOptions: {
+          body: { key1: "value1", key2: "value2" },
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        },
+      });
+
+      expect(bodyUsed).toBe(true);
+      expect(bodyText).toBe("key1=value1&key2=value2");
+    });
   });
 
   test("cookie header is preserved", async () => {
