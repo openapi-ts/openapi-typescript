@@ -11,7 +11,7 @@
   "devDependencies": {
     "@shikijs/vitepress-twoslash": "^1.29.2",
     "openapi-metadata": "workspace:*",
-    "vite": "^6.1.1",
+    "vite": "^6.2.3",
     "vitepress": "1.6.3"
   }
 }
