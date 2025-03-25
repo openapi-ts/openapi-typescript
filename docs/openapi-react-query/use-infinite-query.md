@@ -105,6 +105,9 @@ const query = $api.useInfiniteQuery(
   - Only required if the OpenApi schema requires parameters.
   - The options `params` are used as key. See [Query Keys](https://tanstack.com/query/latest/docs/framework/react/guides/query-keys) for more information.
 - `infiniteQueryOptions`
+  - `pageParamName`
+    - The name of the page parameter to use in the query. This will override any value provided in `options.query`.
+    - Default: `"cursor"`.
   - The original `useInfiniteQuery` options.
   - [See more information](https://tanstack.com/query/latest/docs/framework/react/reference/useInfiniteQuery)
 - `queryClient`
