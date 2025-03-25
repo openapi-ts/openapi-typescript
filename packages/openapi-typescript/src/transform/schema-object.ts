@@ -148,7 +148,7 @@ export function transformSchemaObjectWithComposition(
 
       const enumValuesArray = tsArrayLiteralExpression(
         enumValuesVariableName,
-        oapiRef(options.path ?? ""),
+        oapiRef(options.path ?? "", true),
         schemaObject.enum as (string | number)[],
         {
           export: true,
