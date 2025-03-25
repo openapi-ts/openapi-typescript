@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.13.6
+
+### Patch Changes
+
+- [#2205](https://github.com/openapi-ts/openapi-typescript/pull/2205) [`4966560`](https://github.com/openapi-ts/openapi-typescript/commit/4966560790ad49fabb06d718115a82a779a5b74a) Thanks [@live-small](https://github.com/live-small)! - Fix HEAD method requests to prevent body parsing regardless of Content-Length header value
+
 ## 0.13.5
 
 ### Patch Changes
