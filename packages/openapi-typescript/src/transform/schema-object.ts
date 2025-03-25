@@ -130,10 +130,7 @@ export function transformSchemaObjectWithComposition(
       return hasNull ? tsUnion([ref, NULL]) : ref;
     }
     const enumType = schemaObject.enum.map(tsLiteral);
-    if (
-      ((Array.isArray(schemaObject.type) && schemaObject.type.includes("null")) || schemaObject.nullable) &&
-      !schemaObject.default
-    ) {
+    if ((Array.isArray(schemaObject.type) && schemaObject.type.includes("null")) || schemaObject.nullable) {
       enumType.push(NULL);
     }
 
@@ -266,7 +263,7 @@ export function transformSchemaObjectWithComposition(
     }
   }
 
-  if (finalType !== UNKNOWN && schemaObject.nullable && !schemaObject.default) {
+  if (finalType !== UNKNOWN && schemaObject.nullable) {
     finalType = tsNullable([finalType]);
   }
 
@@ -405,9 +402,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
       } else {
         for (const t of schemaObject.type) {
           if (t === "null" || t === null) {
-            if (!schemaObject.default) {
-              uniqueTypes.push(NULL);
-            }
+            uniqueTypes.push(NULL);
           } else {
             uniqueTypes.push(transformSchemaObject({ ...schemaObject, type: t } as SchemaObject, options));
           }
