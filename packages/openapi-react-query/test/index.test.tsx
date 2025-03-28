@@ -325,7 +325,7 @@ describe("client", () => {
         path: "/string-array",
         status: 200,
         headers: {
-          "Content-Length": "10"
+          "Content-Length": "10",
         },
         body: undefined,
       });
@@ -350,7 +350,7 @@ describe("client", () => {
         path: "/string-array",
         status: 200,
         headers: {
-          "Content-Length": "0"
+          "Content-Length": "0",
         },
         body: undefined,
       });
