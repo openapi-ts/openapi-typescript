@@ -8,7 +8,7 @@ This hook is a typed wrapper over [`useSWRInfinite`][swr-infinite].
 
 ```ts
 import createClient from "openapi-fetch";
-import { createQueryHook } from "swr-openapi";
+import { createInfiniteHook } from "swr-openapi";
 import type { paths } from "./my-schema";
 
 const client = createClient<paths>(/* ... */);
