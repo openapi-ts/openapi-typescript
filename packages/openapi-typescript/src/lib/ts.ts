@@ -508,7 +508,7 @@ export function tsReadonlyArray(type: ts.TypeNode, injectFooter?: ts.Node[]): ts
     !injectFooter.some((node) => ts.isTypeAliasDeclaration(node) && node?.name?.escapedText === "ReadonlyArray")
   ) {
     const helper = stringToAST(
-      "type ReadonlyArray<T> = [Exclude<T, undefined>] extends [any[]] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;",
+      "type ReadonlyArray<T> = [Exclude<T, undefined>] extends [unknown[]] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;",
     )[0] as any;
     injectFooter.push(helper);
   }
