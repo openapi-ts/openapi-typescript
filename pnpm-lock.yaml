@@ -82,8 +82,8 @@ importers:
         specifier: ^4.21.2
         version: 4.21.2
       feature-fetch:
-        specifier: ^0.0.39
-        version: 0.0.39(graphql@16.10.0)
+        specifier: ^0.0.40
+        version: 0.0.40(graphql@16.10.0)
       node-forge:
         specifier: ^1.3.1
         version: 1.3.1
@@ -650,11 +650,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@blgc/types@0.0.16':
-    resolution: {integrity: sha512-QIgcyFr2DCXTPoknX1d27ynul1W43oDZCJTWA9fW9lc6fBbHICIkjVsZcdYb1hpp/YI6blrq+/ElNTo/h6kB0g==}
+  '@blgc/types@0.0.17':
+    resolution: {integrity: sha512-tW01/hS0OCpfMBJZ7c5KnO1UnWk6sr1o1dFWnpRMTeTncJy5gz7pukkmBqjQ4ySB3VLsyh1siOwUZ4vZspvY4Q==}
 
-  '@blgc/utils@0.0.39':
-    resolution: {integrity: sha512-ppGIo3eHMFPA4ccwqixwqwBk2GJfw7atCFykGbMuXOMn7cPSq4wH3Z/yg4rXtnhoVgI68+8rq9WIWRxi6G/7cA==}
+  '@blgc/utils@0.0.47':
+    resolution: {integrity: sha512-m7WTElZVAsBVrwrWN2b40sUsw70MV0c58p5QF+TfbVf2MxK1FO5x2u67saOaumkUFCm8TUTiwYVBnwtqQaR8MQ==}
 
   '@braidai/lang@1.1.0':
     resolution: {integrity: sha512-xyJYkiyNQtTyCLeHxZmOs7rnB94D+N1IjKNArQIh8+8lTBOY7TFgwEV+Ow5a1uaBi5j2w9fLbWcJFTWLDItl5g==}
@@ -3029,8 +3029,8 @@ packages:
       picomatch:
         optional: true
 
-  feature-fetch@0.0.39:
-    resolution: {integrity: sha512-+MY6RMLXNRE5LozvnZ5nszEahS6U6WcGacZ5SRdb+Zd4NyKBG1Ck7apRfGhsuMVHUt6+X5WKfs+Njq7qSplmig==}
+  feature-fetch@0.0.40:
+    resolution: {integrity: sha512-lEQxVQuUZEChoGl4Hcw6h3vBN6Xm6gEa5bFV1V6UZF1qhCOIaVWBDP+YbK1vDwmMGg+d5dbwzLuY9iw2sFBoZw==}
 
   fflate@0.8.2:
     resolution: {integrity: sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A==}
@@ -5736,9 +5736,9 @@ snapshots:
   '@biomejs/cli-win32-x64@1.9.4':
     optional: true
 
-  '@blgc/types@0.0.16': {}
+  '@blgc/types@0.0.17': {}
 
-  '@blgc/utils@0.0.39': {}
+  '@blgc/utils@0.0.47': {}
 
   '@braidai/lang@1.1.0': {}
 
@@ -8062,11 +8062,11 @@ snapshots:
     optionalDependencies:
       picomatch: 4.0.2
 
-  feature-fetch@0.0.39(graphql@16.10.0):
+  feature-fetch@0.0.40(graphql@16.10.0):
     dependencies:
       '@0no-co/graphql.web': 1.1.2(graphql@16.10.0)
-      '@blgc/types': 0.0.16
-      '@blgc/utils': 0.0.39
+      '@blgc/types': 0.0.17
+      '@blgc/utils': 0.0.47
     transitivePeerDependencies:
       - graphql
 
