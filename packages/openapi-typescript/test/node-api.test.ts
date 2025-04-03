@@ -833,7 +833,7 @@ export type $defs = Record<string, never>;
 type ReadonlyArray<T> = [
     Exclude<T, undefined>
 ] extends [
-    any[]
+    unknown[]
 ] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
 export const pathsUrlGetParametersQueryStatusValues: ReadonlyArray<paths["/url"]["get"]["parameters"]["query"]["status"]> = ["active", "inactive"];
 export const statusValues: ReadonlyArray<components["schemas"]["Status"]> = ["active", "inactive"];
