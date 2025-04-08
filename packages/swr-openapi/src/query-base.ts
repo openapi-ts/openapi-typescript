@@ -4,6 +4,8 @@ import type { Fetcher, SWRHook } from "swr";
 import type { TypesForGetRequest } from "./types.js";
 import { useCallback, useDebugValue, useMemo } from "react";
 
+export const RESPONSE = Symbol.for('response');
+
 /**
  * @private
  */
@@ -35,7 +37,17 @@ export function configureBaseQueryHook(useHook: SWRHook) {
           // @ts-expect-error TODO: Improve internal init types
           const res = await client.GET(path, init);
           if (res.error) {
+            Object.defineProperty(res.error, RESPONSE, {
+              value: res.response,
+              enumerable: false,
+            });
             throw res.error;
+          }
+          if (res.data) {
+            Object.defineProperty(res.data, RESPONSE, {
+              value: res.response,
+              enumerable: false,
+            });
           }
           return res.data as Data;
         },
