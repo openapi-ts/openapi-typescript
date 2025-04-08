@@ -4,7 +4,7 @@ import type { Fetcher, SWRHook } from "swr";
 import type { TypesForGetRequest } from "./types.js";
 import { useCallback, useDebugValue, useMemo } from "react";
 
-export const RESPONSE = Symbol.for('response');
+export const RESPONSE = Symbol.for("response");
 
 /**
  * @private
@@ -43,7 +43,7 @@ export function configureBaseQueryHook(useHook: SWRHook) {
             });
             throw res.error;
           }
-          if (res.data) {
+          if (res.data && typeof res.data === "object") {
             Object.defineProperty(res.data, RESPONSE, {
               value: res.response,
               enumerable: false,
