@@ -17215,6 +17215,10 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "id": "example_error",
+                 *       "message": "some error message"
+                 *     } */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -17241,6 +17245,10 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "id": "unauthorized",
+                 *       "message": "Unable to authenticate you."
+                 *     } */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -17253,6 +17261,10 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "id": "too_many_requests",
+                 *       "message": "API Rate limit exceeded."
+                 *     } */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -17265,6 +17277,10 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "id": "server_error",
+                 *       "message": "Unexpected server-side error"
+                 *     } */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -17355,6 +17371,10 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "id": "not_found",
+                 *       "message": "The resource you requested could not be found."
+                 *     } */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -17453,6 +17473,9 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "id": "b7d64052-3706-4cb7-b21a-c5a2f44e63b3"
+                 *     } */
                 "application/json": components["schemas"]["apps_delete_app_response"];
             };
         };
@@ -17722,6 +17745,12 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "month_to_date_balance": "23.44",
+                 *       "account_balance": "12.23",
+                 *       "month_to_date_usage": "11.21",
+                 *       "generated_at": "2019-07-09T15:01:12Z"
+                 *     } */
                 "application/json": components["schemas"]["balance"];
             };
         };
@@ -17779,6 +17808,10 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example product,group_description,description,hours,start,end,USD,project_name,category
+                 *     Floating IPs,,Unused Floating IP - 1.1.1.1,100,2020-07-01 00:00:00 +0000,2020-07-22 18:14:39 +0000,$3.11,,iaas
+                 *     Taxes,,STATE SALES TAX (6.25%),,2020-07-01 00:00:00 +0000,2020-07-31 23:59:59 +0000,$0.16,,iaas
+                 *      */
                 "text/csv": string;
             };
         };
@@ -17804,6 +17837,52 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "invoice_uuid": "22737513-0ea7-4206-8ceb-98a575af7681",
+                 *       "invoice_id": "123456789",
+                 *       "billing_period": "2020-01",
+                 *       "amount": "27.13",
+                 *       "user_name": "Sammy Shark",
+                 *       "user_billing_address": {
+                 *         "address_line1": "101 Shark Row",
+                 *         "city": "Atlantis",
+                 *         "region": "OC",
+                 *         "postal_code": "12345",
+                 *         "country_iso2_code": "US",
+                 *         "created_at": "2019-09-03T16:34:46.000+00:00",
+                 *         "updated_at": "2019-09-03T16:34:46.000+00:00"
+                 *       },
+                 *       "user_company": "DigitalOcean",
+                 *       "user_email": "sammy@digitalocean.com",
+                 *       "product_charges": {
+                 *         "name": "Product usage charges",
+                 *         "amount": "12.34",
+                 *         "items": [
+                 *           {
+                 *             "amount": "10.00",
+                 *             "name": "Spaces Subscription",
+                 *             "count": "1"
+                 *           },
+                 *           {
+                 *             "amount": "2.34",
+                 *             "name": "Database Clusters",
+                 *             "count": "1"
+                 *           }
+                 *         ]
+                 *       },
+                 *       "overages": {
+                 *         "name": "Overages",
+                 *         "amount": "3.45"
+                 *       },
+                 *       "taxes": {
+                 *         "name": "Taxes",
+                 *         "amount": "4.56"
+                 *       },
+                 *       "credits_and_adjustments": {
+                 *         "name": "Credits & adjustments",
+                 *         "amount": "6.78"
+                 *       }
+                 *     } */
                 "application/json": components["schemas"]["invoice_summary"];
             };
         };
@@ -17816,6 +17895,617 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "options": {
+                 *         "kafka": {
+                 *           "regions": [
+                 *             "ams3",
+                 *             "blr1",
+                 *             "fra1",
+                 *             "lon1",
+                 *             "nyc1",
+                 *             "nyc3",
+                 *             "sfo2",
+                 *             "sfo3",
+                 *             "sgp1",
+                 *             "syd1",
+                 *             "tor1"
+                 *           ],
+                 *           "versions": [
+                 *             "3.6",
+                 *             "3.7"
+                 *           ],
+                 *           "layouts": [
+                 *             {
+                 *               "num_nodes": 3,
+                 *               "sizes": [
+                 *                 "gd-2vcpu-8gb",
+                 *                 "gd-4vcpu-16gb",
+                 *                 "db-s-2vcpu-4gb",
+                 *                 "db-s-2vcpu-2gb"
+                 *               ]
+                 *             },
+                 *             {
+                 *               "num_nodes": 6,
+                 *               "sizes": [
+                 *                 "gd-2vcpu-8gb",
+                 *                 "gd-4vcpu-16gb"
+                 *               ]
+                 *             },
+                 *             {
+                 *               "num_nodes": 9,
+                 *               "sizes": [
+                 *                 "gd-2vcpu-8gb",
+                 *                 "gd-4vcpu-16gb"
+                 *               ]
+                 *             },
+                 *             {
+                 *               "num_nodes": 15,
+                 *               "sizes": [
+                 *                 "gd-2vcpu-8gb",
+                 *                 "gd-4vcpu-16gb"
+                 *               ]
+                 *             }
+                 *           ]
+                 *         },
+                 *         "mongodb": {
+                 *           "regions": [
+                 *             "ams3",
+                 *             "blr1",
+                 *             "fra1",
+                 *             "lon1",
+                 *             "nyc1",
+                 *             "nyc3",
+                 *             "sfo2",
+                 *             "sfo3",
+                 *             "sgp1",
+                 *             "syd1",
+                 *             "tor1"
+                 *           ],
+                 *           "versions": [
+                 *             "5.0",
+                 *             "6.0",
+                 *             "7.0"
+                 *           ],
+                 *           "layouts": [
+                 *             {
+                 *               "num_nodes": 1,
+                 *               "sizes": [
+                 *                 "db-s-1vcpu-1gb",
+                 *                 "db-s-1vcpu-2gb",
+                 *                 "db-s-2vcpu-4gb",
+                 *                 "db-s-4vcpu-8gb",
+                 *                 "db-s-6vcpu-16gb",
+                 *                 "db-s-8vcpu-32gb",
+                 *                 "db-s-16vcpu-64gb",
+                 *                 "gd-2vcpu-8gb",
+                 *                 "gd-4vcpu-16gb",
+                 *                 "gd-8vcpu-32gb",
+                 *                 "gd-16vcpu-64gb",
+                 *                 "gd-32vcpu-128gb",
+                 *                 "gd-40vcpu-160gb",
+                 *                 "so1_5-2vcpu-16gb",
+                 *                 "so1_5-4vcpu-32gb",
+                 *                 "so1_5-8vcpu-64gb",
+                 *                 "so1_5-16vcpu-128gb",
+                 *                 "so1_5-24vcpu-192gb",
+                 *                 "so1_5-32vcpu-256gb"
+                 *               ]
+                 *             },
+                 *             {
+                 *               "num_nodes": 3,
+                 *               "sizes": [
+                 *                 "db-s-1vcpu-1gb",
+                 *                 "db-s-1vcpu-2gb",
+                 *                 "db-s-2vcpu-4gb",
+                 *                 "db-s-4vcpu-8gb",
+                 *                 "db-s-6vcpu-16gb",
+                 *                 "db-s-8vcpu-32gb",
+                 *                 "db-s-16vcpu-64gb",
+                 *                 "gd-2vcpu-8gb",
+                 *                 "gd-4vcpu-16gb",
+                 *                 "gd-8vcpu-32gb",
+                 *                 "gd-16vcpu-64gb",
+                 *                 "gd-32vcpu-128gb",
+                 *                 "gd-40vcpu-160gb",
+                 *                 "so1_5-2vcpu-16gb",
+                 *                 "so1_5-4vcpu-32gb",
+                 *                 "so1_5-8vcpu-64gb",
+                 *                 "so1_5-16vcpu-128gb",
+                 *                 "so1_5-24vcpu-192gb",
+                 *                 "so1_5-32vcpu-256gb"
+                 *               ]
+                 *             }
+                 *           ]
+                 *         },
+                 *         "mysql": {
+                 *           "regions": [
+                 *             "ams3",
+                 *             "blr1",
+                 *             "fra1",
+                 *             "lon1",
+                 *             "nyc1",
+                 *             "nyc3",
+                 *             "sfo2",
+                 *             "sfo3",
+                 *             "sgp1",
+                 *             "syd1",
+                 *             "tor1"
+                 *           ],
+                 *           "versions": [
+                 *             "8"
+                 *           ],
+                 *           "layouts": [
+                 *             {
+                 *               "num_nodes": 1,
+                 *               "sizes": [
+                 *                 "db-s-1vcpu-1gb",
+                 *                 "db-s-1vcpu-2gb",
+                 *                 "db-s-2vcpu-4gb",
+                 *                 "db-s-4vcpu-8gb",
+                 *                 "db-s-6vcpu-16gb",
+                 *                 "gd-2vcpu-8gb",
+                 *                 "gd-4vcpu-16gb",
+                 *                 "gd-8vcpu-32gb",
+                 *                 "gd-16vcpu-64gb",
+                 *                 "gd-32vcpu-128gb",
+                 *                 "gd-40vcpu-160gb",
+                 *                 "so1_5-2vcpu-16gb",
+                 *                 "so1_5-4vcpu-32gb",
+                 *                 "so1_5-8vcpu-64gb",
+                 *                 "so1_5-16vcpu-128gb",
+                 *                 "so1_5-24vcpu-192gb",
+                 *                 "so1_5-32vcpu-256gb",
+                 *                 "db-intel-1vcpu-1gb",
+                 *                 "db-amd-1vcpu-1gb",
+                 *                 "db-intel-1vcpu-2gb",
+                 *                 "db-amd-1vcpu-2gb",
+                 *                 "db-amd-2vcpu-4gb",
+                 *                 "db-intel-2vcpu-4gb",
+                 *                 "db-amd-2vcpu-8gb",
+                 *                 "db-intel-2vcpu-8gb",
+                 *                 "db-intel-4vcpu-8gb",
+                 *                 "db-amd-4vcpu-8gb",
+                 *                 "db-amd-4vcpu-16gb",
+                 *                 "db-intel-4vcpu-16gb",
+                 *                 "db-intel-8vcpu-32gb",
+                 *                 "db-amd-8vcpu-32gb",
+                 *                 "db-intel-16vcpu-64gb",
+                 *                 "db-amd-16vcpu-64gb"
+                 *               ]
+                 *             },
+                 *             {
+                 *               "num_nodes": 2,
+                 *               "sizes": [
+                 *                 "db-s-1vcpu-2gb",
+                 *                 "db-s-2vcpu-4gb",
+                 *                 "db-s-4vcpu-8gb",
+                 *                 "db-s-6vcpu-16gb",
+                 *                 "gd-2vcpu-8gb",
+                 *                 "gd-4vcpu-16gb",
+                 *                 "gd-8vcpu-32gb",
+                 *                 "gd-16vcpu-64gb",
+                 *                 "gd-32vcpu-128gb",
+                 *                 "gd-40vcpu-160gb",
+                 *                 "so1_5-2vcpu-16gb",
+                 *                 "so1_5-4vcpu-32gb",
+                 *                 "so1_5-8vcpu-64gb",
+                 *                 "so1_5-16vcpu-128gb",
+                 *                 "so1_5-24vcpu-192gb",
+                 *                 "so1_5-32vcpu-256gb",
+                 *                 "db-intel-1vcpu-2gb",
+                 *                 "db-amd-1vcpu-2gb",
+                 *                 "db-amd-2vcpu-4gb",
+                 *                 "db-intel-2vcpu-4gb",
+                 *                 "db-intel-2vcpu-8gb",
+                 *                 "db-amd-2vcpu-8gb",
+                 *                 "db-intel-4vcpu-8gb",
+                 *                 "db-amd-4vcpu-8gb",
+                 *                 "db-intel-4vcpu-16gb",
+                 *                 "db-amd-4vcpu-16gb",
+                 *                 "db-amd-8vcpu-32gb",
+                 *                 "db-intel-8vcpu-32gb",
+                 *                 "db-amd-16vcpu-64gb",
+                 *                 "db-intel-16vcpu-64gb"
+                 *               ]
+                 *             },
+                 *             {
+                 *               "num_nodes": 3,
+                 *               "sizes": [
+                 *                 "db-s-1vcpu-2gb",
+                 *                 "db-s-2vcpu-4gb",
+                 *                 "db-s-4vcpu-8gb",
+                 *                 "db-s-6vcpu-16gb",
+                 *                 "gd-2vcpu-8gb",
+                 *                 "gd-4vcpu-16gb",
+                 *                 "gd-8vcpu-32gb",
+                 *                 "gd-16vcpu-64gb",
+                 *                 "gd-32vcpu-128gb",
+                 *                 "gd-40vcpu-160gb",
+                 *                 "so1_5-2vcpu-16gb",
+                 *                 "so1_5-4vcpu-32gb",
+                 *                 "so1_5-8vcpu-64gb",
+                 *                 "so1_5-16vcpu-128gb",
+                 *                 "so1_5-24vcpu-192gb",
+                 *                 "so1_5-32vcpu-256gb",
+                 *                 "db-intel-1vcpu-2gb",
+                 *                 "db-amd-1vcpu-2gb",
+                 *                 "db-amd-2vcpu-4gb",
+                 *                 "db-intel-2vcpu-4gb",
+                 *                 "db-intel-2vcpu-8gb",
+                 *                 "db-amd-2vcpu-8gb",
+                 *                 "db-intel-4vcpu-8gb",
+                 *                 "db-amd-4vcpu-8gb",
+                 *                 "db-intel-4vcpu-16gb",
+                 *                 "db-amd-4vcpu-16gb",
+                 *                 "db-amd-8vcpu-32gb",
+                 *                 "db-intel-8vcpu-32gb",
+                 *                 "db-amd-16vcpu-64gb",
+                 *                 "db-intel-16vcpu-64gb"
+                 *               ]
+                 *             }
+                 *           ]
+                 *         },
+                 *         "opensearch": {
+                 *           "regions": [
+                 *             "ams3",
+                 *             "blr1",
+                 *             "fra1",
+                 *             "lon1",
+                 *             "nyc1",
+                 *             "nyc3",
+                 *             "sfo2",
+                 *             "sfo3",
+                 *             "sgp1",
+                 *             "syd1",
+                 *             "tor1"
+                 *           ],
+                 *           "versions": [
+                 *             "1",
+                 *             "2"
+                 *           ],
+                 *           "layouts": [
+                 *             {
+                 *               "num_nodes": 1,
+                 *               "sizes": [
+                 *                 "db-s-1vcpu-2gb",
+                 *                 "db-s-2vcpu-4gb",
+                 *                 "gd-2vcpu-8gb",
+                 *                 "m3-2vcpu-16gb",
+                 *                 "db-s-4vcpu-8gb",
+                 *                 "gd-4vcpu-16gb",
+                 *                 "m3-4vcpu-32gb",
+                 *                 "m3-8vcpu-64gb"
+                 *               ]
+                 *             },
+                 *             {
+                 *               "num_nodes": 3,
+                 *               "sizes": [
+                 *                 "db-s-2vcpu-4gb",
+                 *                 "gd-2vcpu-8gb",
+                 *                 "m3-2vcpu-16gb",
+                 *                 "db-s-4vcpu-8gb",
+                 *                 "gd-4vcpu-16gb",
+                 *                 "m3-4vcpu-32gb",
+                 *                 "m3-8vcpu-64gb"
+                 *               ]
+                 *             },
+                 *             {
+                 *               "num_nodes": 6,
+                 *               "sizes": [
+                 *                 "gd-2vcpu-8gb",
+                 *                 "m3-2vcpu-16gb",
+                 *                 "gd-4vcpu-16gb",
+                 *                 "m3-4vcpu-32gb",
+                 *                 "m3-8vcpu-64gb"
+                 *               ]
+                 *             },
+                 *             {
+                 *               "num_nodes": 9,
+                 *               "sizes": [
+                 *                 "gd-2vcpu-8gb",
+                 *                 "m3-2vcpu-16gb",
+                 *                 "gd-4vcpu-16gb",
+                 *                 "m3-4vcpu-32gb",
+                 *                 "m3-8vcpu-64gb"
+                 *               ]
+                 *             },
+                 *             {
+                 *               "num_nodes": 15,
+                 *               "sizes": [
+                 *                 "gd-2vcpu-8gb",
+                 *                 "m3-2vcpu-16gb",
+                 *                 "gd-4vcpu-16gb",
+                 *                 "m3-4vcpu-32gb",
+                 *                 "m3-8vcpu-64gb"
+                 *               ]
+                 *             }
+                 *           ]
+                 *         },
+                 *         "pg": {
+                 *           "regions": [
+                 *             "ams3",
+                 *             "blr1",
+                 *             "fra1",
+                 *             "lon1",
+                 *             "nyc1",
+                 *             "nyc3",
+                 *             "sfo2",
+                 *             "sfo3",
+                 *             "sgp1",
+                 *             "syd1",
+                 *             "tor1"
+                 *           ],
+                 *           "versions": [
+                 *             "13",
+                 *             "14",
+                 *             "15",
+                 *             "16"
+                 *           ],
+                 *           "layouts": [
+                 *             {
+                 *               "num_nodes": 1,
+                 *               "sizes": [
+                 *                 "db-s-1vcpu-1gb",
+                 *                 "db-s-1vcpu-2gb",
+                 *                 "db-s-2vcpu-4gb",
+                 *                 "db-s-4vcpu-8gb",
+                 *                 "db-s-6vcpu-16gb",
+                 *                 "gd-2vcpu-8gb",
+                 *                 "gd-4vcpu-16gb",
+                 *                 "gd-8vcpu-32gb",
+                 *                 "gd-16vcpu-64gb",
+                 *                 "gd-32vcpu-128gb",
+                 *                 "gd-40vcpu-160gb",
+                 *                 "so1_5-2vcpu-16gb",
+                 *                 "so1_5-4vcpu-32gb",
+                 *                 "so1_5-8vcpu-64gb",
+                 *                 "so1_5-16vcpu-128gb",
+                 *                 "so1_5-24vcpu-192gb",
+                 *                 "so1_5-32vcpu-256gb",
+                 *                 "db-intel-1vcpu-1gb",
+                 *                 "db-amd-1vcpu-1gb",
+                 *                 "db-intel-1vcpu-2gb",
+                 *                 "db-amd-1vcpu-2gb",
+                 *                 "db-amd-2vcpu-4gb",
+                 *                 "db-intel-2vcpu-4gb",
+                 *                 "db-amd-2vcpu-8gb",
+                 *                 "db-intel-2vcpu-8gb",
+                 *                 "db-intel-4vcpu-8gb",
+                 *                 "db-amd-4vcpu-8gb",
+                 *                 "db-amd-4vcpu-16gb",
+                 *                 "db-intel-4vcpu-16gb",
+                 *                 "db-intel-8vcpu-32gb",
+                 *                 "db-amd-8vcpu-32gb",
+                 *                 "db-intel-16vcpu-64gb",
+                 *                 "db-amd-16vcpu-64gb"
+                 *               ]
+                 *             },
+                 *             {
+                 *               "num_nodes": 2,
+                 *               "sizes": [
+                 *                 "db-s-1vcpu-2gb",
+                 *                 "db-s-2vcpu-4gb",
+                 *                 "db-s-4vcpu-8gb",
+                 *                 "db-s-6vcpu-16gb",
+                 *                 "gd-2vcpu-8gb",
+                 *                 "gd-4vcpu-16gb",
+                 *                 "gd-8vcpu-32gb",
+                 *                 "gd-16vcpu-64gb",
+                 *                 "gd-32vcpu-128gb",
+                 *                 "gd-40vcpu-160gb",
+                 *                 "so1_5-2vcpu-16gb",
+                 *                 "so1_5-4vcpu-32gb",
+                 *                 "so1_5-8vcpu-64gb",
+                 *                 "so1_5-16vcpu-128gb",
+                 *                 "so1_5-24vcpu-192gb",
+                 *                 "so1_5-32vcpu-256gb",
+                 *                 "db-intel-1vcpu-2gb",
+                 *                 "db-amd-1vcpu-2gb",
+                 *                 "db-amd-2vcpu-4gb",
+                 *                 "db-intel-2vcpu-4gb",
+                 *                 "db-intel-2vcpu-8gb",
+                 *                 "db-amd-2vcpu-8gb",
+                 *                 "db-intel-4vcpu-8gb",
+                 *                 "db-amd-4vcpu-8gb",
+                 *                 "db-intel-4vcpu-16gb",
+                 *                 "db-amd-4vcpu-16gb",
+                 *                 "db-amd-8vcpu-32gb",
+                 *                 "db-intel-8vcpu-32gb",
+                 *                 "db-amd-16vcpu-64gb",
+                 *                 "db-intel-16vcpu-64gb"
+                 *               ]
+                 *             },
+                 *             {
+                 *               "num_nodes": 3,
+                 *               "sizes": [
+                 *                 "db-s-1vcpu-2gb",
+                 *                 "db-s-2vcpu-4gb",
+                 *                 "db-s-4vcpu-8gb",
+                 *                 "db-s-6vcpu-16gb",
+                 *                 "gd-2vcpu-8gb",
+                 *                 "gd-4vcpu-16gb",
+                 *                 "gd-8vcpu-32gb",
+                 *                 "gd-16vcpu-64gb",
+                 *                 "gd-32vcpu-128gb",
+                 *                 "gd-40vcpu-160gb",
+                 *                 "so1_5-2vcpu-16gb",
+                 *                 "so1_5-4vcpu-32gb",
+                 *                 "so1_5-8vcpu-64gb",
+                 *                 "so1_5-16vcpu-128gb",
+                 *                 "so1_5-24vcpu-192gb",
+                 *                 "so1_5-32vcpu-256gb",
+                 *                 "db-intel-1vcpu-2gb",
+                 *                 "db-amd-1vcpu-2gb",
+                 *                 "db-amd-2vcpu-4gb",
+                 *                 "db-intel-2vcpu-4gb",
+                 *                 "db-intel-2vcpu-8gb",
+                 *                 "db-amd-2vcpu-8gb",
+                 *                 "db-intel-4vcpu-8gb",
+                 *                 "db-amd-4vcpu-8gb",
+                 *                 "db-intel-4vcpu-16gb",
+                 *                 "db-amd-4vcpu-16gb",
+                 *                 "db-amd-8vcpu-32gb",
+                 *                 "db-intel-8vcpu-32gb",
+                 *                 "db-amd-16vcpu-64gb",
+                 *                 "db-intel-16vcpu-64gb"
+                 *               ]
+                 *             }
+                 *           ]
+                 *         },
+                 *         "redis": {
+                 *           "regions": [
+                 *             "ams3",
+                 *             "blr1",
+                 *             "fra1",
+                 *             "lon1",
+                 *             "nyc1",
+                 *             "nyc3",
+                 *             "sfo2",
+                 *             "sfo3",
+                 *             "sgp1",
+                 *             "syd1",
+                 *             "tor1"
+                 *           ],
+                 *           "versions": [
+                 *             "7"
+                 *           ],
+                 *           "layouts": [
+                 *             {
+                 *               "num_nodes": 1,
+                 *               "sizes": [
+                 *                 "db-s-1vcpu-1gb",
+                 *                 "db-s-1vcpu-2gb",
+                 *                 "db-s-2vcpu-4gb",
+                 *                 "db-s-4vcpu-8gb",
+                 *                 "db-s-6vcpu-16gb",
+                 *                 "db-s-8vcpu-32gb",
+                 *                 "db-s-16vcpu-64gb",
+                 *                 "m-2vcpu-16gb",
+                 *                 "m-4vcpu-32gb",
+                 *                 "m-8vcpu-64gb",
+                 *                 "m-16vcpu-128gb",
+                 *                 "m-24vcpu-192gb",
+                 *                 "m-32vcpu-256gb"
+                 *               ]
+                 *             },
+                 *             {
+                 *               "num_nodes": 2,
+                 *               "sizes": [
+                 *                 "db-s-1vcpu-2gb",
+                 *                 "db-s-2vcpu-4gb",
+                 *                 "db-s-4vcpu-8gb",
+                 *                 "db-s-6vcpu-16gb",
+                 *                 "db-s-8vcpu-32gb",
+                 *                 "db-s-16vcpu-64gb",
+                 *                 "m-2vcpu-16gb",
+                 *                 "m-4vcpu-32gb",
+                 *                 "m-8vcpu-64gb",
+                 *                 "m-16vcpu-128gb",
+                 *                 "m-24vcpu-192gb",
+                 *                 "m-32vcpu-256gb"
+                 *               ]
+                 *             },
+                 *             {
+                 *               "num_nodes": 3,
+                 *               "sizes": [
+                 *                 "db-s-1vcpu-2gb",
+                 *                 "db-s-2vcpu-4gb",
+                 *                 "db-s-4vcpu-8gb",
+                 *                 "db-s-6vcpu-16gb",
+                 *                 "db-s-8vcpu-32gb",
+                 *                 "db-s-16vcpu-64gb",
+                 *                 "m-2vcpu-16gb",
+                 *                 "m-4vcpu-32gb",
+                 *                 "m-8vcpu-64gb",
+                 *                 "m-16vcpu-128gb",
+                 *                 "m-24vcpu-192gb",
+                 *                 "m-32vcpu-256gb"
+                 *               ]
+                 *             }
+                 *           ]
+                 *         }
+                 *       },
+                 *       "version_availability": {
+                 *         "kafka": [
+                 *           {
+                 *             "end_of_life": null,
+                 *             "end_of_availability": "2024-07-18T00:00:00Z",
+                 *             "version": "3.6"
+                 *           },
+                 *           {
+                 *             "end_of_life": null,
+                 *             "end_of_availability": "2025-01-17T00:00:00Z",
+                 *             "version": "3.7"
+                 *           }
+                 *         ],
+                 *         "mongodb": [
+                 *           {
+                 *             "end_of_life": "2024-10-01T07:00:00Z",
+                 *             "end_of_availability": null,
+                 *             "version": "5.0"
+                 *           },
+                 *           {
+                 *             "end_of_life": "2025-07-01T07:00:00Z",
+                 *             "end_of_availability": null,
+                 *             "version": "6.0"
+                 *           },
+                 *           {
+                 *             "end_of_life": "2026-08-01T07:00:00Z",
+                 *             "end_of_availability": null,
+                 *             "version": "7.0"
+                 *           }
+                 *         ],
+                 *         "mysql": [
+                 *           {
+                 *             "end_of_life": null,
+                 *             "end_of_availability": null,
+                 *             "version": "8"
+                 *           }
+                 *         ],
+                 *         "opensearch": [
+                 *           {
+                 *             "end_of_life": null,
+                 *             "end_of_availability": null,
+                 *             "version": "1"
+                 *           },
+                 *           {
+                 *             "end_of_life": null,
+                 *             "end_of_availability": null,
+                 *             "version": "2"
+                 *           }
+                 *         ],
+                 *         "pg": [
+                 *           {
+                 *             "end_of_life": "2025-11-13T00:00:00Z",
+                 *             "end_of_availability": "2025-05-13T00:00:00Z",
+                 *             "version": "13"
+                 *           },
+                 *           {
+                 *             "end_of_life": "2026-11-12T00:00:00Z",
+                 *             "end_of_availability": "2026-05-12T00:00:00Z",
+                 *             "version": "14"
+                 *           },
+                 *           {
+                 *             "end_of_life": "2027-11-11T00:00:00Z",
+                 *             "end_of_availability": "2027-05-12T00:00:00Z",
+                 *             "version": "15"
+                 *           },
+                 *           {
+                 *             "end_of_life": "2028-11-09T00:00:00Z",
+                 *             "end_of_availability": "2028-05-09T00:00:00Z",
+                 *             "version": "16"
+                 *           }
+                 *         ],
+                 *         "redis": [
+                 *           {
+                 *             "end_of_life": null,
+                 *             "end_of_availability": null,
+                 *             "version": "7"
+                 *           }
+                 *         ]
+                 *       }
+                 *     } */
                 "application/json": components["schemas"]["options"];
             };
         };
@@ -17828,6 +18518,65 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "databases": [
+                 *         {
+                 *           "id": "9cc10173-e9ea-4176-9dbc-a4cee4c4ff30",
+                 *           "name": "backend",
+                 *           "engine": "pg",
+                 *           "version": "10",
+                 *           "connection": {
+                 *             "uri": "postgres://doadmin:wv78n3zpz42xezdk@backend-do-user-19081923-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require",
+                 *             "database": "",
+                 *             "host": "backend-do-user-19081923-0.db.ondigitalocean.com",
+                 *             "port": 25060,
+                 *             "user": "doadmin",
+                 *             "password": "wv78n3zpz42xezdk",
+                 *             "ssl": true
+                 *           },
+                 *           "private_connection": {
+                 *             "uri": "postgres://doadmin:wv78n3zpz42xezdk@private-backend-do-user-19081923-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require",
+                 *             "database": "",
+                 *             "host": "private-backend-do-user-19081923-0.db.ondigitalocean.com",
+                 *             "port": 25060,
+                 *             "user": "doadmin",
+                 *             "password": "wv78n3zpz42xezdk",
+                 *             "ssl": true
+                 *           },
+                 *           "users": [
+                 *             {
+                 *               "name": "doadmin",
+                 *               "role": "primary",
+                 *               "password": "wv78n3zpz42xezdk"
+                 *             }
+                 *           ],
+                 *           "db_names": [
+                 *             "defaultdb"
+                 *           ],
+                 *           "num_nodes": 1,
+                 *           "region": "nyc3",
+                 *           "status": "online",
+                 *           "created_at": "2019-01-11T18:37:36Z",
+                 *           "maintenance_window": {
+                 *             "day": "saturday",
+                 *             "hour": "08:45:12",
+                 *             "pending": true,
+                 *             "description": [
+                 *               "Update TimescaleDB to version 1.2.1",
+                 *               "Upgrade to PostgreSQL 11.2 and 10.7 bugfix releases"
+                 *             ]
+                 *           },
+                 *           "size": "db-s-2vcpu-4gb",
+                 *           "tags": [
+                 *             "production"
+                 *           ],
+                 *           "private_network_uuid": "d455e75d-4858-4eec-8c95-da2f0a5f93a7",
+                 *           "version_end_of_life": "2023-11-09T00:00:00Z",
+                 *           "version_end_of_availability": "2023-05-09T00:00:00Z",
+                 *           "storage_size_mib": 61440
+                 *         }
+                 *       ]
+                 *     } */
                 "application/json": {
                     databases?: components["schemas"]["database_cluster"][];
                 };
@@ -17842,6 +18591,82 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "database": {
+                 *         "id": "9cc10173-e9ea-4176-9dbc-a4cee4c4ff30",
+                 *         "name": "backend",
+                 *         "engine": "pg",
+                 *         "version": "14",
+                 *         "semantic_version": "14.5",
+                 *         "connection": {
+                 *           "uri": "postgres://doadmin:wv78n3zpz42xezdk@backend-do-user-19081923-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require",
+                 *           "database": "",
+                 *           "host": "backend-do-user-19081923-0.db.ondigitalocean.com",
+                 *           "port": 25060,
+                 *           "user": "doadmin",
+                 *           "password": "wv78n3zpz42xezdk",
+                 *           "ssl": true
+                 *         },
+                 *         "private_connection": {
+                 *           "uri": "postgres://doadmin:wv78n3zpz42xezdk@private-backend-do-user-19081923-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require",
+                 *           "database": "",
+                 *           "host": "private-backend-do-user-19081923-0.db.ondigitalocean.com",
+                 *           "port": 25060,
+                 *           "user": "doadmin",
+                 *           "password": "wv78n3zpz42xezdk",
+                 *           "ssl": true
+                 *         },
+                 *         "standby_connection": {
+                 *           "uri": "postgres://doadmin:wv78n3zpz42xezdk@replica-backend-do-user-19081923-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require",
+                 *           "database": "",
+                 *           "host": "replica-backend-do-user-19081923-0.db.ondigitalocean.com",
+                 *           "port": 25060,
+                 *           "user": "doadmin",
+                 *           "password": "wv78n3zpz42xezdk",
+                 *           "ssl": true
+                 *         },
+                 *         "standby_private_connection": {
+                 *           "uri": "postgres://doadmin:wv78n3zpz42xezdk@private-replica-backend-do-user-19081923-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require",
+                 *           "database": "",
+                 *           "host": "private-replica-backend-do-user-19081923-0.db.ondigitalocean.com",
+                 *           "port": 25060,
+                 *           "user": "doadmin",
+                 *           "password": "wv78n3zpz42xezdk",
+                 *           "ssl": true
+                 *         },
+                 *         "users": [
+                 *           {
+                 *             "name": "doadmin",
+                 *             "role": "primary",
+                 *             "password": "wv78n3zpz42xezdk"
+                 *           }
+                 *         ],
+                 *         "db_names": [
+                 *           "defaultdb"
+                 *         ],
+                 *         "num_nodes": 2,
+                 *         "region": "nyc3",
+                 *         "status": "creating",
+                 *         "created_at": "2019-01-11T18:37:36Z",
+                 *         "maintenance_window": {
+                 *           "day": "saturday",
+                 *           "hour": "08:45:12",
+                 *           "pending": true,
+                 *           "description": [
+                 *             "Update TimescaleDB to version 1.2.1",
+                 *             "Upgrade to PostgreSQL 11.2 and 10.7 bugfix releases"
+                 *           ]
+                 *         },
+                 *         "size": "db-s-2vcpu-4gb",
+                 *         "tags": [
+                 *           "production"
+                 *         ],
+                 *         "private_network_uuid": "d455e75d-4858-4eec-8c95-da2f0a5f93a7",
+                 *         "version_end_of_life": "2023-11-09T00:00:00Z",
+                 *         "version_end_of_availability": "2023-05-09T00:00:00Z",
+                 *         "storage_size_mib": 61440
+                 *       }
+                 *     } */
                 "application/json": {
                     database: components["schemas"]["database_cluster"];
                 };
@@ -17856,6 +18681,12 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "config": {
+                 *         "sql_mode": "ANSI,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE,STRICT_ALL_TABLES",
+                 *         "sql_require_primary_key": true
+                 *       }
+                 *     } */
                 "application/json": {
                     config: components["schemas"]["mysql_advanced_config"] | components["schemas"]["postgres_advanced_config"] | components["schemas"]["redis_advanced_config"] | components["schemas"]["kafka_advanced_config"] | components["schemas"]["opensearch_advanced_config"] | components["schemas"]["mongo_advanced_config"];
                 };
@@ -17870,6 +18701,11 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "ca": {
+                 *         "certificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUVRVENDQXFtZ0F3SUJBZ0lVRUZZWTdBWFZQS0Raam9jb1lpMk00Y0dvcU0wd0RRWUpLb1pJaHZjTkFRRU0KQlFBd09qRTRNRFlHQTFVRUF3d3ZOek0zT1RaaE1XRXRaamhrTUMwME9HSmpMV0V4Wm1NdFpqbGhNVFZsWXprdwpORGhsSUZCeWIycGxZM1FnUTBFd0hoY05NakF3TnpFM01UVTFNREEyV2hjTk16QXdOekUxTVRVMU1EQTJXakE2Ck1UZ3dOZ1lEVlFRRERDODNNemM1Tm1FeFlTMW1PR1F3TFRRNFltTXRZVEZtWXkxbU9XRXhOV1ZqT1RBME9HVWcKVUhKdmFtVmpkQ0JEUVRDQ0FhSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnR1BBRENDQVlvQ2dnR0JBTVdScXhycwpMZnpNdHZyUmxKVEw4MldYMVBLZkhKbitvYjNYcmVBY3FZd1dBUUp2Q3IycmhxSXZieVZzMGlaU0NzOHI4c3RGClljQ0R1bkxJNmUwTy9laERZYTBIT2RrMkFFRzE1ckVOVmNha2NSczcyQWlHVHNrdkNXS2VkUjFTUWswVWt0WCsKQUg4S1ExS3F5bzNtZ2Y2cVV1WUpzc3JNTXFselk3YTN1RVpEb2ZqTjN5Q3MvM21pTVJKcVcyNm1JV0IrUUlEbAo5YzdLRVF5MTZvdCtjeHVnd0lLMm9oZHMzaFY1bjBKMFVBM0I3QWRBdXY5aUl5L3JHaHlTNm5CNTdaWm9JZnAyCnFybXdOY0UrVjlIdXhQSGtRVjFOQjUwOFFudWZ4Z0E5VCtqU2VrdGVUbWFORkxqNjFXL3BtcndrTytOaWFXUTIKaGgzVXBKOEozY1BoNkErbHRnUmpSV2NEb2lsYVNwRVVpU09WemNNYVFvalZKYVJlNk9NbnZYc29NaSs3ZzdneApWcittQ0lUcGcvck9DaXpBWWQ2UFAxLzdYTjk1ZXNmU2tBQnM5c3hJakpjTUFqbDBYTEFzRmtGZVdyeHNIajlVCmJnaDNWYXdtcnpUeXhZT0RQcXV1cS9JcGlwc0RRT3Fpb2ZsUStkWEJJL3NUT0NNbVp6K0pNcG5HYXdJREFRQUIKb3o4d1BUQWRCZ05WSFE0RUZnUVVSekdDRlE3WEtUdHRDN3JzNS8ydFlQcExTZGN3RHdZRFZSMFRCQWd3QmdFQgovd0lCQURBTEJnTlZIUThFQkFNQ0FRWXdEUVlKS29aSWh2Y05BUUVNQlFBRGdnR0JBSWFKQ0dSVVNxUExtcmcvCmk3MW10b0NHUDdzeG1BVXVCek1oOEdrU25uaVdaZnZGMTRwSUtqTlkwbzVkWmpHKzZqK1VjalZtK0RIdGE1RjYKOWJPeEk5S0NFeEI1blBjRXpMWjNZYitNOTcrellxbm9zUm85S21DVFJBb2JrNTZ0WU1FS1h1aVJja2tkMm1yUQo4cGw2N2xxdThjM1V4c0dHZEZVT01wMkk3ZTNpdUdWVm5UR0ZWM3JQZUdaQ0J3WGVyUUQyY0F4UjkzS3BnWVZ2ClhUUzk5dnpSbm1HOHhhUm9EVy9FbEdXZ2xWd0Q5a1JrbXhUUkdoYTdDWVZCcjFQVWY2dVVFVjhmVFIxc1hFZnIKLytMR1JoSVVsSUhWT3l2Yzk3YnZYQURPbWF1MWZDVE5lWGtRdTNyZnZFSlBmaFlLeVIwT0V3eWVvdlhRNzl0LwpTV2ZGTjBreU1Pc1UrNVNIdHJKSEh1eWNWcU0yQlVVK083VjM1UnNwOU9MZGRZMFFVbTZldFpEVEhhSUhYYzRRCnl1Rm1OL1NhSFZtNE0wL3BTVlJQdVd6TmpxMnZyRllvSDRtbGhIZk95TUNJMjc2elE2aWhGNkdDSHlkOUJqajcKUm1UWGEyNHM3NWhmSi9YTDV2bnJSdEtpVHJlVHF6V21EOVhnUmNMQ0gyS1hJaVRtSWc9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+                 *       }
+                 *     } */
                 "application/json": {
                     ca: components["schemas"]["ca"];
                 };
@@ -17884,6 +18720,11 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "id": "77b28fc8-19ff-11eb-8c9c-c68e24557488",
+                 *       "status": "running",
+                 *       "created_at": "2020-10-29T15:57:38Z"
+                 *     } */
                 "application/json": components["schemas"]["online_migration"];
             };
         };
@@ -17906,6 +18747,38 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "rules": [
+                 *         {
+                 *           "uuid": "79f26d28-ea8a-41f2-8ad8-8cfcdd020095",
+                 *           "cluster_uuid": "9cc10173-e9ea-4176-9dbc-a4cee4c4ff30",
+                 *           "type": "k8s",
+                 *           "value": "ff2a6c52-5a44-4b63-b99c-0e98e7a63d61",
+                 *           "created_at": "2019-11-14T20:30:28Z"
+                 *         },
+                 *         {
+                 *           "uuid": "adfe81a8-0fa1-4e2d-973f-06aa5af19b44",
+                 *           "cluster_uuid": "9cc10173-e9ea-4176-9dbc-a4cee4c4ff30",
+                 *           "type": "ip_addr",
+                 *           "value": "192.168.1.1",
+                 *           "created_at": "2019-11-14T20:30:28Z"
+                 *         },
+                 *         {
+                 *           "uuid": "b9b42276-8295-4313-b40f-74173a7f46e6",
+                 *           "cluster_uuid": "9cc10173-e9ea-4176-9dbc-a4cee4c4ff30",
+                 *           "type": "droplet",
+                 *           "value": "163973392",
+                 *           "created_at": "2019-11-14T20:30:28Z"
+                 *         },
+                 *         {
+                 *           "uuid": "718d23e0-13d7-4129-8a00-47fb72ee0deb",
+                 *           "cluster_uuid": "9cc10173-e9ea-4176-9dbc-a4cee4c4ff30",
+                 *           "type": "tag",
+                 *           "value": "backend",
+                 *           "created_at": "2019-11-14T20:30:28Z"
+                 *         }
+                 *       ]
+                 *     } */
                 "application/json": {
                     rules?: components["schemas"]["firewall_rule"][];
                 };
@@ -17920,6 +18793,18 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "backups": [
+                 *         {
+                 *           "created_at": "2019-01-11T18:42:27Z",
+                 *           "size_gigabytes": 0.03357696
+                 *         },
+                 *         {
+                 *           "created_at": "2019-01-12T18:42:29Z",
+                 *           "size_gigabytes": 0.03364864
+                 *         }
+                 *       ]
+                 *     } */
                 "application/json": {
                     backups: components["schemas"]["backup"][];
                 };
@@ -17934,6 +18819,34 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "replicas": [
+                 *         {
+                 *           "name": "read-nyc3-01",
+                 *           "connection": {
+                 *             "uri": "",
+                 *             "database": "defaultdb",
+                 *             "host": "read-nyc3-01-do-user-19081923-0.db.ondigitalocean.com",
+                 *             "port": 25060,
+                 *             "user": "doadmin",
+                 *             "password": "wv78n3zpz42xezdk",
+                 *             "ssl": true
+                 *           },
+                 *           "private_connection": {
+                 *             "uri": "postgres://doadmin:wv78n3zpz42xezdk@private-read-nyc3-01-do-user-19081923-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require",
+                 *             "database": "",
+                 *             "host": "private-read-nyc3-01-do-user-19081923-0.db.ondigitalocean.com",
+                 *             "port": 25060,
+                 *             "user": "doadmin",
+                 *             "password": "wv78n3zpz42xezdk",
+                 *             "ssl": true
+                 *           },
+                 *           "region": "nyc3",
+                 *           "status": "online",
+                 *           "created_at": "2019-01-11T18:37:36Z"
+                 *         }
+                 *       ]
+                 *     } */
                 "application/json": {
                     replicas?: components["schemas"]["database_replica"][];
                 };
@@ -17948,6 +18861,32 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "replica": {
+                 *         "name": "read-nyc3-01",
+                 *         "connection": {
+                 *           "uri": "",
+                 *           "database": "defaultdb",
+                 *           "host": "read-nyc3-01-do-user-19081923-0.db.ondigitalocean.com",
+                 *           "port": 25060,
+                 *           "user": "doadmin",
+                 *           "password": "wv78n3zpz42xezdk",
+                 *           "ssl": true
+                 *         },
+                 *         "private_connection": {
+                 *           "uri": "postgres://doadmin:wv78n3zpz42xezdk@private-read-nyc3-01-do-user-19081923-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require",
+                 *           "database": "",
+                 *           "host": "private-read-nyc3-01-do-user-19081923-0.db.ondigitalocean.com",
+                 *           "port": 25060,
+                 *           "user": "doadmin",
+                 *           "password": "wv78n3zpz42xezdk",
+                 *           "ssl": true
+                 *         },
+                 *         "region": "nyc3",
+                 *         "status": "online",
+                 *         "created_at": "2019-01-11T18:37:36Z"
+                 *       }
+                 *     } */
                 "application/json": {
                     replica?: components["schemas"]["database_replica"];
                 };
@@ -17962,6 +18901,22 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "events": [
+                 *         {
+                 *           "id": "pe8u2huh",
+                 *           "cluster_name": "customer-events",
+                 *           "event_type": "cluster_create",
+                 *           "create_time": "2020-10-29T15:57:38Z"
+                 *         },
+                 *         {
+                 *           "id": "pe8ufefuh",
+                 *           "cluster_name": "customer-events",
+                 *           "event_type": "cluster_update",
+                 *           "create_time": "2023-10-30T15:57:38Z"
+                 *         }
+                 *       ]
+                 *     } */
                 "application/json": {
                     events?: components["schemas"]["events_logs"][];
                 };
@@ -17976,6 +18931,20 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "users": [
+                 *         {
+                 *           "name": "app-01",
+                 *           "role": "normal",
+                 *           "password": "jge5lfxtzhx42iff"
+                 *         },
+                 *         {
+                 *           "name": "doadmin",
+                 *           "role": "primary",
+                 *           "password": "wv78n3zpz42xezd"
+                 *         }
+                 *       ]
+                 *     } */
                 "application/json": {
                     users?: components["schemas"]["database_user"][];
                 };
@@ -18004,6 +18973,16 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "dbs": [
+                 *         {
+                 *           "name": "alpha"
+                 *         },
+                 *         {
+                 *           "name": "defaultdb"
+                 *         }
+                 *       ]
+                 *     } */
                 "application/json": {
                     dbs?: components["schemas"]["database"][];
                 };
@@ -18018,6 +18997,11 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "db": {
+                 *         "name": "alpha"
+                 *       }
+                 *     } */
                 "application/json": {
                     db: components["schemas"]["database"];
                 };
@@ -18032,6 +19016,42 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "pools": [
+                 *         {
+                 *           "user": "doadmin",
+                 *           "name": "reporting-pool",
+                 *           "size": 10,
+                 *           "db": "defaultdb",
+                 *           "mode": "session",
+                 *           "connection": {
+                 *             "uri": "postgres://doadmin:wv78n3zpz42xezdk@backend-do-user-19081923-0.db.ondigitalocean.com:25061/foo?sslmode=require",
+                 *             "database": "foo",
+                 *             "host": "backend-do-user-19081923-0.db.ondigitalocean.com",
+                 *             "port": 25061,
+                 *             "user": "doadmin",
+                 *             "password": "wv78n3zpz42xezdk",
+                 *             "ssl": true
+                 *           }
+                 *         },
+                 *         {
+                 *           "user": "doadmin",
+                 *           "name": "backend-pool",
+                 *           "size": 10,
+                 *           "db": "defaultdb",
+                 *           "mode": "transaction",
+                 *           "connection": {
+                 *             "uri": "postgres://doadmin:wv78n3zpz42xezdk@backend-do-user-19081923-0.db.ondigitalocean.com:25061/backend-pool?sslmode=require",
+                 *             "database": "backend-pool",
+                 *             "host": "backend-do-user-19081923-0.db.ondigitalocean.com",
+                 *             "port": 25061,
+                 *             "user": "doadmin",
+                 *             "password": "wv78n3zpz42xezdk",
+                 *             "ssl": true
+                 *           }
+                 *         }
+                 *       ]
+                 *     } */
                 "application/json": components["schemas"]["connection_pools"];
             };
         };
@@ -18044,6 +19064,24 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "pool": {
+                 *         "user": "doadmin",
+                 *         "name": "backend-pool",
+                 *         "size": 10,
+                 *         "db": "defaultdb",
+                 *         "mode": "transaction",
+                 *         "connection": {
+                 *           "uri": "postgres://doadmin:wv78n3zpz42xezdk@backend-do-user-19081923-0.db.ondigitalocean.com:25061/backend-pool?sslmode=require",
+                 *           "database": "backend-pool",
+                 *           "host": "backend-do-user-19081923-0.db.ondigitalocean.com",
+                 *           "port": 25061,
+                 *           "user": "doadmin",
+                 *           "password": "wv78n3zpz42xezdk",
+                 *           "ssl": true
+                 *         }
+                 *       }
+                 *     } */
                 "application/json": {
                     pool: components["schemas"]["connection_pool"];
                 };
@@ -18072,6 +19110,9 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "sql_mode": "ANSI,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE,STRICT_ALL_TABLES"
+                 *     } */
                 "application/json": components["schemas"]["sql_mode"];
             };
         };
@@ -18084,6 +19125,22 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "topics": [
+                 *         {
+                 *           "name": "customer-events",
+                 *           "state": "active",
+                 *           "replication_factor": 2,
+                 *           "partition_count": 3
+                 *         },
+                 *         {
+                 *           "name": "engineering-events",
+                 *           "state": "configuring",
+                 *           "replication_factor": 2,
+                 *           "partition_count": 10
+                 *         }
+                 *       ]
+                 *     } */
                 "application/json": {
                     topics?: components["schemas"]["kafka_topic"][];
                 };
@@ -18098,6 +19155,63 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "topic": {
+                 *         "name": "customer-events",
+                 *         "partitions": [
+                 *           {
+                 *             "size": 4096,
+                 *             "id": 0,
+                 *             "in_sync_replicas": 3,
+                 *             "earliest_offset": 0,
+                 *             "consumer_groups": [
+                 *               {
+                 *                 "name": "consumer-group-1",
+                 *                 "offset": 0
+                 *               },
+                 *               {
+                 *                 "name": "consumer-group-2",
+                 *                 "offset": 1
+                 *               }
+                 *             ]
+                 *           },
+                 *           {
+                 *             "size": 4096,
+                 *             "id": 1,
+                 *             "in_sync_replicas": 3,
+                 *             "earliest_offset": 0,
+                 *             "consumer_groups": null
+                 *           }
+                 *         ],
+                 *         "replication_factor": 3,
+                 *         "state": "active",
+                 *         "config": {
+                 *           "cleanup_policy": "delete",
+                 *           "compression_type": "producer",
+                 *           "delete_retention_ms": 86400000,
+                 *           "file_delete_delay_ms": 60000,
+                 *           "flush_messages": 9223372036854776000,
+                 *           "flush_ms": 9223372036854776000,
+                 *           "index_interval_bytes": 4096,
+                 *           "max_compaction_lag_ms": 9223372036854776000,
+                 *           "max_message_bytes": 1048588,
+                 *           "message_down_conversion_enable": true,
+                 *           "message_format_version": "3.0-IV1",
+                 *           "message_timestamp_difference_max_ms": 9223372036854776000,
+                 *           "message_timestamp_type": "create_time",
+                 *           "min_cleanable_dirty_ratio": 0.5,
+                 *           "min_compaction_lag_ms": 0,
+                 *           "min_insync_replicas": 1,
+                 *           "preallocate": false,
+                 *           "retention_bytes": -1,
+                 *           "retention_ms": 604800000,
+                 *           "segment_bytes": 209715200,
+                 *           "segment_index_bytes": 10485760,
+                 *           "segment_jitter_ms": 0,
+                 *           "segment_ms": 604800000
+                 *         }
+                 *       }
+                 *     } */
                 "application/json": {
                     topic?: components["schemas"]["kafka_topic_verbose"];
                 };
@@ -18112,6 +19226,32 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "sinks": [
+                 *         {
+                 *           "sink_id": "799990b6-d551-454b-9ffe-b8618e9d6272",
+                 *           "sink_name": "logs-sink-1",
+                 *           "sink_type": "rsyslog",
+                 *           "config": {
+                 *             "server": "192.168.0.1",
+                 *             "port": 514,
+                 *             "tls": false,
+                 *             "format": "rfc5424"
+                 *           }
+                 *         },
+                 *         {
+                 *           "sink_id": "d6e95157-5f58-48d0-9023-8cfb409d102a",
+                 *           "sink_name": "logs-sink-2",
+                 *           "sink_type": "rsyslog",
+                 *           "config": {
+                 *             "server": "192.168.10.1",
+                 *             "port": 514,
+                 *             "tls": false,
+                 *             "format": "rfc3164"
+                 *           }
+                 *         }
+                 *       ]
+                 *     } */
                 "application/json": {
                     sinks?: components["schemas"]["logsink_verbose"][];
                 };
@@ -18140,6 +19280,12 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "credentials": {
+                 *         "basic_auth_username": "username",
+                 *         "basic_auth_password": "password"
+                 *       }
+                 *     } */
                 "application/json": {
                     credentials?: components["schemas"]["database_metrics_credentials"];
                 };
@@ -18154,6 +19300,28 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "indexes": [
+                 *         {
+                 *           "index_name": "sample-data",
+                 *           "number_of_shards": 2,
+                 *           "number_of_replicas": 3,
+                 *           "size": 208,
+                 *           "created_time": "2021-01-01T00:00:00Z",
+                 *           "status": "open",
+                 *           "health": "green"
+                 *         },
+                 *         {
+                 *           "index_name": "logs-*",
+                 *           "number_of_shards": 2,
+                 *           "number_of_replicas": 3,
+                 *           "size": 208,
+                 *           "created_time": "2021-01-01T00:00:00Z",
+                 *           "status": "open",
+                 *           "health": "green"
+                 *         }
+                 *       ]
+                 *     } */
                 "application/json": {
                     indexes?: components["schemas"]["opensearch_index"][];
                 };
@@ -18316,6 +19484,28 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "backups": [
+                 *         {
+                 *           "id": 67539192,
+                 *           "name": "web-01- 2020-07-29",
+                 *           "distribution": "Ubuntu",
+                 *           "slug": null,
+                 *           "public": false,
+                 *           "regions": [
+                 *             "nyc3"
+                 *           ],
+                 *           "created_at": "2020-07-29T01:44:35Z",
+                 *           "min_disk_size": 50,
+                 *           "size_gigabytes": 2.34,
+                 *           "type": "backup"
+                 *         }
+                 *       ],
+                 *       "links": {},
+                 *       "meta": {
+                 *         "total": 1
+                 *       }
+                 *     } */
                 "application/json": {
                     backups?: components["schemas"]["droplet_snapshot"][];
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
@@ -18332,6 +19522,23 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "policy": {
+                 *         "droplet_id": 444909706,
+                 *         "backup_enabled": true,
+                 *         "backup_policy": {
+                 *           "plan": "weekly",
+                 *           "weekday": "SUN",
+                 *           "hour": 20,
+                 *           "window_length_hours": 4,
+                 *           "retention_period_days": 28
+                 *         },
+                 *         "next_backup_window": {
+                 *           "start": "2024-09-15T20:00:00Z",
+                 *           "end": "2024-09-16T00:00:00Z"
+                 *         }
+                 *       }
+                 *     } */
                 "application/json": {
                     policy?: components["schemas"]["droplet_backup_policy_record"];
                 };
@@ -18346,6 +19553,47 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "policies": {
+                 *         "436444618": {
+                 *           "droplet_id": 436444618,
+                 *           "backup_enabled": false
+                 *         },
+                 *         "444909314": {
+                 *           "droplet_id": 444909314,
+                 *           "backup_enabled": true,
+                 *           "backup_policy": {
+                 *             "plan": "daily",
+                 *             "hour": 20,
+                 *             "window_length_hours": 4,
+                 *             "retention_period_days": 7
+                 *           },
+                 *           "next_backup_window": {
+                 *             "start": "2024-09-13T20:00:00Z",
+                 *             "end": "2024-09-14T00:00:00Z"
+                 *           }
+                 *         },
+                 *         "444909706": {
+                 *           "droplet_id": 444909706,
+                 *           "backup_enabled": true,
+                 *           "backup_policy": {
+                 *             "plan": "weekly",
+                 *             "weekday": "SUN",
+                 *             "hour": 20,
+                 *             "window_length_hours": 4,
+                 *             "retention_period_days": 28
+                 *           },
+                 *           "next_backup_window": {
+                 *             "start": "2024-09-15T20:00:00Z",
+                 *             "end": "2024-09-16T00:00:00Z"
+                 *           }
+                 *         }
+                 *       },
+                 *       "links": {},
+                 *       "meta": {
+                 *         "total": 3
+                 *       }
+                 *     } */
                 "application/json": {
                     /** @description A map where the keys are the Droplet IDs and the values are
                      *     objects containing the backup policy information for each Droplet.
@@ -18365,6 +19613,46 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "supported_policies": [
+                 *         {
+                 *           "name": "weekly",
+                 *           "possible_window_starts": [
+                 *             0,
+                 *             4,
+                 *             8,
+                 *             12,
+                 *             16,
+                 *             20
+                 *           ],
+                 *           "window_length_hours": 4,
+                 *           "retention_period_days": 28,
+                 *           "possible_days": [
+                 *             "SUN",
+                 *             "MON",
+                 *             "TUE",
+                 *             "WED",
+                 *             "THU",
+                 *             "FRI",
+                 *             "SAT"
+                 *           ]
+                 *         },
+                 *         {
+                 *           "name": "daily",
+                 *           "possible_window_starts": [
+                 *             0,
+                 *             4,
+                 *             8,
+                 *             12,
+                 *             16,
+                 *             20
+                 *           ],
+                 *           "window_length_hours": 4,
+                 *           "retention_period_days": 7,
+                 *           "possible_days": []
+                 *         }
+                 *       ]
+                 *     } */
                 "application/json": {
                     supported_policies?: components["schemas"]["supported_droplet_backup_policy"][];
                 };
@@ -18379,6 +19667,26 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "snapshots": [
+                 *         {
+                 *           "id": 6372321,
+                 *           "name": "web-01-1595954862243",
+                 *           "created_at": "2020-07-28T16:47:44Z",
+                 *           "regions": [
+                 *             "nyc3",
+                 *             "sfo3"
+                 *           ],
+                 *           "min_disk_size": 25,
+                 *           "size_gigabytes": 2.34,
+                 *           "type": "snapshot"
+                 *         }
+                 *       ],
+                 *       "links": {},
+                 *       "meta": {
+                 *         "total": 1
+                 *       }
+                 *     } */
                 "application/json": {
                     snapshots?: components["schemas"]["droplet_snapshot"][];
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
@@ -18393,6 +19701,50 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "actions": [
+                 *         {
+                 *           "id": 982864273,
+                 *           "status": "completed",
+                 *           "type": "create",
+                 *           "started_at": "2020-07-20T19:37:30Z",
+                 *           "completed_at": "2020-07-20T19:37:45Z",
+                 *           "resource_id": 3164444,
+                 *           "resource_type": "droplet",
+                 *           "region": {
+                 *             "name": "New York 3",
+                 *             "slug": "nyc3",
+                 *             "features": [
+                 *               "private_networking",
+                 *               "backups",
+                 *               "ipv6",
+                 *               "metadata",
+                 *               "install_agent",
+                 *               "image_transfer"
+                 *             ],
+                 *             "available": true,
+                 *             "sizes": [
+                 *               "s-1vcpu-1gb",
+                 *               "s-1vcpu-2gb",
+                 *               "s-3vcpu-1gb",
+                 *               "s-2vcpu-2gb",
+                 *               "s-1vcpu-3gb",
+                 *               "s-2vcpu-4gb",
+                 *               "s-4vcpu-8gb",
+                 *               "m-1vcpu-8gb",
+                 *               "s-6vcpu-16gb",
+                 *               "s-8vcpu-32gb",
+                 *               "s-12vcpu-48gb"
+                 *             ]
+                 *           },
+                 *           "region_slug": "nyc3"
+                 *         }
+                 *       ],
+                 *       "links": {},
+                 *       "meta": {
+                 *         "total": 1
+                 *       }
+                 *     } */
                 "application/json": {
                     actions?: components["schemas"]["action"][];
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
@@ -18435,6 +19787,24 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "kernels": [
+                 *         {
+                 *           "id": 7515,
+                 *           "name": "DigitalOcean GrubLoader v0.2 (20160714)",
+                 *           "version": "2016.07.13-DigitalOcean_loader_Ubuntu"
+                 *         }
+                 *       ],
+                 *       "links": {
+                 *         "pages": {
+                 *           "next": "https://api.digitalocean.com/v2/droplets/3164444/kernels?page=2&per_page=1",
+                 *           "last": "https://api.digitalocean.com/v2/droplets/3164444/kernels?page=171&per_page=1"
+                 *         }
+                 *       },
+                 *       "meta": {
+                 *         "total": 171
+                 *       }
+                 *     } */
                 "application/json": {
                     kernels?: components["schemas"]["kernel"][];
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
@@ -18449,6 +19819,83 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "firewalls": [
+                 *         {
+                 *           "id": "bb4b2611-3d72-467b-8602-280330ecd65c",
+                 *           "status": "succeeded",
+                 *           "created_at": "2020-05-23T21:24:00Z",
+                 *           "pending_changes": [
+                 *             {
+                 *               "droplet_id": 8043964,
+                 *               "removing": true,
+                 *               "status": "waiting"
+                 *             }
+                 *           ],
+                 *           "name": "firewall",
+                 *           "droplet_ids": [
+                 *             89989,
+                 *             33322
+                 *           ],
+                 *           "tags": [
+                 *             "base-image",
+                 *             "prod"
+                 *           ],
+                 *           "inbound_rules": [
+                 *             {
+                 *               "protocol": "udp",
+                 *               "ports": "8000-9000",
+                 *               "sources": {
+                 *                 "addresses": [
+                 *                   "1.2.3.4",
+                 *                   "18.0.0.0/8"
+                 *                 ],
+                 *                 "droplet_ids": [
+                 *                   8282823,
+                 *                   3930392
+                 *                 ],
+                 *                 "load_balancer_uids": [
+                 *                   "4de7ac8b-495b-4884-9a69-1050c6793cd6"
+                 *                 ],
+                 *                 "tags": [
+                 *                   "base-image",
+                 *                   "dev"
+                 *                 ]
+                 *               }
+                 *             }
+                 *           ],
+                 *           "outbound_rules": [
+                 *             {
+                 *               "protocol": "tcp",
+                 *               "ports": "7000-9000",
+                 *               "destinations": {
+                 *                 "addresses": [
+                 *                   "1.2.3.4",
+                 *                   "18.0.0.0/8"
+                 *                 ],
+                 *                 "droplet_ids": [
+                 *                   3827493,
+                 *                   213213
+                 *                 ],
+                 *                 "load_balancer_uids": [
+                 *                   "4de7ac8b-495b-4884-9a69-1050c6793cd6"
+                 *                 ],
+                 *                 "tags": [
+                 *                   "base-image",
+                 *                   "prod"
+                 *                 ]
+                 *               }
+                 *             }
+                 *           ]
+                 *         }
+                 *       ],
+                 *       "links": {
+                 *         "pages": {}
+                 *       },
+                 *       "meta": {
+                 *         "total": 1
+                 *       }
+                 *     } */
                 "application/json": {
                     firewalls?: components["schemas"]["firewall"][];
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
@@ -18477,6 +19924,43 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "reserved_ips": [
+                 *         {
+                 *           "id": "6186916",
+                 *           "name": "45.55.96.47",
+                 *           "cost": "4.00"
+                 *         }
+                 *       ],
+                 *       "floating_ips": [
+                 *         {
+                 *           "id": "6186916",
+                 *           "name": "45.55.96.47",
+                 *           "cost": "4.00"
+                 *         }
+                 *       ],
+                 *       "snapshots": [
+                 *         {
+                 *           "id": "61486916",
+                 *           "name": "ubuntu-s-1vcpu-1gb-nyc1-01-1585758823330",
+                 *           "cost": "0.05"
+                 *         }
+                 *       ],
+                 *       "volumes": [
+                 *         {
+                 *           "id": "ba49449a-7435-11ea-b89e-0a58ac14480f",
+                 *           "name": "volume-nyc1-01",
+                 *           "cost": "10.00"
+                 *         }
+                 *       ],
+                 *       "volume_snapshots": [
+                 *         {
+                 *           "id": "edb0478d-7436-11ea-86e6-0a58ac144b91",
+                 *           "name": "volume-nyc1-01-1585758983629",
+                 *           "cost": "0.04"
+                 *         }
+                 *       ]
+                 *     } */
                 "application/json": {
                     reserved_ips?: components["schemas"]["associated_resource"][];
                     floating_ips?: components["schemas"]["associated_resource"][];
@@ -18495,6 +19979,46 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "droplet": {
+                 *         "id": "187000742",
+                 *         "name": "ubuntu-s-1vcpu-1gb-nyc1-01",
+                 *         "destroyed_at": "2020-04-01T18:11:49Z"
+                 *       },
+                 *       "resources": {
+                 *         "reserved_ips": [
+                 *           {
+                 *             "id": "6186916",
+                 *             "name": "45.55.96.47",
+                 *             "destroyed_at": "2020-04-01T18:11:44Z"
+                 *           }
+                 *         ],
+                 *         "floating_ips": [
+                 *           {
+                 *             "id": "6186916",
+                 *             "name": "45.55.96.47",
+                 *             "destroyed_at": "2020-04-01T18:11:44Z"
+                 *           }
+                 *         ],
+                 *         "snapshots": [
+                 *           {
+                 *             "id": "61486916",
+                 *             "name": "ubuntu-s-1vcpu-1gb-nyc1-01-1585758823330",
+                 *             "destroyed_at": "2020-04-01T18:11:44Z"
+                 *           }
+                 *         ],
+                 *         "volumes": [],
+                 *         "volume_snapshots": [
+                 *           {
+                 *             "id": "edb0478d-7436-11ea-86e6-0a58ac144b91",
+                 *             "name": "volume-nyc1-01-1585758983629",
+                 *             "destroyed_at": "2020-04-01T18:11:44Z"
+                 *           }
+                 *         ]
+                 *       },
+                 *       "completed_at": "2020-04-01T18:11:49Z",
+                 *       "failures": 0
+                 *     } */
                 "application/json": components["schemas"]["associated_resource_status"];
             };
         };
@@ -18507,6 +20031,10 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "id": "conflict",
+                 *       "message": "The request could not be completed due to a conflict."
+                 *     } */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -18591,6 +20119,60 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "firewalls": [
+                 *         {
+                 *           "id": "fb6045f1-cf1d-4ca3-bfac-18832663025b",
+                 *           "name": "firewall",
+                 *           "status": "succeeded",
+                 *           "inbound_rules": [
+                 *             {
+                 *               "protocol": "tcp",
+                 *               "ports": "80",
+                 *               "sources": {
+                 *                 "load_balancer_uids": [
+                 *                   "4de7ac8b-495b-4884-9a69-1050c6793cd6"
+                 *                 ]
+                 *               }
+                 *             },
+                 *             {
+                 *               "protocol": "tcp",
+                 *               "ports": "22",
+                 *               "sources": {
+                 *                 "tags": [
+                 *                   "gateway"
+                 *                 ],
+                 *                 "addresses": [
+                 *                   "18.0.0.0/8"
+                 *                 ]
+                 *               }
+                 *             }
+                 *           ],
+                 *           "outbound_rules": [
+                 *             {
+                 *               "protocol": "tcp",
+                 *               "ports": "80",
+                 *               "destinations": {
+                 *                 "addresses": [
+                 *                   "0.0.0.0/0",
+                 *                   "::/0"
+                 *                 ]
+                 *               }
+                 *             }
+                 *           ],
+                 *           "created_at": "2017-05-23T21:23:59Z",
+                 *           "droplet_ids": [
+                 *             8043964
+                 *           ],
+                 *           "tags": [],
+                 *           "pending_changes": []
+                 *         }
+                 *       ],
+                 *       "links": {},
+                 *       "meta": {
+                 *         "total": 1
+                 *       }
+                 *     } */
                 "application/json": {
                     firewalls?: components["schemas"]["firewall"][];
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
@@ -18605,6 +20187,60 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "firewall": {
+                 *         "id": "bb4b2611-3d72-467b-8602-280330ecd65c",
+                 *         "name": "firewall",
+                 *         "status": "waiting",
+                 *         "inbound_rules": [
+                 *           {
+                 *             "protocol": "tcp",
+                 *             "ports": "80",
+                 *             "sources": {
+                 *               "load_balancer_uids": [
+                 *                 "4de7ac8b-495b-4884-9a69-1050c6793cd6"
+                 *               ]
+                 *             }
+                 *           },
+                 *           {
+                 *             "protocol": "tcp",
+                 *             "ports": "22",
+                 *             "sources": {
+                 *               "tags": [
+                 *                 "gateway"
+                 *               ],
+                 *               "addresses": [
+                 *                 "18.0.0.0/8"
+                 *               ]
+                 *             }
+                 *           }
+                 *         ],
+                 *         "outbound_rules": [
+                 *           {
+                 *             "protocol": "tcp",
+                 *             "ports": "80",
+                 *             "destinations": {
+                 *               "addresses": [
+                 *                 "0.0.0.0/0",
+                 *                 "::/0"
+                 *               ]
+                 *             }
+                 *           }
+                 *         ],
+                 *         "created_at": "2017-05-23T21:24:00Z",
+                 *         "droplet_ids": [
+                 *           8043964
+                 *         ],
+                 *         "tags": [],
+                 *         "pending_changes": [
+                 *           {
+                 *             "droplet_id": 8043964,
+                 *             "removing": false,
+                 *             "status": "waiting"
+                 *           }
+                 *         ]
+                 *       }
+                 *     } */
                 "application/json": {
                     firewall?: components["schemas"]["firewall"];
                 };
@@ -18619,6 +20255,11 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "id": "bad_request",
+                 *       "message": "error parsing request body",
+                 *       "request_id": "4851a473-1621-42ea-b2f9-5071c0ea8414"
+                 *     } */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -18631,6 +20272,54 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "firewall": {
+                 *         "id": "bb4b2611-3d72-467b-8602-280330ecd65c",
+                 *         "name": "firewall",
+                 *         "status": "succeeded",
+                 *         "inbound_rules": [
+                 *           {
+                 *             "protocol": "tcp",
+                 *             "ports": "80",
+                 *             "sources": {
+                 *               "load_balancer_uids": [
+                 *                 "4de7ac8b-495b-4884-9a69-1050c6793cd6"
+                 *               ]
+                 *             }
+                 *           },
+                 *           {
+                 *             "protocol": "tcp",
+                 *             "ports": "22",
+                 *             "sources": {
+                 *               "tags": [
+                 *                 "gateway"
+                 *               ],
+                 *               "addresses": [
+                 *                 "18.0.0.0/8"
+                 *               ]
+                 *             }
+                 *           }
+                 *         ],
+                 *         "outbound_rules": [
+                 *           {
+                 *             "protocol": "tcp",
+                 *             "ports": "80",
+                 *             "destinations": {
+                 *               "addresses": [
+                 *                 "0.0.0.0/0",
+                 *                 "::/0"
+                 *               ]
+                 *             }
+                 *           }
+                 *         ],
+                 *         "created_at": "2017-05-23T21:24:00Z",
+                 *         "droplet_ids": [
+                 *           8043964
+                 *         ],
+                 *         "tags": [],
+                 *         "pending_changes": []
+                 *       }
+                 *     } */
                 "application/json": {
                     firewall?: components["schemas"]["firewall"];
                 };
@@ -18645,6 +20334,62 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "firewall": {
+                 *         "id": "bb4b2611-3d72-467b-8602-280330ecd65c",
+                 *         "name": "frontend-firewall",
+                 *         "inbound_rules": [
+                 *           {
+                 *             "protocol": "tcp",
+                 *             "ports": "80",
+                 *             "sources": {
+                 *               "load_balancer_uids": [
+                 *                 "4de7ac8b-495b-4884-9a69-1050c6793cd6"
+                 *               ]
+                 *             }
+                 *           },
+                 *           {
+                 *             "protocol": "tcp",
+                 *             "ports": "22",
+                 *             "sources": {
+                 *               "tags": [
+                 *                 "gateway"
+                 *               ],
+                 *               "addresses": [
+                 *                 "18.0.0.0/8"
+                 *               ]
+                 *             }
+                 *           }
+                 *         ],
+                 *         "outbound_rules": [
+                 *           {
+                 *             "protocol": "tcp",
+                 *             "ports": "80",
+                 *             "destinations": {
+                 *               "addresses": [
+                 *                 "0.0.0.0/0",
+                 *                 "::/0"
+                 *               ]
+                 *             }
+                 *           }
+                 *         ],
+                 *         "created_at": "2020-05-23T21:24:00Z",
+                 *         "droplet_ids": [
+                 *           8043964
+                 *         ],
+                 *         "tags": [
+                 *           "frontend"
+                 *         ],
+                 *         "status": "waiting",
+                 *         "pending_changes": [
+                 *           {
+                 *             "droplet_id": 8043964,
+                 *             "removing": false,
+                 *             "status": "waiting"
+                 *           }
+                 *         ]
+                 *       }
+                 *     } */
                 "application/json": {
                     firewall?: components["schemas"]["firewall"];
                 };
@@ -18771,6 +20516,11 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "id": "bad_request",
+                 *       "message": "Invalid request payload: missing label field",
+                 *       "request_id": "4851a473-1621-42ea-b2f9-5071c0ea8414"
+                 *     } */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -18783,6 +20533,11 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "id": "unprocessable_entity",
+                 *       "message": "namespace limit reached",
+                 *       "request_id": "a3275238-3d04-4405-a123-55c389b406c0"
+                 *     } */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -18795,6 +20550,11 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "id": "forbidden",
+                 *       "message": "not allowed to get namespace",
+                 *       "request_id": "b11e45a4-892c-48c9-9001-b6cffe9fe795"
+                 *     } */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -18807,6 +20567,11 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "id": "not_found",
+                 *       "message": "namespace not found",
+                 *       "request_id": "88d17b7a-630b-4083-99ce-5b91045efdb4"
+                 *     } */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -18849,6 +20614,11 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "id": "bad_request",
+                 *       "message": "validating create trigger: validation error: missing trigger name, missing function name, missing source details",
+                 *       "request_id": "4851a473-1621-42ea-b2f9-5071c0ea8414"
+                 *     } */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -18861,6 +20631,11 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "id": "unprocessable_entity",
+                 *       "message": "triggers limit reached",
+                 *       "request_id": "7ba99a43-6618-4fe0-9af7-092752ad0d56"
+                 *     } */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -18899,6 +20674,23 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "image": {
+                 *         "created_at": "2018-09-20T19:28:00Z",
+                 *         "description": "Cloud-optimized image w/ small footprint",
+                 *         "distribution": "Ubuntu",
+                 *         "error_message": "",
+                 *         "id": 38413969,
+                 *         "name": "ubuntu-18.04-minimal",
+                 *         "regions": [],
+                 *         "type": "custom",
+                 *         "tags": [
+                 *           "base-image",
+                 *           "prod"
+                 *         ],
+                 *         "status": "NEW"
+                 *       }
+                 *     } */
                 "application/json": {
                     image?: components["schemas"]["image"];
                 };
@@ -18913,6 +20705,34 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "image": {
+                 *         "id": 6918990,
+                 *         "name": "14.04 x64",
+                 *         "distribution": "Ubuntu",
+                 *         "slug": "ubuntu-16-04-x64",
+                 *         "public": true,
+                 *         "regions": [
+                 *           "nyc1",
+                 *           "ams1",
+                 *           "sfo1",
+                 *           "nyc2",
+                 *           "ams2",
+                 *           "sgp1",
+                 *           "lon1",
+                 *           "nyc3",
+                 *           "ams3",
+                 *           "nyc3"
+                 *         ],
+                 *         "created_at": "2014-10-17T20:24:33Z",
+                 *         "min_disk_size": 20,
+                 *         "size_gigabytes": 2.34,
+                 *         "description": "",
+                 *         "tags": [],
+                 *         "status": "available",
+                 *         "error_message": ""
+                 *       }
+                 *     } */
                 "application/json": {
                     image: components["schemas"]["image"];
                 };
@@ -18927,6 +20747,26 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "image": {
+                 *         "id": 7938391,
+                 *         "name": "new-image-name",
+                 *         "distribution": "Ubuntu",
+                 *         "slug": null,
+                 *         "public": false,
+                 *         "regions": [
+                 *           "nyc3",
+                 *           "nyc3"
+                 *         ],
+                 *         "created_at": "2014-11-14T16:44:03Z",
+                 *         "min_disk_size": 20,
+                 *         "size_gigabytes": 2.34,
+                 *         "description": "",
+                 *         "tags": [],
+                 *         "status": "available",
+                 *         "error_message": ""
+                 *       }
+                 *     } */
                 "application/json": {
                     image: components["schemas"]["image"];
                 };
@@ -18941,6 +20781,61 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "actions": [
+                 *         {
+                 *           "id": 29410565,
+                 *           "status": "completed",
+                 *           "type": "transfer",
+                 *           "started_at": "2014-07-25T15:04:21Z",
+                 *           "completed_at": "2014-07-25T15:10:20Z",
+                 *           "resource_id": 7555620,
+                 *           "resource_type": "image",
+                 *           "region": {
+                 *             "name": "New York 2",
+                 *             "slug": "nyc2",
+                 *             "sizes": [
+                 *               "s-1vcpu-3gb",
+                 *               "m-1vcpu-8gb",
+                 *               "s-3vcpu-1gb",
+                 *               "s-1vcpu-2gb",
+                 *               "s-2vcpu-2gb",
+                 *               "s-2vcpu-4gb",
+                 *               "s-4vcpu-8gb",
+                 *               "s-6vcpu-16gb",
+                 *               "s-8vcpu-32gb",
+                 *               "s-12vcpu-48gb",
+                 *               "s-16vcpu-64gb",
+                 *               "s-20vcpu-96gb",
+                 *               "s-1vcpu-1gb",
+                 *               "c-1vcpu-2gb",
+                 *               "s-24vcpu-128gb"
+                 *             ],
+                 *             "features": [
+                 *               "private_networking",
+                 *               "backups",
+                 *               "ipv6",
+                 *               "metadata",
+                 *               "server_id",
+                 *               "install_agent",
+                 *               "storage",
+                 *               "image_transfer"
+                 *             ],
+                 *             "available": true
+                 *           },
+                 *           "region_slug": "nyc2"
+                 *         }
+                 *       ],
+                 *       "links": {
+                 *         "pages": {
+                 *           "last": "https://api.digitalocean.com/v2/images/7555620/actions?page=5&per_page=1",
+                 *           "next": "https://api.digitalocean.com/v2/images/7555620/actions?page=2&per_page=1"
+                 *         }
+                 *       },
+                 *       "meta": {
+                 *         "total": 5
+                 *       }
+                 *     } */
                 "application/json": {
                     actions?: components["schemas"]["action"][];
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
@@ -18955,6 +20850,50 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "action": {
+                 *         "id": 36805527,
+                 *         "status": "in-progress",
+                 *         "type": "transfer",
+                 *         "started_at": "2014-11-14T16:42:45Z",
+                 *         "completed_at": null,
+                 *         "resource_id": 7938269,
+                 *         "resource_type": "image",
+                 *         "region": {
+                 *           "name": "New York 3",
+                 *           "slug": "nyc3",
+                 *           "sizes": [
+                 *             "s-1vcpu-3gb",
+                 *             "m-1vcpu-8gb",
+                 *             "s-3vcpu-1gb",
+                 *             "s-1vcpu-2gb",
+                 *             "s-2vcpu-2gb",
+                 *             "s-2vcpu-4gb",
+                 *             "s-4vcpu-8gb",
+                 *             "s-6vcpu-16gb",
+                 *             "s-8vcpu-32gb",
+                 *             "s-12vcpu-48gb",
+                 *             "s-16vcpu-64gb",
+                 *             "s-20vcpu-96gb",
+                 *             "s-1vcpu-1gb",
+                 *             "c-1vcpu-2gb",
+                 *             "s-24vcpu-128gb"
+                 *           ],
+                 *           "features": [
+                 *             "private_networking",
+                 *             "backups",
+                 *             "ipv6",
+                 *             "metadata",
+                 *             "server_id",
+                 *             "install_agent",
+                 *             "storage",
+                 *             "image_transfer"
+                 *           ],
+                 *           "available": true
+                 *         },
+                 *         "region_slug": "nyc3"
+                 *       }
+                 *     } */
                 "application/json": components["schemas"]["action"];
             };
         };
@@ -18967,6 +20906,50 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "action": {
+                 *         "id": 36805527,
+                 *         "status": "in-progress",
+                 *         "type": "transfer",
+                 *         "started_at": "2014-11-14T16:42:45Z",
+                 *         "completed_at": null,
+                 *         "resource_id": 7938269,
+                 *         "resource_type": "image",
+                 *         "region": {
+                 *           "name": "New York 3",
+                 *           "slug": "nyc3",
+                 *           "sizes": [
+                 *             "s-1vcpu-3gb",
+                 *             "m-1vcpu-8gb",
+                 *             "s-3vcpu-1gb",
+                 *             "s-1vcpu-2gb",
+                 *             "s-2vcpu-2gb",
+                 *             "s-2vcpu-4gb",
+                 *             "s-4vcpu-8gb",
+                 *             "s-6vcpu-16gb",
+                 *             "s-8vcpu-32gb",
+                 *             "s-12vcpu-48gb",
+                 *             "s-16vcpu-64gb",
+                 *             "s-20vcpu-96gb",
+                 *             "s-1vcpu-1gb",
+                 *             "c-1vcpu-2gb",
+                 *             "s-24vcpu-128gb"
+                 *           ],
+                 *           "features": [
+                 *             "private_networking",
+                 *             "backups",
+                 *             "ipv6",
+                 *             "metadata",
+                 *             "server_id",
+                 *             "install_agent",
+                 *             "storage",
+                 *             "image_transfer"
+                 *           ],
+                 *           "available": true
+                 *         },
+                 *         "region_slug": "nyc3"
+                 *       }
+                 *     } */
                 "application/json": components["schemas"]["action"];
             };
         };
@@ -19064,6 +21047,25 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example apiVersion: v1
+                 *     clusters:
+                 *     - cluster:
+                 *         certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURUxCUUF3TXpFVk1CTUdBMVVFQ2ftTVJHbG4KYVhSaGJFOWpaV0Z1TVJvd0dUSREERXhGck9ITmhZWE1nUTJ4MWMzUmxjaUJEUVRBZUZ3MHhPREV4TVRVeApOakF3TWpCYUZ3MHpPREV4TVRVeE5qQXdNakJhTURNeEZUQVRCZ05WQkFvVERFUnBaMmwwWVd4UFkyVmhiakVhCk1CZ0dBMVVFQXhNUmF6aHpZV0Z6SUVOc2RYTjBaWElnUTBFd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUIKRHdBd2dnRUtBb0lCQVFDK2Z0L05Nd3pNaUxFZlFvTFU2bDgrY0hMbWttZFVKdjl4SmlhZUpIU0dZOGhPZFVEZQpGd1Zoc0pDTnVFWkpJUFh5Y0orcGpkU3pYc1lFSE03WVNKWk9xNkdaYThPMnZHUlJjN2ZQaUFJaFBRK0ZpUmYzCmRhMHNIUkZlM2hCTmU5ZE5SeTliQ2VCSTRSUlQrSEwzRFR3L2I5KytmRkdZQkRoVTEvTTZUWWRhUHR3WU0rdWgKb1pKcWJZVGJZZTFhb3R1ekdnYUpXaXRhdFdHdnNJYU8xYWthdkh0WEIOOHFxa2lPemdrSDdvd3RVY3JYM05iawozdmlVeFU4TW40MmlJaGFyeHNvTnlwdGhHOWZLMi9OdVdKTXJJS2R0Mzhwc0tkdDBFbng0MWg5K0dsMjUzMzhWCk1mdjBDVDF6SG1JanYwblIrakNkcFd0eFVLRyt0YjYzZFhNbkFnTUJBQUdqUlRCRE1BNEdBMVVkRHdFQi93UUUKQXdJQmhqQVNCZ05WSFJNQkFmOEVDREFHQVFIL0FnRUFNQjBHQTFVZERnUVdCQlNQMmJrOXJiUGJpQnZOd1Z1NQpUL0dwTFdvOTdEQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFEVjFMSGZyc1JiYVdONHE5SnBFVDMxMlluRDZ6Cm5rM3BpU1ZSYVEvM09qWG8wdHJ6Z2N4KzlVTUQxeDRHODI1RnYxc0ROWUExZEhFc2dHUmNyRkVmdGZJQWUrUVYKTitOR3NMRnQrOGZrWHdnUlpoNEU4ZUJsSVlrdEprOWptMzFMT25vaDJYZno0aGs3VmZwYkdvVVlsbmVoak1JZApiL3ZMUk05Y2EwVTJlYTB5OTNveE5pdU9PcXdrZGFjU1orczJtb3JNdGZxc3VRSzRKZDA3SENIbUFIeWpXT2k4ClVOQVUyTnZnSnBKY2RiZ3VzN2I5S3ppR1ZERklFUk04cEo4U1Nob1ZvVFFJd3d5Y2xVTU9EUUJreFFHOHNVRk8KRDE3ZjRod1dNbW5qVHY2MEJBM0dxaTZRcjdsWVFSL3drSEtQcnZjMjhoNXB0NndPWEY1b1M4OUZkUT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+                 *         server: https://bd5f5959-5e1e-4205-a714-a914373942af.k8s.ondigitalocean.com
+                 *       name: do-nyc1-prod-cluster-01
+                 *     contexts:
+                 *     - context:
+                 *         cluster: do-nyc1-prod-cluster-01
+                 *         user: do-nyc1-prod-cluster-01-admin
+                 *       name: do-nyc1-prod-cluster-01
+                 *     current-context: do-nyc1-prod-cluster-01
+                 *     kind: Config
+                 *     preferences: {}
+                 *     users:
+                 *     - name: do-nyc1-prod-cluster-01-admin
+                 *       user:
+                 *         token: 403d085aaa80102277d8da97ffd2db2b6a4f129d0e2146098fdfb0cec624babc
+                 *      */
                 "application/yaml": unknown;
             };
         };
@@ -19111,6 +21113,101 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "node_pools": [
+                 *         {
+                 *           "id": "cdda885e-7663-40c8-bc74-3a036c66545d",
+                 *           "name": "frontend-pool",
+                 *           "size": "s-1vcpu-2gb",
+                 *           "count": 3,
+                 *           "tags": [
+                 *             "production",
+                 *             "web-team",
+                 *             "k8s",
+                 *             "k8s:bd5f5959-5e1e-4205-a714-a914373942af",
+                 *             "k8s:worker"
+                 *           ],
+                 *           "labels": null,
+                 *           "auto_scale": false,
+                 *           "min_nodes": 0,
+                 *           "max_nodes": 0,
+                 *           "nodes": [
+                 *             {
+                 *               "id": "478247f8-b1bb-4f7a-8db9-2a5f8d4b8f8f",
+                 *               "name": "adoring-newton-3niq",
+                 *               "status": {
+                 *                 "state": "running"
+                 *               },
+                 *               "droplet_id": "205545370",
+                 *               "created_at": "2018-11-15T16:00:11Z",
+                 *               "updated_at": "2018-11-15T16:00:11Z"
+                 *             },
+                 *             {
+                 *               "id": "ad12e744-c2a9-473d-8aa9-be5680500eb1",
+                 *               "name": "adoring-newton-3nim",
+                 *               "status": {
+                 *                 "state": "running"
+                 *               },
+                 *               "droplet_id": "205545371",
+                 *               "created_at": "2018-11-15T16:00:11Z",
+                 *               "updated_at": "2018-11-15T16:00:11Z"
+                 *             },
+                 *             {
+                 *               "id": "e46e8d07-f58f-4ff1-9737-97246364400e",
+                 *               "name": "adoring-newton-3ni7",
+                 *               "status": {
+                 *                 "state": "running"
+                 *               },
+                 *               "droplet_id": "205545372",
+                 *               "created_at": "2018-11-15T16:00:11Z",
+                 *               "updated_at": "2018-11-15T16:00:11Z"
+                 *             }
+                 *           ]
+                 *         },
+                 *         {
+                 *           "id": "f49f4379-7e7f-4af5-aeb6-0354bd840778",
+                 *           "name": "backend-pool",
+                 *           "size": "g-4vcpu-16gb",
+                 *           "count": 2,
+                 *           "tags": [
+                 *             "production",
+                 *             "web-team",
+                 *             "k8s",
+                 *             "k8s:bd5f5959-5e1e-4205-a714-a914373942af",
+                 *             "k8s:worker"
+                 *           ],
+                 *           "labels": {
+                 *             "service": "backend",
+                 *             "priority": "high"
+                 *           },
+                 *           "auto_scale": true,
+                 *           "min_nodes": 2,
+                 *           "max_nodes": 5,
+                 *           "nodes": [
+                 *             {
+                 *               "id": "3385619f-8ec3-42ba-bb23-8d21b8ba7518",
+                 *               "name": "affectionate-nightingale-3nif",
+                 *               "status": {
+                 *                 "state": "running"
+                 *               },
+                 *               "droplet_id": "205545373",
+                 *               "created_at": "2018-11-15T16:00:11Z",
+                 *               "updated_at": "2018-11-15T16:00:11Z"
+                 *             },
+                 *             {
+                 *               "id": "4b8f60ff-ba06-4523-a6a4-b8148244c7e6",
+                 *               "name": "affectionate-nightingale-3niy",
+                 *               "status": {
+                 *                 "state": "running"
+                 *               },
+                 *               "droplet_id": "205545374",
+                 *               "created_at": "2018-11-15T16:00:11Z",
+                 *               "updated_at": "2018-11-15T16:00:11Z"
+                 *             }
+                 *           ]
+                 *         }
+                 *       ]
+                 *     } */
                 "application/json": {
                     node_pools?: components["schemas"]["kubernetes_node_pool"][];
                 };
@@ -19482,6 +21579,10 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "id": "precondition_failed",
+                 *       "message": "cannot delete a project with resources. move or remove the resources first"
+                 *     } */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -19646,6 +21747,22 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "garbage_collections": [
+                 *         {
+                 *           "uuid": "eff0feee-49c7-4e8f-ba5c-a320c109c8a8",
+                 *           "registry_name": "example",
+                 *           "status": "requested",
+                 *           "created_at": "2020-10-30T21:03:24.000Z",
+                 *           "updated_at": "2020-10-30T21:03:44.000Z",
+                 *           "blobs_deleted": 42,
+                 *           "freed_bytes": 667
+                 *         }
+                 *       ],
+                 *       "meta": {
+                 *         "total": 1
+                 *       }
+                 *     } */
                 "application/json": {
                     garbage_collections?: components["schemas"]["garbage_collection"][];
                 };
@@ -19660,6 +21777,52 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "options": {
+                 *         "available_regions": [
+                 *           "nyc3",
+                 *           "sfo3",
+                 *           "ams3",
+                 *           "sgp1",
+                 *           "fra1"
+                 *         ],
+                 *         "subscription_tiers": [
+                 *           {
+                 *             "name": "Starter",
+                 *             "slug": "starter",
+                 *             "included_repositories": 1,
+                 *             "included_storage_bytes": 524288000,
+                 *             "allow_storage_overage": false,
+                 *             "included_bandwidth_bytes": 524288000,
+                 *             "monthly_price_in_cents": 0,
+                 *             "eligible": false,
+                 *             "eligibility_reasons": [
+                 *               "OverRepositoryLimit"
+                 *             ]
+                 *           },
+                 *           {
+                 *             "name": "Basic",
+                 *             "slug": "basic",
+                 *             "included_repositories": 5,
+                 *             "included_storage_bytes": 5368709120,
+                 *             "allow_storage_overage": true,
+                 *             "included_bandwidth_bytes": 5368709120,
+                 *             "monthly_price_in_cents": 500,
+                 *             "eligible": true
+                 *           },
+                 *           {
+                 *             "name": "Professional",
+                 *             "slug": "professional",
+                 *             "included_repositories": 0,
+                 *             "included_storage_bytes": 107374182400,
+                 *             "allow_storage_overage": true,
+                 *             "included_bandwidth_bytes": 107374182400,
+                 *             "monthly_price_in_cents": 2000,
+                 *             "eligible": true
+                 *           }
+                 *         ]
+                 *       }
+                 *     } */
                 "application/json": {
                     options?: {
                         /** @example [
@@ -19817,6 +21980,11 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
+                /** @example {
+                 *       "id": "bad_request",
+                 *       "message": "the resource is not a snapshot",
+                 *       "request_id": "bbd8d7d4-2beb-4be1-a374-338e6165e32d"
+                 *     } */
                 "application/json": components["schemas"]["error"];
             };
         };
