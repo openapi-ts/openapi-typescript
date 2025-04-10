@@ -74,6 +74,7 @@ export default defineConfig({
             { text: "useQuery", link: "/use-query" },
             { text: "useMutation", link: "/use-mutation" },
             { text: "useSuspenseQuery", link: "/use-suspense-query" },
+            { text: "useInfiniteQuery", link: "/use-infinite-query" },
             { text: "queryOptions", link: "/query-options" },
           ],
         },
