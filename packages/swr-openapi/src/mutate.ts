@@ -46,7 +46,7 @@ export function createMutateHook<Paths extends {}, IMediaType extends MediaType>
 
     return useCallback(
       function mutate<
-        Path extends PathsWithMethod<Paths, "get">,
+        Path extends PathsWithMethod<Paths, "post">,
         R extends TypesForGetRequest<Paths, Path>,
         Init extends R["Init"],
       >(
