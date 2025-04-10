@@ -1,5 +1,7 @@
 import { parseRef } from "@redocly/openapi-core/lib/ref-utils.js";
+import type { Referenced, OasRef } from "@redocly/openapi-core";
 import ts, { type LiteralTypeNode, type TypeLiteralNode } from "typescript";
+import type { ParameterObject } from "../types.js";
 
 export const JS_PROPERTY_INDEX_RE = /^[A-Za-z_$][A-Za-z_$0-9]*$/;
 export const JS_ENUM_INVALID_CHARS_RE = /[^A-Za-z_$0-9]+(.)?/g;
@@ -115,33 +117,77 @@ export function addJSDocComment(schemaObject: AnnotatedSchemaObject, node: ts.Pr
   }
 }
 
-/** Convert OpenAPI ref into TS indexed access node (ex: `components["schemas"]["Foo"]`) */
-export function oapiRef(path: string): ts.TypeNode {
+function isOasRef<T>(obj: Referenced<T>): obj is OasRef {
+  return Boolean((obj as OasRef).$ref);
+}
+type OapiRefResolved = Referenced<ParameterObject>;
+
+function isParameterObject(obj: OapiRefResolved | undefined): obj is ParameterObject {
+  return Boolean(obj && !isOasRef(obj) && obj.in);
+}
+
+function addIndexedAccess(node: ts.TypeReferenceNode | ts.IndexedAccessTypeNode, ...segments: readonly string[]) {
+  return segments.reduce((acc, segment) => {
+    return ts.factory.createIndexedAccessTypeNode(
+      acc,
+      ts.factory.createLiteralTypeNode(
+        typeof segment === "number"
+          ? ts.factory.createNumericLiteral(segment)
+          : ts.factory.createStringLiteral(segment),
+      ),
+    );
+  }, node);
+}
+
+/**
+ * Convert OpenAPI ref into TS indexed access node (ex: `components["schemas"]["Foo"]`)
+ * `path` is a JSON Pointer to a location within an OpenAPI document.
+ * Transform it into a TypeScript type reference into the generated types.
+ *
+ * In most cases the structures of the openapi-typescript generated types and the
+ * JSON Pointer paths into the OpenAPI document are the same. However, in some cases
+ * special transformations are necessary to account for the ways they differ.
+ *   * Object schemas
+ *       $refs into the `properties` of object schemas are valid, but openapi-typescript
+ *       flattens these objects, so we omit  so the index into the schema skips ["properties"]
+ *   * Parameters
+ *       $refs into the `parameters` of paths are valid, but openapi-ts represents
+ *       them according to their type; path, query, header, etc… so in these cases we
+ *       must check the parameter definition to determine the how to index into
+ *       the openapi-typescript type.
+ **/
+export function oapiRef(path: string, resolved?: OapiRefResolved): ts.TypeNode {
   const { pointer } = parseRef(path);
   if (pointer.length === 0) {
     throw new Error(`Error parsing $ref: ${path}. Is this a valid $ref?`);
   }
-  let t: ts.TypeReferenceNode | ts.IndexedAccessTypeNode = ts.factory.createTypeReferenceNode(
-    ts.factory.createIdentifier(String(pointer[0])),
+
+  const parametersObject = isParameterObject(resolved);
+
+  // Initial segments are handled in a fixed , then remaining segments are treated
+  // according to heuristics based on the initial segments
+  const initialSegment = pointer[0];
+  const leadingSegments = pointer.slice(1, 3);
+  const restSegments = pointer.slice(3);
+
+  const leadingType = addIndexedAccess(
+    ts.factory.createTypeReferenceNode(ts.factory.createIdentifier(String(initialSegment))),
+    ...leadingSegments,
   );
-  if (pointer.length > 1) {
-    for (let i = 1; i < pointer.length; i++) {
-      // Skip `properties` items when in the middle of the pointer
-      // See: https://github.com/openapi-ts/openapi-typescript/issues/1742
-      if (i > 2 && i < pointer.length - 1 && pointer[i] === "properties") {
-        continue;
-      }
-      t = ts.factory.createIndexedAccessTypeNode(
-        t,
-        ts.factory.createLiteralTypeNode(
-          typeof pointer[i] === "number"
-            ? ts.factory.createNumericLiteral(pointer[i])
-            : ts.factory.createStringLiteral(pointer[i] as string),
-        ),
-      );
+
+  return restSegments.reduce<ts.TypeReferenceNode | ts.IndexedAccessTypeNode>((acc, segment, index, original) => {
+    // Skip `properties` items when in the middle of the pointer
+    // See: https://github.com/openapi-ts/openapi-typescript/issues/1742
+    if (segment === "properties") {
+      return acc;
     }
-  }
-  return t;
+
+    if (parametersObject && index === original.length - 1) {
+      return addIndexedAccess(acc, resolved.in, resolved.name);
+    }
+
+    return addIndexedAccess(acc, segment);
+  }, leadingType);
 }
 
 export interface AstToStringOptions {
