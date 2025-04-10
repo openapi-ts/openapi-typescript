@@ -29,6 +29,7 @@ export interface AnnotatedSchemaObject {
   deprecated?: boolean; // jsdoc without value
   description?: string; // jsdoc with value
   enum?: unknown[]; // jsdoc without value
+  anyOf?: unknown[]; // jsdoc without value
   example?: string; // jsdoc with value
   format?: string; // not jsdoc
   nullable?: boolean; // Node information
@@ -78,6 +79,16 @@ export function addJSDocComment(schemaObject: AnnotatedSchemaObject, node: ts.Pr
     const serialized =
       typeof schemaObject[field] === "object" ? JSON.stringify(schemaObject[field], null, 2) : schemaObject[field];
     output.push(`@${field} ${String(serialized).replace(LB_RE, "\n *     ")}`);
+  }
+
+  // anyOf
+  if (!schemaObject.description && Array.isArray(schemaObject.anyOf)) {
+    const anyOfDescriptions = schemaObject.anyOf
+      .map((subSchema: any) => subSchema.description)
+      .filter((description: string | undefined) => typeof description === "string" && description.trim() !== "");
+    if (anyOfDescriptions.length > 0) {
+      output.push(`@description ${anyOfDescriptions.join(" | ")}`);
+    }
   }
 
   // JSDoc 'Constant' without value
