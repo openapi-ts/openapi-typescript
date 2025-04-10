@@ -84,6 +84,7 @@ export default function transformResponseObject(
           path: createRef([options.path, "content", contentType]),
         }),
       );
+      addJSDocComment(mediaTypeObject, property);
       contentObject.push(property);
     }
   }
