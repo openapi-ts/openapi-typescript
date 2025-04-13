@@ -45,6 +45,10 @@ apis:
     root: ./path-based-client/schemas/path-based-client.yaml
     x-openapi-ts:
       output: ./path-based-client/schemas/path-based-client.d.ts
+  transform:
+    root: ./transform/schemas/transform.yaml
+    x-openapi-ts:
+      output: ./transform/schemas/transform.d.ts
   github:
     root: ../../openapi-typescript/examples/github-api.yaml
     x-openapi-ts:

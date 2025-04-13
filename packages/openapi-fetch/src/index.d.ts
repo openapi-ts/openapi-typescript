@@ -23,6 +23,8 @@ export interface ClientOptions extends Omit<RequestInit, "headers"> {
   querySerializer?: QuerySerializer<unknown> | QuerySerializerOptions;
   /** global bodySerializer */
   bodySerializer?: BodySerializer<unknown>;
+  /** transform functions for request/response data */
+  transform?: TransformOptions<unknown, unknown>;
   headers?: HeadersOptions;
   /** RequestInit extension object to pass as 2nd argument to fetch when supported (defaults to undefined) */
   requestInitExt?: Record<string, unknown>;
@@ -63,6 +65,18 @@ export type QuerySerializerOptions = {
 };
 
 export type BodySerializer<T> = (body: OperationRequestBodyContent<T>) => any;
+
+export type TransformOptions<T = any, R = any> = {
+  response?: (method: string, path: string, data: T) => R;
+};
+
+export type TransformFunction<T = any, R = any> = (
+  method: string,
+  path: string,
+  options: {
+    data: T;
+  },
+) => R;
 
 type BodyType<T = unknown> = {
   json: T;
@@ -127,6 +141,7 @@ export type MergedOptions<T = unknown> = {
   parseAs: ParseAs;
   querySerializer: QuerySerializer<T>;
   bodySerializer: BodySerializer<T>;
+  transform?: TransformOptions<T, T>;
   fetch: typeof globalThis.fetch;
 };
 
