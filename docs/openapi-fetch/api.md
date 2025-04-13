@@ -19,6 +19,7 @@ createClient<paths>(options);
 | `fetch`           | `fetch`         | Fetch instance used for requests (default: `globalThis.fetch`)                                                                          |
 | `querySerializer` | QuerySerializer | (optional) Provide a [querySerializer](#queryserializer)                                                                                |
 | `bodySerializer`  | BodySerializer  | (optional) Provide a [bodySerializer](#bodyserializer)                                                                                  |
+| `transform`       | TransformOptions| (optional) Provide [transform functions](#transform) for response data                                                          |
 | (Fetch options)   |                 | Any valid fetch option (`headers`, `mode`, `cache`, `signal` …) ([docs](https://developer.mozilla.org/en-US/docs/Web/API/fetch#options) |
 
 ## Fetch options
@@ -191,6 +192,24 @@ You can also set `Content-Type` manually through `headers` object either in the 
 or when instantiating the client.
 
 :::
+
+## transform
+
+The transform option lets you modify request and response data before it's sent or after it's received. This is useful for tasks like deserialization.
+
+```ts
+const client = createClient<paths>({
+  transform: {
+    response: (method, path, data) => {
+      // Convert date strings to Date objects
+      if (data?.created_at) {
+        data.created_at = new Date(data.created_at);
+      }
+      return data;
+    }
+  }
+});
+```
 
 ## Path serialization
 
