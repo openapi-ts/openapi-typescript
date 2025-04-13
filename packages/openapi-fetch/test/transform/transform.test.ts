@@ -14,26 +14,27 @@ test("transforms date strings to Date objects", async () => {
       transform: {
         response: (method, path, data) => {
           if (!data || typeof data !== "object") return data;
-          
+
           const result = { ...data } as PostResponse;
-          
+
           if (typeof result.created_at === "string") {
             result.created_at = new Date(result.created_at);
           }
-          
+
           return result;
-        }
-      }
+        },
+      },
     },
-    async () => Response.json({ 
-      id: 1, 
-      title: "Test Post", 
-      created_at: "2023-01-01T00:00:00Z" 
-    })
+    async () =>
+      Response.json({
+        id: 1,
+        title: "Test Post",
+        created_at: "2023-01-01T00:00:00Z",
+      }),
   );
 
   const { data } = await client.GET("/posts/{id}", {
-    params: { path: { id: 1 } }
+    params: { path: { id: 1 } },
   });
 
   const post = data as PostResponse;
