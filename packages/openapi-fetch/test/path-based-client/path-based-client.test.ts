@@ -1,5 +1,5 @@
 import type { MediaType } from "openapi-typescript-helpers";
-import { createExpect, describe, expect, expectTypeOf, test } from "vitest";
+import { describe, expect, expectTypeOf, test } from "vitest";
 import { createPathBasedClient, type PathBasedClient } from "../../src/index.js";
 import type { paths } from "./schemas/path-based-client.js";
 
@@ -78,5 +78,23 @@ describe("createPathBasedClient", () => {
         expect(data.title).toBe("Blog post title");
       }
     });
+
+    test('properly binds "this" inside PathCallForwarder', async () => {
+      let method = "";
+      const client = createObservedPathBasedClient<paths>({}, async (req) => {
+        method = req.method;
+        return Response.json({});
+      });
+
+      const getMethodByPathAndMethod = (path: "/posts", method: 'GET') => {
+        return client[path][method];
+      }
+
+      await getMethodByPathAndMethod("/posts", "GET")();
+      
+      expect(method).toBe("GET");
+    });
   });
 });
+
+
