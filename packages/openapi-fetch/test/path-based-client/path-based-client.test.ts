@@ -86,15 +86,13 @@ describe("createPathBasedClient", () => {
         return Response.json({});
       });
 
-      const getMethodByPathAndMethod = (path: "/posts", method: 'GET') => {
+      const getMethodByPathAndMethod = (path: "/posts", method: "GET") => {
         return client[path][method];
-      }
+      };
 
       await getMethodByPathAndMethod("/posts", "GET")();
-      
+
       expect(method).toBe("GET");
     });
   });
 });
-
-

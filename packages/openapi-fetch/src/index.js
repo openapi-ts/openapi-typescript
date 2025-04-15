@@ -300,28 +300,28 @@ class PathCallForwarder {
 
   GET = (init) => {
     return this.client.GET(this.url, init);
-  }
+  };
   PUT = (init) => {
     return this.client.PUT(this.url, init);
-  }
+  };
   POST = (init) => {
     return this.client.POST(this.url, init);
-  }
+  };
   DELETE = (init) => {
     return this.client.DELETE(this.url, init);
-  }
+  };
   OPTIONS = (init) => {
     return this.client.OPTIONS(this.url, init);
-  }
+  };
   HEAD = (init) => {
     return this.client.HEAD(this.url, init);
-  }
+  };
   PATCH = (init) => {
     return this.client.PATCH(this.url, init);
-  }
+  };
   TRACE = (init) => {
     return this.client.TRACE(this.url, init);
-  }
+  };
 }
 
 class PathClientProxyHandler {
