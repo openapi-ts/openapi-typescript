@@ -148,10 +148,10 @@ importers:
     devDependencies:
       '@sveltejs/adapter-auto':
         specifier: ^3.3.1
-        version: 3.3.1(@sveltejs/kit@2.17.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0)))(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0)))
+        version: 3.3.1(@sveltejs/kit@2.20.6(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0)))(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0)))
       '@sveltejs/kit':
-        specifier: ^2.17.2
-        version: 2.17.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0)))(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0))
+        specifier: ^2.20.6
+        version: 2.20.6(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0)))(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0))
       '@sveltejs/vite-plugin-svelte':
         specifier: ^5.0.3
         version: 5.0.3(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0))
@@ -1471,8 +1471,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  '@polka/url@1.0.0-next.28':
-    resolution: {integrity: sha512-8LduaNlMZGwdZ6qWrKlfa+2M4gahzFkprZiAt2TF8uS0qQgBizKXpXURqvTJ4WtmupWxaLqjRb2UCTe72mu+Aw==}
+  '@polka/url@1.0.0-next.29':
+    resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
 
   '@redocly/ajv@8.11.2':
     resolution: {integrity: sha512-io1JpnwtIcvojV7QKDUSIuMN/ikdOUd1ReEnUnMKGfDVridQZ31J0MmIuqwuRjWDZfmvr+Q0MqCcfHM2gTivOg==}
@@ -1820,8 +1820,8 @@ packages:
     peerDependencies:
       '@sveltejs/kit': ^2.0.0
 
-  '@sveltejs/kit@2.17.2':
-    resolution: {integrity: sha512-Vypk02baf7qd3SOB1uUwUC/3Oka+srPo2J0a8YN3EfJypRshDkNx9HzNKjSmhOnGWwT+SSO06+N0mAb8iVTmTQ==}
+  '@sveltejs/kit@2.20.6':
+    resolution: {integrity: sha512-ImUkSQ//Xf4N9r0HHAe5vRA7RyQ7U1Ue1YUT235Ig+IiIqbsixEulHTHrP5LtBiC8xOkJoPZQ1VZ/nWHNOaGGw==}
     engines: {node: '>=18.13'}
     hasBin: true
     peerDependencies:
@@ -6396,7 +6396,7 @@ snapshots:
     dependencies:
       playwright: 1.51.1
 
-  '@polka/url@1.0.0-next.28': {}
+  '@polka/url@1.0.0-next.29': {}
 
   '@redocly/ajv@8.11.2':
     dependencies:
@@ -6717,12 +6717,12 @@ snapshots:
       '@size-limit/file': 11.2.0(size-limit@11.2.0)
       size-limit: 11.2.0
 
-  '@sveltejs/adapter-auto@3.3.1(@sveltejs/kit@2.17.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0)))(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0)))':
+  '@sveltejs/adapter-auto@3.3.1(@sveltejs/kit@2.20.6(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0)))(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0)))':
     dependencies:
-      '@sveltejs/kit': 2.17.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0)))(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0))
+      '@sveltejs/kit': 2.20.6(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0)))(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0))
       import-meta-resolve: 4.1.0
 
-  '@sveltejs/kit@2.17.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0)))(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0))':
+  '@sveltejs/kit@2.20.6(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0)))(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0))':
     dependencies:
       '@sveltejs/vite-plugin-svelte': 5.0.3(svelte@5.20.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(yaml@2.7.0))
       '@types/cookie': 0.6.0
@@ -9875,7 +9875,7 @@ snapshots:
 
   sirv@3.0.1:
     dependencies:
-      '@polka/url': 1.0.0-next.28
+      '@polka/url': 1.0.0-next.29
       mrmime: 2.0.1
       totalist: 3.0.1
 
