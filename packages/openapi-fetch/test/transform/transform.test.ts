@@ -14,8 +14,8 @@ test("transforms date strings to Date objects", async () => {
       transform: {
         response: (method, path, data) => {
           if (!data || typeof data !== "object") {
-            return data
-          };
+            return data;
+          }
 
           const result = { ...data } as PostResponse;
 
