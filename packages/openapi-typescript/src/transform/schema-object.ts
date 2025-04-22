@@ -587,5 +587,5 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
  * @returns True if the object has the key, false otherwise
  */
 function hasKey<K extends string>(possibleObject: unknown, key: K): possibleObject is { [key in K]: unknown } {
-  return typeof possibleObject === 'object' && possibleObject !== null && key in possibleObject;
+  return typeof possibleObject === "object" && possibleObject !== null && key in possibleObject;
 }
