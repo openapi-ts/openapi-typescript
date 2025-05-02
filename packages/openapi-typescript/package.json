@@ -11,7 +11,7 @@
     "openapi-typescript": "bin/cli.js"
   },
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "exports": {
     ".": {
       "import": "./dist/index.js",
