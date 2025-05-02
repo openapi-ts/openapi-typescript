@@ -8,7 +8,7 @@
   },
   "license": "MIT",
   "type": "module",
-  "main": "./index.js",
+  "main": "./index.cjs",
   "types": "./index.d.ts",
   "exports": {
     ".": {
