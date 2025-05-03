@@ -57,7 +57,7 @@
   },
   "peerDependencies": {
     "openapi-fetch": "0.13.4",
-    "openapi-typescript": "7.5.2",
+    "openapi-typescript": "7.6.1",
     "react": "18 || 19",
     "swr": "2",
     "typescript": "^5.x"
