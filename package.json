@@ -7,7 +7,7 @@
     "name": "Drew Powers",
     "email": "drew@pow.rs"
   },
-  "packageManager": "pnpm@9.15.2",
+  "packageManager": "pnpm@10.8.1",
   "scripts": {
     "build": "turbo run build",
     "lint": "turbo run lint",
@@ -21,16 +21,16 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@changesets/changelog-github": "^0.5.1",
-    "@changesets/cli": "^2.28.1",
-    "@playwright/test": "^1.50.1",
+    "@changesets/cli": "^2.29.2",
+    "@playwright/test": "^1.52.0",
     "@size-limit/preset-small-lib": "^11.2.0",
-    "@types/node": "^22.13.5",
+    "@types/node": "^22.15.3",
     "del-cli": "^5.1.0",
-    "prettier": "^3.5.2",
+    "prettier": "^3.5.3",
     "size-limit": "^11.2.0",
-    "turbo": "^2.4.2",
-    "typescript": "^5.7.3",
-    "vitest": "^3.0.6"
+    "turbo": "^2.5.2",
+    "typescript": "^5.8.3",
+    "vitest": "^2.1.9"
   },
   "size-limit": [
     {

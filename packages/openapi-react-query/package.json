@@ -1,7 +1,7 @@
 {
   "name": "openapi-react-query",
   "description": "Fast, type-safe @tanstack/react-query client to work with your OpenAPI schema.",
-  "version": "0.3.1",
+  "version": "0.3.0",
   "author": {
     "name": "Martin Paucot",
     "email": "contact@martin-paucot.fr"
@@ -65,19 +65,17 @@
     "openapi-typescript-helpers": "workspace:^"
   },
   "devDependencies": {
-    "@tanstack/react-query": "^5.66.9",
-    "@testing-library/react": "^16.2.0",
-    "@types/react": "^18.3.1",
-    "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.4",
+    "@tanstack/react-query": "^5.75.1",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "18.3.1",
+    "@vitejs/plugin-react": "^4.4.1",
     "del-cli": "^5.1.0",
-    "esbuild": "^0.25.0",
-    "execa": "^9.5.2",
-    "msw": "^2.7.1",
+    "esbuild": "^0.24.2",
+    "execa": "^8.0.1",
+    "msw": "^2.7.5",
     "openapi-fetch": "workspace:^",
     "openapi-typescript": "workspace:^",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
     "react-error-boundary": "^4.1.2"
   },
   "peerDependencies": {

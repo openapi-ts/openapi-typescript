@@ -27,7 +27,6 @@ jobs:
       - name: pnpm setup
         uses: pnpm/action-setup@v4
         with:
-          version: 9.15.2
           run_install: true
 
       # Do not remove! This ensures a build happens every time

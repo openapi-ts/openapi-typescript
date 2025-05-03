@@ -1,7 +1,7 @@
 {
   "name": "swr-openapi",
   "description": "Generate SWR hooks from OpenAPI schemas",
-  "version": "5.1.4",
+  "version": "5.1.3",
   "author": {
     "name": "Hunter Tunnicliff",
     "email": "hunter@tunnicliff.co"
@@ -56,7 +56,7 @@
     "version": "pnpm run build"
   },
   "peerDependencies": {
-    "openapi-fetch": "0.13.5",
+    "openapi-fetch": "0.13.4",
     "openapi-typescript": "7.5.2",
     "react": "18 || 19",
     "swr": "2",
@@ -69,20 +69,20 @@
   },
   "dependencies": {
     "openapi-typescript-helpers": "workspace:^",
-    "type-fest": "^4.33.0"
+    "type-fest": "^4.40.1"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.17.0",
-    "@types/lodash": "^4.17.15",
-    "@types/react": "^18.3.18",
+    "@arethetypeswrong/cli": "^0.16.4",
+    "@types/lodash": "^4.17.16",
+    "@types/react": "^18.3.20",
     "del-cli": "^5.1.0",
     "husky": "^9.1.7",
-    "lint-staged": "^15.4.3",
+    "lint-staged": "15.2.10",
     "lodash": "^4.17.21",
     "openapi-fetch": "workspace:^",
     "openapi-typescript": "workspace:^",
-    "react": "^18.3.1",
-    "swr": "^2.3.2",
-    "typescript": "^5.7.3"
+    "react": "18.3.1",
+    "swr": "2.2.5",
+    "typescript": "^5.8.3"
   }
 }
