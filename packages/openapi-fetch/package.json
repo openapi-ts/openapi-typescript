@@ -71,7 +71,7 @@
   },
   "devDependencies": {
     "axios": "^1.9.0",
-    "del-cli": "^5.1.0",
+    "del-cli": "^6.0.0",
     "esbuild": "^0.24.2",
     "execa": "^8.0.1",
     "express": "^4.21.2",

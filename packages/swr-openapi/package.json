@@ -75,7 +75,7 @@
     "@arethetypeswrong/cli": "^0.16.4",
     "@types/lodash": "^4.17.16",
     "@types/react": "^18.3.20",
-    "del-cli": "^5.1.0",
+    "del-cli": "^6.0.0",
     "husky": "^9.1.7",
     "lint-staged": "15.2.10",
     "lodash": "^4.17.21",
