@@ -8,7 +8,7 @@ This hook has the same contracts as [`useQuery`](./use-query.md). However, inste
 
 ```ts
 import createClient from "openapi-fetch";
-import { createQueryHook } from "swr-openapi";
+import { createImmutableHook } from "swr-openapi";
 import type { paths } from "./my-schema";
 
 const useImmutable = createImmutableHook(client, "my-api");
