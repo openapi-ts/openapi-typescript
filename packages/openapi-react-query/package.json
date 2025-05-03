@@ -1,7 +1,7 @@
 {
   "name": "openapi-react-query",
   "description": "Fast, type-safe @tanstack/react-query client to work with your OpenAPI schema.",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": {
     "name": "Martin Paucot",
     "email": "contact@martin-paucot.fr"
@@ -67,9 +67,9 @@
   "devDependencies": {
     "@tanstack/react-query": "^5.75.1",
     "@testing-library/react": "^16.3.0",
-    "@types/react": "18.3.1",
+    "@types/react": "18.3.20",
     "@vitejs/plugin-react": "^4.4.1",
-    "del-cli": "^5.1.0",
+    "del-cli": "^6.0.0",
     "esbuild": "^0.24.2",
     "execa": "^8.0.1",
     "msw": "^2.7.5",

@@ -1,7 +1,7 @@
 {
   "name": "openapi-typescript",
   "description": "Convert OpenAPI 3.0 & 3.1 schemas to TypeScript",
-  "version": "7.6.0",
+  "version": "7.6.1",
   "author": {
     "name": "Drew Powers",
     "email": "drew@pow.rs"
@@ -71,7 +71,7 @@
     "@types/degit": "^2.8.6",
     "@types/js-yaml": "^4.0.9",
     "degit": "^2.8.4",
-    "del-cli": "^5.1.0",
+    "del-cli": "^6.0.0",
     "esbuild": "^0.24.2",
     "execa": "^8.0.1",
     "strip-ansi": "^7.1.0",
