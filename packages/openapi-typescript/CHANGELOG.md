@@ -1,5 +1,19 @@
 # openapi-typescript
 
+## 7.7.0
+
+### Minor Changes
+
+- [#2249](https://github.com/openapi-ts/openapi-typescript/pull/2249) [`7f3f7b6`](https://github.com/openapi-ts/openapi-typescript/commit/7f3f7b65da5ef8caf5304486184118352665eb3f) Thanks [@gzm0](https://github.com/gzm0)! - Add jsdoc comments to response object
+
+### Patch Changes
+
+- [#2199](https://github.com/openapi-ts/openapi-typescript/pull/2199) [`fc3f7f8`](https://github.com/openapi-ts/openapi-typescript/commit/fc3f7f8b9cf52f0d4daf31ed4579d588c5b0f3e6) Thanks [@StefanTerdell](https://github.com/StefanTerdell)! - Fix boolean object property schemas
+
+- [#2152](https://github.com/openapi-ts/openapi-typescript/pull/2152) [`47e4b5e`](https://github.com/openapi-ts/openapi-typescript/commit/47e4b5eb86adc59e3de2a4179741d35a26db61c0) Thanks [@insertmike](https://github.com/insertmike)! - - Fixed --make-paths-enum option transforming the paths URL (`:id` instead of `{id}`)
+
+- [#2241](https://github.com/openapi-ts/openapi-typescript/pull/2241) [`ef23947`](https://github.com/openapi-ts/openapi-typescript/commit/ef239479b5f15fc4c98dd15c72974d4cb8722fb0) Thanks [@stanleyk](https://github.com/stanleyk)! - Replacing `any` with `unknown` in the `ReadonlyArray` type declaration.
+
 ## 7.6.1
 
 ### Patch Changes
