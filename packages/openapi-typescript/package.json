@@ -72,7 +72,7 @@
     "@types/js-yaml": "^4.0.9",
     "degit": "^2.8.4",
     "del-cli": "^6.0.0",
-    "esbuild": "^0.24.2",
+    "esbuild": "^0.25.0",
     "execa": "^8.0.1",
     "strip-ansi": "^7.1.0",
     "typescript": "^5.8.3",
