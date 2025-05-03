@@ -1,5 +1,11 @@
 # openapi-react-query
 
+## 0.4.0
+
+### Minor Changes
+
+- [#2169](https://github.com/openapi-ts/openapi-typescript/pull/2169) [`a76801c`](https://github.com/openapi-ts/openapi-typescript/commit/a76801cdc04fe9d2c28756a050861c6e673aa325) Thanks [@awmichel](https://github.com/awmichel)! - [#2169](https://github.com/openapi-ts/openapi-typescript/pull/2169): Infer returned `data` type from `select` option when used with the `useInfiniteQuery` method.
+
 ## 0.3.2
 
 ### Patch Changes
