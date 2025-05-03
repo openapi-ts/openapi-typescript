@@ -56,7 +56,7 @@
     "version": "pnpm run build"
   },
   "peerDependencies": {
-    "openapi-fetch": "0.13.4",
+    "openapi-fetch": "0.13.5",
     "openapi-typescript": "7.5.2",
     "react": "18 || 19",
     "swr": "2",
