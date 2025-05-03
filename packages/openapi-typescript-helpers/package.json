@@ -45,6 +45,6 @@
     "test": "tsc --noEmit"
   },
   "devDependencies": {
-    "typescript": "^5.7.3"
+    "typescript": "^5.8.3"
   }
 }
