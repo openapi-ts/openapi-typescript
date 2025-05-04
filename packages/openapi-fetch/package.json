@@ -82,7 +82,7 @@
     "openapi-typescript-fetch": "^2.1.0",
     "superagent": "^10.2.0",
     "typescript": "^5.8.3",
-    "undici": "^6.21.2",
+    "undici": "^7.0.0",
     "vite": "^6.3.4"
   }
 }
