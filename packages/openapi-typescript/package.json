@@ -73,7 +73,7 @@
     "degit": "^2.8.4",
     "del-cli": "^6.0.0",
     "esbuild": "^0.25.0",
-    "execa": "^8.0.1",
+    "execa": "^9.0.0",
     "strip-ansi": "^7.1.0",
     "typescript": "^5.8.3",
     "vite-node": "^2.1.9"
