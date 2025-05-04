@@ -67,7 +67,7 @@
   "devDependencies": {
     "@tanstack/react-query": "^5.75.1",
     "@testing-library/react": "^16.3.0",
-    "@types/react": "18.3.20",
+    "@types/react": "19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
     "del-cli": "^6.0.0",
     "esbuild": "^0.25.0",
@@ -75,7 +75,7 @@
     "msw": "^2.7.5",
     "openapi-fetch": "workspace:^",
     "openapi-typescript": "workspace:^",
-    "react": "^18.3.1",
+    "react": "^19.0.0",
     "react-error-boundary": "^6.0.0"
   },
   "peerDependencies": {
