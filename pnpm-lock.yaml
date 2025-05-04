@@ -261,8 +261,8 @@ importers:
         specifier: ^0.25.0
         version: 0.25.3
       execa:
-        specifier: ^8.0.1
-        version: 8.0.1
+        specifier: ^9.0.0
+        version: 9.5.2
       msw:
         specifier: ^2.7.5
         version: 2.7.5(@types/node@22.15.3)(typescript@5.8.3)
@@ -316,8 +316,8 @@ importers:
         specifier: ^0.25.0
         version: 0.25.3
       execa:
-        specifier: ^8.0.1
-        version: 8.0.1
+        specifier: ^9.0.0
+        version: 9.5.2
       strip-ansi:
         specifier: ^7.1.0
         version: 7.1.0
