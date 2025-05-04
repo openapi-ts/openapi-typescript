@@ -298,30 +298,30 @@ class PathCallForwarder {
     this.url = url;
   }
 
-  GET(init) {
+  GET = (init) => {
     return this.client.GET(this.url, init);
-  }
-  PUT(init) {
+  };
+  PUT = (init) => {
     return this.client.PUT(this.url, init);
-  }
-  POST(init) {
+  };
+  POST = (init) => {
     return this.client.POST(this.url, init);
-  }
-  DELETE(init) {
+  };
+  DELETE = (init) => {
     return this.client.DELETE(this.url, init);
-  }
-  OPTIONS(init) {
+  };
+  OPTIONS = (init) => {
     return this.client.OPTIONS(this.url, init);
-  }
-  HEAD(init) {
+  };
+  HEAD = (init) => {
     return this.client.HEAD(this.url, init);
-  }
-  PATCH(init) {
+  };
+  PATCH = (init) => {
     return this.client.PATCH(this.url, init);
-  }
-  TRACE(init) {
+  };
+  TRACE = (init) => {
     return this.client.TRACE(this.url, init);
-  }
+  };
 }
 
 class PathClientProxyHandler {
