@@ -100,6 +100,51 @@ describe("transformSchemaObject > object", () => {
       },
     ],
     [
+      "patternProperties > empty object",
+      {
+        given: { type: "object", patternProperties: {} },
+        want: `{
+    [key: string]: unknown;
+}`,
+      },
+    ],
+    [
+      "patternProperties > basic",
+      {
+        given: { type: "object", patternProperties: { "^a": { type: "string" } } },
+        want: `{
+    [key: string]: string;
+}`,
+      },
+    ],
+    [
+      "patternProperties > enum",
+      {
+        given: { type: "object", patternProperties: { "^a": { type: "string", enum: ["a", "b", "c"] } } },
+        want: `{
+    [key: string]: "a" | "b" | "c";
+}`,
+      },
+    ],
+    [
+      "patternProperties > multiple patterns",
+      {
+        given: { type: "object", patternProperties: { "^a": { type: "string" }, "^b": { type: "number" } } },
+        want: `{
+    [key: string]: string | number;
+}`,
+      },
+    ],
+    [
+      "patternProperties > additional and patterns",
+      {
+        given: { type: "object", additionalProperties: { type: "number" }, patternProperties: { "^a": { type: "string" } } },
+        want: `{
+    [key: string]: number | string;
+}`,
+      },
+    ],
+    [
       "nullable",
       {
         given: {
