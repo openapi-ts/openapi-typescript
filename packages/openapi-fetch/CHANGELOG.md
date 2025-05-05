@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.13.7
+
+### Patch Changes
+
+- [#2256](https://github.com/openapi-ts/openapi-typescript/pull/2256) [`30c6da8`](https://github.com/openapi-ts/openapi-typescript/commit/30c6da800a00bda87da66dea6d04807e1379f06a) Thanks [@KajSzy](https://github.com/KajSzy)! - fix dynamic access to methods using wrapAsPathBasedClient
+
 ## 0.13.6
 
 ### Patch Changes

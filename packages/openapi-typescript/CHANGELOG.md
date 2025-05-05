@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.7.1
+
+### Patch Changes
+
+- [#2260](https://github.com/openapi-ts/openapi-typescript/pull/2260) [`7205e12`](https://github.com/openapi-ts/openapi-typescript/commit/7205e12e07e5fd36a6bb3be44ea911f57bbbeb60) Thanks [@zrosenbauer](https://github.com/zrosenbauer)! - Prevents a `TypeError` due to a bad in operator for `type: "array"` when a `boolean` is set on `items`
+
 ## 7.7.0
 
 ### Minor Changes
