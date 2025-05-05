@@ -184,9 +184,9 @@ export type MethodResponse<
   ? NonNullable<FetchResponse<Paths[Path][Method], Options, Media>["data"]>
   : never;
 
-// TODO: Add the ability to bring queryClient as argument
 export default function createClient<Paths extends {}, Media extends MediaType = MediaType>(
   client: FetchClient<Paths, Media>,
+  initialQueryClient?: QueryClient,
 ): OpenapiQueryClient<Paths, Media> {
   const queryFn = async <Method extends HttpMethod, Path extends PathsWithMethod<Paths, Method>>({
     queryKey: [method, path, init],
@@ -215,9 +215,15 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   return {
     queryOptions,
     useQuery: (method, path, ...[init, options, queryClient]) =>
-      useQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
+      useQuery(
+        queryOptions(method, path, init as InitWithUnknowns<typeof init>, options),
+        queryClient ?? initialQueryClient,
+      ),
     useSuspenseQuery: (method, path, ...[init, options, queryClient]) =>
-      useSuspenseQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
+      useSuspenseQuery(
+        queryOptions(method, path, init as InitWithUnknowns<typeof init>, options),
+        queryClient ?? initialQueryClient,
+      ),
     useInfiniteQuery: (method, path, init, options, queryClient) => {
       const { pageParamName = "cursor", ...restOptions } = options;
       const { queryKey } = queryOptions(method, path, init);
@@ -247,7 +253,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
           },
           ...restOptions,
         },
-        queryClient,
+        queryClient ?? initialQueryClient,
       );
     },
     useMutation: (method, path, options, queryClient) =>
@@ -266,7 +272,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
           },
           ...options,
         },
-        queryClient,
+        queryClient ?? initialQueryClient,
       ),
   };
 }
