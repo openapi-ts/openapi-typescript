@@ -138,7 +138,11 @@ describe("transformSchemaObject > object", () => {
     [
       "patternProperties > additional and patterns",
       {
-        given: { type: "object", additionalProperties: { type: "number" }, patternProperties: { "^a": { type: "string" } } },
+        given: {
+          type: "object",
+          additionalProperties: { type: "number" },
+          patternProperties: { "^a": { type: "string" } },
+        },
         want: `{
     [key: string]: number | string;
 }`,
