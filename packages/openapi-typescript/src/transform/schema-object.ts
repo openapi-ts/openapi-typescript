@@ -322,7 +322,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
       }
       // standard array type
       else if (schemaObject.items) {
-        if ("type" in schemaObject.items && schemaObject.items.type === "array") {
+        if (hasKey(schemaObject.items, "type") && schemaObject.items.type === "array") {
           itemType = ts.factory.createArrayTypeNode(transformSchemaObject(schemaObject.items, options));
         } else {
           itemType = transformSchemaObject(schemaObject.items, options);
@@ -578,4 +578,14 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
   }
 
   return coreObjectType.length ? ts.factory.createTypeLiteralNode(coreObjectType) : undefined;
+}
+
+/**
+ * Check if an object has a key
+ * @param possibleObject - The object to check
+ * @param key - The key to check for
+ * @returns True if the object has the key, false otherwise
+ */
+function hasKey<K extends string>(possibleObject: unknown, key: K): possibleObject is { [key in K]: unknown } {
+  return typeof possibleObject === "object" && possibleObject !== null && key in possibleObject;
 }

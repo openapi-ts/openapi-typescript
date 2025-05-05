@@ -18,6 +18,14 @@ describe("transformSchemaObject > array", () => {
         // options: DEFAULT_OPTIONS,
       },
     ],
+    // Prevents: "TypeError: Cannot use 'in' operator to search for 'type' in true"
+    [
+      "boolean items",
+      {
+        given: { type: "array", items: true },
+        want: "unknown[]",
+      },
+    ],
     [
       "tuple > tuple items",
       {
