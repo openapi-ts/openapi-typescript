@@ -43,7 +43,7 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^2.1.9
-        version: 2.1.9(@types/node@22.15.3)(jsdom@20.0.3)(msw@2.7.5(@types/node@22.15.3)(typescript@5.8.3))
+        version: 2.1.9(@types/node@22.15.3)(jsdom@20.0.3)(msw@2.7.6(@types/node@22.15.3)(typescript@5.8.3))
 
   docs:
     devDependencies:
@@ -222,7 +222,7 @@ importers:
         version: 22.15.3
       '@vitest/coverage-v8':
         specifier: ^2.1.9
-        version: 2.1.9(vitest@2.1.9(@types/node@22.15.3)(jsdom@20.0.3)(msw@2.7.5(@types/node@22.15.3)(typescript@5.8.3)))
+        version: 2.1.9(vitest@2.1.9(@types/node@22.15.3)(jsdom@20.0.3)(msw@2.7.6(@types/node@22.15.3)(typescript@5.8.3)))
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
@@ -265,7 +265,7 @@ importers:
         version: 9.5.2
       msw:
         specifier: ^2.7.5
-        version: 2.7.5(@types/node@22.15.3)(typescript@5.8.3)
+        version: 2.7.6(@types/node@22.15.3)(typescript@5.8.3)
       openapi-fetch:
         specifier: workspace:^
         version: link:../openapi-fetch
@@ -3462,8 +3462,8 @@ packages:
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
-  msw@2.7.5:
-    resolution: {integrity: sha512-00MyTlY3TJutBa5kiU+jWiz2z5pNJDYHn2TgPkGkh92kMmNH43RqvMXd8y/7HxNn8RjzUbvZWYZjcS36fdb6sw==}
+  msw@2.7.6:
+    resolution: {integrity: sha512-P+rwn43ktxN8ghcl8q+hSAUlEi0PbJpDhGmDkw4zeUnRj3hBCVynWD+dTu38yLYKCE9ZF1OYcvpy7CTBRcqkZA==}
     engines: {node: '>=18'}
     hasBin: true
     peerDependencies:
@@ -6343,7 +6343,7 @@ snapshots:
       vite: 6.3.4(@types/node@22.15.3)(jiti@2.4.2)(yaml@2.7.1)
       vue: 3.5.13(typescript@5.8.3)
 
-  '@vitest/coverage-v8@2.1.9(vitest@2.1.9(@types/node@22.15.3)(jsdom@20.0.3)(msw@2.7.5(@types/node@22.15.3)(typescript@5.8.3)))':
+  '@vitest/coverage-v8@2.1.9(vitest@2.1.9(@types/node@22.15.3)(jsdom@20.0.3)(msw@2.7.6(@types/node@22.15.3)(typescript@5.8.3)))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 0.2.3
@@ -6357,7 +6357,7 @@ snapshots:
       std-env: 3.9.0
       test-exclude: 7.0.1
       tinyrainbow: 1.2.0
-      vitest: 2.1.9(@types/node@22.15.3)(jsdom@20.0.3)(msw@2.7.5(@types/node@22.15.3)(typescript@5.8.3))
+      vitest: 2.1.9(@types/node@22.15.3)(jsdom@20.0.3)(msw@2.7.6(@types/node@22.15.3)(typescript@5.8.3))
     transitivePeerDependencies:
       - supports-color
 
@@ -6368,13 +6368,13 @@ snapshots:
       chai: 5.2.0
       tinyrainbow: 1.2.0
 
-  '@vitest/mocker@2.1.9(msw@2.7.5(@types/node@22.15.3)(typescript@5.8.3))(vite@5.4.19(@types/node@22.15.3))':
+  '@vitest/mocker@2.1.9(msw@2.7.6(@types/node@22.15.3)(typescript@5.8.3))(vite@5.4.19(@types/node@22.15.3))':
     dependencies:
       '@vitest/spy': 2.1.9
       estree-walker: 3.0.3
       magic-string: 0.30.17
     optionalDependencies:
-      msw: 2.7.5(@types/node@22.15.3)(typescript@5.8.3)
+      msw: 2.7.6(@types/node@22.15.3)(typescript@5.8.3)
       vite: 5.4.19(@types/node@22.15.3)
 
   '@vitest/pretty-format@2.1.9':
@@ -8260,7 +8260,7 @@ snapshots:
 
   ms@2.1.3: {}
 
-  msw@2.7.5(@types/node@22.15.3)(typescript@5.8.3):
+  msw@2.7.6(@types/node@22.15.3)(typescript@5.8.3):
     dependencies:
       '@bundled-es-modules/cookie': 2.0.1
       '@bundled-es-modules/statuses': 1.0.1
@@ -9605,10 +9605,10 @@ snapshots:
       - typescript
       - universal-cookie
 
-  vitest@2.1.9(@types/node@22.15.3)(jsdom@20.0.3)(msw@2.7.5(@types/node@22.15.3)(typescript@5.8.3)):
+  vitest@2.1.9(@types/node@22.15.3)(jsdom@20.0.3)(msw@2.7.6(@types/node@22.15.3)(typescript@5.8.3)):
     dependencies:
       '@vitest/expect': 2.1.9
-      '@vitest/mocker': 2.1.9(msw@2.7.5(@types/node@22.15.3)(typescript@5.8.3))(vite@5.4.19(@types/node@22.15.3))
+      '@vitest/mocker': 2.1.9(msw@2.7.6(@types/node@22.15.3)(typescript@5.8.3))(vite@5.4.19(@types/node@22.15.3))
       '@vitest/pretty-format': 2.1.9
       '@vitest/runner': 2.1.9
       '@vitest/snapshot': 2.1.9
