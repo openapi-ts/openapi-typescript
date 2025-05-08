@@ -126,10 +126,10 @@ importers:
     devDependencies:
       '@types/react':
         specifier: ^18.3.20
-        version: 18.3.21
+        version: 18.3.20
       '@types/react-dom':
         specifier: ^18.3.7
-        version: 18.3.7(@types/react@18.3.21)
+        version: 18.3.7(@types/react@18.3.20)
       openapi-typescript:
         specifier: workspace:^
         version: link:../../../openapi-typescript
@@ -344,14 +344,14 @@ importers:
         version: 4.41.0
     devDependencies:
       '@arethetypeswrong/cli':
-        specifier: ^0.17.4
-        version: 0.17.4
+        specifier: ^0.18.0
+        version: 0.18.0
       '@types/lodash':
         specifier: ^4.17.16
         version: 4.17.16
       '@types/react':
         specifier: ^18.3.20
-        version: 18.3.21
+        version: 18.3.20
       del-cli:
         specifier: ^6.0.0
         version: 6.0.0
@@ -473,14 +473,14 @@ packages:
     resolution: {integrity: sha512-60vepv88RwcJtSHrD6MjIL6Ta3SOYbgfnkHb+ppAVK+o9mXprRtulx7VlRl3lN3bbvysAfCS7WMVfhUYemB0IQ==}
     engines: {node: '>= 16'}
 
-  '@arethetypeswrong/cli@0.17.4':
-    resolution: {integrity: sha512-AeiKxtf67XD/NdOqXgBOE5TZWH3EOCt+0GkbUpekOzngc+Q/cRZ5azjWyMxISxxfp0EItgm5NoSld9p7BAA5xQ==}
-    engines: {node: '>=18'}
+  '@arethetypeswrong/cli@0.18.0':
+    resolution: {integrity: sha512-Kf09mDQTGHfjR7Hlex70jsebN8tCy92AUnu37wiyIuMh+noiyssBwq5iuzVdnTyJKScKKfXLKoqQOa3eF8ZNrw==}
+    engines: {node: '>=20'}
     hasBin: true
 
-  '@arethetypeswrong/core@0.17.4':
-    resolution: {integrity: sha512-Izvir8iIoU+X4SKtDAa5kpb+9cpifclzsbA8x/AZY0k0gIfXYQ1fa1B6Epfe6vNA2YfDX8VtrZFgvnXB6aPEoQ==}
-    engines: {node: '>=18'}
+  '@arethetypeswrong/core@0.18.0':
+    resolution: {integrity: sha512-a6JikWs7WxYx7CfZYkV+sBQsI0nhLI4uES1/cSPVSRMR6PnfbiMV2b3LBzsuXzh/UI8FoUGmJJaSKoZFa7mF9g==}
+    engines: {node: '>=20'}
 
   '@babel/code-frame@7.27.1':
     resolution: {integrity: sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==}
@@ -3360,6 +3360,10 @@ packages:
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
+  lru-cache@11.1.0:
+    resolution: {integrity: sha512-QIXZUBJUx+2zHUdQujWejBkcD9+cs94tLn0+YL8UrCh+D5sCXZ4c7LaEH48pNwRY3MLDgqUFyhlCyjJPf1WP0A==}
+    engines: {node: 20 || >=22}
+
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
@@ -5234,9 +5238,9 @@ snapshots:
       '@types/json-schema': 7.0.15
       js-yaml: 4.1.0
 
-  '@arethetypeswrong/cli@0.17.4':
+  '@arethetypeswrong/cli@0.18.0':
     dependencies:
-      '@arethetypeswrong/core': 0.17.4
+      '@arethetypeswrong/core': 0.18.0
       chalk: 4.1.2
       cli-table3: 0.6.5
       commander: 10.0.1
@@ -5244,13 +5248,13 @@ snapshots:
       marked-terminal: 7.3.0(marked@9.1.6)
       semver: 7.7.1
 
-  '@arethetypeswrong/core@0.17.4':
+  '@arethetypeswrong/core@0.18.0':
     dependencies:
       '@andrewbranch/untar.js': 1.0.3
       '@loaderkit/resolve': 1.0.4
       cjs-module-lexer: 1.4.3
       fflate: 0.8.2
-      lru-cache: 10.4.3
+      lru-cache: 11.1.0
       semver: 7.7.1
       typescript: 5.6.1-rc
       validate-npm-package-name: 5.0.1
@@ -6548,11 +6552,6 @@ snapshots:
   '@types/react-dom@18.3.7(@types/react@18.3.20)':
     dependencies:
       '@types/react': 18.3.20
-    optional: true
-
-  '@types/react-dom@18.3.7(@types/react@18.3.21)':
-    dependencies:
-      '@types/react': 18.3.21
 
   '@types/react@18.3.20':
     dependencies:
@@ -6563,6 +6562,7 @@ snapshots:
     dependencies:
       '@types/prop-types': 15.7.14
       csstype: 3.1.3
+    optional: true
 
   '@types/resolve@1.20.2': {}
 
@@ -8164,6 +8164,8 @@ snapshots:
   loupe@3.1.3: {}
 
   lru-cache@10.4.3: {}
+
+  lru-cache@11.1.0: {}
 
   lru-cache@5.1.1:
     dependencies:

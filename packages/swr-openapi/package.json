@@ -72,7 +72,7 @@
     "type-fest": "^4.40.1"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.17.4",
+    "@arethetypeswrong/cli": "^0.18.0",
     "@types/lodash": "^4.17.16",
     "@types/react": "^18.3.20",
     "del-cli": "^6.0.0",
