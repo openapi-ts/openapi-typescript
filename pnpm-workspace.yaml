@@ -1,3 +1,7 @@
 packages:
   - docs
   - packages/**
+ignoredBuiltDependencies:
+  - msw
+onlyBuiltDependencies:
+  - esbuild
