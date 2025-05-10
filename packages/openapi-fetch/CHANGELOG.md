@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.13.8
+
+### Patch Changes
+
+- [#2308](https://github.com/openapi-ts/openapi-typescript/pull/2308) [`81c031d`](https://github.com/openapi-ts/openapi-typescript/commit/81c031da8584ed49b033ebfc67bbb3e1ca258699) Thanks [@drwpow](https://github.com/drwpow)! - Improve header handling
+
 ## 0.13.7
 
 ### Patch Changes
