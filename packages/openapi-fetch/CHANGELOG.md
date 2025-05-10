@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.14.0
+
+### Minor Changes
+
+- [#2310](https://github.com/openapi-ts/openapi-typescript/pull/2310) [`e66b5ce`](https://github.com/openapi-ts/openapi-typescript/commit/e66b5ce63bfcdc57c6ee942e5ed4e7667e64c290) Thanks [@drwpow](https://github.com/drwpow)! - Build package with unbuild. Also remove the minified version (openapi-fetch is only useful in a TypeScript/bundler environment, so there’s no sense in loading it from a CDN clientside).
+
 ## 0.13.8
 
 ### Patch Changes
