@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.7.2
+
+### Patch Changes
+
+- [#2145](https://github.com/openapi-ts/openapi-typescript/pull/2145) [`d79efae`](https://github.com/openapi-ts/openapi-typescript/commit/d79efaea3385d2421d3d295f69d7036cddb106b5) Thanks [@luhn](https://github.com/luhn)! - Don't remove `null` type if a default is present.
+
 ## 7.7.1
 
 ### Patch Changes
