@@ -35,7 +35,7 @@ export function findType({ metadataKey, prototype, propertyKey }: FindTypeOption
   return reflectedType;
 }
 
-const IS_THUNK_REG = /.+=>[\w\d\s\t\n\r]*/;
+const IS_THUNK_REG = /^.+=>[\w\d\s\t\n\r]*/;
 
 /**
  * Asserts that a value is a thunk value.

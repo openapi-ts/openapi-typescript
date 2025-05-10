@@ -12,6 +12,14 @@ test("isThunk", () => {
   expect(isThunk(User)).toBe(false);
   expect(isThunk(() => User)).toBe(true);
 
+  class InsideThunk {
+    test() {
+      return [].map(() => {});
+    }
+  }
+  expect(isThunk(InsideThunk)).toBe(false);
+  expect(isThunk(() => InsideThunk)).toBe(true);
+
   expect(
     isThunk(() => {
       return "TESTEST";
