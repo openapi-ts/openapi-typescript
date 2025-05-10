@@ -73,7 +73,7 @@ export default function createClient(clientOptions) {
             });
     }
 
-    const serializedBody = body === undefined ? undefined : bodySerializer(body);
+    const serializedBody = body === undefined ? undefined : bodySerializer(body, headers);
 
     const defaultHeaders =
       // with no body, we should not to set Content-Type
@@ -578,9 +578,18 @@ export function defaultPathSerializer(pathname, pathParams) {
  * Serialize body object to string
  * @type {import("./index.js").defaultBodySerializer}
  */
-export function defaultBodySerializer(body) {
+export function defaultBodySerializer(body, headers) {
   if (body instanceof FormData) {
     return body;
+  }
+  if (headers) {
+    const contentType =
+      headers.get instanceof Function
+        ? (headers.get("Content-Type") ?? headers.get("content-type"))
+        : (headers["Content-Type"] ?? headers["content-type"]);
+    if (contentType === "application/x-www-form-urlencoded") {
+      return new URLSearchParams(body).toString();
+    }
   }
   return JSON.stringify(body);
 }
