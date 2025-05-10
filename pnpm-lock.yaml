@@ -42,7 +42,7 @@ importers:
         specifier: ^5.8.3
         version: 5.8.3
       vitest:
-        specifier: ^3.0.0
+        specifier: ^3.1.3
         version: 3.1.3(@types/debug@4.1.12)(@types/node@22.15.17)(jiti@2.4.2)(jsdom@20.0.3)(msw@2.8.2(@types/node@22.15.17)(typescript@5.8.3))(yaml@2.7.1)
 
   docs:
@@ -221,7 +221,7 @@ importers:
         specifier: ^22.15.3
         version: 22.15.17
       '@vitest/coverage-v8':
-        specifier: ^3.0.0
+        specifier: ^3.1.3
         version: 3.1.3(vitest@3.1.3(@types/debug@4.1.12)(@types/node@22.15.17)(jiti@2.4.2)(jsdom@20.0.3)(msw@2.8.2(@types/node@22.15.17)(typescript@5.8.3))(yaml@2.7.1))
       reflect-metadata:
         specifier: ^0.2.2

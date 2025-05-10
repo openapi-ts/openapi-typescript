@@ -73,24 +73,38 @@ export default function createClient(clientOptions) {
             });
     }
 
-    const serializedBody = body === undefined ? undefined : bodySerializer(body, headers);
-
-    const defaultHeaders =
+    const serializedBody =
+      body === undefined
+        ? undefined
+        : bodySerializer(
+            body,
+            // Note: we declare mergeHeaders() both here and below because it’s a bit of a chicken-or-egg situation:
+            // bodySerializer() needs all headers so we aren’t dropping ones set by the user, however,
+            // the result of this ALSO sets the lowest-priority content-type header. So we re-merge below,
+            // setting the content-type at the very beginning to be overwritten.
+            // Lastly, based on the way headers work, it’s not a simple “present-or-not” check becauase null intentionally un-sets headers.
+            mergeHeaders(baseHeaders, headers, params.header),
+          );
+    const finalHeaders = mergeHeaders(
       // with no body, we should not to set Content-Type
       serializedBody === undefined ||
-      // if serialized body is FormData; browser will correctly set Content-Type & boundary expression
-      serializedBody instanceof FormData
+        // if serialized body is FormData; browser will correctly set Content-Type & boundary expression
+        serializedBody instanceof FormData
         ? {}
         : {
             "Content-Type": "application/json",
-          };
+          },
+      baseHeaders,
+      headers,
+      params.header,
+    );
 
     const requestInit = {
       redirect: "follow",
       ...baseOptions,
       ...init,
       body: serializedBody,
-      headers: mergeHeaders(defaultHeaders, baseHeaders, headers, params.header),
+      headers: finalHeaders,
     };
 
     let id;
