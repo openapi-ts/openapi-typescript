@@ -105,10 +105,10 @@ describe("transformWebhooksObject", () => {
                 schema: { type: "string" },
                 required: true,
               },
-              { $ref: "#/components/parameters/query/utm_source" },
-              { $ref: "#/components/parameters/query/utm_email" },
-              { $ref: "#/components/parameters/query/utm_campaign" },
-              { $ref: "#/components/parameters/path/version" },
+              { $ref: "#/components/parameters/utm_source" },
+              { $ref: "#/components/parameters/utm_email" },
+              { $ref: "#/components/parameters/utm_campaign" },
+              { $ref: "#/components/parameters/version" },
             ],
           },
         },
@@ -117,13 +117,13 @@ describe("transformWebhooksObject", () => {
         parameters: {
             query: {
                 signature: string;
-                utm_source?: components["parameters"]["query"]["utm_source"];
-                utm_email?: components["parameters"]["query"]["utm_email"];
-                utm_campaign?: components["parameters"]["query"]["utm_campaign"];
+                utm_source?: components["parameters"]["utm_source"];
+                utm_email?: components["parameters"]["utm_email"];
+                utm_campaign?: components["parameters"]["utm_campaign"];
             };
             header?: never;
             path: {
-                utm_campaign: components["parameters"]["path"]["version"];
+                utm_campaign: components["parameters"]["version"];
             };
             cookie?: never;
         };
@@ -141,28 +141,28 @@ describe("transformWebhooksObject", () => {
           ...DEFAULT_OPTIONS,
           resolve($ref) {
             switch ($ref) {
-              case "#/components/parameters/query/utm_source": {
+              case "#/components/parameters/utm_source": {
                 return {
                   in: "query",
                   name: "utm_source",
                   schema: { type: "string" },
                 };
               }
-              case "#/components/parameters/query/utm_email": {
+              case "#/components/parameters/utm_email": {
                 return {
                   in: "query",
                   name: "utm_email",
                   schema: { type: "string" },
                 };
               }
-              case "#/components/parameters/query/utm_campaign": {
+              case "#/components/parameters/utm_campaign": {
                 return {
                   in: "query",
                   name: "utm_campaign",
                   schema: { type: "string" },
                 };
               }
-              case "#/components/parameters/path/version": {
+              case "#/components/parameters/version": {
                 return {
                   in: "path",
                   name: "utm_campaign",

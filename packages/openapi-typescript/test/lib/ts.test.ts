@@ -65,14 +65,26 @@ describe("oapiRef", () => {
     expect(astToString(oapiRef("#/components/schemas/User")).trim()).toBe(`components["schemas"]["User"]`);
   });
 
-  test("removes inner `properties`", () => {
+  test("`properties` of component schema `properties`", () => {
     expect(astToString(oapiRef("#/components/schemas/User/properties/username")).trim()).toBe(
       `components["schemas"]["User"]["username"]`,
     );
   });
 
-  test("leaves final `properties` intact", () => {
+  test("component schema named `properties`", () => {
     expect(astToString(oapiRef("#/components/schemas/properties")).trim()).toBe(`components["schemas"]["properties"]`);
+  });
+
+  test("reference into paths parameters", () => {
+    expect(
+      astToString(
+        oapiRef("#/paths/~1endpoint/get/parameters/0", {
+          in: "query",
+          name: "boop",
+          required: true,
+        }),
+      ).trim(),
+    ).toBe('paths["/endpoint"]["get"]["parameters"]["query"]["boop"]');
   });
 });
 
