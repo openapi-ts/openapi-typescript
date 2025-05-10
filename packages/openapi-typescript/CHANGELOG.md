@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.8.0
+
+### Minor Changes
+
+- [#2310](https://github.com/openapi-ts/openapi-typescript/pull/2310) [`e66b5ce`](https://github.com/openapi-ts/openapi-typescript/commit/e66b5ce63bfcdc57c6ee942e5ed4e7667e64c290) Thanks [@drwpow](https://github.com/drwpow)! - Build package with unbuild to improve CJS support
+
 ## 7.7.3
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 {
   "name": "openapi-react-query",
   "description": "Fast, type-safe @tanstack/react-query client to work with your OpenAPI schema.",
-  "version": "0.4.2",
+  "version": "1.0.0",
   "author": {
     "name": "Martin Paucot",
     "email": "contact@martin-paucot.fr"
@@ -11,8 +11,8 @@
   "main": "./dist/index.mjs",
   "exports": {
     ".": {
-      "import":  "./dist/index.mjs",
-      "require":  "./dist/index.cjs",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
       "default": "./dist/index.mjs"
     },
     "./*": "./*"
