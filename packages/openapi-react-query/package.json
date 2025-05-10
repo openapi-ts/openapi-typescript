@@ -8,19 +8,12 @@
   },
   "license": "MIT",
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.mjs",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.cjs"
-      }
+      "import":  "./dist/index.mjs",
+      "require":  "./dist/index.cjs",
+      "default": "./dist/index.mjs"
     },
     "./*": "./*"
   },
@@ -47,18 +40,17 @@
     "tanstack"
   ],
   "scripts": {
-    "build": "pnpm run build:clean && pnpm run build:esm && pnpm run build:cjs",
-    "build:clean": "del-cli dist",
-    "build:esm": "tsc -p tsconfig.build.json",
-    "build:cjs": "esbuild --bundle --platform=node --target=es2019 --outfile=dist/index.cjs --external:typescript src/index.ts",
+    "build": "unbuild",
     "dev": "tsc -p tsconfig.build.json --watch",
     "format": "biome format . --write",
-    "lint": "biome check .",
+    "lint": "pnpm run lint:js && pnpm run lint:ts",
+    "lint:js": "biome check .",
+    "lint:ts": "tsc --noEmit",
     "generate-types": "openapi-typescript test/fixtures/api.yaml -o test/fixtures/api.d.ts",
-    "pretest": "pnpm run generate-types",
-    "test": "pnpm run \"/^test:/\"",
+    "prepack": "pnpm run build",
+    "test": "pnpm run generate-types && pnpm run test:js && pnpm run test:exports",
     "test:js": "vitest run",
-    "test:ts": "tsc --noEmit",
+    "test:exports": "pnpm run build && attw --pack .",
     "version": "pnpm run prepare && pnpm run build"
   },
   "dependencies": {
@@ -69,8 +61,6 @@
     "@testing-library/react": "^16.3.0",
     "@types/react": "18.3.21",
     "@vitejs/plugin-react": "^4.4.1",
-    "del-cli": "^6.0.0",
-    "esbuild": "^0.25.0",
     "execa": "^9.0.0",
     "msw": "^2.7.5",
     "openapi-fetch": "workspace:^",

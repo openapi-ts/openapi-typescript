@@ -1,3 +1,11 @@
 packages:
   - docs
   - packages/**
+ignoredBuiltDependencies:
+  - '@swc/core'
+  - esbuild
+  - msw
+  - sharp
+  - svelte-preprocess
+onlyBuiltDependencies:
+  - '@biomejs/biome'

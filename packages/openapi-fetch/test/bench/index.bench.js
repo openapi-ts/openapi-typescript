@@ -3,7 +3,7 @@ import { Fetcher } from "openapi-typescript-fetch";
 import { createApiFetchClient } from "feature-fetch";
 import superagent from "superagent";
 import { afterAll, bench, describe, vi } from "vitest";
-import createClient, { createPathBasedClient } from "../../dist/index.js";
+import createClient, { createPathBasedClient } from "../../dist/index.mjs";
 import * as openapiTSCodegen from "./openapi-typescript-codegen.min.js";
 
 const BASE_URL = "https://api.test.local";

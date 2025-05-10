@@ -8,19 +8,12 @@
   },
   "license": "MIT",
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.mjs",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/cjs/index.d.cts",
-        "default": "./dist/cjs/index.cjs"
-      }
+      "import":  "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs"
     },
     "./*": "./*"
   },
@@ -47,19 +40,18 @@
     "svelte"
   ],
   "scripts": {
-    "build": "pnpm run build:clean && pnpm run build:js && pnpm run build:js-min && pnpm run build:cjs",
-    "build:clean": "del-cli dist",
-    "build:js": "mkdir -p dist && cp src/* dist",
-    "build:js-min": "esbuild --bundle src/index.js --format=esm --minify --outfile=dist/index.min.js && cp dist/index.d.ts dist/index.min.d.ts",
-    "build:cjs": "esbuild --bundle src/index.js --format=cjs --outfile=dist/cjs/index.cjs && cp dist/index.d.ts dist/cjs/index.d.cts",
+    "build": "unbuild",
     "format": "biome format . --write",
-    "lint": "biome check .",
+    "lint": "pnpm run lint:js && pnpm run lint:ts && pnpm run lint:ts-no-strict",
+    "lint:js": "biome check .",
+    "lint:ts": "tsc --noEmit",
+    "lint:ts-no-strict": "tsc --noEmit -p test/no-strict-null-checks/tsconfig.json",
     "generate-types": "openapi-typescript -c test/redocly.yaml",
+    "prepack": "pnpm run build",
     "pretest": "pnpm run generate-types",
-    "test": "pnpm run \"/^test:/\"",
+    "test": "pnpm run test:js && pnpm run test:exports",
     "test:js": "vitest run",
-    "test:ts": "tsc --noEmit",
-    "test:ts-no-strict": "tsc --noEmit -p test/no-strict-null-checks/tsconfig.json",
+    "test:exports": "pnpm run build && attw --pack .",
     "test-e2e": "playwright test",
     "bench:js": "vitest bench",
     "e2e-vite-build": "vite build test/e2e/app",
@@ -71,8 +63,6 @@
   },
   "devDependencies": {
     "axios": "^1.9.0",
-    "del-cli": "^6.0.0",
-    "esbuild": "^0.25.3",
     "execa": "^9.5.2",
     "express": "^5.0.0",
     "feature-fetch": "^0.0.43",

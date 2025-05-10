@@ -8,10 +8,14 @@
   },
   "license": "MIT",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "./dist/index.mjs",
   "exports": {
-    "import": "./dist/index.js",
-    "types": "./dist/index.d.ts"
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
   },
   "sideEffects": false,
   "repository": {
@@ -42,16 +46,16 @@
     "README.md"
   ],
   "scripts": {
-    "build": "pnpm run build:clean && pnpm run build:esm",
-    "build:clean": "del-cli dist",
-    "build:esm": "tsc -p tsconfig.build.json",
+    "build": "unbuild",
     "dev": "vitest --typecheck",
     "format": "biome format . --write",
-    "lint": "biome check .",
-    "test": "pnpm run --sequential \"/^test:/\"",
+    "lint": "pnpm run lint:js && pnpm run lint:ts",
+    "lint:js": "biome check .",
+    "lint:ts": "tsc --noEmit",
+    "prepack": "pnpm run build",
+    "test": "pnpm run test:js && pnpm run test:exports",
     "test:js": "vitest run --typecheck",
-    "test:ts": "tsc --noEmit",
-    "test:exports": "pnpm run build && attw --pack . --ignore-rules=cjs-resolves-to-esm",
+    "test:exports": "pnpm run build && attw --pack .",
     "prepublish": "pnpm run build",
     "version": "pnpm run build"
   },
@@ -72,10 +76,8 @@
     "type-fest": "^4.40.1"
   },
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.18.0",
     "@types/lodash": "^4.17.16",
     "@types/react": "^18.3.20",
-    "del-cli": "^6.0.0",
     "husky": "^9.1.7",
     "lint-staged": "15.5.2",
     "lodash": "^4.17.21",
