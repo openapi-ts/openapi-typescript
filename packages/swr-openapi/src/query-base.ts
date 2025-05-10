@@ -8,16 +8,18 @@ import { useCallback, useDebugValue, useMemo } from "react";
  * @private
  */
 export function configureBaseQueryHook(useHook: SWRHook) {
-  return function createQueryBaseHook<Paths extends {}, IMediaType extends MediaType, Prefix extends string>(
-    client: Client<Paths, IMediaType>,
-    prefix: Prefix,
-  ) {
+  return function createQueryBaseHook<
+    Paths extends {},
+    IMediaType extends MediaType,
+    Prefix extends string,
+    FetcherError = never,
+  >(client: Client<Paths, IMediaType>, prefix: Prefix) {
     return function useQuery<
       Path extends PathsWithMethod<Paths, "get">,
       R extends TypesForGetRequest<Paths, Path>,
       Init extends R["Init"],
       Data extends R["Data"],
-      Error extends R["Error"],
+      Error extends R["Error"] | FetcherError,
       Config extends R["SWRConfig"],
     >(
       path: Path,
