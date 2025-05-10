@@ -1,5 +1,18 @@
 # swr-openapi
 
+## 5.2.0
+
+### Minor Changes
+
+- [#2147](https://github.com/openapi-ts/openapi-typescript/pull/2147) [`5848759`](https://github.com/openapi-ts/openapi-typescript/commit/5848759e3b6796331b0e85bf26a01c14af90537f) Thanks [@SSlime-s](https://github.com/SSlime-s)! - Add custom error types to query builder
+
+## 5.1.7
+
+### Patch Changes
+
+- Updated dependencies [[`81c031d`](https://github.com/openapi-ts/openapi-typescript/commit/81c031da8584ed49b033ebfc67bbb3e1ca258699)]:
+  - openapi-fetch@0.13.8
+
 ## 5.1.6
 
 ### Patch Changes
