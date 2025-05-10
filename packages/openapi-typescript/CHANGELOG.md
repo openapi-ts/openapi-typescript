@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.7.3
+
+### Patch Changes
+
+- [#2185](https://github.com/openapi-ts/openapi-typescript/pull/2185) [`67889ba`](https://github.com/openapi-ts/openapi-typescript/commit/67889baf7832188f6589e0fb2e3d31a2e6ede257) Thanks [@duncanbeevers](https://github.com/duncanbeevers)! - Fix invalid $ref index into path
+
 ## 7.7.2
 
 ### Patch Changes

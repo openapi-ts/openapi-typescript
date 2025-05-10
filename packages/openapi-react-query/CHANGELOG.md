@@ -4,6 +4,7 @@
 
 ### Patch Changes
 
+- [#2235](https://github.com/openapi-ts/openapi-typescript/pull/2235) [`694522a`](https://github.com/openapi-ts/openapi-typescript/commit/694522a7ccf90767e9de29c786794f8ddcbc08bd) Thanks [@wheelebin](https://github.com/wheelebin)! - React query handle 204 or zero content length
 - Updated dependencies [[`81c031d`](https://github.com/openapi-ts/openapi-typescript/commit/81c031da8584ed49b033ebfc67bbb3e1ca258699)]:
   - openapi-fetch@0.13.8
 
