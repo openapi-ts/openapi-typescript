@@ -1,5 +1,11 @@
 # openapi-metadata
 
+## 0.2.1
+
+### Patch Changes
+
+- [#2125](https://github.com/openapi-ts/openapi-typescript/pull/2125) [`a041c2d`](https://github.com/openapi-ts/openapi-typescript/commit/a041c2d340a4f1573de726d1f960169440901b24) Thanks [@kerwanp](https://github.com/kerwanp)! - [#2123](https://github.com/openapi-ts/openapi-typescript/issues/2123) Fix thunk type detection
+
 ## 0.2.0
 
 ### Minor Changes
