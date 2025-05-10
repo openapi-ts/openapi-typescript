@@ -5,7 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { performance } from "node:perf_hooks";
 import parser from "yargs-parser";
-import openapiTS, { COMMENT_HEADER, astToString, c, error, formatTime, warn } from "../dist/index.js";
+import openapiTS, { COMMENT_HEADER, astToString, c, error, formatTime, warn } from "../dist/index.mjs";
 
 const HELP = `Usage
   $ openapi-typescript [input] [options]

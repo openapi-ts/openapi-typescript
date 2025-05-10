@@ -8,27 +8,15 @@
   },
   "license": "MIT",
   "type": "module",
-  "main": "./index.js",
-  "types": "./index.d.ts",
+  "main": "./dist/index.mjs",
   "exports": {
     ".": {
-      "import": {
-        "types": "./index.d.ts",
-        "default": "./index.js"
-      },
-      "require": {
-        "types": "./index.d.cts",
-        "default": "./index.cjs"
-      }
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs"
     },
     "./*": "./*"
   },
-  "files": [
-    "index.js",
-    "index.cjs",
-    "index.d.ts",
-    "index.d.cts"
-  ],
   "homepage": "https://openapi-ts.dev",
   "repository": {
     "type": "git",
@@ -39,10 +27,11 @@
     "url": "https://github.com/openapi-ts/openapi-typescript/issues"
   },
   "scripts": {
-    "build": "cp index.d.ts index.d.cts",
-    "format": "biome format . --write",
-    "lint": "biome check .",
-    "test": "tsc --noEmit"
+    "build": "unbuild",
+    "format": "biome format src --write",
+    "lint": "pnpm run lint:js && pnpm run lint:ts",
+    "lint:js": "biome check src",
+    "lint:ts": "tsc --noEmit"
   },
   "devDependencies": {
     "typescript": "^5.8.3"

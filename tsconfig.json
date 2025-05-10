@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "declaration": true,
+    "erasableSyntaxOnly": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["ESNext"],
@@ -10,6 +11,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "ESNext",
-    "useDefineForClassFields": true
+    "useDefineForClassFields": true,
+    "verbatimModuleSyntax": true
   }
 }
