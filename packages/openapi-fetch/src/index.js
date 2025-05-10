@@ -28,6 +28,7 @@ export default function createClient(clientOptions) {
     fetch: baseFetch = globalThis.fetch,
     querySerializer: globalQuerySerializer,
     bodySerializer: globalBodySerializer,
+    transform: globalTransform,
     headers: baseHeaders,
     requestInitExt = undefined,
     ...baseOptions
@@ -114,6 +115,7 @@ export default function createClient(clientOptions) {
         parseAs,
         querySerializer,
         bodySerializer,
+        transform: globalTransform,
       });
       for (const m of middlewares) {
         if (m && typeof m === "object" && typeof m.onRequest === "function") {
@@ -219,7 +221,14 @@ export default function createClient(clientOptions) {
       if (parseAs === "stream") {
         return { data: response.body, response };
       }
-      return { data: await response[parseAs](), response };
+
+      let responseData = await response[parseAs]();
+
+      if (globalTransform?.response && responseData !== undefined) {
+        responseData = globalTransform.response(request.method, schemaPath, responseData);
+      }
+
+      return { data: responseData, response };
     }
 
     // handle errors
