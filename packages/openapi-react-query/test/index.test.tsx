@@ -315,7 +315,7 @@ describe("client", () => {
       expect(error).toBeNull();
     });
 
-    it("should resolve error properly and have undefined data when queryFn returns undefined", async () => {
+    it("handles undefined response with non-zero Content-Length (status 200) by setting error and undefined data", async () => {
       const fetchClient = createFetchClient<paths>({ baseUrl });
       const client = createClient(fetchClient);
 
@@ -324,6 +324,9 @@ describe("client", () => {
         method: "get",
         path: "/string-array",
         status: 200,
+        headers: {
+          "Content-Length": "10",
+        },
         body: undefined,
       });
 
@@ -335,6 +338,53 @@ describe("client", () => {
 
       expect(error).toBeInstanceOf(Error);
       expect(data).toBeUndefined();
+    });
+
+    it("handles undefined response with zero Content-Length by setting data and error to null", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/string-array",
+        status: 200,
+        headers: {
+          "Content-Length": "0",
+        },
+        body: undefined,
+      });
+
+      const { result } = renderHook(() => client.useQuery("get", "/string-array"), { wrapper });
+
+      await waitFor(() => expect(result.current.isFetching).toBe(false));
+
+      const { data, error } = result.current;
+
+      expect(error).toBeNull();
+      expect(data).toBeNull();
+    });
+
+    it("handles undefined response with 204 No Content status by setting data and error to null", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/string-array",
+        status: 204,
+        body: undefined,
+      });
+
+      const { result } = renderHook(() => client.useQuery("get", "/string-array"), { wrapper });
+
+      await waitFor(() => expect(result.current.isFetching).toBe(false));
+
+      const { data, error } = result.current;
+
+      expect(error).toBeNull();
+      expect(data).toBeNull();
     });
 
     it("should infer correct data and error type", async () => {

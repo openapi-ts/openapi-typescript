@@ -194,9 +194,12 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   }: QueryFunctionContext<QueryKey<Paths, Method, Path>>) => {
     const mth = method.toUpperCase() as Uppercase<typeof method>;
     const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
-    const { data, error } = await fn(path, { signal, ...(init as any) }); // TODO: find a way to avoid as any
+    const { data, error, response } = await fn(path, { signal, ...(init as any) }); // TODO: find a way to avoid as any
     if (error) {
       throw error;
+    }
+    if (response.status === 204 || response.headers.get("Content-Length") === "0") {
+      return data ?? null;
     }
 
     return data;
