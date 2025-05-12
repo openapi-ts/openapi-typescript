@@ -24,4 +24,4 @@ All of the above are welcome! But if you just opened a PR without discussing the
 
 ## Code of Conduct
 
-All docs edits are held accountable to the [Code of Conduct](../../CODE_OF_CONDUCT.md) outlined in this project. Language in the documentation must be inclusive, kind, and respectful.
+All docs edits are held accountable to the [Code of Conduct](../CODE_OF_CONDUCT.md) outlined in this project. Language in the documentation must be inclusive, kind, and respectful.
