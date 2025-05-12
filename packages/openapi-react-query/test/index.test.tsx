@@ -77,6 +77,16 @@ describe("client", () => {
     expect(client).toHaveProperty("useMutation");
   });
 
+  it("accepts a queryClient as second parameter", () => {
+    const customQueryClient = new QueryClient({});
+    const fetchClient = createFetchClient<paths>({ baseUrl });
+    const client = createClient<paths>(fetchClient, customQueryClient);
+    expect(client).toHaveProperty("queryOptions");
+    expect(client).toHaveProperty("useQuery");
+    expect(client).toHaveProperty("useSuspenseQuery");
+    expect(client).toHaveProperty("useMutation");
+  });
+
   describe("queryOptions", () => {
     it("has correct parameter types", async () => {
       const fetchClient = createFetchClient<paths>({ baseUrl });
