@@ -11,10 +11,13 @@ import {
   type QueryClient,
   type QueryFunctionContext,
   type SkipToken,
+  useInfiniteQuery,
+  type DataTag,
   useMutation,
   useQuery,
   useSuspenseQuery,
-  useInfiniteQuery,
+  dataTagSymbol,
+  dataTagErrorSymbol,
 } from "@tanstack/react-query";
 import type {
   ClientMethod,
@@ -34,8 +37,12 @@ export type QueryKey<
   Paths extends Record<string, Record<HttpMethod, {}>>,
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
-  Init = MaybeOptionalInit<Paths[Path], Method>,
-> = Init extends undefined ? readonly [Method, Path] : readonly [Method, Path, Init];
+  Media extends MediaType,
+  Init extends MaybeOptionalInit<Paths[Path], Method> = MaybeOptionalInit<Paths[Path], Method>,
+  Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>> = Required<
+    FetchResponse<Paths[Path][Method], Init, Media>
+  >,
+> = DataTag<readonly [Method, Path, Init], Response["data"]>;
 
 export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
@@ -47,7 +54,7 @@ export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod,
       Response["data"],
       Response["error"],
       InferSelectReturnType<Response["data"], Options["select"]>,
-      QueryKey<Paths, Method, Path>
+      QueryKey<Paths, Method, Path, Media>
     >,
     "queryKey" | "queryFn"
   >,
@@ -63,7 +70,7 @@ export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod,
       Response["data"],
       Response["error"],
       InferSelectReturnType<Response["data"], Options["select"]>,
-      QueryKey<Paths, Method, Path>
+      QueryKey<Paths, Method, Path, Media>
     >,
     "queryFn"
   > & {
@@ -72,7 +79,7 @@ export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod,
         Response["data"],
         Response["error"],
         InferSelectReturnType<Response["data"], Options["select"]>,
-        QueryKey<Paths, Method, Path>
+        QueryKey<Paths, Method, Path, Media>
       >["queryFn"],
       SkipToken | undefined
     >;
@@ -89,7 +96,7 @@ export type UseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>,
       Response["data"],
       Response["error"],
       InferSelectReturnType<Response["data"], Options["select"]>,
-      QueryKey<Paths, Method, Path>
+      QueryKey<Paths, Method, Path, Media>
     >,
     "queryKey" | "queryFn"
   >,
@@ -112,7 +119,7 @@ export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMetho
       Response["error"],
       InferSelectReturnType<InfiniteData<Response["data"]>, Options["select"]>,
       Response["data"],
-      QueryKey<Paths, Method, Path>,
+      QueryKey<Paths, Method, Path, Media>,
       unknown
     >,
     "queryKey" | "queryFn"
@@ -140,7 +147,7 @@ export type UseSuspenseQueryMethod<Paths extends Record<string, Record<HttpMetho
       Response["data"],
       Response["error"],
       InferSelectReturnType<Response["data"], Options["select"]>,
-      QueryKey<Paths, Method, Path>
+      QueryKey<Paths, Method, Path, Media>
     >,
     "queryKey" | "queryFn"
   >,
@@ -191,7 +198,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   const queryFn = async <Method extends HttpMethod, Path extends PathsWithMethod<Paths, Method>>({
     queryKey: [method, path, init],
     signal,
-  }: QueryFunctionContext<QueryKey<Paths, Method, Path>>) => {
+  }: QueryFunctionContext<QueryKey<Paths, Method, Path, Media>>) => {
     const mth = method.toUpperCase() as Uppercase<typeof method>;
     const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
     const { data, error, response } = await fn(path, { signal, ...(init as any) }); // TODO: find a way to avoid as any
@@ -206,11 +213,10 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   };
 
   const queryOptions: QueryOptionsFunction<Paths, Media> = (method, path, ...[init, options]) => ({
-    queryKey: (init === undefined ? ([method, path] as const) : ([method, path, init] as const)) as QueryKey<
-      Paths,
-      typeof method,
-      typeof path
-    >,
+    queryKey: Object.assign(init === undefined ? ([method, path] as const) : ([method, path, init] as const), {
+      [dataTagSymbol]: {} as any,
+      [dataTagErrorSymbol]: {} as any,
+    }) as QueryKey<Paths, typeof method, typeof path, Media>,
     queryFn,
     ...options,
   });
