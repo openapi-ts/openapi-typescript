@@ -143,7 +143,7 @@ export default function createClient(clientOptions) {
             id,
           });
           if (result) {
-            if (result instanceof CustomRequest) {
+            if (result instanceof Request) {
               request = result;
             } else if (result instanceof Response) {
               response = result;
