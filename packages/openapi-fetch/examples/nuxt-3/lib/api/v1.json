@@ -1,0 +1,229 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Cat Facts API",
+    "version": "1.0"
+  },
+  "paths": {
+    "/breeds": {
+      "get": {
+        "tags": ["Breeds"],
+        "summary": "Get a list of breeds",
+        "description": "Returns a a list of breeds",
+        "operationId": "getBreeds",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit the amount of results returned",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Breed"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fact": {
+      "get": {
+        "tags": ["Facts"],
+        "summary": "Get Random Fact",
+        "description": "Returns a random fact",
+        "operationId": "getRandomFact",
+        "parameters": [
+          {
+            "name": "max_length",
+            "in": "query",
+            "description": "maximum length of returned fact",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatFact"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/facts": {
+      "get": {
+        "tags": ["Facts"],
+        "summary": "Get a list of facts",
+        "description": "Returns a a list of facts",
+        "operationId": "getFacts",
+        "parameters": [
+          {
+            "name": "max_length",
+            "in": "query",
+            "description": "maximum length of returned fact",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "limit the amount of results returned",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CatFact"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Breed": {
+        "title": "Breed model",
+        "description": "Breed",
+        "properties": {
+          "breed": {
+            "title": "Breed",
+            "description": "Breed",
+            "type": "string",
+            "format": "string"
+          },
+          "country": {
+            "title": "Country",
+            "description": "Country",
+            "type": "string",
+            "format": "string"
+          },
+          "origin": {
+            "title": "Origin",
+            "description": "Origin",
+            "type": "string",
+            "format": "string"
+          },
+          "coat": {
+            "title": "Coat",
+            "description": "Coat",
+            "type": "string",
+            "format": "string"
+          },
+          "pattern": {
+            "title": "Pattern",
+            "description": "Pattern",
+            "type": "string",
+            "format": "string"
+          }
+        },
+        "type": "object"
+      },
+      "CatFact": {
+        "title": "CatFact model",
+        "description": "CatFact",
+        "properties": {
+          "fact": {
+            "title": "Fact",
+            "description": "Fact",
+            "type": "string",
+            "format": "string"
+          },
+          "length": {
+            "title": "Length",
+            "description": "Length",
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "type": "object"
+      },
+      "Error": {
+        "type": "object",
+        "required": ["code", "message"],
+        "properties": {
+          "code": { "type": "number" },
+          "message": { "type": "string" }
+        }
+      }
+    }
+  }
+}

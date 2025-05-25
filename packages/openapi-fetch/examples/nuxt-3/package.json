@@ -1,0 +1,24 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "type-check": "vue-tsc --build --force",
+    "generate": "openapi-typescript lib/api/v1.json -o lib/api/v1.d.ts"
+  },
+  "dependencies": {
+    "openapi-fetch": "workspace:^",
+    "nuxt": "^3.17.4",
+    "vue": "^3.5.14",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "openapi-typescript": "workspace:^",
+    "typescript": "^5.8.3"
+  }
+}
