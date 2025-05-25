@@ -24,8 +24,8 @@ export function randomID() {
 export default function createClient(clientOptions) {
   let {
     baseUrl = "",
+    fetch: customFetch = globalThis.fetch,
     Request: CustomRequest = globalThis.Request,
-    fetch: baseFetch = globalThis.fetch,
     querySerializer: globalQuerySerializer,
     bodySerializer: globalBodySerializer,
     headers: baseHeaders,
@@ -44,7 +44,7 @@ export default function createClient(clientOptions) {
   async function coreFetch(schemaPath, fetchOptions) {
     const {
       baseUrl: localBaseUrl,
-      fetch = baseFetch,
+      fetch = customFetch,
       Request = CustomRequest,
       headers,
       params = {},
@@ -109,7 +109,7 @@ export default function createClient(clientOptions) {
 
     let id;
     let options;
-    let request = new CustomRequest(
+    let request = new Request(
       createFinalURL(schemaPath, { baseUrl: finalBaseUrl, params, querySerializer }),
       requestInit,
     );
