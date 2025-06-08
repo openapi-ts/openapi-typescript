@@ -80,6 +80,9 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
           }
           const ref = ts.factory.createTypeReferenceNode(`components['${key}']['${name}']`);
           if (ctx.rootTypesNoSchemaPrefix && key === "schemas") {
+            if (ctx.enum && item.enum) {
+              continue;
+            }
             aliasName = aliasName.replace(componentKey, "");
           }
           const typeAlias = ts.factory.createTypeAliasDeclaration(
