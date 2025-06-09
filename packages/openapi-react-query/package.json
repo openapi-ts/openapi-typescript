@@ -57,7 +57,7 @@
     "openapi-typescript-helpers": "workspace:^"
   },
   "devDependencies": {
-    "@tanstack/react-query": "^5.75.1",
+    "@tanstack/react-query": "^5.80.0",
     "@testing-library/react": "^16.3.0",
     "@types/react": "18.3.21",
     "@vitejs/plugin-react": "^4.4.1",
@@ -69,7 +69,7 @@
     "react-error-boundary": "^6.0.0"
   },
   "peerDependencies": {
-    "@tanstack/react-query": "^5.25.0",
+    "@tanstack/react-query": "^5.80.0",
     "openapi-fetch": "workspace:^"
   }
 }
