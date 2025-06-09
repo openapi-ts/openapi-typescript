@@ -12,46 +12,46 @@ describe("transformComponentsObject", () => {
       "options > rootTypes: true and rootTypesNoSchemaPrefix: true",
       {
         given: {
-          "openapi": "3.0.0",
-          "info": {
-            "title": "Status API",
-            "version": "1.0.0"
+          openapi: "3.0.0",
+          info: {
+            title: "Status API",
+            version: "1.0.0",
           },
-          "paths": {
+          paths: {
             "/status": {
-              "get": {
-                "summary": "Get current status",
-                "responses": {
+              get: {
+                summary: "Get current status",
+                responses: {
                   "200": {
-                    "description": "Status response",
-                    "content": {
+                    description: "Status response",
+                    content: {
                       "application/json": {
-                        "schema": {
-                          "$ref": "#/components/schemas/StatusResponse"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "components": {
-            "schemas": {
-              "StatusResponse": {
-                "type": "object",
-                "properties": {
-                  "status": {
-                    "$ref": "#/components/schemas/Status"
-                  }
-                }
+                        schema: {
+                          $ref: "#/components/schemas/StatusResponse",
+                        },
+                      },
+                    },
+                  },
+                },
               },
-              "Status": {
-                "type": "string",
-                "enum": ["pending", "active", "done"]
-              }
-            }
-          }
+            },
+          },
+          components: {
+            schemas: {
+              StatusResponse: {
+                type: "object",
+                properties: {
+                  status: {
+                    $ref: "#/components/schemas/Status",
+                  },
+                },
+              },
+              Status: {
+                type: "string",
+                enum: ["pending", "active", "done"],
+              },
+            },
+          },
         },
         want: `export interface paths {
     "/status": {
