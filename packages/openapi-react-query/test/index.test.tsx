@@ -239,7 +239,35 @@ describe("client", () => {
       });
       const client = createClient(fetchClient);
 
-      expect(client.queryOptions("get", "/foo").queryKey.length).toBe(2);
+      expect(client.queryOptions("get", "/foo").queryKey.length).toBe(3);
+    });
+
+    it("should differentiate queries by prefixQueryKey", async () => {
+      const fetchClient1 = createFetchClient<minimalGetPaths>({ baseUrl, fetch: fetchInfinite });
+      const fetchClient2 = createFetchClient<minimalGetPaths>({ baseUrl, fetch: fetchInfinite });
+      const client1 = createClient(fetchClient1);
+      const client11 = createClient(fetchClient1);
+      const client2 = createClient(fetchClient2, { prefixQueryKey: ["cache2"] as const });
+
+      renderHook(
+        () => {
+          useQueries({
+            queries: [
+              client1.queryOptions("get", "/foo"),
+              client11.queryOptions("get", "/foo"),
+              client2.queryOptions("get", "/foo"),
+            ],
+          });
+        },
+        { wrapper },
+      );
+
+      expectTypeOf(client1.queryOptions("get", "/foo").queryKey[0]).toEqualTypeOf<unknown>();
+      expectTypeOf(client2.queryOptions("get", "/foo").queryKey[0]).toEqualTypeOf<readonly ["cache2"]>();
+
+      // client1 and client11 have the same query key, so 3 - 1 = 2
+      expect(queryClient.isFetching()).toBe(2);
+      expect(client2.queryOptions("get", "/foo").queryKey).toEqual([["cache2"], "get", "/foo"]);
     });
   });
 
