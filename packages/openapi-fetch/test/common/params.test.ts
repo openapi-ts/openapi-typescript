@@ -191,6 +191,106 @@ describe("params", () => {
       // expect post_id to be encoded properly
       expect(actualPathname).toBe("/path-params/%F0%9F%A5%B4");
     });
+
+    describe("pathSerializer", () => {
+      test("global", async () => {
+        let actualPathname = "";
+        const client = createObservedClient<paths>(
+          {
+            pathSerializer: (pathname, pathParams) => {
+              // Custom serializer that wraps path values in brackets
+              let result = pathname;
+              for (const [key, value] of Object.entries(pathParams)) {
+                result = result.replace(`{${key}}`, `[${value}]`);
+              }
+              return result;
+            },
+          },
+          async (req) => {
+            actualPathname = new URL(req.url).pathname;
+            return Response.json({});
+          },
+        );
+
+        await client.GET("/resources/{id}", {
+          params: {
+            path: { id: 123 },
+          },
+        });
+
+        expect(actualPathname).toBe("/resources/[123]");
+      });
+
+      test("per-request", async () => {
+        let actualPathname = "";
+        const client = createObservedClient<paths>(
+          {
+            pathSerializer: (pathname, pathParams) => {
+              // Default global serializer (should be overridden)
+              let result = pathname;
+              for (const [key, value] of Object.entries(pathParams)) {
+                result = result.replace(`{${key}}`, `global-${value}`);
+              }
+              return result;
+            },
+          },
+          async (req) => {
+            actualPathname = new URL(req.url).pathname;
+            return Response.json({});
+          },
+        );
+
+        await client.GET("/resources/{id}", {
+          params: {
+            path: { id: 456 },
+          },
+          pathSerializer: (pathname, pathParams) => {
+            // Per-request serializer should override global
+            let result = pathname;
+            for (const [key, value] of Object.entries(pathParams)) {
+              result = result.replace(`{${key}}`, `request-${value}`);
+            }
+            return result;
+          },
+        });
+
+        expect(actualPathname).toBe("/resources/request-456");
+      });
+
+      test("complex path params with custom serializer", async () => {
+        let actualPathname = "";
+        const client = createObservedClient<paths>(
+          {
+            pathSerializer: (pathname, pathParams) => {
+              // Custom serializer that handles different value types
+              let result = pathname;
+              for (const [key, value] of Object.entries(pathParams)) {
+                if (typeof value === "string") {
+                  result = result.replace(`{${key}}`, `custom:${value}`);
+                } else {
+                  result = result.replace(`{${key}}`, `other:${value}`);
+                }
+              }
+              return result;
+            },
+          },
+          async (req) => {
+            actualPathname = new URL(req.url).pathname;
+            return Response.json({});
+          },
+        );
+
+        await client.GET("/path-params/{string}", {
+          params: {
+            path: {
+              string: "test-value",
+            },
+          },
+        });
+
+        expect(actualPathname).toBe("/path-params/custom:test-value");
+      });
+    });
   });
 
   describe("header", () => {
