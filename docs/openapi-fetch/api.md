@@ -210,7 +210,7 @@ const { data, error } = await client.POST("/tokens", {
 });
 ```
 
-## Path Serializer
+## pathSerializer
 
 Similar to [querySerializer](#queryserializer) and [bodySerializer](#bodyserializer), `pathSerializer` allows you to customize how path parameters are serialized. This is useful when your API uses a non-standard path serialization format, or you want to change the default behavior.
 
