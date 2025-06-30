@@ -36,9 +36,9 @@ _Note: if you’re using Svelte without SvelteKit, the root example in `src/rout
 
 ## Nuxt 3
 
-[Nuxt 3](https://nuxtjs.org/) is a popular SSR framework for Vue 3. By combining Nuxt's built-in [useAsyncData](https://nuxt.com/docs/api/composables/use-async-data) composable with openapi-fetch, you can easily implement type-safe API communication with server-side rendering. This example demonstrates how to fetch data during SSR and enable client-side refetching.
+[Nuxt 3](https://nuxtjs.org/) is a popular SSR framework for Vue 3. By combining Nuxt's built-in [useAsyncData](https://nuxt.com/docs/api/composables/use-async-data) composable with openapi-fetch, you can easily implement type-safe API communication with server-side rendering.
 
-[View a code example in GitHub](https://github.com/openapi-ts/openapi-typescript/tree/main/packages/openapi-fetch/examples/nuxt-3)
+[View a code example in GitHub](https://github.com/HasutoSasaki/nuxt3-openapi-typescript-example)
 
 ---
 
