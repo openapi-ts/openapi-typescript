@@ -22,7 +22,7 @@ See [swr-openapi](/swr-openapi/)
 
 ## Svelte / SvelteKit
 
-[SvelteKit](https://kit.svelte.dev) 的自动类型推断可以轻松地在客户端获取和 [Page Data](https://kit.svelte.dev/docs/load#page-data) 获取中捕获 openapi-fetch 的类型。而且它不需要任何额外的库。SvelteKit 还建议使用它们的[自定义 fetch](https://kit.svelte.dev/docs/load#making-fetch-requests)在 load 函数中工作。这可以通过 [fetch options](/openapi-fetch/api#fetch-options) 实现。
+[SvelteKit](https://svelte.dev/docs/kit) 的自动类型推断可以轻松地在客户端获取和 [Page Data](https://svelte.dev/docs/kit/load#Page-data) 获取中捕获 openapi-fetch 的类型。而且它不需要任何额外的库。SvelteKit 还建议使用它们的[自定义 fetch](https://svelte.dev/docs/kit/load#Making-fetch-requests)在 load 函数中工作。这可以通过 [fetch options](/openapi-fetch/api#fetch-options) 实现。
 
 _注意：如果你在没有 SvelteKit 的情况下使用 Svelte，`src/routes/+page.svelte` 中的根示例不使用任何 SvelteKit 特性，通常适用于任何设置。_
 
