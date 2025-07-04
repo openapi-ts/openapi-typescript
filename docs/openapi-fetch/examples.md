@@ -22,7 +22,7 @@ See [swr-openapi](/swr-openapi/)
 
 ## Svelte / SvelteKit
 
-[SvelteKit](https://kit.svelte.dev)’s automatic type inference can easily pick up openapi-fetch’s types in both clientside fetching and [Page Data](https://kit.svelte.dev/docs/load#page-data) fetching. And it doesn’t need any additional libraries to work. SvelteKit also advises to use their [custom fetch](https://kit.svelte.dev/docs/load#making-fetch-requests) in load functions. This can be achieved with [fetch options](/openapi-fetch/api#fetch-options).
+[SvelteKit](https://svelte.dev/docs/kit)’s automatic type inference can easily pick up openapi-fetch’s types in both clientside fetching and [Page Data](https://svelte.dev/docs/kit/load#Page-data) fetching. And it doesn’t need any additional libraries to work. SvelteKit also advises to use their [custom fetch](https://svelte.dev/docs/kit/load#Making-fetch-requests) in load functions. This can be achieved with [fetch options](/openapi-fetch/api#fetch-options).
 
 _Note: if you’re using Svelte without SvelteKit, the root example in `src/routes/+page.svelte` doesn’t use any SvelteKit features and is generally-applicable to any setup._
 

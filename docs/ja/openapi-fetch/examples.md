@@ -22,7 +22,7 @@ See [swr-openapi](/swr-openapi/)
 
 ## Svelte / SvelteKit
 
-[SvelteKit](https://kit.svelte.dev) の自動型推論機能は、クライアントサイドでのデータ取得や[ページデータ](https://kit.svelte.dev/docs/load#page-data)の取得において、openapi-fetchの型を簡単に活用できます。また、追加のライブラリを必要とせずに動作します。SvelteKitは、ロード関数内で[カスタムフェッチ](https://kit.svelte.dev/docs/load#making-fetch-requests)を使用することを推奨しており、これは[フェッチオプション](/ja/openapi-fetch/api#fetch-オプション)で実現できます。
+[SvelteKit](https://svelte.dev/docs/kit) の自動型推論機能は、クライアントサイドでのデータ取得や[ページデータ](https://svelte.dev/docs/kit/load#Page-data)の取得において、openapi-fetchの型を簡単に活用できます。また、追加のライブラリを必要とせずに動作します。SvelteKitは、ロード関数内で[カスタムフェッチ](https://svelte.dev/docs/kit/load#Making-fetch-requests)を使用することを推奨しており、これは[フェッチオプション](/ja/openapi-fetch/api#fetch-オプション)で実現できます。
 
 _注: SvelteKitを使用しない場合でも、`src/routes/+page.svelte` 内のルート例は、SvelteKitの機能を使用しておらず、どのようなセットアップにも適用可能です。_
 
