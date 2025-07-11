@@ -32,7 +32,7 @@ export interface AnnotatedSchemaObject {
   description?: string; // jsdoc with value
   enum?: unknown[]; // jsdoc without value
   example?: string; // jsdoc with value
-  examples?: unknown[];
+  examples?: unknown;
   format?: string; // not jsdoc
   nullable?: boolean; // Node information
   summary?: string; // not jsdoc

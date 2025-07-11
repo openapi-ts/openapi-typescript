@@ -90,7 +90,7 @@ describe("addJSDocComment", () => {
     const property = ts.factory.createPropertySignature(undefined, "comment", undefined, BOOLEAN);
     addJSDocComment(
       {
-        example: 'old-example',
+        example: "old-example",
         examples: ["an-example", "another-example"],
       },
       property,
@@ -112,11 +112,11 @@ describe("addJSDocComment", () => {
         examples: [
           {
             foo: "bar",
-            results: [1, true, "abc"]
+            results: [1, true, "abc"],
           },
           {
             foo: "bat",
-            results: [5, false, "def"]
+            results: [5, false, "def"],
           },
         ],
       },
@@ -143,7 +143,7 @@ describe("addJSDocComment", () => {
      */
     comment: boolean;
 }`);
-  });    
+  });
 });
 
 describe("oapiRef", () => {
