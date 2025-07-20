@@ -1,7 +1,7 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { server, baseUrl, useMockRequestHandler } from "./fixtures/mock-server.js";
-import type { paths } from "./fixtures/api.js";
-import createClient, { type MethodResponse } from "../src/index.js";
+import { afterAll, afterEach, beforeAll, describe, expect, it, expectTypeOf, vi } from "vitest";
+import { server, baseUrl, useMockRequestHandler } from "./fixtures/mock-server";
+import type { paths } from "./fixtures/api";
+import createClient, { type MethodResponse } from "../src/api/index";
 import createFetchClient from "openapi-fetch";
 import { fireEvent, render, renderHook, screen, waitFor, act } from "@testing-library/react";
 import {
@@ -11,6 +11,7 @@ import {
   useQuery,
   useSuspenseQuery,
   skipToken,
+  useInfiniteQuery,
 } from "@tanstack/react-query";
 import { Suspense, type ReactNode } from "react";
 import { ErrorBoundary } from "react-error-boundary";
@@ -75,9 +76,91 @@ describe("client", () => {
     expect(client).toHaveProperty("useQuery");
     expect(client).toHaveProperty("useSuspenseQuery");
     expect(client).toHaveProperty("useMutation");
+    if ("infiniteQueryOptions" in client) {
+      expect(client).toHaveProperty("infiniteQueryOptions");
+    }
   });
 
   describe("queryOptions", () => {
+    describe("infiniteQueryOptions", () => {
+      it("returns infinite query options that can be passed to useInfiniteQuery", async () => {
+        const fetchClient = createFetchClient<paths>({ baseUrl });
+        const client = createClient(fetchClient);
+
+        if (!("infiniteQueryOptions" in client)) return;
+
+        const options = client.infiniteQueryOptions(
+          "get",
+          "/paginated-data",
+          {
+            params: {
+              query: {
+                limit: 3,
+              },
+            },
+          },
+          {
+            getNextPageParam: (lastPage) => lastPage.nextPage,
+            initialPageParam: 0,
+          },
+        );
+
+        expect(options).toHaveProperty("queryKey");
+        expect(options).toHaveProperty("queryFn");
+        expect(Array.isArray(options.queryKey)).toBe(true);
+        expectTypeOf(options.queryFn).toBeFunction();
+
+        useMockRequestHandler({
+          baseUrl,
+          method: "get",
+          path: "/paginated-data",
+          status: 200,
+          body: { items: [1, 2, 3], nextPage: 1 },
+        });
+
+        const { result } = renderHook(() => useInfiniteQuery(options), { wrapper });
+
+        await waitFor(() => expect(result.current.isSuccess).toBe(true));
+        expect(result.current.data?.pages[0].items).toEqual([1, 2, 3]);
+      });
+
+      it("returns infinite query options with custom pageParamName", async () => {
+        const fetchClient = createFetchClient<paths>({ baseUrl });
+        const client = createClient(fetchClient);
+
+        if (!("infiniteQueryOptions" in client)) return;
+
+        const options = client.infiniteQueryOptions(
+          "get",
+          "/paginated-data",
+          {
+            params: {
+              query: {
+                limit: 3,
+              },
+            },
+          },
+          {
+            getNextPageParam: (lastPage) => lastPage.nextPage,
+            initialPageParam: 0,
+            pageParamName: "follow_cursor",
+          },
+        );
+
+        useMockRequestHandler({
+          baseUrl,
+          method: "get",
+          path: "/paginated-data",
+          status: 200,
+          body: { items: [1, 2, 3], nextPage: 1 },
+        });
+
+        const { result } = renderHook(() => useInfiniteQuery(options), { wrapper });
+
+        await waitFor(() => expect(result.current.isSuccess).toBe(true));
+        expect(result.current.data?.pages[0].items).toEqual([1, 2, 3]);
+      });
+    });
     it("has correct parameter types", async () => {
       const fetchClient = createFetchClient<paths>({ baseUrl });
       const client = createClient(fetchClient);
@@ -158,7 +241,10 @@ describe("client", () => {
       );
 
       expectTypeOf(result.current[0].data).toEqualTypeOf<string[] | undefined>();
-      expectTypeOf(result.current[0].error).toEqualTypeOf<{ code: number; message: string } | null>();
+      expectTypeOf(result.current[0].error).toEqualTypeOf<{
+        code: number;
+        message: string;
+      } | null>();
 
       expectTypeOf(result.current[1]).toEqualTypeOf<(typeof result.current)[0]>();
 
@@ -170,7 +256,10 @@ describe("client", () => {
           }
         | undefined
       >();
-      expectTypeOf(result.current[2].error).toEqualTypeOf<{ code: number; message: string } | null>();
+      expectTypeOf(result.current[2].error).toEqualTypeOf<{
+        code: number;
+        message: string;
+      } | null>();
 
       expectTypeOf(result.current[3]).toEqualTypeOf<(typeof result.current)[2]>();
 
@@ -811,7 +900,9 @@ describe("client", () => {
           wrapper,
         });
 
-        const data = await result.current.mutateAsync({ body: { message: "Hello", replied_at: 0 } });
+        const data = await result.current.mutateAsync({
+          body: { message: "Hello", replied_at: 0 },
+        });
 
         expect(data.message).toBe("Hello");
       });
