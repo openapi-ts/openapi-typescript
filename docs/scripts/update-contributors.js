@@ -193,6 +193,7 @@ const CONTRIBUTORS = new Set([
   "lukasedw",
   "ViktorPontinen",
   "kevmo314",
+  "arnaud9145",
 ]);
 
 const ONE_WEEK = 1000 * 60 * 60 * 24;
