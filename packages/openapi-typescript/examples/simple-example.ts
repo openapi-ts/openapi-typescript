@@ -151,7 +151,16 @@ export interface webhooks {
 }
 export interface components {
     schemas: {
-        /** @description schema for a rfc7807 */
+        /**
+         * @description schema for a rfc7807
+         * @example {
+         *       "type": "https://developer.acme.com/codes/404",
+         *       "title": "Not Found",
+         *       "status": 404,
+         *       "instance": "https://status.api.acme.com/errorinstance/23d243c1-1c94-4696-8798-c71aa45c92ff",
+         *       "detail": "The User requested was not found"
+         *     }
+         */
         Problem: {
             /**
              * Format: uri
@@ -172,6 +181,7 @@ export interface components {
             id: number;
             name: string;
             none?: null;
+            /** @example 123 */
             tag?: null | string | number;
             arr?: unknown[];
             either?: string | null;
@@ -186,7 +196,10 @@ export interface components {
             three?: string | null;
             /** @description array with no items */
             four?: unknown[];
-            /** @description singular example */
+            /**
+             * @description singular example
+             * @example exampleValue
+             */
             five?: string;
             /** @description exclusiveMinimum true */
             six?: unknown;
