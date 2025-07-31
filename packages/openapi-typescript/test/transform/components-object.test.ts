@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
 import { NULL, astToString } from "../../src/lib/ts.js";
-import transformComponentsObject from "../../src/transform/components-object.js";
+import transformComponentsObject, { isEnumSchema } from "../../src/transform/components-object.js";
 import type { GlobalContext } from "../../src/types.js";
 import { DEFAULT_CTX, type TestCase } from "../test-helpers.js";
 
@@ -870,4 +870,70 @@ export type Error = components['schemas']['Error'];
       ci?.timeout,
     );
   }
+});
+
+describe("isEnumSchema", () => {
+  test("returns true for string enum schema", () => {
+    const schema = {
+      type: "string",
+      enum: ["active", "inactive", "pending"],
+    };
+    expect(isEnumSchema(schema)).toBe(true);
+  });
+
+  test("returns true for number enum schema", () => {
+    const schema = {
+      type: "number",
+      enum: [1, 2, 3],
+    };
+    expect(isEnumSchema(schema)).toBe(true);
+  });
+
+  test("returns true for mixed enum schema without explicit type", () => {
+    const schema = {
+      enum: ["high", 0, null],
+    };
+    expect(isEnumSchema(schema)).toBe(true);
+  });
+
+  test("returns false for object schema with properties", () => {
+    const schema = {
+      type: "object",
+      properties: {
+        name: { type: "string" },
+      },
+    };
+    expect(isEnumSchema(schema)).toBe(false);
+  });
+
+  test("returns false for object schema with enum (object enums not supported)", () => {
+    const schema = {
+      type: "object",
+      enum: [{ value: "test" }],
+    };
+    expect(isEnumSchema(schema)).toBe(false);
+  });
+
+  test("returns false for schema with additionalProperties", () => {
+    const schema = {
+      enum: ["test"],
+      additionalProperties: true,
+    };
+    expect(isEnumSchema(schema)).toBe(false);
+  });
+
+  test("returns false for schema without enum", () => {
+    const schema = {
+      type: "string",
+    };
+    expect(isEnumSchema(schema)).toBe(false);
+  });
+
+  test("returns false for null, undefined, or non-object inputs", () => {
+    expect(isEnumSchema(null)).toBe(false);
+    expect(isEnumSchema(undefined)).toBe(false);
+    expect(isEnumSchema("string")).toBe(false);
+    expect(isEnumSchema(123)).toBe(false);
+    expect(isEnumSchema([])).toBe(false);
+  });
 });
