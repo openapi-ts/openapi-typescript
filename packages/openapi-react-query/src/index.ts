@@ -79,6 +79,50 @@ export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod,
   }
 >;
 
+export type GetQueryOptionsFunction<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
+  Method extends HttpMethod,
+  Path extends PathsWithMethod<Paths, Method>,
+>(
+  method: Method,
+  path: Path,
+) => <
+  Init extends MaybeOptionalInit<Paths[Path], Method>,
+  Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>, // note: Required is used to avoid repeating NonNullable in UseQuery types
+  Options extends Omit<
+    UseQueryOptions<
+      Response["data"],
+      Response["error"],
+      InferSelectReturnType<Response["data"], Options["select"]>,
+      QueryKey<Paths, Method, Path>
+    >,
+    "queryKey" | "queryFn"
+  >,
+>(
+  ...[init, options]: RequiredKeysOf<Init> extends never
+    ? [InitWithUnknowns<Init>?, Options?]
+    : [InitWithUnknowns<Init>, Options?]
+) => NoInfer<
+  Omit<
+    UseQueryOptions<
+      Response["data"],
+      Response["error"],
+      InferSelectReturnType<Response["data"], Options["select"]>,
+      QueryKey<Paths, Method, Path>
+    >,
+    "queryFn"
+  > & {
+    queryFn: Exclude<
+      UseQueryOptions<
+        Response["data"],
+        Response["error"],
+        InferSelectReturnType<Response["data"], Options["select"]>,
+        QueryKey<Paths, Method, Path>
+      >["queryFn"],
+      SkipToken | undefined
+    >;
+  }
+>;
+
 export type UseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
@@ -166,6 +210,7 @@ export type UseMutationMethod<Paths extends Record<string, Record<HttpMethod, {}
 ) => UseMutationResult<Response["data"], Response["error"], Init>;
 
 export interface OpenapiQueryClient<Paths extends {}, Media extends MediaType = MediaType> {
+  getQueryOptions: GetQueryOptionsFunction<Paths, Media>;
   queryOptions: QueryOptionsFunction<Paths, Media>;
   useQuery: UseQueryMethod<Paths, Media>;
   useSuspenseQuery: UseSuspenseQueryMethod<Paths, Media>;
@@ -215,7 +260,13 @@ export default function createClient<Paths extends {}, Media extends MediaType =
     ...options,
   });
 
+  const getQueryOptions: GetQueryOptionsFunction<Paths, Media> =
+    (method, path) =>
+    (...args) =>
+      queryOptions(method, path, ...(args as [any, any])); // TODO: find a way to avoid as any;
+
   return {
+    getQueryOptions,
     queryOptions,
     useQuery: (method, path, ...[init, options, queryClient]) =>
       useQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
