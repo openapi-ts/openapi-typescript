@@ -398,10 +398,8 @@ export function tsEnumMember(value: string | number, metadata: { name?: string; 
 
   return ts.addSyntheticLeadingComment(
     member,
-    ts.SyntaxKind.MultiLineCommentTrivia,
-    `/**
-     * @description ${trimmedDescription}
-     */`,
+    ts.SyntaxKind.SingleLineCommentTrivia,
+    ` ${trimmedDescription}`,
     true,
   );
 }
