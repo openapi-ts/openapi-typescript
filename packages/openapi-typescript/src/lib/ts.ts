@@ -389,19 +389,11 @@ export function tsEnumMember(value: string | number, metadata: { name?: string; 
   }
 
   const trimmedDescription = metadata.description?.trim();
-  if (trimmedDescription === undefined
-    || trimmedDescription === null
-    || trimmedDescription === ""
-  ) {
+  if (trimmedDescription === undefined || trimmedDescription === null || trimmedDescription === "") {
     return member;
   }
 
-  return ts.addSyntheticLeadingComment(
-    member,
-    ts.SyntaxKind.SingleLineCommentTrivia,
-    ` ${trimmedDescription}`,
-    true,
-  );
+  return ts.addSyntheticLeadingComment(member, ts.SyntaxKind.SingleLineCommentTrivia, ` ${trimmedDescription}`, true);
 }
 
 /** Create an intersection type */
