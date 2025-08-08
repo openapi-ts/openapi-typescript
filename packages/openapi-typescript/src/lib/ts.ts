@@ -388,14 +388,20 @@ export function tsEnumMember(value: string | number, metadata: { name?: string; 
     member = ts.factory.createEnumMember(name, ts.factory.createStringLiteral(value));
   }
 
-  if (metadata.description === undefined) {
+  const trimmedDescription = metadata.description?.trim();
+  if (trimmedDescription === undefined
+    || trimmedDescription === null
+    || trimmedDescription === ""
+  ) {
     return member;
   }
 
   return ts.addSyntheticLeadingComment(
     member,
-    ts.SyntaxKind.SingleLineCommentTrivia,
-    " ".concat(metadata.description.trim()),
+    ts.SyntaxKind.MultiLineCommentTrivia,
+    `/**
+     * @description ${trimmedDescription}
+     */`,
     true,
   );
 }
