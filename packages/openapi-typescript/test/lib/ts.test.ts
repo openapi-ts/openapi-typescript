@@ -278,7 +278,7 @@ describe("tsEnum", () => {
         tsEnum(
           ".Error.code.",
           [100, 101, 102],
-          [{ name: "Unauthorized", description: "User is unauthorized" }, { name: "NotFound" }],
+          [{ name: "Unauthorized", description: "User is unauthorized" }, { name: "NotFound", description: "" }, { name: "Value102", description: null }],
         ),
       ).trim(),
     ).toBe(`enum ErrorCode {

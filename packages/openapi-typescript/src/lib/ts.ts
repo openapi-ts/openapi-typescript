@@ -268,7 +268,7 @@ export const enumCache = new Map<string, ts.EnumDeclaration>();
 export function tsEnum(
   name: string,
   members: (string | number)[],
-  metadata?: { name?: string; description?: string }[],
+  metadata?: { name?: string; description?: string | null }[],
   options?: { export?: boolean; shouldCache?: boolean },
 ) {
   let enumName = sanitizeMemberName(name);
@@ -352,7 +352,7 @@ function sanitizeMemberName(name: string) {
 }
 
 /** Sanitize TS enum member expression */
-export function tsEnumMember(value: string | number, metadata: { name?: string; description?: string } = {}) {
+export function tsEnumMember(value: string | number, metadata: { name?: string; description?: string | null } = {}) {
   let name = metadata.name ?? String(value);
   if (!JS_PROPERTY_INDEX_RE.test(name)) {
     if (Number(name[0]) >= 0) {
