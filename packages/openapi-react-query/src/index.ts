@@ -111,7 +111,6 @@ export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMetho
       Response["data"],
       Response["error"],
       InferSelectReturnType<InfiniteData<Response["data"]>, Options["select"]>,
-      Response["data"],
       QueryKey<Paths, Method, Path>,
       unknown
     >,
