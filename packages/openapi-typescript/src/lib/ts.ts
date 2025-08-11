@@ -268,7 +268,7 @@ export const enumCache = new Map<string, ts.EnumDeclaration>();
 export function tsEnum(
   name: string,
   members: (string | number)[],
-  metadata?: { name?: string; description?: string }[],
+  metadata?: { name?: string; description?: string | null }[],
   options?: { export?: boolean; shouldCache?: boolean },
 ) {
   let enumName = sanitizeMemberName(name);
@@ -352,7 +352,7 @@ function sanitizeMemberName(name: string) {
 }
 
 /** Sanitize TS enum member expression */
-export function tsEnumMember(value: string | number, metadata: { name?: string; description?: string } = {}) {
+export function tsEnumMember(value: string | number, metadata: { name?: string; description?: string | null } = {}) {
   let name = metadata.name ?? String(value);
   if (!JS_PROPERTY_INDEX_RE.test(name)) {
     if (Number(name[0]) >= 0) {
@@ -388,16 +388,12 @@ export function tsEnumMember(value: string | number, metadata: { name?: string; 
     member = ts.factory.createEnumMember(name, ts.factory.createStringLiteral(value));
   }
 
-  if (metadata.description === undefined) {
+  const trimmedDescription = metadata.description?.trim();
+  if (trimmedDescription === undefined || trimmedDescription === null || trimmedDescription === "") {
     return member;
   }
 
-  return ts.addSyntheticLeadingComment(
-    member,
-    ts.SyntaxKind.SingleLineCommentTrivia,
-    " ".concat(metadata.description.trim()),
-    true,
-  );
+  return ts.addSyntheticLeadingComment(member, ts.SyntaxKind.SingleLineCommentTrivia, ` ${trimmedDescription}`, true);
 }
 
 /** Create an intersection type */
