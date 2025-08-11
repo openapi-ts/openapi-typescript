@@ -1,11 +1,15 @@
 import "reflect-metadata";
 import {
+  ApiBasicAuth,
+  ApiBearerAuth,
   ApiBody,
   ApiCookie,
+  ApiCookieAuth,
   ApiExcludeController,
   ApiExcludeOperation,
   ApiExtraModels,
   ApiHeader,
+  ApiOauth2,
   ApiOperation,
   ApiParam,
   ApiProperty,
@@ -19,26 +23,40 @@ import {
   ExtraModelsMetadataStorage,
   OperationBodyMetadataStorage,
   OperationMetadataStorage,
+  type OperationParameterMetadata,
   OperationParameterMetadataStorage,
   OperationResponseMetadataStorage,
   OperationSecurityMetadataStorage,
   PropertyMetadataStorage,
 } from "../src/metadata/index.js";
-import { ApiBasicAuth, ApiBearerAuth, ApiCookieAuth, ApiOauth2 } from "../src/decorators/api-security.js";
 
 test("@ApiOperation", () => {
+  const parameters: OperationParameterMetadata[] = [
+    {
+      in: "path",
+      name: "id",
+    },
+  ] as const;
+
   class MyController {
-    @ApiOperation({ summary: "Hello", path: "/test", methods: ["get"] })
+    @ApiOperation({
+      summary: "Hello",
+      path: "/test",
+      methods: ["get"],
+      parameters,
+    })
     operation() {}
   }
 
-  const metadata = OperationMetadataStorage.getMetadata(MyController.prototype, "operation");
-
-  expect(metadata).toEqual({
+  const operationMetadata = OperationMetadataStorage.getMetadata(MyController.prototype, "operation");
+  const parameterMetadata = OperationParameterMetadataStorage.getMetadata(MyController.prototype, "operation");
+  expect(operationMetadata).toEqual({
     summary: "Hello",
     path: "/test",
     methods: ["get"],
+    parameters,
   });
+  expect(parameterMetadata).toEqual(parameters);
 });
 
 test("@ApiBody", () => {
