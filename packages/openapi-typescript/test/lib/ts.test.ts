@@ -54,6 +54,96 @@ describe("addJSDocComment", () => {
     comment: boolean;
 }`);
   });
+
+  test("single example", () => {
+    const property = ts.factory.createPropertySignature(undefined, "comment", undefined, BOOLEAN);
+    addJSDocComment(
+      {
+        example: "an-example",
+      },
+      property,
+    );
+    expect(astToString(ts.factory.createTypeLiteralNode([property])).trim()).toBe(`{
+    /** @example an-example */
+    comment: boolean;
+}`);
+  });
+
+  test("array of examples", () => {
+    const property = ts.factory.createPropertySignature(undefined, "comment", undefined, BOOLEAN);
+    addJSDocComment(
+      {
+        examples: ["an-example", "another-example"],
+      },
+      property,
+    );
+    expect(astToString(ts.factory.createTypeLiteralNode([property])).trim()).toBe(`{
+    /**
+     * @example an-example
+     * @example another-example
+     */
+    comment: boolean;
+}`);
+  });
+
+  test("single example and array of examples", () => {
+    const property = ts.factory.createPropertySignature(undefined, "comment", undefined, BOOLEAN);
+    addJSDocComment(
+      {
+        example: "old-example",
+        examples: ["an-example", "another-example"],
+      },
+      property,
+    );
+    expect(astToString(ts.factory.createTypeLiteralNode([property])).trim()).toBe(`{
+    /**
+     * @example old-example
+     * @example an-example
+     * @example another-example
+     */
+    comment: boolean;
+}`);
+  });
+
+  test("complex examples", () => {
+    const property = ts.factory.createPropertySignature(undefined, "comment", undefined, BOOLEAN);
+    addJSDocComment(
+      {
+        examples: [
+          {
+            foo: "bar",
+            results: [1, true, "abc"],
+          },
+          {
+            foo: "bat",
+            results: [5, false, "def"],
+          },
+        ],
+      },
+      property,
+    );
+    expect(astToString(ts.factory.createTypeLiteralNode([property])).trim()).toBe(`{
+    /**
+     * @example {
+     *       "foo": "bar",
+     *       "results": [
+     *         1,
+     *         true,
+     *         "abc"
+     *       ]
+     *     }
+     * @example {
+     *       "foo": "bat",
+     *       "results": [
+     *         5,
+     *         false,
+     *         "def"
+     *       ]
+     *     }
+     */
+    comment: boolean;
+}`);
+  });
 });
 
 describe("oapiRef", () => {
@@ -188,7 +278,11 @@ describe("tsEnum", () => {
         tsEnum(
           ".Error.code.",
           [100, 101, 102],
-          [{ name: "Unauthorized", description: "User is unauthorized" }, { name: "NotFound" }],
+          [
+            { name: "Unauthorized", description: "User is unauthorized" },
+            { name: "NotFound", description: "" },
+            { name: "Value102", description: null },
+          ],
         ),
       ).trim(),
     ).toBe(`enum ErrorCode {

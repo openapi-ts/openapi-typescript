@@ -1,8 +1,9 @@
 <script lang="ts">
   import { onMount } from "svelte";
+
   import client from "$lib/api/index.js";
 
-  let fact: Awaited<ReturnType<typeof getFact>> | undefined;
+  let fact: Awaited<ReturnType<typeof getFact>> | undefined = $state(undefined);
 
   async function getFact() {
     return client.GET("/fact", {
@@ -12,8 +13,8 @@
     });
   }
 
-  onMount(() => {
-    getFact().then((res) => (fact = res));
+  onMount(async () => {
+    fact = await getFact();
   });
 </script>
 
@@ -26,5 +27,7 @@
       <pre><code>{JSON.stringify(fact.data, undefined, 2)}</code></pre>
     {/if}
   {/if}
-  <button type="button" on:click={() => getFact().then((res) => (fact = res))}>Another fact!</button>
+  <button type="button" onclick={async () => (fact = await getFact())}>
+    Another fact!
+  </button>
 </div>

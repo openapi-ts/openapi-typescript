@@ -201,16 +201,6 @@ const CONTRIBUTORS_JSON = new URL("../data/contributors.json", import.meta.url);
 
 const data = JSON.parse(fs.readFileSync(CONTRIBUTORS_JSON, "utf8"));
 
-function getGitHubToken() {
-  const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-  if (!GITHUB_TOKEN) {
-    throw new Error(
-      'GITHUB_TOKEN not set! Create a token with "read:user" scope and set as an environment variable.\nhttps://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic',
-    );
-  }
-  return GITHUB_TOKEN;
-}
-
 class UserFetchError extends Error {
   /**
    * @param {string} message
@@ -234,7 +224,6 @@ async function fetchUserInfo(username) {
   const res = await fetch(`https://api.github.com/users/${username}`, {
     headers: {
       Accept: "application/vnd.github+json",
-      Authorization: `Bearer ${getGitHubToken()}`,
       "X-GitHub-Api-Version": "2022-11-28",
     },
   });

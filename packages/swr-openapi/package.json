@@ -85,6 +85,6 @@
     "openapi-typescript": "workspace:^",
     "react": "^18.3.1",
     "swr": "^2.3.3",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2"
   }
 }

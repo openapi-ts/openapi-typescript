@@ -175,7 +175,7 @@ By default, `openapi-fetch` will **NOT** arbitrarily clone requests/responses fo
 <!-- prettier-ignore -->
 ```ts
 const myMiddleware: Middleware = {
-  onResponse({ response }) {
+  async onResponse({ response }) {
     const data = await response.json(); // [!code --]
     const data = await response.clone().json(); // [!code ++]
     return undefined;
