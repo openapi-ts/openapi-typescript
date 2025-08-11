@@ -67,7 +67,7 @@
     "change-case": "^5.4.4",
     "parse-json": "^8.3.0",
     "supports-color": "^10.1.0",
-    "yargs-parser": "^21.1.1"
+    "yargs-parser": "^22.0.0"
   },
   "devDependencies": {
     "@types/degit": "^2.8.6",
