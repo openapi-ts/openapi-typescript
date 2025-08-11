@@ -32,6 +32,7 @@ export interface AnnotatedSchemaObject {
   description?: string; // jsdoc with value
   enum?: unknown[]; // jsdoc without value
   example?: string; // jsdoc with value
+  examples?: unknown;
   format?: string; // not jsdoc
   nullable?: boolean; // Node information
   summary?: string; // not jsdoc
@@ -80,6 +81,13 @@ export function addJSDocComment(schemaObject: AnnotatedSchemaObject, node: ts.Pr
     const serialized =
       typeof schemaObject[field] === "object" ? JSON.stringify(schemaObject[field], null, 2) : schemaObject[field];
     output.push(`@${field} ${String(serialized).replace(LB_RE, "\n *     ")}`);
+  }
+
+  if (Array.isArray(schemaObject.examples)) {
+    for (const example of schemaObject.examples) {
+      const serialized = typeof example === "object" ? JSON.stringify(example, null, 2) : example;
+      output.push(`@example ${String(serialized).replace(LB_RE, "\n *     ")}`);
+    }
   }
 
   // JSDoc 'Constant' without value

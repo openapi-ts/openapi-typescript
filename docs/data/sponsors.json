@@ -2,7 +2,7 @@
   "gold": [
     {
       "name": "Speakeasy",
-      "logo": "/assets/speakeasy.svg",
+      "logo": "/assets/speakeasy.png",
       "url": "https://www.speakeasy.com/product/sdk-generation?utm_source=pow_openapi_ts"
     }
   ],
