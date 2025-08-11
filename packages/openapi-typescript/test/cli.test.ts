@@ -76,6 +76,14 @@ describe("CLI", () => {
         ci: { timeout: TIMEOUT },
       },
     ],
+    [
+      "snapshot > enum root types filtering",
+      {
+        given: ["./examples/enum-root-types.yaml", "--root-types", "--root-types-no-schema-prefix", "--enum"],
+        want: new URL("./examples/enum-root-types.ts", root),
+        ci: { timeout: TIMEOUT },
+      },
+    ],
   ];
 
   for (const [testName, { given, want, ci }] of tests) {

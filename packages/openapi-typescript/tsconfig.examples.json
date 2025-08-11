@@ -1,5 +1,5 @@
 {
   "extends": "./tsconfig.json",
   "include": ["examples"],
-  "exclude": ["examples/digital-ocean-api.ts"]
+  "exclude": ["examples/digital-ocean-api.ts", "examples/enum-root-types.ts"]
 }

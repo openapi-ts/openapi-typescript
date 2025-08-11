@@ -11,6 +11,34 @@ import transformRequestBodyObject from "./request-body-object.js";
 import transformResponseObject from "./response-object.js";
 import transformSchemaObject from "./schema-object.js";
 
+/**
+ * Determines if a schema object represents an enum type to prevent duplicate exports
+ * when using --root-types and --enum flags together.
+ *
+ * When both flags are enabled:
+ * - --enum flag generates TypeScript enums at the bottom of the file
+ * - --root-types flag would normally also export these as root type aliases
+ * - This results in duplicate exports (both enum and type alias for the same schema)
+ *
+ * This function identifies enum schemas so they can be excluded from root type generation,
+ * allowing only the TypeScript enum to be generated.
+ *
+ * @param schema The schema object to check
+ * @returns true if the schema represents an enum type
+ */
+export function isEnumSchema(schema: unknown): boolean {
+  return (
+    typeof schema === "object" &&
+    schema !== null &&
+    !Array.isArray(schema) &&
+    "enum" in schema &&
+    Array.isArray((schema as any).enum) &&
+    (!("type" in schema) || (schema as any).type !== "object") &&
+    !("properties" in schema) &&
+    !("additionalProperties" in schema)
+  );
+}
+
 type ComponentTransforms = keyof Omit<ComponentsObject, "examples" | "securitySchemes" | "links" | "callbacks">;
 
 const transformers: Record<ComponentTransforms, (node: any, options: TransformNodeOptions) => ts.TypeNode> = {
@@ -68,27 +96,32 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
         items.push(property);
 
         if (ctx.rootTypes) {
-          const componentKey = changeCase.pascalCase(singularizeComponentKey(key));
-          let aliasName = `${componentKey}${changeCase.pascalCase(name)}`;
+          // Skip enum schemas when generating root types to prevent duplication (only when --enum flag is enabled)
+          const shouldSkipEnumSchema = ctx.enum && key === "schemas" && isEnumSchema(item);
 
-          // Add counter suffix (e.g. "_2") if conflict in name
-          let conflictCounter = 1;
+          if (!shouldSkipEnumSchema) {
+            const componentKey = changeCase.pascalCase(singularizeComponentKey(key));
+            let aliasName = `${componentKey}${changeCase.pascalCase(name)}`;
 
-          while (rootTypeAliases[aliasName] !== undefined) {
-            conflictCounter++;
-            aliasName = `${componentKey}${changeCase.pascalCase(name)}_${conflictCounter}`;
+            // Add counter suffix (e.g. "_2") if conflict in name
+            let conflictCounter = 1;
+
+            while (rootTypeAliases[aliasName] !== undefined) {
+              conflictCounter++;
+              aliasName = `${componentKey}${changeCase.pascalCase(name)}_${conflictCounter}`;
+            }
+            const ref = ts.factory.createTypeReferenceNode(`components['${key}']['${name}']`);
+            if (ctx.rootTypesNoSchemaPrefix && key === "schemas") {
+              aliasName = aliasName.replace(componentKey, "");
+            }
+            const typeAlias = ts.factory.createTypeAliasDeclaration(
+              /* modifiers      */ tsModifiers({ export: true }),
+              /* name           */ aliasName,
+              /* typeParameters */ undefined,
+              /* type           */ ref,
+            );
+            rootTypeAliases[aliasName] = typeAlias;
           }
-          const ref = ts.factory.createTypeReferenceNode(`components['${key}']['${name}']`);
-          if (ctx.rootTypesNoSchemaPrefix && key === "schemas") {
-            aliasName = aliasName.replace(componentKey, "");
-          }
-          const typeAlias = ts.factory.createTypeAliasDeclaration(
-            /* modifiers      */ tsModifiers({ export: true }),
-            /* name           */ aliasName,
-            /* typeParameters */ undefined,
-            /* type           */ ref,
-          );
-          rootTypeAliases[aliasName] = typeAlias;
         }
       }
     }
