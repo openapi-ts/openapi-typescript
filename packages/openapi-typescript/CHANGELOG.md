@@ -1,5 +1,13 @@
 # openapi-typescript
 
+## 7.9.1
+
+### Patch Changes
+
+- [#2393](https://github.com/openapi-ts/openapi-typescript/pull/2393) [`6943ccf`](https://github.com/openapi-ts/openapi-typescript/commit/6943ccf216f602f004eb178dd652ffcbafc05346) Thanks [@simon-curtis](https://github.com/simon-curtis)! - Now checking for null & empty string when generating enum description
+
+- [#2375](https://github.com/openapi-ts/openapi-typescript/pull/2375) [`5be22d7`](https://github.com/openapi-ts/openapi-typescript/commit/5be22d7adc8bc36fdfa91f1aa3473919107060f2) Thanks [@ParkerVR](https://github.com/ParkerVR)! - Fix behavior when using enum and export-type flags
+
 ## 7.9.0
 
 ### Minor Changes
