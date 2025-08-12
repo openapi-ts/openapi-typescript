@@ -296,7 +296,7 @@ describe("request", () => {
   });
 
   test("uses provided Request class", async () => {
-    // santity check to make sure the profided fetch function is actually called
+    // sanity check to make sure the provided fetch function is actually called
     expect.assertions(1);
 
     class SpecialRequestImplementation extends Request {}
