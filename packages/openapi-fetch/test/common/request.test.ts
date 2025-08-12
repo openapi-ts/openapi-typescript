@@ -316,6 +316,26 @@ describe("request", () => {
     await client.GET("/resources");
   });
 
+  test("Can use custom Request class", async () => {
+    // sanity check to make sure the provided fetch function is actually called
+    expect.assertions(1);
+
+    class SpecialRequestImplementation extends Request {}
+
+    const customFetch = async (input: Request) => {
+      // make sure that the request is actually an instance of the custom request we provided
+      expect(input).instanceOf(SpecialRequestImplementation);
+      return Promise.resolve(Response.json({ hello: "world" }));
+    };
+
+    const client = createClient<paths>({
+      baseUrl: "https://fakeurl.example",
+      fetch: customFetch,
+    });
+
+    await client.GET("/resources", { Request: SpecialRequestImplementation });
+  });
+
   test("can attach custom properties to request", async () => {
     function createCustomFetch(data: any) {
       const response = {
