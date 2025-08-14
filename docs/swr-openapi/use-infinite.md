@@ -15,8 +15,15 @@ const client = createClient<paths>(/* ... */);
 
 const useInfinite = createInfiniteHook(client, "my-api");
 
-const { data, error, isLoading, isValidating, mutate, size, setSize } =
-  useInfinite(path, getInit, config);
+const {
+  data,
+  error,
+  isLoading,
+  isValidating,
+  mutate,
+  size,
+  setSize
+} = useInfinite(path, getInit, config);
 ```
 
 ## API
