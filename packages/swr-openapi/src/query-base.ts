@@ -17,13 +17,14 @@ export function configureBaseQueryHook(useHook: SWRHook) {
     return function useQuery<
       Path extends PathsWithMethod<Paths, "get">,
       R extends TypesForGetRequest<Paths, Path>,
-      Init extends R["Init"],
       Data extends R["Data"],
       Error extends R["Error"] | FetcherError,
       Config extends R["SWRConfig"],
     >(
       path: Path,
-      ...[init, config]: RequiredKeysOf<Init> extends never ? [(Init | null)?, Config?] : [Init | null, Config?]
+      ...[init, config]: RequiredKeysOf<R["Init"]> extends never
+        ? [(R["Init"] | null)?, Config?]
+        : [R["Init"] | null, Config?]
     ) {
       useDebugValue(`${prefix} - ${path as string}`);
 

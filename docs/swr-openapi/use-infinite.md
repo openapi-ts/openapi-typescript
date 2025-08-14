@@ -88,6 +88,33 @@ useInfinite("/something", (pageIndex, previousPageData) => {
 });
 ```
 
+### Enforcing exact param shapes
+
+When returning an object from the `getInit` loader, TypeScript may not always perform excess property checks on the inline object literal. If you want the compiler to reject extra keys in `params.query`/`params.path`, use either of these patterns:
+
+```ts
+import type { TypesForRequest } from "swr-openapi";
+import type { paths } from "./my-schema";
+
+// Option 1: typed variable
+type FindByStatus = TypesForRequest<paths, "get", "/pet/findByStatus">;
+const init: FindByStatus["Init"] = {
+  params: { query: { status: "available" } },
+  // extra properties here will be rejected by TS
+};
+useInfinite("/pet/findByStatus", () => init);
+
+// Option 2: satisfies
+useInfinite(
+  "/pet/findByStatus",
+  () =>
+    ({
+      params: { query: { status: "available" } },
+      // extra properties here will be rejected by TS
+    }) satisfies TypesForRequest<paths, "get", "/pet/findByStatus">["Init"]
+);
+```
+
 ### Using cursors
 
 ```ts
@@ -146,7 +173,6 @@ function useInfinite(path, getInit, config) {
   return useSWRInfinite(getKey, fetcher, config);
 }
 ```
-
 
 [oai-fetch-options]: https://openapi-ts.pages.dev/openapi-fetch/api#fetch-options
 [swr-api]: https://swr.vercel.app/docs/api

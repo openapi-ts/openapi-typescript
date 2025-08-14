@@ -39,6 +39,46 @@ const useMutate = createMutateHook(
 const mutate = useMutate();
 
 describe("types", () => {
+  describe("excess property checks", () => {
+    describe("useQuery", () => {
+      it("rejects extra properties in query params", () => {
+        useQuery("/pet/findByStatus", {
+          params: {
+            query: {
+              status: "available",
+              // @ts-expect-error extra property should be rejected
+              invalid_property: "nope",
+            },
+          },
+        });
+      });
+
+      it("rejects extra properties in path params", () => {
+        useQuery("/pet/{petId}", {
+          params: {
+            path: {
+              petId: 5,
+              // @ts-expect-error extra property should be rejected
+              invalid_path_param: "nope",
+            },
+          },
+        });
+      });
+
+      it("rejects extra properties in header params", () => {
+        useQuery("/pet/findByStatus", {
+          params: {
+            header: {
+              "X-Example": "test",
+              // @ts-expect-error extra property should be rejected
+              "Invalid-Header": "nope",
+            },
+          },
+        });
+      });
+    });
+  });
+
   describe("key types", () => {
     describe("useQuery", () => {
       it("accepts config", () => {
