@@ -94,112 +94,119 @@ export function transformSchemaObjectWithComposition(
   if (
     Array.isArray(schemaObject.enum) &&
     (!("type" in schemaObject) || schemaObject.type !== "object") &&
-    !("properties" in schemaObject) &&
-    !("additionalProperties" in schemaObject)
+    !("properties" in schemaObject)
   ) {
-    // hoist enum to top level if string/number enum and option is enabled
-    if (shouldTransformToTsEnum(options, schemaObject)) {
-      let enumName = parseRef(options.path ?? "").pointer.join("/");
-      // allow #/components/schemas to have simpler names
-      enumName = enumName.replace("components/schemas", "");
-      const metadata = schemaObject.enum.map((_, i) => ({
-        name: schemaObject["x-enum-varnames"]?.[i] ?? schemaObject["x-enumNames"]?.[i],
-        description: schemaObject["x-enum-descriptions"]?.[i] ?? schemaObject["x-enumDescriptions"]?.[i],
-      }));
+    const hasAdditionalProperties = "additionalProperties" in schemaObject && !!schemaObject.additionalProperties;
 
-      // enums can contain null values, but dont want to output them
-      let hasNull = false;
-      const validSchemaEnums = schemaObject.enum.filter((enumValue) => {
-        if (enumValue === null) {
-          hasNull = true;
-          return false;
-        }
+    if (!hasAdditionalProperties || (schemaObject.type === "string" && hasAdditionalProperties)) {
+      // hoist enum to top level if string/number enum and option is enabled
+      if (shouldTransformToTsEnum(options, schemaObject)) {
+        let enumName = parseRef(options.path ?? "").pointer.join("/");
+        // allow #/components/schemas to have simpler names
+        enumName = enumName.replace("components/schemas", "");
+        const metadata = schemaObject.enum.map((_, i) => ({
+          name: schemaObject["x-enum-varnames"]?.[i] ?? schemaObject["x-enumNames"]?.[i],
+          description: schemaObject["x-enum-descriptions"]?.[i] ?? schemaObject["x-enumDescriptions"]?.[i],
+        }));
 
-        return true;
-      });
-      const enumType = tsEnum(enumName, validSchemaEnums as (string | number)[], metadata, {
-        shouldCache: options.ctx.dedupeEnums,
-        export: true,
-        // readonly: TS enum do not support the readonly modifier
-      });
-      if (!options.ctx.injectFooter.includes(enumType)) {
-        options.ctx.injectFooter.push(enumType);
-      }
-      const ref = ts.factory.createTypeReferenceNode(enumType.name);
-      return hasNull ? tsUnion([ref, NULL]) : ref;
-    }
-    const enumType = schemaObject.enum.map(tsLiteral);
-    if ((Array.isArray(schemaObject.type) && schemaObject.type.includes("null")) || schemaObject.nullable) {
-      enumType.push(NULL);
-    }
-
-    const unionType = tsUnion(enumType);
-
-    // hoist array with valid enum values to top level if string/number enum and option is enabled
-    if (options.ctx.enumValues && schemaObject.enum.every((v) => typeof v === "string" || typeof v === "number")) {
-      const parsed = parseRef(options.path ?? "");
-      let enumValuesVariableName = parsed.pointer.join("/");
-      // allow #/components/schemas to have simpler names
-      enumValuesVariableName = enumValuesVariableName.replace("components/schemas", "");
-      enumValuesVariableName = `${enumValuesVariableName}Values`;
-
-      // build a ref path for the type that ignores union indices (anyOf/oneOf) so
-      // type references remain stable even when names include union positions
-      const cleanedPointer: string[] = [];
-      // Track ALL properties after a oneOf/anyOf that need Extract<> narrowing.
-      // We apply Extract<> before EVERY property access after a union index because:
-      // - When the property exists on ALL variants, Extract<> is a no-op (returns same type)
-      // - When the property only exists on SOME variants, it correctly narrows the union
-      // - When both variants have same property name but different inner schemas,
-      //   we still narrow at each level to handle nested unions correctly
-      // This robust approach handles both simple and complex union structures.
-      const extractProperties: string[] = [];
-      for (let i = 0; i < parsed.pointer.length; i++) {
-        // Example: #/paths/analytics/data/get/responses/400/content/application/json/anyOf/0/message
-        const segment = parsed.pointer[i];
-        if ((segment === "anyOf" || segment === "oneOf") && i < parsed.pointer.length - 1) {
-          const next = parsed.pointer[i + 1];
-          if (/^\d+$/.test(next)) {
-            // If we encounter something like "anyOf/0", we want to skip that part of the path
-            i++;
-            // Collect ALL remaining segments after the union index.
-            // Each one will be wrapped with Extract<> to safely narrow the type
-            // at each level, handling both top-level and nested union variants.
-            const remainingSegments = parsed.pointer.slice(i + 1);
-            for (const seg of remainingSegments) {
-              // Skip union keywords and indices, only add actual property names
-              if (seg !== "anyOf" && seg !== "oneOf" && !/^\d+$/.test(seg)) {
-                extractProperties.push(seg);
-              }
-            }
-            continue;
+        // enums can contain null values, but dont want to output them
+        let hasNull = false;
+        const validSchemaEnums = schemaObject.enum.filter((enumValue) => {
+          if (enumValue === null) {
+            hasNull = true;
+            return false;
           }
-        }
-        cleanedPointer.push(segment);
-      }
-      const cleanedRefPath = createRef(cleanedPointer);
 
-      const enumValuesArray = tsArrayLiteralExpression(
-        enumValuesVariableName,
-        // If fromAdditionalProperties is true we are dealing with a record type and we should append [string] to the generated type
-        fromAdditionalProperties
-          ? ts.factory.createIndexedAccessTypeNode(
-              oapiRef(cleanedRefPath, undefined, { deep: true, extractProperties }),
-              ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("string")),
-            )
-          : oapiRef(cleanedRefPath, undefined, { deep: true, extractProperties }),
-        schemaObject.enum as (string | number)[],
-        {
+          return true;
+        });
+        const enumType = tsEnum(enumName, validSchemaEnums as (string | number)[], metadata, {
+          shouldCache: options.ctx.dedupeEnums,
           export: true,
-          readonly: true,
-          injectFooter: options.ctx.injectFooter,
-        },
-      );
+          // readonly: TS enum do not support the readonly modifier
+        });
+        if (!options.ctx.injectFooter.includes(enumType)) {
+          options.ctx.injectFooter.push(enumType);
+        }
+        const ref = ts.factory.createTypeReferenceNode(enumType.name);
 
-      options.ctx.injectFooter.push(enumValuesArray);
+        const finalType: ts.TypeNode = hasNull ? tsUnion([ref, NULL]) : ref;
+
+        return applyAdditionalPropertiesToEnum(hasAdditionalProperties, finalType, schemaObject);
+      }
+
+      const enumType = schemaObject.enum.map(tsLiteral);
+      if ((Array.isArray(schemaObject.type) && schemaObject.type.includes("null")) || schemaObject.nullable) {
+        enumType.push(NULL);
+      }
+
+      const unionType = applyAdditionalPropertiesToEnum(hasAdditionalProperties, tsUnion(enumType), schemaObject);
+
+      // hoist array with valid enum values to top level if string/number enum and option is enabled
+      if (options.ctx.enumValues && schemaObject.enum.every((v) => typeof v === "string" || typeof v === "number")) {
+        const parsed = parseRef(options.path ?? "");
+        let enumValuesVariableName = parsed.pointer.join("/");
+        // allow #/components/schemas to have simpler names
+        enumValuesVariableName = enumValuesVariableName.replace("components/schemas", "");
+        enumValuesVariableName = `${enumValuesVariableName}Values`;
+
+        // build a ref path for the type that ignores union indices (anyOf/oneOf) so
+        // type references remain stable even when names include union positions
+        const cleanedPointer: string[] = [];
+        // Track ALL properties after a oneOf/anyOf that need Extract<> narrowing.
+        // We apply Extract<> before EVERY property access after a union index because:
+        // - When the property exists on ALL variants, Extract<> is a no-op (returns same type)
+        // - When the property only exists on SOME variants, it correctly narrows the union
+        // - When both variants have same property name but different inner schemas,
+        //   we still narrow at each level to handle nested unions correctly
+        // This robust approach handles both simple and complex union structures.
+        const extractProperties: string[] = [];
+        for (let i = 0; i < parsed.pointer.length; i++) {
+          // Example: #/paths/analytics/data/get/responses/400/content/application/json/anyOf/0/message
+          const segment = parsed.pointer[i];
+          if ((segment === "anyOf" || segment === "oneOf") && i < parsed.pointer.length - 1) {
+            const next = parsed.pointer[i + 1];
+            if (/^\d+$/.test(next)) {
+              // If we encounter something like "anyOf/0", we want to skip that part of the path
+              i++;
+              // Collect ALL remaining segments after the union index.
+              // Each one will be wrapped with Extract<> to safely narrow the type
+              // at each level, handling both top-level and nested union variants.
+              const remainingSegments = parsed.pointer.slice(i + 1);
+              for (const seg of remainingSegments) {
+                // Skip union keywords and indices, only add actual property names
+                if (seg !== "anyOf" && seg !== "oneOf" && !/^\d+$/.test(seg)) {
+                  extractProperties.push(seg);
+                }
+              }
+              continue;
+            }
+          }
+          cleanedPointer.push(segment);
+        }
+        const cleanedRefPath = createRef(cleanedPointer);
+
+        const enumValuesArray = tsArrayLiteralExpression(
+          enumValuesVariableName,
+          // If fromAdditionalProperties is true we are dealing with a record type and we should append [string] to the generated type
+          fromAdditionalProperties
+            ? ts.factory.createIndexedAccessTypeNode(
+                oapiRef(cleanedRefPath, undefined, { deep: true, extractProperties }),
+                ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("string")),
+              )
+            : oapiRef(cleanedRefPath, undefined, { deep: true, extractProperties }),
+          schemaObject.enum as (string | number)[],
+          {
+            export: true,
+            readonly: true,
+            injectFooter: options.ctx.injectFooter,
+          },
+        );
+
+        options.ctx.injectFooter.push(enumValuesArray);
+      }
+
+      return unionType;
     }
-
-    return unionType;
   }
 
   /**
@@ -715,6 +722,19 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
  */
 function hasKey<K extends string>(possibleObject: unknown, key: K): possibleObject is { [key in K]: unknown } {
   return typeof possibleObject === "object" && possibleObject !== null && key in possibleObject;
+}
+
+function applyAdditionalPropertiesToEnum(
+  hasAdditionalProperties: boolean,
+  unionType: ts.TypeNode,
+  schemaObject: SchemaObject,
+) {
+  // If additionalProperties is true, add (string & {}) to the union
+  if (hasAdditionalProperties && schemaObject.type === "string") {
+    const stringAndEmptyObject = tsIntersection([STRING, ts.factory.createTypeLiteralNode([])]);
+    return tsUnion([unionType, stringAndEmptyObject]);
+  }
+  return unionType;
 }
 
 /** Wrap type with $Read or $Write marker when readWriteMarkers flag is enabled */
