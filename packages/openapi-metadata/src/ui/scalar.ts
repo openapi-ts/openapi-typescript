@@ -14,32 +14,32 @@ export type GenerateScalarUIOptions = {
   searchHotKey?: string;
   servers?: any[];
   showSidebar?: boolean;
-  theme?: 
-    | 'alternate'
-    | 'default'
-    | 'moon'
-    | 'purple'
-    | 'solarized'
-    | 'bluePlanet'
-    | 'deepSpace'
-    | 'saturn'
-    | 'kepler'
-    | 'elysiajs'
-    | 'fastify'
-    | 'mars'
-    | 'laserwave'
-    | 'none';
+  theme?:
+    | "alternate"
+    | "default"
+    | "moon"
+    | "purple"
+    | "solarized"
+    | "bluePlanet"
+    | "deepSpace"
+    | "saturn"
+    | "kepler"
+    | "elysiajs"
+    | "fastify"
+    | "mars"
+    | "laserwave"
+    | "none";
   persistAuth?: boolean;
   plugins?: any[];
-  layout?: 'modern' | 'classic';
+  layout?: "modern" | "classic";
   isLoading?: boolean;
   hideModels?: boolean;
-  documentDownloadType?: 'yaml' | 'json' | 'both' | 'none';
+  documentDownloadType?: "yaml" | "json" | "both" | "none";
   hideDownloadButton?: boolean;
   hideTestRequestButton?: boolean;
   hideSearch?: boolean;
   darkMode?: boolean;
-  forceDarkModeState?: 'dark' | 'light';
+  forceDarkModeState?: "dark" | "light";
   hideDarkModeToggle?: boolean;
   metaData?: any;
   favicon?: string;
@@ -49,8 +49,8 @@ export type GenerateScalarUIOptions = {
   pathRouting?: { basePath: string };
   withDefaultFonts?: boolean;
   defaultOpenAllTags?: boolean;
-  tagsSorter?: 'alpha' | ((a: any, b: any) => number);
-  operationsSorter?: 'alpha' | 'method' | ((a: any, b: any) => number);
+  tagsSorter?: "alpha" | ((a: any, b: any) => number);
+  operationsSorter?: "alpha" | "method" | ((a: any, b: any) => number);
 };
 
 /**
@@ -58,7 +58,7 @@ export type GenerateScalarUIOptions = {
  *
  * @see https://scalar.com/
  */
-export function generateScalarUI(url: string, options: Omit<GenerateScalarUIOptions, 'url'> = {}) {
+export function generateScalarUI(url: string, options: Omit<GenerateScalarUIOptions, "url"> = {}) {
   return `
       <!doctype html>
       <html>
