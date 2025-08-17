@@ -23,7 +23,7 @@ app.get("/api", async (req, res) => {
 });
 
 app.get("/api/docs", (req, res) => {
-  const ui = generateScalarUI("/api");
+  const ui = generateScalarUI("/api", { theme: "purple" });
   res.send(ui);
 });
 ```
@@ -45,7 +45,7 @@ app.get("/api", async () => {
 });
 
 app.get("/api/docs", () => {
-  const ui = generateScalarUI("/api");
+  const ui = generateScalarUI("/api", { theme: "purple" });
   return ui;
 });
 ```
