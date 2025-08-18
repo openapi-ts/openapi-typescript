@@ -1,5 +1,11 @@
 # swr-openapi
 
+## 5.4.0
+
+### Minor Changes
+
+- [#2420](https://github.com/openapi-ts/openapi-typescript/pull/2420) [`48134b5`](https://github.com/openapi-ts/openapi-typescript/commit/48134b59f1bb9f7c7daac6f9f4a8b8c6422ef9a2) Thanks [@htunnicliff](https://github.com/htunnicliff)! - Disallow extra properties in swr-openapi init types
+
 ## 5.3.1
 
 ### Patch Changes
