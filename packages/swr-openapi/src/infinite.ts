@@ -7,6 +7,7 @@ import useSWRInfinite, {
 } from "swr/infinite";
 import type { TypesForGetRequest } from "./types.js";
 import { useCallback, useDebugValue } from "react";
+import type { Exact } from "type-fest";
 
 /**
  * Produces a typed wrapper for [`useSWRInfinite`](https://swr.vercel.app/docs/pagination#useswrinfinite).
@@ -42,7 +43,7 @@ export function createInfiniteHook<
   return function useInfinite<
     Path extends PathsWithMethod<Paths, "get">,
     R extends TypesForGetRequest<Paths, Path>,
-    Init extends R["Init"],
+    Init extends Exact<R["Init"], Init>,
     Data extends R["Data"],
     Error extends R["Error"] | FetcherError,
     Config extends SWRInfiniteConfiguration<Data, Error>,
