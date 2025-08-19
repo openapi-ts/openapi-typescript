@@ -547,18 +547,27 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
     if (schemaObject.additionalProperties || options.ctx.additionalProperties || schemaObject.patternProperties) {
       const hasExplicitAdditionalProperties =
         typeof schemaObject.additionalProperties === "object" && Object.keys(schemaObject.additionalProperties).length;
+      const hasImplicitAdditionalProperties =
+      schemaObject.additionalProperties === true || (typeof schemaObject.additionalProperties === "object" && Object.keys(schemaObject.additionalProperties).length === 0);
       const hasExplicitPatternProperties =
         typeof schemaObject.patternProperties === "object" && Object.keys(schemaObject.patternProperties).length;
       const addlTypes = [];
       if (hasExplicitAdditionalProperties) {
         addlTypes.push(transformSchemaObject(schemaObject.additionalProperties as SchemaObject, options));
       }
+      if (hasImplicitAdditionalProperties || (!schemaObject.additionalProperties && options.ctx.additionalProperties)) {
+        addlTypes.push(UNKNOWN);
+      }
       if (hasExplicitPatternProperties) {
         for (const [_, v] of getEntries(schemaObject.patternProperties ?? {}, options.ctx)) {
           addlTypes.push(transformSchemaObject(v, options));
         }
       }
-      const addlType = addlTypes.length === 0 ? UNKNOWN : tsUnion(addlTypes);
+
+      if (addlTypes.length === 0) return;
+
+      const addlType = tsUnion(addlTypes);
+
       return tsIntersection([
         ...(coreObjectType.length ? [ts.factory.createTypeLiteralNode(coreObjectType)] : []),
         ts.factory.createTypeLiteralNode([
