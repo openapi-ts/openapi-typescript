@@ -548,7 +548,9 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
       const hasExplicitAdditionalProperties =
         typeof schemaObject.additionalProperties === "object" && Object.keys(schemaObject.additionalProperties).length;
       const hasImplicitAdditionalProperties =
-      schemaObject.additionalProperties === true || (typeof schemaObject.additionalProperties === "object" && Object.keys(schemaObject.additionalProperties).length === 0);
+        schemaObject.additionalProperties === true ||
+        (typeof schemaObject.additionalProperties === "object" &&
+          Object.keys(schemaObject.additionalProperties).length === 0);
       const hasExplicitPatternProperties =
         typeof schemaObject.patternProperties === "object" && Object.keys(schemaObject.patternProperties).length;
       const addlTypes = [];
@@ -564,7 +566,9 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
         }
       }
 
-      if (addlTypes.length === 0) return;
+      if (addlTypes.length === 0) {
+        return;
+      }
 
       const addlType = tsUnion(addlTypes);
 

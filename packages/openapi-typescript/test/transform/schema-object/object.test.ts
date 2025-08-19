@@ -103,7 +103,7 @@ describe("transformSchemaObject > object", () => {
       "patternProperties > empty object",
       {
         given: { type: "object", patternProperties: {} },
-        want: `Record<string, never>`,
+        want: "Record<string, never>",
       },
     ],
     [
@@ -113,10 +113,10 @@ describe("transformSchemaObject > object", () => {
         want: `{
     [key: string]: unknown;
 }`,
-      options: {
-        ...DEFAULT_OPTIONS,
-        ctx: { ...DEFAULT_CTX, additionalProperties: true },
-      }
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_CTX, additionalProperties: true },
+        },
       },
     ],
     [
@@ -182,10 +182,10 @@ describe("transformSchemaObject > object", () => {
         want: `{
     [key: string]: unknown | string;
 }`,
-      options: {
-        ...DEFAULT_OPTIONS,
-        ctx: { ...DEFAULT_CTX, additionalProperties: true },
-      }
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_CTX, additionalProperties: true },
+        },
       },
     ],
     [
