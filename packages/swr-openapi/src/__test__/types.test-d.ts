@@ -85,6 +85,44 @@ describe("types", () => {
           useQuery("/pet/findByStatus", null);
         });
       });
+
+      describe("rejects extra properties", () => {
+        it("in query params", () => {
+          useQuery("/pet/findByStatus", {
+            params: {
+              query: {
+                status: "available",
+                // @ts-expect-error extra property should be rejected
+                invalid_property: "nope",
+              },
+            },
+          });
+        });
+
+        it("in path params", () => {
+          useQuery("/pet/{petId}", {
+            params: {
+              path: {
+                petId: 5,
+                // @ts-expect-error extra property should be rejected
+                invalid_path_param: "nope",
+              },
+            },
+          });
+        });
+
+        it("in header params", () => {
+          useQuery("/pet/findByStatus", {
+            params: {
+              header: {
+                "X-Example": "test",
+                // @ts-expect-error extra property should be rejected
+                "Invalid-Header": "nope",
+              },
+            },
+          });
+        });
+      });
     });
 
     describe("useImmutable", () => {
@@ -122,6 +160,44 @@ describe("types", () => {
           useImmutable("/pet/findByStatus", null);
         });
       });
+
+      describe("rejects extra properties", () => {
+        it("in query params", () => {
+          useImmutable("/pet/findByStatus", {
+            params: {
+              query: {
+                status: "available",
+                // @ts-expect-error extra property should be rejected
+                invalid_property: "nope",
+              },
+            },
+          });
+        });
+
+        it("in path params", () => {
+          useImmutable("/pet/{petId}", {
+            params: {
+              path: {
+                petId: 5,
+                // @ts-expect-error extra property should be rejected
+                invalid_path_param: "nope",
+              },
+            },
+          });
+        });
+
+        it("in header params", () => {
+          useImmutable("/pet/findByStatus", {
+            params: {
+              header: {
+                "X-Example": "test",
+                // @ts-expect-error extra property should be rejected
+                "Invalid-Header": "nope",
+              },
+            },
+          });
+        });
+      });
     });
 
     describe("useInfinite", () => {
@@ -152,6 +228,44 @@ describe("types", () => {
 
         it("accepts a null init", () => {
           useInfinite("/pet/findByStatus", () => null);
+        });
+      });
+
+      describe("rejects extra properties", () => {
+        it("in query params", () => {
+          useInfinite("/pet/findByStatus", () => ({
+            params: {
+              query: {
+                status: "available",
+                // @ts-expect-error extra property should be rejected
+                invalid_property: "nope",
+              },
+            },
+          }));
+        });
+
+        it("in path params", () => {
+          useInfinite("/pet/{petId}", () => ({
+            params: {
+              path: {
+                petId: 5,
+                // @ts-expect-error extra property should be rejected
+                invalid_path_param: "nope",
+              },
+            },
+          }));
+        });
+
+        it("in header params", () => {
+          useInfinite("/pet/findByStatus", () => ({
+            params: {
+              header: {
+                "X-Example": "test",
+                // @ts-expect-error extra property should be rejected
+                "Invalid-Header": "nope",
+              },
+            },
+          }));
         });
       });
     });
@@ -185,36 +299,83 @@ describe("types", () => {
           null,
         ]);
       });
-    });
 
-    describe("when init is not required", () => {
-      it("accepts path alone", async () => {
-        await mutate(["/pet/{petId}"]);
-      });
+      describe("when init is not required", () => {
+        it("accepts path alone", async () => {
+          await mutate(["/pet/{petId}"]);
+        });
 
-      it("accepts path and init", async () => {
-        await mutate([
-          "/pet/{petId}",
-          {
-            params: {
-              path: {
-                petId: 5,
+        it("accepts path and init", async () => {
+          await mutate([
+            "/pet/{petId}",
+            {
+              params: {
+                path: {
+                  petId: 5,
+                },
               },
             },
-          },
-        ]);
+          ]);
+        });
+
+        it("accepts partial init", async () => {
+          await mutate(["/pet/{petId}", { params: {} }]);
+        });
+
+        it("does not accept `null` init", async () => {
+          await mutate([
+            "/pet/{petId}",
+            // @ts-expect-error null not accepted
+            null,
+          ]);
+        });
       });
 
-      it("accepts partial init", async () => {
-        await mutate(["/pet/{petId}", { params: {} }]);
-      });
+      describe("rejects extra properties", () => {
+        it("in path", () => {
+          mutate([
+            "/pet/{petId}",
+            {
+              params: {
+                path: {
+                  petId: 5,
+                  // @ts-expect-error extra property should be rejected
+                  invalid_path_param: "no",
+                },
+              },
+            },
+          ]);
+        });
 
-      it("does not accept `null` init", async () => {
-        await mutate([
-          "/pet/{petId}",
-          // @ts-expect-error null not accepted
-          null,
-        ]);
+        it("in query params", () => {
+          mutate([
+            "/pet/findByStatus",
+            {
+              params: {
+                query: {
+                  status: "available",
+                  // @ts-expect-error extra property should be rejected
+                  invalid_property: "nope",
+                },
+              },
+            },
+          ]);
+        });
+
+        it("in header params", () => {
+          mutate([
+            "/pet/findByStatus",
+            {
+              params: {
+                header: {
+                  "X-Example": "test",
+                  // @ts-expect-error extra property should be rejected
+                  "Invalid-Header": "nope",
+                },
+              },
+            },
+          ]);
+        });
       });
     });
   });

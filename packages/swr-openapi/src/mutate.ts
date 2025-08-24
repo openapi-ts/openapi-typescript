@@ -2,7 +2,7 @@ import type { Client } from "openapi-fetch";
 import type { MediaType, PathsWithMethod } from "openapi-typescript-helpers";
 import { useCallback, useDebugValue } from "react";
 import { type MutatorCallback, type MutatorOptions, useSWRConfig } from "swr";
-import type { PartialDeep } from "type-fest";
+import type { Exact, PartialDeep } from "type-fest";
 import type { TypesForGetRequest } from "./types.js";
 
 // Types are loose here to support ecosystem utilities like `_.isMatch`
@@ -48,7 +48,7 @@ export function createMutateHook<Paths extends {}, IMediaType extends MediaType>
       function mutate<
         Path extends PathsWithMethod<Paths, "get">,
         R extends TypesForGetRequest<Paths, Path>,
-        Init extends R["Init"],
+        Init extends Exact<R["Init"], Init>,
       >(
         [path, init]: [Path, PartialDeep<Init>?],
         data?: R["Data"] | Promise<R["Data"]> | MutatorCallback<R["Data"]>,
