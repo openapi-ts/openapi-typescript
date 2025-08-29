@@ -1003,6 +1003,59 @@ export type operations = Record<string, never>;`,
       },
     ],
     [
+      "options > enumValues with record types",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
+          components: {
+            schemas: {
+              ComplexEditKeyDto: {
+                type: "object",
+                properties: {
+                  states: {
+                    type: "object",
+                    additionalProperties: {
+                      type: "string",
+                      enum: ["TRANSLATED", "REVIEWED"],
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        ComplexEditKeyDto: {
+            states?: {
+                [key: string]: "TRANSLATED" | "REVIEWED";
+            };
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+type FlattenedDeepRequired<T> = {
+    [K in keyof T]-?: FlattenedDeepRequired<T[K] extends unknown[] | undefined | null ? Extract<T[K], unknown[]>[number] : T[K]>;
+};
+type ReadonlyArray<T> = [
+    Exclude<T, undefined>
+] extends [
+    unknown[]
+] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
+export const complexEditKeyDtoStatesValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["ComplexEditKeyDto"]["states"][string]> = ["TRANSLATED", "REVIEWED"];
+export type operations = Record<string, never>;`,
+        options: { enumValues: true },
+      },
+    ],
+    [
       "options > dedupeEnums",
       {
         given: {
