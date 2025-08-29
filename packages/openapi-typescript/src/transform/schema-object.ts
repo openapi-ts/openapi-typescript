@@ -34,8 +34,9 @@ import type { ReferenceObject, SchemaObject, TransformNodeOptions } from "../typ
 export default function transformSchemaObject(
   schemaObject: SchemaObject | ReferenceObject,
   options: TransformNodeOptions,
+  fromAdditionalProperties = false,
 ): ts.TypeNode {
-  const type = transformSchemaObjectWithComposition(schemaObject, options);
+  const type = transformSchemaObjectWithComposition(schemaObject, options, fromAdditionalProperties);
   if (typeof options.ctx.postTransform === "function") {
     const postTransformResult = options.ctx.postTransform(type, options);
     if (postTransformResult) {
@@ -51,6 +52,7 @@ export default function transformSchemaObject(
 export function transformSchemaObjectWithComposition(
   schemaObject: SchemaObject | ReferenceObject,
   options: TransformNodeOptions,
+  fromAdditionalProperties = false,
 ): ts.TypeNode {
   /**
    * Unexpected types & edge cases
@@ -145,7 +147,13 @@ export function transformSchemaObjectWithComposition(
 
       const enumValuesArray = tsArrayLiteralExpression(
         enumValuesVariableName,
-        oapiRef(options.path ?? "", undefined, true),
+        // If fromAdditionalProperties is true we are dealing with a record type and we should append [string] to the generated type
+        fromAdditionalProperties
+          ? ts.factory.createIndexedAccessTypeNode(
+              oapiRef(options.path ?? "", undefined, true),
+              ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("string")),
+            )
+          : oapiRef(options.path ?? "", undefined, true),
         schemaObject.enum as (string | number)[],
         {
           export: true,
@@ -547,7 +555,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
       const hasExplicitAdditionalProperties =
         typeof schemaObject.additionalProperties === "object" && Object.keys(schemaObject.additionalProperties).length;
       const addlType = hasExplicitAdditionalProperties
-        ? transformSchemaObject(schemaObject.additionalProperties as SchemaObject, options)
+        ? transformSchemaObject(schemaObject.additionalProperties as SchemaObject, options, true)
         : UNKNOWN;
       return tsIntersection([
         ...(coreObjectType.length ? [ts.factory.createTypeLiteralNode(coreObjectType)] : []),
