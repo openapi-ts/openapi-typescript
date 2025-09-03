@@ -164,12 +164,27 @@ export type UseMutationMethod<Paths extends Record<string, Record<HttpMethod, {}
   queryClient?: QueryClient,
 ) => UseMutationResult<Response["data"], Response["error"], Init>;
 
+export type SetQueryDataMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
+  Method extends HttpMethod,
+  Path extends PathsWithMethod<Paths, Method>,
+  Init extends MaybeOptionalInit<Paths[Path], Method>,
+>(
+  method: Method,
+  path: Path,
+  updater: (
+    oldData: Required<FetchResponse<Paths[Path][Method], Init, Media>>["data"] | undefined,
+  ) => Required<FetchResponse<Paths[Path][Method], Init, Media>>["data"],
+  queryClient: QueryClient,
+  init?: Init,
+) => void;
+
 export interface OpenapiQueryClient<Paths extends {}, Media extends MediaType = MediaType> {
   queryOptions: QueryOptionsFunction<Paths, Media>;
   useQuery: UseQueryMethod<Paths, Media>;
   useSuspenseQuery: UseSuspenseQueryMethod<Paths, Media>;
   useInfiniteQuery: UseInfiniteQueryMethod<Paths, Media>;
   useMutation: UseMutationMethod<Paths, Media>;
+  setQueryData: SetQueryDataMethod<Paths, Media>;
 }
 
 export type MethodResponse<
@@ -193,7 +208,10 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   }: QueryFunctionContext<QueryKey<Paths, Method, Path>>) => {
     const mth = method.toUpperCase() as Uppercase<typeof method>;
     const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
-    const { data, error, response } = await fn(path, { signal, ...(init as any) }); // TODO: find a way to avoid as any
+    const { data, error, response } = await fn(path, {
+      signal,
+      ...(init as any),
+    }); // TODO: find a way to avoid as any
     if (error) {
       throw error;
     }
@@ -270,5 +288,21 @@ export default function createClient<Paths extends {}, Media extends MediaType =
         },
         queryClient,
       ),
+    /**
+     * Sets the query data for a given method/path/init combination.
+     *
+     * TypeScript limitation: The type signature is intentionally loose to avoid errors with OpenAPI generics.
+     * The updater function is still typesafe for the user, but the implementation uses `as any` internally.
+     */
+    setQueryData<Method = string, Path = string, Init = any>(
+      method: Method,
+      path: Path,
+      updater: (oldData: any) => any,
+      queryClient: QueryClient,
+      init?: Init,
+    ) {
+      const queryKey = (init === undefined ? [method, path] : [method, path, init]);
+      queryClient.setQueryData(queryKey, updater as any);
+    },
   };
 }
