@@ -140,20 +140,39 @@ export function transformSchemaObjectWithComposition(
 
     // hoist array with valid enum values to top level if string/number enum and option is enabled
     if (options.ctx.enumValues && schemaObject.enum.every((v) => typeof v === "string" || typeof v === "number")) {
-      let enumValuesVariableName = parseRef(options.path ?? "").pointer.join("/");
+      const parsed = parseRef(options.path ?? "");
+      let enumValuesVariableName = parsed.pointer.join("/");
       // allow #/components/schemas to have simpler names
       enumValuesVariableName = enumValuesVariableName.replace("components/schemas", "");
       enumValuesVariableName = `${enumValuesVariableName}Values`;
+
+      // build a ref path for the type that ignores union indices (anyOf/oneOf) so
+      // type references remain stable even when names include union positions
+      const cleanedPointer: string[] = [];
+      for (let i = 0; i < parsed.pointer.length; i++) {
+        // Example: #/paths/analytics/data/get/responses/400/content/application/json/anyOf/0/message
+        const segment = parsed.pointer[i];
+        if ((segment === "anyOf" || segment === "oneOf") && i < parsed.pointer.length - 1) {
+          const next = parsed.pointer[i + 1];
+          if (/^\d+$/.test(next)) {
+            // If we encounter something like "anyOf/0", we want to skip that part of the path
+            i++;
+            continue;
+          }
+        }
+        cleanedPointer.push(segment);
+      }
+      const cleanedRefPath = createRef(cleanedPointer);
 
       const enumValuesArray = tsArrayLiteralExpression(
         enumValuesVariableName,
         // If fromAdditionalProperties is true we are dealing with a record type and we should append [string] to the generated type
         fromAdditionalProperties
           ? ts.factory.createIndexedAccessTypeNode(
-              oapiRef(options.path ?? "", undefined, true),
+              oapiRef(cleanedRefPath, undefined, true),
               ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("string")),
             )
-          : oapiRef(options.path ?? "", undefined, true),
+          : oapiRef(cleanedRefPath, undefined, true),
         schemaObject.enum as (string | number)[],
         {
           export: true,
@@ -173,10 +192,16 @@ export function transformSchemaObjectWithComposition(
    */
 
   /** Collect oneOf/anyOf */
-  function collectUnionCompositions(items: (SchemaObject | ReferenceObject)[]) {
+  function collectUnionCompositions(items: (SchemaObject | ReferenceObject)[], unionKey: "anyOf" | "oneOf") {
     const output: ts.TypeNode[] = [];
-    for (const item of items) {
-      output.push(transformSchemaObject(item, options));
+    for (const [index, item] of items.entries()) {
+      output.push(
+        transformSchemaObject(item, {
+          ...options,
+          // include index in path so generated names from nested enums/enumValues are unique
+          path: createRef([options.path, unionKey, String(index)]),
+        }),
+      );
     }
 
     return output;
@@ -241,7 +266,7 @@ export function transformSchemaObjectWithComposition(
   }
   // anyOf: union
   // (note: this may seem counterintuitive, but as TypeScript’s unions are not true XORs, they mimic behavior closer to anyOf than oneOf)
-  const anyOfType = collectUnionCompositions(schemaObject.anyOf ?? []);
+  const anyOfType = collectUnionCompositions(schemaObject.anyOf ?? [], "anyOf");
   if (anyOfType.length) {
     finalType = tsUnion([...(finalType ? [finalType] : []), ...anyOfType]);
   }
@@ -252,6 +277,7 @@ export function transformSchemaObjectWithComposition(
         schemaObject.type === "object" &&
         (schemaObject.enum as (SchemaObject | ReferenceObject)[])) ||
       [],
+    "oneOf",
   );
   if (oneOfType.length) {
     // note: oneOf is the only type that may include primitives

@@ -1056,6 +1056,186 @@ export type operations = Record<string, never>;`,
       },
     ],
     [
+      "options > enumValues with unions",
+      {
+        given: {
+          openapi: "3.1.0",
+          info: {
+            title: "API Portal",
+            version: "1.0.0",
+            description: "This is the **Analytics API** description",
+          },
+          paths: {
+            "/analytics/data": {
+              get: {
+                operationId: "analytics.data",
+                tags: ["Analytics"],
+                responses: {
+                  "400": {
+                    description: "",
+                    content: {
+                      "application/json": {
+                        schema: {
+                          anyOf: [
+                            {
+                              type: "object",
+                              properties: {
+                                message: {
+                                  type: "string",
+                                  enum: ["Bad request. (InvalidFilterException)"],
+                                },
+                                errors: {
+                                  type: "object",
+                                  properties: {
+                                    filters: {
+                                      type: "string",
+                                    },
+                                  },
+                                  required: ["filters"],
+                                },
+                              },
+                              required: ["message", "errors"],
+                            },
+                            {
+                              type: "object",
+                              properties: {
+                                message: {
+                                  type: "string",
+                                  enum: ["Bad request. (InvalidDimensionException)"],
+                                },
+                                errors: {
+                                  type: "object",
+                                  properties: {
+                                    dimensions: {
+                                      type: "array",
+                                      prefixItems: [
+                                        {
+                                          type: "string",
+                                        },
+                                      ],
+                                      minItems: 1,
+                                      maxItems: 1,
+                                      additionalItems: false,
+                                    },
+                                  },
+                                  required: ["dimensions"],
+                                },
+                              },
+                              required: ["message", "errors"],
+                            },
+                            {
+                              type: "object",
+                              properties: {
+                                message: {
+                                  type: "string",
+                                  enum: ["Bad request. (InvalidMetricException)"],
+                                },
+                                errors: {
+                                  type: "object",
+                                  properties: {
+                                    metrics: {
+                                      type: "string",
+                                    },
+                                  },
+                                  required: ["metrics"],
+                                },
+                              },
+                              required: ["message", "errors"],
+                            },
+                          ],
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        want: `export interface paths {
+    "/analytics/data": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["analytics.data"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export interface operations {
+    "analytics.data": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        message: "Bad request. (InvalidFilterException)";
+                        errors: {
+                            filters: string;
+                        };
+                    } | {
+                        /** @enum {string} */
+                        message: "Bad request. (InvalidDimensionException)";
+                        errors: {
+                            dimensions: [
+                                string
+                            ];
+                        };
+                    } | {
+                        /** @enum {string} */
+                        message: "Bad request. (InvalidMetricException)";
+                        errors: {
+                            metrics: string;
+                        };
+                    };
+                };
+            };
+        };
+    };
+}
+type FlattenedDeepRequired<T> = {
+    [K in keyof T]-?: FlattenedDeepRequired<T[K] extends unknown[] | undefined | null ? Extract<T[K], unknown[]>[number] : T[K]>;
+};
+type ReadonlyArray<T> = [
+    Exclude<T, undefined>
+] extends [
+    unknown[]
+] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
+export const pathsAnalyticsDataGetResponses400ContentApplicationJsonAnyOf0MessageValues: ReadonlyArray<FlattenedDeepRequired<paths>["/analytics/data"]["get"]["responses"]["400"]["content"]["application/json"]["message"]> = ["Bad request. (InvalidFilterException)"];
+export const pathsAnalyticsDataGetResponses400ContentApplicationJsonAnyOf1MessageValues: ReadonlyArray<FlattenedDeepRequired<paths>["/analytics/data"]["get"]["responses"]["400"]["content"]["application/json"]["message"]> = ["Bad request. (InvalidDimensionException)"];
+export const pathsAnalyticsDataGetResponses400ContentApplicationJsonAnyOf2MessageValues: ReadonlyArray<FlattenedDeepRequired<paths>["/analytics/data"]["get"]["responses"]["400"]["content"]["application/json"]["message"]> = ["Bad request. (InvalidMetricException)"];`,
+        options: { enumValues: true },
+      },
+    ],
+    [
       "options > dedupeEnums",
       {
         given: {
