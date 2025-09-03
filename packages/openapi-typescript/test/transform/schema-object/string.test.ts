@@ -119,6 +119,17 @@ describe("transformSchemaObject > string", () => {
         want: "string | null",
       },
     ],
+    [
+      "enum + additionalProperties",
+      {
+        given: {
+          type: "string",
+          enum: ["A", "B", "C"],
+          additionalProperties: true,
+        },
+        want: `("A" | "B" | "C") | (string & {})`,
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
