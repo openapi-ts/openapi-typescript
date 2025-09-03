@@ -1,0 +1,20 @@
+{
+  "name": "openapi-react-query-setquerydata-example",
+  "version": "1.0.0",
+  "description": "Example demonstrating setQueryData functionality with type safety",
+  "scripts": {
+    "generate-types": "openapi-typescript ./openapi.yaml -o ./api.d.ts",
+    "type-check": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.84.2",
+    "openapi-fetch": "workspace:^",
+    "openapi-react-query": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/node": "^22.17.1",
+    "openapi-typescript": "workspace:^",
+    "typescript": "^5.9.2"
+  }
+}
