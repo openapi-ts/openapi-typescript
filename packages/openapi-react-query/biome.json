@@ -2,7 +2,7 @@
   "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
   "extends": ["../../biome.json"],
   "files": {
-    "ignore": ["./test/fixtures/"]
+    "ignore": ["./test/fixtures/", "./examples/setquerydata-example/api.d.ts"]
   },
   "linter": {
     "rules": {

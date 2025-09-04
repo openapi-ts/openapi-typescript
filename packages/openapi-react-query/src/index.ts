@@ -11,6 +11,7 @@ import {
   type QueryClient,
   type QueryFunctionContext,
   type SkipToken,
+  type Updater,
   useMutation,
   useQuery,
   useSuspenseQuery,
@@ -164,12 +165,26 @@ export type UseMutationMethod<Paths extends Record<string, Record<HttpMethod, {}
   queryClient?: QueryClient,
 ) => UseMutationResult<Response["data"], Response["error"], Init>;
 
+export type SetQueryDataMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
+  Method extends HttpMethod,
+  Path extends PathsWithMethod<Paths, Method>,
+  Init extends MaybeOptionalInit<Paths[Path], Method>,
+  Data extends Required<FetchResponse<Paths[Path][Method], Init, Media>>["data"],
+>(
+  method: Method,
+  path: Path,
+  updater: Updater<Data | undefined, Data | undefined>,
+  queryClient: QueryClient,
+  ...init: RequiredKeysOf<Init> extends never ? [InitWithUnknowns<Init>?] : [InitWithUnknowns<Init>]
+) => void;
+
 export interface OpenapiQueryClient<Paths extends {}, Media extends MediaType = MediaType> {
   queryOptions: QueryOptionsFunction<Paths, Media>;
   useQuery: UseQueryMethod<Paths, Media>;
   useSuspenseQuery: UseSuspenseQueryMethod<Paths, Media>;
   useInfiniteQuery: UseInfiniteQueryMethod<Paths, Media>;
   useMutation: UseMutationMethod<Paths, Media>;
+  setQueryData: SetQueryDataMethod<Paths, Media>;
 }
 
 export type MethodResponse<
@@ -193,7 +208,10 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   }: QueryFunctionContext<QueryKey<Paths, Method, Path>>) => {
     const mth = method.toUpperCase() as Uppercase<typeof method>;
     const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
-    const { data, error, response } = await fn(path, { signal, ...(init as any) }); // TODO: find a way to avoid as any
+    const { data, error, response } = await fn(path, {
+      signal,
+      ...(init as any),
+    }); // TODO: find a way to avoid as any
     if (error) {
       throw error;
     }
@@ -270,5 +288,8 @@ export default function createClient<Paths extends {}, Media extends MediaType =
         },
         queryClient,
       ),
+    setQueryData(method, path, updater, queryClient, ...init) {
+      queryClient.setQueryData(init === undefined ? [method, path] : [method, path, ...init], updater);
+    },
   };
 }

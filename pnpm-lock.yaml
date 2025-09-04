@@ -260,6 +260,28 @@ importers:
         specifier: ^6.0.0
         version: 6.0.0(react@18.3.1)
 
+  packages/openapi-react-query/examples/setquerydata-example:
+    dependencies:
+      '@tanstack/react-query':
+        specifier: ^5.84.2
+        version: 5.84.2(react@18.3.1)
+      openapi-fetch:
+        specifier: workspace:^
+        version: link:../../../openapi-fetch
+      openapi-react-query:
+        specifier: workspace:^
+        version: link:../..
+    devDependencies:
+      '@types/node':
+        specifier: ^22.17.1
+        version: 22.17.1
+      openapi-typescript:
+        specifier: workspace:^
+        version: link:../../../openapi-typescript
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.2
+
   packages/openapi-typescript:
     dependencies:
       '@redocly/openapi-core':

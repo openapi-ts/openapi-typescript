@@ -75,6 +75,7 @@ describe("client", () => {
     expect(client).toHaveProperty("useQuery");
     expect(client).toHaveProperty("useSuspenseQuery");
     expect(client).toHaveProperty("useMutation");
+    expect(client).toHaveProperty("setQueryData");
   });
 
   describe("queryOptions", () => {
@@ -124,7 +125,10 @@ describe("client", () => {
     });
 
     it("returns query options that can be passed to useQueries", async () => {
-      const fetchClient = createFetchClient<paths>({ baseUrl, fetch: fetchInfinite });
+      const fetchClient = createFetchClient<paths>({
+        baseUrl,
+        fetch: fetchInfinite,
+      });
       const client = createClient(fetchClient);
 
       const { result } = renderHook(
@@ -1200,6 +1204,179 @@ describe("client", () => {
       });
 
       expect(result.current.data).toEqual([1, 2, 3, 4, 5, 6]);
+    });
+  });
+
+  describe("setQueryData", () => {
+    it("should set query data with type safety", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      const initialData = { title: "Initial Title", body: "Initial Body" };
+      const updatedData = { title: "Updated Title", body: "Updated Body" };
+
+      // Set initial data
+      queryClient.setQueryData(
+        client.queryOptions("get", "/blogposts/{post_id}", {
+          params: { path: { post_id: "1" } },
+        }).queryKey,
+        initialData,
+      );
+
+      // Update data using setQueryData
+      client.setQueryData(
+        "get",
+        "/blogposts/{post_id}",
+        (oldData) => {
+          expectTypeOf(oldData).toEqualTypeOf<
+            | {
+                title: string;
+                body: string;
+                publish_date?: number;
+              }
+            | undefined
+          >();
+          return updatedData;
+        },
+        queryClient,
+        {
+          params: { path: { post_id: "1" } },
+        },
+      );
+
+      // Verify data was updated
+      const cachedData = queryClient.getQueryData(
+        client.queryOptions("get", "/blogposts/{post_id}", {
+          params: { path: { post_id: "1" } },
+        }).queryKey,
+      );
+
+      expect(cachedData).toEqual(updatedData);
+    });
+
+    it("should work with queries without init params", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      const initialData = ["item1", "item2"];
+      const updatedData = ["updated1", "updated2"];
+
+      // Set initial data
+      queryClient.setQueryData(client.queryOptions("get", "/string-array").queryKey, initialData);
+
+      // Update data using setQueryData
+      client.setQueryData(
+        "get",
+        "/string-array",
+        (oldData) => {
+          expectTypeOf(oldData).toEqualTypeOf<string[] | undefined>();
+          return updatedData;
+        },
+        queryClient,
+      );
+
+      // Verify data was updated
+      const cachedData = queryClient.getQueryData(client.queryOptions("get", "/string-array").queryKey);
+      expect(cachedData).toEqual(updatedData);
+    });
+
+    it("should error if you don't pass init params when required", () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      // For /blogposts/{post_id}, init params are required (post_id in path)
+      // @ts-expect-error - should error because init params are required
+      client.setQueryData("get", "/blogposts/{post_id}", (oldData) => oldData, queryClient);
+    });
+
+    it("should use provided custom queryClient", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+      const customQueryClient = new QueryClient({});
+
+      const initialData = { title: "Initial", body: "Body" };
+      const updatedData = { title: "Updated", body: "Body" };
+
+      // Set initial data in custom client
+      customQueryClient.setQueryData(
+        client.queryOptions("get", "/blogposts/{post_id}", {
+          params: { path: { post_id: "1" } },
+        }).queryKey,
+        initialData,
+      );
+
+      // Update data using setQueryData with custom client
+      client.setQueryData("get", "/blogposts/{post_id}", () => updatedData, customQueryClient, {
+        params: { path: { post_id: "1" } },
+      });
+
+      // Verify data was updated in custom client
+      const cachedData = customQueryClient.getQueryData(
+        client.queryOptions("get", "/blogposts/{post_id}", {
+          params: { path: { post_id: "1" } },
+        }).queryKey,
+      );
+
+      expect(cachedData).toEqual(updatedData);
+
+      // Verify main client was not affected
+      const mainCachedData = queryClient.getQueryData(
+        client.queryOptions("get", "/blogposts/{post_id}", {
+          params: { path: { post_id: "1" } },
+        }).queryKey,
+      );
+
+      expect(mainCachedData).toBeUndefined();
+    });
+
+    it("should allow setting data directly (not just via updater function)", () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      const initialData = ["item1", "item2"];
+      const newData = ["updated1", "updated2"];
+
+      // Set initial data
+      queryClient.setQueryData(client.queryOptions("get", "/string-array").queryKey, initialData);
+
+      // Set data directly using setQueryData (not a function)
+      client.setQueryData("get", "/string-array", newData, queryClient);
+
+      // Verify data was updated
+      const cachedData = queryClient.getQueryData(client.queryOptions("get", "/string-array").queryKey);
+      expect(cachedData).toEqual(newData);
+    });
+
+    it("should error if you set data with the wrong type directly", () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+      // @ts-expect-error - should not allow setting a string for a string array query.
+      client.setQueryData("get", "/string-array", "not an array", queryClient, {
+        params: { path: { post_id: "1" } },
+      });
+
+      // @ts-expect-error - should not allow setting an object with the wrong type for a string array query.
+      client.setQueryData("get", "/string-array", { wrong: "data" }, queryClient, {
+        params: { path: { post_id: "1" } },
+      });
+    });
+
+    it("should enforce type safety on updater function return type", () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      client.setQueryData(
+        "get",
+        "/blogposts/{post_id}",
+        // @ts-expect-error - Return type is not the same as the expected type.
+        () => {
+          return { invalidField: "invalid" };
+        },
+        queryClient,
+        {
+          params: { path: { post_id: "1" } },
+        },
+      );
     });
   });
 });
