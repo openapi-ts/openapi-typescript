@@ -11,6 +11,7 @@ import {
   type QueryClient,
   type QueryFunctionContext,
   type SkipToken,
+  type Updater,
   useMutation,
   useQuery,
   useSuspenseQuery,
@@ -171,9 +172,10 @@ export type SetQueryDataMethod<Paths extends Record<string, Record<HttpMethod, {
 >(
   method: Method,
   path: Path,
-  updater: (
-    oldData: Required<FetchResponse<Paths[Path][Method], Init, Media>>["data"] | undefined,
-  ) => Required<FetchResponse<Paths[Path][Method], Init, Media>>["data"],
+  updater: Updater<
+    Required<FetchResponse<Paths[Path][Method], Init, Media>>["data"] | undefined,
+    Required<FetchResponse<Paths[Path][Method], Init, Media>>["data"] | undefined
+  >,
   queryClient: QueryClient,
   init?: Init,
 ) => void;
@@ -294,15 +296,15 @@ export default function createClient<Paths extends {}, Media extends MediaType =
      * TypeScript limitation: The type signature is intentionally loose to avoid errors with OpenAPI generics.
      * The updater function is still typesafe for the user, but the implementation uses `as any` internally.
      */
-    setQueryData<Method = string, Path = string, Init = any>(
+    setQueryData<Method = string, Path = string, Init = any, Data = any>(
       method: Method,
       path: Path,
-      updater: (oldData: any) => any,
+      updater: Updater<Data | undefined, Data | undefined>,
       queryClient: QueryClient,
       init?: Init,
     ) {
       const queryKey = init === undefined ? [method, path] : [method, path, init];
-      queryClient.setQueryData(queryKey, updater as any);
+      queryClient.setQueryData(queryKey, updater);
     },
   };
 }

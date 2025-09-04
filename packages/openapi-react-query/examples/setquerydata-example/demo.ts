@@ -14,17 +14,16 @@ const fetchClient = createFetchClient<paths>({
 const $api = createClient(fetchClient);
 const queryClient = new QueryClient();
 
-// Example 1: Update posts list after creating a new post
-async function createPostAndUpdateCache() {
-  // Simulate creating a new post
-  const newPost: Post = {
-    id: "123",
-    title: "New Post",
-    content: "Post content",
-    createdAt: new Date().toISOString(),
-  };
+// Simulate creating a new post
+const newPost: Post = {
+  id: "123",
+  title: "New Post",
+  content: "Post content",
+  createdAt: new Date().toISOString(),
+};
 
-  // Update the posts list cache with the new post
+// Example 1: Update posts list with updater function
+async function createPostAndUpdateCache() {
   $api.setQueryData(
     "get",
     "/posts",
@@ -40,7 +39,7 @@ async function createPostAndUpdateCache() {
 
 // Example 2: Update a single post after editing
 async function updatePostAndUpdateCache(postId: string, updates: { title?: string; content?: string }) {
-  // Update the specific post cache
+  // Update the specific post cache with updater function
   $api.setQueryData(
     "get",
     "/posts/{id}",
@@ -57,15 +56,9 @@ async function updatePostAndUpdateCache(postId: string, updates: { title?: strin
   );
 }
 
-// Example 3: Clear posts cache
+// Example 3: Directly set the data
 function clearPostsCache() {
-  $api.setQueryData(
-    "get",
-    "/posts",
-    () => [], // Return empty array
-    queryClient,
-    {},
-  );
+  $api.setQueryData("get", "/posts", [newPost], queryClient, {});
 }
 
 export { createPostAndUpdateCache, updatePostAndUpdateCache, clearPostsCache };

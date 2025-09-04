@@ -125,7 +125,10 @@ describe("client", () => {
     });
 
     it("returns query options that can be passed to useQueries", async () => {
-      const fetchClient = createFetchClient<paths>({ baseUrl, fetch: fetchInfinite });
+      const fetchClient = createFetchClient<paths>({
+        baseUrl,
+        fetch: fetchInfinite,
+      });
       const client = createClient(fetchClient);
 
       const { result } = renderHook(
@@ -1294,7 +1297,7 @@ describe("client", () => {
       );
 
       // Update data using setQueryData with custom client
-      client.setQueryData("get", "/blogposts/{post_id}", (oldData) => updatedData, customQueryClient, {
+      client.setQueryData("get", "/blogposts/{post_id}", () => updatedData, customQueryClient, {
         params: { path: { post_id: "1" } },
       });
 
@@ -1315,6 +1318,38 @@ describe("client", () => {
       );
 
       expect(mainCachedData).toBeUndefined();
+    });
+
+    it("should allow setting data directly (not just via updater function)", () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      const initialData = ["item1", "item2"];
+      const newData = ["updated1", "updated2"];
+
+      // Set initial data
+      queryClient.setQueryData(client.queryOptions("get", "/string-array").queryKey, initialData);
+
+      // Set data directly using setQueryData (not a function)
+      client.setQueryData("get", "/string-array", newData, queryClient);
+
+      // Verify data was updated
+      const cachedData = queryClient.getQueryData(client.queryOptions("get", "/string-array").queryKey);
+      expect(cachedData).toEqual(newData);
+    });
+
+    it("should error if you set data with the wrong type directly", () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+      // @ts-expect-error - should not allow setting a string for a string array query.
+      client.setQueryData("get", "/string-array", "not an array", queryClient, {
+        params: { path: { post_id: "1" } },
+      });
+
+      // @ts-expect-error - should not allow setting an object with the wrong type for a string array query.
+      client.setQueryData("get", "/string-array", { wrong: "data" }, queryClient, {
+        params: { path: { post_id: "1" } },
+      });
     });
 
     it("should enforce type safety on updater function return type", () => {
