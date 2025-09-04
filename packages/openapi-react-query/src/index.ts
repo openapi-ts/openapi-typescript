@@ -288,20 +288,8 @@ export default function createClient<Paths extends {}, Media extends MediaType =
         },
         queryClient,
       ),
-    /**
-     * Sets the query data for a given method/path/init combination.
-     *
-     * TypeScript limitation: The type signature is intentionally loose to avoid errors with OpenAPI generics.
-     * The updater function is still typesafe for the user, but the implementation uses `as any` internally.
-     */
-    setQueryData<Method, Path, Init, Data>(
-      method: Method,
-      path: Path,
-      updater: Updater<Data | undefined, Data | undefined>,
-      queryClient: QueryClient,
-      ...init: RequiredKeysOf<Init> extends never ? [InitWithUnknowns<Init>?] : [InitWithUnknowns<Init>]
-    ) {
-      queryClient.setQueryData([method, path, init], updater);
+    setQueryData(method, path, updater, queryClient, ...init) {
+      queryClient.setQueryData(init === undefined ? [method, path] : [method, path, ...init], updater);
     },
   };
 }
