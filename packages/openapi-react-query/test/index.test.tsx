@@ -1321,13 +1321,18 @@ describe("client", () => {
       const fetchClient = createFetchClient<paths>({ baseUrl });
       const client = createClient(fetchClient);
 
-      // This should cause a TypeScript error because the return type is not the same as the expected type
-      // @ts-expect-error
-      client.setQueryData("get", "/blogposts/{post_id}", () => {
-        return { invalidField: "invalid" }; // This should error
-      }, queryClient, {
-        params: { path: { post_id: "1" } }
-      });
+      client.setQueryData(
+        "get",
+        "/blogposts/{post_id}",
+        // @ts-expect-error - Return type is not the same as the expected type.
+        () => {
+          return { invalidField: "invalid" };
+        },
+        queryClient,
+        {
+          params: { path: { post_id: "1" } },
+        },
+      );
     });
   });
 });

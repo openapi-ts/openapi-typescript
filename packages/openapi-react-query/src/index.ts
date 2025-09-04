@@ -301,7 +301,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
       queryClient: QueryClient,
       init?: Init,
     ) {
-      const queryKey = (init === undefined ? [method, path] : [method, path, init]);
+      const queryKey = init === undefined ? [method, path] : [method, path, init];
       queryClient.setQueryData(queryKey, updater as any);
     },
   };

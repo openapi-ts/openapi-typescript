@@ -29,7 +29,7 @@ async function createPostAndUpdateCache() {
     "get",
     "/posts",
     (oldPosts) => {
-      return  oldPosts ? [...oldPosts, newPost] : [newPost];
+      return oldPosts ? [...oldPosts, newPost] : [newPost];
     },
     queryClient,
     {},
@@ -47,7 +47,9 @@ async function updatePostAndUpdateCache(postId: string, updates: { title?: strin
     (oldPost) => {
       // TypeScript ensures oldPost is Post | undefined
       // and we must return Post
-      if (!oldPost) throw new Error("No post in cache");
+      if (!oldPost) {
+        throw new Error("No post in cache");
+      }
       return { ...oldPost, ...updates };
     },
     queryClient,
