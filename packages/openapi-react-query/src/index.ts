@@ -169,15 +169,13 @@ export type SetQueryDataMethod<Paths extends Record<string, Record<HttpMethod, {
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
   Init extends MaybeOptionalInit<Paths[Path], Method>,
+  Data extends Required<FetchResponse<Paths[Path][Method], Init, Media>>["data"],
 >(
   method: Method,
   path: Path,
-  updater: Updater<
-    Required<FetchResponse<Paths[Path][Method], Init, Media>>["data"] | undefined,
-    Required<FetchResponse<Paths[Path][Method], Init, Media>>["data"] | undefined
-  >,
+  updater: Updater<Data | undefined, Data | undefined>,
   queryClient: QueryClient,
-  init?: Init,
+  ...init: RequiredKeysOf<Init> extends never ? [InitWithUnknowns<Init>?] : [InitWithUnknowns<Init>]
 ) => void;
 
 export interface OpenapiQueryClient<Paths extends {}, Media extends MediaType = MediaType> {
@@ -296,15 +294,14 @@ export default function createClient<Paths extends {}, Media extends MediaType =
      * TypeScript limitation: The type signature is intentionally loose to avoid errors with OpenAPI generics.
      * The updater function is still typesafe for the user, but the implementation uses `as any` internally.
      */
-    setQueryData<Method = string, Path = string, Init = any, Data = any>(
+    setQueryData<Method, Path, Init, Data>(
       method: Method,
       path: Path,
       updater: Updater<Data | undefined, Data | undefined>,
       queryClient: QueryClient,
-      init?: Init,
+      ...init: RequiredKeysOf<Init> extends never ? [InitWithUnknowns<Init>?] : [InitWithUnknowns<Init>]
     ) {
-      const queryKey = init === undefined ? [method, path] : [method, path, init];
-      queryClient.setQueryData(queryKey, updater);
+      queryClient.setQueryData([method, path, init], updater);
     },
   };
 }

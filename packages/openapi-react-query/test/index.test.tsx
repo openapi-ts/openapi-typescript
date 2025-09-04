@@ -1280,6 +1280,15 @@ describe("client", () => {
       expect(cachedData).toEqual(updatedData);
     });
 
+    it("should error if you don't pass init params when required", () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      // For /blogposts/{post_id}, init params are required (post_id in path)
+      // @ts-expect-error - should error because init params are required
+      client.setQueryData("get", "/blogposts/{post_id}", (oldData) => oldData, queryClient);
+    });
+
     it("should use provided custom queryClient", async () => {
       const fetchClient = createFetchClient<paths>({ baseUrl });
       const client = createClient(fetchClient);

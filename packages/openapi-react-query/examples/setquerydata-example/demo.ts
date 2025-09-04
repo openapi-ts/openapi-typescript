@@ -40,12 +40,11 @@ async function createPostAndUpdateCache() {
 // Example 2: Update a single post after editing
 async function updatePostAndUpdateCache(postId: string, updates: { title?: string; content?: string }) {
   // Update the specific post cache with updater function
+  // This should now error: missing required init (id)
   $api.setQueryData(
     "get",
     "/posts/{id}",
     (oldPost) => {
-      // TypeScript ensures oldPost is Post | undefined
-      // and we must return Post
       if (!oldPost) {
         throw new Error("No post in cache");
       }
@@ -54,6 +53,9 @@ async function updatePostAndUpdateCache(postId: string, updates: { title?: strin
     queryClient,
     { params: { path: { id: postId } } },
   );
+
+  // This should be fine: /posts does not require init
+  $api.setQueryData("get", "/posts", (oldPosts) => oldPosts || [], queryClient);
 }
 
 // Example 3: Directly set the data
