@@ -113,6 +113,7 @@ The following flags are supported in the CLI:
 | `--empty-objects-unknown`          |       | `false`  | Allow arbitrary properties for schema objects with no specified properties, and no specified `additionalProperties` |
 | `--enum`                           |       | `false`  | Generate true [TS enums](https://www.typescriptlang.org/docs/handbook/enums.html) rather than string unions.        |
 | `--enum-values`                    |       | `false`  | Export enum values as arrays.                                                                                       |
+| `--conditional-enums`              |       | `false`  | Only generate true TS enums when the `x-enum-*` metadata is available. Requires `--enum=true` to be enabled.        |
 | `--dedupe-enums`                   |       | `false`  | Dedupe enum types when `--enum=true` is set                                                                         |
 | `--check`                          |       | `false`  | Check that the generated types are up-to-date.                                                                      |
 | `--exclude-deprecated`             |       | `false`  | Exclude deprecated fields from types                                                                                |
