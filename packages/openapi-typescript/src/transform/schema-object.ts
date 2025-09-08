@@ -271,13 +271,13 @@ export function transformSchemaObjectWithComposition(
  * Check if the given OAPI enum should be transformed to a TypeScript enum
  */
 function shouldTransformToTsEnum(options: TransformNodeOptions, schemaObject: SchemaObject): boolean {
-  // Enum conversion not enabled
-  if (!options.ctx.enum) {
+  // Enum conversion not enabled or no enum present
+  if (!options.ctx.enum || !schemaObject.enum) {
     return false;
   }
 
   // Enum must have string, number or null values
-  if (!schemaObject.enum?.every((v) => typeof v === "string" || typeof v === "number" || v === null)) {
+  if (!schemaObject.enum.every((v) => ['string', 'number', null].includes(typeof v))) {
     return false;
   }
 
