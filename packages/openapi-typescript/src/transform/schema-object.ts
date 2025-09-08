@@ -277,7 +277,7 @@ function shouldTransformToTsEnum(options: TransformNodeOptions, schemaObject: Sc
   }
 
   // Enum must have string, number or null values
-  if (!schemaObject.enum.every((v) => ['string', 'number', null].includes(typeof v))) {
+  if (!schemaObject.enum.every((v) => ["string", "number", null].includes(typeof v))) {
     return false;
   }
 
