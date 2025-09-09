@@ -20,7 +20,7 @@
     "@vue/tsconfig": "^0.5.1",
     "openapi-typescript": "workspace:^",
     "typescript": "^5.9.2",
-    "vite": "^7.1.1",
+    "vite": "^7.1.5",
     "vue-tsc": "^2.2.10"
   }
 }
