@@ -1,0 +1,26 @@
+resources:
+  repositories:
+    - repository: Pipelines
+      type: git
+      name: SRE/if_sre_pipelines
+      ref: main
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - main
+
+pr:
+  branches:
+    include:
+      - '*'
+
+variables:
+  - group: azure-pipeline-variables
+  - name: pnpmVersion
+    value: 10.14.0
+
+name: $(Build.SourceBranchName).$(date:yyyyMMdd)$(rev:.r)
+stages:
+  - template: shared\openapi-react-query\build\azure-pipeline-openapi-react-query.yml@Pipelines
