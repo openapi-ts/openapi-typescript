@@ -1,5 +1,5 @@
 {
-  "name": "openapi-react-query",
+  "name": "@insightfactory/openapi-react-query",
   "description": "Fast, type-safe @tanstack/react-query client to work with your OpenAPI schema.",
   "version": "0.5.0",
   "author": {
@@ -39,6 +39,9 @@
     "react-query",
     "tanstack"
   ],
+  "publishConfig": {
+    "registry": "https://pkgs.dev.azure.com/InsightFactory/_packaging/InsightFactory/npm/registry/"
+  },
   "scripts": {
     "build": "unbuild",
     "dev": "tsc -p tsconfig.build.json --watch",
@@ -54,7 +57,7 @@
     "version": "pnpm run prepare && pnpm run build"
   },
   "dependencies": {
-    "openapi-typescript-helpers": "workspace:^"
+    "openapi-typescript-helpers": "^0.0.15"
   },
   "devDependencies": {
     "@tanstack/react-query": "^5.84.2",
@@ -63,13 +66,13 @@
     "@vitejs/plugin-react": "^5.0.0",
     "execa": "^9.6.0",
     "msw": "^2.10.4",
-    "openapi-fetch": "workspace:^",
+    "openapi-fetch": "^0.14.0",
     "openapi-typescript": "workspace:^",
     "react": "^18.3.1",
     "react-error-boundary": "^6.0.0"
   },
   "peerDependencies": {
     "@tanstack/react-query": "^5.80.0",
-    "openapi-fetch": "workspace:^"
+    "openapi-fetch": "^0.14.0"
   }
 }

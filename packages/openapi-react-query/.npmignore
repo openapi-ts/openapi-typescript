@@ -1,6 +1,37 @@
+# Build and dev tools
 .turbo
 *.config.*
-test
+build.config.ts
 vitest.config.ts
 tsconfig*.json
 biome.json
+
+# Source code (only ship dist)
+src/
+
+# Tests
+test/
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+
+# Development files
+.vscode/
+.idea/
+node_modules/
+coverage/
+
+# Documentation (keep README.md, exclude others)
+CONTRIBUTING.md
+CHANGELOG.md
+
+# Git and CI
+.git/
+.github/
+.gitignore
+
+# Misc
+*.log
+.DS_Store
+Thumbs.db
