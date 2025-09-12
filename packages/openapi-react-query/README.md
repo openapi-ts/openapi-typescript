@@ -1,8 +1,8 @@
-# openapi-react-query
+# @insightfactory/openapi-react-query
 
-openapi-react-query is a type-safe tiny wrapper (1 kb) around [@tanstack/react-query](https://tanstack.com/query/latest/docs/framework/react/overview) to work with OpenAPI schema.
+@insightfactory/openapi-react-query is a type-safe tiny wrapper (1 kb) around [@tanstack/react-query](https://tanstack.com/query/latest/docs/framework/react/overview) to work with OpenAPI schema.
 
-It works by using [openapi-fetch](../openapi-fetch) and [openapi-typescript](../openapi-typescript) so you get all the following features:
+It works by using [openapi-fetch](https://www.npmjs.com/package/openapi-fetch) and [openapi-typescript](https://www.npmjs.com/package/openapi-typescript) so you get all the following features:
 
 - ✅ No typos in URLs or params.
 - ✅ All parameters, request bodies, and responses are type-checked and 100% match your schema
@@ -12,10 +12,10 @@ It works by using [openapi-fetch](../openapi-fetch) and [openapi-typescript](../
 
 ## Setup
 
-Install this library along with [openapi-fetch](../openapi-fetch) and [openapi-typescript](../openapi-typescript):
+Install this library along with [openapi-fetch](https://www.npmjs.com/package/openapi-fetch) and [openapi-typescript](https://www.npmjs.com/package/openapi-typescript):
 
 ```bash
-npm i openapi-react-query openapi-fetch
+npm i @insightfactory/openapi-react-query openapi-fetch
 npm i -D openapi-typescript typescript
 ```
 

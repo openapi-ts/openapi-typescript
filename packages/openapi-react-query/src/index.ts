@@ -204,19 +204,45 @@ export default function createClient<Paths extends {}, Media extends MediaType =
     return data;
   };
 
-  const queryOptions: QueryOptionsFunction<Paths, Media> = (method, path, ...[init, options]) => ({
-    queryKey: (init === undefined ? ([method, path] as const) : ([method, path, init] as const)) as QueryKey<
-      Paths,
-      typeof method,
-      typeof path
-    >,
-    queryFn,
-    ...options,
-  });
+
+  const queryOptions: QueryOptionsFunction<Paths, Media> = (method, path, ...[init, options]) => {
+    const hasCustomQueryKey = (init as any)?.options.queryKey;
+    
+    if (hasCustomQueryKey) {
+      // For custom queryKey, we need a custom queryFn that has access to method, path, init
+      return {
+        queryKey: (init as any).options.queryKey,
+        queryFn: async ({ signal }: any) => {
+          const mth = method.toUpperCase() as Uppercase<typeof method>;
+          const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
+          const { data, error, response } = await fn(path, { signal, ...(init as any) });
+          if (error) {
+            throw error;
+          }
+          if (response.status === 204 || response.headers.get("Content-Length") === "0") {
+            return data ?? null;
+          }
+          return data;
+        },
+        ...options,
+      };
+    }
+    
+    // Default behavior - use original queryFn with method/path/init in queryKey
+    return {
+      queryKey: (init === undefined ? ([method, path] as const) : ([method, path, init] as const)) as QueryKey<
+        Paths,
+        typeof method,
+        typeof path
+      >,
+      queryFn,
+      ...options,
+    };
+  };
 
   return {
     queryOptions,
-    useQuery: (method, path, ...[init, options, queryClient]) =>
+    useQuery: (method, path, ...[init, options, queryClient]) => 
       useQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
     useSuspenseQuery: (method, path, ...[init, options, queryClient]) =>
       useSuspenseQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
