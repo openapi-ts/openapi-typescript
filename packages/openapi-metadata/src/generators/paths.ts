@@ -1,8 +1,8 @@
 import type { OpenAPIV3 } from "openapi-types";
 import type { Context } from "../context.js";
-import { generateOperation } from "./operation.js";
-import { ExcludeMetadataStorage, ExtraModelsMetadataStorage, OperationMetadataStorage } from "../metadata/index.js";
 import { loadType } from "../loaders/type.js";
+import { ExcludeMetadataStorage, ExtraModelsMetadataStorage, OperationMetadataStorage } from "../metadata/index.js";
+import { generateOperation } from "./operation.js";
 
 export async function generatePaths(context: Context, controllers: Function[]): Promise<OpenAPIV3.PathsObject> {
   const paths: OpenAPIV3.PathsObject = {};

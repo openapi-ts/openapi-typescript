@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from "vitest";
-import { createObservedClient, headersToObj } from "../helpers.js";
 import createClient, { type BodySerializer, type FetchOptions } from "../../src/index.js";
+import { createObservedClient, headersToObj } from "../helpers.js";
 import type { components, paths } from "./schemas/common.js";
 
 type Resource = components["schemas"]["Resource"];

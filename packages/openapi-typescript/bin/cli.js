@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-import { createConfig, findConfig, loadConfig } from "@redocly/openapi-core";
 import fs from "node:fs";
 import path from "node:path";
 import { performance } from "node:perf_hooks";
+import { createConfig, findConfig, loadConfig } from "@redocly/openapi-core";
 import parser from "yargs-parser";
-import openapiTS, { COMMENT_HEADER, astToString, c, error, formatTime, warn } from "../dist/index.mjs";
+import openapiTS, { astToString, COMMENT_HEADER, c, error, formatTime, warn } from "../dist/index.mjs";
 
 const HELP = `Usage
   $ openapi-typescript [input] [options]
@@ -60,6 +60,7 @@ if (args.includes("--redoc")) {
   errorAndExit(`The --redoc config flag has been renamed to "--redocly" (or -c as shorthand).`);
 }
 if (args.includes("--root-types-no-schema-prefix") && !args.includes("--root-types")) {
+  // biome-ignore lint/suspicious/noConsole: this is a CLI
   console.warn("--root-types-no-schema-prefix has no effect without --root-types flag");
 }
 
@@ -162,23 +163,26 @@ function errorAndExit(message) {
 
 function done(input, output, time) {
   // final console output
-  // biome-ignore lint/suspicious/noConsoleLog: this is a CLI and is expected to show output
+  // biome-ignore lint/suspicious/noConsole: this is a CLI
   console.log(`🚀 ${c.green(`${input} → ${c.bold(output)}`)} ${c.dim(`[${formatTime(time)}]`)}`);
 }
 
 async function main() {
   if ("help" in flags) {
+    // biome-ignore lint/suspicious/noConsole: this is a CLI
     console.info(HELP);
     process.exit(0);
   }
   const packageJSON = JSON.parse(fs.readFileSync(new URL("../package.json", import.meta.url), "utf8"));
   if ("version" in flags) {
+    // biome-ignore lint/suspicious/noConsole: this is a CLI
     console.info(`v${packageJSON.version}`);
     process.exit(0);
   }
 
   const outputType = flags.output ? OUTPUT_FILE : OUTPUT_STDOUT; // FILE or STDOU
   if (outputType !== OUTPUT_STDOUT) {
+    // biome-ignore lint/suspicious/noConsole: this is a CLI
     console.info(`✨ ${c.bold(`openapi-typescript ${packageJSON.version}`)}`);
   }
 

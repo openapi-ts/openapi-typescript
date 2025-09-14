@@ -1,12 +1,12 @@
 import ts from "typescript";
 import {
   addJSDocComment,
+  astToString,
   BOOLEAN,
   NULL,
   NUMBER,
-  STRING,
-  astToString,
   oapiRef,
+  STRING,
   tsArrayLiteralExpression,
   tsEnum,
   tsIsPrimitive,

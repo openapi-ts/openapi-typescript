@@ -1,6 +1,6 @@
 import { assertType, describe, expect, test } from "vitest";
-import { createObservedClient } from "../helpers.js";
 import type { QuerySerializerOptions } from "../../src/index.js";
+import { createObservedClient } from "../helpers.js";
 import type { components, paths } from "./schemas/common.js";
 
 type Resource = components["schemas"]["Resource"];

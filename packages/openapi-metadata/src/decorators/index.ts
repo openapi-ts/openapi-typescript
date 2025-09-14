@@ -9,10 +9,10 @@ export { ApiProperty, ApiPropertyOptional } from "./api-property.js";
 export { ApiQuery } from "./api-query.js";
 export { ApiResponse } from "./api-response.js";
 export {
-  ApiSecurity,
   ApiBasicAuth,
-  ApiOauth2,
   ApiBearerAuth,
   ApiCookieAuth,
+  ApiOauth2,
+  ApiSecurity,
 } from "./api-security.js";
 export { ApiTags } from "./api-tags.js";

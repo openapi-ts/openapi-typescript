@@ -217,7 +217,6 @@ test("@ApiProperty", () => {
     declare declared: string;
 
     @ApiProperty()
-    // biome-ignore lint/style/noInferrableTypes: required for metadata
     defined: number = 4;
 
     @ApiProperty({ type: "string" })

@@ -1,5 +1,5 @@
 import ts from "typescript";
-import { NEVER, addJSDocComment, tsModifiers, oapiRef, tsPropertyIndex } from "../lib/ts.js";
+import { addJSDocComment, NEVER, oapiRef, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
 import { createRef, getEntries } from "../lib/utils.js";
 import type { ResponsesObject, TransformNodeOptions } from "../types.js";
 import transformResponseObject from "./response-object.js";
