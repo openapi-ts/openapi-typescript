@@ -1,7 +1,7 @@
-import { escapePointer, parseRef } from "@redocly/openapi-core/lib/ref-utils.js";
 import c from "ansi-colors";
 import supportsColor from "supports-color";
 import ts from "typescript";
+import { escapePointer, parseRef } from "../lib/redocly.js";
 import type { DiscriminatorObject, OpenAPI3, OpenAPITSOptions, ReferenceObject, SchemaObject } from "../types.js";
 import { tsLiteral, tsModifiers, tsPropertyIndex } from "./ts.js";
 

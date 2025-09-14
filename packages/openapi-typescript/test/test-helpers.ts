@@ -1,4 +1,5 @@
 import { createConfig } from "@redocly/openapi-core";
+import { REDOCLY_MINIMAL_CONFIG } from "../src/index.js";
 import { resolveRef } from "../src/lib/utils.js";
 import type { GlobalContext, TransformNodeOptions } from "../src/types.js";
 
@@ -25,7 +26,7 @@ export const DEFAULT_CTX: GlobalContext = {
   propertiesRequiredByDefault: false,
   rootTypes: false,
   rootTypesNoSchemaPrefix: false,
-  redoc: await createConfig({}, { extends: ["minimal"] }),
+  redoc: await createConfig(REDOCLY_MINIMAL_CONFIG),
   resolve($ref) {
     return resolveRef({}, $ref, { silent: false });
   },

@@ -3,6 +3,6 @@
   "$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
   "extends": "//",
   "files": {
-    "includes": ["bin/**", "!examples/**", "src/**", "test/**", "!**/fixtures/**/*"]
+    "includes": ["bin/**", "!examples/**", "src/**", "test/**", "!**/fixtures/**/*", "!src/lib/redocly.ts"]
   }
 }
