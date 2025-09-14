@@ -1,13 +1,13 @@
-import ts, { type InterfaceDeclaration, type TypeLiteralNode } from "typescript";
 import { performance } from "node:perf_hooks";
+import ts, { type InterfaceDeclaration, type TypeLiteralNode } from "typescript";
 import { NEVER, STRING, stringToAST, tsModifiers, tsRecord } from "../lib/ts.js";
 import { createRef, debug } from "../lib/utils.js";
 import type { GlobalContext, OpenAPI3 } from "../types.js";
 import transformComponentsObject from "./components-object.js";
+import makeApiPathsEnum from "./paths-enum.js";
 import transformPathsObject from "./paths-object.js";
 import transformSchemaObject from "./schema-object.js";
 import transformWebhooksObject from "./webhooks-object.js";
-import makeApiPathsEnum from "./paths-enum.js";
 
 type SchemaTransforms = keyof Pick<OpenAPI3, "paths" | "webhooks" | "components" | "$defs">;
 

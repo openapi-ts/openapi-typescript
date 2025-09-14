@@ -1,16 +1,16 @@
-import {
-  BaseResolver,
-  bundle,
-  makeDocumentFromString,
-  type Config as RedoclyConfig,
-  Source,
-  type Document,
-  lintDocument,
-  type NormalizedProblem,
-} from "@redocly/openapi-core";
 import { performance } from "node:perf_hooks";
 import { Readable } from "node:stream";
 import { fileURLToPath } from "node:url";
+import {
+  BaseResolver,
+  bundle,
+  type Document,
+  lintDocument,
+  makeDocumentFromString,
+  type NormalizedProblem,
+  type Config as RedoclyConfig,
+  Source,
+} from "@redocly/openapi-core";
 import parseJson from "parse-json";
 import type { OpenAPI3 } from "../types.js";
 import { debug, error, warn } from "./utils.js";

@@ -1,13 +1,13 @@
 import type { Client } from "openapi-fetch";
 import type { MediaType, PathsWithMethod } from "openapi-typescript-helpers";
+import { useCallback, useDebugValue } from "react";
 import useSWRInfinite, {
   type SWRInfiniteConfiguration,
   type SWRInfiniteFetcher,
   type SWRInfiniteKeyLoader,
 } from "swr/infinite";
-import type { TypesForGetRequest } from "./types.js";
-import { useCallback, useDebugValue } from "react";
 import type { Exact } from "type-fest";
+import type { TypesForGetRequest } from "./types.js";
 
 /**
  * Produces a typed wrapper for [`useSWRInfinite`](https://swr.vercel.app/docs/pagination#useswrinfinite).

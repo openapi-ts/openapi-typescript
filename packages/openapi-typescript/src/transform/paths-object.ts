@@ -1,5 +1,5 @@
-import ts from "typescript";
 import { performance } from "node:perf_hooks";
+import ts from "typescript";
 import { addJSDocComment, oapiRef, stringToAST, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
 import { createRef, debug, getEntries } from "../lib/utils.js";
 import type {
