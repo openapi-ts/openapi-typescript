@@ -1,7 +1,7 @@
 import type { OasRef, Referenced } from "@redocly/openapi-core";
-import { parseRef } from "@redocly/openapi-core/lib/ref-utils.js";
 import ts, { type LiteralTypeNode, type TypeLiteralNode } from "typescript";
 import type { ParameterObject } from "../types.js";
+import { parseRef } from "./redocly.js";
 
 export const JS_PROPERTY_INDEX_RE = /^[A-Za-z_$][A-Za-z_$0-9]*$/;
 export const JS_ENUM_INVALID_CHARS_RE = /[^A-Za-z_$0-9]+(.)?/g;
