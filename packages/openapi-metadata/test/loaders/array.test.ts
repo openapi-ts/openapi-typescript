@@ -3,7 +3,7 @@ import type { Context } from "../../src/context.js";
 import { ApiProperty } from "../../src/decorators/api-property.js";
 import { ArrayTypeLoader } from "../../src/loaders/type.js";
 
-let error: string | undefined = undefined;
+let error: string | undefined;
 const context: Context = {
   schemas: {},
   typeLoaders: [],

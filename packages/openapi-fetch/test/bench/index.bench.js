@@ -1,6 +1,6 @@
 import axios from "axios";
-import { Fetcher } from "openapi-typescript-fetch";
 import { createApiFetchClient } from "feature-fetch";
+import { Fetcher } from "openapi-typescript-fetch";
 import superagent from "superagent";
 import { afterAll, bench, describe, vi } from "vitest";
 import createClient, { createPathBasedClient } from "../../dist/index.mjs";

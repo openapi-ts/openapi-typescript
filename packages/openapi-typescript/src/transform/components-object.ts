@@ -1,7 +1,7 @@
-import ts from "typescript";
-import * as changeCase from "change-case";
 import { performance } from "node:perf_hooks";
-import { NEVER, QUESTION_TOKEN, addJSDocComment, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
+import * as changeCase from "change-case";
+import ts from "typescript";
+import { addJSDocComment, NEVER, QUESTION_TOKEN, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
 import { createRef, debug, getEntries } from "../lib/utils.js";
 import type { ComponentsObject, GlobalContext, SchemaObject, TransformNodeOptions } from "../types.js";
 import transformHeaderObject from "./header-object.js";

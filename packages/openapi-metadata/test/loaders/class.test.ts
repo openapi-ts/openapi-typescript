@@ -1,7 +1,7 @@
 import "reflect-metadata";
+import type { Context } from "../../src/context.js";
 import { ApiProperty } from "../../src/decorators/api-property.js";
 import { ClassTypeLoader } from "../../src/loaders/type.js";
-import type { Context } from "../../src/context.js";
 
 test("simple class", async () => {
   const context: Context = { schemas: {}, typeLoaders: [], logger: console };

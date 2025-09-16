@@ -1,9 +1,9 @@
 import type { Client } from "openapi-fetch";
 import type { MediaType, PathsWithMethod, RequiredKeysOf } from "openapi-typescript-helpers";
-import type { Fetcher, SWRHook } from "swr";
-import type { TypesForGetRequest } from "./types.js";
 import { useCallback, useDebugValue, useMemo } from "react";
+import type { Fetcher, SWRHook } from "swr";
 import type { Exact } from "type-fest";
+import type { TypesForGetRequest } from "./types.js";
 
 /**
  * @private

@@ -8,15 +8,15 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "^6.0.1",
-    "@sveltejs/kit": "^2.22.2",
-    "@sveltejs/vite-plugin-svelte": "^5.1.0",
+    "@sveltejs/adapter-auto": "^6.1.0",
+    "@sveltejs/kit": "^2.39.1",
+    "@sveltejs/vite-plugin-svelte": "^5.1.1",
     "openapi-fetch": "workspace:^",
     "openapi-typescript": "workspace:^",
-    "svelte": "^5.34.9",
-    "svelte-check": "^4.2.2",
-    "typescript": "^5.9.2",
-    "vite": "^7.1.1"
+    "svelte": "^5.38.10",
+    "svelte-check": "^4.3.1",
+    "typescript": "catalog:",
+    "vite": "catalog:"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

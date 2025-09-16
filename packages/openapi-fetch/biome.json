@@ -1,9 +1,9 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "extends": ["../../biome.json"],
+  "root": false,
+  "$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
+  "extends": "//",
   "files": {
-    "include": ["./src/", "./test/"],
-    "ignore": ["./test/**/schemas/**", "./test/bench/*.min.js"]
+    "includes": ["src/**", "test/**", "!**/examples/**", "!test/**/schemas/**", "!test/bench/**/*.min.js"]
   },
   "linter": {
     "rules": {

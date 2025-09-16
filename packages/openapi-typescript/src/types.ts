@@ -1,5 +1,5 @@
-import type { Config as RedoclyConfig } from "@redocly/openapi-core";
 import type { PathLike } from "node:fs";
+import type { Config as RedoclyConfig } from "@redocly/openapi-core";
 import type ts from "typescript";
 
 // Many types allow for true “any” for inheritance to work

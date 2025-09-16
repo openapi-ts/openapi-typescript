@@ -1,4 +1,4 @@
-import { isThunk } from "../../src/utils/metadata";
+import { isThunk } from "../../src/utils/metadata.js";
 
 test("isThunk", () => {
   expect(isThunk(() => true)).toBe(true);
@@ -14,6 +14,7 @@ test("isThunk", () => {
 
   class InsideThunk {
     test() {
+      // biome-ignore lint/suspicious/useIterableCallbackReturn: part of test
       return [].map(() => {});
     }
   }

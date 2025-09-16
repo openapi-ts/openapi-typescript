@@ -1,4 +1,4 @@
-import fs from "node:fs";
+import fs from "node:fs/promises";
 import { URL } from "node:url";
 
 const MAINTAINERS = {
@@ -199,7 +199,7 @@ const ONE_WEEK = 1000 * 60 * 60 * 24;
 
 const CONTRIBUTORS_JSON = new URL("../data/contributors.json", import.meta.url);
 
-const data = JSON.parse(fs.readFileSync(CONTRIBUTORS_JSON, "utf8"));
+const data = JSON.parse(await fs.readFile(CONTRIBUTORS_JSON, "utf8"));
 
 class UserFetchError extends Error {
   /**
@@ -252,7 +252,7 @@ async function main() {
     // skip profiles that have been updated within the past week
     const { lastFetch } = data[group]?.find((u) => u.username === username) ?? { lastFetch: 0 };
     if (Date.now() - lastFetch < ONE_WEEK) {
-      // biome-ignore lint/suspicious/noConsoleLog: this is a script
+      // biome-ignore lint/suspicious/noConsole: this is a script
       console.log(`[${i}/${CONTRIBUTORS.size}] (Skipped ${username})`);
       continue;
     }
@@ -267,11 +267,13 @@ async function main() {
         lastFetch: new Date().getTime(),
       };
       upsert(data[group], userData);
-      // biome-ignore lint/suspicious/noConsoleLog: this is a script
+      // biome-ignore lint/suspicious/noConsole: this is a script
       console.log(`[${i}/${CONTRIBUTORS.size}] Updated for ${username}`);
-      fs.writeFileSync(new URL("../data/contributors.json", import.meta.url), JSON.stringify(data)); // update file while fetching (sync happens safely in between fetches)
+      await fs.writeFile(new URL("../data/contributors.json", import.meta.url), JSON.stringify(data)); // update file while fetching (sync happens safely in between fetches)
+      await new Promise((resolve) => setTimeout(resolve, 1_000)); // GitHub 403s with too many rapid requests.
     } catch (err) {
       if (err instanceof UserFetchError && err.notFound) {
+        // biome-ignore lint/suspicious/noConsole: this is a script
         console.warn(`[${i}/${total}] (Skipped ${username}, not found)`);
         continue;
       }

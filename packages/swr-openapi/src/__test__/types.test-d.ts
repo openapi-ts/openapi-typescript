@@ -36,6 +36,7 @@ const useMutate = createMutateHook(
   // @ts-expect-error - compare function not needed for these type tests
   null,
 );
+// biome-ignore lint/correctness/useHookAtTopLevel: this is a test
 const mutate = useMutate();
 
 describe("types", () => {

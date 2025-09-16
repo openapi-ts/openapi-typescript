@@ -1,10 +1,16 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "organizeImports": {
-    "enabled": false
-  },
+  "$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
+  "root": true,
   "files": {
-    "ignore": ["**/dist/**", "**/package.json"]
+    "includes": ["**", "!**/dist", "!**/package.json"]
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
   },
   "formatter": {
     "indentStyle": "space",
@@ -20,7 +26,7 @@
         "useArrowFunction": "off"
       },
       "suspicious": {
-        "noConsoleLog": "error",
+        "noConsole": "error",
         "noExplicitAny": "off"
       },
       "style": {

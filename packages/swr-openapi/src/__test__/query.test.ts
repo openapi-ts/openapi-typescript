@@ -1,6 +1,6 @@
+import useSWR from "swr";
 import { describe, expect, it, vi } from "vitest";
 import * as QueryBase from "../query-base.js";
-import useSWR from "swr";
 
 vi.mock("../query-base.js");
 const { configureBaseQueryHook } = vi.mocked(QueryBase);

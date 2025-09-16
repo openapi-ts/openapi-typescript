@@ -1,5 +1,4 @@
 import type { Context } from "../context.js";
-import type { TypeValue } from "../types.js";
 import { NoExplicitTypeError } from "../errors/no-explicit-type.js";
 import { ReflectMetadataMissingError } from "../errors/reflect-metadata-missing.js";
 

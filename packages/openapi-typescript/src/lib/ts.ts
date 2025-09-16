@@ -1,5 +1,5 @@
+import type { OasRef, Referenced } from "@redocly/openapi-core";
 import { parseRef } from "@redocly/openapi-core/lib/ref-utils.js";
-import type { Referenced, OasRef } from "@redocly/openapi-core";
 import ts, { type LiteralTypeNode, type TypeLiteralNode } from "typescript";
 import type { ParameterObject } from "../types.js";
 
@@ -469,10 +469,7 @@ export function tsLiteral(value: unknown): ts.TypeNode {
 }
 
 /** Modifiers (readonly) */
-export function tsModifiers(modifiers: {
-  readonly?: boolean;
-  export?: boolean;
-}): ts.Modifier[] {
+export function tsModifiers(modifiers: { readonly?: boolean; export?: boolean }): ts.Modifier[] {
   const typeMods: ts.Modifier[] = [];
   if (modifiers.export) {
     typeMods.push(ts.factory.createModifier(ts.SyntaxKind.ExportKeyword));

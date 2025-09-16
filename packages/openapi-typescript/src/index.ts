@@ -1,6 +1,6 @@
-import { createConfig } from "@redocly/openapi-core";
-import type { Readable } from "node:stream";
 import { performance } from "node:perf_hooks";
+import type { Readable } from "node:stream";
+import { createConfig } from "@redocly/openapi-core";
 import type ts from "typescript";
 import { validateAndBundle } from "./lib/redoc.js";
 import { debug, resolveRef, scanDiscriminators } from "./lib/utils.js";
@@ -9,9 +9,9 @@ import type { GlobalContext, OpenAPI3, OpenAPITSOptions } from "./types.js";
 
 export * from "./lib/ts.js";
 export * from "./lib/utils.js";
-export { default as transformSchema } from "./transform/index.js";
 export { default as transformComponentsObject } from "./transform/components-object.js";
 export { default as transformHeaderObject } from "./transform/header-object.js";
+export { default as transformSchema } from "./transform/index.js";
 export { default as transformMediaTypeObject } from "./transform/media-type-object.js";
 export * from "./transform/operation-object.js";
 export { default as transformOperationObject } from "./transform/operation-object.js";

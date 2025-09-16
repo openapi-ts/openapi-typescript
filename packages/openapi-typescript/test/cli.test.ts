@@ -1,7 +1,7 @@
-import { execa } from "execa";
 import fs from "node:fs";
 import os from "node:os";
 import { fileURLToPath } from "node:url";
+import { execa } from "execa";
 import stripAnsi from "strip-ansi";
 import type { TestCase } from "./test-helpers.js";
 
