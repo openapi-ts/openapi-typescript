@@ -83,13 +83,14 @@ const ast = await openapiTS(mySchema, { redocly });
 
 The Node API supports all the [CLI flags](/cli#flags) in `camelCase` format, plus the following additional options:
 
-| Name            |      Type       |     Default     | Description                                                                                  |
-| :-------------- | :-------------: | :-------------: | :------------------------------------------------------------------------------------------- |
-| `transform`     |   `Function`    |                 | Override the default Schema Object ➝ TypeScript transformer in certain scenarios             |
-| `postTransform` |   `Function`    |                 | Same as `transform` but runs _after_ the TypeScript transformation                           |
-| `silent`        |    `boolean`    |     `false`     | Silence warning messages (fatal errors will still show)                                      |
-| `cwd`           | `string \| URL` | `process.cwd()` | (optional) Provide the current working directory to help resolve remote `$ref`s (if needed). |
-| `inject`        |    `string`     |                 | Inject arbitrary TypeScript types into the start of the file                                 |
+| Name               |      Type       |     Default     | Description                                                                                  |
+| :----------------- | :-------------: | :-------------: | :------------------------------------------------------------------------------------------- |
+| `transform`        |   `Function`    |                 | Override the default Schema Object ➝ TypeScript transformer in certain scenarios             |
+| `postTransform`    |   `Function`    |                 | Same as `transform` but runs _after_ the TypeScript transformation                           |
+| `transformProperty`|   `Function`    |                 | Transform individual property signatures for Schema Object properties                        |
+| `silent`           |    `boolean`    |     `false`     | Silence warning messages (fatal errors will still show)                                      |
+| `cwd`              | `string \| URL` | `process.cwd()` | (optional) Provide the current working directory to help resolve remote `$ref`s (if needed). |
+| `inject`           |    `string`     |                 | Inject arbitrary TypeScript types into the start of the file                                 |
 
 ### transform / postTransform
 
@@ -254,4 +255,139 @@ file?: Blob | null; // [!code ++]
 
 Any [Schema Object](https://spec.openapis.org/oas/latest.html#schema-object) present in your schema will be run through this formatter (even remote ones!). Also be sure to check the `metadata` parameter for additional context that may be helpful.
 
-There are many other uses for this besides checking `format`. Because this must return a **string** you can produce any arbitrary TypeScript code you’d like (even your own custom types).
+There are many other uses for this besides checking `format`. Because this must return a **string** you can produce any arbitrary TypeScript code you'd like (even your own custom types).
+
+### transformProperty
+
+Use the `transformProperty()` option to modify individual property signatures within Schema Objects. This is particularly useful for adding JSDoc comments, validation annotations, or modifying property-level attributes that can't be achieved with `transform` or `postTransform`.
+
+- `transformProperty()` runs **after** type conversion but **before** JSDoc comments are added
+- It receives the property signature, the original schema object, and transformation options
+- It should return a modified `PropertySignature` or `undefined` to leave the property unchanged
+
+#### Example: JSDoc validation annotations
+
+A common use case is adding validation annotations based on OpenAPI schema constraints:
+
+::: code-group
+
+```yaml [my-openapi-3-schema.yaml]
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          pattern: "^[a-zA-Z0-9]+$"
+        email:
+          type: string
+          format: email
+        age:
+          type: integer
+          minimum: 0
+          maximum: 120
+      required: [name, email]
+```
+
+:::
+
+::: code-group
+
+```ts [src/my-project.ts]
+import fs from "node:fs";
+import ts from "typescript";
+import openapiTS, { astToString } from "openapi-typescript";
+
+const ast = await openapiTS(mySchema, {
+  transformProperty(property, schemaObject, options) {
+    const validationTags: string[] = [];
+    
+    // Add validation JSDoc tags based on schema constraints
+    if (schemaObject.minLength !== undefined) {
+      validationTags.push(`@minLength ${schemaObject.minLength}`);
+    }
+    if (schemaObject.maxLength !== undefined) {
+      validationTags.push(`@maxLength ${schemaObject.maxLength}`);
+    }
+    if (schemaObject.minimum !== undefined) {
+      validationTags.push(`@minimum ${schemaObject.minimum}`);
+    }
+    if (schemaObject.maximum !== undefined) {
+      validationTags.push(`@maximum ${schemaObject.maximum}`);
+    }
+    if (schemaObject.pattern !== undefined) {
+      validationTags.push(`@pattern ${schemaObject.pattern}`);
+    }
+    if (schemaObject.format !== undefined) {
+      validationTags.push(`@format ${schemaObject.format}`);
+    }
+    
+    // If we have validation tags, add them as JSDoc comments
+    if (validationTags.length > 0) {
+      // Create a new property signature
+      const newProperty = ts.factory.updatePropertySignature(
+        property,
+        property.modifiers,
+        property.name,
+        property.questionToken,
+        property.type,
+      );
+      
+      // Add JSDoc comment
+      const jsDocText = `*\n * ${validationTags.join('\n * ')}\n `;
+      
+      ts.addSyntheticLeadingComment(
+        newProperty,
+        ts.SyntaxKind.MultiLineCommentTrivia,
+        jsDocText,
+        true,
+      );
+      
+      return newProperty;
+    }
+    
+    return property;
+  },
+});
+
+const contents = astToString(ast);
+fs.writeFileSync("./my-schema.ts", contents);
+```
+
+:::
+
+This transforms the schema into TypeScript with validation annotations:
+
+::: code-group
+
+```ts [my-schema.d.ts]
+export interface components {
+  schemas: {
+    User: {
+      /**
+       * @minLength 1
+       * @pattern ^[a-zA-Z0-9]+$
+       */
+      name: string;
+      /**
+       * @format email
+       */
+      email: string;
+      /**
+       * @minimum 0
+       * @maximum 120
+       */
+      age?: number;
+    };
+  };
+}
+```
+
+:::
+
+The `transformProperty` function provides access to:
+- `property`: The TypeScript PropertySignature AST node
+- `schemaObject`: The original OpenAPI Schema Object for this property
+- `options`: Transformation context including path information and other utilities

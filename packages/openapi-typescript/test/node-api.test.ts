@@ -603,6 +603,167 @@ export type operations = Record<string, never>;`,
       },
     ],
     [
+      "options > transformProperty > JSDoc validation annotations",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
+          components: {
+            schemas: {
+              User: {
+                type: "object",
+                properties: {
+                  name: {
+                    type: "string",
+                    minLength: 1,
+                    pattern: "^[a-zA-Z0-9]+$",
+                  },
+                  email: {
+                    type: "string",
+                    format: "email",
+                  },
+                  age: {
+                    type: "integer",
+                    minimum: 0,
+                    maximum: 120,
+                  },
+                },
+                required: ["name", "email"],
+              },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        User: {
+            /**
+             * @minLength 1
+             * @pattern ^[a-zA-Z0-9]+$
+             */
+            name: string;
+            /**
+             * @format email
+             */
+            email: string;
+            /**
+             * @minimum 0
+             * @maximum 120
+             */
+            age?: number;
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+        options: {
+          transformProperty(property, schemaObject, options) {
+            const validationTags: string[] = [];
+            const schema = schemaObject as any; // Cast to access validation properties
+            
+            if (schema.minLength !== undefined) {
+              validationTags.push(`@minLength ${schema.minLength}`);
+            }
+            if (schema.maxLength !== undefined) {
+              validationTags.push(`@maxLength ${schema.maxLength}`);
+            }
+            if (schema.minimum !== undefined) {
+              validationTags.push(`@minimum ${schema.minimum}`);
+            }
+            if (schema.maximum !== undefined) {
+              validationTags.push(`@maximum ${schema.maximum}`);
+            }
+            if (schema.pattern !== undefined) {
+              validationTags.push(`@pattern ${schema.pattern}`);
+            }
+            if (schema.format !== undefined) {
+              validationTags.push(`@format ${schema.format}`);
+            }
+            
+            if (validationTags.length > 0) {
+              // Create a new property signature
+              const newProperty = ts.factory.updatePropertySignature(
+                property,
+                property.modifiers,
+                property.name,
+                property.questionToken,
+                property.type,
+              );
+              
+              // Add JSDoc comment using the same format as addJSDocComment
+              const jsDocText = `*\n * ${validationTags.join('\n * ')}\n `;
+              
+              ts.addSyntheticLeadingComment(
+                newProperty,
+                ts.SyntaxKind.MultiLineCommentTrivia,
+                jsDocText,
+                true,
+              );
+              
+              return newProperty;
+            }
+            
+            return property;
+          },
+        },
+      },
+    ],
+    [
+      "options > transformProperty > no-op when returning undefined",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
+          components: {
+            schemas: {
+              User: {
+                type: "object",
+                properties: {
+                  name: { type: "string" },
+                  email: { type: "string", format: "email" },
+                },
+                required: ["name"],
+              },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        User: {
+            name: string;
+            /** Format: email */
+            email?: string;
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+        options: {
+          transformProperty(property, schemaObject, options) {
+            const schema = schemaObject as any; // Cast to access validation properties
+            // Only transform properties with minLength, return undefined for others
+            if (schema.minLength === undefined) {
+              return undefined; // Should leave property unchanged
+            }
+            return property;
+          },
+        },
+      },
+    ],
+    [
       "options > enum",
       {
         given: {

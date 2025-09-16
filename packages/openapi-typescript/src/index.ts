@@ -89,6 +89,7 @@ export default async function openapiTS(
     silent: options.silent ?? false,
     inject: options.inject ?? undefined,
     transform: typeof options.transform === "function" ? options.transform : undefined,
+    transformProperty: typeof options.transformProperty === "function" ? options.transformProperty : undefined,
     makePathsEnum: options.makePathsEnum ?? false,
     generatePathParams: options.generatePathParams ?? false,
     resolve($ref) {
