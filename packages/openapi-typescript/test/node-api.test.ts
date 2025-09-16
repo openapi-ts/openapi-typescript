@@ -646,6 +646,7 @@ export interface components {
             /**
              * @format email
              */
+            /** Format: email */
             email: string;
             /**
              * @minimum 0
@@ -663,10 +664,10 @@ export interface components {
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
         options: {
-          transformProperty(property, schemaObject, options) {
+          transformProperty(property, schemaObject, _options) {
             const validationTags: string[] = [];
             const schema = schemaObject as any; // Cast to access validation properties
-            
+
             if (schema.minLength !== undefined) {
               validationTags.push(`@minLength ${schema.minLength}`);
             }
@@ -685,7 +686,7 @@ export type operations = Record<string, never>;`,
             if (schema.format !== undefined) {
               validationTags.push(`@format ${schema.format}`);
             }
-            
+
             if (validationTags.length > 0) {
               // Create a new property signature
               const newProperty = ts.factory.updatePropertySignature(
@@ -695,20 +696,15 @@ export type operations = Record<string, never>;`,
                 property.questionToken,
                 property.type,
               );
-              
+
               // Add JSDoc comment using the same format as addJSDocComment
-              const jsDocText = `*\n * ${validationTags.join('\n * ')}\n `;
-              
-              ts.addSyntheticLeadingComment(
-                newProperty,
-                ts.SyntaxKind.MultiLineCommentTrivia,
-                jsDocText,
-                true,
-              );
-              
+              const jsDocText = `*\n * ${validationTags.join("\n * ")}\n `;
+
+              ts.addSyntheticLeadingComment(newProperty, ts.SyntaxKind.MultiLineCommentTrivia, jsDocText, true);
+
               return newProperty;
             }
-            
+
             return property;
           },
         },
@@ -752,7 +748,7 @@ export interface components {
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
         options: {
-          transformProperty(property, schemaObject, options) {
+          transformProperty(property, schemaObject, _options) {
             const schema = schemaObject as any; // Cast to access validation properties
             // Only transform properties with minLength, return undefined for others
             if (schema.minLength === undefined) {

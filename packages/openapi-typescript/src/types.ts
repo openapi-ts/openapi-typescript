@@ -640,7 +640,11 @@ export interface OpenAPITSOptions {
   /** Modify TypeScript types built from Schema Objects */
   postTransform?: (type: ts.TypeNode, options: TransformNodeOptions) => ts.TypeNode | undefined;
   /** Modify property signatures for Schema Object properties */
-  transformProperty?: (property: ts.PropertySignature, schemaObject: SchemaObject, options: TransformNodeOptions) => ts.PropertySignature | undefined;
+  transformProperty?: (
+    property: ts.PropertySignature,
+    schemaObject: SchemaObject,
+    options: TransformNodeOptions,
+  ) => ts.PropertySignature | undefined;
   /** Add readonly properties and readonly arrays? (default: false) */
   immutable?: boolean;
   /** (optional) Should logging be suppressed? (necessary for STDOUT) */
