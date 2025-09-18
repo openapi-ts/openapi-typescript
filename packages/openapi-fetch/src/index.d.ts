@@ -119,6 +119,7 @@ export type RequestOptions<T> = ParamsOption<T> &
     bodySerializer?: BodySerializer<T>;
     parseAs?: ParseAs;
     fetch?: ClientOptions["fetch"];
+    Request?: ClientOptions["Request"];
     headers?: HeadersOptions;
   };
 
