@@ -100,6 +100,95 @@ describe("transformSchemaObject > object", () => {
       },
     ],
     [
+      "patternProperties > empty object",
+      {
+        given: { type: "object", patternProperties: {} },
+        want: "Record<string, never>",
+      },
+    ],
+    [
+      "patternProperties > empty object with options.additionalProperties=true",
+      {
+        given: { type: "object", patternProperties: {} },
+        want: `{
+    [key: string]: unknown;
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_CTX, additionalProperties: true },
+        },
+      },
+    ],
+    [
+      "patternProperties > basic",
+      {
+        given: { type: "object", patternProperties: { "^a": { type: "string" } } },
+        want: `{
+    [key: string]: string;
+}`,
+      },
+    ],
+    [
+      "patternProperties > enum",
+      {
+        given: { type: "object", patternProperties: { "^a": { type: "string", enum: ["a", "b", "c"] } } },
+        want: `{
+    [key: string]: "a" | "b" | "c";
+}`,
+      },
+    ],
+    [
+      "patternProperties > multiple patterns",
+      {
+        given: { type: "object", patternProperties: { "^a": { type: "string" }, "^b": { type: "number" } } },
+        want: `{
+    [key: string]: string | number;
+}`,
+      },
+    ],
+    [
+      "patternProperties > additional=true and patterns",
+      {
+        given: {
+          type: "object",
+          additionalProperties: true,
+          patternProperties: { "^a": { type: "string" } },
+        },
+        want: `{
+    [key: string]: unknown | string;
+}`,
+      },
+    ],
+    [
+      "patternProperties > additional and patterns",
+      {
+        given: {
+          type: "object",
+          additionalProperties: { type: "number" },
+          patternProperties: { "^a": { type: "string" } },
+        },
+        want: `{
+    [key: string]: number | string;
+}`,
+      },
+    ],
+    [
+      "patternProperties > patterns with options.additionalProperties=true",
+      {
+        given: {
+          type: "object",
+          patternProperties: { "^a": { type: "string" } },
+        },
+        want: `{
+    [key: string]: unknown | string;
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_CTX, additionalProperties: true },
+        },
+      },
+    ],
+    [
       "nullable",
       {
         given: {
