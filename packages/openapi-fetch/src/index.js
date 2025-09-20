@@ -28,6 +28,7 @@ export default function createClient(clientOptions) {
     fetch: baseFetch = globalThis.fetch,
     querySerializer: globalQuerySerializer,
     bodySerializer: globalBodySerializer,
+    pathSerializer: globalPathSerializer,
     headers: baseHeaders,
     requestInitExt = undefined,
     ...baseOptions
@@ -51,6 +52,7 @@ export default function createClient(clientOptions) {
       parseAs = "json",
       querySerializer: requestQuerySerializer,
       bodySerializer = globalBodySerializer ?? defaultBodySerializer,
+      pathSerializer: requestPathSerializer,
       body,
       ...init
     } = fetchOptions || {};
@@ -72,6 +74,8 @@ export default function createClient(clientOptions) {
               ...requestQuerySerializer,
             });
     }
+
+    const pathSerializer = requestPathSerializer || globalPathSerializer || defaultPathSerializer;
 
     const serializedBody =
       body === undefined
@@ -110,7 +114,7 @@ export default function createClient(clientOptions) {
     let id;
     let options;
     let request = new Request(
-      createFinalURL(schemaPath, { baseUrl: finalBaseUrl, params, querySerializer }),
+      createFinalURL(schemaPath, { baseUrl: finalBaseUrl, params, querySerializer, pathSerializer }),
       requestInit,
     );
     let response;
@@ -132,6 +136,7 @@ export default function createClient(clientOptions) {
         parseAs,
         querySerializer,
         bodySerializer,
+        pathSerializer,
       });
       for (const m of middlewares) {
         if (m && typeof m === "object" && typeof m.onRequest === "function") {
@@ -615,7 +620,7 @@ export function defaultBodySerializer(body, headers) {
 export function createFinalURL(pathname, options) {
   let finalURL = `${options.baseUrl}${pathname}`;
   if (options.params?.path) {
-    finalURL = defaultPathSerializer(finalURL, options.params.path);
+    finalURL = options.pathSerializer(finalURL, options.params.path);
   }
   let search = options.querySerializer(options.params.query ?? {});
   if (search.startsWith("?")) {
