@@ -505,3 +505,118 @@ test("skips onResponse handlers when response is returned from onRequest", async
 
   expect(onResponseCalled).toBe(false);
 });
+
+test('it should enable a middleware to be added via the "middleware" request option', async () => {
+  let actualRequest = new Request("https://nottherealurl.fake");
+  const client = createObservedClient<paths>({}, async (req) => {
+    actualRequest = new Request(req);
+    return Response.json({});
+  });
+
+  await client.GET("/posts/{id}", {
+    params: { path: { id: 123 } },
+    middleware: [
+      {
+        async onRequest({ request }) {
+          return new Request("https://foo.bar/api/v1", {
+            ...request,
+            method: "OPTIONS",
+            headers: { foo: "bar" },
+          });
+        },
+      },
+    ],
+  });
+
+  expect(actualRequest.url).toBe("https://foo.bar/api/v1");
+  expect(actualRequest.method).toBe("OPTIONS");
+  expect(actualRequest.headers.get("foo")).toBe("bar");
+});
+
+test("add middleware at the request level", async () => {
+  let actualRequest = new Request("https://nottherealurl.fake");
+  const client = createObservedClient<paths>({}, async (req) => {
+    actualRequest = new Request(req);
+    return Response.json({});
+  });
+
+  await client.GET("/posts/{id}", {
+    params: { path: { id: 123 } },
+    middleware: [
+      {
+        async onRequest({ request }) {
+          return new Request("https://foo.bar/api/v1", {
+            ...request,
+            method: "OPTIONS",
+            headers: { foo: "bar" },
+          });
+        },
+      },
+    ],
+  });
+
+  expect(actualRequest.url).toBe("https://foo.bar/api/v1");
+  expect(actualRequest.method).toBe("OPTIONS");
+  expect(actualRequest.headers.get("foo")).toBe("bar");
+});
+
+test("executes a middleware at the client and request request level in the correct orders", async () => {
+  let actualRequest = new Request("https://nottherealurl.fake");
+  const client = createObservedClient<paths>({}, async (req) => {
+    actualRequest = new Request(req);
+    return Response.json({});
+  });
+  // this middleware passes along the “step” header
+  // for both requests and responses, but first checks if
+  // it received the end result of the previous middleware step
+  client.use(
+    {
+      async onRequest({ request }) {
+        request.headers.set("step", "A");
+        return request;
+      },
+      async onResponse({ response }) {
+        if (response.headers.get("step") === "B") {
+          const headers = new Headers(response.headers);
+          headers.set("step", "A");
+          return new Response(response.body, { ...response, headers });
+        }
+      },
+    },
+    {
+      async onRequest({ request }) {
+        request.headers.set("step", "B");
+        return request;
+      },
+      async onResponse({ response }) {
+        const headers = new Headers(response.headers);
+        headers.set("step", "B");
+        if (response.headers.get("step") === "C") {
+          return new Response(response.body, { ...response, headers });
+        }
+      },
+    },
+  );
+
+  const { response } = await client.GET("/posts/{id}", {
+    params: { path: { id: 123 } },
+    middleware: [
+      {
+        onRequest({ request }) {
+          request.headers.set("step", "C");
+          return request;
+        },
+        onResponse({ response }) {
+          response.headers.set("step", "C");
+          return response;
+        },
+      },
+    ],
+  });
+
+  // assert requests ended up on step C (array order)
+  expect(actualRequest.headers.get("step")).toBe("C");
+
+  // assert responses ended up on step A (reverse order)
+  expect(response.headers.get("step")).toBe("A");
+});

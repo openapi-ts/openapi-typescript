@@ -52,6 +52,7 @@ export default function createClient(clientOptions) {
       querySerializer: requestQuerySerializer,
       bodySerializer = globalBodySerializer ?? defaultBodySerializer,
       body,
+      middleware: fetchMiddlewares = [],
       ...init
     } = fetchOptions || {};
     let finalBaseUrl = baseUrl;
@@ -99,6 +100,12 @@ export default function createClient(clientOptions) {
       params.header,
     );
 
+    const finalMiddlewares = [
+      // Client level middleware take priority over request-level middleware
+      ...(Array.isArray(middlewares) && middlewares),
+      ...(Array.isArray(fetchMiddlewares) && fetchMiddlewares),
+    ];
+
     const requestInit = {
       redirect: "follow",
       ...baseOptions,
@@ -122,7 +129,7 @@ export default function createClient(clientOptions) {
       }
     }
 
-    if (middlewares.length) {
+    if (finalMiddlewares.length) {
       id = randomID();
 
       // middleware (request)
@@ -133,7 +140,7 @@ export default function createClient(clientOptions) {
         querySerializer,
         bodySerializer,
       });
-      for (const m of middlewares) {
+      for (const m of finalMiddlewares) {
         if (m && typeof m === "object" && typeof m.onRequest === "function") {
           const result = await m.onRequest({
             request,
@@ -164,9 +171,9 @@ export default function createClient(clientOptions) {
         let errorAfterMiddleware = error;
         // middleware (error)
         // execute in reverse-array order (first priority gets last transform)
-        if (middlewares.length) {
-          for (let i = middlewares.length - 1; i >= 0; i--) {
-            const m = middlewares[i];
+        if (finalMiddlewares.length) {
+          for (let i = finalMiddlewares.length - 1; i >= 0; i--) {
+            const m = finalMiddlewares[i];
             if (m && typeof m === "object" && typeof m.onError === "function") {
               const result = await m.onError({
                 request,
@@ -203,9 +210,9 @@ export default function createClient(clientOptions) {
 
       // middleware (response)
       // execute in reverse-array order (first priority gets last transform)
-      if (middlewares.length) {
-        for (let i = middlewares.length - 1; i >= 0; i--) {
-          const m = middlewares[i];
+      if (finalMiddlewares.length) {
+        for (let i = finalMiddlewares.length - 1; i >= 0; i--) {
+          const m = finalMiddlewares[i];
           if (m && typeof m === "object" && typeof m.onResponse === "function") {
             const result = await m.onResponse({
               request,
@@ -662,4 +669,14 @@ export function removeTrailingSlash(url) {
     return url.substring(0, url.length - 1);
   }
   return url;
+}
+
+/**
+ * Validate middleware object
+ * @type {import("./index.js").validateMiddleware}
+ */
+export function validateMiddleware(middleware) {
+  if (typeof middleware !== "object" || !("onRequest" in middleware || "onResponse" in v || "onError" in middleware)) {
+    throw new Error("Middleware must be an object with one of `onRequest()`, `onResponse() or `onError()`");
+  }
 }
