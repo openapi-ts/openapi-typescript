@@ -1,4 +1,5 @@
 import fs from "node:fs/promises";
+import timers from "node:timers/promises";
 import { URL } from "node:url";
 
 const MAINTAINERS = {
@@ -227,9 +228,33 @@ async function fetchUserInfo(username) {
       "X-GitHub-Api-Version": "2022-11-28",
     },
   });
+
   if (!res.ok) {
+    const retryAfter = res.headers.get("retry-after"); // seconds
+    const ratelimitRemaining = res.headers.get("x-ratelimit-remaining"); // quantity of requests remaining
+    const ratelimitReset = res.headers.get("x-ratelimit-reset"); // UTC epoch seconds
+
+    if (retryAfter || ratelimitRemaining === "0" || ratelimitReset) {
+      // See https://docs.github.com/en/rest/using-the-rest-api/best-practices-for-using-the-rest-api?apiVersion=2022-11-28#handle-rate-limit-errors-appropriately
+      console.warn("Rate limited by GitHub API");
+
+      let timeoutInMilliseconds = 60 * 1000; // default to 1 minute
+      if (retryAfter) {
+        timeoutInMilliseconds = retryAfter * 1000;
+      } else if (ratelimitRemaining === "0" && ratelimitReset) {
+        timeoutInMilliseconds = ratelimitReset * 1000 - Date.now();
+      }
+
+      console.warn(`Waiting for ${timeoutInMilliseconds / 1000} seconds...`);
+
+      await timers.setTimeout(timeoutInMilliseconds);
+
+      return await fetchUserInfo(username);
+    }
+
     throw new UserFetchError(`${res.url} responded with ${res.status}`, res);
   }
+
   return await res.json();
 }
 
@@ -282,4 +307,6 @@ async function main() {
   }
 }
 
-main();
+if (import.meta.main) {
+  main();
+}
