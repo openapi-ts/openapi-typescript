@@ -70,12 +70,12 @@
     "yargs-parser": "^21.1.1"
   },
   "devDependencies": {
-    "@types/degit": "^2.8.6",
-    "@types/js-yaml": "^4.0.9",
-    "degit": "^2.8.4",
+    "@types/degit": "2.8.6",
+    "@types/js-yaml": "4.0.9",
+    "degit": "2.8.4",
     "execa": "catalog:",
-    "strip-ansi": "^7.1.2",
+    "strip-ansi": "7.1.2",
     "typescript": "catalog:",
-    "vite-node": "^3.2.4"
+    "vite-node": "3.2.4"
   }
 }

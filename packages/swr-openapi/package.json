@@ -76,15 +76,15 @@
     "type-fest": "^4.41.0"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.20",
+    "@types/lodash": "4.17.20",
     "@types/react": "^18.3.24",
-    "husky": "^9.1.7",
+    "husky": "9.1.7",
     "lint-staged": "15.5.2",
-    "lodash": "^4.17.21",
+    "lodash": "4.17.21",
     "openapi-fetch": "workspace:^",
     "openapi-typescript": "workspace:^",
-    "react": "^18.3.1",
-    "swr": "^2.3.6",
-    "typescript": "^5.9.2"
+    "react": "18.3.1",
+    "swr": "2.3.6",
+    "typescript": "5.9.2"
   }
 }
