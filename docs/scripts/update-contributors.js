@@ -222,12 +222,18 @@ class UserFetchError extends Error {
 }
 
 async function fetchUserInfo(username) {
-  const res = await fetch(`https://api.github.com/users/${username}`, {
+  const request = new Request(`https://api.github.com/users/${username}`, {
     headers: {
       Accept: "application/vnd.github+json",
       "X-GitHub-Api-Version": "2022-11-28",
     },
-  });
+  })
+
+  if (process.env.GITHUB_TOKEN) {
+    request.headers.set('Authorization', `Bearer ${process.env.GITHUB_TOKEN}`)
+  }
+
+  const res = await fetch(request);
 
   if (!res.ok) {
     const retryAfter = res.headers.get("retry-after"); // seconds
