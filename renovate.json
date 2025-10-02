@@ -3,6 +3,7 @@
   "extends": [
     "config:js-lib"
   ],
+  "automergeType": "branch",
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true
