@@ -1,5 +1,19 @@
 # openapi-typescript
 
+## 7.9.1
+
+### Patch Changes
+
+- [#2393](https://github.com/openapi-ts/openapi-typescript/pull/2393) [`6943ccf`](https://github.com/openapi-ts/openapi-typescript/commit/6943ccf216f602f004eb178dd652ffcbafc05346) Thanks [@simon-curtis](https://github.com/simon-curtis)! - Now checking for null & empty string when generating enum description
+
+- [#2375](https://github.com/openapi-ts/openapi-typescript/pull/2375) [`5be22d7`](https://github.com/openapi-ts/openapi-typescript/commit/5be22d7adc8bc36fdfa91f1aa3473919107060f2) Thanks [@ParkerVR](https://github.com/ParkerVR)! - Fix behavior when using enum and export-type flags
+
+## 7.9.0
+
+### Minor Changes
+
+- [#2374](https://github.com/openapi-ts/openapi-typescript/pull/2374) [`c5ebbb8`](https://github.com/openapi-ts/openapi-typescript/commit/c5ebbb8d5a0945c2360a2a147a3256d7e8585020) Thanks [@cmlee-accelins](https://github.com/cmlee-accelins)! - Add JSDoc support for the recommended examples array on JSON Schema objects.
+
 ## 7.8.0
 
 ### Minor Changes
@@ -213,7 +227,6 @@
   Also see [AST Explorer](https://astexplorer.net/)’s `typescript` parser to inspect how TypeScript is interpreted as an AST.
 
 - [`6d1eb32`](https://github.com/openapi-ts/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ⚠️ **Breaking**: Changing of several CLI flags and Node.js API options
-
   - The `--auth`, `--httpHeaders`, `--httpMethod`, and `fetch` (Node.js-only) options were all removed from the CLI and Node.js API
     - To migrate, you’ll need to create a [redocly.yaml config](https://redocly.com/docs/cli/configuration/) that specifies your auth options [in the http setting](https://redocly.com/docs/cli/configuration/#resolve-non-public-or-non-remote-urls)
     - You can also set your fetch client in redocly.yaml as well.
@@ -233,12 +246,10 @@
 ### Minor Changes
 
 - [`6d1eb32`](https://github.com/openapi-ts/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: automatically validate schemas with Redocly CLI ([docs](https://redocly.com/docs/cli/)). No more need for external tools to report errors! 🎉
-
   - By default, it will only throw on actual schema errors (uses Redocly’s default settings)
   - For stricter linting or custom rules, you can create a [redocly.yaml config](https://redocly.com/docs/cli/configuration/)
 
 - [`312b7ba`](https://github.com/openapi-ts/openapi-typescript/commit/312b7ba03fc0334153d4eeb51d6159f3fc63934e) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature:** allow configuration of schemas via `apis` key in redocly.config.yaml. [See docs](https://openapi-ts.dev/cli/) for more info.
-
   - Any options passed into your [redocly.yaml config](https://redocly.com/docs/cli/configuration/) are respected
 
 - [`6d1eb32`](https://github.com/openapi-ts/openapi-typescript/commit/6d1eb32e610cb62effbd1a817ae8fc93337126a6) Thanks [@drwpow](https://github.com/drwpow)! - ✨ **Feature**: add `enum` option to export top-level enums from schemas

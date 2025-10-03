@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
-import openapiTS, { COMMENT_HEADER, astToString } from "../src/index.js";
-import type { OpenAPITSOptions, ReferenceObject, SchemaObject } from "../src/types.js";
+import openapiTS, { astToString, COMMENT_HEADER } from "../src/index.js";
+import type { OpenAPITSOptions } from "../src/types.js";
 import type { TestCase } from "./test-helpers.js";
 
 const EXAMPLES_DIR = new URL("../examples/", import.meta.url);

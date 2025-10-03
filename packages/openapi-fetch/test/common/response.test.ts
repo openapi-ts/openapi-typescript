@@ -1,6 +1,6 @@
 import { assertType, describe, expect, expectTypeOf, test } from "vitest";
-import { createObservedClient } from "../helpers.js";
 import type { MethodResponse } from "../../src/index.js";
+import { createObservedClient } from "../helpers.js";
 import type { components, paths } from "./schemas/common.js";
 
 type Resource = components["schemas"]["Resource"];

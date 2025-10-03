@@ -1,7 +1,7 @@
-import { execa } from "execa";
 import fs from "node:fs";
 import os from "node:os";
 import { fileURLToPath } from "node:url";
+import { execa } from "execa";
 import stripAnsi from "strip-ansi";
 import type { TestCase } from "./test-helpers.js";
 
@@ -73,6 +73,14 @@ describe("CLI", () => {
       {
         given: ["./examples/digital-ocean-api/DigitalOcean-public.v2.yaml"],
         want: new URL("./examples/digital-ocean-api.ts", root),
+        ci: { timeout: TIMEOUT },
+      },
+    ],
+    [
+      "snapshot > enum root types filtering",
+      {
+        given: ["./examples/enum-root-types.yaml", "--root-types", "--root-types-no-schema-prefix", "--enum"],
+        want: new URL("./examples/enum-root-types.ts", root),
         ci: { timeout: TIMEOUT },
       },
     ],

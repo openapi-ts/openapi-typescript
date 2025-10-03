@@ -1,5 +1,5 @@
-import { assertType, describe, test } from "vitest";
 import type { ErrorResponse, GetResponseContent, OkStatus, SuccessResponse } from "openapi-typescript-helpers";
+import { assertType, describe, test } from "vitest";
 
 describe("types", () => {
   describe("GetResponseContent", () => {

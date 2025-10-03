@@ -1,27 +1,27 @@
 import {
+  type InfiniteData,
+  type QueryClient,
+  type QueryFunctionContext,
+  type SkipToken,
+  type UseInfiniteQueryOptions,
+  type UseInfiniteQueryResult,
   type UseMutationOptions,
   type UseMutationResult,
   type UseQueryOptions,
   type UseQueryResult,
-  type InfiniteData,
-  type UseInfiniteQueryOptions,
-  type UseInfiniteQueryResult,
   type UseSuspenseQueryOptions,
   type UseSuspenseQueryResult,
-  type QueryClient,
-  type QueryFunctionContext,
-  type SkipToken,
+  useInfiniteQuery,
   useMutation,
   useQuery,
   useSuspenseQuery,
-  useInfiniteQuery,
 } from "@tanstack/react-query";
 import type {
   ClientMethod,
+  DefaultParamsOption,
+  Client as FetchClient,
   FetchResponse,
   MaybeOptionalInit,
-  Client as FetchClient,
-  DefaultParamsOption,
 } from "openapi-fetch";
 import type { HttpMethod, MediaType, PathsWithMethod, RequiredKeysOf } from "openapi-typescript-helpers";
 
@@ -164,7 +164,6 @@ export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMetho
       Response["data"],
       Response["error"],
       InferSelectReturnType<InfiniteData<Response["data"]>, Options["select"]>,
-      Response["data"],
       QueryKey<Paths, Method, Path>,
       unknown
     >,

@@ -1,8 +1,9 @@
 import type { Client } from "openapi-fetch";
 import type { MediaType, PathsWithMethod, RequiredKeysOf } from "openapi-typescript-helpers";
-import type { Fetcher, SWRHook } from "swr";
-import type { TypesForGetRequest } from "./types.js";
 import { useCallback, useDebugValue, useMemo } from "react";
+import type { Fetcher, SWRHook } from "swr";
+import type { Exact } from "type-fest";
+import type { TypesForGetRequest } from "./types.js";
 
 /**
  * @private
@@ -17,7 +18,7 @@ export function configureBaseQueryHook(useHook: SWRHook) {
     return function useQuery<
       Path extends PathsWithMethod<Paths, "get">,
       R extends TypesForGetRequest<Paths, Path>,
-      Init extends R["Init"],
+      Init extends Exact<R["Init"], Init>,
       Data extends R["Data"],
       Error extends R["Error"] | FetcherError,
       Config extends R["SWRConfig"],

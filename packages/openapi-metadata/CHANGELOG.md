@@ -1,5 +1,11 @@
 # openapi-metadata
 
+## 0.2.2
+
+### Patch Changes
+
+- [#2365](https://github.com/openapi-ts/openapi-typescript/pull/2365) [`b419aee`](https://github.com/openapi-ts/openapi-typescript/commit/b419aee0ded0a329ce0623dacb67159bbb7c7800) Thanks [@spamshaker](https://github.com/spamshaker)! - fix(#2364) for allowing to add params via ApiOperation tag
+
 ## 0.2.1
 
 ### Patch Changes

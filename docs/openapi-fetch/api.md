@@ -203,7 +203,7 @@ const { data, error } = await client.POST("/tokens", {
     clientSecret: "someClientSecret",
   },
   headers: {
-    "Content-Type": "application/x-www-form-encoded",
+    "Content-Type": "application/x-www-form-urlencoded",
   },
 });
 ```

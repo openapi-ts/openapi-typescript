@@ -109,7 +109,7 @@ export default function createClient(clientOptions) {
 
     let id;
     let options;
-    let request = new CustomRequest(
+    let request = new Request(
       createFinalURL(schemaPath, { baseUrl: finalBaseUrl, params, querySerializer }),
       requestInit,
     );
@@ -143,7 +143,7 @@ export default function createClient(clientOptions) {
             id,
           });
           if (result) {
-            if (result instanceof CustomRequest) {
+            if (result instanceof Request) {
               request = result;
             } else if (result instanceof Response) {
               response = result;
