@@ -9,9 +9,9 @@
     "update-contributors": "node scripts/update-contributors.js"
   },
   "devDependencies": {
-    "@shikijs/vitepress-twoslash": "^3.12.2",
+    "@shikijs/vitepress-twoslash": "3.12.2",
     "openapi-metadata": "workspace:*",
     "vite": "catalog:",
-    "vitepress": "^1.6.4"
+    "vitepress": "1.6.4"
   }
 }
