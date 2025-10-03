@@ -221,7 +221,22 @@ class UserFetchError extends Error {
   }
 }
 
-const MAX_RETRIES = 5;
+const BACKOFF_INTERVALS_MINUTES = [1, 2, 3, 5];
+const MAX_RETRIES = BACKOFF_INTERVALS_MINUTES.length - 1;
+
+async function rateLimitDelay({ retryAfter, ratelimitReset, retryCount }) {
+  let timeoutInMilliseconds = BACKOFF_INTERVALS_MINUTES[retryCount] * 1000;
+  if (retryAfter) {
+    timeoutInMilliseconds = retryAfter * 1000;
+  } else if (ratelimitRemaining === "0" && ratelimitReset) {
+    timeoutInMilliseconds = ratelimitReset * 1000 - Date.now();
+  }
+
+  const timeoutInSeconds = (timeoutInMilliseconds / 1000).toLocaleString();
+  console.warn(`Waiting for ${timeoutInSeconds} seconds...`);
+
+  await timers.setTimeout(timeoutInMilliseconds);
+}
 
 async function fetchUserInfo(username, retryCount = 0) {
   if (retryCount >= MAX_RETRIES) {
@@ -244,16 +259,11 @@ async function fetchUserInfo(username, retryCount = 0) {
       // See https://docs.github.com/en/rest/using-the-rest-api/best-practices-for-using-the-rest-api?apiVersion=2022-11-28#handle-rate-limit-errors-appropriately
       console.warn("Rate limited by GitHub API");
 
-      let timeoutInMilliseconds = 60 * 1000; // default to 1 minute
-      if (retryAfter) {
-        timeoutInMilliseconds = retryAfter * 1000;
-      } else if (ratelimitRemaining === "0" && ratelimitReset) {
-        timeoutInMilliseconds = ratelimitReset * 1000 - Date.now();
-      }
-
-      console.warn(`Waiting for ${timeoutInMilliseconds / 1000} seconds...`);
-
-      await timers.setTimeout(timeoutInMilliseconds);
+      await rateLimitDelay({
+        retryAfter,
+        ratelimitReset,
+        retryCount,
+      });
 
       return await fetchUserInfo(username, retryCount + 1);
     }
