@@ -221,7 +221,13 @@ class UserFetchError extends Error {
   }
 }
 
-async function fetchUserInfo(username) {
+const MAX_RETRIES = 5;
+
+async function fetchUserInfo(username, retryCount = 0) {
+  if (retryCount >= MAX_RETRIES) {
+    throw new Error(`Hit max retries (${MAX_RETRIES}) for fetching user ${username}`);
+  }
+
   const res = await fetch(`https://api.github.com/users/${username}`, {
     headers: {
       Accept: "application/vnd.github+json",
@@ -249,7 +255,7 @@ async function fetchUserInfo(username) {
 
       await timers.setTimeout(timeoutInMilliseconds);
 
-      return await fetchUserInfo(username);
+      return await fetchUserInfo(username, retryCount + 1);
     }
 
     throw new UserFetchError(`${res.url} responded with ${res.status}`, res);
