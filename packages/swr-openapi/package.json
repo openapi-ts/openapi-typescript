@@ -79,7 +79,7 @@
     "@types/lodash": "4.17.20",
     "@types/react": "^18.3.24",
     "husky": "9.1.7",
-    "lint-staged": "15.5.2",
+    "lint-staged": "16.2.3",
     "lodash": "4.17.21",
     "openapi-fetch": "workspace:^",
     "openapi-typescript": "workspace:^",
