@@ -110,12 +110,10 @@ export function addJSDocComment(schemaObject: AnnotatedSchemaObject, node: ts.Pr
 
   if (output.length) {
     // Check if any output item contains multi-line content (has internal line breaks)
-    const hasMultiLineContent = output.some((item) => item.includes('\n'));
-    
+    const hasMultiLineContent = output.some((item) => item.includes("\n"));
+
     let text =
-      output.length === 1 && !hasMultiLineContent
-        ? `* ${output.join("\n")} `
-        : `*\n * ${output.join("\n * ")}\n `;
+      output.length === 1 && !hasMultiLineContent ? `* ${output.join("\n")} ` : `*\n * ${output.join("\n * ")}\n `;
     text = text.replace(COMMENT_RE, "*\\/"); // prevent inner comments from leaking
 
     ts.addSyntheticLeadingComment(
