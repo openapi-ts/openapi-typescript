@@ -120,6 +120,7 @@ export type RequestOptions<T> = ParamsOption<T> &
     parseAs?: ParseAs;
     fetch?: ClientOptions["fetch"];
     headers?: HeadersOptions;
+    middleware?: Middleware[];
   };
 
 export type MergedOptions<T = unknown> = {
