@@ -34,7 +34,7 @@ export default function createClient(clientOptions) {
   } = { ...clientOptions };
   requestInitExt = supportsRequestInitExt() ? requestInitExt : undefined;
   baseUrl = removeTrailingSlash(baseUrl);
-  const middlewares = [];
+  const globalMiddlewares = [];
 
   /**
    * Per-request fetch (keeps settings created in createClient()
@@ -52,7 +52,7 @@ export default function createClient(clientOptions) {
       querySerializer: requestQuerySerializer,
       bodySerializer = globalBodySerializer ?? defaultBodySerializer,
       body,
-      middleware: fetchMiddlewares = [],
+      middleware: requestMiddlewares = [],
       ...init
     } = fetchOptions || {};
     let finalBaseUrl = baseUrl;
@@ -100,11 +100,8 @@ export default function createClient(clientOptions) {
       params.header,
     );
 
-    const finalMiddlewares = [
-      // Client level middleware take priority over request-level middleware
-      ...(Array.isArray(middlewares) && middlewares),
-      ...(Array.isArray(fetchMiddlewares) && fetchMiddlewares),
-    ];
+    // Client level middleware take priority over request-level middleware
+    const finalMiddlewares = [...globalMiddlewares, ...requestMiddlewares];
 
     const requestInit = {
       redirect: "follow",
@@ -302,15 +299,15 @@ export default function createClient(clientOptions) {
         if (typeof m !== "object" || !("onRequest" in m || "onResponse" in m || "onError" in m)) {
           throw new Error("Middleware must be an object with one of `onRequest()`, `onResponse() or `onError()`");
         }
-        middlewares.push(m);
+        globalMiddlewares.push(m);
       }
     },
     /** Unregister middleware */
     eject(...middleware) {
       for (const m of middleware) {
-        const i = middlewares.indexOf(m);
+        const i = globalMiddlewares.indexOf(m);
         if (i !== -1) {
-          middlewares.splice(i, 1);
+          globalMiddlewares.splice(i, 1);
         }
       }
     },
@@ -669,14 +666,4 @@ export function removeTrailingSlash(url) {
     return url.substring(0, url.length - 1);
   }
   return url;
-}
-
-/**
- * Validate middleware object
- * @type {import("./index.js").validateMiddleware}
- */
-export function validateMiddleware(middleware) {
-  if (typeof middleware !== "object" || !("onRequest" in middleware || "onResponse" in v || "onError" in middleware)) {
-    throw new Error("Middleware must be an object with one of `onRequest()`, `onResponse() or `onError()`");
-  }
 }
