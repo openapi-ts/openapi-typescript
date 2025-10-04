@@ -59,7 +59,7 @@
   "devDependencies": {
     "@tanstack/react-query": "5.90.2",
     "@testing-library/react": "16.3.0",
-    "@types/react": "18.3.21",
+    "@types/react": "18.3.25",
     "@vitejs/plugin-react": "5.0.2",
     "execa": "catalog:",
     "msw": "2.11.2",
