@@ -19,7 +19,6 @@ export interface paths {
          *
          *     The response will be a JSON object with a key called `1_clicks`. This will be set to an array of
          *     1-Click application data, each of which will contain the the slug and type for the 1-Click.
-         *
          */
         get: operations["oneClicks_list"];
         put?: never;
@@ -45,7 +44,6 @@ export interface paths {
          *     `/v2/1-clicks/kubernetes`. The `addon_slugs` and `cluster_uuid` must be provided as body
          *     parameter in order to specify which 1-Click application(s) to install. To list all available
          *     1-Click Kubernetes applications, send a request to `/v2/1-clicks?type=kubernetes`.
-         *
          */
         post: operations["oneClicks_install_kubernetes"];
         delete?: never;
@@ -562,7 +560,6 @@ export interface paths {
          *
          *     It is recommended to use the Validate App Rollback endpoint to double check if the rollback is
          *     valid and if there are any warnings.
-         *
          */
         post: operations["apps_create_rollback"];
         delete?: never;
@@ -586,7 +583,6 @@ export interface paths {
          *     to check if there are any warnings or validation conditions that will cause the rollback to proceed
          *     under unideal circumstances. For example, if a component must be rebuilt as part of the rollback
          *     causing it to take longer than usual.
-         *
          */
         post: operations["apps_validate_rollback"];
         delete?: never;
@@ -607,7 +603,6 @@ export interface paths {
         /**
          * Commit App Rollback
          * @description Commit an app rollback. This action permanently applies the rollback and unpins the app to resume new deployments.
-         *
          */
         post: operations["apps_commit_rollback"];
         delete?: never;
@@ -629,7 +624,6 @@ export interface paths {
          * Revert App Rollback
          * @description Revert an app rollback. This action reverts the active rollback by creating a new deployment from the
          *     latest app spec prior to the rollback and unpins the app to resume new deployments.
-         *
          */
         post: operations["apps_revert_rollback"];
         delete?: never;
@@ -700,7 +694,6 @@ export interface paths {
          *
          *     A custom subdomain may be configured by specifying the `custom_domain` and
          *     `certificate_id` attributes.
-         *
          */
         post: operations["cdn_create_endpoint"];
         delete?: never;
@@ -726,7 +719,6 @@ export interface paths {
          * @description To update the TTL, certificate ID, or the FQDN of the custom subdomain for
          *     an existing CDN endpoint, send a PUT request to
          *     `/v2/cdn/endpoints/$ENDPOINT_ID`.
-         *
          */
         put: operations["cdn_update_endpoints"];
         post?: never;
@@ -737,7 +729,6 @@ export interface paths {
          *
          *     A status of 204 will be given. This indicates that the request was processed
          *     successfully, but that no response body is needed.
-         *
          */
         delete: operations["cdn_delete_endpoint"];
         options?: never;
@@ -766,7 +757,6 @@ export interface paths {
          *     be purged. CDN endpoints have a rate limit of 5 requests per 10 seconds.
          *     Purging files using a wildcard path counts as a single request against the API's
          *     rate limit. Two identical purge requests cannot be sent at the same time.
-         *
          */
         delete: operations["cdn_purge_cache"];
         options?: never;
@@ -798,7 +788,6 @@ export interface paths {
          *
          *     When using Let's Encrypt to create a certificate, the `dns_names` attribute
          *     must be provided, and the type must be set to `lets_encrypt`.
-         *
          */
         post: operations["certificates_create"];
         delete?: never;
@@ -825,7 +814,6 @@ export interface paths {
          * Delete a Certificate
          * @description To delete a specific certificate, send a DELETE request to
          *     `/v2/certificates/$CERTIFICATE_ID`.
-         *
          */
         delete: operations["certificates_delete"];
         options?: never;
@@ -1074,7 +1062,6 @@ export interface paths {
          *     `/v2/databases/$DATABASE_ID/config`.
          *     The response is a JSON object with a `config` key, which is set to an object
          *     containing any database configuration parameters.
-         *
          */
         get: operations["databases_get_config"];
         put?: never;
@@ -1086,7 +1073,6 @@ export interface paths {
          * Update the Database Configuration for an Existing Database
          * @description To update the configuration for an existing database cluster, send a PATCH request to
          *     `/v2/databases/$DATABASE_ID/config`.
-         *
          */
         patch: operations["databases_patch_config"];
         trace?: never;
@@ -1105,7 +1091,6 @@ export interface paths {
          *
          *     The response will be a JSON object with a `ca` key. This will be set to an object
          *     containing the base64 encoding of the public key certificate.
-         *
          */
         get: operations["databases_get_ca"];
         put?: never;
@@ -1155,7 +1140,6 @@ export interface paths {
          * @description To stop an online migration, send a DELETE request to `/v2/databases/$DATABASE_ID/online-migration/$MIGRATION_ID`.
          *
          *     A status of 204 will be given. This indicates that the request was processed successfully, but that no response body is needed.
-         *
          */
         delete: operations["databases_delete_onlineMigration"];
         options?: never;
@@ -1181,7 +1165,6 @@ export interface paths {
          *     response. Querying the database cluster will show that its `status` attribute
          *     will now be set to `migrating`. This will transition back to `online` when the
          *     migration has completed.
-         *
          */
         put: operations["databases_update_region"];
         post?: never;
@@ -1347,7 +1330,6 @@ export interface paths {
          *     `/v2/databases/$DATABASE_ID/events`.
          *
          *     The result will be a JSON object with a `events` key.
-         *
          */
         get: operations["databases_list_events_logs"];
         put?: never;
@@ -1432,7 +1414,6 @@ export interface paths {
          *     of database user objects, each of which will contain the standard database user attributes.
          *
          *     For MySQL clusters, additional options will be contained in the mysql_settings object.
-         *
          */
         get: operations["databases_list_users"];
         put?: never;
@@ -1452,7 +1433,6 @@ export interface paths {
          *     The response will be a JSON object with a key called `user`. The value of this will be an
          *     object that contains the standard attributes associated with a database user including
          *     its randomly generated password.
-         *
          */
         post: operations["databases_add_user"];
         delete?: never;
@@ -1482,7 +1462,6 @@ export interface paths {
          *     object.
          *
          *     For Kafka clusters, additional options will be contained in the `settings` object.
-         *
          */
         get: operations["databases_get_user"];
         /**
@@ -1496,7 +1475,6 @@ export interface paths {
          *     The response will be a JSON object with a key called `user`. The value of this will be an
          *     object that contains the name of the update database user, along with the `settings` object that
          *     has been updated.
-         *
          */
         put: operations["databases_update_user"];
         post?: never;
@@ -1509,7 +1487,6 @@ export interface paths {
          *     successfully, but that no response body is needed.
          *
          *     Note: User management is not supported for Redis clusters.
-         *
          */
         delete: operations["databases_delete_user"];
         options?: never;
@@ -1537,7 +1514,6 @@ export interface paths {
          *
          *     The response will be a JSON object with a `user` key. This will be set to an
          *     object containing the standard database user attributes.
-         *
          */
         post: operations["databases_reset_auth"];
         delete?: never;
@@ -1562,7 +1538,6 @@ export interface paths {
          *     of database objects, each of which will contain the standard database attributes.
          *
          *     Note: Database management is not supported for Redis clusters.
-         *
          */
         get: operations["databases_list"];
         put?: never;
@@ -1575,7 +1550,6 @@ export interface paths {
          *
          *     The response will be a JSON object with a key called `db`. The value of this will be
          *     an object that contains the standard attributes associated with a database.
-         *
          */
         post: operations["databases_add"];
         delete?: never;
@@ -1600,7 +1574,6 @@ export interface paths {
          *
          *     The response will be a JSON object with a `db` key. This will be set to an object
          *     containing the standard database attributes.
-         *
          */
         get: operations["databases_get"];
         put?: never;
@@ -1614,7 +1587,6 @@ export interface paths {
          *     successfully, but that no response body is needed.
          *
          *     Note: Database management is not supported for Redis clusters.
-         *
          */
         delete: operations["databases_delete"];
         options?: never;
@@ -1648,7 +1620,6 @@ export interface paths {
          *     request to `/v2/databases/$DATABASE_ID/pools` specifying a name for the pool,
          *     the user to connect with, the database to connect to, as well as its desired
          *     size and transaction mode.
-         *
          */
         post: operations["databases_add_connectionPool"];
         delete?: never;
@@ -1683,7 +1654,6 @@ export interface paths {
          *
          *     A status of 204 will be given. This indicates that the request was processed
          *     successfully, but that no response body is needed.
-         *
          */
         delete: operations["databases_delete_connectionPool"];
         options?: never;
@@ -1776,7 +1746,6 @@ export interface paths {
          *     `/v2/databases/$DATABASE_ID/topics`.
          *
          *     The result will be a JSON object with a `topics` key.
-         *
          */
         get: operations["databases_list_kafka_topics"];
         put?: never;
@@ -1786,7 +1755,6 @@ export interface paths {
          *     `/v2/databases/$DATABASE_ID/topics`.
          *
          *     The result will be a JSON object with a `topic` key.
-         *
          */
         post: operations["databases_create_kafka_topic"];
         delete?: never;
@@ -1808,7 +1776,6 @@ export interface paths {
          *     send a GET request to `/v2/databases/$DATABASE_ID/topics/$TOPIC_NAME`.
          *
          *     The result will be a JSON object with a `topic` key.
-         *
          */
         get: operations["databases_get_kafka_topic"];
         /**
@@ -1817,7 +1784,6 @@ export interface paths {
          *     `/v2/databases/$DATABASE_ID/topics/$TOPIC_NAME`.
          *
          *     The result will be a JSON object with a `topic` key.
-         *
          */
         put: operations["databases_update_kafka_topic"];
         post?: never;
@@ -1828,7 +1794,6 @@ export interface paths {
          *
          *     A status of 204 will be given. This indicates that the request was
          *     processed successfully, but that no response body is needed.
-         *
          */
         delete: operations["databases_delete_kafka_topic"];
         options?: never;
@@ -1845,19 +1810,15 @@ export interface paths {
         };
         /**
          * List Logsinks for a Database Cluster
-         *
          * @description To list logsinks for a database cluster, send a GET request to
          *     `/v2/databases/$DATABASE_ID/logsink`.
-         *
          */
         get: operations["databases_list_logsink"];
         put?: never;
         /**
          * Create Logsink for a Database Cluster
-         *
          * @description To create logsink for a database cluster, send a POST request to
          *     `/v2/databases/$DATABASE_ID/logsink`.
-         *
          */
         post: operations["databases_create_logsink"];
         delete?: never;
@@ -1875,27 +1836,21 @@ export interface paths {
         };
         /**
          * Get Logsink for a Database Cluster
-         *
          * @description To get a logsink for a database cluster, send a GET request to
          *     `/v2/databases/$DATABASE_ID/logsink/$LOGSINK_ID`.
-         *
          */
         get: operations["databases_get_logsink"];
         /**
          * Update Logsink for a Database Cluster
-         *
          * @description To update a logsink for a database cluster, send a PUT request to
          *     `/v2/databases/$DATABASE_ID/logsink/$LOGSINK_ID`.
-         *
          */
         put: operations["databases_update_logsink"];
         post?: never;
         /**
          * Delete Logsink for a Database Cluster
-         *
          * @description To delete a logsink for a database cluster, send a DELETE request to
          *     `/v2/databases/$DATABASE_ID/logsink/$LOGSINK_ID`.
-         *
          */
         delete: operations["databases_delete_logsink"];
         options?: never;
@@ -1940,7 +1895,6 @@ export interface paths {
          *     `/v2/databases/$DATABASE_ID/indexes`.
          *
          *     The result will be a JSON object with a `indexes` key.
-         *
          */
         get: operations["databases_list_opeasearch_indexes"];
         put?: never;
@@ -1968,7 +1922,6 @@ export interface paths {
          *
          *     A status of 204 will be given. This indicates that the request was
          *     processed successfully, but that no response body is needed.
-         *
          */
         delete: operations["databases_delete_opensearch_index"];
         options?: never;
@@ -1995,7 +1948,6 @@ export interface paths {
          *     attribute to the domain name you are adding. Optionally, you may set the
          *     "ip_address" attribute, and an A record will be automatically created pointing
          *     to the apex domain.
-         *
          */
         post: operations["domains_create"];
         delete?: never;
@@ -2021,7 +1973,6 @@ export interface paths {
         /**
          * Delete a Domain
          * @description To delete a domain, send a DELETE request to `/v2/domains/$DOMAIN_NAME`.
-         *
          */
         delete: operations["domains_delete"];
         options?: never;
@@ -2040,8 +1991,6 @@ export interface paths {
          * List All Domain Records
          * @description To get a listing of all records configured for a domain, send a GET request to `/v2/domains/$DOMAIN_NAME/records`.
          *     The list of records returned can be filtered by using the `name` and `type` query parameters. For example, to only include A records for a domain, send a GET request to `/v2/domains/$DOMAIN_NAME/records?type=A`. `name` must be a fully qualified record name. For example, to only include records matching `sub.example.com`, send a GET request to `/v2/domains/$DOMAIN_NAME/records?name=sub.example.com`. Both name and type may be used together.
-         *
-         *
          */
         get: operations["domains_list_records"];
         put?: never;
@@ -2055,7 +2004,6 @@ export interface paths {
          *
          *     See the [attribute table](#tag/Domain-Records) for details regarding record
          *     types and their respective required attributes.
-         *
          */
         post: operations["domains_create_record"];
         delete?: never;
@@ -2084,7 +2032,6 @@ export interface paths {
          *
          *     See the [attribute table](#tag/Domain-Records) for details regarding record
          *     types and their respective attributes.
-         *
          */
         put: operations["domains_update_record"];
         post?: never;
@@ -2095,7 +2042,6 @@ export interface paths {
          *
          *     The record will be deleted and the response status will be a 204. This
          *     indicates a successful request with no body returned.
-         *
          */
         delete: operations["domains_delete_record"];
         options?: never;
@@ -2108,7 +2054,6 @@ export interface paths {
          *
          *     See the [attribute table](#tag/Domain-Records) for details regarding record
          *     types and their respective attributes.
-         *
          */
         patch: operations["domains_patch_record"];
         trace?: never;
@@ -2139,7 +2084,6 @@ export interface paths {
          *
          *     By default, only non-GPU Droplets are returned. To list only GPU Droplets, set
          *     the `type` query parameter to `gpus`. For example, `/v2/droplets?type=gpus`.
-         *
          */
         get: operations["droplets_list"];
         put?: never;
@@ -2170,7 +2114,6 @@ export interface paths {
          *     operation, just that the request has been accepted for processing. The array
          *     of `actions` returned as part of the response's `links` object can be used to
          *     check the status of each individual Droplet create event.
-         *
          */
         post: operations["droplets_create"];
         /**
@@ -2181,7 +2124,6 @@ export interface paths {
          *
          *     A successful request will receive a 204 status code with no body in response.
          *     This indicates that the request was processed successfully.
-         *
          */
         delete: operations["droplets_destroy_byTag"];
         options?: never;
@@ -2200,7 +2142,6 @@ export interface paths {
          * Retrieve an Existing Droplet
          * @description To show information about an individual Droplet, send a GET request to
          *     `/v2/droplets/$DROPLET_ID`.
-         *
          */
         get: operations["droplets_get"];
         put?: never;
@@ -2211,7 +2152,6 @@ export interface paths {
          *
          *     A successful request will receive a 204 status code with no body in response.
          *     This indicates that the request was processed successfully.
-         *
          */
         delete: operations["droplets_destroy"];
         options?: never;
@@ -2234,7 +2174,6 @@ export interface paths {
          *     You will get back a JSON object that has a `backups` key. This will be set to
          *     an array of backup objects, each of which contain the standard
          *     Droplet backup attributes.
-         *
          */
         get: operations["droplets_list_backups"];
         put?: never;
@@ -2256,7 +2195,6 @@ export interface paths {
          * Retrieve the Backup Policy for an Existing Droplet
          * @description To show information about an individual Droplet's backup policy, send a GET
          *     request to `/v2/droplets/$DROPLET_ID/backups/policy`.
-         *
          */
         get: operations["droplets_get_backup_policy"];
         put?: never;
@@ -2278,7 +2216,6 @@ export interface paths {
          * List Backup Policies for All Existing Droplets
          * @description To list information about the backup policies for all Droplets in the account,
          *     send a GET request to `/v2/droplets/backups/policies`.
-         *
          */
         get: operations["droplets_list_backup_policies"];
         put?: never;
@@ -2300,7 +2237,6 @@ export interface paths {
          * List Supported Droplet Backup Policies
          * @description To retrieve a list of all supported Droplet backup policies, send a GET
          *     request to `/v2/droplets/backups/supported_policies`.
-         *
          */
         get: operations["droplets_list_supported_backup_policies"];
         put?: never;
@@ -2326,7 +2262,6 @@ export interface paths {
          *     You will get back a JSON object that has a `snapshots` key. This will be set
          *     to an array of snapshot objects, each of which contain the standard Droplet
          *     snapshot attributes.
-         *
          */
         get: operations["droplets_list_snapshots"];
         put?: never;
@@ -2352,7 +2287,6 @@ export interface paths {
          *     The results will be returned as a JSON object with an `actions` key. This will
          *     be set to an array filled with `action` objects containing the standard
          *     `action` attributes.
-         *
          */
         get: operations["dropletActions_list"];
         put?: never;
@@ -2380,7 +2314,6 @@ export interface paths {
          *     | <nobr>`change_kernel`</nobr>             | Changes a Droplet's kernel. Only applies to Droplets with externally managed kernels. All Droplets created after March 2017 use internal kernels by default. |
          *     | <nobr>`enable_ipv6`</nobr>               | Enables IPv6 for a Droplet. Once enabled for a Droplet, IPv6 can not be disabled. When enabling IPv6 on an existing Droplet, [additional OS-level configuration](https://docs.digitalocean.com/products/networking/ipv6/how-to/enable/#on-existing-droplets) is required. |
          *     | <nobr>`snapshot`</nobr>                  | Takes a snapshot of a Droplet. |
-         *
          */
         post: operations["dropletActions_post"];
         delete?: never;
@@ -2414,7 +2347,6 @@ export interface paths {
          *     - `enable_backups`
          *     - `disable_backups`
          *     - `snapshot`
-         *
          */
         post: operations["dropletActions_post_byTag"];
         delete?: never;
@@ -2437,7 +2369,6 @@ export interface paths {
          *
          *     The response will be a JSON object with a key called `action`. The value will
          *     be a Droplet action object.
-         *
          */
         get: operations["dropletActions_get"];
         put?: never;
@@ -2463,7 +2394,6 @@ export interface paths {
          *     The response will be a JSON object that has a key called `kernels`. This will
          *     be set to an array of `kernel` objects, each of which contain the standard
          *     `kernel` attributes.
-         *
          */
         get: operations["droplets_list_kernels"];
         put?: never;
@@ -2489,7 +2419,6 @@ export interface paths {
          *     The response will be a JSON object that has a key called `firewalls`. This will
          *     be set to an array of `firewall` objects, each of which contain the standard
          *     `firewall` attributes.
-         *
          */
         get: operations["droplets_list_firewalls"];
         put?: never;
@@ -2517,7 +2446,6 @@ export interface paths {
          *     will be set to an array containing objects representing any other Droplets
          *     that share the same physical hardware. An empty array indicates that the
          *     Droplet is not co-located any other Droplets associated with your account.
-         *
          */
         get: operations["droplets_list_neighbors"];
         put?: never;
@@ -2544,7 +2472,6 @@ export interface paths {
          *     The response will be a JSON object containing `snapshots`, `volumes`, and
          *     `volume_snapshots` keys. Each will be set to an array of objects containing
          *     information about the associated resources.
-         *
          */
         get: operations["droplets_list_associatedResources"];
         put?: never;
@@ -2578,7 +2505,6 @@ export interface paths {
          *     A successful response will include a 202 response code and no content. Use
          *     the status endpoint to check on the success or failure of the destruction of
          *     the individual resources.
-         *
          */
         delete: operations["droplets_destroy_withAssociatedResourcesSelective"];
         options?: never;
@@ -2608,7 +2534,6 @@ export interface paths {
          *     A successful response will include a 202 response code and no content. Use the
          *     status endpoint to check on the success or failure of the destruction of the
          *     individual resources.
-         *
          */
         delete: operations["droplets_destroy_withAssociatedResourcesDangerous"];
         options?: never;
@@ -2628,7 +2553,6 @@ export interface paths {
          * @description To check on the status of a request to destroy a Droplet with its associated
          *     resources, send a GET request to the
          *     `/v2/droplets/$DROPLET_ID/destroy_with_associated_resources/status` endpoint.
-         *
          */
         get: operations["droplets_get_DestroyAssociatedResourcesStatus"];
         put?: never;
@@ -2658,7 +2582,6 @@ export interface paths {
          *     while another destroy is in progress for the Droplet a 409 status code will
          *     be returned. A successful response will include a 202 response code and no
          *     content.
-         *
          */
         post: operations["droplets_destroy_retryWithAssociatedResources"];
         delete?: never;
@@ -2679,7 +2602,6 @@ export interface paths {
          * @description To list all autoscale pools in your team, send a GET request to `/v2/droplets/autoscale`.
          *     The response body will be a JSON object with a key of `autoscale_pools` containing an array of autoscale pool objects.
          *     These each contain the standard autoscale pool attributes.
-         *
          */
         get: operations["autoscalepools_list"];
         put?: never;
@@ -2688,7 +2610,6 @@ export interface paths {
          * @description To create a new autoscale pool, send a POST request to `/v2/droplets/autoscale` setting the required attributes.
          *
          *     The response body will contain a JSON object with a key called `autoscale_pool` containing the standard attributes for the new autoscale pool.
-         *
          */
         post: operations["autoscalepools_create"];
         delete?: never;
@@ -2708,7 +2629,6 @@ export interface paths {
          * Retrieve an Existing Autoscale Pool
          * @description To show information about an individual autoscale pool, send a GET request to
          *     `/v2/droplets/autoscale/$AUTOSCALE_POOL_ID`.
-         *
          */
         get: operations["autoscalepools_get"];
         /**
@@ -2716,7 +2636,6 @@ export interface paths {
          * @description To update the configuration of an existing autoscale pool, send a PUT request to
          *     `/v2/droplets/autoscale/$AUTOSCALE_POOL_ID`. The request must contain a full representation
          *     of the autoscale pool including existing attributes.
-         *
          */
         put: operations["autoscalepools_update"];
         post?: never;
@@ -2725,7 +2644,6 @@ export interface paths {
          * @description To destroy an autoscale pool, send a DELETE request to the `/v2/droplets/autoscale/$AUTOSCALE_POOL_ID` endpoint.
          *
          *     A successful response will include a 202 response code and no content.
-         *
          */
         delete: operations["autoscalepools_delete"];
         options?: never;
@@ -2747,7 +2665,6 @@ export interface paths {
          * Delete autoscale pool and resources
          * @description To destroy an autoscale pool and its associated resources (Droplets),
          *     send a DELETE request to the `/v2/droplets/autoscale/$AUTOSCALE_POOL_ID/dangerous` endpoint.
-         *
          */
         delete: operations["autoscalepools_delete_dangerous"];
         options?: never;
@@ -2768,7 +2685,6 @@ export interface paths {
          *
          *     The response body will be a JSON object with a key of `droplets`. This will be
          *     set to an array containing information about each of the Droplets in the autoscale pool.
-         *
          */
         get: operations["autoscalepools_list_members"];
         put?: never;
@@ -2792,7 +2708,6 @@ export interface paths {
          *
          *     The response body will be a JSON object with a key of `history`. This will be
          *     set to an array containing objects each representing a history event.
-         *
          */
         get: operations["autoscalepools_list_history"];
         put?: never;
@@ -2820,7 +2735,6 @@ export interface paths {
          * Create a New Firewall
          * @description To create a new firewall, send a POST request to `/v2/firewalls`. The request
          *     must contain at least one inbound or outbound access rule.
-         *
          */
         post: operations["firewalls_create"];
         delete?: never;
@@ -2847,7 +2761,6 @@ export interface paths {
          *     `/v2/firewalls/$FIREWALL_ID`. The request should contain a full representation
          *     of the firewall including existing attributes. **Note that any attributes that
          *     are not provided will be reset to their default values.**
-         *
          */
         put: operations["firewalls_update"];
         post?: never;
@@ -2858,7 +2771,6 @@ export interface paths {
          *     No response body will be sent back, but the response code will indicate
          *     success. Specifically, the response code will be a 204, which means that the
          *     action was successful with no returned body data.
-         *
          */
         delete: operations["firewalls_delete"];
         options?: never;
@@ -2884,7 +2796,6 @@ export interface paths {
          *     No response body will be sent back, but the response code will indicate
          *     success. Specifically, the response code will be a 204, which means that the
          *     action was successful with no returned body data.
-         *
          */
         post: operations["firewalls_assign_droplets"];
         /**
@@ -2896,7 +2807,6 @@ export interface paths {
          *     No response body will be sent back, but the response code will indicate
          *     success. Specifically, the response code will be a 204, which means that the
          *     action was successful with no returned body data.
-         *
          */
         delete: operations["firewalls_delete_droplets"];
         options?: never;
@@ -2922,7 +2832,6 @@ export interface paths {
          *     No response body will be sent back, but the response code will indicate
          *     success. Specifically, the response code will be a 204, which means that the
          *     action was successful with no returned body data.
-         *
          */
         post: operations["firewalls_add_tags"];
         /**
@@ -2934,7 +2843,6 @@ export interface paths {
          *     No response body will be sent back, but the response code will indicate
          *     success. Specifically, the response code will be a 204, which means that the
          *     action was successful with no returned body data.
-         *
          */
         delete: operations["firewalls_delete_tags"];
         options?: never;
@@ -2961,7 +2869,6 @@ export interface paths {
          *     No response body will be sent back, but the response code will indicate
          *     success. Specifically, the response code will be a 204, which means that the
          *     action was successful with no returned body data.
-         *
          */
         post: operations["firewalls_add_rules"];
         /**
@@ -2974,7 +2881,6 @@ export interface paths {
          *     No response body will be sent back, but the response code will indicate
          *     success. Specifically, the response code will be a 204, which means that the
          *     action was successful with no returned body data.
-         *
          */
         delete: operations["firewalls_delete_rules"];
         options?: never;
@@ -3034,7 +2940,6 @@ export interface paths {
          *
          *     A successful request will receive a 204 status code with no body in response.
          *     This indicates that the request was processed successfully.
-         *
          */
         delete: operations["floatingIPs_delete"];
         options?: never;
@@ -3065,7 +2970,6 @@ export interface paths {
          *     |------------|--------
          *     | `assign`   | Assigns a floating IP to a Droplet
          *     | `unassign` | Unassign a floating IP from a Droplet
-         *
          */
         post: operations["floatingIPsAction_post"];
         delete?: never;
@@ -3231,7 +3135,6 @@ export interface paths {
          *     **Tags**
          *
          *     To list all images assigned to a specific tag, include the `tag_name` query parameter set to the name of the tag in your GET request. For example, `/v2/images?tag_name=$TAG_NAME`.
-         *
          */
         get: operations["images_list"];
         put?: never;
@@ -3243,7 +3146,6 @@ export interface paths {
          *     The image must be in the raw, qcow2, vhdx, vdi, or vmdk format.
          *     It may be compressed using gzip or bzip2 and must be smaller than 100 GB after
          *      being decompressed.
-         *
          */
         post: operations["images_create_custom"];
         delete?: never;
@@ -3263,7 +3165,6 @@ export interface paths {
          * Retrieve an Existing Image
          * @description To retrieve information about an image, send a `GET` request to
          *     `/v2/images/$IDENTIFIER`.
-         *
          */
         get: operations["images_get"];
         /**
@@ -3271,14 +3172,12 @@ export interface paths {
          * @description To update an image, send a `PUT` request to `/v2/images/$IMAGE_ID`.
          *     Set the `name` attribute to the new value you would like to use.
          *     For custom images, the `description` and `distribution` attributes may also be updated.
-         *
          */
         put: operations["images_update"];
         post?: never;
         /**
          * Delete an Image
          * @description To delete a snapshot or custom image, send a `DELETE` request to `/v2/images/$IMAGE_ID`.
-         *
          */
         delete: operations["images_delete"];
         options?: never;
@@ -3314,7 +3213,6 @@ export interface paths {
          *     `/v2/images/$IMAGE_ID/actions`. Set the `type` attribute to `transfer` and set
          *     `region` attribute to the slug identifier of the region you wish to transfer
          *     to.
-         *
          */
         post: operations["imageActions_post"];
         delete?: never;
@@ -3354,7 +3252,6 @@ export interface paths {
          * List All Kubernetes Clusters
          * @description To list all of the Kubernetes clusters on your account, send a GET request
          *     to `/v2/kubernetes/clusters`.
-         *
          */
         get: operations["kubernetes_list_clusters"];
         put?: never;
@@ -3369,7 +3266,6 @@ export interface paths {
          *     implies that a window will be chosen automatically. See
          *     [here](https://docs.digitalocean.com/products/kubernetes/how-to/upgrade-cluster/)
          *     for details.
-         *
          */
         post: operations["kubernetes_create_cluster"];
         delete?: never;
@@ -3389,7 +3285,6 @@ export interface paths {
          * Retrieve an Existing Kubernetes Cluster
          * @description To show information about an existing Kubernetes cluster, send a GET request
          *     to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID`.
-         *
          */
         get: operations["kubernetes_get_cluster"];
         /**
@@ -3397,7 +3292,6 @@ export interface paths {
          * @description To update a Kubernetes cluster, send a PUT request to
          *     `/v2/kubernetes/clusters/$K8S_CLUSTER_ID` and specify one or more of the
          *     attributes below.
-         *
          */
         put: operations["kubernetes_update_cluster"];
         post?: never;
@@ -3408,7 +3302,6 @@ export interface paths {
          *
          *     A 204 status code with no body will be returned in response to a successful
          *     request.
-         *
          */
         delete: operations["kubernetes_delete_cluster"];
         options?: never;
@@ -3458,7 +3351,6 @@ export interface paths {
          *     The IDs can be found by querying the cluster's associated resources endpoint.
          *     Any associated resource not included in the request will remain and continue
          *     to accrue changes on your account.
-         *
          */
         delete: operations["kubernetes_destroy_associatedResourcesSelective"];
         options?: never;
@@ -3481,7 +3373,6 @@ export interface paths {
          * @description To delete a Kubernetes cluster with all of its associated resources, send a
          *     DELETE request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/destroy_with_associated_resources/dangerous`.
          *     A 204 status code with no body will be returned in response to a successful request.
-         *
          */
         delete: operations["kubernetes_destroy_associatedResourcesDangerous"];
         options?: never;
@@ -3515,7 +3406,6 @@ export interface paths {
          *     `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/kubeconfig?expiry_seconds=$DURATION_IN_SECONDS`.
          *     If not set or 0, then the token will have a 7 day expiry. The query parameter
          *     has no impact in certificate-based authentication.
-         *
          */
         get: operations["kubernetes_get_kubeconfig"];
         put?: never;
@@ -3551,7 +3441,6 @@ export interface paths {
          *     `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/credentials?expiry_seconds=$DURATION_IN_SECONDS`.
          *     If not set or 0, then the token will have a 7 day expiry. The query parameter
          *     has no impact in certificate-based authentication.
-         *
          */
         get: operations["kubernetes_get_credentials"];
         put?: never;
@@ -3574,7 +3463,6 @@ export interface paths {
          * @description To determine whether a cluster can be upgraded, and the versions to which it
          *     can be upgraded, send a GET request to
          *     `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/upgrades`.
-         *
          */
         get: operations["kubernetes_get_availableUpgrades"];
         put?: never;
@@ -3602,7 +3490,6 @@ export interface paths {
          *
          *     Available upgrade versions for a cluster can be fetched from
          *     `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/upgrades`.
-         *
          */
         post: operations["kubernetes_upgrade_cluster"];
         delete?: never;
@@ -3622,7 +3509,6 @@ export interface paths {
          * List All Node Pools in a Kubernetes Clusters
          * @description To list all of the node pools in a Kubernetes clusters, send a GET request to
          *     `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools`.
-         *
          */
         get: operations["kubernetes_list_nodePools"];
         put?: never;
@@ -3631,7 +3517,6 @@ export interface paths {
          * @description To add an additional node pool to a Kubernetes clusters, send a POST request
          *     to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools` with the following
          *     attributes.
-         *
          */
         post: operations["kubernetes_add_nodePool"];
         delete?: never;
@@ -3651,7 +3536,6 @@ export interface paths {
          * Retrieve a Node Pool for a Kubernetes Cluster
          * @description To show information about a specific node pool in a Kubernetes cluster, send
          *     a GET request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools/$NODE_POOL_ID`.
-         *
          */
         get: operations["kubernetes_get_nodePool"];
         /**
@@ -3660,7 +3544,6 @@ export interface paths {
          *     number of nodes, send a PUT request to
          *     `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools/$NODE_POOL_ID` with the
          *     following attributes.
-         *
          */
         put: operations["kubernetes_update_nodePool"];
         post?: never;
@@ -3671,7 +3554,6 @@ export interface paths {
          *
          *     A 204 status code with no body will be returned in response to a successful
          *     request. Nodes in the pool will subsequently be drained and deleted.
-         *
          */
         delete: operations["kubernetes_delete_nodePool"];
         options?: never;
@@ -3701,7 +3583,6 @@ export interface paths {
          *     Appending the `replace=1` query parameter to the request causes the node to
          *     be replaced by a new one after deletion. Omitting the query parameter or
          *     setting its value to `0` deletes without replacement.
-         *
          */
         delete: operations["kubernetes_delete_node"];
         options?: never;
@@ -3724,7 +3605,6 @@ export interface paths {
          * @description The endpoint has been deprecated. Please use the DELETE
          *     `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/node_pools/$NODE_POOL_ID/nodes/$NODE_ID`
          *     method instead.
-         *
          */
         post: operations["kubernetes_recycle_node_pool"];
         delete?: never;
@@ -3744,7 +3624,6 @@ export interface paths {
          * Retrieve User Information for a Kubernetes Cluster
          * @description To show information the user associated with a Kubernetes cluster, send a GET
          *     request to `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/user`.
-         *
          */
         get: operations["kubernetes_get_clusterUser"];
         put?: never;
@@ -3791,7 +3670,6 @@ export interface paths {
          *
          *     To find out how to address clusterlint feedback, please refer to
          *     [the clusterlint check documentation](https://github.com/digitalocean/clusterlint/blob/master/checks.md).
-         *
          */
         get: operations["kubernetes_get_clusterLintResults"];
         put?: never;
@@ -3808,7 +3686,6 @@ export interface paths {
          *
          *     For information about the available checks, please refer to
          *     [the clusterlint check documentation](https://github.com/digitalocean/clusterlint/blob/master/checks.md).
-         *
          */
         post: operations["kubernetes_run_clusterLint"];
         delete?: never;
@@ -3852,7 +3729,6 @@ export interface paths {
          * List All Load Balancers
          * @description To list all of the load balancer instances on your account, send a GET request
          *     to `/v2/load_balancers`.
-         *
          */
         get: operations["loadBalancers_list"];
         put?: never;
@@ -3870,7 +3746,6 @@ export interface paths {
          *       assigned as they are tagged.
          *
          *     These methods are mutually exclusive.
-         *
          */
         post: operations["loadBalancers_create"];
         delete?: never;
@@ -3890,7 +3765,6 @@ export interface paths {
          * Retrieve an Existing Load Balancer
          * @description To show information about a load balancer instance, send a GET request to
          *     `/v2/load_balancers/$LOAD_BALANCER_ID`.
-         *
          */
         get: operations["loadBalancers_get"];
         /**
@@ -3901,7 +3775,6 @@ export interface paths {
          *     contain _one of_ the `droplets_ids` or `tag` attributes as they are mutually
          *     exclusive. **Note that any attribute that is not provided will be reset to its
          *     default value.**
-         *
          */
         put: operations["loadBalancers_update"];
         post?: never;
@@ -3913,7 +3786,6 @@ export interface paths {
          *
          *     A successful request will receive a 204 status code with no body in response.
          *     This indicates that the request was processed successfully.
-         *
          */
         delete: operations["loadBalancers_delete"];
         options?: never;
@@ -3938,7 +3810,6 @@ export interface paths {
          *
          *     A successful request will receive a 204 status code with no body in response.
          *     This indicates that the request was processed successfully.
-         *
          */
         delete: operations["loadBalancers_delete_cache"];
         options?: never;
@@ -3967,7 +3838,6 @@ export interface paths {
          *     No response body will be sent back, but the response code will indicate
          *     success. Specifically, the response code will be a 204, which means that the
          *     action was successful with no returned body data.
-         *
          */
         post: operations["loadBalancers_add_droplets"];
         /**
@@ -3979,7 +3849,6 @@ export interface paths {
          *     No response body will be sent back, but the response code will indicate
          *     success. Specifically, the response code will be a 204, which means that the
          *     action was successful with no returned body data.
-         *
          */
         delete: operations["loadBalancers_remove_droplets"];
         options?: never;
@@ -4006,7 +3875,6 @@ export interface paths {
          *     No response body will be sent back, but the response code will indicate
          *     success. Specifically, the response code will be a 204, which means that the
          *     action was successful with no returned body data.
-         *
          */
         post: operations["loadBalancers_add_forwardingRules"];
         /**
@@ -4019,7 +3887,6 @@ export interface paths {
          *     No response body will be sent back, but the response code will indicate
          *     success. Specifically, the response code will be a 204, which means that the
          *     action was successful with no returned body data.
-         *
          */
         delete: operations["loadBalancers_remove_forwardingRules"];
         options?: never;
@@ -5089,7 +4956,6 @@ export interface paths {
          * Create Sink
          * @description To create a new sink, send a POST request to `/v2/monitoring/sinks`. Forwards logs from the
          *     resources identified in `resources` to the specified pre-existing destination.
-         *
          */
         post: operations["monitoring_create_sink"];
         delete?: never;
@@ -5200,7 +5066,6 @@ export interface paths {
          *
          *     A successful request will receive a 204 status code with no body in response.
          *     This indicates that the request was processed successfully.
-         *
          */
         delete: operations["projects_delete"];
         options?: never;
@@ -5301,7 +5166,6 @@ export interface paths {
          *     The `name` becomes part of the URL for images stored in the registry. For
          *     example, if your registry is called `example`, an image in it will have the
          *     URL `registry.digitalocean.com/example/image:tag`.
-         *
          */
         post: operations["registry_create"];
         /**
@@ -5369,7 +5233,6 @@ export interface paths {
          *     with an expiry set, expiry_seconds may be provided as a query parameter. For
          *     example: `/v2/registry/docker-credentials?expiry_seconds=3600` will return
          *     credentials that expire after one hour.
-         *
          */
         get: operations["registry_get_dockerCredentials"];
         put?: never;
@@ -5397,7 +5260,6 @@ export interface paths {
          *     If the name is both formatted correctly and available, the response code will
          *     be 204 and contain no body. If the name is already in use, the response will
          *     be a 409 Conflict.
-         *
          */
         post: operations["registry_validate_name"];
         delete?: never;
@@ -5420,7 +5282,6 @@ export interface paths {
          *
          *     To list all repositories in your container registry, send a GET
          *     request to `/v2/registry/$REGISTRY_NAME/repositories`.
-         *
          */
         get: operations["registry_list_repositories"];
         put?: never;
@@ -5467,7 +5328,6 @@ export interface paths {
          *     URL-encoded in the request URL. For example, to list tags for
          *     `registry.digitalocean.com/example/my/repo`, the path would be
          *     `/v2/registry/example/repositories/my%2Frepo/tags`.
-         *
          */
         get: operations["registry_list_repositoryTags"];
         put?: never;
@@ -5500,7 +5360,6 @@ export interface paths {
          *
          *     A successful request will receive a 204 status code with no body in response.
          *     This indicates that the request was processed successfully.
-         *
          */
         delete: operations["registry_delete_repositoryTag"];
         options?: never;
@@ -5524,7 +5383,6 @@ export interface paths {
          *     URL-encoded in the request URL. For example, to list manifests for
          *     `registry.digitalocean.com/example/my/repo`, the path would be
          *     `/v2/registry/example/repositories/my%2Frepo/digests`.
-         *
          */
         get: operations["registry_list_repositoryManifests"];
         put?: never;
@@ -5557,7 +5415,6 @@ export interface paths {
          *
          *     A successful request will receive a 204 status code with no body in response.
          *     This indicates that the request was processed successfully.
-         *
          */
         delete: operations["registry_delete_repositoryManifest"];
         options?: never;
@@ -5601,7 +5458,6 @@ export interface paths {
          *       collection status as `success`.
          *     * Remove the read-only mode restriction from the registry, meaning write-scoped
          *       JWTs will once again be issued to registry clients.
-         *
          */
         post: operations["registry_run_garbageCollection"];
         delete?: never;
@@ -5690,7 +5546,6 @@ export interface paths {
          *     Droplet IDs for Droplets that share a physical server. An empty array
          *     indicates that all Droplets associated with your account are located on
          *     separate physical hardware.
-         *
          */
         get: operations["droplets_list_neighborsIds"];
         put?: never;
@@ -5753,7 +5608,6 @@ export interface paths {
          *
          *     A successful request will receive a 204 status code with no body in response.
          *     This indicates that the request was processed successfully.
-         *
          */
         delete: operations["reservedIPs_delete"];
         options?: never;
@@ -5784,7 +5638,6 @@ export interface paths {
          *     |------------|--------
          *     | `assign`   | Assigns a reserved IP to a Droplet
          *     | `unassign` | Unassign a reserved IP from a Droplet
-         *
          */
         post: operations["reservedIPsActions_post"];
         delete?: never;
@@ -5863,7 +5716,6 @@ export interface paths {
          *
          *     To retrieve only snapshots based on volumes, include the `resource_type`
          *     query parameter set to `volume`. For example, `/v2/snapshots?resource_type=volume`.
-         *
          */
         get: operations["snapshots_list"];
         put?: never;
@@ -5888,7 +5740,6 @@ export interface paths {
          *
          *     The response will be a JSON object with a key called `snapshot`. The value of
          *     this will be an snapshot object containing the standard snapshot attributes.
-         *
          */
         get: operations["snapshots_get"];
         put?: never;
@@ -5901,7 +5752,6 @@ export interface paths {
          *
          *     A status of 204 will be given. This indicates that the request was processed
          *     successfully, but that no response body is needed.
-         *
          */
         delete: operations["snapshots_delete"];
         options?: never;
@@ -6001,9 +5851,6 @@ export interface paths {
          *     **Note:** You can only create one volume per region with the same name.
          *     ### By Name and Region
          *     It is also possible to retrieve information about a block storage volume by name. To do so, send a GET request with the volume's name and the region slug for the region it is located in as query parameters to `/v2/volumes?name=$VOLUME_NAME&region=nyc1`.
-         *
-         *
-         *
          */
         get: operations["volumes_list"];
         put?: never;
@@ -6016,8 +5863,6 @@ export interface paths {
          * Delete a Block Storage Volume by Name
          * @description Block storage volumes may also be deleted by name by sending a DELETE request with the volume's **name** and the **region slug** for the region it is located in as query parameters to `/v2/volumes?name=$VOLUME_NAME&region=nyc1`.
          *     No response body will be sent back, but the response code will indicate success. Specifically, the response code will be a 204, which means that the action was successful with no returned body data.
-         *
-         *
          */
         delete: operations["volumes_delete_byName"];
         options?: never;
@@ -6064,7 +5909,6 @@ export interface paths {
          *     | volume_name | The name of the block storage volume                                |
          *     | droplet_id  | Set to the Droplet's ID                                             |
          *     | region      | Set to the slug representing the region where the volume is located |
-         *
          */
         post: operations["volumeActions_post"];
         delete?: never;
@@ -6083,8 +5927,6 @@ export interface paths {
         /**
          * Retrieve an Existing Volume Snapshot
          * @description To retrieve the details of a snapshot that has been created from a volume, send a GET request to `/v2/volumes/snapshots/$VOLUME_SNAPSHOT_ID`.
-         *
-         *
          */
         get: operations["volumeSnapshots_get_byId"];
         put?: never;
@@ -6096,7 +5938,6 @@ export interface paths {
          *
          *     A status of 204 will be given. This indicates that the request was processed
          *     successfully, but that no response body is needed.
-         *
          */
         delete: operations["volumeSnapshots_delete_byId"];
         options?: never;
@@ -6114,8 +5955,6 @@ export interface paths {
         /**
          * Retrieve an Existing Block Storage Volume
          * @description To show information about a block storage volume, send a GET request to `/v2/volumes/$VOLUME_ID`.
-         *
-         *
          */
         get: operations["volumes_get"];
         put?: never;
@@ -6124,8 +5963,6 @@ export interface paths {
          * Delete a Block Storage Volume
          * @description To delete a block storage volume, destroying all data and removing it from your account, send a DELETE request to `/v2/volumes/$VOLUME_ID`.
          *     No response body will be sent back, but the response code will indicate success. Specifically, the response code will be a 204, which means that the action was successful with no returned body data.
-         *
-         *
          */
         delete: operations["volumes_delete"];
         options?: never;
@@ -6143,8 +5980,6 @@ export interface paths {
         /**
          * List All Actions for a Volume
          * @description To retrieve all actions that have been executed on a volume, send a GET request to `/v2/volumes/$VOLUME_ID/actions`.
-         *
-         *
          */
         get: operations["volumeActions_list"];
         put?: never;
@@ -6186,7 +6021,6 @@ export interface paths {
          *     | region         | Set to the slug representing the region where the volume is located |
          *
          *     Volumes may only be resized upwards. The maximum size for a volume is 16TiB.
-         *
          */
         post: operations["volumeActions_post_byId"];
         delete?: never;
@@ -6205,8 +6039,6 @@ export interface paths {
         /**
          * Retrieve an Existing Volume Action
          * @description To retrieve the status of a volume action, send a GET request to `/v2/volumes/$VOLUME_ID/actions/$ACTION_ID`.
-         *
-         *
          */
         get: operations["volumeActions_get"];
         put?: never;
@@ -6227,8 +6059,6 @@ export interface paths {
         /**
          * List Snapshots for a Volume
          * @description To retrieve the snapshots that have been created from a volume, send a GET request to `/v2/volumes/$VOLUME_ID/snapshots`.
-         *
-         *
          */
         get: operations["volumeSnapshots_list"];
         put?: never;
@@ -6264,7 +6094,6 @@ export interface paths {
          *     **Note:** If you do not currently have a VPC network in a specific datacenter
          *     region, the first one that you create will be set as the default for that
          *     region. The default VPC for a region cannot be changed or deleted.
-         *
          */
         post: operations["vpcs_create"];
         delete?: never;
@@ -6288,7 +6117,6 @@ export interface paths {
         /**
          * Update a VPC
          * @description To update information about a VPC, send a PUT request to `/v2/vpcs/$VPC_ID`.
-         *
          */
         put: operations["vpcs_update"];
         post?: never;
@@ -6301,7 +6129,6 @@ export interface paths {
          *     be deleted if it does not contain any member resources. Attempting to delete
          *     a region's default VPC or a VPC that still has members will result in a
          *     403 Forbidden error response.
-         *
          */
         delete: operations["vpcs_delete"];
         options?: never;
@@ -6310,7 +6137,6 @@ export interface paths {
          * Partially Update a VPC
          * @description To update a subset of information about a VPC, send a PATCH request to
          *     `/v2/vpcs/$VPC_ID`.
-         *
          */
         patch: operations["vpcs_patch"];
         trace?: never;
@@ -6330,7 +6156,6 @@ export interface paths {
          *     To only list resources of a specific type that are members of the VPC,
          *     included a `resource_type` query parameter. For example, to only list Droplets
          *     in the VPC, send a GET request to `/v2/vpcs/$VPC_ID/members?resource_type=droplet`.
-         *
          */
         get: operations["vpcs_list_members"];
         put?: never;
@@ -6352,7 +6177,6 @@ export interface paths {
          * List the Peerings of a VPC
          * @description To list all of a VPC's peerings, send a GET request to
          *     `/v2/vpcs/$VPC_ID/peerings`.
-         *
          */
         get: operations["vpcs_list_peerings"];
         put?: never;
@@ -6360,7 +6184,6 @@ export interface paths {
          * Create a Peering with a VPC
          * @description To create a new VPC peering for a given VPC, send a POST request to
          *     `/v2/vpcs/$VPC_ID/peerings`.
-         *
          */
         post: operations["vpcs_create_peerings"];
         delete?: never;
@@ -6387,7 +6210,6 @@ export interface paths {
          * @description To update the name of a VPC peering in a particular VPC, send a PATCH request
          *     to `/v2/vpcs/$VPC_ID/peerings/$VPC_PEERING_ID` with the new `name` in the
          *     request body.
-         *
          */
         patch: operations["vpcs_patch_peerings"];
         trace?: never;
@@ -6411,7 +6233,6 @@ export interface paths {
          *     specifying a name and a list of two VPC IDs to peer. The response code, 202
          *     Accepted, does not indicate the success or failure of the operation, just
          *     that the request has been accepted for processing.
-         *
          */
         post: operations["vpcPeerings_create"];
         delete?: never;
@@ -6430,7 +6251,6 @@ export interface paths {
         /**
          * Retrieve an Existing VPC Peering
          * @description To show information about an existing VPC Peering, send a GET request to `/v2/vpc_peerings/$VPC_PEERING_ID`.
-         *
          */
         get: operations["vpcPeerings_get"];
         put?: never;
@@ -6438,7 +6258,6 @@ export interface paths {
         /**
          * Delete a VPC peering
          * @description To delete a VPC peering, send a DELETE request to `/v2/vpc_peerings/$VPC_PEERING_ID`.
-         *
          */
         delete: operations["vpcPeerings_delete"];
         options?: never;
@@ -6446,7 +6265,6 @@ export interface paths {
         /**
          * Update a VPC peering
          * @description To update the name of a VPC peering, send a PATCH request to `/v2/vpc_peerings/$VPC_PEERING_ID` with the new `name` in the request body.
-         *
          */
         patch: operations["vpcPeerings_patch"];
         trace?: never;
@@ -6468,7 +6286,6 @@ export interface paths {
          * Create a New Check
          * @description To create an Uptime check, send a POST request to `/v2/uptime/checks` specifying the attributes
          *     in the table below in the JSON body.
-         *
          */
         post: operations["uptime_create_check"];
         delete?: never;
@@ -6492,7 +6309,6 @@ export interface paths {
         /**
          * Update a Check
          * @description To update the settings of an Uptime check, send a PUT request to `/v2/uptime/checks/$CHECK_ID`.
-         *
          */
         put: operations["uptime_update_check"];
         post?: never;
@@ -6503,7 +6319,6 @@ export interface paths {
          *
          *
          *     Deleting a check will also delete alerts associated with the check.
-         *
          */
         delete: operations["uptime_delete_check"];
         options?: never;
@@ -6548,7 +6363,6 @@ export interface paths {
          * Create a New Alert
          * @description To create an Uptime alert, send a POST request to `/v2/uptime/checks/$CHECK_ID/alerts` specifying the attributes
          *     in the table below in the JSON body.
-         *
          */
         post: operations["uptime_create_alert"];
         delete?: never;
@@ -6572,7 +6386,6 @@ export interface paths {
         /**
          * Update an Alert
          * @description To update the settings of an Uptime alert, send a PUT request to `/v2/uptime/checks/$CHECK_ID/alerts/$ALERT_ID`.
-         *
          */
         put: operations["uptime_update_alert"];
         post?: never;
@@ -6580,7 +6393,6 @@ export interface paths {
          * Delete an Alert
          * @description To delete an Uptime alert, send a DELETE request to `/v2/uptime/checks/$CHECK_ID/alerts/$ALERT_ID`. A 204 status
          *     code with no body will be returned in response to a successful request.
-         *
          */
         delete: operations["uptime_delete_alert"];
         options?: never;
@@ -7231,12 +7043,14 @@ export interface components {
         };
         backward_links: components["schemas"]["link_to_first_page"] & components["schemas"]["link_to_prev_page"];
         page_links: {
-            /** @example {
+            /**
+             * @example {
              *       "pages": {
              *         "first": "https://api.digitalocean.com/v2/account/keys?page=1",
              *         "prev": "https://api.digitalocean.com/v2/account/keys?page=2"
              *       }
-             *     } */
+             *     }
+             */
             pages?: components["schemas"]["forward_links"] | components["schemas"]["backward_links"] | unknown;
         };
         pagination: {
@@ -7969,7 +7783,6 @@ export interface components {
              *
              *     - `HTTP`: The app is serving the HTTP protocol. Default.
              *     - `HTTP2`: The app is serving the HTTP/2 protocol. Currently, this needs to be implemented in the service by serving HTTP/2 cleartext (h2c).
-             *
              * @example HTTP
              * @enum {string}
              */
@@ -8291,8 +8104,10 @@ export interface components {
             workers?: components["schemas"]["app_worker_spec"][];
             /** @description Workloads which expose publicly-accessible HTTP services via Functions Components. */
             functions?: components["schemas"]["app_functions_spec"][];
-            /** @description Database instances which can provide persistence to workloads within the
-             *     application. */
+            /**
+             * @description Database instances which can provide persistence to workloads within the
+             *     application.
+             */
             databases?: components["schemas"]["app_database_spec"][];
             ingress?: components["schemas"]["app_ingress_spec"];
             egress?: components["schemas"]["app_egress_spec"];
@@ -8855,9 +8670,11 @@ export interface components {
             alerts?: components["schemas"]["app_alert"][];
         };
         apps_assign_app_alert_destinations_request: {
-            /** @example [
+            /**
+             * @example [
              *       "sammy@digitalocean.com"
-             *     ] */
+             *     ]
+             */
             emails?: components["schemas"]["app_alert_email"][];
             slack_webhooks?: components["schemas"]["app_alert_slack_webhook"][];
         };
@@ -8891,7 +8708,6 @@ export interface components {
              *     Warning conditions:
              *       - `static_site_requires_rebuild` - indicates that the deployment contains at least one static site that will require a rebuild.
              *       - `image_source_missing_digest` - indicates that the deployment contains at least one component with an image source that is missing a digest.
-             *
              * @example exceeded_revision_limit
              * @enum {string}
              */
@@ -8901,9 +8717,11 @@ export interface components {
              * @example the deployment is past the maximum historical revision limit of 0 for the "starter" app tier
              */
             message?: string;
-            /** @example [
+            /**
+             * @example [
              *       "www"
-             *     ] */
+             *     ]
+             */
             components?: string[];
         };
         /** @description Bandwidth usage for an app. */
@@ -9661,7 +9479,6 @@ export interface components {
              *     or `caching_sha2_password`. If excluded when creating a new user, the
              *     default for the version of MySQL in use will be used. As of MySQL 8.0, the
              *     default is `caching_sha2_password`.
-             *
              * @example mysql_native_password
              * @enum {string}
              */
@@ -9671,7 +9488,6 @@ export interface components {
             /**
              * @description For Postgres clusters, set to `true` for a user with replication rights.
              *     This option is not currently supported for other database engines.
-             *
              * @example true
              */
             pg_allow_replication?: boolean;
@@ -9718,7 +9534,6 @@ export interface components {
             /**
              * @description A string representing the database user's role. The value will be either
              *     "primary" or "normal".
-             *
              * @example normal
              * @enum {string}
              */
@@ -9937,7 +9752,7 @@ export interface components {
              *     ]
              */
             readonly db_names?: string[] | null;
-            /** @description The connection details for OpenSearch dashboard.  */
+            /** @description The connection details for OpenSearch dashboard. */
             ui_connection?: components["schemas"]["opensearch_connection"] & unknown;
             connection?: components["schemas"]["database_connection"] & unknown;
             private_connection?: components["schemas"]["database_connection"] & unknown;
@@ -10540,7 +10355,6 @@ export interface components {
              * @description Require SSL to access Redis.
              *     - When enabled, Redis accepts only SSL connections on port `25061`.
              *     - When disabled, port `25060` is opened for non-SSL connections, while port `25061` remains available for SSL connections.
-             *
              * @default true
              * @example true
              */
@@ -11566,7 +11380,6 @@ export interface components {
              * @description Conditional (required if `format` == `custom`).
              *
              *     Syslog log line template for a custom format, supporting limited rsyslog style templating (using `%tag%`). Supported tags are: `HOSTNAME`, `app-name`, `msg`, `msgid`, `pri`, `procid`, `structured-data`, `timestamp` and `timestamp:::date-rfc3339`.
-             *
              * @example <%pri%>%timestamp:::date-rfc3339% %HOSTNAME% %app-name% %msg%
              */
             logline?: string;
@@ -11652,14 +11465,16 @@ export interface components {
             ca?: string;
         };
         logsink_verbose: components["schemas"]["logsink_base_verbose"] & {
-            /** @example {
+            /**
+             * @example {
              *       "config": {
              *         "server": "192.168.0.1",
              *         "port": 514,
              *         "tls": false,
              *         "format": "rfc5424"
              *       }
-             *     } */
+             *     }
+             */
             config?: components["schemas"]["rsyslog_logsink"] | components["schemas"]["elasticsearch_logsink"] | components["schemas"]["opensearch_logsink"];
         };
         logsink_base: {
@@ -11762,7 +11577,6 @@ export interface components {
              *     example.com. 1800 IN NS ns2.digitalocean.com.
              *     example.com. 1800 IN NS ns3.digitalocean.com.
              *     example.com. 1800 IN A 1.2.3.4
-             *
              */
             readonly zone_file?: string | null;
         };
@@ -11855,7 +11669,6 @@ export interface components {
          *     The current [kernel](https://docs.digitalocean.com/products/droplets/how-to/kernel/)
          *     for Droplets with externally managed kernels. This will initially be set to
          *     the kernel of the base image when the Droplet is created.
-         *
          */
         kernel: {
             /**
@@ -12100,7 +11913,6 @@ export interface components {
              *
              *     For private interfaces, a gateway is not provided. This is denoted by
              *     returning `nil` as its value.
-             *
              * @example 104.236.0.1
              */
             gateway?: string;
@@ -12133,7 +11945,6 @@ export interface components {
              * @description The type of the IPv6 network interface.
              *
              *     **Note**: IPv6 private  networking is not currently supported.
-             *
              * @example public
              * @enum {string}
              */
@@ -12332,7 +12143,6 @@ export interface components {
              * @example #cloud-config
              *     runcmd:
              *       - touch /test.txt
-             *
              */
             user_data?: string;
             /**
@@ -12468,7 +12278,6 @@ export interface components {
             /**
              * @description An array of integers representing the hours of the day that a backup can
              *     start.
-             *
              * @example [
              *       0,
              *       4,
@@ -12511,24 +12320,28 @@ export interface components {
              */
             type: "enable_backups" | "disable_backups" | "power_cycle" | "shutdown" | "power_off" | "power_on" | "enable_ipv6";
         };
-        /** @example {
+        /**
+         * @example {
          *       "type": "enable_backups",
          *       "backup_policy": {
          *         "plan": "daily",
          *         "hour": 20
          *       }
-         *     } */
+         *     }
+         */
         droplet_action_enable_backups: components["schemas"]["droplet_action"] & {
             backup_policy?: components["schemas"]["droplet_backup_policy"] & unknown;
         };
-        /** @example {
+        /**
+         * @example {
          *       "type": "enable_backups",
          *       "backup_policy": {
          *         "plan": "weekly",
          *         "day": "SUN",
          *         "hour": 20
          *       }
-         *     } */
+         *     }
+         */
         droplet_action_change_backup_policy: components["schemas"]["droplet_action"] & {
             backup_policy: components["schemas"]["droplet_backup_policy"] & unknown;
         };
@@ -12898,7 +12711,6 @@ export interface components {
              * @example #cloud-config
              *     runcmd:
              *       - touch /test.txt
-             *
              */
             user_data?: string;
         };
@@ -13179,8 +12991,7 @@ export interface components {
              */
             label: string;
         };
-        /** @description Trigger details for SCHEDULED type, where body is optional.
-         *      */
+        /** @description Trigger details for SCHEDULED type, where body is optional. */
         scheduled_details: {
             /**
              * @description valid cron expression string which is required for SCHEDULED type triggers.
@@ -13279,7 +13090,8 @@ export interface components {
             distribution?: components["schemas"]["distribution"];
             description?: components["schemas"]["image_description"];
         };
-        /** @example {
+        /**
+         * @example {
          *       "name": "ubuntu-18.04-minimal",
          *       "url": "http://cloud-images.ubuntu.com/minimal/releases/bionic/release/ubuntu-18.04-minimal-cloudimg-amd64.img",
          *       "distribution": "Ubuntu",
@@ -13289,7 +13101,8 @@ export interface components {
          *         "base-image",
          *         "prod"
          *       ]
-         *     } */
+         *     }
+         */
         image_new_custom: WithRequired<components["schemas"]["image_update"], "name"> & {
             /**
              * @description A URL from which the custom Linux virtual machine image may be retrieved.  The image it points to must be in the raw, qcow2, vhdx, vdi, or vmdk format.  It may be compressed using gzip or bzip2 and must be smaller than 100 GB after being decompressed.
@@ -13706,7 +13519,6 @@ export interface components {
              *     Newly created Kubernetes clusters do not return credentials using
              *     certificate-based authentication. For additional information,
              *     [see here](https://docs.digitalocean.com/products/kubernetes/how-to/connect-to-cluster/#authenticate).
-             *
              * @example null
              */
             client_certificate_data?: string | null;
@@ -13720,7 +13532,6 @@ export interface components {
              *     Newly created Kubernetes clusters do not return credentials using
              *     certificate-based authentication. For additional information,
              *     [see here](https://docs.digitalocean.com/products/kubernetes/how-to/connect-to-cluster/#authenticate).
-             *
              * @example null
              */
             client_key_data?: string | null;
@@ -13908,7 +13719,6 @@ export interface components {
         forwarding_rule: {
             /**
              * @description The protocol used for traffic to the load balancer. The possible values are: `http`, `https`, `http2`, `http3`, `tcp`, or `udp`. If you set the  `entry_protocol` to `udp`, the `target_protocol` must be set to `udp`.  When using UDP, the load balancer requires that you set up a health  check with a port that uses TCP, HTTP, or HTTPS to work properly.
-             *
              * @example https
              * @enum {string}
              */
@@ -13920,7 +13730,6 @@ export interface components {
             entry_port: number;
             /**
              * @description The protocol used for traffic from the load balancer to the backend Droplets. The possible values are: `http`, `https`, `http2`, `tcp`, or `udp`. If you set the `target_protocol` to `udp`, the `entry_protocol` must be set to  `udp`. When using UDP, the load balancer requires that you set up a health  check with a port that uses TCP, HTTP, or HTTPS to work properly.
-             *
              * @example http
              * @enum {string}
              */
@@ -14284,13 +14093,17 @@ export interface components {
             description: string;
             /** @example true */
             enabled: boolean;
-            /** @example [
+            /**
+             * @example [
              *       "192018292"
-             *     ] */
+             *     ]
+             */
             entities: string[];
-            /** @example [
+            /**
+             * @example [
              *       "droplet_tag"
-             *     ] */
+             *     ]
+             */
             tags: string[];
             /**
              * @example v1/insights/droplet/cpu
@@ -14324,13 +14137,17 @@ export interface components {
             description: string;
             /** @example true */
             enabled: boolean;
-            /** @example [
+            /**
+             * @example [
              *       "192018292"
-             *     ] */
+             *     ]
+             */
             entities: string[];
-            /** @example [
+            /**
+             * @example [
              *       "droplet_tag"
-             *     ] */
+             *     ]
+             */
             tags: string[];
             /**
              * @example v1/insights/droplet/cpu
@@ -14438,7 +14255,6 @@ export interface components {
             /**
              * @description The destination type. `opensearch_dbaas` for a DigitalOcean managed OpenSearch
              *     cluster or `opensearch_ext` for an externally managed one.
-             *
              * @example opensearch_dbaas
              * @enum {unknown}
              */
@@ -14489,7 +14305,6 @@ export interface components {
             /**
              * @description The destination type. `opensearch_dbaas` for a DigitalOcean managed OpenSearch
              *     cluster or `opensearch_ext` for an externally managed one.
-             *
              * @enum {unknown}
              */
             type: "opensearch_dbaas" | "opensearch_ext";
@@ -14553,7 +14368,6 @@ export interface components {
             /**
              * @description The destination type. `opensearch_dbaas` for a DigitalOcean managed OpenSearch
              *     cluster or `opensearch_ext` for an externally managed one.
-             *
              * @example opensearch_dbaas
              * @enum {unknown}
              */
@@ -14620,7 +14434,6 @@ export interface components {
              *
              *     If another value for purpose is specified, for example, "your custom purpose",
              *     your purpose will be stored as `Other: your custom purpose`.
-             *
              * @example Service or API
              */
             purpose?: string;
@@ -15131,8 +14944,10 @@ export interface components {
              */
             last_tagged_uri?: string;
         };
-        /** @description A tag is a label that can be applied to a resource (currently Droplets, Images, Volumes, Volume Snapshots, and Database clusters) in order to better organize or facilitate the lookups and actions on it.
-         *     Tags have two attributes: a user defined `name` attribute and an embedded `resources` attribute with information about resources that have been tagged. */
+        /**
+         * @description A tag is a label that can be applied to a resource (currently Droplets, Images, Volumes, Volume Snapshots, and Database clusters) in order to better organize or facilitate the lookups and actions on it.
+         *     Tags have two attributes: a user defined `name` attribute and an embedded `resources` attribute with information about resources that have been tagged.
+         */
         tags: {
             /**
              * @description The name of the tag. Tags may contain letters, numbers, colons, dashes, and underscores.
@@ -15143,7 +14958,6 @@ export interface components {
              *     When working with tags in the API, you must use the tag's canonical capitalization. For example, if you create a tag named "PROD", the URL to add that tag to a resource would be `https://api.digitalocean.com/v2/tags/PROD/resources` (not `/v2/tags/prod/resources`).
              *
              *     Tagged resources in the control panel will always display the canonical capitalization. For example, if you create a tag named "PROD", you can tag resources in the control panel by entering "prod". The tag will still display with its canonical capitalization, "PROD".
-             *
              * @example extra-awesome
              */
             name?: string;
@@ -15265,7 +15079,8 @@ export interface components {
             tags?: components["schemas"]["tags_array"];
         };
         volume_full: components["schemas"]["volume_base"] & {
-            /** @example {
+            /**
+             * @example {
              *       "name": "New York 1",
              *       "slug": "nyc1",
              *       "sizes": [
@@ -15291,7 +15106,8 @@ export interface components {
              *         "metadata"
              *       ],
              *       "available": true
-             *     } */
+             *     }
+             */
             readonly region?: unknown & components["schemas"]["region"];
             /**
              * @description The type of filesystem currently in-use on the volume.
@@ -15793,9 +15609,11 @@ export interface components {
              * @example 2023-01-01T00:00:00Z
              */
             created_at?: string;
-            /** @example [
+            /**
+             * @example [
              *       "example string"
-             *     ] */
+             *     ]
+             */
             data_source_uuids?: string[];
             /**
              * Format: date-time
@@ -17215,10 +17033,12 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "id": "example_error",
                  *       "message": "some error message"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -17245,10 +17065,12 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "id": "unauthorized",
                  *       "message": "Unable to authenticate you."
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -17261,10 +17083,12 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "id": "too_many_requests",
                  *       "message": "API Rate limit exceeded."
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -17277,18 +17101,21 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "id": "server_error",
                  *       "message": "Unexpected server-side error"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["error"];
             };
         };
-        /** @description The response will verify that a job has been successfully created to install a 1-Click. The
+        /**
+         * @description The response will verify that a job has been successfully created to install a 1-Click. The
          *     post-installation lifecycle of a 1-Click application can not be managed via the DigitalOcean
          *     API. For additional details specific to the 1-Click, find and view its
          *     [DigitalOcean Marketplace](https://marketplace.digitalocean.com) page.
-         *      */
+         */
         oneClicks_create: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -17371,10 +17198,12 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "id": "not_found",
                  *       "message": "The resource you requested could not be found."
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -17473,9 +17302,11 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "id": "b7d64052-3706-4cb7-b21a-c5a2f44e63b3"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["apps_delete_app_response"];
             };
         };
@@ -17707,8 +17538,10 @@ export interface components {
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
             };
         };
-        /** @description The response will be a JSON object with a key called `certificate`. The value of this will be an object that contains the standard attributes associated with a certificate.
-         *     When using Let's Encrypt, the initial value of the certificate's `state` attribute will be `pending`. When the certificate has been successfully issued by Let's Encrypt, this will transition to `verified` and be ready for use. */
+        /**
+         * @description The response will be a JSON object with a key called `certificate`. The value of this will be an object that contains the standard attributes associated with a certificate.
+         *     When using Let's Encrypt, the initial value of the certificate's `state` attribute will be `pending`. When the certificate has been successfully issued by Let's Encrypt, this will transition to `verified` and be ready for use.
+         */
         new_certificate: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -17745,12 +17578,14 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "month_to_date_balance": "23.44",
                  *       "account_balance": "12.23",
                  *       "month_to_date_usage": "11.21",
                  *       "generated_at": "2019-07-09T15:01:12Z"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["balance"];
             };
         };
@@ -17768,8 +17603,10 @@ export interface components {
                 } & components["schemas"]["pagination"] & components["schemas"]["meta_optional_total"];
             };
         };
-        /** @description The response will be a JSON object contains that contains a list of invoices under the `invoices` key, and the invoice preview under the `invoice_preview` key.
-         *     Each element contains the invoice summary attributes. */
+        /**
+         * @description The response will be a JSON object contains that contains a list of invoices under the `invoices` key, and the invoice preview under the `invoice_preview` key.
+         *     Each element contains the invoice summary attributes.
+         */
         invoices: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -17808,10 +17645,11 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example product,group_description,description,hours,start,end,USD,project_name,category
+                /**
+                 * @example product,group_description,description,hours,start,end,USD,project_name,category
                  *     Floating IPs,,Unused Floating IP - 1.1.1.1,100,2020-07-01 00:00:00 +0000,2020-07-22 18:14:39 +0000,$3.11,,iaas
                  *     Taxes,,STATE SALES TAX (6.25%),,2020-07-01 00:00:00 +0000,2020-07-31 23:59:59 +0000,$0.16,,iaas
-                 *      */
+                 */
                 "text/csv": string;
             };
         };
@@ -17837,7 +17675,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "invoice_uuid": "22737513-0ea7-4206-8ceb-98a575af7681",
                  *       "invoice_id": "123456789",
                  *       "billing_period": "2020-01",
@@ -17882,7 +17721,8 @@ export interface components {
                  *         "name": "Credits & adjustments",
                  *         "amount": "6.78"
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["invoice_summary"];
             };
         };
@@ -17895,7 +17735,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "options": {
                  *         "kafka": {
                  *           "regions": [
@@ -18505,7 +18346,8 @@ export interface components {
                  *           }
                  *         ]
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["options"];
             };
         };
@@ -18518,7 +18360,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "databases": [
                  *         {
                  *           "id": "9cc10173-e9ea-4176-9dbc-a4cee4c4ff30",
@@ -18576,7 +18419,8 @@ export interface components {
                  *           "storage_size_mib": 61440
                  *         }
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     databases?: components["schemas"]["database_cluster"][];
                 };
@@ -18591,7 +18435,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "database": {
                  *         "id": "9cc10173-e9ea-4176-9dbc-a4cee4c4ff30",
                  *         "name": "backend",
@@ -18666,7 +18511,8 @@ export interface components {
                  *         "version_end_of_availability": "2023-05-09T00:00:00Z",
                  *         "storage_size_mib": 61440
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     database: components["schemas"]["database_cluster"];
                 };
@@ -18681,12 +18527,14 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "config": {
                  *         "sql_mode": "ANSI,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE,STRICT_ALL_TABLES",
                  *         "sql_require_primary_key": true
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     config: components["schemas"]["mysql_advanced_config"] | components["schemas"]["postgres_advanced_config"] | components["schemas"]["redis_advanced_config"] | components["schemas"]["kafka_advanced_config"] | components["schemas"]["opensearch_advanced_config"] | components["schemas"]["mongo_advanced_config"];
                 };
@@ -18701,11 +18549,13 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "ca": {
                  *         "certificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUVRVENDQXFtZ0F3SUJBZ0lVRUZZWTdBWFZQS0Raam9jb1lpMk00Y0dvcU0wd0RRWUpLb1pJaHZjTkFRRU0KQlFBd09qRTRNRFlHQTFVRUF3d3ZOek0zT1RaaE1XRXRaamhrTUMwME9HSmpMV0V4Wm1NdFpqbGhNVFZsWXprdwpORGhsSUZCeWIycGxZM1FnUTBFd0hoY05NakF3TnpFM01UVTFNREEyV2hjTk16QXdOekUxTVRVMU1EQTJXakE2Ck1UZ3dOZ1lEVlFRRERDODNNemM1Tm1FeFlTMW1PR1F3TFRRNFltTXRZVEZtWXkxbU9XRXhOV1ZqT1RBME9HVWcKVUhKdmFtVmpkQ0JEUVRDQ0FhSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnR1BBRENDQVlvQ2dnR0JBTVdScXhycwpMZnpNdHZyUmxKVEw4MldYMVBLZkhKbitvYjNYcmVBY3FZd1dBUUp2Q3IycmhxSXZieVZzMGlaU0NzOHI4c3RGClljQ0R1bkxJNmUwTy9laERZYTBIT2RrMkFFRzE1ckVOVmNha2NSczcyQWlHVHNrdkNXS2VkUjFTUWswVWt0WCsKQUg4S1ExS3F5bzNtZ2Y2cVV1WUpzc3JNTXFselk3YTN1RVpEb2ZqTjN5Q3MvM21pTVJKcVcyNm1JV0IrUUlEbAo5YzdLRVF5MTZvdCtjeHVnd0lLMm9oZHMzaFY1bjBKMFVBM0I3QWRBdXY5aUl5L3JHaHlTNm5CNTdaWm9JZnAyCnFybXdOY0UrVjlIdXhQSGtRVjFOQjUwOFFudWZ4Z0E5VCtqU2VrdGVUbWFORkxqNjFXL3BtcndrTytOaWFXUTIKaGgzVXBKOEozY1BoNkErbHRnUmpSV2NEb2lsYVNwRVVpU09WemNNYVFvalZKYVJlNk9NbnZYc29NaSs3ZzdneApWcittQ0lUcGcvck9DaXpBWWQ2UFAxLzdYTjk1ZXNmU2tBQnM5c3hJakpjTUFqbDBYTEFzRmtGZVdyeHNIajlVCmJnaDNWYXdtcnpUeXhZT0RQcXV1cS9JcGlwc0RRT3Fpb2ZsUStkWEJJL3NUT0NNbVp6K0pNcG5HYXdJREFRQUIKb3o4d1BUQWRCZ05WSFE0RUZnUVVSekdDRlE3WEtUdHRDN3JzNS8ydFlQcExTZGN3RHdZRFZSMFRCQWd3QmdFQgovd0lCQURBTEJnTlZIUThFQkFNQ0FRWXdEUVlKS29aSWh2Y05BUUVNQlFBRGdnR0JBSWFKQ0dSVVNxUExtcmcvCmk3MW10b0NHUDdzeG1BVXVCek1oOEdrU25uaVdaZnZGMTRwSUtqTlkwbzVkWmpHKzZqK1VjalZtK0RIdGE1RjYKOWJPeEk5S0NFeEI1blBjRXpMWjNZYitNOTcrellxbm9zUm85S21DVFJBb2JrNTZ0WU1FS1h1aVJja2tkMm1yUQo4cGw2N2xxdThjM1V4c0dHZEZVT01wMkk3ZTNpdUdWVm5UR0ZWM3JQZUdaQ0J3WGVyUUQyY0F4UjkzS3BnWVZ2ClhUUzk5dnpSbm1HOHhhUm9EVy9FbEdXZ2xWd0Q5a1JrbXhUUkdoYTdDWVZCcjFQVWY2dVVFVjhmVFIxc1hFZnIKLytMR1JoSVVsSUhWT3l2Yzk3YnZYQURPbWF1MWZDVE5lWGtRdTNyZnZFSlBmaFlLeVIwT0V3eWVvdlhRNzl0LwpTV2ZGTjBreU1Pc1UrNVNIdHJKSEh1eWNWcU0yQlVVK083VjM1UnNwOU9MZGRZMFFVbTZldFpEVEhhSUhYYzRRCnl1Rm1OL1NhSFZtNE0wL3BTVlJQdVd6TmpxMnZyRllvSDRtbGhIZk95TUNJMjc2elE2aWhGNkdDSHlkOUJqajcKUm1UWGEyNHM3NWhmSi9YTDV2bnJSdEtpVHJlVHF6V21EOVhnUmNMQ0gyS1hJaVRtSWc9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     ca: components["schemas"]["ca"];
                 };
@@ -18720,11 +18570,13 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "id": "77b28fc8-19ff-11eb-8c9c-c68e24557488",
                  *       "status": "running",
                  *       "created_at": "2020-10-29T15:57:38Z"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["online_migration"];
             };
         };
@@ -18747,7 +18599,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "rules": [
                  *         {
                  *           "uuid": "79f26d28-ea8a-41f2-8ad8-8cfcdd020095",
@@ -18778,7 +18631,8 @@ export interface components {
                  *           "created_at": "2019-11-14T20:30:28Z"
                  *         }
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     rules?: components["schemas"]["firewall_rule"][];
                 };
@@ -18793,7 +18647,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "backups": [
                  *         {
                  *           "created_at": "2019-01-11T18:42:27Z",
@@ -18804,7 +18659,8 @@ export interface components {
                  *           "size_gigabytes": 0.03364864
                  *         }
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     backups: components["schemas"]["backup"][];
                 };
@@ -18819,7 +18675,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "replicas": [
                  *         {
                  *           "name": "read-nyc3-01",
@@ -18846,7 +18703,8 @@ export interface components {
                  *           "created_at": "2019-01-11T18:37:36Z"
                  *         }
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     replicas?: components["schemas"]["database_replica"][];
                 };
@@ -18861,7 +18719,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "replica": {
                  *         "name": "read-nyc3-01",
                  *         "connection": {
@@ -18886,7 +18745,8 @@ export interface components {
                  *         "status": "online",
                  *         "created_at": "2019-01-11T18:37:36Z"
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     replica?: components["schemas"]["database_replica"];
                 };
@@ -18901,7 +18761,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "events": [
                  *         {
                  *           "id": "pe8u2huh",
@@ -18916,7 +18777,8 @@ export interface components {
                  *           "create_time": "2023-10-30T15:57:38Z"
                  *         }
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     events?: components["schemas"]["events_logs"][];
                 };
@@ -18931,7 +18793,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "users": [
                  *         {
                  *           "name": "app-01",
@@ -18944,7 +18807,8 @@ export interface components {
                  *           "password": "wv78n3zpz42xezd"
                  *         }
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     users?: components["schemas"]["database_user"][];
                 };
@@ -18973,7 +18837,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "dbs": [
                  *         {
                  *           "name": "alpha"
@@ -18982,7 +18847,8 @@ export interface components {
                  *           "name": "defaultdb"
                  *         }
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     dbs?: components["schemas"]["database"][];
                 };
@@ -18997,11 +18863,13 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "db": {
                  *         "name": "alpha"
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     db: components["schemas"]["database"];
                 };
@@ -19016,7 +18884,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "pools": [
                  *         {
                  *           "user": "doadmin",
@@ -19051,7 +18920,8 @@ export interface components {
                  *           }
                  *         }
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["connection_pools"];
             };
         };
@@ -19064,7 +18934,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "pool": {
                  *         "user": "doadmin",
                  *         "name": "backend-pool",
@@ -19081,7 +18952,8 @@ export interface components {
                  *           "ssl": true
                  *         }
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     pool: components["schemas"]["connection_pool"];
                 };
@@ -19110,9 +18982,11 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "sql_mode": "ANSI,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE,STRICT_ALL_TABLES"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["sql_mode"];
             };
         };
@@ -19125,7 +18999,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "topics": [
                  *         {
                  *           "name": "customer-events",
@@ -19140,7 +19015,8 @@ export interface components {
                  *           "partition_count": 10
                  *         }
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     topics?: components["schemas"]["kafka_topic"][];
                 };
@@ -19155,7 +19031,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "topic": {
                  *         "name": "customer-events",
                  *         "partitions": [
@@ -19211,7 +19088,8 @@ export interface components {
                  *           "segment_ms": 604800000
                  *         }
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     topic?: components["schemas"]["kafka_topic_verbose"];
                 };
@@ -19226,7 +19104,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "sinks": [
                  *         {
                  *           "sink_id": "799990b6-d551-454b-9ffe-b8618e9d6272",
@@ -19251,7 +19130,8 @@ export interface components {
                  *           }
                  *         }
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     sinks?: components["schemas"]["logsink_verbose"][];
                 };
@@ -19280,12 +19160,14 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "credentials": {
                  *         "basic_auth_username": "username",
                  *         "basic_auth_password": "password"
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     credentials?: components["schemas"]["database_metrics_credentials"];
                 };
@@ -19300,7 +19182,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "indexes": [
                  *         {
                  *           "index_name": "sample-data",
@@ -19321,7 +19204,8 @@ export interface components {
                  *           "health": "green"
                  *         }
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     indexes?: components["schemas"]["opensearch_index"][];
                 };
@@ -19459,9 +19343,10 @@ export interface components {
             };
             content?: never;
         };
-        /** @description The response will be a JSON object with a key called `droplet`. This will be
+        /**
+         * @description The response will be a JSON object with a key called `droplet`. This will be
          *     set to a JSON object that contains the standard Droplet attributes.
-         *      */
+         */
         existing_droplet: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -19484,7 +19369,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "backups": [
                  *         {
                  *           "id": 67539192,
@@ -19505,15 +19391,17 @@ export interface components {
                  *       "meta": {
                  *         "total": 1
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     backups?: components["schemas"]["droplet_snapshot"][];
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
             };
         };
-        /** @description The response will be a JSON object with a key called `policy`. This will be
+        /**
+         * @description The response will be a JSON object with a key called `policy`. This will be
          *     set to a JSON object that contains the standard Droplet backup policy attributes.
-         *      */
+         */
         droplet_backup_policy: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -19522,7 +19410,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "policy": {
                  *         "droplet_id": 444909706,
                  *         "backup_enabled": true,
@@ -19538,7 +19427,8 @@ export interface components {
                  *           "end": "2024-09-16T00:00:00Z"
                  *         }
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     policy?: components["schemas"]["droplet_backup_policy_record"];
                 };
@@ -19553,7 +19443,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "policies": {
                  *         "436444618": {
                  *           "droplet_id": 436444618,
@@ -19593,11 +19484,13 @@ export interface components {
                  *       "meta": {
                  *         "total": 3
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
-                    /** @description A map where the keys are the Droplet IDs and the values are
+                    /**
+                     * @description A map where the keys are the Droplet IDs and the values are
                      *     objects containing the backup policy information for each Droplet.
-                     *      */
+                     */
                     policies?: {
                         [key: string]: components["schemas"]["droplet_backup_policy_record"];
                     };
@@ -19613,7 +19506,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "supported_policies": [
                  *         {
                  *           "name": "weekly",
@@ -19652,7 +19546,8 @@ export interface components {
                  *           "possible_days": []
                  *         }
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     supported_policies?: components["schemas"]["supported_droplet_backup_policy"][];
                 };
@@ -19667,7 +19562,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "snapshots": [
                  *         {
                  *           "id": 6372321,
@@ -19686,7 +19582,8 @@ export interface components {
                  *       "meta": {
                  *         "total": 1
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     snapshots?: components["schemas"]["droplet_snapshot"][];
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
@@ -19701,7 +19598,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "actions": [
                  *         {
                  *           "id": 982864273,
@@ -19744,7 +19642,8 @@ export interface components {
                  *       "meta": {
                  *         "total": 1
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     actions?: components["schemas"]["action"][];
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
@@ -19787,7 +19686,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "kernels": [
                  *         {
                  *           "id": 7515,
@@ -19804,7 +19704,8 @@ export interface components {
                  *       "meta": {
                  *         "total": 171
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     kernels?: components["schemas"]["kernel"][];
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
@@ -19819,7 +19720,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "firewalls": [
                  *         {
                  *           "id": "bb4b2611-3d72-467b-8602-280330ecd65c",
@@ -19895,7 +19797,8 @@ export interface components {
                  *       "meta": {
                  *         "total": 1
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     firewalls?: components["schemas"]["firewall"][];
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
@@ -19924,7 +19827,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "reserved_ips": [
                  *         {
                  *           "id": "6186916",
@@ -19960,7 +19864,8 @@ export interface components {
                  *           "cost": "0.04"
                  *         }
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     reserved_ips?: components["schemas"]["associated_resource"][];
                     floating_ips?: components["schemas"]["associated_resource"][];
@@ -19979,7 +19884,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "droplet": {
                  *         "id": "187000742",
                  *         "name": "ubuntu-s-1vcpu-1gb-nyc1-01",
@@ -20018,7 +19924,8 @@ export interface components {
                  *       },
                  *       "completed_at": "2020-04-01T18:11:49Z",
                  *       "failures": 0
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["associated_resource_status"];
             };
         };
@@ -20031,10 +19938,12 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "id": "conflict",
                  *       "message": "The request could not be completed due to a conflict."
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -20066,9 +19975,10 @@ export interface components {
                 };
             };
         };
-        /** @description The response will be a JSON object with a key called `autoscale_pool`. This will be
+        /**
+         * @description The response will be a JSON object with a key called `autoscale_pool`. This will be
          *     set to a JSON object that contains the standard autoscale pool attributes.
-         *      */
+         */
         existing_autoscale_pool: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -20119,7 +20029,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "firewalls": [
                  *         {
                  *           "id": "fb6045f1-cf1d-4ca3-bfac-18832663025b",
@@ -20172,7 +20083,8 @@ export interface components {
                  *       "meta": {
                  *         "total": 1
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     firewalls?: components["schemas"]["firewall"][];
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
@@ -20187,7 +20099,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "firewall": {
                  *         "id": "bb4b2611-3d72-467b-8602-280330ecd65c",
                  *         "name": "firewall",
@@ -20240,7 +20153,8 @@ export interface components {
                  *           }
                  *         ]
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     firewall?: components["schemas"]["firewall"];
                 };
@@ -20255,11 +20169,13 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "id": "bad_request",
                  *       "message": "error parsing request body",
                  *       "request_id": "4851a473-1621-42ea-b2f9-5071c0ea8414"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -20272,7 +20188,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "firewall": {
                  *         "id": "bb4b2611-3d72-467b-8602-280330ecd65c",
                  *         "name": "firewall",
@@ -20319,7 +20236,8 @@ export interface components {
                  *         "tags": [],
                  *         "pending_changes": []
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     firewall?: components["schemas"]["firewall"];
                 };
@@ -20334,7 +20252,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "firewall": {
                  *         "id": "bb4b2611-3d72-467b-8602-280330ecd65c",
                  *         "name": "frontend-firewall",
@@ -20389,7 +20308,8 @@ export interface components {
                  *           }
                  *         ]
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     firewall?: components["schemas"]["firewall"];
                 };
@@ -20409,8 +20329,10 @@ export interface components {
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
             };
         };
-        /** @description The response will be a JSON object with a key called `floating_ip`. The value of this will be an object that contains the standard attributes associated with a floating IP.
-         *     When assigning a floating IP to a Droplet at same time as it created, the response's `links` object will contain links to both the Droplet and the assignment action. The latter can be used to check the status of the action. */
+        /**
+         * @description The response will be a JSON object with a key called `floating_ip`. The value of this will be an object that contains the standard attributes associated with a floating IP.
+         *     When assigning a floating IP to a Droplet at same time as it created, the response's `links` object will contain links to both the Droplet and the assignment action. The latter can be used to check the status of the action.
+         */
         floating_ip_created: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -20477,8 +20399,10 @@ export interface components {
                 };
             };
         };
-        /** @description An array of JSON objects with a key called `namespaces`.  Each object represents a namespace and contains
-         *     the properties associated with it.  */
+        /**
+         * @description An array of JSON objects with a key called `namespaces`.  Each object represents a namespace and contains
+         *     the properties associated with it.
+         */
         list_namespaces: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -20492,8 +20416,10 @@ export interface components {
                 };
             };
         };
-        /** @description A JSON response object with a key called `namespace`. The object contains the properties associated
-         *     with the namespace. */
+        /**
+         * @description A JSON response object with a key called `namespace`. The object contains the properties associated
+         *     with the namespace.
+         */
         namespace_created: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -20516,11 +20442,13 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "id": "bad_request",
                  *       "message": "Invalid request payload: missing label field",
                  *       "request_id": "4851a473-1621-42ea-b2f9-5071c0ea8414"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -20533,11 +20461,13 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "id": "unprocessable_entity",
                  *       "message": "namespace limit reached",
                  *       "request_id": "a3275238-3d04-4405-a123-55c389b406c0"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -20550,11 +20480,13 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "id": "forbidden",
                  *       "message": "not allowed to get namespace",
                  *       "request_id": "b11e45a4-892c-48c9-9001-b6cffe9fe795"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -20567,16 +20499,20 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "id": "not_found",
                  *       "message": "namespace not found",
                  *       "request_id": "88d17b7a-630b-4083-99ce-5b91045efdb4"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["error"];
             };
         };
-        /** @description An array of JSON objects with a key called `namespaces`.  Each object represents a namespace and contains
-         *     the properties associated with it.  */
+        /**
+         * @description An array of JSON objects with a key called `namespaces`.  Each object represents a namespace and contains
+         *     the properties associated with it.
+         */
         list_triggers: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -20590,8 +20526,10 @@ export interface components {
                 };
             };
         };
-        /** @description A JSON response object with a key called `trigger`. The object contains the properties associated
-         *     with the trigger. */
+        /**
+         * @description A JSON response object with a key called `trigger`. The object contains the properties associated
+         *     with the trigger.
+         */
         trigger_response: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -20614,11 +20552,13 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "id": "bad_request",
                  *       "message": "validating create trigger: validation error: missing trigger name, missing function name, missing source details",
                  *       "request_id": "4851a473-1621-42ea-b2f9-5071c0ea8414"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -20631,11 +20571,13 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "id": "unprocessable_entity",
                  *       "message": "triggers limit reached",
                  *       "request_id": "7ba99a43-6618-4fe0-9af7-092752ad0d56"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -20674,7 +20616,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "image": {
                  *         "created_at": "2018-09-20T19:28:00Z",
                  *         "description": "Cloud-optimized image w/ small footprint",
@@ -20690,7 +20633,8 @@ export interface components {
                  *         ],
                  *         "status": "NEW"
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     image?: components["schemas"]["image"];
                 };
@@ -20705,7 +20649,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "image": {
                  *         "id": 6918990,
                  *         "name": "14.04 x64",
@@ -20732,7 +20677,8 @@ export interface components {
                  *         "status": "available",
                  *         "error_message": ""
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     image: components["schemas"]["image"];
                 };
@@ -20747,7 +20693,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "image": {
                  *         "id": 7938391,
                  *         "name": "new-image-name",
@@ -20766,7 +20713,8 @@ export interface components {
                  *         "status": "available",
                  *         "error_message": ""
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     image: components["schemas"]["image"];
                 };
@@ -20781,7 +20729,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "actions": [
                  *         {
                  *           "id": 29410565,
@@ -20835,7 +20784,8 @@ export interface components {
                  *       "meta": {
                  *         "total": 5
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     actions?: components["schemas"]["action"][];
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
@@ -20850,7 +20800,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "action": {
                  *         "id": 36805527,
                  *         "status": "in-progress",
@@ -20893,7 +20844,8 @@ export interface components {
                  *         },
                  *         "region_slug": "nyc3"
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["action"];
             };
         };
@@ -20906,7 +20858,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "action": {
                  *         "id": 36805527,
                  *         "status": "in-progress",
@@ -20949,14 +20902,16 @@ export interface components {
                  *         },
                  *         "region_slug": "nyc3"
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["action"];
             };
         };
-        /** @description The response will be a JSON object with a key called `kubernetes_clusters`.
+        /**
+         * @description The response will be a JSON object with a key called `kubernetes_clusters`.
          *     This will be set to an array of objects, each of which will contain the
          *     standard Kubernetes cluster attributes.
-         *      */
+         */
         all_clusters: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -20970,7 +20925,8 @@ export interface components {
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
             };
         };
-        /** @description The response will be a JSON object with a key called `kubernetes_cluster`. The
+        /**
+         * @description The response will be a JSON object with a key called `kubernetes_cluster`. The
          *     value of this will be an object containing the standard attributes of a
          *     Kubernetes cluster.
          *
@@ -20978,7 +20934,7 @@ export interface components {
          *     cluster has finished provisioning. The initial value of the cluster's
          *     `status.state` attribute will be `provisioning`. When the cluster is ready,
          *     this will transition to `running`.
-         *      */
+         */
         cluster_create: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -20992,10 +20948,11 @@ export interface components {
                 };
             };
         };
-        /** @description The response will be a JSON object with a key called `kubernetes_cluster`. The
+        /**
+         * @description The response will be a JSON object with a key called `kubernetes_cluster`. The
          *     value of this will be an object containing the standard attributes of a
          *     Kubernetes cluster.
-         *      */
+         */
         existing_cluster: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -21009,10 +20966,11 @@ export interface components {
                 };
             };
         };
-        /** @description The response will be a JSON object with a key called `kubernetes_cluster`. The
+        /**
+         * @description The response will be a JSON object with a key called `kubernetes_cluster`. The
          *     value of this will be an object containing the standard attributes of a
          *     Kubernetes cluster.
-         *      */
+         */
         updated_cluster: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -21047,7 +21005,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example apiVersion: v1
+                /**
+                 * @example apiVersion: v1
                  *     clusters:
                  *     - cluster:
                  *         certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURUxCUUF3TXpFVk1CTUdBMVVFQ2ftTVJHbG4KYVhSaGJFOWpaV0Z1TVJvd0dUSREERXhGck9ITmhZWE1nUTJ4MWMzUmxjaUJEUVRBZUZ3MHhPREV4TVRVeApOakF3TWpCYUZ3MHpPREV4TVRVeE5qQXdNakJhTURNeEZUQVRCZ05WQkFvVERFUnBaMmwwWVd4UFkyVmhiakVhCk1CZ0dBMVVFQXhNUmF6aHpZV0Z6SUVOc2RYTjBaWElnUTBFd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUIKRHdBd2dnRUtBb0lCQVFDK2Z0L05Nd3pNaUxFZlFvTFU2bDgrY0hMbWttZFVKdjl4SmlhZUpIU0dZOGhPZFVEZQpGd1Zoc0pDTnVFWkpJUFh5Y0orcGpkU3pYc1lFSE03WVNKWk9xNkdaYThPMnZHUlJjN2ZQaUFJaFBRK0ZpUmYzCmRhMHNIUkZlM2hCTmU5ZE5SeTliQ2VCSTRSUlQrSEwzRFR3L2I5KytmRkdZQkRoVTEvTTZUWWRhUHR3WU0rdWgKb1pKcWJZVGJZZTFhb3R1ekdnYUpXaXRhdFdHdnNJYU8xYWthdkh0WEIOOHFxa2lPemdrSDdvd3RVY3JYM05iawozdmlVeFU4TW40MmlJaGFyeHNvTnlwdGhHOWZLMi9OdVdKTXJJS2R0Mzhwc0tkdDBFbng0MWg5K0dsMjUzMzhWCk1mdjBDVDF6SG1JanYwblIrakNkcFd0eFVLRyt0YjYzZFhNbkFnTUJBQUdqUlRCRE1BNEdBMVVkRHdFQi93UUUKQXdJQmhqQVNCZ05WSFJNQkFmOEVDREFHQVFIL0FnRUFNQjBHQTFVZERnUVdCQlNQMmJrOXJiUGJpQnZOd1Z1NQpUL0dwTFdvOTdEQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFEVjFMSGZyc1JiYVdONHE5SnBFVDMxMlluRDZ6Cm5rM3BpU1ZSYVEvM09qWG8wdHJ6Z2N4KzlVTUQxeDRHODI1RnYxc0ROWUExZEhFc2dHUmNyRkVmdGZJQWUrUVYKTitOR3NMRnQrOGZrWHdnUlpoNEU4ZUJsSVlrdEprOWptMzFMT25vaDJYZno0aGs3VmZwYkdvVVlsbmVoak1JZApiL3ZMUk05Y2EwVTJlYTB5OTNveE5pdU9PcXdrZGFjU1orczJtb3JNdGZxc3VRSzRKZDA3SENIbUFIeWpXT2k4ClVOQVUyTnZnSnBKY2RiZ3VzN2I5S3ppR1ZERklFUk04cEo4U1Nob1ZvVFFJd3d5Y2xVTU9EUUJreFFHOHNVRk8KRDE3ZjRod1dNbW5qVHY2MEJBM0dxaTZRcjdsWVFSL3drSEtQcnZjMjhoNXB0NndPWEY1b1M4OUZkUT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
@@ -21065,7 +21024,7 @@ export interface components {
                  *     - name: do-nyc1-prod-cluster-01-admin
                  *       user:
                  *         token: 403d085aaa80102277d8da97ffd2db2b6a4f129d0e2146098fdfb0cec624babc
-                 *      */
+                 */
                 "application/yaml": unknown;
             };
         };
@@ -21081,13 +21040,14 @@ export interface components {
                 "application/json": components["schemas"]["credentials"];
             };
         };
-        /** @description The response will be a JSON object with a key called
+        /**
+         * @description The response will be a JSON object with a key called
          *     `available_upgrade_versions`. The value of this will be an array of objects,
          *     representing the upgrade versions currently available for this cluster.
          *
          *     If the cluster is up-to-date (i.e. there are no upgrades currently available)
          *     `available_upgrade_versions` will be `null`.
-         *      */
+         */
         available_upgrades: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -21101,10 +21061,11 @@ export interface components {
                 };
             };
         };
-        /** @description The response will be a JSON object with a key called `node_pools`. This will
+        /**
+         * @description The response will be a JSON object with a key called `node_pools`. This will
          *     be set to an array of objects, each of which will contain the standard node
          *     pool attributes.
-         *      */
+         */
         all_node_pools: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -21113,7 +21074,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "node_pools": [
                  *         {
                  *           "id": "cdda885e-7663-40c8-bc74-3a036c66545d",
@@ -21207,15 +21169,17 @@ export interface components {
                  *           ]
                  *         }
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     node_pools?: components["schemas"]["kubernetes_node_pool"][];
                 };
             };
         };
-        /** @description The response will be a JSON object with a key called `node_pool`. The value of
+        /**
+         * @description The response will be a JSON object with a key called `node_pool`. The value of
          *     this will be an object containing the standard attributes of a node pool.
-         *      */
+         */
         node_pool_create: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -21229,9 +21193,10 @@ export interface components {
                 };
             };
         };
-        /** @description The response will be a JSON object with a key called `node_pool`. The value
+        /**
+         * @description The response will be a JSON object with a key called `node_pool`. The value
          *     of this will be an object containing the standard attributes of a node pool.
-         *      */
+         */
         existing_node_pool: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -21245,9 +21210,10 @@ export interface components {
                 };
             };
         };
-        /** @description The response will be a JSON object with a key called `node_pool`. The value of
+        /**
+         * @description The response will be a JSON object with a key called `node_pool`. The value of
          *     this will be an object containing the standard attributes of a node pool.
-         *      */
+         */
         node_pool_update: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -21261,9 +21227,10 @@ export interface components {
                 };
             };
         };
-        /** @description The response will be a JSON object with a key called `kubernetes_cluster_user`
+        /**
+         * @description The response will be a JSON object with a key called `kubernetes_cluster_user`
          *     containing the username and in-cluster groups that it belongs to.
-         *      */
+         */
         cluster_user: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -21275,10 +21242,11 @@ export interface components {
                 "application/json": components["schemas"]["user"];
             };
         };
-        /** @description The response will be a JSON object with a key called `options` which contains
+        /**
+         * @description The response will be a JSON object with a key called `options` which contains
          *     `regions`, `versions`, and `sizes` objects listing the available options and
          *     the matching slugs for use when creating a new cluster.
-         *      */
+         */
         all_options: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -21290,10 +21258,11 @@ export interface components {
                 "application/json": components["schemas"]["kubernetes_options"];
             };
         };
-        /** @description The response is a JSON object which contains the diagnostics on Kubernetes
+        /**
+         * @description The response is a JSON object which contains the diagnostics on Kubernetes
          *     objects in the cluster. Each diagnostic will contain some metadata information
          *     about the object and feedback for users to act upon.
-         *      */
+         */
         clusterlint_results: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -21351,10 +21320,11 @@ export interface components {
                 };
             };
         };
-        /** @description The response will be a JSON object with a key called `load_balancer`. The
+        /**
+         * @description The response will be a JSON object with a key called `load_balancer`. The
          *     value of this will be an object that contains the standard attributes
          *     associated with a load balancer
-         *      */
+         */
         existing_load_balancer: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -21368,10 +21338,11 @@ export interface components {
                 };
             };
         };
-        /** @description The response will be a JSON object with a key called `load_balancer`. The
+        /**
+         * @description The response will be a JSON object with a key called `load_balancer`. The
          *     value of this will be an object containing the standard attributes of a
          *     load balancer.
-         *      */
+         */
         updated_load_balancer: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -21579,10 +21550,12 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "id": "precondition_failed",
                  *       "message": "cannot delete a project with resources. move or remove the resources first"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -21747,7 +21720,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "garbage_collections": [
                  *         {
                  *           "uuid": "eff0feee-49c7-4e8f-ba5c-a320c109c8a8",
@@ -21762,7 +21736,8 @@ export interface components {
                  *       "meta": {
                  *         "total": 1
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     garbage_collections?: components["schemas"]["garbage_collection"][];
                 };
@@ -21777,7 +21752,8 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "options": {
                  *         "available_regions": [
                  *           "nyc3",
@@ -21822,12 +21798,15 @@ export interface components {
                  *           }
                  *         ]
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     options?: {
-                        /** @example [
+                        /**
+                         * @example [
                          *       "nyc3"
-                         *     ] */
+                         *     ]
+                         */
                         available_regions?: string[];
                         subscription_tiers?: (components["schemas"]["subscription_tier_base"] & components["schemas"]["subscription_tier_extended"])[];
                     };
@@ -21860,8 +21839,10 @@ export interface components {
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
             };
         };
-        /** @description The response will be a JSON object with a key called `reserved_ip`. The value of this will be an object that contains the standard attributes associated with a reserved IP.
-         *     When assigning a reserved IP to a Droplet at same time as it created, the response's `links` object will contain links to both the Droplet and the assignment action. The latter can be used to check the status of the action. */
+        /**
+         * @description The response will be a JSON object with a key called `reserved_ip`. The value of this will be an object that contains the standard attributes associated with a reserved IP.
+         *     When assigning a reserved IP to a Droplet at same time as it created, the response's `links` object will contain links to both the Droplet and the assignment action. The latter can be used to check the status of the action.
+         */
         reserved_ip_created: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -21956,8 +21937,7 @@ export interface components {
                 } & components["schemas"]["pagination"] & components["schemas"]["meta"];
             };
         };
-        /** @description A JSON object with a key called `snapshot`.
-         *      */
+        /** @description A JSON object with a key called `snapshot`. */
         snapshots_existing: {
             headers: {
                 "ratelimit-limit": components["headers"]["ratelimit-limit"];
@@ -21980,11 +21960,13 @@ export interface components {
                 [name: string]: unknown;
             };
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "id": "bad_request",
                  *       "message": "the resource is not a snapshot",
                  *       "request_id": "bbd8d7d4-2beb-4be1-a374-338e6165e32d"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["error"];
             };
         };
@@ -23136,7 +23118,8 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "spec": {
                  *         "name": "web-app",
                  *         "region": "nyc",
@@ -23163,7 +23146,8 @@ export interface operations {
                  *           "type": "DEDICATED_IP"
                  *         }
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["apps_create_app_request"];
             };
         };
@@ -23715,7 +23699,8 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "spec": {
                  *         "name": "web-app",
                  *         "region": "nyc",
@@ -23740,7 +23725,8 @@ export interface operations {
                  *         ]
                  *       },
                  *       "app_id": "b6bdf840-2854-4f87-a36c-5f231c617c84"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["app_propose"];
             };
         };
@@ -23945,13 +23931,15 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "app_ids": [
                  *         "4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf",
                  *         "c2a93513-8d9b-4223-9d61-5e7272c81cf5"
                  *       ],
                  *       "date": "2023-01-17T00:00:00Z"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["app_metrics_bandwidth_usage_request"];
             };
         };
@@ -24520,12 +24508,14 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "config": {
                  *         "sql_mode": "ANSI,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE,STRICT_ALL_TABLES",
                  *         "sql_require_primary_key": true
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["database_config"];
             };
         };
@@ -24599,7 +24589,8 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "source": {
                  *         "host": "source-do-user-6607903-0.b.db.ondigitalocean.com",
                  *         "dbname": "defaultdb",
@@ -24612,7 +24603,8 @@ export interface operations {
                  *         "db0",
                  *         "db1"
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["source_database"];
             };
         };
@@ -24701,11 +24693,13 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "size": "db-s-4vcpu-8gb",
                  *       "num_nodes": 3,
                  *       "storage_size_mib": 163840
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["database_cluster_resize"];
             };
         };
@@ -24756,7 +24750,8 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "rules": [
                  *         {
                  *           "type": "ip_addr",
@@ -24775,7 +24770,8 @@ export interface operations {
                  *           "value": "backend"
                  *         }
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     rules?: components["schemas"]["firewall_rule"][];
                 };
@@ -24805,10 +24801,12 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "day": "tuesday",
                  *       "hour": "14:00"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["database_maintenance_window"];
             };
         };
@@ -24905,12 +24903,14 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "name": "read-nyc3-01",
                  *       "region": "nyc3",
                  *       "size": "db-s-2vcpu-4gb",
                  *       "storage_size_mib": 61440
-                 *     } */
+                 *     }
+                 */
                 "application/json": WithRequired<components["schemas"]["database_replica"], "name" | "size">;
             };
         };
@@ -25072,7 +25072,6 @@ export interface operations {
                     /**
                      * @description For MongoDB clusters, set to `true` to create a read-only user.
                      *     This option is not currently supported for other database engines.
-                     *
                      * @example true
                      */
                     readonly?: boolean;
@@ -25198,11 +25197,13 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "mysql_settings": {
                  *         "auth_plugin": "caching_sha2_password"
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     mysql_settings?: components["schemas"]["mysql_settings"];
                 };
@@ -25255,9 +25256,11 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "name": "alpha"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["database"];
             };
         };
@@ -25364,13 +25367,15 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "name": "backend-pool",
                  *       "mode": "transaction",
                  *       "size": 10,
                  *       "db": "defaultdb",
                  *       "user": "doadmin"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["connection_pool"];
             };
         };
@@ -25431,12 +25436,14 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "mode": "transaction",
                  *       "size": 10,
                  *       "db": "defaultdb",
                  *       "user": "doadmin"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["connection_pool_update"];
             };
         };
@@ -25515,9 +25522,11 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "eviction_policy": "allkeys_lru"
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     eviction_policy: components["schemas"]["eviction_policy_model"];
                 };
@@ -25570,9 +25579,11 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "sql_mode": "ANSI,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["sql_mode"];
             };
         };
@@ -25600,9 +25611,11 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "version": "14"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["version-2"];
             };
         };
@@ -25653,7 +25666,8 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "name": "customer-events",
                  *       "partitions": 3,
                  *       "replication": 2,
@@ -25661,7 +25675,8 @@ export interface operations {
                  *         "retention_bytes": -1,
                  *         "retention_ms": 100000
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["kafka_topic_create"];
             };
         };
@@ -25722,14 +25737,16 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "partitions": 3,
                  *       "replication": 2,
                  *       "config": {
                  *         "retention_bytes": -1,
                  *         "retention_ms": 100000
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["kafka_topic_update"];
             };
         };
@@ -25868,14 +25885,16 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "config": {
                  *         "server": "192.168.0.1",
                  *         "port": 514,
                  *         "tls": false,
                  *         "format": "rfc3164"
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["logsink_update"];
             };
         };
@@ -25942,12 +25961,14 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "credentials": {
                  *         "basic_auth_username": "new_username",
                  *         "basic_auth_password": "new_password"
                  *       }
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["database_metrics_credentials"];
             };
         };
@@ -26046,9 +26067,11 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "name": "example.com"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["domain"];
             };
         };
@@ -26165,7 +26188,8 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "type": "A",
                  *       "name": "www",
                  *       "data": "162.10.66.0",
@@ -26175,7 +26199,8 @@ export interface operations {
                  *       "weight": null,
                  *       "flags": null,
                  *       "tag": null
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["domain_record_a"] | components["schemas"]["domain_record_aaaa"] | components["schemas"]["domain_record_caa"] | components["schemas"]["domain_record_cname"] | components["schemas"]["domain_record_mx"] | components["schemas"]["domain_record_ns"] | components["schemas"]["domain_record_soa"] | components["schemas"]["domain_record_srv"] | components["schemas"]["domain_record_txt"];
             };
         };
@@ -26236,10 +26261,12 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "name": "blog",
                  *       "type": "CNAME"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["domain_record"];
             };
         };
@@ -26300,10 +26327,12 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "name": "blog",
                  *       "type": "A"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["domain_record"];
             };
         };
@@ -26630,10 +26659,11 @@ export interface operations {
             };
             cookie?: never;
         };
-        /** @description The `type` attribute set in the request body will specify the  action that
+        /**
+         * @description The `type` attribute set in the request body will specify the  action that
          *     will be taken on the Droplet. Some actions will require additional
          *     attributes to be set as well.
-         *      */
+         */
         requestBody?: {
             content: {
                 "application/json": components["schemas"]["droplet_action"] | components["schemas"]["droplet_action_enable_backups"] | components["schemas"]["droplet_action_change_backup_policy"] | components["schemas"]["droplet_action_restore"] | components["schemas"]["droplet_action_resize"] | components["schemas"]["droplet_action_rebuild"] | components["schemas"]["droplet_action_rename"] | components["schemas"]["droplet_action_change_kernel"] | components["schemas"]["droplet_action_snapshot"];
@@ -26661,10 +26691,11 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        /** @description The `type` attribute set in the request body will specify the  action that
+        /**
+         * @description The `type` attribute set in the request body will specify the  action that
          *     will be taken on the Droplet. Some actions will require additional
          *     attributes to be set as well.
-         *      */
+         */
         requestBody?: {
             content: {
                 "application/json": components["schemas"]["droplet_action"] | components["schemas"]["droplet_action_snapshot"];
@@ -27181,7 +27212,8 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "name": "firewall",
                  *       "inbound_rules": [
                  *         {
@@ -27221,7 +27253,8 @@ export interface operations {
                  *       "droplet_ids": [
                  *         8043964
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["firewall"] & unknown & (unknown | unknown);
             };
         };
@@ -27272,7 +27305,8 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "name": "frontend-firewall",
                  *       "inbound_rules": [
                  *         {
@@ -27315,7 +27349,8 @@ export interface operations {
                  *       "tags": [
                  *         "frontend"
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["firewall"] & (unknown | unknown);
             };
         };
@@ -27367,11 +27402,13 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "droplet_ids": [
                  *         49696269
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     /**
                      * @description An array containing the IDs of the Droplets to be assigned to the firewall.
@@ -27408,11 +27445,13 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "droplet_ids": [
                  *         49696269
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     /**
                      * @description An array containing the IDs of the Droplets to be removed from the firewall.
@@ -27449,11 +27488,13 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "tags": [
                  *         "frontend"
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     tags: components["schemas"]["existing_tags_array"] & unknown;
                 };
@@ -27484,11 +27525,13 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "tags": [
                  *         "frontend"
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     tags: components["schemas"]["existing_tags_array"] & unknown;
                 };
@@ -27519,7 +27562,8 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "inbound_rules": [
                  *         {
                  *           "protocol": "tcp",
@@ -27542,7 +27586,8 @@ export interface operations {
                  *           }
                  *         }
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["firewall_rules"] & (unknown | unknown);
             };
         };
@@ -27571,7 +27616,8 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "inbound_rules": [
                  *         {
                  *           "protocol": "tcp",
@@ -27594,7 +27640,8 @@ export interface operations {
                  *           }
                  *         }
                  *       ]
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["firewall_rules"] & (unknown | unknown);
             };
         };
@@ -27737,9 +27784,10 @@ export interface operations {
             };
             cookie?: never;
         };
-        /** @description The `type` attribute set in the request body will specify the action that
+        /**
+         * @description The `type` attribute set in the request body will specify the action that
          *     will be taken on the floating IP.
-         *      */
+         */
         requestBody?: {
             content: {
                 "application/json": components["schemas"]["floating_ip_action_unassign"] | components["schemas"]["floating_ip_action_assign"];
@@ -28075,13 +28123,14 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                /** @description A unique number (id) or string (slug) used to identify and reference a
+                /**
+                 * @description A unique number (id) or string (slug) used to identify and reference a
                  *     specific image.
                  *
                  *     **Public** images can be identified by image `id` or `slug`.
                  *
                  *     **Private** images *must* be identified by image `id`.
-                 *      */
+                 */
                 image_id: number | string;
             };
             cookie?: never;
@@ -28569,7 +28618,8 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "size": "s-1vcpu-2gb",
                  *       "count": 3,
                  *       "name": "new-pool",
@@ -28579,7 +28629,8 @@ export interface operations {
                  *       "auto_scale": true,
                  *       "min_nodes": 3,
                  *       "max_nodes": 6
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["kubernetes_node_pool"];
             };
         };
@@ -28745,9 +28796,11 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": {
-                    /** @example [
+                    /**
+                     * @example [
                      *       "d8db5e1a-6103-43b5-a7b3-8a948210a9fc"
-                     *     ] */
+                     *     ]
+                     */
                     nodes?: string[];
                 };
             };
@@ -29204,7 +29257,8 @@ export interface operations {
             path?: never;
             cookie?: never;
         };
-        /** @description The `type` field dictates what type of entity that the alert policy applies to and hence what type of entity is passed in the `entities` array. If both the `tags` array and `entities` array are empty the alert policy applies to all entities of the relevant type that are owned by the user account. Otherwise the following table shows the valid entity types for each type of alert policy:
+        /**
+         * @description The `type` field dictates what type of entity that the alert policy applies to and hence what type of entity is passed in the `entities` array. If both the `tags` array and `entities` array are empty the alert policy applies to all entities of the relevant type that are owned by the user account. Otherwise the following table shows the valid entity types for each type of alert policy:
          *
          *     Type | Description | Valid Entity Type
          *     -----|-------------|--------------------
@@ -29244,7 +29298,7 @@ export interface operations {
          *     `v1/droplet/autoscale_alerts/target_memory_utilization` | alert on target average memory utilization | autoscale pool ID
          *     `v1/droplet/autoscale_alerts/scale_up` | alert on scale up event | autoscale pool ID
          *     `v1/droplet/autoscale_alerts/scale_down` | alert on scale down event | autoscale pool ID
-         *      */
+         */
         requestBody: {
             content: {
                 "application/json": components["schemas"]["alert_policy_request"];
@@ -29294,7 +29348,8 @@ export interface operations {
             };
             cookie?: never;
         };
-        /** @description The `type` field dictates what type of entity that the alert policy applies to and hence what type of entity is passed in the `entities` array. If both the `tags` array and `entities` array are empty the alert policy applies to all entities of the relevant type that are owned by the user account. Otherwise the following table shows the valid entity types for each type of alert policy:
+        /**
+         * @description The `type` field dictates what type of entity that the alert policy applies to and hence what type of entity is passed in the `entities` array. If both the `tags` array and `entities` array are empty the alert policy applies to all entities of the relevant type that are owned by the user account. Otherwise the following table shows the valid entity types for each type of alert policy:
          *
          *     Type | Description | Valid Entity Type
          *     -----|-------------|--------------------
@@ -29334,7 +29389,7 @@ export interface operations {
          *     `v1/droplet/autoscale_alerts/target_memory_utilization` | alert on target average memory utilization | autoscale pool ID
          *     `v1/droplet/autoscale_alerts/scale_up` | alert on scale up event | autoscale pool ID
          *     `v1/droplet/autoscale_alerts/scale_down` | alert on scale down event | autoscale pool ID
-         *      */
+         */
         requestBody: {
             content: {
                 "application/json": components["schemas"]["alert_policy_request"];
@@ -31204,9 +31259,11 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "name": "my-web-api"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["project"];
             };
         };
@@ -31308,9 +31365,11 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "name": "my-web-api"
-                 *     } */
+                 *     }
+                 */
                 "application/json": components["schemas"]["project"];
             };
         };
@@ -32085,9 +32144,10 @@ export interface operations {
             };
             cookie?: never;
         };
-        /** @description The `type` attribute set in the request body will specify the action that
+        /**
+         * @description The `type` attribute set in the request body will specify the action that
          *     will be taken on the reserved IP.
-         *      */
+         */
         requestBody?: {
             content: {
                 "application/json": components["schemas"]["reserved_ip_action_unassign"] | components["schemas"]["reserved_ip_action_assign"];
@@ -32756,9 +32816,11 @@ export interface operations {
         };
         requestBody: {
             content: {
-                /** @example {
+                /**
+                 * @example {
                  *       "name": "big-data-snapshot1475261774"
-                 *     } */
+                 *     }
+                 */
                 "application/json": {
                     /**
                      * @description A human-readable name for the volume snapshot.
@@ -33388,14 +33450,15 @@ export interface operations {
             };
             cookie?: never;
         };
-        /** @description The ''type'' field dictates the type of alert, and hence what type of value to pass into the threshold property.
+        /**
+         * @description The ''type'' field dictates the type of alert, and hence what type of value to pass into the threshold property.
          *     Type | Description | Threshold Value
          *     -----|-------------|--------------------
          *     `latency` | alerts on the response latency | milliseconds
          *     `down` | alerts on a target registering as down in any region | N/A (Not required)
          *     `down_global` | alerts on a target registering as down globally | N/A (Not required)
          *     `ssl_expiry` | alerts on a SSL certificate expiring within $threshold days | days
-         *      */
+         */
         requestBody: {
             content: {
                 "application/json": components["schemas"]["alert"];
