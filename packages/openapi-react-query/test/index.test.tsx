@@ -2,6 +2,7 @@ import {
   QueryClient,
   QueryClientProvider,
   skipToken,
+  useInfiniteQuery,
   useQueries,
   useQuery,
   useSuspenseQuery,
