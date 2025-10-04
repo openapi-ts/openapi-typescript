@@ -87,8 +87,6 @@ describe("client", () => {
         const fetchClient = createFetchClient<paths>({ baseUrl });
         const client = createClient(fetchClient);
 
-        if (!("infiniteQueryOptions" in client)) return;
-
         const options = client.infiniteQueryOptions(
           "get",
           "/paginated-data",
@@ -127,8 +125,6 @@ describe("client", () => {
       it("returns infinite query options with custom pageParamName", async () => {
         const fetchClient = createFetchClient<paths>({ baseUrl });
         const client = createClient(fetchClient);
-
-        if (!("infiniteQueryOptions" in client)) return;
 
         const options = client.infiniteQueryOptions(
           "get",
@@ -1106,7 +1102,7 @@ describe("client", () => {
       expect(firstRequestUrl?.searchParams.get("cursor")).toBe("0");
 
       // Set up mock for second page before triggering next page fetch
-      const secondRequestHandler = useMockRequestHandler({
+      useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/paginated-data",
@@ -1233,7 +1229,7 @@ describe("client", () => {
       const client = createClient(fetchClient);
 
       // First page request handler
-      const firstRequestHandler = useMockRequestHandler({
+      useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/paginated-data",
@@ -1269,7 +1265,7 @@ describe("client", () => {
       expect(result.current.data).toEqual([1, 2, 3]);
 
       // Set up mock for second page before triggering next page fetch
-      const secondRequestHandler = useMockRequestHandler({
+      useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/paginated-data",

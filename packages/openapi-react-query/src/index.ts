@@ -165,11 +165,12 @@ export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMetho
       Response["error"],
       InferSelectReturnType<InfiniteData<Response["data"]>, Options["select"]>,
       QueryKey<Paths, Method, Path>,
-      unknown
+      InferPageParamType<Options>
     >,
     "queryKey" | "queryFn"
   > & {
     pageParamName?: string;
+    initialPageParam: InferPageParamType<Options>;
   },
 >(
   method: Method,
