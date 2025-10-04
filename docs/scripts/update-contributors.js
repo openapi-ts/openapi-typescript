@@ -196,6 +196,7 @@ const CONTRIBUTORS = new Set([
 ]);
 
 const ONE_WEEK = 1000 * 60 * 60 * 24;
+const FOUR_WEEKS = 4 * ONE_WEEK;
 
 const CONTRIBUTORS_JSON = new URL("../data/contributors.json", import.meta.url);
 
@@ -251,7 +252,7 @@ async function main() {
     i++;
     // skip profiles that have been updated within the past week
     const { lastFetch } = data[group]?.find((u) => u.username === username) ?? { lastFetch: 0 };
-    if (Date.now() - lastFetch < ONE_WEEK) {
+    if (Date.now() - lastFetch < FOUR_WEEKS) {
       // biome-ignore lint/suspicious/noConsole: this is a script
       console.log(`[${i}/${CONTRIBUTORS.size}] (Skipped ${username})`);
       continue;
