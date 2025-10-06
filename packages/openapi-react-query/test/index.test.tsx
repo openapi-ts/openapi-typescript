@@ -1,8 +1,8 @@
 import {
   QueryClient,
   QueryClientProvider,
-  useMutation,
   skipToken,
+  useMutation,
   useQueries,
   useQuery,
   useSuspenseQuery,
@@ -11,12 +11,10 @@ import { act, fireEvent, render, renderHook, screen, waitFor } from "@testing-li
 import createFetchClient from "openapi-fetch";
 import { type ReactNode, Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { afterAll, afterEach, beforeAll, describe, expect, expectTypeOf, it, vi } from "vitest";
 import createClient, { type MethodResponse } from "../src/index.js";
 import type { paths } from "./fixtures/api.js";
 import { baseUrl, server, useMockRequestHandler } from "./fixtures/mock-server.js";
-import { afterAll, afterEach, beforeAll, describe, expect, expectTypeOf, it, vi } from "vitest";
-
-const mini = "3";
 
 type minimalGetPaths = {
   // Without parameters.
