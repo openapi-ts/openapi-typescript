@@ -815,10 +815,14 @@ describe("client", () => {
       result.current.mutate({ body: { message: "Test", replied_at: 123456789 } });
 
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
-      expect(onSuccessSpy).toHaveBeenCalledWith(
+      expect(onSuccessSpy).toHaveBeenNthCalledWith(
+        1,
         { message: "Success" },
         { body: { message: "Test", replied_at: 123456789 } },
         undefined,
+        expect.objectContaining({
+          mutationKey: ["put", "/comment"],
+        }),
       );
       expect(onErrorSpy).not.toHaveBeenCalled();
     });
