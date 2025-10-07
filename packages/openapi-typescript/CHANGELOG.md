@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.10.0
+
+### Minor Changes
+
+- [#2288](https://github.com/openapi-ts/openapi-typescript/pull/2288) [`0f22be2`](https://github.com/openapi-ts/openapi-typescript/commit/0f22be218f0c8050a96f35a6a271b959b2c5a23f) Thanks [@hontas](https://github.com/hontas)! - Add support for patternProperties
+
 ## 7.9.1
 
 ### Patch Changes
