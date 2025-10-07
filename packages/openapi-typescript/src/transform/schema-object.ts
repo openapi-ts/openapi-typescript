@@ -96,10 +96,7 @@ export function transformSchemaObjectWithComposition(
     !("additionalProperties" in schemaObject)
   ) {
     // hoist enum to top level if string/number enum and option is enabled
-    if (
-      options.ctx.enum &&
-      schemaObject.enum.every((v) => typeof v === "string" || typeof v === "number" || v === null)
-    ) {
+    if (shouldTransformToTsEnum(options, schemaObject)) {
       let enumName = parseRef(options.path ?? "").pointer.join("/");
       // allow #/components/schemas to have simpler names
       enumName = enumName.replace("components/schemas", "");
@@ -268,6 +265,35 @@ export function transformSchemaObjectWithComposition(
   }
 
   return finalType;
+}
+
+/**
+ * Check if the given OAPI enum should be transformed to a TypeScript enum
+ */
+function shouldTransformToTsEnum(options: TransformNodeOptions, schemaObject: SchemaObject): boolean {
+  // Enum conversion not enabled or no enum present
+  if (!options.ctx.enum || !schemaObject.enum) {
+    return false;
+  }
+
+  // Enum must have string, number or null values
+  if (!schemaObject.enum.every((v) => ["string", "number", null].includes(typeof v))) {
+    return false;
+  }
+
+  // If conditionalEnums is enabled, only convert if x-enum-* metadata is present
+  if (options.ctx.conditionalEnums) {
+    const hasEnumMetadata =
+      Array.isArray(schemaObject["x-enum-varnames"]) ||
+      Array.isArray(schemaObject["x-enumNames"]) ||
+      Array.isArray(schemaObject["x-enum-descriptions"]) ||
+      Array.isArray(schemaObject["x-enumDescriptions"]);
+    if (!hasEnumMetadata) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 /**

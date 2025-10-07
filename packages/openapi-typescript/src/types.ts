@@ -652,6 +652,8 @@ export interface OpenAPITSOptions {
   enum?: boolean;
   /** Export union values as arrays */
   enumValues?: boolean;
+  /** Only generate TS Enums when `x-enum-*` metadata is available */
+  conditionalEnums?: boolean;
   /** Dedupe enum values */
   dedupeEnums?: boolean;
   /** (optional) Substitute path parameter names with their respective types */
@@ -689,6 +691,7 @@ export interface GlobalContext {
   emptyObjectsUnknown: boolean;
   enum: boolean;
   enumValues: boolean;
+  conditionalEnums: boolean;
   dedupeEnums: boolean;
   excludeDeprecated: boolean;
   exportType: boolean;
