@@ -443,6 +443,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
   if (
     ("properties" in schemaObject && schemaObject.properties && Object.keys(schemaObject.properties).length) ||
     ("additionalProperties" in schemaObject && schemaObject.additionalProperties) ||
+    ("patternProperties" in schemaObject && schemaObject.patternProperties) ||
     ("$defs" in schemaObject && schemaObject.$defs)
   ) {
     // properties
@@ -542,34 +543,54 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
       );
     }
 
-    // additionalProperties
-    if (schemaObject.additionalProperties || options.ctx.additionalProperties) {
-      const hasExplicitAdditionalProperties =
-        typeof schemaObject.additionalProperties === "object" && Object.keys(schemaObject.additionalProperties).length;
-      const addlType = hasExplicitAdditionalProperties
-        ? transformSchemaObject(schemaObject.additionalProperties as SchemaObject, options)
-        : UNKNOWN;
-      return tsIntersection([
-        ...(coreObjectType.length ? [ts.factory.createTypeLiteralNode(coreObjectType)] : []),
-        ts.factory.createTypeLiteralNode([
-          ts.factory.createIndexSignature(
-            /* modifiers  */ tsModifiers({
-              readonly: options.ctx.immutable,
-            }),
-            /* parameters */ [
-              ts.factory.createParameterDeclaration(
-                /* modifiers      */ undefined,
-                /* dotDotDotToken */ undefined,
-                /* name           */ ts.factory.createIdentifier("key"),
-                /* questionToken  */ undefined,
-                /* type           */ STRING,
-              ),
-            ],
-            /* type       */ addlType,
-          ),
-        ]),
-      ]);
+    // additionalProperties / patternProperties
+    const hasExplicitAdditionalProperties =
+      typeof schemaObject.additionalProperties === "object" && Object.keys(schemaObject.additionalProperties).length;
+    const hasImplicitAdditionalProperties =
+      schemaObject.additionalProperties === true ||
+      (typeof schemaObject.additionalProperties === "object" &&
+        Object.keys(schemaObject.additionalProperties).length === 0);
+    const hasExplicitPatternProperties =
+      typeof schemaObject.patternProperties === "object" && Object.keys(schemaObject.patternProperties).length;
+    const stringIndexTypes = [];
+    if (hasExplicitAdditionalProperties) {
+      stringIndexTypes.push(transformSchemaObject(schemaObject.additionalProperties as SchemaObject, options));
     }
+    if (hasImplicitAdditionalProperties || (!schemaObject.additionalProperties && options.ctx.additionalProperties)) {
+      stringIndexTypes.push(UNKNOWN);
+    }
+    if (hasExplicitPatternProperties) {
+      for (const [_, v] of getEntries(schemaObject.patternProperties ?? {}, options.ctx)) {
+        stringIndexTypes.push(transformSchemaObject(v, options));
+      }
+    }
+
+    if (stringIndexTypes.length === 0) {
+      return coreObjectType.length ? ts.factory.createTypeLiteralNode(coreObjectType) : undefined;
+    }
+
+    const stringIndexType = tsUnion(stringIndexTypes);
+
+    return tsIntersection([
+      ...(coreObjectType.length ? [ts.factory.createTypeLiteralNode(coreObjectType)] : []),
+      ts.factory.createTypeLiteralNode([
+        ts.factory.createIndexSignature(
+          /* modifiers  */ tsModifiers({
+            readonly: options.ctx.immutable,
+          }),
+          /* parameters */ [
+            ts.factory.createParameterDeclaration(
+              /* modifiers      */ undefined,
+              /* dotDotDotToken */ undefined,
+              /* name           */ ts.factory.createIdentifier("key"),
+              /* questionToken  */ undefined,
+              /* type           */ STRING,
+            ),
+          ],
+          /* type       */ stringIndexType,
+        ),
+      ]),
+    ]);
   }
 
   return coreObjectType.length ? ts.factory.createTypeLiteralNode(coreObjectType) : undefined;
