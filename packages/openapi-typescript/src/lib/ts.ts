@@ -53,10 +53,10 @@ export function addJSDocComment(schemaObject: AnnotatedSchemaObject, node: ts.Pr
 
   // Not JSDoc tags: [title, format]
   if (schemaObject.title) {
-    output.push(schemaObject.title.replace(LB_RE, "\n *     "));
+    output.push(schemaObject.title.trim().replace(LB_RE, "\n *     "));
   }
   if (schemaObject.summary) {
-    output.push(schemaObject.summary.replace(LB_RE, "\n *     "));
+    output.push(schemaObject.summary.trim().replace(LB_RE, "\n *     "));
   }
   if (schemaObject.format) {
     output.push(`Format: ${schemaObject.format}`);
@@ -80,13 +80,13 @@ export function addJSDocComment(schemaObject: AnnotatedSchemaObject, node: ts.Pr
     }
     const serialized =
       typeof schemaObject[field] === "object" ? JSON.stringify(schemaObject[field], null, 2) : schemaObject[field];
-    output.push(`@${field} ${String(serialized).replace(LB_RE, "\n *     ")}`);
+    output.push(`@${field} ${String(serialized).trim().replace(LB_RE, "\n *     ")}`);
   }
 
   if (Array.isArray(schemaObject.examples)) {
     for (const example of schemaObject.examples) {
       const serialized = typeof example === "object" ? JSON.stringify(example, null, 2) : example;
-      output.push(`@example ${String(serialized).replace(LB_RE, "\n *     ")}`);
+      output.push(`@example ${String(serialized).trim().replace(LB_RE, "\n *     ")}`);
     }
   }
 
@@ -109,11 +109,11 @@ export function addJSDocComment(schemaObject: AnnotatedSchemaObject, node: ts.Pr
   // attach comment if it has content
 
   if (output.length) {
+    // Check if any output item contains multi-line content (has internal line breaks)
+    const hasMultiLineContent = output.some((item) => item.includes("\n"));
+
     let text =
-      output.length === 1
-        ? `* ${output.join("\n")} `
-        : `*
- * ${output.join("\n * ")}\n `;
+      output.length === 1 && !hasMultiLineContent ? `* ${output.join("\n")} ` : `*\n * ${output.join("\n * ")}\n `;
     text = text.replace(COMMENT_RE, "*\\/"); // prevent inner comments from leaking
 
     ts.addSyntheticLeadingComment(
