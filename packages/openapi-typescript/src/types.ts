@@ -436,6 +436,7 @@ export type SchemaObject = {
   const?: unknown;
   default?: unknown;
   format?: string;
+  additionalProperties?: boolean | Record<string, never> | SchemaObject | ReferenceObject;
   /** @deprecated in 3.1 (still valid for 3.0) */
   nullable?: boolean;
   oneOf?: (SchemaObject | ReferenceObject)[];
