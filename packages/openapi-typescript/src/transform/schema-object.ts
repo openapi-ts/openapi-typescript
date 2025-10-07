@@ -502,7 +502,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
           }
         }
 
-        const property = ts.factory.createPropertySignature(
+        let property = ts.factory.createPropertySignature(
           /* modifiers     */ tsModifiers({
             readonly: options.ctx.immutable || readOnly,
           }),
@@ -510,6 +510,18 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
           /* questionToken */ optional,
           /* type          */ type,
         );
+
+        // Apply transformProperty hook if available
+        if (typeof options.ctx.transformProperty === "function") {
+          const result = options.ctx.transformProperty(property, v as SchemaObject, {
+            ...options,
+            path: createRef([options.path, k]),
+          });
+          if (result) {
+            property = result;
+          }
+        }
+
         addJSDocComment(v, property);
         coreObjectType.push(property);
       }
@@ -519,7 +531,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
     if (schemaObject.$defs && typeof schemaObject.$defs === "object" && Object.keys(schemaObject.$defs).length) {
       const defKeys: ts.TypeElement[] = [];
       for (const [k, v] of Object.entries(schemaObject.$defs)) {
-        const property = ts.factory.createPropertySignature(
+        let property = ts.factory.createPropertySignature(
           /* modifiers    */ tsModifiers({
             readonly: options.ctx.immutable || ("readonly" in v && !!v.readOnly),
           }),
@@ -530,6 +542,18 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
             path: createRef([options.path, "$defs", k]),
           }),
         );
+
+        // Apply transformProperty hook if available
+        if (typeof options.ctx.transformProperty === "function") {
+          const result = options.ctx.transformProperty(property, v as SchemaObject, {
+            ...options,
+            path: createRef([options.path, "$defs", k]),
+          });
+          if (result) {
+            property = result;
+          }
+        }
+
         addJSDocComment(v, property);
         defKeys.push(property);
       }

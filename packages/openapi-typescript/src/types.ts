@@ -640,6 +640,12 @@ export interface OpenAPITSOptions {
   transform?: (schemaObject: SchemaObject, options: TransformNodeOptions) => ts.TypeNode | TransformObject | undefined;
   /** Modify TypeScript types built from Schema Objects */
   postTransform?: (type: ts.TypeNode, options: TransformNodeOptions) => ts.TypeNode | undefined;
+  /** Modify property signatures for Schema Object properties */
+  transformProperty?: (
+    property: ts.PropertySignature,
+    schemaObject: SchemaObject,
+    options: TransformNodeOptions,
+  ) => ts.PropertySignature | undefined;
   /** Add readonly properties and readonly arrays? (default: false) */
   immutable?: boolean;
   /** (optional) Should logging be suppressed? (necessary for STDOUT) */
@@ -702,6 +708,7 @@ export interface GlobalContext {
   redoc: RedoclyConfig;
   silent: boolean;
   transform: OpenAPITSOptions["transform"];
+  transformProperty: OpenAPITSOptions["transformProperty"];
   /** retrieve a node by $ref */
   resolve<T>($ref: string): T | undefined;
   inject?: string;
