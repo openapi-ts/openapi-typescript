@@ -29,9 +29,7 @@ const myMiddleware: Middleware = {
   },
   async onError({ error }) {
     // wrap errors thrown by fetch
-    onError({ error }) {
-      return new Error("Oops, fetch failed", { cause: error });
-    },
+    return new Error("Oops, fetch failed", { cause: error });
   },
 };
 
