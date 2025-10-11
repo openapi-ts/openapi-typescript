@@ -25,7 +25,7 @@
     "@changesets/cli": "2.29.7",
     "@playwright/test": "1.55.1",
     "@size-limit/preset-small-lib": "11.2.0",
-    "@types/node": "22.18.3",
+    "@types/node": "22.18.10",
     "prettier": "3.6.2",
     "size-limit": "11.2.0",
     "turbo": "2.5.6",
