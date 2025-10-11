@@ -67,7 +67,7 @@
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
-    "@types/node": "22.18.3",
+    "@types/node": "22.18.10",
     "@vitest/coverage-v8": "3.2.4",
     "reflect-metadata": "0.2.2",
     "typescript": "catalog:",
