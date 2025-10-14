@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.15.0
+
+### Minor Changes
+
+- [#2465](https://github.com/openapi-ts/openapi-typescript/pull/2465) [`8f96eb5`](https://github.com/openapi-ts/openapi-typescript/commit/8f96eb50f5ec060e2e9100e9a43d3fe98e9795c5) Thanks [@Kauabunga](https://github.com/Kauabunga)! - Enable request level middlewares option
+
 ## 0.14.1
 
 ### Patch Changes
