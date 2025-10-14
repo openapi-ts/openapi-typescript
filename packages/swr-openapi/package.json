@@ -1,7 +1,7 @@
 {
   "name": "swr-openapi",
   "description": "Generate SWR hooks from OpenAPI schemas",
-  "version": "6.0.0",
+  "version": "5.4.2",
   "author": {
     "name": "Hunter Tunnicliff",
     "email": "hunter@tunnicliff.co"
