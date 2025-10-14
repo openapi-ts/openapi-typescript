@@ -7,7 +7,7 @@
     "name": "Drew Powers",
     "email": "drew@pow.rs"
   },
-  "packageManager": "pnpm@10.16.1",
+  "packageManager": "pnpm@10.18.3",
   "scripts": {
     "build": "turbo run build",
     "lint": "turbo run lint",
