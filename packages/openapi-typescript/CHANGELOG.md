@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.10.2
+
+### Patch Changes
+
+- [#2139](https://github.com/openapi-ts/openapi-typescript/pull/2139) [`12f9c29`](https://github.com/openapi-ts/openapi-typescript/commit/12f9c29b7653db3ab5d6beb4ac698ce5b58177aa) Thanks [@darkbasic](https://github.com/darkbasic)! - All kinds of enum related fixes (enums in arrays, in optional props, in unions, in request body, with record types...)
+
 ## 7.10.1
 
 ### Patch Changes
