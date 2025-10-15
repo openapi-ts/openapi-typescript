@@ -73,7 +73,7 @@
   },
   "dependencies": {
     "openapi-typescript-helpers": "workspace:^",
-    "type-fest": "^4.41.0"
+    "type-fest": "^5.0.0"
   },
   "devDependencies": {
     "@types/lodash": "4.17.20",
