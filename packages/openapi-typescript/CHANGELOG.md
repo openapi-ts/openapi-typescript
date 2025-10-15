@@ -1,8 +1,8 @@
 # openapi-typescript
 
-## 7.11.0
+## 7.10.1
 
-### Minor Changes
+### Patch Changes
 
 - [#2480](https://github.com/openapi-ts/openapi-typescript/pull/2480) [`e04dc65`](https://github.com/openapi-ts/openapi-typescript/commit/e04dc65817a91eb7ceaea1992f0e674e5d885bb2) Thanks [@MatissJanis](https://github.com/MatissJanis)! - Fix multi-line jsdoc comments
 
