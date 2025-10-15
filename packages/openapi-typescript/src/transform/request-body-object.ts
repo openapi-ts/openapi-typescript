@@ -15,7 +15,7 @@ export default function transformRequestBodyObject(
 ): ts.TypeNode {
   const type: ts.TypeElement[] = [];
   for (const [contentType, mediaTypeObject] of getEntries(requestBodyObject.content ?? {}, options.ctx)) {
-    const nextPath = createRef([options.path, contentType]);
+    const nextPath = createRef([options.path, "content", contentType]);
     const mediaType =
       "$ref" in mediaTypeObject
         ? transformSchemaObject(mediaTypeObject, {
