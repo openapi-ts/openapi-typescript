@@ -11,7 +11,7 @@ title: UI integrations
 ```ts twoslash
 import { generateScalarUI } from "openapi-metadata/ui";
 
-generateScalarUI("http://localhost:3000/api");
+generateScalarUI("http://localhost:3000/api", { theme: "purple" });
 ```
 
 ## [Swagger UI](https://swagger.io/tools/swagger-ui/)
