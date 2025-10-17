@@ -1,5 +1,19 @@
 # openapi-typescript
 
+## 7.10.1
+
+### Patch Changes
+
+- [#2480](https://github.com/openapi-ts/openapi-typescript/pull/2480) [`e04dc65`](https://github.com/openapi-ts/openapi-typescript/commit/e04dc65817a91eb7ceaea1992f0e674e5d885bb2) Thanks [@MatissJanis](https://github.com/MatissJanis)! - Fix multi-line jsdoc comments
+
+## 7.10.0
+
+### Minor Changes
+
+- [#2449](https://github.com/openapi-ts/openapi-typescript/pull/2449) [`bdd5ddb`](https://github.com/openapi-ts/openapi-typescript/commit/bdd5ddb7d5f8463bd0515f0b2d5c98a8a394dabf) Thanks [@kristianjf](https://github.com/kristianjf)! - Add transformProperty hook for property signature modification
+
+- [#2288](https://github.com/openapi-ts/openapi-typescript/pull/2288) [`0f22be2`](https://github.com/openapi-ts/openapi-typescript/commit/0f22be218f0c8050a96f35a6a271b959b2c5a23f) Thanks [@hontas](https://github.com/hontas)! - Add support for patternProperties
+
 ## 7.9.1
 
 ### Patch Changes

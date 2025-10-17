@@ -2916,10 +2916,12 @@ export interface components {
             single_file_name: string | null;
             /** @example true */
             has_multiple_single_files?: boolean;
-            /** @example [
+            /**
+             * @example [
              *       "config.yml",
              *       ".github/issue_TEMPLATE.md"
-             *     ] */
+             *     ]
+             */
             single_file_paths?: string[];
             /** @example github-actions */
             app_slug: string;
@@ -3106,10 +3108,12 @@ export interface components {
             single_file?: string;
             /** @example true */
             has_multiple_single_files?: boolean;
-            /** @example [
+            /**
+             * @example [
              *       "config.yml",
              *       ".github/issue_TEMPLATE.md"
-             *     ] */
+             *     ]
+             */
             single_file_paths?: string[];
         };
         /**
@@ -3140,9 +3144,11 @@ export interface components {
              * @example 2011-09-06T20:39:23Z
              */
             updated_at: string;
-            /** @example [
+            /**
+             * @example [
              *       "public_repo"
-             *     ] */
+             *     ]
+             */
             scopes: string[];
             user?: components["schemas"]["nullable-simple-user"];
         };
@@ -3340,8 +3346,10 @@ export interface components {
             resolved_by?: components["schemas"]["nullable-simple-user"];
             /** @description The type of secret that secret scanning detected. */
             secret_type?: string;
-            /** @description User-friendly name for the detected secret, matching the `secret_type`.
-             *     For a list of built-in patterns, see "[Secret scanning patterns](https://docs.github.com/enterprise-server@3.6/code-security/secret-scanning/secret-scanning-patterns#supported-secrets-for-advanced-security)." */
+            /**
+             * @description User-friendly name for the detected secret, matching the `secret_type`.
+             *     For a list of built-in patterns, see "[Secret scanning patterns](https://docs.github.com/enterprise-server@3.6/code-security/secret-scanning/secret-scanning-patterns#supported-secrets-for-advanced-security)."
+             */
             secret_type_display_name?: string;
             /** @description The secret that was detected. */
             secret?: string;
@@ -3362,16 +3370,20 @@ export interface components {
         "api-overview": {
             /** @example true */
             verifiable_password_authentication: boolean;
-            /** @example [
+            /**
+             * @example [
              *       "13.65.0.0/16",
              *       "157.55.204.33/32",
              *       "2a01:111:f403:f90c::/62"
-             *     ] */
+             *     ]
+             */
             packages?: string[];
-            /** @example [
+            /**
+             * @example [
              *       "192.168.7.15/32",
              *       "192.168.7.16/32"
-             *     ] */
+             *     ]
+             */
             dependabot?: string[];
             /** @example 3.6.0 */
             installed_version?: string;
@@ -3915,8 +3927,10 @@ export interface components {
              */
             url_template: string;
         };
-        /** @description The full Git reference, formatted as `refs/heads/<branch name>`,
-         *     `refs/pull/<number>/merge`, or `refs/pull/<number>/head`. */
+        /**
+         * @description The full Git reference, formatted as `refs/heads/<branch name>`,
+         *     `refs/pull/<number>/merge`, or `refs/pull/<number>/head`.
+         */
         "code-scanning-ref": string;
         /**
          * @description An identifier for the upload.
@@ -4244,12 +4258,14 @@ export interface components {
             open_issues_count: number;
             /** @example true */
             is_template?: boolean;
-            /** @example [
+            /**
+             * @example [
              *       "octocat",
              *       "atom",
              *       "electron",
              *       "API"
-             *     ] */
+             *     ]
+             */
             topics?: string[];
             /** @example true */
             has_issues: boolean;
@@ -4459,8 +4475,10 @@ export interface components {
             resolved_by?: components["schemas"]["nullable-simple-user"];
             /** @description The type of secret that secret scanning detected. */
             secret_type?: string;
-            /** @description User-friendly name for the detected secret, matching the `secret_type`.
-             *     For a list of built-in patterns, see "[Secret scanning patterns](https://docs.github.com/enterprise-server@3.6/code-security/secret-scanning/secret-scanning-patterns#supported-secrets-for-advanced-security)." */
+            /**
+             * @description User-friendly name for the detected secret, matching the `secret_type`.
+             *     For a list of built-in patterns, see "[Secret scanning patterns](https://docs.github.com/enterprise-server@3.6/code-security/secret-scanning/secret-scanning-patterns#supported-secrets-for-advanced-security)."
+             */
             secret_type_display_name?: string;
             /** @description The secret that was detected. */
             secret?: string;
@@ -5027,10 +5045,12 @@ export interface components {
             single_file_name: string | null;
             /** @example true */
             has_multiple_single_files?: boolean;
-            /** @example [
+            /**
+             * @example [
              *       "config.yml",
              *       ".github/issue_TEMPLATE.md"
-             *     ] */
+             *     ]
+             */
             single_file_paths?: string[];
             /**
              * Format: uri
@@ -6845,7 +6865,8 @@ export interface components {
              * @example https://api.github.com/codes_of_conduct/contributor_covenant
              */
             url: string;
-            /** @example # Contributor Covenant Code of Conduct
+            /**
+             * @example # Contributor Covenant Code of Conduct
              *
              *     ## Our Pledge
              *
@@ -6893,7 +6914,7 @@ export interface components {
              *
              *     [homepage]: http://contributor-covenant.org
              *     [version]: http://contributor-covenant.org/version/1/4/
-             *      */
+             */
             body?: string;
             /** Format: uri */
             html_url: string | null;
@@ -7042,27 +7063,33 @@ export interface components {
         enterprise: string;
         /** @description A search phrase. For more information, see [Searching the audit log](https://docs.github.com/enterprise-server@3.6/github/setting-up-and-managing-organizations-and-teams/reviewing-the-audit-log-for-your-organization#searching-the-audit-log). */
         "audit-log-phrase": string;
-        /** @description The event types to include:
+        /**
+         * @description The event types to include:
          *
          *     - `web` - returns web (non-Git) events.
          *     - `git` - returns Git events.
          *     - `all` - returns both web and Git events.
          *
-         *     The default is `web`. */
+         *     The default is `web`.
+         */
         "audit-log-include": "web" | "git" | "all";
         /** @description A cursor, as given in the [Link header](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#link-header). If specified, the query only searches for events after this cursor. */
         "audit-log-after": string;
         /** @description A cursor, as given in the [Link header](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#link-header). If specified, the query only searches for events before this cursor. */
         "audit-log-before": string;
-        /** @description The order of audit log events. To list newest events first, specify `desc`. To list oldest events first, specify `asc`.
+        /**
+         * @description The order of audit log events. To list newest events first, specify `desc`. To list oldest events first, specify `asc`.
          *
-         *     The default is `desc`. */
+         *     The default is `desc`.
+         */
         "audit-log-order": "desc" | "asc";
         /** @description Set to `open` or `resolved` to only list secret scanning alerts in a specific state. */
         "secret-scanning-alert-state": "open" | "resolved";
-        /** @description A comma-separated list of secret types to return. By default all secret types are returned.
+        /**
+         * @description A comma-separated list of secret types to return. By default all secret types are returned.
          *     See "[Secret scanning patterns](https://docs.github.com/enterprise-server@3.6/code-security/secret-scanning/secret-scanning-patterns#supported-secrets-for-advanced-security)"
-         *     for a complete list of secret types. */
+         *     for a complete list of secret types.
+         */
         "secret-scanning-alert-secret-type": string;
         /** @description A comma-separated list of resolutions. Only secret scanning alerts with one of these resolutions are listed. Valid resolutions are `false_positive`, `wont_fix`, `revoked`, `pattern_edited`, `pattern_deleted` or `used_in_tests`. */
         "secret-scanning-alert-resolution": string;
@@ -7992,9 +8019,11 @@ export interface operations {
                 "application/json": {
                     /** @description The user's username. */
                     login: string;
-                    /** @description **Required for built-in authentication.** The user's email
+                    /**
+                     * @description **Required for built-in authentication.** The user's email
                      *     address. This parameter can be omitted when using CAS, LDAP, or SAML.
-                     *     For more information, see "[About authentication for your enterprise](https://docs.github.com/enterprise-server@3.6/admin/identity-and-access-management/managing-iam-for-your-enterprise/about-authentication-for-your-enterprise)." */
+                     *     For more information, see "[About authentication for your enterprise](https://docs.github.com/enterprise-server@3.6/admin/identity-and-access-management/managing-iam-for-your-enterprise/about-authentication-for-your-enterprise)."
+                     */
                     email?: string;
                 };
             };
@@ -9135,21 +9164,25 @@ export interface operations {
             query?: {
                 /** @description A search phrase. For more information, see [Searching the audit log](https://docs.github.com/enterprise-server@3.6/github/setting-up-and-managing-organizations-and-teams/reviewing-the-audit-log-for-your-organization#searching-the-audit-log). */
                 phrase?: components["parameters"]["audit-log-phrase"];
-                /** @description The event types to include:
+                /**
+                 * @description The event types to include:
                  *
                  *     - `web` - returns web (non-Git) events.
                  *     - `git` - returns Git events.
                  *     - `all` - returns both web and Git events.
                  *
-                 *     The default is `web`. */
+                 *     The default is `web`.
+                 */
                 include?: components["parameters"]["audit-log-include"];
                 /** @description A cursor, as given in the [Link header](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#link-header). If specified, the query only searches for events after this cursor. */
                 after?: components["parameters"]["audit-log-after"];
                 /** @description A cursor, as given in the [Link header](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#link-header). If specified, the query only searches for events before this cursor. */
                 before?: components["parameters"]["audit-log-before"];
-                /** @description The order of audit log events. To list newest events first, specify `desc`. To list oldest events first, specify `asc`.
+                /**
+                 * @description The order of audit log events. To list newest events first, specify `desc`. To list oldest events first, specify `asc`.
                  *
-                 *     The default is `desc`. */
+                 *     The default is `desc`.
+                 */
                 order?: components["parameters"]["audit-log-order"];
                 /** @description Page number of the results to fetch. */
                 page?: components["parameters"]["page"];
@@ -9181,9 +9214,11 @@ export interface operations {
             query?: {
                 /** @description Set to `open` or `resolved` to only list secret scanning alerts in a specific state. */
                 state?: components["parameters"]["secret-scanning-alert-state"];
-                /** @description A comma-separated list of secret types to return. By default all secret types are returned.
+                /**
+                 * @description A comma-separated list of secret types to return. By default all secret types are returned.
                  *     See "[Secret scanning patterns](https://docs.github.com/enterprise-server@3.6/code-security/secret-scanning/secret-scanning-patterns#supported-secrets-for-advanced-security)"
-                 *     for a complete list of secret types. */
+                 *     for a complete list of secret types.
+                 */
                 secret_type?: components["parameters"]["secret-scanning-alert-secret-type"];
                 /** @description A comma-separated list of resolutions. Only secret scanning alerts with one of these resolutions are listed. Valid resolutions are `false_positive`, `wont_fix`, `revoked`, `pattern_edited`, `pattern_deleted` or `used_in_tests`. */
                 resolution?: components["parameters"]["secret-scanning-alert-resolution"];
@@ -9445,21 +9480,25 @@ export interface operations {
             query?: {
                 /** @description A search phrase. For more information, see [Searching the audit log](https://docs.github.com/enterprise-server@3.6/github/setting-up-and-managing-organizations-and-teams/reviewing-the-audit-log-for-your-organization#searching-the-audit-log). */
                 phrase?: components["parameters"]["audit-log-phrase"];
-                /** @description The event types to include:
+                /**
+                 * @description The event types to include:
                  *
                  *     - `web` - returns web (non-Git) events.
                  *     - `git` - returns Git events.
                  *     - `all` - returns both web and Git events.
                  *
-                 *     The default is `web`. */
+                 *     The default is `web`.
+                 */
                 include?: components["parameters"]["audit-log-include"];
                 /** @description A cursor, as given in the [Link header](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#link-header). If specified, the query only searches for events after this cursor. */
                 after?: components["parameters"]["audit-log-after"];
                 /** @description A cursor, as given in the [Link header](https://docs.github.com/enterprise-server@3.6/rest/overview/resources-in-the-rest-api#link-header). If specified, the query only searches for events before this cursor. */
                 before?: components["parameters"]["audit-log-before"];
-                /** @description The order of audit log events. To list newest events first, specify `desc`. To list oldest events first, specify `asc`.
+                /**
+                 * @description The order of audit log events. To list newest events first, specify `desc`. To list oldest events first, specify `asc`.
                  *
-                 *     The default is `desc`. */
+                 *     The default is `desc`.
+                 */
                 order?: components["parameters"]["audit-log-order"];
                 /** @description The number of results per page (max 100). */
                 per_page?: components["parameters"]["per-page"];
@@ -9719,9 +9758,11 @@ export interface operations {
             query?: {
                 /** @description Set to `open` or `resolved` to only list secret scanning alerts in a specific state. */
                 state?: components["parameters"]["secret-scanning-alert-state"];
-                /** @description A comma-separated list of secret types to return. By default all secret types are returned.
+                /**
+                 * @description A comma-separated list of secret types to return. By default all secret types are returned.
                  *     See "[Secret scanning patterns](https://docs.github.com/enterprise-server@3.6/code-security/secret-scanning/secret-scanning-patterns#supported-secrets-for-advanced-security)"
-                 *     for a complete list of secret types. */
+                 *     for a complete list of secret types.
+                 */
                 secret_type?: components["parameters"]["secret-scanning-alert-secret-type"];
                 /** @description A comma-separated list of resolutions. Only secret scanning alerts with one of these resolutions are listed. Valid resolutions are `false_positive`, `wont_fix`, `revoked`, `pattern_edited`, `pattern_deleted` or `used_in_tests`. */
                 resolution?: components["parameters"]["secret-scanning-alert-resolution"];
@@ -10538,9 +10579,11 @@ export interface operations {
                     title?: string;
                     /** @description The contents of the key. */
                     key: string;
-                    /** @description If `true`, the key will only be able to read repository contents. Otherwise, the key will be able to read and write.
+                    /**
+                     * @description If `true`, the key will only be able to read repository contents. Otherwise, the key will be able to read and write.
                      *
-                     *     Deploy keys with write access can perform the same actions as an organization member with admin access, or a collaborator on a personal repository. For more information, see "[Repository permission levels for an organization](https://docs.github.com/articles/repository-permission-levels-for-an-organization/)" and "[Permission levels for a user account repository](https://docs.github.com/articles/permission-levels-for-a-user-account-repository/)." */
+                     *     Deploy keys with write access can perform the same actions as an organization member with admin access, or a collaborator on a personal repository. For more information, see "[Repository permission levels for an organization](https://docs.github.com/articles/repository-permission-levels-for-an-organization/)" and "[Permission levels for a user account repository](https://docs.github.com/articles/permission-levels-for-a-user-account-repository/)."
+                     */
                     read_only?: boolean;
                 };
             };
@@ -10972,9 +11015,11 @@ export interface operations {
             query?: {
                 /** @description Set to `open` or `resolved` to only list secret scanning alerts in a specific state. */
                 state?: components["parameters"]["secret-scanning-alert-state"];
-                /** @description A comma-separated list of secret types to return. By default all secret types are returned.
+                /**
+                 * @description A comma-separated list of secret types to return. By default all secret types are returned.
                  *     See "[Secret scanning patterns](https://docs.github.com/enterprise-server@3.6/code-security/secret-scanning/secret-scanning-patterns#supported-secrets-for-advanced-security)"
-                 *     for a complete list of secret types. */
+                 *     for a complete list of secret types.
+                 */
                 secret_type?: components["parameters"]["secret-scanning-alert-secret-type"];
                 /** @description A comma-separated list of resolutions. Only secret scanning alerts with one of these resolutions are listed. Valid resolutions are `false_positive`, `wont_fix`, `revoked`, `pattern_edited`, `pattern_deleted` or `used_in_tests`. */
                 resolution?: components["parameters"]["secret-scanning-alert-resolution"];
@@ -11612,11 +11657,13 @@ export interface operations {
         requestBody: {
             content: {
                 "application/x-www-form-urlencoded": {
-                    /** @description A JSON string with the attributes `enabled` and `when`.
+                    /**
+                     * @description A JSON string with the attributes `enabled` and `when`.
                      *
                      *     The possible values for `enabled` are `true` and `false`. When it's `false`, the attribute `when` is ignored and the maintenance mode is turned off. `when` defines the time period when the maintenance was enabled.
                      *
-                     *     The possible values for `when` are `now` or any date parseable by [mojombo/chronic](https://github.com/mojombo/chronic). */
+                     *     The possible values for `when` are `now` or any date parseable by [mojombo/chronic](https://github.com/mojombo/chronic).
+                     */
                     maintenance: string;
                 };
             };
