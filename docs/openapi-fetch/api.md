@@ -19,6 +19,7 @@ createClient<paths>(options);
 | `fetch`           | `fetch`         | Fetch instance used for requests (default: `globalThis.fetch`)                                                                          |
 | `querySerializer` | QuerySerializer | (optional) Provide a [querySerializer](#queryserializer)                                                                                |
 | `bodySerializer`  | BodySerializer  | (optional) Provide a [bodySerializer](#bodyserializer)                                                                                  |
+| `pathSerializer`  | PathSerializer  | (optional) Provide a [pathSerializer](#pathserializer)                                                                                  |
 | (Fetch options)   |                 | Any valid fetch option (`headers`, `mode`, `cache`, `signal` …) ([docs](https://developer.mozilla.org/en-US/docs/Web/API/fetch#options) |
 
 ## Fetch options
@@ -35,8 +36,9 @@ client.GET("/my-url", options);
 | `body`            | `{ [name]:value }`                                                | [requestBody](https://spec.openapis.org/oas/latest.html#request-body-object) data for the endpoint                                                                                                                                |
 | `querySerializer` | QuerySerializer                                                   | (optional) Provide a [querySerializer](#queryserializer)                                                                                                                                                                          |
 | `bodySerializer`  | BodySerializer                                                    | (optional) Provide a [bodySerializer](#bodyserializer)                                                                                                                                                                            |
+| `pathSerializer`  | PathSerializer                                                    | (optional) Provide a [pathSerializer](#pathserializer)                                                                                                                                                                            |
 | `parseAs`         | `"json"` \| `"text"` \| `"arrayBuffer"` \| `"blob"` \| `"stream"` | (optional) Parse the response using [a built-in instance method](https://developer.mozilla.org/en-US/docs/Web/API/Response#instance_methods) (default: `"json"`). `"stream"` skips parsing altogether and returns the raw stream. |
-| `baseUrl`         | `string`                                                          | Prefix the fetch URL with this option (e.g. `"https://myapi.dev/v1/"`)                                                                                                                                                              |
+| `baseUrl`         | `string`                                                          | Prefix the fetch URL with this option (e.g. `"https://myapi.dev/v1/"`)                                                                                                                                                            |
 | `fetch`           | `fetch`                                                           | Fetch instance used for requests (default: fetch from `createClient`)                                                                                                                                                             |
 | `middleware`      | `Middleware[]`                                                    | [See docs](/openapi-fetch/middleware-auth)                                                                                                                                                                                        |
 | (Fetch options)   |                                                                   | Any valid fetch option (`headers`, `mode`, `cache`, `signal`, …) ([docs](https://developer.mozilla.org/en-US/docs/Web/API/fetch#options))                                                                                         |
@@ -208,7 +210,33 @@ const { data, error } = await client.POST("/tokens", {
 });
 ```
 
-## Path serialization
+## pathSerializer
+
+Similar to [querySerializer](#queryserializer) and [bodySerializer](#bodyserializer), `pathSerializer` allows you to customize how path parameters are serialized. This is useful when your API uses a non-standard path serialization format, or you want to change the default behavior.
+
+### Custom Path Serializer
+
+You can provide a custom path serializer when creating the client:
+
+```ts
+const client = createClient({
+  pathSerializer(pathname, pathParams) {
+    let result = pathname;
+    for (const [key, value] of Object.entries(pathParams)) {
+      result = result.replace(`{${key}}`, `[${value}]`);
+    }
+    return result;
+  },
+});
+
+const { data, error } = await client.GET("/users/{id}", {
+  params: { path: { id: 5 } },
+});
+
+// URL: `/users/[5]`
+```
+
+### Default Path Serializer
 
 openapi-fetch supports path serialization as [outlined in the 3.1 spec](https://swagger.io/docs/specification/serialization/#path). This happens automatically, based on the specific format in your OpenAPI schema:
 
