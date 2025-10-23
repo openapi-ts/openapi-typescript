@@ -1,11 +1,11 @@
 import type { Client } from "openapi-fetch";
-import type { MediaType, PathsWithMethod, RequiredKeysOf } from "openapi-typescript-helpers";
+import type {HttpMethod, MediaType, PathsWithMethod, RequiredKeysOf} from "openapi-typescript-helpers";
 import { useCallback, useDebugValue, useMemo } from "react";
 import type { Fetcher, SWRHook } from "swr";
 import type { Exact } from "type-fest";
 import type { TypesForRequest } from "./types.js";
 
-type HttpMethod = "get" | "post" | "put";
+export type DataHttpMethod = Extract<HttpMethod, "get" | "post" | "put">;
 
 /**
  * @private
@@ -24,7 +24,7 @@ export function configureBaseQueryHook(useHook: SWRHook) {
       Data extends R["Data"],
       Error extends R["Error"] | FetcherError,
       Config extends R["SWRConfig"],
-      M extends HttpMethod = "get",
+      M extends DataHttpMethod = "get",
     >(
       path: Path,
       ...[init, config]: RequiredKeysOf<Init> extends never
