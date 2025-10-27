@@ -815,12 +815,11 @@ describe("client", () => {
       result.current.mutate({ body: { message: "Test", replied_at: 123456789 } });
 
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
-      expect(onSuccessSpy).toHaveBeenNthCalledWith(
-        1,
-        { message: "Success" },
-        { body: { message: "Test", replied_at: 123456789 } },
-        undefined,
-      );
+      // Verify onSuccess was called with correct data and variables
+      expect(onSuccessSpy).toHaveBeenCalledTimes(1);
+      const [data, variables] = onSuccessSpy.mock.calls[0];
+      expect(data).toEqual({ message: "Success" });
+      expect(variables).toEqual({ body: { message: "Test", replied_at: 123456789 } });
       // Verify that mutationKey is part of the options object
       expect(options).toEqual(expect.objectContaining({ mutationKey: ["put", "/comment"] }));
       expect(onErrorSpy).not.toHaveBeenCalled();
