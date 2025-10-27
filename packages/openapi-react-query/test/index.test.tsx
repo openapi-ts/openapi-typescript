@@ -820,10 +820,9 @@ describe("client", () => {
         { message: "Success" },
         { body: { message: "Test", replied_at: 123456789 } },
         undefined,
-        expect.objectContaining({
-          mutationKey: ["put", "/comment"],
-        }),
       );
+      // Verify that mutationKey is part of the options object
+      expect(options).toEqual(expect.objectContaining({ mutationKey: ["put", "/comment"] }));
       expect(onErrorSpy).not.toHaveBeenCalled();
     });
   });

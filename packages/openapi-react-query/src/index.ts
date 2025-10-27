@@ -97,59 +97,6 @@ export type MutationOptionsFunction<Paths extends Record<string, Record<HttpMeth
   }
 >;
 
-// Helper type to infer TPageParam type
-type InferPageParamType<T> = T extends { initialPageParam: infer P } ? P : unknown;
-
-export type InfiniteQueryOptionsFunction<
-  Paths extends Record<string, Record<HttpMethod, {}>>,
-  Media extends MediaType,
-> = <
-  Method extends HttpMethod,
-  Path extends PathsWithMethod<Paths, Method>,
-  Init extends MaybeOptionalInit<Paths[Path], Method>,
-  Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>,
-  Options extends Omit<
-    UseInfiniteQueryOptions<
-      Response["data"],
-      Response["error"],
-      InferSelectReturnType<InfiniteData<Response["data"]>, Options["select"]>,
-      QueryKey<Paths, Method, Path>,
-      InferPageParamType<Options>
-    >,
-    "queryKey" | "queryFn"
-  > & {
-    pageParamName?: string;
-    initialPageParam: InferPageParamType<Options>;
-  },
->(
-  method: Method,
-  path: Path,
-  init: InitWithUnknowns<Init>,
-  options: Options,
-) => NoInfer<
-  Omit<
-    UseInfiniteQueryOptions<
-      Response["data"],
-      Response["error"],
-      InferSelectReturnType<InfiniteData<Response["data"]>, Options["select"]>,
-      QueryKey<Paths, Method, Path>,
-      InferPageParamType<Options>
-    >,
-    "queryFn"
-  > & {
-    queryFn: Exclude<
-      UseInfiniteQueryOptions<
-        Response["data"],
-        Response["error"],
-        InferSelectReturnType<InfiniteData<Response["data"]>, Options["select"]>,
-        QueryKey<Paths, Method, Path>,
-        InferPageParamType<Options>
-      >["queryFn"],
-      SkipToken | undefined
-    >;
-  }
->;
-
 export type UseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
