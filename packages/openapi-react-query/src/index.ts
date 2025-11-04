@@ -156,13 +156,16 @@ export type UseMutationMethod<Paths extends Record<string, Record<HttpMethod, {}
   Path extends PathsWithMethod<Paths, Method>,
   Init extends MaybeOptionalInit<Paths[Path], Method>,
   Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>, // note: Required is used to avoid repeating NonNullable in UseQuery types
-  Options extends Omit<UseMutationOptions<Response["data"], Response["error"], Init>, "mutationKey" | "mutationFn">,
+  TOnMutateResult = unknown,
 >(
   method: Method,
   url: Path,
-  options?: Options,
+  options?: Omit<
+    UseMutationOptions<Response["data"], Response["error"], Init, TOnMutateResult>,
+    "mutationKey" | "mutationFn"
+  >,
   queryClient?: QueryClient,
-) => UseMutationResult<Response["data"], Response["error"], Init>;
+) => UseMutationResult<Response["data"], Response["error"], Init, TOnMutateResult>;
 
 export interface OpenapiQueryClient<Paths extends {}, Media extends MediaType = MediaType> {
   queryOptions: QueryOptionsFunction<Paths, Media>;
