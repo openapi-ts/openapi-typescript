@@ -206,7 +206,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
 
 
   const queryOptions: QueryOptionsFunction<Paths, Media> = (method, path, ...[init, options]) => {
-    const hasCustomQueryKey = (init as any)?.options.queryKey;
+    const hasCustomQueryKey = (init as any)?.options?.queryKey;
     
     if (hasCustomQueryKey) {
       // For custom queryKey, we need a custom queryFn that has access to method, path, init
@@ -248,6 +248,41 @@ export default function createClient<Paths extends {}, Media extends MediaType =
       useSuspenseQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
     useInfiniteQuery: (method, path, init, options, queryClient) => {
       const { pageParamName = "cursor", ...restOptions } = options;
+      const hasCustomQueryKey = (init as any)?.options?.queryKey;
+
+      if (hasCustomQueryKey) {
+        // Handle custom query key case - use closure variables
+        return useInfiniteQuery(
+          {
+            queryKey: (init as any).options.queryKey,
+            queryFn: async ({ pageParam = 0, signal }) => {
+              const mth = method.toUpperCase() as Uppercase<typeof method>;
+              const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
+              const mergedInit = {
+                ...init,
+                signal,
+                params: {
+                  ...(init?.params || {}),
+                  query: {
+                    ...(init?.params as { query?: DefaultParamsOption })?.query,
+                    [pageParamName]: pageParam,
+                  },
+                },
+              };
+
+              const { data, error } = await fn(path, mergedInit as any);
+              if (error) {
+                throw error;
+              }
+              return data;
+            },
+            ...restOptions,
+          },
+          queryClient,
+        );
+      }
+
+      // Default behavior - destructure from queryKey
       const { queryKey } = queryOptions(method, path, init);
       return useInfiniteQuery(
         {
