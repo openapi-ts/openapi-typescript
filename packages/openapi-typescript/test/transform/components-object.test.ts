@@ -757,7 +757,48 @@ export type Item = components['schemas']['Item'];
 export type Document = components['schemas']['Document'];
 export type Error = components['schemas']['Error'];
 `,
-        options: { ...DEFAULT_OPTIONS, rootTypes: true, rootTypesNoSchemaPrefix: true },
+        options: {
+          ...DEFAULT_OPTIONS,
+          rootTypes: true,
+          rootTypesNoSchemaPrefix: true,
+        },
+      },
+    ],
+    [
+      "options > rootTypes: true but keep DTO",
+      {
+        given: {
+          schemas: {
+            ItemDTO: {
+              type: "object",
+              required: ["name", "url"],
+              properties: {
+                name: { type: "string" },
+                url: { type: "string" },
+              },
+            },
+          },
+        },
+        want: `{
+    schemas: {
+        ItemDTO: {
+            name: string;
+            url: string;
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type ItemDTO = components['schemas']['ItemDTO'];
+`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          rootTypes: true,
+          rootTypesNoSchemaPrefix: true,
+        },
       },
     ],
     [

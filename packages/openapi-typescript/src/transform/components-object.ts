@@ -101,7 +101,7 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
 
           if (!shouldSkipEnumSchema) {
             const componentKey = changeCase.pascalCase(singularizeComponentKey(key));
-            let aliasName = `${componentKey}${changeCase.pascalCase(name)}`;
+            let aliasName = `${componentKey}${changeCase.pascalCase(name, { suffixCharacters: "DTO" })}`;
 
             // Add counter suffix (e.g. "_2") if conflict in name
             let conflictCounter = 1;
