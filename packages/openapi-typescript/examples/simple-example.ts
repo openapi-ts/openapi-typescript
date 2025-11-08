@@ -112,7 +112,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Checks if unevaluetedProperties work */
+        /** Checks if unevaluatedProperties work */
         get: operations["getUnevaluatedProperties"];
         put?: never;
         post?: never;

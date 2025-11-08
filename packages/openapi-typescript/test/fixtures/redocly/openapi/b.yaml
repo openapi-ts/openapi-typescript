@@ -109,7 +109,7 @@ paths:
   /unevaluated-properties:
     get:
       operationId: getUnevaluatedProperties
-      summary: Checks if unevaluetedProperties work
+      summary: Checks if unevaluatedProperties work
       responses:
         200:
           description: 'OK'

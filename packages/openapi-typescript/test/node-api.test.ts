@@ -58,7 +58,8 @@ export type operations = Record<string, never>;`,
     [
       "input > string > URL",
       {
-        given: "https://raw.githubusercontent.com/Redocly/redocly-cli/main/__tests__/lint/oas3.1/openapi.yaml",
+        given:
+          "https://raw.githubusercontent.com/Redocly/redocly-cli/13e753a4ca008293dab212ad3b70109166bf93c5/__tests__/lint/oas3.1/openapi.yaml",
         want: new URL("simple-example.ts", EXAMPLES_DIR),
         // options: DEFAULT_OPTIONS,
       },
@@ -66,7 +67,9 @@ export type operations = Record<string, never>;`,
     [
       "input > URL > remote",
       {
-        given: new URL("https://raw.githubusercontent.com/Redocly/redocly-cli/main/__tests__/lint/oas3.1/openapi.yaml"),
+        given: new URL(
+          "https://raw.githubusercontent.com/Redocly/redocly-cli/13e753a4ca008293dab212ad3b70109166bf93c5/__tests__/lint/oas3.1/openapi.yaml",
+        ),
         want: new URL("simple-example.ts", EXAMPLES_DIR),
         // options: DEFAULT_OPTIONS,
       },
