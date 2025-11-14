@@ -668,6 +668,8 @@ export interface OpenAPITSOptions {
   rootTypes?: boolean;
   /** (optional) Do not add Schema prefix to types at root level */
   rootTypesNoSchemaPrefix?: boolean;
+  /** (optional) Keep casing of root types */
+  rootTypesKeepCasing?: boolean;
   /**
    * Configure Redocly for validation, schema fetching, and bundling
    * @see https://redocly.com/docs/cli/configuration/
@@ -705,6 +707,7 @@ export interface GlobalContext {
   propertiesRequiredByDefault: boolean;
   rootTypes: boolean;
   rootTypesNoSchemaPrefix: boolean;
+  rootTypesKeepCasing: boolean;
   redoc: RedoclyConfig;
   silent: boolean;
   transform: OpenAPITSOptions["transform"];

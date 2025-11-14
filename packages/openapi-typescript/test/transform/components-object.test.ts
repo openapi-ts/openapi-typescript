@@ -765,7 +765,7 @@ export type Error = components['schemas']['Error'];
       },
     ],
     [
-      "options > rootTypes: true but keep DTO",
+      "options > rootTypes: true but keep casing",
       {
         given: {
           schemas: {
@@ -798,6 +798,7 @@ export type ItemDTO = components['schemas']['ItemDTO'];
           ...DEFAULT_OPTIONS,
           rootTypes: true,
           rootTypesNoSchemaPrefix: true,
+          rootTypesKeepCasing: true,
         },
       },
     ],
