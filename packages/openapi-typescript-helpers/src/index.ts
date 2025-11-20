@@ -197,5 +197,11 @@ type RequiredKeysOfHelper<T> = {
   // biome-ignore lint/complexity/noBannedTypes: `{}` is necessary here
   [K in keyof T]: {} extends Pick<T, K> ? never : K;
 }[keyof T];
+/** Helper to detect `any` type (0 extends 1 & any is true, but 0 extends 1 & T is false for other types) */
+type IsAny<T> = 0 extends 1 & T ? true : false;
 /** Get the required keys of an object, or `never` if no keys are required */
-export type RequiredKeysOf<T> = RequiredKeysOfHelper<T> extends undefined ? never : RequiredKeysOfHelper<T>;
+export type RequiredKeysOf<T> = IsAny<T> extends true
+  ? never
+  : RequiredKeysOfHelper<T> extends undefined
+    ? never
+    : RequiredKeysOfHelper<T>;
