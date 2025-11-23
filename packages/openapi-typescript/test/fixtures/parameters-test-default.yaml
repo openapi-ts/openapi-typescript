@@ -1,0 +1,19 @@
+openapi: "3.0"
+info:
+  title: test
+  version: "1.0"
+paths:
+  /endpoint:
+    get:
+      description: OK
+      parameters:
+        - in: query
+          name: optional_nodefault
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: optional_default
+          schema:
+            type: string
+          required: false

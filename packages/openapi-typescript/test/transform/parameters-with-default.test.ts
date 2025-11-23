@@ -45,6 +45,44 @@ describe("parametersWithDefaults", () => {
         },
       },
     ],
+    [
+      "options > makeParametersWithDefaultNotUndefined: true",
+      {
+        given: {
+          "/api/{version}/user/{user_id}": {
+            parameters: [
+              { in: "query", name: "no_default", required: false, schema: { type: "number" } },
+              { in: "query", name: "with_default", required: false, schema: { type: "number", default: 1337 } },
+            ],
+          },
+        },
+        want: `{
+    "/api/{version}/user/{user_id}": {
+        parameters: {
+            query: {
+                no_default?: number;
+                with_default: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          makeParametersWithDefaultNotUndefined: true,
+        },
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {

@@ -95,6 +95,7 @@ export default async function openapiTS(
     resolve($ref) {
       return resolveRef(schema, $ref, { silent: options.silent ?? false });
     },
+    makeParametersWithDefaultNotUndefined: options.makeParametersWithDefaultNotUndefined ?? false,
   };
 
   const transformT = performance.now();

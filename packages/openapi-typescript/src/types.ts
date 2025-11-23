@@ -679,6 +679,10 @@ export interface OpenAPITSOptions {
   makePathsEnum?: boolean;
   /** Generate path params based on path even if they are not defiend in the open api schema */
   generatePathParams?: boolean;
+  /** Generate non-optional parameter types if the parameter has a default. This is useful
+   * for server implementations that automatically set the default from the spec for the user.
+   */
+  makeParametersWithDefaultNotUndefined?: boolean;
 }
 
 /** Context passed to all submodules */
@@ -714,6 +718,7 @@ export interface GlobalContext {
   inject?: string;
   makePathsEnum: boolean;
   generatePathParams: boolean;
+  makeParametersWithDefaultNotUndefined: boolean;
 }
 
 export type $defs = Record<string, SchemaObject>;
