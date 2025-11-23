@@ -1,7 +1,7 @@
 import ts from "typescript";
 import { addJSDocComment, NEVER, oapiRef, QUESTION_TOKEN, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
 import { createRef } from "../lib/utils.js";
-import type { ParameterObject, ReferenceObject, TransformNodeOptions } from "../types.js";
+import type { ParameterObject, ReferenceObject, SchemaObject, TransformNodeOptions } from "../types.js";
 import transformParameterObject from "./parameter-object.js";
 
 // Regex to match path parameters in URL
@@ -86,10 +86,14 @@ export function transformParametersArray(
       if (resolved?.in !== paramIn) {
         continue;
       }
+      const resolvedSchema =
+        resolved.schema && "$ref" in resolved.schema
+          ? options.ctx.resolve<SchemaObject>(resolved.schema.$ref as string)
+          : resolved.schema;
       let optional: ts.QuestionToken | undefined = undefined;
       const isNonOptional =
         (resolved as ParameterObject).required ||
-        (options.ctx.makeParametersWithDefaultNotUndefined && resolved.schema?.default !== undefined);
+        (options.ctx.makeParametersWithDefaultNotUndefined && resolvedSchema?.default !== undefined);
       if (paramIn !== "path" && !isNonOptional) {
         optional = QUESTION_TOKEN;
       }
