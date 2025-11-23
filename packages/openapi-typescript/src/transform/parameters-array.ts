@@ -87,7 +87,10 @@ export function transformParametersArray(
         continue;
       }
       let optional: ts.QuestionToken | undefined = undefined;
-      if (paramIn !== "path" && !(resolved as ParameterObject).required) {
+      const isNonOptional =
+        (resolved as ParameterObject).required ||
+        (options.ctx.makeParametersWithDefaultNotUndefined && resolved.schema?.default !== undefined);
+      if (paramIn !== "path" && !isNonOptional) {
         optional = QUESTION_TOKEN;
       }
       const subType =
