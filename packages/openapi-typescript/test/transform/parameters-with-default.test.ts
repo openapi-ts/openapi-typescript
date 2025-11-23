@@ -16,6 +16,18 @@ describe("parametersWithDefaults", () => {
             parameters: [
               { in: "query", name: "no_default", required: false, schema: { type: "number" } },
               { in: "query", name: "with_default", required: false, schema: { type: "number", default: 1337 } },
+              {
+                in: "query",
+                name: "ref_without_default",
+                required: false,
+                schema: { $ref: "#/components/schemas/NoDefault" },
+              },
+              {
+                in: "query",
+                name: "ref_with_default",
+                required: false,
+                schema: { $ref: "#/components/schemas/WithDefault" },
+              },
             ],
           },
         },
@@ -25,6 +37,8 @@ describe("parametersWithDefaults", () => {
             query?: {
                 no_default?: number;
                 with_default?: number;
+                ref_without_default?: components["schemas"]["NoDefault"];
+                ref_with_default?: components["schemas"]["WithDefault"];
             };
             header?: never;
             path?: never;
@@ -53,6 +67,18 @@ describe("parametersWithDefaults", () => {
             parameters: [
               { in: "query", name: "no_default", required: false, schema: { type: "number" } },
               { in: "query", name: "with_default", required: false, schema: { type: "number", default: 1337 } },
+              {
+                in: "query",
+                name: "ref_without_default",
+                required: false,
+                schema: { $ref: "#/components/schemas/NoDefault" },
+              },
+              {
+                in: "query",
+                name: "ref_with_default",
+                required: false,
+                schema: { $ref: "#/components/schemas/WithDefault" },
+              },
             ],
           },
         },
@@ -62,6 +88,8 @@ describe("parametersWithDefaults", () => {
             query: {
                 no_default?: number;
                 with_default: number;
+                ref_without_default?: components["schemas"]["NoDefault"];
+                ref_with_default: components["schemas"]["WithDefault"];
             };
             header?: never;
             path?: never;
@@ -89,7 +117,29 @@ describe("parametersWithDefaults", () => {
     test.skipIf(ci?.skipIf)(
       testName,
       async () => {
-        const result = astToString(transformPathsObject(given, options));
+        const result = astToString(
+          transformPathsObject(given, {
+            ...options,
+            resolve($ref) {
+              switch ($ref) {
+                case "#/components/schemas/NoDefault": {
+                  return {
+                    type: "number",
+                  };
+                }
+                case "#/components/schemas/WithDefault": {
+                  return {
+                    type: "number",
+                    default: 1338,
+                  };
+                }
+                default: {
+                  return undefined as any;
+                }
+              }
+            },
+          }),
+        );
         if (want instanceof URL) {
           await expect(result).toMatchFileSnapshot(fileURLToPath(want));
         } else {
