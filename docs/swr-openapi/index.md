@@ -100,7 +100,7 @@ export const useInfinite = createInfiniteHook(client, prefix);
 export const useMutate = createMutateHook(
   client,
   prefix,
-  isMatch, // Or any comparision function
+  isMatch, // Or any comparison function
 );
 ```
 :::
