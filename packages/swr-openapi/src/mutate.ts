@@ -3,7 +3,8 @@ import type { MediaType, PathsWithMethod } from "openapi-typescript-helpers";
 import { useCallback, useDebugValue } from "react";
 import { type MutatorCallback, type MutatorOptions, useSWRConfig } from "swr";
 import type { Exact, PartialDeep } from "type-fest";
-import type { TypesForGetRequest } from "./types.js";
+import type { TypesForRequest } from "./types.js";
+import type { DataHttpMethod } from "./query-base.js";
 
 // Types are loose here to support ecosystem utilities like `_.isMatch`
 export type CompareFn = (init: any, partialInit: any) => boolean;
@@ -46,15 +47,17 @@ export function createMutateHook<Paths extends {}, IMediaType extends MediaType>
 
     return useCallback(
       function mutate<
-        Path extends PathsWithMethod<Paths, "get">,
-        R extends TypesForGetRequest<Paths, Path>,
+        Path extends PathsWithMethod<Paths, M>,
+        R extends TypesForRequest<Paths, Extract<M, keyof Paths[keyof Paths]>, Path>,
         Init extends Exact<R["Init"], Init>,
+        Data extends R["Data"],
+        M extends DataHttpMethod = "get",
       >(
-        [path, init]: [Path, PartialDeep<Init>?],
-        data?: R["Data"] | Promise<R["Data"]> | MutatorCallback<R["Data"]>,
-        opts?: boolean | MutatorOptions<R["Data"]>,
+        [path, init]: [Path, (PartialDeep<Init> & { method?: M })?],
+        data?: Data | Promise<Data> | MutatorCallback<Data>,
+        opts?: boolean | (MutatorOptions<Data>),
       ) {
-        return swrMutate<R["Data"], R["Data"]>(
+        return swrMutate<Data, Data>(
           (key) => {
             if (
               // Must be array

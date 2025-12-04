@@ -1,9 +1,11 @@
 import type { Client } from "openapi-fetch";
-import type { MediaType, PathsWithMethod, RequiredKeysOf } from "openapi-typescript-helpers";
+import type {HttpMethod, MediaType, PathsWithMethod, RequiredKeysOf} from "openapi-typescript-helpers";
 import { useCallback, useDebugValue, useMemo } from "react";
 import type { Fetcher, SWRHook } from "swr";
 import type { Exact } from "type-fest";
-import type { TypesForGetRequest } from "./types.js";
+import type { TypesForRequest } from "./types.js";
+
+export type DataHttpMethod = Extract<HttpMethod, "get" | "post" | "put">;
 
 /**
  * @private
@@ -16,27 +18,38 @@ export function configureBaseQueryHook(useHook: SWRHook) {
     FetcherError = never,
   >(client: Client<Paths, IMediaType>, prefix: Prefix) {
     return function useQuery<
-      Path extends PathsWithMethod<Paths, "get">,
-      R extends TypesForGetRequest<Paths, Path>,
+      Path extends PathsWithMethod<Paths, M>,
+      R extends TypesForRequest<Paths, Extract<M, keyof Paths[keyof Paths]>, Path>,
       Init extends Exact<R["Init"], Init>,
       Data extends R["Data"],
       Error extends R["Error"] | FetcherError,
       Config extends R["SWRConfig"],
+      M extends DataHttpMethod = "get",
     >(
       path: Path,
-      ...[init, config]: RequiredKeysOf<Init> extends never ? [(Init | null)?, Config?] : [Init | null, Config?]
+      ...[init, config]: RequiredKeysOf<Init> extends never
+        ? [((Init & { method?: M }) | null)?, Config?]
+        : [(Init & { method?: M }) | null, Config?]
     ) {
       useDebugValue(`${prefix} - ${path as string}`);
 
-      const key = useMemo(() => (init !== null ? ([prefix, path, init] as const) : null), [prefix, path, init]);
+      const key = useMemo(
+        () => (init !== null ? ([prefix, path, init] as const) : null), // @ts-ignore
+        [prefix, path, init],
+      );
 
       type Key = typeof key;
 
-      // TODO: Lift up fetcher to and remove useCallback
       const fetcher: Fetcher<Data, Key> = useCallback(
-        async ([_, path, init]) => {
-          // @ts-expect-error TODO: Improve internal init types
-          const res = await client.GET(path, init);
+        async ([, path, init]) => {
+          // runtime method default to 'get'
+          const method = ((init as any)?.method ?? "get") as HttpMethod;
+          const fn = client[method.toUpperCase() as Uppercase<HttpMethod>] as any;
+          if (!fn) {
+            throw new Error(`Unsupported method: ${method}`);
+          }
+
+          const res = await fn(path, init);
           if (res.error) {
             throw res.error;
           }
