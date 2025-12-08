@@ -1,5 +1,5 @@
 import { assertType, expect, expectTypeOf, test } from "vitest";
-import type { Middleware, MiddlewareCallbackParams } from "../../src/index.js";
+import type { Middleware, MiddlewareCallbackParams, MiddlewareOnRequest } from "../../src/index.js";
 import { createObservedClient } from "../helpers.js";
 import type { paths } from "./schemas/middleware.js";
 
@@ -297,12 +297,14 @@ test("receives OpenAPI options passed in from parent", async () => {
 
   let receivedPath = "";
   let receivedParams: MiddlewareCallbackParams["params"] = {};
+  let receivedBody: unknown = {};
 
   const client = createObservedClient<paths>();
   client.use({
-    onRequest({ schemaPath, params }) {
+    onRequest({ schemaPath, params , body }) {
       receivedPath = schemaPath;
       receivedParams = params;
+      receivedBody = body;
       return undefined;
     },
   });
@@ -310,6 +312,7 @@ test("receives OpenAPI options passed in from parent", async () => {
 
   expect(receivedPath).toBe(pathname);
   expect(receivedParams).toEqual(tagData.params);
+  expect(receivedBody).toEqual(tagData.body);
 });
 
 test("can be skipped without interrupting request", async () => {
