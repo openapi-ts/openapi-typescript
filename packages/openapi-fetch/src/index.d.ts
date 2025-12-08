@@ -152,7 +152,7 @@ export interface MiddlewareCallbackParams {
 type MiddlewareOnRequest = (
   options: MiddlewareCallbackParams & {
     /** body as provided to the original openapi-fetch function, pre-serialization */
-    body?: unknown
+    body?: unknown;
   },
 ) => void | Request | Response | undefined | Promise<Request | Response | undefined | void>;
 type MiddlewareOnResponse = (

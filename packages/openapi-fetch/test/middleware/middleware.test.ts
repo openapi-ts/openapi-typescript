@@ -301,7 +301,7 @@ test("receives OpenAPI options passed in from parent", async () => {
 
   const client = createObservedClient<paths>();
   client.use({
-    onRequest({ schemaPath, params , body }) {
+    onRequest({ schemaPath, params, body }) {
       receivedPath = schemaPath;
       receivedParams = params;
       receivedBody = body;
