@@ -169,6 +169,102 @@ describe("transformSchemaObject > array", () => {
       },
     ],
     [
+      "options > arrayLength: true > minItems: 1, maxItems: 3",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 1, maxItems: 3 },
+        want: `[
+    string
+] | [
+    string,
+    string
+] | [
+    string,
+    string,
+    string
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > minItems: 0, maxItems: 2 (starts from empty)",
+      {
+        given: { type: "array", items: { type: "string" }, minItems: 0, maxItems: 2 },
+        want: `[
+] | [
+    string
+] | [
+    string,
+    string
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > minItems: 3, maxItems: 5 (larger range)",
+      {
+        given: { type: "array", items: { type: "number" }, minItems: 3, maxItems: 5 },
+        want: `[
+    number,
+    number,
+    number
+] | [
+    number,
+    number,
+    number,
+    number
+] | [
+    number,
+    number,
+    number,
+    number,
+    number
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > minItems: 2, maxItems: 3 with object items",
+      {
+        given: {
+          type: "array",
+          items: { type: "object", properties: { id: { type: "string" } } },
+          minItems: 2,
+          maxItems: 3,
+        },
+        want: `[
+    {
+        id?: string;
+    },
+    {
+        id?: string;
+    }
+] | [
+    {
+        id?: string;
+    },
+    {
+        id?: string;
+    },
+    {
+        id?: string;
+    }
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
       "options > immutable: true",
       {
         given: {

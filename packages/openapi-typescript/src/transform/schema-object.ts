@@ -381,10 +381,9 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
         } else if ((schemaObject.maxItems as number) > 0) {
           // if maxItems is set, then return a union of all permutations of possible tuple types
           const members: ts.TypeNode[] = [];
-          // populate 1 short of min …
-          for (let i = 0; i <= (max ?? 0) - min; i++) {
+          for (let i = min; i <= (max ?? 0); i++) {
             const elements: ts.TypeNode[] = [];
-            for (let j = min; j < i + min; j++) {
+            for (let j = 0; j < i; j++) {
               elements.push(itemType);
             }
             members.push(ts.factory.createTupleTypeNode(elements));
