@@ -265,6 +265,212 @@ describe("transformSchemaObject > array", () => {
       },
     ],
     [
+      "options > arrayLength: true > nested array with minItems equals maxItems",
+      {
+        given: {
+          type: "array",
+          items: { type: "array", items: { type: "string" } },
+          minItems: 2,
+          maxItems: 2,
+        },
+        want: `[
+    string[],
+    string[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > nested array with inner minItems equals maxItems",
+      {
+        given: {
+          type: "array",
+          items: {
+            type: "array",
+            items: { type: "string" },
+            minItems: 3,
+            maxItems: 3,
+          },
+        },
+        want: `[
+    string,
+    string,
+    string
+][]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > triple nested array",
+      {
+        given: {
+          type: "array",
+          items: {
+            type: "array",
+            items: { type: "array", items: { type: "string" } },
+          },
+        },
+        want: "string[][][]",
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > nested array with both inner and outer constraints",
+      {
+        given: {
+          type: "array",
+          items: {
+            type: "array",
+            items: { type: "boolean" },
+            minItems: 2,
+            maxItems: 2,
+          },
+          minItems: 3,
+          maxItems: 3,
+        },
+        want: `[
+    [
+        boolean,
+        boolean
+    ],
+    [
+        boolean,
+        boolean
+    ],
+    [
+        boolean,
+        boolean
+    ]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > nested array without constraints",
+      {
+        given: {
+          type: "array",
+          items: { type: "array", items: { type: "number" } },
+        },
+        want: "number[][]",
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > nested tuple (prefixItems) in array",
+      {
+        given: {
+          type: "array",
+          items: {
+            type: "array",
+            prefixItems: [{ type: "string" }, { type: "number" }],
+          },
+          minItems: 2,
+          maxItems: 2,
+        },
+        want: `[
+    [
+        string,
+        number
+    ],
+    [
+        string,
+        number
+    ]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > nested array with minItems: 0, maxItems: 2",
+      {
+        given: {
+          type: "array",
+          items: { type: "array", items: { type: "string" } },
+          minItems: 0,
+          maxItems: 2,
+        },
+        want: `[
+] | [
+    string[]
+] | [
+    string[],
+    string[]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > deeply nested with constraints at multiple levels",
+      {
+        given: {
+          type: "array",
+          items: {
+            type: "array",
+            items: {
+              type: "array",
+              items: { type: "number" },
+              minItems: 2,
+              maxItems: 2,
+            },
+          },
+          minItems: 1,
+          maxItems: 1,
+        },
+        want: `[
+    [
+        number,
+        number
+    ][]
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > array of tuples without outer constraints",
+      {
+        given: {
+          type: "array",
+          items: {
+            type: "array",
+            prefixItems: [{ type: "string" }, { type: "boolean" }],
+          },
+        },
+        want: `[
+    string,
+    boolean
+][]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
       "options > immutable: true",
       {
         given: {
