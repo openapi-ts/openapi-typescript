@@ -526,6 +526,93 @@ describe("client", () => {
       expect(data).toBe(initialData);
       expect(error).toBeNull();
     });
+
+    it("uses React Query options from init.options", async () => {
+      const initialData = ["from", "init", "options"];
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      const { result } = renderHook(
+        () =>
+          client.useQuery("get", "/string-array", {
+            options: {
+              enabled: false,
+              initialData,
+            },
+          }),
+        { wrapper },
+      );
+
+      const { data, error } = result.current;
+
+      expect(data).toBe(initialData);
+      expect(error).toBeNull();
+    });
+
+    it("init.options takes precedence over explicit options parameter", async () => {
+      const initialDataFromInit = ["from", "init"];
+      const initialDataFromOptions = ["from", "options"];
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      const { result } = renderHook(
+        () =>
+          client.useQuery(
+            "get",
+            "/string-array",
+            {
+              options: {
+                enabled: false,
+                initialData: initialDataFromInit,
+              },
+            },
+            {
+              initialData: initialDataFromOptions,
+            },
+          ),
+        { wrapper },
+      );
+
+      const { data } = result.current;
+
+      // init.options should take precedence
+      expect(data).toBe(initialDataFromInit);
+    });
+
+    it("merges init.options with explicit options parameter", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/string-array",
+        status: 200,
+        body: ["one", "two"],
+      });
+
+      const { result } = renderHook(
+        () =>
+          client.useQuery(
+            "get",
+            "/string-array",
+            {
+              options: {
+                staleTime: 10000,
+              },
+            },
+            {
+              refetchOnMount: false,
+            },
+          ),
+        { wrapper },
+      );
+
+      await waitFor(() => expect(result.current.isFetching).toBe(false));
+
+      // Both options should be applied - query should succeed
+      expect(result.current.data).toEqual(["one", "two"]);
+    });
   });
 
   describe("useSuspenseQuery", () => {
@@ -1200,6 +1287,73 @@ describe("client", () => {
       });
 
       expect(result.current.data).toEqual([1, 2, 3, 4, 5, 6]);
+    });
+
+    it("uses React Query options from init.options", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      // Should not make any requests because enabled is false
+      const { result } = renderHook(
+        () =>
+          client.useInfiniteQuery(
+            "get",
+            "/paginated-data",
+            {
+              params: {
+                query: {
+                  limit: 3,
+                },
+              },
+              options: {
+                enabled: false,
+              },
+            },
+            {
+              getNextPageParam: (lastPage) => lastPage.nextPage,
+              initialPageParam: 0,
+            },
+          ),
+        { wrapper },
+      );
+
+      // Query should not be fetching because enabled is false
+      expect(result.current.isFetching).toBe(false);
+      expect(result.current.data).toBeUndefined();
+    });
+
+    it("init.options takes precedence over explicit options in useInfiniteQuery", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      // Should not make any requests because enabled is false in init.options
+      const { result } = renderHook(
+        () =>
+          client.useInfiniteQuery(
+            "get",
+            "/paginated-data",
+            {
+              params: {
+                query: {
+                  limit: 3,
+                },
+              },
+              options: {
+                enabled: false, // This should take precedence
+              },
+            },
+            {
+              getNextPageParam: (lastPage) => lastPage.nextPage,
+              initialPageParam: 0,
+              enabled: true, // This should be overridden
+            },
+          ),
+        { wrapper },
+      );
+
+      // Query should not be fetching because init.options.enabled takes precedence
+      expect(result.current.isFetching).toBe(false);
+      expect(result.current.data).toBeUndefined();
     });
   });
 });

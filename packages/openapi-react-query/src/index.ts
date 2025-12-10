@@ -206,12 +206,16 @@ export default function createClient<Paths extends {}, Media extends MediaType =
 
 
   const queryOptions: QueryOptionsFunction<Paths, Media> = (method, path, ...[init, options]) => {
-    const hasCustomQueryKey = (init as any)?.options?.queryKey;
-    
-    if (hasCustomQueryKey) {
+    // Extract queryKey and React Query options from init.options
+    const { queryKey: customQueryKey, ...initReactQueryOptions } = (init as any)?.options ?? {};
+
+    // Merge options: init.options takes precedence over explicit options parameter
+    const mergedOptions = { ...options, ...initReactQueryOptions };
+
+    if (customQueryKey) {
       // For custom queryKey, we need a custom queryFn that has access to method, path, init
       return {
-        queryKey: (init as any).options.queryKey,
+        queryKey: customQueryKey,
         queryFn: async ({ signal }: any) => {
           const mth = method.toUpperCase() as Uppercase<typeof method>;
           const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
@@ -224,10 +228,10 @@ export default function createClient<Paths extends {}, Media extends MediaType =
           }
           return data;
         },
-        ...options,
+        ...mergedOptions,
       };
     }
-    
+
     // Default behavior - use original queryFn with method/path/init in queryKey
     return {
       queryKey: (init === undefined ? ([method, path] as const) : ([method, path, init] as const)) as QueryKey<
@@ -236,7 +240,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
         typeof path
       >,
       queryFn,
-      ...options,
+      ...mergedOptions,
     };
   };
 
@@ -247,14 +251,18 @@ export default function createClient<Paths extends {}, Media extends MediaType =
     useSuspenseQuery: (method, path, ...[init, options, queryClient]) =>
       useSuspenseQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
     useInfiniteQuery: (method, path, init, options, queryClient) => {
-      const { pageParamName = "cursor", ...restOptions } = options;
-      const hasCustomQueryKey = (init as any)?.options?.queryKey;
+      // Extract queryKey and React Query options from init.options
+      const { queryKey: customQueryKey, ...initReactQueryOptions } = (init as any)?.options ?? {};
 
-      if (hasCustomQueryKey) {
+      // Merge options: init.options takes precedence over explicit options parameter
+      const mergedOptions = { ...options, ...initReactQueryOptions };
+      const { pageParamName = "cursor", ...restOptions } = mergedOptions;
+
+      if (customQueryKey) {
         // Handle custom query key case - use closure variables
         return useInfiniteQuery(
           {
-            queryKey: (init as any).options.queryKey,
+            queryKey: customQueryKey,
             queryFn: async ({ pageParam = 0, signal }) => {
               const mth = method.toUpperCase() as Uppercase<typeof method>;
               const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
@@ -282,12 +290,12 @@ export default function createClient<Paths extends {}, Media extends MediaType =
         );
       }
 
-      // Default behavior - destructure from queryKey
+      // Default behavior - use closure variables like custom queryKey case
       const { queryKey } = queryOptions(method, path, init);
       return useInfiniteQuery(
         {
           queryKey,
-          queryFn: async ({ queryKey: [method, path, init], pageParam = 0, signal }) => {
+          queryFn: async ({ pageParam = 0, signal }) => {
             const mth = method.toUpperCase() as Uppercase<typeof method>;
             const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
             const mergedInit = {

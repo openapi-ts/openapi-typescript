@@ -1,7 +1,7 @@
 {
   "name": "@insightfactory/openapi-react-query",
   "description": "Fast, type-safe @tanstack/react-query client to work with your OpenAPI schema.",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "author": {
     "name": "Martin Paucot",
     "email": "contact@martin-paucot.fr"
