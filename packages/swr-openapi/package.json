@@ -1,7 +1,7 @@
 {
   "name": "swr-openapi",
   "description": "Generate SWR hooks from OpenAPI schemas",
-  "version": "5.4.0",
+  "version": "5.4.2",
   "author": {
     "name": "Hunter Tunnicliff",
     "email": "hunter@tunnicliff.co"
@@ -73,18 +73,18 @@
   },
   "dependencies": {
     "openapi-typescript-helpers": "workspace:^",
-    "type-fest": "^4.40.1"
+    "type-fest": "^5.0.0"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.16",
-    "@types/react": "^18.3.20",
-    "husky": "^9.1.7",
-    "lint-staged": "15.5.2",
-    "lodash": "^4.17.21",
+    "@types/lodash": "4.17.20",
+    "@types/react": "^18.3.24",
+    "husky": "9.1.7",
+    "lint-staged": "16.2.3",
+    "lodash": "4.17.21",
     "openapi-fetch": "workspace:^",
     "openapi-typescript": "workspace:^",
-    "react": "^18.3.1",
-    "swr": "^2.3.3",
-    "typescript": "^5.9.2"
+    "react": "18.3.1",
+    "swr": "2.3.6",
+    "typescript": "5.9.3"
   }
 }

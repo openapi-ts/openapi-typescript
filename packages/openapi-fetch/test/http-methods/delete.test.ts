@@ -1,4 +1,4 @@
-import { describe, expect, test, assertType } from "vitest";
+import { assertType, describe, expect, test } from "vitest";
 import { createObservedClient } from "../helpers.js";
 import type { paths } from "./schemas/delete.js";
 

@@ -1,11 +1,11 @@
 import type { OpenAPIV3 } from "openapi-types";
-import type { Context } from "../context.js";
-import type { TypeLoaderFn, TypeOptions } from "../types.js";
 import type { SetRequired } from "type-fest";
-import { getEnumType, getEnumValues } from "../utils/enum.js";
+import type { Context } from "../context.js";
 import { PropertyMetadataStorage } from "../metadata/property.js";
-import { getSchemaPath } from "../utils/schema.js";
+import type { TypeLoaderFn, TypeOptions } from "../types.js";
+import { getEnumType, getEnumValues } from "../utils/enum.js";
 import { isThunk } from "../utils/metadata.js";
+import { getSchemaPath } from "../utils/schema.js";
 
 /**
  * Type loader to load primitive types.

@@ -194,16 +194,33 @@ test("executes in expected order", async () => {
         return request;
       },
       onResponse({ response }) {
-        response.headers.set("step", "C");
-        return response;
+        const headers = new Headers(response.headers);
+        headers.set("step", "C");
+        if (response.headers.get("step") === "D") {
+          return new Response(response.body, { ...response, headers });
+        }
       },
     },
   );
 
-  const { response } = await client.GET("/posts/{id}", { params: { path: { id: 123 } } });
+  const { response } = await client.GET("/posts/{id}", {
+    params: { path: { id: 123 } },
+    middleware: [
+      {
+        onRequest({ request }) {
+          request.headers.set("step", "D");
+          return request;
+        },
+        onResponse({ response }) {
+          response.headers.set("step", "D");
+          return response;
+        },
+      },
+    ],
+  });
 
   // assert requests ended up on step C (array order)
-  expect(actualRequest.headers.get("step")).toBe("C");
+  expect(actualRequest.headers.get("step")).toBe("D");
 
   // assert responses ended up on step A (reverse order)
   expect(response.headers.get("step")).toBe("A");
@@ -504,4 +521,24 @@ test("skips onResponse handlers when response is returned from onRequest", async
   await client.GET("/posts/{id}", { params: { path: { id: 123 } } });
 
   expect(onResponseCalled).toBe(false);
+});
+
+test("add middleware at the request level", async () => {
+  const customResponse = Response.json({});
+  const client = createObservedClient<paths>({}, async () => {
+    throw new Error("unexpected call to fetch");
+  });
+
+  const { response } = await client.GET("/posts/{id}", {
+    params: { path: { id: 123 } },
+    middleware: [
+      {
+        async onRequest() {
+          return customResponse;
+        },
+      },
+    ],
+  });
+
+  expect(response).toBe(customResponse);
 });

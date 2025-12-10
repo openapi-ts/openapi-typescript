@@ -1,5 +1,5 @@
 import ts from "typescript";
-import { NEVER, QUESTION_TOKEN, addJSDocComment, oapiRef, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
+import { addJSDocComment, NEVER, oapiRef, QUESTION_TOKEN, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
 import { createRef } from "../lib/utils.js";
 import type {
   OperationObject,

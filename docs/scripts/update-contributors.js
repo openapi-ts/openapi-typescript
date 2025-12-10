@@ -1,4 +1,5 @@
-import fs from "node:fs";
+import fs from "node:fs/promises";
+import timers from "node:timers/promises";
 import { URL } from "node:url";
 
 const MAINTAINERS = {
@@ -196,10 +197,11 @@ const CONTRIBUTORS = new Set([
 ]);
 
 const ONE_WEEK = 1000 * 60 * 60 * 24;
+const FOUR_WEEKS = 4 * ONE_WEEK;
 
 const CONTRIBUTORS_JSON = new URL("../data/contributors.json", import.meta.url);
 
-const data = JSON.parse(fs.readFileSync(CONTRIBUTORS_JSON, "utf8"));
+const data = JSON.parse(await fs.readFile(CONTRIBUTORS_JSON, "utf8"));
 
 class UserFetchError extends Error {
   /**
@@ -220,16 +222,61 @@ class UserFetchError extends Error {
   }
 }
 
-async function fetchUserInfo(username) {
-  const res = await fetch(`https://api.github.com/users/${username}`, {
+const BACKOFF_INTERVALS_MINUTES = [1, 2, 3, 5];
+const MAX_RETRIES = BACKOFF_INTERVALS_MINUTES.length - 1;
+
+async function rateLimitDelay({ retryAfter, ratelimitReset, retryCount }) {
+  let timeoutInMilliseconds = BACKOFF_INTERVALS_MINUTES[retryCount] * 1000;
+  if (retryAfter) {
+    timeoutInMilliseconds = retryAfter * 1000;
+  } else if (ratelimitRemaining === "0" && ratelimitReset) {
+    timeoutInMilliseconds = ratelimitReset * 1000 - Date.now();
+  }
+
+  const timeoutInSeconds = (timeoutInMilliseconds / 1000).toLocaleString();
+  console.warn(`Waiting for ${timeoutInSeconds} seconds...`);
+
+  await timers.setTimeout(timeoutInMilliseconds);
+}
+
+async function fetchUserInfo(username, retryCount = 0) {
+  if (retryCount >= MAX_RETRIES) {
+    throw new Error(`Hit max retries (${MAX_RETRIES}) for fetching user ${username}`);
+  }
+
+  const request = new Request(`https://api.github.com/users/${username}`, {
     headers: {
       Accept: "application/vnd.github+json",
       "X-GitHub-Api-Version": "2022-11-28",
     },
   });
+  if (process.env.GITHUB_TOKEN) {
+    request.headers.set("Authorization", `Bearer ${process.env.GITHUB_TOKEN}`);
+  }
+
+  const res = await fetch(request);
+
   if (!res.ok) {
+    const retryAfter = res.headers.get("retry-after"); // seconds
+    const ratelimitRemaining = res.headers.get("x-ratelimit-remaining"); // quantity of requests remaining
+    const ratelimitReset = res.headers.get("x-ratelimit-reset"); // UTC epoch seconds
+
+    if (retryAfter || ratelimitRemaining === "0" || ratelimitReset) {
+      // See https://docs.github.com/en/rest/using-the-rest-api/best-practices-for-using-the-rest-api?apiVersion=2022-11-28#handle-rate-limit-errors-appropriately
+      console.warn("Rate limited by GitHub API");
+
+      await rateLimitDelay({
+        retryAfter,
+        ratelimitReset,
+        retryCount,
+      });
+
+      return await fetchUserInfo(username, retryCount + 1);
+    }
+
     throw new UserFetchError(`${res.url} responded with ${res.status}`, res);
   }
+
   return await res.json();
 }
 
@@ -251,8 +298,8 @@ async function main() {
     i++;
     // skip profiles that have been updated within the past week
     const { lastFetch } = data[group]?.find((u) => u.username === username) ?? { lastFetch: 0 };
-    if (Date.now() - lastFetch < ONE_WEEK) {
-      // biome-ignore lint/suspicious/noConsoleLog: this is a script
+    if (Date.now() - lastFetch < FOUR_WEEKS) {
+      // biome-ignore lint/suspicious/noConsole: this is a script
       console.log(`[${i}/${CONTRIBUTORS.size}] (Skipped ${username})`);
       continue;
     }
@@ -267,11 +314,13 @@ async function main() {
         lastFetch: new Date().getTime(),
       };
       upsert(data[group], userData);
-      // biome-ignore lint/suspicious/noConsoleLog: this is a script
+      // biome-ignore lint/suspicious/noConsole: this is a script
       console.log(`[${i}/${CONTRIBUTORS.size}] Updated for ${username}`);
-      fs.writeFileSync(new URL("../data/contributors.json", import.meta.url), JSON.stringify(data)); // update file while fetching (sync happens safely in between fetches)
+      await fs.writeFile(new URL("../data/contributors.json", import.meta.url), JSON.stringify(data)); // update file while fetching (sync happens safely in between fetches)
+      await new Promise((resolve) => setTimeout(resolve, 1_000)); // GitHub 403s with too many rapid requests.
     } catch (err) {
       if (err instanceof UserFetchError && err.notFound) {
+        // biome-ignore lint/suspicious/noConsole: this is a script
         console.warn(`[${i}/${total}] (Skipped ${username}, not found)`);
         continue;
       }
@@ -280,4 +329,6 @@ async function main() {
   }
 }
 
-main();
+if (import.meta.main) {
+  main();
+}

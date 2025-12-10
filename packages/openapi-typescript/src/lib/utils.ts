@@ -79,12 +79,14 @@ export function debug(msg: string, group?: string, time?: number) {
     if (typeof time === "number") {
       timeFormatted = c.green(` ${formatTime(time)} `);
     }
+    // biome-ignore lint/suspicious/noConsole: this is a CLI
     console.debug(`  ${c.bold(groupName)}${timeFormatted}${msg}`);
   }
 }
 
 /** Print error message */
 export function error(msg: string) {
+  // biome-ignore lint/suspicious/noConsole: this is a CLI
   console.error(c.red(` ✘  ${msg}`));
 }
 
@@ -386,6 +388,7 @@ export function walk(
 /** Print warning message */
 export function warn(msg: string, silent = false) {
   if (!silent) {
+    // biome-ignore lint/suspicious/noConsole: this is a CLI
     console.warn(c.yellow(` ⚠  ${msg}`));
   }
 }

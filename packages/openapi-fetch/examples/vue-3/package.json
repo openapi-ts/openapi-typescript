@@ -12,15 +12,15 @@
   },
   "dependencies": {
     "openapi-fetch": "workspace:^",
-    "vue": "^3.5.13"
+    "vue": "^3.5.21"
   },
   "devDependencies": {
-    "@tsconfig/node20": "^20.1.5",
-    "@vitejs/plugin-vue": "^5.2.3",
+    "@tsconfig/node20": "^20.1.6",
+    "@vitejs/plugin-vue": "^5.2.4",
     "@vue/tsconfig": "^0.5.1",
     "openapi-typescript": "workspace:^",
-    "typescript": "^5.9.2",
-    "vite": "^7.1.1",
-    "vue-tsc": "^2.2.10"
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vue-tsc": "^2.2.12"
   }
 }

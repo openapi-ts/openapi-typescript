@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
-import openapiTS, { COMMENT_HEADER, astToString } from "../src/index.js";
-import type { OpenAPITSOptions, ReferenceObject, SchemaObject } from "../src/types.js";
+import openapiTS, { astToString, COMMENT_HEADER } from "../src/index.js";
+import type { OpenAPITSOptions } from "../src/types.js";
 import type { TestCase } from "./test-helpers.js";
 
 const EXAMPLES_DIR = new URL("../examples/", import.meta.url);
@@ -58,7 +58,8 @@ export type operations = Record<string, never>;`,
     [
       "input > string > URL",
       {
-        given: "https://raw.githubusercontent.com/Redocly/redocly-cli/main/__tests__/lint/oas3.1/openapi.yaml",
+        given:
+          "https://raw.githubusercontent.com/Redocly/redocly-cli/13e753a4ca008293dab212ad3b70109166bf93c5/__tests__/lint/oas3.1/openapi.yaml",
         want: new URL("simple-example.ts", EXAMPLES_DIR),
         // options: DEFAULT_OPTIONS,
       },
@@ -66,7 +67,9 @@ export type operations = Record<string, never>;`,
     [
       "input > URL > remote",
       {
-        given: new URL("https://raw.githubusercontent.com/Redocly/redocly-cli/main/__tests__/lint/oas3.1/openapi.yaml"),
+        given: new URL(
+          "https://raw.githubusercontent.com/Redocly/redocly-cli/13e753a4ca008293dab212ad3b70109166bf93c5/__tests__/lint/oas3.1/openapi.yaml",
+        ),
         want: new URL("simple-example.ts", EXAMPLES_DIR),
         // options: DEFAULT_OPTIONS,
       },
@@ -603,6 +606,163 @@ export type operations = Record<string, never>;`,
       },
     ],
     [
+      "options > transformProperty > JSDoc validation annotations",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
+          components: {
+            schemas: {
+              User: {
+                type: "object",
+                properties: {
+                  name: {
+                    type: "string",
+                    minLength: 1,
+                    pattern: "^[a-zA-Z0-9]+$",
+                  },
+                  email: {
+                    type: "string",
+                    format: "email",
+                  },
+                  age: {
+                    type: "integer",
+                    minimum: 0,
+                    maximum: 120,
+                  },
+                },
+                required: ["name", "email"],
+              },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        User: {
+            /**
+             * @minLength 1
+             * @pattern ^[a-zA-Z0-9]+$
+             */
+            name: string;
+            /**
+             * @format email
+             */
+            /** Format: email */
+            email: string;
+            /**
+             * @minimum 0
+             * @maximum 120
+             */
+            age?: number;
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+        options: {
+          transformProperty(property, schemaObject, _options) {
+            const validationTags: string[] = [];
+            const schema = schemaObject as any; // Cast to access validation properties
+
+            if (schema.minLength !== undefined) {
+              validationTags.push(`@minLength ${schema.minLength}`);
+            }
+            if (schema.maxLength !== undefined) {
+              validationTags.push(`@maxLength ${schema.maxLength}`);
+            }
+            if (schema.minimum !== undefined) {
+              validationTags.push(`@minimum ${schema.minimum}`);
+            }
+            if (schema.maximum !== undefined) {
+              validationTags.push(`@maximum ${schema.maximum}`);
+            }
+            if (schema.pattern !== undefined) {
+              validationTags.push(`@pattern ${schema.pattern}`);
+            }
+            if (schema.format !== undefined) {
+              validationTags.push(`@format ${schema.format}`);
+            }
+
+            if (validationTags.length > 0) {
+              // Create a new property signature
+              const newProperty = ts.factory.updatePropertySignature(
+                property,
+                property.modifiers,
+                property.name,
+                property.questionToken,
+                property.type,
+              );
+
+              // Add JSDoc comment using the same format as addJSDocComment
+              const jsDocText = `*\n * ${validationTags.join("\n * ")}\n `;
+
+              ts.addSyntheticLeadingComment(newProperty, ts.SyntaxKind.MultiLineCommentTrivia, jsDocText, true);
+
+              return newProperty;
+            }
+
+            return property;
+          },
+        },
+      },
+    ],
+    [
+      "options > transformProperty > no-op when returning undefined",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
+          components: {
+            schemas: {
+              User: {
+                type: "object",
+                properties: {
+                  name: { type: "string" },
+                  email: { type: "string", format: "email" },
+                },
+                required: ["name"],
+              },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        User: {
+            name: string;
+            /** Format: email */
+            email?: string;
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+        options: {
+          transformProperty(property, schemaObject, _options) {
+            const schema = schemaObject as any; // Cast to access validation properties
+            // Only transform properties with minLength, return undefined for others
+            if (schema.minLength === undefined) {
+              return undefined; // Should leave property unchanged
+            }
+            return property;
+          },
+        },
+      },
+    ],
+    [
       "options > enum",
       {
         given: {
@@ -830,15 +990,251 @@ export interface components {
     pathItems: never;
 }
 export type $defs = Record<string, never>;
+type FlattenedDeepRequired<T> = {
+    [K in keyof T]-?: FlattenedDeepRequired<T[K] extends unknown[] | undefined | null ? Extract<T[K], unknown[]>[number] : T[K]>;
+};
 type ReadonlyArray<T> = [
     Exclude<T, undefined>
 ] extends [
     unknown[]
 ] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
-export const pathsUrlGetParametersQueryStatusValues: ReadonlyArray<paths["/url"]["get"]["parameters"]["query"]["status"]> = ["active", "inactive"];
-export const statusValues: ReadonlyArray<components["schemas"]["Status"]> = ["active", "inactive"];
-export const errorCodeValues: ReadonlyArray<components["schemas"]["ErrorCode"]> = [100, 101, 102, 103, 104, 105];
+export const pathsUrlGetParametersQueryStatusValues: ReadonlyArray<FlattenedDeepRequired<paths>["/url"]["get"]["parameters"]["query"]["status"]> = ["active", "inactive"];
+export const statusValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["Status"]> = ["active", "inactive"];
+export const errorCodeValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["ErrorCode"]> = [100, 101, 102, 103, 104, 105];
 export type operations = Record<string, never>;`,
+        options: { enumValues: true },
+      },
+    ],
+    [
+      "options > enumValues with record types",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
+          components: {
+            schemas: {
+              ComplexEditKeyDto: {
+                type: "object",
+                properties: {
+                  states: {
+                    type: "object",
+                    additionalProperties: {
+                      type: "string",
+                      enum: ["TRANSLATED", "REVIEWED"],
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        ComplexEditKeyDto: {
+            states?: {
+                [key: string]: "TRANSLATED" | "REVIEWED";
+            };
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+type FlattenedDeepRequired<T> = {
+    [K in keyof T]-?: FlattenedDeepRequired<T[K] extends unknown[] | undefined | null ? Extract<T[K], unknown[]>[number] : T[K]>;
+};
+type ReadonlyArray<T> = [
+    Exclude<T, undefined>
+] extends [
+    unknown[]
+] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
+export const complexEditKeyDtoStatesValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["ComplexEditKeyDto"]["states"][string]> = ["TRANSLATED", "REVIEWED"];
+export type operations = Record<string, never>;`,
+        options: { enumValues: true },
+      },
+    ],
+    [
+      "options > enumValues with unions",
+      {
+        given: {
+          openapi: "3.1.0",
+          info: {
+            title: "API Portal",
+            version: "1.0.0",
+            description: "This is the **Analytics API** description",
+          },
+          paths: {
+            "/analytics/data": {
+              get: {
+                operationId: "analytics.data",
+                tags: ["Analytics"],
+                responses: {
+                  "400": {
+                    description: "",
+                    content: {
+                      "application/json": {
+                        schema: {
+                          anyOf: [
+                            {
+                              type: "object",
+                              properties: {
+                                message: {
+                                  type: "string",
+                                  enum: ["Bad request. (InvalidFilterException)"],
+                                },
+                                errors: {
+                                  type: "object",
+                                  properties: {
+                                    filters: {
+                                      type: "string",
+                                    },
+                                  },
+                                  required: ["filters"],
+                                },
+                              },
+                              required: ["message", "errors"],
+                            },
+                            {
+                              type: "object",
+                              properties: {
+                                message: {
+                                  type: "string",
+                                  enum: ["Bad request. (InvalidDimensionException)"],
+                                },
+                                errors: {
+                                  type: "object",
+                                  properties: {
+                                    dimensions: {
+                                      type: "array",
+                                      prefixItems: [
+                                        {
+                                          type: "string",
+                                        },
+                                      ],
+                                      minItems: 1,
+                                      maxItems: 1,
+                                      additionalItems: false,
+                                    },
+                                  },
+                                  required: ["dimensions"],
+                                },
+                              },
+                              required: ["message", "errors"],
+                            },
+                            {
+                              type: "object",
+                              properties: {
+                                message: {
+                                  type: "string",
+                                  enum: ["Bad request. (InvalidMetricException)"],
+                                },
+                                errors: {
+                                  type: "object",
+                                  properties: {
+                                    metrics: {
+                                      type: "string",
+                                    },
+                                  },
+                                  required: ["metrics"],
+                                },
+                              },
+                              required: ["message", "errors"],
+                            },
+                          ],
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        want: `export interface paths {
+    "/analytics/data": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["analytics.data"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export interface operations {
+    "analytics.data": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        message: "Bad request. (InvalidFilterException)";
+                        errors: {
+                            filters: string;
+                        };
+                    } | {
+                        /** @enum {string} */
+                        message: "Bad request. (InvalidDimensionException)";
+                        errors: {
+                            dimensions: [
+                                string
+                            ];
+                        };
+                    } | {
+                        /** @enum {string} */
+                        message: "Bad request. (InvalidMetricException)";
+                        errors: {
+                            metrics: string;
+                        };
+                    };
+                };
+            };
+        };
+    };
+}
+type FlattenedDeepRequired<T> = {
+    [K in keyof T]-?: FlattenedDeepRequired<T[K] extends unknown[] | undefined | null ? Extract<T[K], unknown[]>[number] : T[K]>;
+};
+type ReadonlyArray<T> = [
+    Exclude<T, undefined>
+] extends [
+    unknown[]
+] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
+export const pathsAnalyticsDataGetResponses400ContentApplicationJsonAnyOf0MessageValues: ReadonlyArray<FlattenedDeepRequired<paths>["/analytics/data"]["get"]["responses"]["400"]["content"]["application/json"]["message"]> = ["Bad request. (InvalidFilterException)"];
+export const pathsAnalyticsDataGetResponses400ContentApplicationJsonAnyOf1MessageValues: ReadonlyArray<FlattenedDeepRequired<paths>["/analytics/data"]["get"]["responses"]["400"]["content"]["application/json"]["message"]> = ["Bad request. (InvalidDimensionException)"];
+export const pathsAnalyticsDataGetResponses400ContentApplicationJsonAnyOf2MessageValues: ReadonlyArray<FlattenedDeepRequired<paths>["/analytics/data"]["get"]["responses"]["400"]["content"]["application/json"]["message"]> = ["Bad request. (InvalidMetricException)"];`,
         options: { enumValues: true },
       },
     ],
@@ -972,6 +1368,99 @@ export type operations = Record<string, never>;`,
         want: new URL("./digital-ocean-api.ts", EXAMPLES_DIR),
         // options: DEFAULT_OPTIONS,
         ci: { timeout: 30_000 },
+      },
+    ],
+    [
+      "options > enumValues with request body enum",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
+          paths: {
+            "/test": {
+              get: {
+                requestBody: {
+                  content: {
+                    "application/json": {
+                      schema: {
+                        properties: {
+                          status: {
+                            type: "string",
+                            enum: ["active", "inactive"],
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+                responses: { 200: { description: "OK" } },
+              },
+            },
+          },
+        },
+        want: `export interface paths {
+    "/test": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        status?: "active" | "inactive";
+                    };
+                };
+            };
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+type FlattenedDeepRequired<T> = {
+    [K in keyof T]-?: FlattenedDeepRequired<T[K] extends unknown[] | undefined | null ? Extract<T[K], unknown[]>[number] : T[K]>;
+};
+type ReadonlyArray<T> = [
+    Exclude<T, undefined>
+] extends [
+    unknown[]
+] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
+export const pathsTestGetRequestBodyContentApplicationJsonStatusValues: ReadonlyArray<FlattenedDeepRequired<paths>["/test"]["get"]["requestBody"]["content"]["application/json"]["status"]> = ["active", "inactive"];
+export type operations = Record<string, never>;`,
+        options: { enumValues: true },
       },
     ],
   ];

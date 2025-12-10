@@ -1,5 +1,20 @@
 # swr-openapi
 
+## 5.4.2
+
+### Patch Changes
+
+- Updated dependencies [[`bdd5ddb`](https://github.com/openapi-ts/openapi-typescript/commit/bdd5ddb7d5f8463bd0515f0b2d5c98a8a394dabf), [`0f22be2`](https://github.com/openapi-ts/openapi-typescript/commit/0f22be218f0c8050a96f35a6a271b959b2c5a23f), [`8f96eb5`](https://github.com/openapi-ts/openapi-typescript/commit/8f96eb50f5ec060e2e9100e9a43d3fe98e9795c5)]:
+  - openapi-typescript@7.10.0
+  - openapi-fetch@0.15.0
+
+## 5.4.1
+
+### Patch Changes
+
+- Updated dependencies [[`7527d1e`](https://github.com/openapi-ts/openapi-typescript/commit/7527d1e7502cd1e9621922f028b4736d85f25800)]:
+  - openapi-fetch@0.14.1
+
 ## 5.4.0
 
 ### Minor Changes

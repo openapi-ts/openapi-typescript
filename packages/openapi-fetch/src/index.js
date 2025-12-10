@@ -34,7 +34,7 @@ export default function createClient(clientOptions) {
   } = { ...clientOptions };
   requestInitExt = supportsRequestInitExt() ? requestInitExt : undefined;
   baseUrl = removeTrailingSlash(baseUrl);
-  const middlewares = [];
+  const globalMiddlewares = [];
 
   /**
    * Per-request fetch (keeps settings created in createClient()
@@ -52,6 +52,7 @@ export default function createClient(clientOptions) {
       querySerializer: requestQuerySerializer,
       bodySerializer = globalBodySerializer ?? defaultBodySerializer,
       body,
+      middleware: requestMiddlewares = [],
       ...init
     } = fetchOptions || {};
     let finalBaseUrl = baseUrl;
@@ -99,6 +100,9 @@ export default function createClient(clientOptions) {
       params.header,
     );
 
+    // Client level middleware take priority over request-level middleware
+    const finalMiddlewares = [...globalMiddlewares, ...requestMiddlewares];
+
     const requestInit = {
       redirect: "follow",
       ...baseOptions,
@@ -109,7 +113,7 @@ export default function createClient(clientOptions) {
 
     let id;
     let options;
-    let request = new CustomRequest(
+    let request = new Request(
       createFinalURL(schemaPath, { baseUrl: finalBaseUrl, params, querySerializer }),
       requestInit,
     );
@@ -122,7 +126,7 @@ export default function createClient(clientOptions) {
       }
     }
 
-    if (middlewares.length) {
+    if (finalMiddlewares.length) {
       id = randomID();
 
       // middleware (request)
@@ -133,7 +137,7 @@ export default function createClient(clientOptions) {
         querySerializer,
         bodySerializer,
       });
-      for (const m of middlewares) {
+      for (const m of finalMiddlewares) {
         if (m && typeof m === "object" && typeof m.onRequest === "function") {
           const result = await m.onRequest({
             request,
@@ -143,7 +147,7 @@ export default function createClient(clientOptions) {
             id,
           });
           if (result) {
-            if (result instanceof CustomRequest) {
+            if (result instanceof Request) {
               request = result;
             } else if (result instanceof Response) {
               response = result;
@@ -164,9 +168,9 @@ export default function createClient(clientOptions) {
         let errorAfterMiddleware = error;
         // middleware (error)
         // execute in reverse-array order (first priority gets last transform)
-        if (middlewares.length) {
-          for (let i = middlewares.length - 1; i >= 0; i--) {
-            const m = middlewares[i];
+        if (finalMiddlewares.length) {
+          for (let i = finalMiddlewares.length - 1; i >= 0; i--) {
+            const m = finalMiddlewares[i];
             if (m && typeof m === "object" && typeof m.onError === "function") {
               const result = await m.onError({
                 request,
@@ -203,9 +207,9 @@ export default function createClient(clientOptions) {
 
       // middleware (response)
       // execute in reverse-array order (first priority gets last transform)
-      if (middlewares.length) {
-        for (let i = middlewares.length - 1; i >= 0; i--) {
-          const m = middlewares[i];
+      if (finalMiddlewares.length) {
+        for (let i = finalMiddlewares.length - 1; i >= 0; i--) {
+          const m = finalMiddlewares[i];
           if (m && typeof m === "object" && typeof m.onResponse === "function") {
             const result = await m.onResponse({
               request,
@@ -295,15 +299,15 @@ export default function createClient(clientOptions) {
         if (typeof m !== "object" || !("onRequest" in m || "onResponse" in m || "onError" in m)) {
           throw new Error("Middleware must be an object with one of `onRequest()`, `onResponse() or `onError()`");
         }
-        middlewares.push(m);
+        globalMiddlewares.push(m);
       }
     },
     /** Unregister middleware */
     eject(...middleware) {
       for (const m of middleware) {
-        const i = middlewares.indexOf(m);
+        const i = globalMiddlewares.indexOf(m);
         if (i !== -1) {
-          middlewares.splice(i, 1);
+          globalMiddlewares.splice(i, 1);
         }
       }
     },

@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from "vitest";
-import { createObservedClient, headersToObj } from "../helpers.js";
 import createClient, { type BodySerializer, type FetchOptions } from "../../src/index.js";
+import { createObservedClient, headersToObj } from "../helpers.js";
 import type { components, paths } from "./schemas/common.js";
 
 type Resource = components["schemas"]["Resource"];
@@ -296,7 +296,7 @@ describe("request", () => {
   });
 
   test("uses provided Request class", async () => {
-    // santity check to make sure the profided fetch function is actually called
+    // sanity check to make sure the provided fetch function is actually called
     expect.assertions(1);
 
     class SpecialRequestImplementation extends Request {}
@@ -314,6 +314,26 @@ describe("request", () => {
     });
 
     await client.GET("/resources");
+  });
+
+  test("Can use custom Request class", async () => {
+    // sanity check to make sure the provided fetch function is actually called
+    expect.assertions(1);
+
+    class SpecialRequestImplementation extends Request {}
+
+    const customFetch = async (input: Request) => {
+      // make sure that the request is actually an instance of the custom request we provided
+      expect(input).instanceOf(SpecialRequestImplementation);
+      return Promise.resolve(Response.json({ hello: "world" }));
+    };
+
+    const client = createClient<paths>({
+      baseUrl: "https://fakeurl.example",
+      fetch: customFetch,
+    });
+
+    await client.GET("/resources", { Request: SpecialRequestImplementation });
   });
 
   test("can attach custom properties to request", async () => {

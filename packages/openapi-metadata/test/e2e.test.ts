@@ -1,7 +1,7 @@
 import "reflect-metadata";
+import type { OpenAPIV3 } from "openapi-types";
 import { generateDocument } from "../src/index.js";
 import UsersController from "./fixtures/controllers/users_controller.js";
-import type { OpenAPIV3 } from "openapi-types";
 
 test("simple schema", async () => {
   const document = await generateDocument({

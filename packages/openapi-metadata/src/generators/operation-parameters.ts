@@ -1,7 +1,7 @@
 import type { OpenAPIV3 } from "openapi-types";
 import type { Context } from "../context.js";
-import type { OperationParameterMetadata } from "../metadata/operation-parameter.js";
 import { loadType } from "../loaders/type.js";
+import type { OperationParameterMetadata } from "../metadata/operation-parameter.js";
 
 export async function generateOperationParameters(
   context: Context,

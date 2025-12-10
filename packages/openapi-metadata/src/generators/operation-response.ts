@@ -1,7 +1,7 @@
 import type { OpenAPIV3 } from "openapi-types";
 import type { Context } from "../context.js";
-import type { OperationResponseMetadata } from "../metadata/operation-response.js";
 import { loadType } from "../loaders/type.js";
+import type { OperationResponseMetadata } from "../metadata/operation-response.js";
 
 export async function generateOperationResponse(
   context: Context,

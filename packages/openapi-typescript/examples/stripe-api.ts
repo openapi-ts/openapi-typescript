@@ -77,12 +77,14 @@ export interface paths {
          */
         get: operations["GetAccounts"];
         put?: never;
-        /** @description <p>With <a href="/docs/connect">Connect</a>, you can create Stripe accounts for your users.
+        /**
+         * @description <p>With <a href="/docs/connect">Connect</a>, you can create Stripe accounts for your users.
          *     To do this, you’ll first need to <a href="https://dashboard.stripe.com/account/applications/settings">register your platform</a>.</p>
          *
          *     <p>If you’ve already collected information for your connected accounts, you <a href="/docs/connect/best-practices#onboarding">can prefill that information</a> when
          *     creating the account. Connect Onboarding won’t ask for the prefilled information during account onboarding.
-         *     You can prefill any information on the account.</p> */
+         *     You can prefill any information on the account.</p>
+         */
         post: operations["PostAccounts"];
         delete?: never;
         options?: never;
@@ -169,14 +171,16 @@ export interface paths {
          */
         get: operations["GetAccountsAccountBankAccountsId"];
         put?: never;
-        /** @description <p>Updates the metadata, account holder name, account holder type of a bank account belonging to
+        /**
+         * @description <p>Updates the metadata, account holder name, account holder type of a bank account belonging to
          *     a connected account and optionally sets it as the default for its currency. Other bank account
          *     details are not editable by design.</p>
          *
          *     <p>You can only update bank accounts when <a href="/api/accounts/object#account_object-controller-requirement_collection">account.controller.requirement_collection</a> is <code>application</code>, which includes <a href="/connect/custom-accounts">Custom accounts</a>.</p>
          *
          *     <p>You can re-enable a disabled bank account by performing an update call without providing any
-         *     arguments or changes.</p> */
+         *     arguments or changes.</p>
+         */
         post: operations["PostAccountsAccountBankAccountsId"];
         /**
          * Delete an external account
@@ -269,14 +273,16 @@ export interface paths {
          */
         get: operations["GetAccountsAccountExternalAccountsId"];
         put?: never;
-        /** @description <p>Updates the metadata, account holder name, account holder type of a bank account belonging to
+        /**
+         * @description <p>Updates the metadata, account holder name, account holder type of a bank account belonging to
          *     a connected account and optionally sets it as the default for its currency. Other bank account
          *     details are not editable by design.</p>
          *
          *     <p>You can only update bank accounts when <a href="/api/accounts/object#account_object-controller-requirement_collection">account.controller.requirement_collection</a> is <code>application</code>, which includes <a href="/connect/custom-accounts">Custom accounts</a>.</p>
          *
          *     <p>You can re-enable a disabled bank account by performing an update call without providing any
-         *     arguments or changes.</p> */
+         *     arguments or changes.</p>
+         */
         post: operations["PostAccountsAccountExternalAccountsId"];
         /**
          * Delete an external account
@@ -1240,9 +1246,11 @@ export interface paths {
          */
         get: operations["GetCharges"];
         put?: never;
-        /** @description <p>This method is no longer recommended—use the <a href="/docs/api/payment_intents">Payment Intents API</a>
+        /**
+         * @description <p>This method is no longer recommended—use the <a href="/docs/api/payment_intents">Payment Intents API</a>
          *     to initiate a new payment instead. Confirmation of the PaymentIntent creates the <code>Charge</code>
-         *     object used to request payment.</p> */
+         *     object used to request payment.</p>
+         */
         post: operations["PostCharges"];
         delete?: never;
         options?: never;
@@ -9476,11 +9484,13 @@ export interface components {
         account_session: {
             /** @description The ID of the account the AccountSession was created for */
             account: string;
-            /** @description The client secret of this AccountSession. Used on the client to set up secure access to the given `account`.
+            /**
+             * @description The client secret of this AccountSession. Used on the client to set up secure access to the given `account`.
              *
              *     The client secret can be used to provide access to `account` from your frontend. It should not be stored, logged, or exposed to anyone other than the connected account. Make sure that you have TLS enabled on any page that includes the client secret.
              *
-             *     Refer to our docs to [setup Connect embedded components](https://stripe.com/docs/connect/get-started-connect-embedded-components) and learn about how `client_secret` should be handled. */
+             *     Refer to our docs to [setup Connect embedded components](https://stripe.com/docs/connect/get-started-connect-embedded-components) and learn about how `client_secret` should be handled.
+             */
             client_secret: string;
             components: components["schemas"]["connect_embedded_account_session_create_components"];
             /**
@@ -9968,9 +9978,11 @@ export interface components {
             requirements?: components["schemas"]["external_account_requirements"] | null;
             /** @description The routing transit number for the bank account. */
             routing_number?: string | null;
-            /** @description For bank accounts, possible values are `new`, `validated`, `verified`, `verification_failed`, or `errored`. A bank account that hasn't had any activity or validation performed is `new`. If Stripe can determine that the bank account exists, its status will be `validated`. Note that there often isn’t enough information to know (e.g., for smaller credit unions), and the validation is not always run. If customer bank account verification has succeeded, the bank account status will be `verified`. If the verification failed for any reason, such as microdeposit failure, the status will be `verification_failed`. If a payout sent to this bank account fails, we'll set the status to `errored` and will not continue to send [scheduled payouts](https://stripe.com/docs/payouts#payout-schedule) until the bank details are updated.
+            /**
+             * @description For bank accounts, possible values are `new`, `validated`, `verified`, `verification_failed`, or `errored`. A bank account that hasn't had any activity or validation performed is `new`. If Stripe can determine that the bank account exists, its status will be `validated`. Note that there often isn’t enough information to know (e.g., for smaller credit unions), and the validation is not always run. If customer bank account verification has succeeded, the bank account status will be `verified`. If the verification failed for any reason, such as microdeposit failure, the status will be `verification_failed`. If a payout sent to this bank account fails, we'll set the status to `errored` and will not continue to send [scheduled payouts](https://stripe.com/docs/payouts#payout-schedule) until the bank details are updated.
              *
-             *     For external accounts, possible values are `new`, `errored` and `verification_failed`. If a payout fails, the status is set to `errored` and scheduled payouts are stopped until account details are updated. In the US and India, if we can't [verify the owner of the bank account](https://support.stripe.com/questions/bank-account-ownership-verification), we'll set the status to `verification_failed`. Other validations aren't run against external accounts because they're only used for payouts. This means the other statuses don't apply. */
+             *     For external accounts, possible values are `new`, `errored` and `verification_failed`. If a payout fails, the status is set to `errored` and scheduled payouts are stopped until account details are updated. In the US and India, if we can't [verify the owner of the bank account](https://support.stripe.com/questions/bank-account-ownership-verification), we'll set the status to `verification_failed`. Other validations aren't run against external accounts because they're only used for payouts. This means the other statuses don't apply.
+             */
             status: string;
         };
         /** BankConnectionsResourceAccountholder */
@@ -9994,11 +10006,13 @@ export interface components {
             as_of: number;
             cash?: components["schemas"]["bank_connections_resource_balance_api_resource_cash_balance"];
             credit?: components["schemas"]["bank_connections_resource_balance_api_resource_credit_balance"];
-            /** @description The balances owed to (or by) the account holder, before subtracting any outbound pending transactions or adding any inbound pending transactions.
+            /**
+             * @description The balances owed to (or by) the account holder, before subtracting any outbound pending transactions or adding any inbound pending transactions.
              *
              *     Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
              *
-             *     Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder. */
+             *     Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
+             */
             current: {
                 [key: string]: number;
             };
@@ -10010,22 +10024,26 @@ export interface components {
         };
         /** BankConnectionsResourceBalanceAPIResourceCashBalance */
         bank_connections_resource_balance_api_resource_cash_balance: {
-            /** @description The funds available to the account holder. Typically this is the current balance after subtracting any outbound pending transactions and adding any inbound pending transactions.
+            /**
+             * @description The funds available to the account holder. Typically this is the current balance after subtracting any outbound pending transactions and adding any inbound pending transactions.
              *
              *     Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
              *
-             *     Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder. */
+             *     Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
+             */
             available?: {
                 [key: string]: number;
             } | null;
         };
         /** BankConnectionsResourceBalanceAPIResourceCreditBalance */
         bank_connections_resource_balance_api_resource_credit_balance: {
-            /** @description The credit that has been used by the account holder.
+            /**
+             * @description The credit that has been used by the account holder.
              *
              *     Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
              *
-             *     Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder. */
+             *     Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
+             */
             used?: {
                 [key: string]: number;
             } | null;
@@ -10697,9 +10715,11 @@ export interface components {
             exp_month: number;
             /** @description Four-digit number representing the card's expiration year. */
             exp_year: number;
-            /** @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+            /**
+             * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
              *
-             *     *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.* */
+             *     *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+             */
             fingerprint?: string | null;
             /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
             funding: string;
@@ -10878,9 +10898,11 @@ export interface components {
             shipping?: components["schemas"]["shipping"] | null;
             /** @description The transfer ID which created this charge. Only present if the charge came from another Stripe account. [See the Connect documentation](https://docs.stripe.com/connect/destination-charges) for details. */
             source_transfer?: (string | components["schemas"]["transfer"]) | null;
-            /** @description For a non-card charge, text that appears on the customer's statement as the statement descriptor. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+            /**
+             * @description For a non-card charge, text that appears on the customer's statement as the statement descriptor. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
              *
-             *     For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix. */
+             *     For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix.
+             */
             statement_descriptor?: string | null;
             /** @description Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor. */
             statement_descriptor_suffix?: string | null;
@@ -10972,9 +10994,11 @@ export interface components {
             billing_address_collection?: "auto" | "required" | null;
             /** @description If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. */
             cancel_url?: string | null;
-            /** @description A unique string to reference the Checkout Session. This can be a
+            /**
+             * @description A unique string to reference the Checkout Session. This can be a
              *     customer ID, a cart ID, or similar, and can be used to reconcile the
-             *     Session with your internal systems. */
+             *     Session with your internal systems.
+             */
             client_reference_id?: string | null;
             /** @description Client secret to be used when initializing Stripe.js embedded checkout. */
             client_secret?: string | null;
@@ -10997,11 +11021,13 @@ export interface components {
             /** @description Collect additional information from your customer using custom fields. Up to 3 fields are supported. */
             custom_fields: components["schemas"]["payment_pages_checkout_session_custom_fields"][];
             custom_text: components["schemas"]["payment_pages_checkout_session_custom_text"];
-            /** @description The ID of the customer for this Session.
+            /**
+             * @description The ID of the customer for this Session.
              *     For Checkout Sessions in `subscription` mode or Checkout Sessions with `customer_creation` set as `always` in `payment` mode, Checkout
              *     will create a new customer object based on information provided
              *     during the payment flow unless an existing customer was provided when
-             *     the Session was created. */
+             *     the Session was created.
+             */
             customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
             /**
              * @description Configure whether a Checkout Session creates a Customer when the Checkout Session completes.
@@ -11010,11 +11036,13 @@ export interface components {
             customer_creation?: "always" | "if_required" | null;
             /** @description The customer details including the customer's tax exempt status and the customer's tax IDs. Customer's address details are not present on Sessions in `setup` mode. */
             customer_details?: components["schemas"]["payment_pages_checkout_session_customer_details"] | null;
-            /** @description If provided, this value will be used when the Customer object is created.
+            /**
+             * @description If provided, this value will be used when the Customer object is created.
              *     If not provided, customers will be asked to enter their email address.
              *     Use this parameter to prefill customer data if you already have an email
              *     on file. To access information about the customer once the payment flow is
-             *     complete, use the `customer` attribute. */
+             *     complete, use the `customer` attribute.
+             */
             customer_email?: string | null;
             /** @description List of coupons and promotion codes attached to the Checkout Session. */
             discounts?: components["schemas"]["payment_pages_checkout_session_discount"][] | null;
@@ -11080,8 +11108,10 @@ export interface components {
             payment_method_configuration_details?: components["schemas"]["payment_method_config_biz_payment_method_configuration_details"] | null;
             /** @description Payment-method-specific configuration for the PaymentIntent or SetupIntent of this CheckoutSession. */
             payment_method_options?: components["schemas"]["checkout_session_payment_method_options"] | null;
-            /** @description A list of the types of payment methods (e.g. card) this Checkout
-             *     Session is allowed to accept. */
+            /**
+             * @description A list of the types of payment methods (e.g. card) this Checkout
+             *     Session is allowed to accept.
+             */
             payment_method_types: string[];
             /**
              * @description The payment status of the Checkout Session, one of `paid`, `unpaid`, or `no_payment_required`.
@@ -11125,8 +11155,10 @@ export interface components {
             submit_type?: "auto" | "book" | "donate" | "pay" | "subscribe" | null;
             /** @description The ID of the subscription for Checkout Sessions in `subscription` mode. */
             subscription?: (string | components["schemas"]["subscription"]) | null;
-            /** @description The URL the customer will be directed to after the payment or
-             *     subscription creation is successful. */
+            /**
+             * @description The URL the customer will be directed to after the payment or
+             *     subscription creation is successful.
+             */
             success_url?: string | null;
             tax_id_collection?: components["schemas"]["payment_pages_checkout_session_tax_id_collection"];
             /** @description Tax and discount details for the computed total amount. */
@@ -11136,8 +11168,10 @@ export interface components {
              * @enum {string|null}
              */
             ui_mode?: "embedded" | "hosted" | null;
-            /** @description The URL to the Checkout Session. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
-             *     This value is only present when the session is active. */
+            /**
+             * @description The URL to the Checkout Session. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
+             *     This value is only present when the session is active.
+             */
             url?: string | null;
         };
         /** CheckoutAcssDebitMandateOptions */
@@ -11365,9 +11399,11 @@ export interface components {
         /** CheckoutCustomerBalanceBankTransferPaymentMethodOptions */
         checkout_customer_balance_bank_transfer_payment_method_options: {
             eu_bank_transfer?: components["schemas"]["payment_method_options_customer_balance_eu_bank_account"];
-            /** @description List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
+            /**
+             * @description List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
              *
-             *     Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`. */
+             *     Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
+             */
             requested_address_types?: ("aba" | "iban" | "sepa" | "sort_code" | "spei" | "swift" | "zengin")[];
             /**
              * @description The bank transfer type that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
@@ -11888,9 +11924,11 @@ export interface components {
             };
             /** @description The year in which the carbon removal is expected to be delivered. */
             delivery_year?: number | null;
-            /** @description Unique identifier for the object. For convenience, Climate product IDs are human-readable strings
+            /**
+             * @description Unique identifier for the object. For convenience, Climate product IDs are human-readable strings
              *     that start with `climsku_`. See [carbon removal inventory](https://stripe.com/docs/climate/orders/carbon-removal-inventory)
-             *     for a list of available carbon removal products. */
+             *     for a list of available carbon removal products.
+             */
             id: string;
             /** @description Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode. */
             livemode: boolean;
@@ -12678,15 +12716,19 @@ export interface components {
             created: number;
             /** @description Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) the customer can be charged in for recurring billing purposes. */
             currency?: string | null;
-            /** @description ID of the default payment source for the customer.
+            /**
+             * @description ID of the default payment source for the customer.
              *
-             *     If you use payment methods created through the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) field instead. */
+             *     If you use payment methods created through the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) field instead.
+             */
             default_source?: (string | components["schemas"]["bank_account"] | components["schemas"]["card"] | components["schemas"]["source"]) | null;
-            /** @description Tracks the most recent state change on any invoice belonging to the customer. Paying an invoice or marking it uncollectible via the API will set this field to false. An automatic payment failure or passing the `invoice.due_date` will set this field to `true`.
+            /**
+             * @description Tracks the most recent state change on any invoice belonging to the customer. Paying an invoice or marking it uncollectible via the API will set this field to false. An automatic payment failure or passing the `invoice.due_date` will set this field to `true`.
              *
              *     If an invoice becomes uncollectible by [dunning](https://stripe.com/docs/billing/automatic-collection), `delinquent` doesn't reset to `false`.
              *
-             *     If you care whether the customer has paid their most recent subscription invoice, use `subscription.status` instead. Paying or marking uncollectible any customer invoice regardless of whether it is the latest invoice for a subscription will always set this field to `false`. */
+             *     If you care whether the customer has paid their most recent subscription invoice, use `subscription.status` instead. Paying or marking uncollectible any customer invoice regardless of whether it is the latest invoice for a subscription will always set this field to `false`.
+             */
             delinquent?: boolean | null;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -12994,9 +13036,11 @@ export interface components {
          *     [Customer Session with the Buy Button](/payment-links/buy-button#pass-an-existing-customer).
          */
         customer_session: {
-            /** @description The client secret of this Customer Session. Used on the client to set up secure access to the given `customer`.
+            /**
+             * @description The client secret of this Customer Session. Used on the client to set up secure access to the given `customer`.
              *
-             *     The client secret can be used to provide access to `customer` from your frontend. It should not be stored, logged, or exposed to anyone other than the relevant customer. Make sure that you have TLS enabled on any page that includes the client secret. */
+             *     The client secret can be used to provide access to `customer` from your frontend. It should not be stored, logged, or exposed to anyone other than the relevant customer. Make sure that you have TLS enabled on any page that includes the client secret.
+             */
             client_secret: string;
             components?: components["schemas"]["customer_session_resource_components"];
             /**
@@ -13051,9 +13095,11 @@ export interface components {
          * @description This hash contains the features the Payment Element supports.
          */
         customer_session_resource_components_resource_payment_element_resource_features: {
-            /** @description A list of [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) values that controls which saved payment methods the Payment Element displays by filtering to only show payment methods with an `allow_redisplay` value that is present in this list.
+            /**
+             * @description A list of [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) values that controls which saved payment methods the Payment Element displays by filtering to only show payment methods with an `allow_redisplay` value that is present in this list.
              *
-             *     If not specified, defaults to ["always"]. In order to display all saved payment methods, specify ["always", "limited", "unspecified"]. */
+             *     If not specified, defaults to ["always"]. In order to display all saved payment methods, specify ["always", "limited", "unspecified"].
+             */
             payment_method_allow_redisplay_filters: ("always" | "limited" | "unspecified")[];
             /**
              * @description Controls whether or not the Payment Element shows saved payment methods. This parameter defaults to `disabled`.
@@ -16057,8 +16103,10 @@ export interface components {
             object: "issuing.cardholder";
             /** @description The cardholder's phone number. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://stripe.com/docs/issuing/3d-secure#when-is-3d-secure-applied) for more details. */
             phone_number?: string | null;
-            /** @description The cardholder’s preferred locales (languages), ordered by preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
-             *      This changes the language of the [3D Secure flow](https://stripe.com/docs/issuing/3d-secure) and one-time password messages sent to the cardholder. */
+            /**
+             * @description The cardholder’s preferred locales (languages), ordered by preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
+             *      This changes the language of the [3D Secure flow](https://stripe.com/docs/issuing/3d-secure) and one-time password messages sent to the cardholder.
+             */
             preferred_locales?: ("de" | "en" | "es" | "fr" | "it")[] | null;
             requirements: components["schemas"]["issuing_cardholder_requirements"];
             /** @description Rules that control spending across this cardholder's cards. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details. */
@@ -18093,11 +18141,13 @@ export interface components {
              * @enum {string}
              */
             capture_method: "automatic" | "automatic_async" | "manual";
-            /** @description The client secret of this PaymentIntent. Used for client-side retrieval using a publishable key.
+            /**
+             * @description The client secret of this PaymentIntent. Used for client-side retrieval using a publishable key.
              *
              *     The client secret can be used to complete a payment from your frontend. It should not be stored, logged, or exposed to anyone other than the customer. Make sure that you have TLS enabled on any page that includes the client secret.
              *
-             *     Refer to our docs to [accept a payment](https://stripe.com/docs/payments/accept-a-payment?ui=elements) and learn about how `client_secret` should be handled. */
+             *     Refer to our docs to [accept a payment](https://stripe.com/docs/payments/accept-a-payment?ui=elements) and learn about how `client_secret` should be handled.
+             */
             client_secret?: string | null;
             /**
              * @description Describes whether we can confirm this PaymentIntent automatically, or if it requires customer action to confirm the payment.
@@ -18114,11 +18164,13 @@ export interface components {
              * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
              */
             currency: string;
-            /** @description ID of the Customer this PaymentIntent belongs to, if one exists.
+            /**
+             * @description ID of the Customer this PaymentIntent belongs to, if one exists.
              *
              *     Payment methods attached to other Customers cannot be used with this PaymentIntent.
              *
-             *     If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead. */
+             *     If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+             */
             customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
@@ -18172,9 +18224,11 @@ export interface components {
             setup_future_usage?: "off_session" | "on_session" | null;
             /** @description Shipping information for this PaymentIntent. */
             shipping?: components["schemas"]["shipping"] | null;
-            /** @description Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+            /**
+             * @description Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
              *
-             *     Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead. */
+             *     Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead.
+             */
             statement_descriptor?: string | null;
             /** @description Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. */
             statement_descriptor_suffix?: string | null;
@@ -18594,9 +18648,11 @@ export interface components {
              * @enum {string}
              */
             capture_method?: "manual";
-            /** @description Installment details for this payment (Mexico only).
+            /**
+             * @description Installment details for this payment (Mexico only).
              *
-             *     For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments). */
+             *     For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
+             */
             installments?: components["schemas"]["payment_method_options_card_installments"] | null;
             /** @description Configuration options for setting up an eMandate for cards issued in India. */
             mandate_options?: components["schemas"]["payment_method_options_card_mandate_options"] | null;
@@ -19320,9 +19376,11 @@ export interface components {
             exp_month: number;
             /** @description Four-digit number representing the card's expiration year. */
             exp_year: number;
-            /** @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+            /**
+             * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
              *
-             *     *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.* */
+             *     *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+             */
             fingerprint?: string | null;
             /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
             funding: string;
@@ -19376,9 +19434,11 @@ export interface components {
             exp_month: number;
             /** @description Four-digit number representing the card's expiration year. */
             exp_year: number;
-            /** @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+            /**
+             * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
              *
-             *     *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.* */
+             *     *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+             */
             fingerprint?: string | null;
             /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
             funding?: string | null;
@@ -19620,9 +19680,11 @@ export interface components {
             stripe_account?: components["schemas"]["payment_method_details_stripe_account"];
             swish?: components["schemas"]["payment_method_details_swish"];
             twint?: components["schemas"]["payment_method_details_twint"];
-            /** @description The type of transaction-specific details of the payment method used in the payment, one of `ach_credit_transfer`, `ach_debit`, `acss_debit`, `alipay`, `au_becs_debit`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `klarna`, `multibanco`, `p24`, `sepa_debit`, `sofort`, `stripe_account`, or `wechat`.
+            /**
+             * @description The type of transaction-specific details of the payment method used in the payment, one of `ach_credit_transfer`, `ach_debit`, `acss_debit`, `alipay`, `au_becs_debit`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `klarna`, `multibanco`, `p24`, `sepa_debit`, `sofort`, `stripe_account`, or `wechat`.
              *     An additional hash is included on `payment_method_details` with a name matching this value.
-             *     It contains information specific to the payment method. */
+             *     It contains information specific to the payment method.
+             */
             type: string;
             us_bank_account?: components["schemas"]["payment_method_details_us_bank_account"];
             wechat?: components["schemas"]["payment_method_details_wechat"];
@@ -19733,8 +19795,10 @@ export interface components {
              * @enum {string|null}
              */
             preferred_language?: "de" | "en" | "fr" | "nl" | null;
-            /** @description Owner's verified full name. Values are verified or provided by Bancontact directly
-             *     (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
+            /**
+             * @description Owner's verified full name. Values are verified or provided by Bancontact directly
+             *     (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+             */
             verified_name?: string | null;
         };
         /** payment_method_details_blik */
@@ -19769,16 +19833,20 @@ export interface components {
             /** @description Four-digit number representing the card's expiration year. */
             exp_year: number;
             extended_authorization?: components["schemas"]["payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_extended_authorization_extended_authorization"];
-            /** @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+            /**
+             * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
              *
-             *     *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.* */
+             *     *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+             */
             fingerprint?: string | null;
             /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
             funding?: string | null;
             incremental_authorization?: components["schemas"]["payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_incremental_authorization_incremental_authorization"];
-            /** @description Installment details for this payment (Mexico only).
+            /**
+             * @description Installment details for this payment (Mexico only).
              *
-             *     For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments). */
+             *     For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
+             */
             installments?: components["schemas"]["payment_method_details_card_installments"] | null;
             /** @description The last four digits of the card. */
             last4?: string | null;
@@ -19862,9 +19930,11 @@ export interface components {
             exp_month: number;
             /** @description Four-digit number representing the card's expiration year. */
             exp_year: number;
-            /** @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+            /**
+             * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
              *
-             *     *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.* */
+             *     *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+             */
             fingerprint?: string | null;
             /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
             funding?: string | null;
@@ -19997,9 +20067,11 @@ export interface components {
              * @enum {string|null}
              */
             bank?: "arzte_und_apotheker_bank" | "austrian_anadi_bank_ag" | "bank_austria" | "bankhaus_carl_spangler" | "bankhaus_schelhammer_und_schattera_ag" | "bawag_psk_ag" | "bks_bank_ag" | "brull_kallmus_bank_ag" | "btv_vier_lander_bank" | "capital_bank_grawe_gruppe_ag" | "deutsche_bank_ag" | "dolomitenbank" | "easybank_ag" | "erste_bank_und_sparkassen" | "hypo_alpeadriabank_international_ag" | "hypo_bank_burgenland_aktiengesellschaft" | "hypo_noe_lb_fur_niederosterreich_u_wien" | "hypo_oberosterreich_salzburg_steiermark" | "hypo_tirol_bank_ag" | "hypo_vorarlberg_bank_ag" | "marchfelder_bank" | "oberbank_ag" | "raiffeisen_bankengruppe_osterreich" | "schoellerbank_ag" | "sparda_bank_wien" | "volksbank_gruppe" | "volkskreditbank_ag" | "vr_bank_braunau" | null;
-            /** @description Owner's verified full name. Values are verified or provided by EPS directly
+            /**
+             * @description Owner's verified full name. Values are verified or provided by EPS directly
              *     (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-             *     EPS rarely provides this information so the attribute is usually empty. */
+             *     EPS rarely provides this information so the attribute is usually empty.
+             */
             verified_name?: string | null;
         };
         /** payment_method_details_fpx */
@@ -20020,9 +20092,11 @@ export interface components {
             bank_name?: string | null;
             /** @description Bank Identifier Code of the bank associated with the bank account. */
             bic?: string | null;
-            /** @description Owner's verified full name. Values are verified or provided by Giropay directly
+            /**
+             * @description Owner's verified full name. Values are verified or provided by Giropay directly
              *     (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-             *     Giropay rarely provides this information so the attribute is usually empty. */
+             *     Giropay rarely provides this information so the attribute is usually empty.
+             */
             verified_name?: string | null;
         };
         /** payment_method_details_grabpay */
@@ -20048,8 +20122,10 @@ export interface components {
             generated_sepa_debit_mandate?: (string | components["schemas"]["mandate"]) | null;
             /** @description Last four characters of the IBAN. */
             iban_last4?: string | null;
-            /** @description Owner's verified full name. Values are verified or provided by iDEAL directly
-             *     (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
+            /**
+             * @description Owner's verified full name. Values are verified or provided by iDEAL directly
+             *     (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+             */
             verified_name?: string | null;
         };
         /** payment_method_details_interac_present */
@@ -20068,9 +20144,11 @@ export interface components {
             exp_month: number;
             /** @description Four-digit number representing the card's expiration year. */
             exp_year: number;
-            /** @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+            /**
+             * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
              *
-             *     *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.* */
+             *     *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+             */
             fingerprint?: string | null;
             /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
             funding?: string | null;
@@ -20127,11 +20205,15 @@ export interface components {
         payment_method_details_klarna: {
             /** @description The payer details for this transaction. */
             payer_details?: components["schemas"]["klarna_payer_details"] | null;
-            /** @description The Klarna payment method used for this transaction.
-             *     Can be one of `pay_later`, `pay_now`, `pay_with_financing`, or `pay_in_installments` */
+            /**
+             * @description The Klarna payment method used for this transaction.
+             *     Can be one of `pay_later`, `pay_now`, `pay_with_financing`, or `pay_in_installments`
+             */
             payment_method_category?: string | null;
-            /** @description Preferred language of the Klarna authorization page that the customer is redirected to.
-             *     Can be one of `de-AT`, `en-AT`, `nl-BE`, `fr-BE`, `en-BE`, `de-DE`, `en-DE`, `da-DK`, `en-DK`, `es-ES`, `en-ES`, `fi-FI`, `sv-FI`, `en-FI`, `en-GB`, `en-IE`, `it-IT`, `en-IT`, `nl-NL`, `en-NL`, `nb-NO`, `en-NO`, `sv-SE`, `en-SE`, `en-US`, `es-US`, `fr-FR`, `en-FR`, `cs-CZ`, `en-CZ`, `ro-RO`, `en-RO`, `el-GR`, `en-GR`, `en-AU`, `en-NZ`, `en-CA`, `fr-CA`, `pl-PL`, `en-PL`, `pt-PT`, `en-PT`, `de-CH`, `fr-CH`, `it-CH`, or `en-CH` */
+            /**
+             * @description Preferred language of the Klarna authorization page that the customer is redirected to.
+             *     Can be one of `de-AT`, `en-AT`, `nl-BE`, `fr-BE`, `en-BE`, `de-DE`, `en-DE`, `da-DK`, `en-DK`, `es-ES`, `en-ES`, `fi-FI`, `sv-FI`, `en-FI`, `en-GB`, `en-IE`, `it-IT`, `en-IT`, `nl-NL`, `en-NL`, `nb-NO`, `en-NO`, `sv-SE`, `en-SE`, `en-US`, `es-US`, `fr-FR`, `en-FR`, `cs-CZ`, `en-CZ`, `ro-RO`, `en-RO`, `el-GR`, `en-GR`, `en-AU`, `en-NZ`, `en-CA`, `fr-CA`, `pl-PL`, `en-PL`, `pt-PT`, `en-PT`, `de-CH`, `fr-CH`, `it-CH`, or `en-CH`
+             */
             preferred_locale?: string | null;
         };
         /** payment_method_details_konbini */
@@ -20161,8 +20243,10 @@ export interface components {
         };
         /** payment_method_details_link */
         payment_method_details_link: {
-            /** @description Two-letter ISO code representing the funding source country beneath the Link payment.
-             *     You could use this attribute to get a sense of international fees. */
+            /**
+             * @description Two-letter ISO code representing the funding source country beneath the Link payment.
+             *     You could use this attribute to get a sense of international fees.
+             */
             country?: string | null;
         };
         /** payment_method_details_mobilepay */
@@ -20196,9 +20280,11 @@ export interface components {
             bank?: "alior_bank" | "bank_millennium" | "bank_nowy_bfg_sa" | "bank_pekao_sa" | "banki_spbdzielcze" | "blik" | "bnp_paribas" | "boz" | "citi_handlowy" | "credit_agricole" | "envelobank" | "etransfer_pocztowy24" | "getin_bank" | "ideabank" | "ing" | "inteligo" | "mbank_mtransfer" | "nest_przelew" | "noble_pay" | "pbac_z_ipko" | "plus_bank" | "santander_przelew24" | "tmobile_usbugi_bankowe" | "toyota_bank" | "velobank" | "volkswagen_bank" | null;
             /** @description Unique reference for this Przelewy24 payment. */
             reference?: string | null;
-            /** @description Owner's verified full name. Values are verified or provided by Przelewy24 directly
+            /**
+             * @description Owner's verified full name. Values are verified or provided by Przelewy24 directly
              *     (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-             *     Przelewy24 rarely provides this information so the attribute is usually empty. */
+             *     Przelewy24 rarely provides this information so the attribute is usually empty.
+             */
             verified_name?: string | null;
         };
         /** payment_method_details_passthrough_card */
@@ -20232,13 +20318,17 @@ export interface components {
         payment_method_details_paypal: {
             /** @description Two-letter ISO code representing the buyer's country. Values are provided by PayPal directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
             country?: string | null;
-            /** @description Owner's email. Values are provided by PayPal directly
-             *     (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
+            /**
+             * @description Owner's email. Values are provided by PayPal directly
+             *     (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+             */
             payer_email?: string | null;
             /** @description PayPal account PayerID. This identifier uniquely identifies the PayPal customer. */
             payer_id?: string | null;
-            /** @description Owner's full name. Values provided by PayPal directly
-             *     (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
+            /**
+             * @description Owner's full name. Values provided by PayPal directly
+             *     (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+             */
             payer_name?: string | null;
             /** @description The level of protection offered as defined by PayPal Seller Protection for Merchants, for this transaction. */
             seller_protection?: components["schemas"]["paypal_seller_protection"] | null;
@@ -20301,8 +20391,10 @@ export interface components {
              * @enum {string|null}
              */
             preferred_language?: "de" | "en" | "es" | "fr" | "it" | "nl" | "pl" | null;
-            /** @description Owner's verified full name. Values are verified or provided by SOFORT directly
-             *     (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
+            /**
+             * @description Owner's verified full name. Values are verified or provided by SOFORT directly
+             *     (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+             */
             verified_name?: string | null;
         };
         /** payment_method_details_stripe_account */
@@ -20453,9 +20545,11 @@ export interface components {
             exp_month: number;
             /** @description Four-digit number representing the card's expiration year. */
             exp_year: number;
-            /** @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+            /**
+             * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
              *
-             *     *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.* */
+             *     *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+             */
             fingerprint?: string | null;
             /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
             funding?: string | null;
@@ -20537,8 +20631,10 @@ export interface components {
              * @enum {string}
              */
             capture_method?: "manual";
-            /** @description An internal identifier or reference that this payment corresponds to. You must limit the identifier to 128 characters, and it can only contain letters, numbers, underscores, backslashes, and dashes.
-             *     This field differs from the statement descriptor and item name. */
+            /**
+             * @description An internal identifier or reference that this payment corresponds to. You must limit the identifier to 128 characters, and it can only contain letters, numbers, underscores, backslashes, and dashes.
+             *     This field differs from the statement descriptor and item name.
+             */
             reference?: string | null;
             /**
              * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -20728,9 +20824,11 @@ export interface components {
         /** payment_method_options_customer_balance_bank_transfer */
         payment_method_options_customer_balance_bank_transfer: {
             eu_bank_transfer?: components["schemas"]["payment_method_options_customer_balance_eu_bank_account"];
-            /** @description List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
+            /**
+             * @description List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
              *
-             *     Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`. */
+             *     Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
+             */
             requested_address_types?: ("aba" | "iban" | "sepa" | "sort_code" | "spei" | "swift" | "zengin")[];
             /**
              * @description The bank transfer type that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
@@ -21099,8 +21197,10 @@ export interface components {
         payment_method_paypal: {
             /** @description Two-letter ISO code representing the buyer's country. Values are provided by PayPal directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
             country?: string | null;
-            /** @description Owner's email. Values are provided by PayPal directly
-             *     (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
+            /**
+             * @description Owner's email. Values are provided by PayPal directly
+             *     (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+             */
             payer_email?: string | null;
             /** @description PayPal account PayerID. This identifier uniquely identifies the PayPal customer. */
             payer_id?: string | null;
@@ -21199,9 +21299,11 @@ export interface components {
         payment_pages_checkout_session_after_expiration_recovery: {
             /** @description Enables user redeemable promotion codes on the recovered Checkout Sessions. Defaults to `false` */
             allow_promotion_codes: boolean;
-            /** @description If `true`, a recovery url will be generated to recover this Checkout Session if it
+            /**
+             * @description If `true`, a recovery url will be generated to recover this Checkout Session if it
              *     expires before a transaction is completed. It will be attached to the
-             *     Checkout Session object upon expiration. */
+             *     Checkout Session object upon expiration.
+             */
             enabled: boolean;
             /**
              * Format: unix-time
@@ -21352,8 +21454,10 @@ export interface components {
         payment_pages_checkout_session_customer_details: {
             /** @description The customer's address after a completed Checkout Session. Note: This property is populated only for sessions on or after March 30, 2022. */
             address?: components["schemas"]["address"] | null;
-            /** @description The email associated with the Customer, if one exists, on the Checkout Session after a completed Checkout Session or at time of session expiry.
-             *     Otherwise, if the customer has consented to promotional content, this value is the most recent valid email provided by the customer on the Checkout form. */
+            /**
+             * @description The email associated with the Customer, if one exists, on the Checkout Session after a completed Checkout Session or at time of session expiry.
+             *     Otherwise, if the customer has consented to promotional content, this value is the most recent valid email provided by the customer on the Checkout form.
+             */
             email?: string | null;
             /** @description The customer's name after a completed Checkout Session. Note: This property is populated only for sessions on or after March 30, 2022. */
             name?: string | null;
@@ -21431,8 +21535,10 @@ export interface components {
         };
         /** PaymentPagesCheckoutSessionShippingAddressCollection */
         payment_pages_checkout_session_shipping_address_collection: {
-            /** @description An array of two-letter ISO country codes representing which countries Checkout should provide as options for
-             *     shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SY, UM, VI`. */
+            /**
+             * @description An array of two-letter ISO country codes representing which countries Checkout should provide as options for
+             *     shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SY, UM, VI`.
+             */
             allowed_countries: ("AC" | "AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CV" | "CW" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MK" | "ML" | "MM" | "MN" | "MO" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SD" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SZ" | "TA" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VN" | "VU" | "WF" | "WS" | "XK" | "YE" | "YT" | "ZA" | "ZM" | "ZW" | "ZZ")[];
         };
         /** PaymentPagesCheckoutSessionShippingCost */
@@ -21983,9 +22089,11 @@ export interface components {
         };
         /** PortalLoginPage */
         portal_login_page: {
-            /** @description If `true`, a shareable `url` will be generated that will take your customers to a hosted login page for the customer portal.
+            /**
+             * @description If `true`, a shareable `url` will be generated that will take your customers to a hosted login page for the customer portal.
              *
-             *     If `false`, the previously generated `url`, if any, will be deactivated. */
+             *     If `false`, the previously generated `url`, if any, will be deactivated.
+             */
             enabled: boolean;
             /** @description A shareable URL to the hosted portal login page. Your customers will be able to log in with their [email](https://stripe.com/docs/api/customers/object#customer_object-email) and receive a link to their customer portal. */
             url?: string | null;
@@ -22925,8 +23033,10 @@ export interface components {
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description If something should go wrong during the run, a message about the failure (populated when
-             *      `status=failed`). */
+            /**
+             * @description If something should go wrong during the run, a message about the failure (populated when
+             *      `status=failed`).
+             */
             error?: string | null;
             /** @description Unique identifier for the object. */
             id: string;
@@ -22940,12 +23050,16 @@ export interface components {
             parameters: components["schemas"]["financial_reporting_finance_report_run_run_parameters"];
             /** @description The ID of the [report type](https://stripe.com/docs/reports/report-types) to run, such as `"balance.summary.1"`. */
             report_type: string;
-            /** @description The file object representing the result of the report run (populated when
-             *      `status=succeeded`). */
+            /**
+             * @description The file object representing the result of the report run (populated when
+             *      `status=succeeded`).
+             */
             result?: components["schemas"]["file"] | null;
-            /** @description Status of this report run. This will be `pending` when the run is initially created.
+            /**
+             * @description Status of this report run. This will be `pending` when the run is initially created.
              *      When the run finishes, this will be set to `succeeded` and the `result` field will be populated.
-             *      Rarely, we may encounter an error, at which point this will be set to `failed` and the `error` field will be populated. */
+             *      Rarely, we may encounter an error, at which point this will be set to `failed` and the `error` field will be populated.
+             */
             status: string;
             /**
              * Format: unix-time
@@ -23163,9 +23277,11 @@ export interface components {
         setup_attempt: {
             /** @description The value of [application](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-application) on the SetupIntent at the time of this confirmation. */
             application?: (string | components["schemas"]["application"]) | null;
-            /** @description If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
+            /**
+             * @description If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
              *
-             *     It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer. */
+             *     It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
+             */
             attach_to_self?: boolean;
             /**
              * Format: unix-time
@@ -23174,9 +23290,11 @@ export interface components {
             created: number;
             /** @description The value of [customer](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-customer) on the SetupIntent at the time of this confirmation. */
             customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
-            /** @description Indicates the directions of money movement for which this payment method is intended to be used.
+            /**
+             * @description Indicates the directions of money movement for which this payment method is intended to be used.
              *
-             *     Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes. */
+             *     Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes.
+             */
             flow_directions?: ("inbound" | "outbound")[] | null;
             /** @description Unique identifier for the object. */
             id: string;
@@ -23253,8 +23371,10 @@ export interface components {
              * @enum {string|null}
              */
             preferred_language?: "de" | "en" | "fr" | "nl" | null;
-            /** @description Owner's verified full name. Values are verified or provided by Bancontact directly
-             *     (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
+            /**
+             * @description Owner's verified full name. Values are verified or provided by Bancontact directly
+             *     (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+             */
             verified_name?: string | null;
         };
         /** setup_attempt_payment_method_details_boleto */
@@ -23271,9 +23391,11 @@ export interface components {
             exp_month?: number | null;
             /** @description Four-digit number representing the card's expiration year. */
             exp_year?: number | null;
-            /** @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+            /**
+             * @description Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
              *
-             *     *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.* */
+             *     *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+             */
             fingerprint?: string | null;
             /** @description Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`. */
             funding?: string | null;
@@ -23332,8 +23454,10 @@ export interface components {
             generated_sepa_debit_mandate?: (string | components["schemas"]["mandate"]) | null;
             /** @description Last four characters of the IBAN. */
             iban_last4?: string | null;
-            /** @description Owner's verified full name. Values are verified or provided by iDEAL directly
-             *     (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
+            /**
+             * @description Owner's verified full name. Values are verified or provided by iDEAL directly
+             *     (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+             */
             verified_name?: string | null;
         };
         /** setup_attempt_payment_method_details_kakao_pay */
@@ -23370,8 +23494,10 @@ export interface components {
              * @enum {string|null}
              */
             preferred_language?: "de" | "en" | "fr" | "nl" | null;
-            /** @description Owner's verified full name. Values are verified or provided by Sofort directly
-             *     (if supported) at the time of authorization or settlement. They cannot be set or mutated. */
+            /**
+             * @description Owner's verified full name. Values are verified or provided by Sofort directly
+             *     (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+             */
             verified_name?: string | null;
         };
         /** setup_attempt_payment_method_details_us_bank_account */
@@ -23403,9 +23529,11 @@ export interface components {
         setup_intent: {
             /** @description ID of the Connect application that created the SetupIntent. */
             application?: (string | components["schemas"]["application"]) | null;
-            /** @description If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
+            /**
+             * @description If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
              *
-             *     It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer. */
+             *     It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
+             */
             attach_to_self?: boolean;
             /** @description Settings for dynamic payment methods compatible with this Setup Intent */
             automatic_payment_methods?: components["schemas"]["payment_flows_automatic_payment_methods_setup_intent"] | null;
@@ -23414,24 +23542,30 @@ export interface components {
              * @enum {string|null}
              */
             cancellation_reason?: "abandoned" | "duplicate" | "requested_by_customer" | null;
-            /** @description The client secret of this SetupIntent. Used for client-side retrieval using a publishable key.
+            /**
+             * @description The client secret of this SetupIntent. Used for client-side retrieval using a publishable key.
              *
-             *     The client secret can be used to complete payment setup from your frontend. It should not be stored, logged, or exposed to anyone other than the customer. Make sure that you have TLS enabled on any page that includes the client secret. */
+             *     The client secret can be used to complete payment setup from your frontend. It should not be stored, logged, or exposed to anyone other than the customer. Make sure that you have TLS enabled on any page that includes the client secret.
+             */
             client_secret?: string | null;
             /**
              * Format: unix-time
              * @description Time at which the object was created. Measured in seconds since the Unix epoch.
              */
             created: number;
-            /** @description ID of the Customer this SetupIntent belongs to, if one exists.
+            /**
+             * @description ID of the Customer this SetupIntent belongs to, if one exists.
              *
-             *     If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent. */
+             *     If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
+             */
             customer?: (string | components["schemas"]["customer"] | components["schemas"]["deleted_customer"]) | null;
             /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
             description?: string | null;
-            /** @description Indicates the directions of money movement for which this payment method is intended to be used.
+            /**
+             * @description Indicates the directions of money movement for which this payment method is intended to be used.
              *
-             *     Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes. */
+             *     Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes.
+             */
             flow_directions?: ("inbound" | "outbound")[] | null;
             /** @description Unique identifier for the object. */
             id: string;
@@ -23471,9 +23605,11 @@ export interface components {
              * @enum {string}
              */
             status: "canceled" | "processing" | "requires_action" | "requires_confirmation" | "requires_payment_method" | "succeeded";
-            /** @description Indicates how the payment method is intended to be used in the future.
+            /**
+             * @description Indicates how the payment method is intended to be used in the future.
              *
-             *     Use `on_session` if you intend to only reuse the payment method when the customer is in your checkout flow. Use `off_session` if your customer may or may not be in your checkout flow. If not provided, this value defaults to `off_session`. */
+             *     Use `on_session` if you intend to only reuse the payment method when the customer is in your checkout flow. Use `off_session` if your customer may or may not be in your checkout flow. If not provided, this value defaults to `off_session`.
+             */
             usage: string;
         };
         /** SetupIntentNextAction */
@@ -24458,8 +24594,10 @@ export interface components {
         };
         /** SubscriptionDetailsData */
         subscription_details_data: {
-            /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
-             *      *Note: This attribute is populated only for invoices created on or after June 29, 2023.* */
+            /**
+             * @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
+             *      *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
+             */
             metadata?: {
                 [key: string]: string;
             } | null;
@@ -25628,9 +25766,11 @@ export interface components {
             description?: string | null;
             /** @description The display name of the tax rates as it will appear to your customer on their receipt email, PDF, and the hosted invoice page. */
             display_name: string;
-            /** @description Actual/effective tax rate percentage out of 100. For tax calculations with automatic_tax[enabled]=true,
+            /**
+             * @description Actual/effective tax rate percentage out of 100. For tax calculations with automatic_tax[enabled]=true,
              *     this percentage reflects the rate actually used to calculate tax based on the product's taxability
-             *     and whether the user is registered to collect taxes in the corresponding jurisdiction. */
+             *     and whether the user is registered to collect taxes in the corresponding jurisdiction.
+             */
             effective_percentage?: number | null;
             /** @description The amount of the tax rate when the `rate_type` is `flat_amount`. Tax rates with `rate_type` `percentage` can vary based on the transaction, resulting in this field being `null`. This field exposes the amount and currency of the flat tax rate. */
             flat_amount?: components["schemas"]["tax_rate_flat_amount"] | null;
@@ -26051,8 +26191,10 @@ export interface components {
              * @enum {string|null}
              */
             result_reason?: "abandoned" | "bypassed" | "canceled" | "card_not_enrolled" | "network_not_supported" | "protocol_error" | "rejected" | null;
-            /** @description The 3D Secure 1 XID or 3D Secure 2 Directory Server Transaction ID
-             *     (dsTransId) for this payment. */
+            /**
+             * @description The 3D Secure 1 XID or 3D Secure 2 Directory Server Transaction ID
+             *     (dsTransId) for this payment.
+             */
             transaction_id?: string | null;
             /**
              * @description The version of 3D Secure that was used.
@@ -26079,8 +26221,10 @@ export interface components {
              * @enum {string|null}
              */
             exemption_indicator?: "low_risk" | "none" | null;
-            /** @description Whether Stripe requested the value of `exemption_indicator` in the transaction. This will depend on
-             *     the outcome of Stripe's internal risk assessment. */
+            /**
+             * @description Whether Stripe requested the value of `exemption_indicator` in the transaction. This will depend on
+             *     the outcome of Stripe's internal risk assessment.
+             */
             exemption_indicator_applied?: boolean;
             /**
              * @description Indicates the outcome of 3D Secure authentication.
@@ -26093,8 +26237,10 @@ export interface components {
              * @enum {string|null}
              */
             result_reason?: "abandoned" | "bypassed" | "canceled" | "card_not_enrolled" | "network_not_supported" | "protocol_error" | "rejected" | null;
-            /** @description The 3D Secure 1 XID or 3D Secure 2 Directory Server Transaction ID
-             *     (dsTransId) for this payment. */
+            /**
+             * @description The 3D Secure 1 XID or 3D Secure 2 Directory Server Transaction ID
+             *     (dsTransId) for this payment.
+             */
             transaction_id?: string | null;
             /**
              * @description The version of 3D Secure that was used.
@@ -26315,9 +26461,11 @@ export interface components {
         transfer_data: {
             /** @description Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99). */
             amount?: number;
-            /** @description The account (if any) that the payment is attributed to for tax
+            /**
+             * @description The account (if any) that the payment is attributed to for tax
              *     reporting, and where funds from the payment are transferred to after
-             *     payment success. */
+             *     payment success.
+             */
             destination: string | components["schemas"]["account"];
         };
         /**
@@ -29625,9 +29773,11 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
-                    /** @description To request a new capability for an account, pass true. There can be a delay before the requested capability becomes active. If the capability has any activation requirements, the response includes them in the `requirements` arrays.
+                    /**
+                     * @description To request a new capability for an account, pass true. There can be a delay before the requested capability becomes active. If the capability has any activation requirements, the response includes them in the `requirements` arrays.
                      *
-                     *     If a capability isn't permanent, you can remove it from the account by passing false. Some capabilities are permanent after they've been requested. Attempting to remove a permanent capability returns an error. */
+                     *     If a capability isn't permanent, you can remove it from the account by passing false. Some capabilities are permanent after they've been requested. Attempting to remove a permanent capability returns an error.
+                     */
                     requested?: boolean;
                 };
             };
@@ -33733,9 +33883,11 @@ export interface operations {
                     };
                     /** @description A payment source to be charged. This can be the ID of a [card](https://stripe.com/docs/api#cards) (i.e., credit or debit card), a [bank account](https://stripe.com/docs/api#bank_accounts), a [source](https://stripe.com/docs/api#sources), a [token](https://stripe.com/docs/api#tokens), or a [connected account](https://stripe.com/docs/connect/account-debits#charging-a-connected-account). For certain sources---namely, [cards](https://stripe.com/docs/api#cards), [bank accounts](https://stripe.com/docs/api#bank_accounts), and attached [sources](https://stripe.com/docs/api#sources)---you must also pass the ID of the associated customer. */
                     source?: string;
-                    /** @description For a non-card charge, text that appears on the customer's statement as the statement descriptor. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+                    /**
+                     * @description For a non-card charge, text that appears on the customer's statement as the statement descriptor. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
                      *
-                     *     For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix. */
+                     *     For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix.
+                     */
                     statement_descriptor?: string;
                     /** @description Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor. */
                     statement_descriptor_suffix?: string;
@@ -33964,9 +34116,11 @@ export interface operations {
                     expand?: string[];
                     /** @description The email address to send this charge's receipt to. This will override the previously-specified email address for this charge, if one was set. Receipts will not be sent in test mode. */
                     receipt_email?: string;
-                    /** @description For a non-card charge, text that appears on the customer's statement as the statement descriptor. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+                    /**
+                     * @description For a non-card charge, text that appears on the customer's statement as the statement descriptor. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
                      *
-                     *     For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix. */
+                     *     For a card charge, this value is ignored unless you don't specify a `statement_descriptor_suffix`, in which case this value is used as the suffix.
+                     */
                     statement_descriptor?: string;
                     /** @description Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor. */
                     statement_descriptor_suffix?: string;
@@ -34591,9 +34745,11 @@ export interface operations {
                     billing_address_collection?: "auto" | "required";
                     /** @description If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded`. */
                     cancel_url?: string;
-                    /** @description A unique string to reference the Checkout Session. This can be a
+                    /**
+                     * @description A unique string to reference the Checkout Session. This can be a
                      *     customer ID, a cart ID, or similar, and can be used to reconcile the
-                     *     session with your internal systems. */
+                     *     session with your internal systems.
+                     */
                     client_reference_id?: string;
                     /**
                      * consent_collection_params
@@ -34666,7 +34822,8 @@ export interface operations {
                             message: string;
                         } | "";
                     };
-                    /** @description ID of an existing Customer, if one exists. In `payment` mode, the customer’s most recently saved card
+                    /**
+                     * @description ID of an existing Customer, if one exists. In `payment` mode, the customer’s most recently saved card
                      *     payment method will be used to prefill the email, name, card details, and billing address
                      *     on the Checkout page. In `subscription` mode, the customer’s [default payment method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method)
                      *     will be used if it’s a card, otherwise the most recently saved card will be used. A valid billing address, billing name and billing email are required on the payment method for Checkout to prefill the customer's card details.
@@ -34676,7 +34833,8 @@ export interface operations {
                      *
                      *     If blank for Checkout Sessions in `subscription` mode or with `customer_creation` set as `always` in `payment` mode, Checkout will create a new Customer object based on information provided during the payment flow.
                      *
-                     *     You can set [`payment_intent_data.setup_future_usage`](https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-payment_intent_data-setup_future_usage) to have Checkout automatically attach the payment method to the Customer you pass in for future reuse. */
+                     *     You can set [`payment_intent_data.setup_future_usage`](https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-payment_intent_data-setup_future_usage) to have Checkout automatically attach the payment method to the Customer you pass in for future reuse.
+                     */
                     customer?: string;
                     /**
                      * @description Configure whether a Checkout Session creates a [Customer](https://stripe.com/docs/api/customers) during Session confirmation.
@@ -34691,11 +34849,13 @@ export interface operations {
                      * @enum {string}
                      */
                     customer_creation?: "always" | "if_required";
-                    /** @description If provided, this value will be used when the Customer object is created.
+                    /**
+                     * @description If provided, this value will be used when the Customer object is created.
                      *     If not provided, customers will be asked to enter their email address.
                      *     Use this parameter to prefill customer data if you already have an email
                      *     on file. To access information about the customer once a session is
-                     *     complete, use the `customer` field. */
+                     *     complete, use the `customer` field.
+                     */
                     customer_email?: string;
                     /**
                      * customer_update_params
@@ -34751,11 +34911,13 @@ export interface operations {
                             } | "";
                         };
                     };
-                    /** @description A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+                    /**
+                     * @description A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
                      *
                      *     For `payment` mode, there is a maximum of 100 line items, however it is recommended to consolidate line items if there are more than a few dozen.
                      *
-                     *     For `subscription` mode, there is a maximum of 20 line items with recurring Prices and 20 line items with one-time Prices. Line items with one-time Prices will be on the initial invoice only. */
+                     *     For `subscription` mode, there is a maximum of 20 line items with recurring Prices and 20 line items with one-time Prices. Line items with one-time Prices will be on the initial invoice only.
+                     */
                     line_items?: {
                         /** adjustable_quantity_params */
                         adjustable_quantity?: {
@@ -35142,7 +35304,8 @@ export interface operations {
                             setup_future_usage?: "none";
                         };
                     };
-                    /** @description A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
+                    /**
+                     * @description A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
                      *
                      *     You can omit this attribute to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
                      *     See [Dynamic Payment Methods](https://stripe.com/docs/payments/payment-methods/integration-options#using-dynamic-payment-methods) for more details.
@@ -35152,7 +35315,8 @@ export interface operations {
                      *
                      *     If multiple payment methods are passed, Checkout will dynamically reorder them to
                      *     prioritize the most relevant payment methods based on the customer's location and
-                     *     other characteristics. */
+                     *     other characteristics.
+                     */
                     payment_method_types?: ("acss_debit" | "affirm" | "afterpay_clearpay" | "alipay" | "alma" | "amazon_pay" | "au_becs_debit" | "bacs_debit" | "bancontact" | "blik" | "boleto" | "card" | "cashapp" | "customer_balance" | "eps" | "fpx" | "giropay" | "grabpay" | "ideal" | "kakao_pay" | "klarna" | "konbini" | "kr_card" | "link" | "mobilepay" | "multibanco" | "naver_pay" | "oxxo" | "p24" | "pay_by_bank" | "payco" | "paynow" | "paypal" | "pix" | "promptpay" | "revolut_pay" | "samsung_pay" | "sepa_debit" | "sofort" | "swish" | "twint" | "us_bank_account" | "wechat_pay" | "zip")[];
                     /**
                      * phone_number_collection_params
@@ -35169,9 +35333,11 @@ export interface operations {
                      * @enum {string}
                      */
                     redirect_on_completion?: "always" | "if_required" | "never";
-                    /** @description The URL to redirect your customer back to after they authenticate or cancel their payment on the
+                    /**
+                     * @description The URL to redirect your customer back to after they authenticate or cancel their payment on the
                      *     payment method's app or site. This parameter is required if ui_mode is `embedded`
-                     *     and redirect-based payment methods are enabled on the session. */
+                     *     and redirect-based payment methods are enabled on the session.
+                     */
                     return_url?: string;
                     /**
                      * saved_payment_method_options_param
@@ -35293,11 +35459,13 @@ export interface operations {
                             };
                         };
                     };
-                    /** @description The URL to which Stripe should send customers when payment or setup
+                    /**
+                     * @description The URL to which Stripe should send customers when payment or setup
                      *     is complete.
                      *     This parameter is not allowed if ui_mode is `embedded`. If you’d like to use
                      *     information from the successful Checkout Session on your page, read the
-                     *     guide on [customizing your success page](https://stripe.com/docs/payments/checkout/custom-success-page). */
+                     *     guide on [customizing your success page](https://stripe.com/docs/payments/checkout/custom-success-page).
+                     */
                     success_url?: string;
                     /**
                      * tax_id_collection_params
@@ -37269,11 +37437,13 @@ export interface operations {
                     default_bank_account?: string;
                     /** @description ID of card to make the customer's new default for invoice payments. */
                     default_card?: string;
-                    /** @description If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
+                    /**
+                     * @description If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
                      *
                      *     Provide the ID of a payment source already attached to this customer to make it this customer's default payment source.
                      *
-                     *     If you want to add a new payment source and make it the default, see the [source](https://stripe.com/docs/api/customers/update#update_customer-source) property. */
+                     *     If you want to add a new payment source and make it the default, see the [source](https://stripe.com/docs/api/customers/update#update_customer-source) property.
+                     */
                     default_source?: string;
                     /** @description An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard. */
                     description?: string;
@@ -41468,9 +41638,11 @@ export interface operations {
                         account_subcategories?: ("checking" | "credit_card" | "line_of_credit" | "mortgage" | "savings")[];
                         countries?: string[];
                     };
-                    /** @description List of data features that you would like to request access to.
+                    /**
+                     * @description List of data features that you would like to request access to.
                      *
-                     *     Possible values are `balances`, `transactions`, `ownership`, and `payment_method`. */
+                     *     Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
+                     */
                     permissions: ("balances" | "ownership" | "payment_method" | "transactions")[];
                     /** @description List of data features that you would like to retrieve upon account creation. */
                     prefetch?: ("balances" | "ownership" | "transactions")[];
@@ -44972,9 +45144,11 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
-                    /** @description In cases where the source used to pay the invoice has insufficient funds, passing `forgive=true` controls whether a charge should be attempted for the full amount available on the source, up to the amount to fully pay the invoice. This effectively forgives the difference between the amount available on the source and the amount due.
+                    /**
+                     * @description In cases where the source used to pay the invoice has insufficient funds, passing `forgive=true` controls whether a charge should be attempted for the full amount available on the source, up to the amount to fully pay the invoice. This effectively forgives the difference between the amount available on the source and the amount due.
                      *
-                     *     Passing `forgive=false` will fail the charge if the source hasn't been pre-funded with the right amount. An example for this case is with ACH Credit Transfers and wires: if the amount wired is less than the amount due by a small amount, you might want to forgive the difference. Defaults to `false`. */
+                     *     Passing `forgive=false` will fail the charge if the source hasn't been pre-funded with the right amount. An example for this case is with ACH Credit Transfers and wires: if the amount wired is less than the amount due by a small amount, you might want to forgive the difference. Defaults to `false`.
+                     */
                     forgive?: boolean;
                     /** @description ID of the mandate to be used for this invoice. It must correspond to the payment method used to pay the invoice, including the payment_method param or the invoice's default_payment_method or default_source, if set. */
                     mandate?: string | "";
@@ -45614,8 +45788,10 @@ export interface operations {
                     name: string;
                     /** @description The cardholder's phone number. This will be transformed to [E.164](https://en.wikipedia.org/wiki/E.164) if it is not provided in that format already. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://stripe.com/docs/issuing/3d-secure#when-is-3d-secure-applied) for more details. */
                     phone_number?: string;
-                    /** @description The cardholder’s preferred locales (languages), ordered by preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
-                     *      This changes the language of the [3D Secure flow](https://stripe.com/docs/issuing/3d-secure) and one-time password messages sent to the cardholder. */
+                    /**
+                     * @description The cardholder’s preferred locales (languages), ordered by preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
+                     *      This changes the language of the [3D Secure flow](https://stripe.com/docs/issuing/3d-secure) and one-time password messages sent to the cardholder.
+                     */
                     preferred_locales?: ("de" | "en" | "es" | "fr" | "it")[];
                     /**
                      * authorization_controls_param_v2
@@ -45782,8 +45958,10 @@ export interface operations {
                     };
                     /** @description The cardholder's phone number. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://stripe.com/docs/issuing/3d-secure) for more details. */
                     phone_number?: string;
-                    /** @description The cardholder’s preferred locales (languages), ordered by preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
-                     *      This changes the language of the [3D Secure flow](https://stripe.com/docs/issuing/3d-secure) and one-time password messages sent to the cardholder. */
+                    /**
+                     * @description The cardholder’s preferred locales (languages), ordered by preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
+                     *      This changes the language of the [3D Secure flow](https://stripe.com/docs/issuing/3d-secure) and one-time password messages sent to the cardholder.
+                     */
                     preferred_locales?: ("de" | "en" | "es" | "fr" | "it")[];
                     /**
                      * authorization_controls_param_v2
@@ -47275,9 +47453,11 @@ export interface operations {
                         account_subcategories?: ("checking" | "credit_card" | "line_of_credit" | "mortgage" | "savings")[];
                         countries?: string[];
                     };
-                    /** @description List of data features that you would like to request access to.
+                    /**
+                     * @description List of data features that you would like to request access to.
                      *
-                     *     Possible values are `balances`, `transactions`, `ownership`, and `payment_method`. */
+                     *     Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
+                     */
                     permissions: ("balances" | "ownership" | "payment_method" | "transactions")[];
                     /** @description List of data features that you would like to retrieve upon account creation. */
                     prefetch?: ("balances" | "ownership" | "transactions")[];
@@ -47715,20 +47895,24 @@ export interface operations {
                      * @enum {string}
                      */
                     confirmation_method?: "automatic" | "manual";
-                    /** @description ID of the ConfirmationToken used to confirm this PaymentIntent.
+                    /**
+                     * @description ID of the ConfirmationToken used to confirm this PaymentIntent.
                      *
-                     *     If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence. */
+                     *     If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
+                     */
                     confirmation_token?: string;
                     /**
                      * Format: currency
                      * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
                      */
                     currency: string;
-                    /** @description ID of the Customer this PaymentIntent belongs to, if one exists.
+                    /**
+                     * @description ID of the Customer this PaymentIntent belongs to, if one exists.
                      *
                      *     Payment methods attached to other Customers cannot be used with this PaymentIntent.
                      *
-                     *     If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead. */
+                     *     If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+                     */
                     customer?: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -47763,9 +47947,11 @@ export interface operations {
                     off_session?: boolean | ("one_off" | "recurring");
                     /** @description The Stripe account ID that these funds are intended for. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts). */
                     on_behalf_of?: string;
-                    /** @description ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent.
+                    /**
+                     * @description ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent.
                      *
-                     *     If you omit this parameter with `confirm=true`, `customer.default_source` attaches as this PaymentIntent's payment instrument to improve migration for users of the Charges API. We recommend that you explicitly provide the `payment_method` moving forward. */
+                     *     If you omit this parameter with `confirm=true`, `customer.default_source` attaches as this PaymentIntent's payment instrument to improve migration for users of the Charges API. We recommend that you explicitly provide the `payment_method` moving forward.
+                     */
                     payment_method?: string;
                     /** @description The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this PaymentIntent. */
                     payment_method_configuration?: string;
@@ -48341,9 +48527,11 @@ export interface operations {
                         phone?: string;
                         tracking_number?: string;
                     };
-                    /** @description Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+                    /**
+                     * @description Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
                      *
-                     *     Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead. */
+                     *     Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead.
+                     */
                     statement_descriptor?: string;
                     /** @description Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. */
                     statement_descriptor_suffix?: string;
@@ -48504,11 +48692,13 @@ export interface operations {
                      * @description Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
                      */
                     currency?: string;
-                    /** @description ID of the Customer this PaymentIntent belongs to, if one exists.
+                    /**
+                     * @description ID of the Customer this PaymentIntent belongs to, if one exists.
                      *
                      *     Payment methods attached to other Customers cannot be used with this PaymentIntent.
                      *
-                     *     If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead. */
+                     *     If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+                     */
                     customer?: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
@@ -49084,9 +49274,11 @@ export interface operations {
                         phone?: string;
                         tracking_number?: string;
                     } | "";
-                    /** @description Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+                    /**
+                     * @description Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
                      *
-                     *     Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead. */
+                     *     Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead.
+                     */
                     statement_descriptor?: string;
                     /** @description Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. */
                     statement_descriptor_suffix?: string;
@@ -49135,11 +49327,13 @@ export interface operations {
         requestBody?: {
             content: {
                 "application/x-www-form-urlencoded": {
-                    /** @description Amount that you intend to apply to this PaymentIntent from the customer’s cash balance. If the PaymentIntent was created by an Invoice, the full amount of the PaymentIntent is applied regardless of this parameter.
+                    /**
+                     * @description Amount that you intend to apply to this PaymentIntent from the customer’s cash balance. If the PaymentIntent was created by an Invoice, the full amount of the PaymentIntent is applied regardless of this parameter.
                      *
                      *     A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (for example, 100 cents to charge 1 USD or 100 to charge 100 JPY, a zero-decimal currency). The maximum amount is the amount of the PaymentIntent.
                      *
-                     *     When you omit the amount, it defaults to the remaining amount requested on the PaymentIntent. */
+                     *     When you omit the amount, it defaults to the remaining amount requested on the PaymentIntent.
+                     */
                     amount?: number;
                     /**
                      * Format: currency
@@ -49239,9 +49433,11 @@ export interface operations {
                     metadata?: {
                         [key: string]: string;
                     } | "";
-                    /** @description Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+                    /**
+                     * @description Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
                      *
-                     *     Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead. */
+                     *     Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead.
+                     */
                     statement_descriptor?: string;
                     /** @description Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. */
                     statement_descriptor_suffix?: string;
@@ -49296,9 +49492,11 @@ export interface operations {
                     capture_method?: "automatic" | "automatic_async" | "manual";
                     /** @description The client secret of the PaymentIntent. */
                     client_secret?: string;
-                    /** @description ID of the ConfirmationToken used to confirm this PaymentIntent.
+                    /**
+                     * @description ID of the ConfirmationToken used to confirm this PaymentIntent.
                      *
-                     *     If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence. */
+                     *     If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
+                     */
                     confirmation_token?: string;
                     /** @description Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication). */
                     error_on_requires_action?: boolean;
@@ -49877,9 +50075,11 @@ export interface operations {
                     };
                     /** @description Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails). */
                     receipt_email?: string | "";
-                    /** @description The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
+                    /**
+                     * @description The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
                      *     If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
-                     *     This parameter is only used for cards and other redirect-based payment methods. */
+                     *     This parameter is only used for cards and other redirect-based payment methods.
+                     */
                     return_url?: string;
                     /**
                      * @description Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -53902,10 +54102,12 @@ export interface operations {
                     };
                     /** @description Whether this product is shipped (i.e., physical goods). */
                     shippable?: boolean;
-                    /** @description An arbitrary string to be displayed on your customer's credit card or bank statement. While most banks display this information consistently, some may display it incorrectly or not at all.
+                    /**
+                     * @description An arbitrary string to be displayed on your customer's credit card or bank statement. While most banks display this information consistently, some may display it incorrectly or not at all.
                      *
                      *     This may be up to 22 characters. The statement description may not include `<`, `>`, `\`, `"`, `'` characters, and will appear on your customer's statement in capital letters. Non-ASCII characters are automatically stripped.
-                     *      It must contain at least one letter. Only used for subscription payments. */
+                     *      It must contain at least one letter. Only used for subscription payments.
+                     */
                     statement_descriptor?: string;
                     /** @description A [tax code](https://stripe.com/docs/tax/tax-categories) ID. */
                     tax_code?: string;
@@ -54070,10 +54272,12 @@ export interface operations {
                     } | "";
                     /** @description Whether this product is shipped (i.e., physical goods). */
                     shippable?: boolean;
-                    /** @description An arbitrary string to be displayed on your customer's credit card or bank statement. While most banks display this information consistently, some may display it incorrectly or not at all.
+                    /**
+                     * @description An arbitrary string to be displayed on your customer's credit card or bank statement. While most banks display this information consistently, some may display it incorrectly or not at all.
                      *
                      *     This may be up to 22 characters. The statement description may not include `<`, `>`, `\`, `"`, `'` characters, and will appear on your customer's statement in capital letters. Non-ASCII characters are automatically stripped.
-                     *      It must contain at least one letter. May only be set if `type=service`. Only used for subscription payments. */
+                     *      It must contain at least one letter. May only be set if `type=service`. Only used for subscription payments.
+                     */
                     statement_descriptor?: string;
                     /** @description A [tax code](https://stripe.com/docs/tax/tax-categories) ID. */
                     tax_code?: string | "";
@@ -54392,9 +54596,11 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description Whether the promotion code is currently active. */
                     active?: boolean;
-                    /** @description The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for a specific customer. Valid characters are lower case letters (a-z), upper case letters (A-Z), and digits (0-9).
+                    /**
+                     * @description The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for a specific customer. Valid characters are lower case letters (a-z), upper case letters (A-Z), and digits (0-9).
                      *
-                     *     If left blank, we will generate one automatically. */
+                     *     If left blank, we will generate one automatically.
+                     */
                     code?: string;
                     /** @description The coupon for this promotion code. */
                     coupon: string;
@@ -56352,9 +56558,11 @@ export interface operations {
     GetSetupAttempts: {
         parameters: {
             query: {
-                /** @description A filter on the list, based on the object `created` field. The value
+                /**
+                 * @description A filter on the list, based on the object `created` field. The value
                  *     can be a string with an integer Unix timestamp or a
-                 *     dictionary with a number of different query options. */
+                 *     dictionary with a number of different query options.
+                 */
                 created?: {
                     gt?: number;
                     gte?: number;
@@ -56367,8 +56575,10 @@ export interface operations {
                 expand?: string[];
                 /** @description A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10. */
                 limit?: number;
-                /** @description Only return SetupAttempts created by the SetupIntent specified by
-                 *     this ID. */
+                /**
+                 * @description Only return SetupAttempts created by the SetupIntent specified by
+                 *     this ID.
+                 */
                 setup_intent: string;
                 /** @description A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list. */
                 starting_after?: string;
@@ -56417,9 +56627,11 @@ export interface operations {
     GetSetupIntents: {
         parameters: {
             query?: {
-                /** @description If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
+                /**
+                 * @description If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
                  *
-                 *     It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer. */
+                 *     It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
+                 */
                 attach_to_self?: boolean;
                 /** @description A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options. */
                 created?: {
@@ -56492,9 +56704,11 @@ export interface operations {
         requestBody?: {
             content: {
                 "application/x-www-form-urlencoded": {
-                    /** @description If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
+                    /**
+                     * @description If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
                      *
-                     *     It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer. */
+                     *     It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
+                     */
                     attach_to_self?: boolean;
                     /**
                      * automatic_payment_methods_param
@@ -56507,21 +56721,27 @@ export interface operations {
                     };
                     /** @description Set to `true` to attempt to confirm this SetupIntent immediately. This parameter defaults to `false`. If a card is the attached payment method, you can provide a `return_url` in case further authentication is necessary. */
                     confirm?: boolean;
-                    /** @description ID of the ConfirmationToken used to confirm this SetupIntent.
+                    /**
+                     * @description ID of the ConfirmationToken used to confirm this SetupIntent.
                      *
-                     *     If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence. */
+                     *     If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
+                     */
                     confirmation_token?: string;
-                    /** @description ID of the Customer this SetupIntent belongs to, if one exists.
+                    /**
+                     * @description ID of the Customer this SetupIntent belongs to, if one exists.
                      *
-                     *     If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent. */
+                     *     If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
+                     */
                     customer?: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
-                    /** @description Indicates the directions of money movement for which this payment method is intended to be used.
+                    /**
+                     * @description Indicates the directions of money movement for which this payment method is intended to be used.
                      *
-                     *     Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes. */
+                     *     Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes.
+                     */
                     flow_directions?: ("inbound" | "outbound")[];
                     /** @description This hash contains details about the mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm). */
                     mandate_data?: {
@@ -56931,21 +57151,27 @@ export interface operations {
         requestBody?: {
             content: {
                 "application/x-www-form-urlencoded": {
-                    /** @description If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
+                    /**
+                     * @description If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
                      *
-                     *     It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer. */
+                     *     It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
+                     */
                     attach_to_self?: boolean;
-                    /** @description ID of the Customer this SetupIntent belongs to, if one exists.
+                    /**
+                     * @description ID of the Customer this SetupIntent belongs to, if one exists.
                      *
-                     *     If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent. */
+                     *     If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
+                     */
                     customer?: string;
                     /** @description An arbitrary string attached to the object. Often useful for displaying to users. */
                     description?: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
-                    /** @description Indicates the directions of money movement for which this payment method is intended to be used.
+                    /**
+                     * @description Indicates the directions of money movement for which this payment method is intended to be used.
                      *
-                     *     Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes. */
+                     *     Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes.
+                     */
                     flow_directions?: ("inbound" | "outbound")[];
                     /** @description Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. */
                     metadata?: {
@@ -57323,9 +57549,11 @@ export interface operations {
                 "application/x-www-form-urlencoded": {
                     /** @description The client secret of the SetupIntent. */
                     client_secret?: string;
-                    /** @description ID of the ConfirmationToken used to confirm this SetupIntent.
+                    /**
+                     * @description ID of the ConfirmationToken used to confirm this SetupIntent.
                      *
-                     *     If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence. */
+                     *     If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
+                     */
                     confirmation_token?: string;
                     /** @description Specifies which fields in the response should be expanded. */
                     expand?: string[];
@@ -57643,9 +57871,11 @@ export interface operations {
                             verification_method?: "automatic" | "instant" | "microdeposits";
                         };
                     };
-                    /** @description The URL to redirect your customer back to after they authenticate on the payment method's app or site.
+                    /**
+                     * @description The URL to redirect your customer back to after they authenticate on the payment method's app or site.
                      *     If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
-                     *     This parameter is only used for cards and other redirect-based payment methods. */
+                     *     This parameter is only used for cards and other redirect-based payment methods.
+                     */
                     return_url?: string;
                     /** @description Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions. */
                     use_stripe_sdk?: boolean;

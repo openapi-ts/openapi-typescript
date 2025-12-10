@@ -1,10 +1,10 @@
+import deepmerge from "deepmerge";
 import type { OpenAPIV3 } from "openapi-types";
-import type { OpenAPIDocument, TypeLoaderFn } from "../index.js";
-import type { Logger } from "../types.js";
 import type { SetOptional } from "type-fest";
 import { Context } from "../context.js";
+import type { OpenAPIDocument, TypeLoaderFn } from "../index.js";
+import type { Logger } from "../types.js";
 import { generatePaths } from "./paths.js";
-import deepmerge from "deepmerge";
 
 export type GenerateDocumentOptions = {
   /**

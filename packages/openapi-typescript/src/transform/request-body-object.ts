@@ -1,5 +1,5 @@
 import ts from "typescript";
-import { NEVER, QUESTION_TOKEN, addJSDocComment, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
+import { addJSDocComment, NEVER, QUESTION_TOKEN, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
 import { createRef, getEntries } from "../lib/utils.js";
 import type { RequestBodyObject, TransformNodeOptions } from "../types.js";
 import transformMediaTypeObject from "./media-type-object.js";
@@ -15,7 +15,7 @@ export default function transformRequestBodyObject(
 ): ts.TypeNode {
   const type: ts.TypeElement[] = [];
   for (const [contentType, mediaTypeObject] of getEntries(requestBodyObject.content ?? {}, options.ctx)) {
-    const nextPath = createRef([options.path, contentType]);
+    const nextPath = createRef([options.path, "content", contentType]);
     const mediaType =
       "$ref" in mediaTypeObject
         ? transformSchemaObject(mediaTypeObject, {

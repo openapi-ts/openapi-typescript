@@ -1,6 +1,6 @@
 import type { OpenAPIV3 } from "openapi-types";
-import type { TypeOptions } from "../types.js";
 import type { SetOptional } from "type-fest";
+import type { TypeOptions } from "../types.js";
 import { createMetadataStorage } from "./factory.js";
 
 export type OperationResponseMetadata = Omit<SetOptional<OpenAPIV3.ResponseObject, "description">, "content"> & {
