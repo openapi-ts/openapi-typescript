@@ -6,7 +6,7 @@
     "dev": "next dev"
   },
   "dependencies": {
-    "next": "^15.5.3",
+    "next": "^15.5.8",
     "openapi-fetch": "workspace:^",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
