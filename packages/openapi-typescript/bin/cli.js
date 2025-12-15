@@ -188,10 +188,22 @@ async function main() {
 
   const input = flags._[0];
 
-  // load Redocly config
-  const maybeRedoc = findConfig(flags.redocly ? path.dirname(flags.redocly) : undefined);
-  const redocly = maybeRedoc
-    ? await loadConfig({ configPath: maybeRedoc })
+  // load Redocly config (respect explicit --redocly path if provided)
+  let redocConfigPath;
+  if (flags.redocly) {
+    const explicitPath = path.resolve(flags.redocly);
+    if (fs.existsSync(explicitPath)) {
+      const stat = fs.statSync(explicitPath);
+      redocConfigPath = stat.isDirectory() ? findConfig(explicitPath) : explicitPath;
+    }
+    if (!redocConfigPath) {
+      errorAndExit(`Redocly config not found at: ${flags.redocly}`);
+    }
+  } else {
+    redocConfigPath = findConfig();
+  }
+  const redocly = redocConfigPath
+    ? await loadConfig({ configPath: redocConfigPath })
     : await createConfig({}, { extends: ["minimal"] });
 
   // handle Redoc APIs
