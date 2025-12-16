@@ -34,6 +34,7 @@ Options
   --root-types-no-schema-prefix (optional)
                              Do not add "Schema" prefix to types at the root level (should only be used with --root-types)
   --make-paths-enum          Generate ApiPaths enum for all paths
+  --read-write-markers       Generate $Read/$Write markers for readOnly/writeOnly properties
 `;
 
 const OUTPUT_FILE = "FILE";
@@ -86,6 +87,7 @@ const flags = parser(args, {
     "rootTypesNoSchemaPrefix",
     "makePathsEnum",
     "generatePathParams",
+    "readWriteMarkers",
   ],
   string: ["output", "redocly"],
   alias: {
@@ -149,6 +151,7 @@ async function generateSchema(schema, { redocly, silent = false }) {
       rootTypesNoSchemaPrefix: flags.rootTypesNoSchemaPrefix,
       makePathsEnum: flags.makePathsEnum,
       generatePathParams: flags.generatePathParams,
+      readWriteMarkers: flags.readWriteMarkers,
       redocly,
       silent,
     }),
