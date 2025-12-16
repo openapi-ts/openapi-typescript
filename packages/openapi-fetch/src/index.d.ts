@@ -6,9 +6,11 @@ import type {
   MediaType,
   OperationRequestBodyContent,
   PathsWithMethod,
+  Readable,
   RequiredKeysOf,
   ResponseObjectMap,
   SuccessResponse,
+  Writable,
 } from "openapi-typescript-helpers";
 
 /** Options for each client instance */
@@ -96,24 +98,25 @@ export type ParamsOption<T> = T extends {
     : { params: T["parameters"] }
   : DefaultParamsOption;
 
-export type RequestBodyOption<T> =
-  OperationRequestBodyContent<T> extends never
-    ? { body?: never }
-    : IsOperationRequestBodyOptional<T> extends true
-      ? { body?: OperationRequestBodyContent<T> }
-      : { body: OperationRequestBodyContent<T> };
+// Writable<T> strips $Read markers (readOnly properties excluded from request body)
+export type RequestBodyOption<T> = Writable<OperationRequestBodyContent<T>> extends never
+  ? { body?: never }
+  : IsOperationRequestBodyOptional<T> extends true
+    ? { body?: Writable<OperationRequestBodyContent<T>> }
+    : { body: Writable<OperationRequestBodyContent<T>> };
 
 export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body" | "headers">;
 
+// Readable<T> strips $Write markers (writeOnly properties excluded from response)
 export type FetchResponse<T extends Record<string | number, any>, Options, Media extends MediaType> =
   | {
-      data: ParseAsResponse<SuccessResponse<ResponseObjectMap<T>, Media>, Options>;
+      data: ParseAsResponse<Readable<SuccessResponse<ResponseObjectMap<T>, Media>>, Options>;
       error?: never;
       response: Response;
     }
   | {
       data?: never;
-      error: ErrorResponse<ResponseObjectMap<T>, Media>;
+      error: Readable<ErrorResponse<ResponseObjectMap<T>, Media>>;
       response: Response;
     };
 

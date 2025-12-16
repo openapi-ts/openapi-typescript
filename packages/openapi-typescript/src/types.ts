@@ -681,8 +681,10 @@ export interface OpenAPITSOptions {
   inject?: string;
   /** Generate ApiPaths enum */
   makePathsEnum?: boolean;
-  /** Generate path params based on path even if they are not defiend in the open api schema */
+  /** Generate path params based on path even if they are not defined in the open api schema */
   generatePathParams?: boolean;
+  /** Generate $Read/$Write markers for readOnly/writeOnly properties (default: false) */
+  readWriteMarkers?: boolean;
 }
 
 /** Context passed to all submodules */
@@ -720,6 +722,7 @@ export interface GlobalContext {
   inject?: string;
   makePathsEnum: boolean;
   generatePathParams: boolean;
+  readWriteMarkers: boolean;
 }
 
 export type $defs = Record<string, SchemaObject>;

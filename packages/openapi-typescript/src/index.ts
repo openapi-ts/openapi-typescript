@@ -94,6 +94,7 @@ export default async function openapiTS(
     transformProperty: typeof options.transformProperty === "function" ? options.transformProperty : undefined,
     makePathsEnum: options.makePathsEnum ?? false,
     generatePathParams: options.generatePathParams ?? false,
+    readWriteMarkers: options.readWriteMarkers ?? false,
     resolve($ref) {
       return resolveRef(schema, $ref, { silent: options.silent ?? false });
     },

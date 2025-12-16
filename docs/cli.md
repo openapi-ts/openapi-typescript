@@ -125,6 +125,7 @@ The following flags are supported in the CLI:
 | `--root-types-keep-casing`         |       | `false`  | Do not convert root type names to pascal case                                                                        |
 | `--make-paths-enum`                |       | `false`  | Generate ApiPaths enum for all paths                                                                                |
 | `--generate-path-params`           |       | `false`  | Generate path parameters for all paths where they are undefined by schema                                           |
+| `--read-write-markers`             |       | `false`  | Generate `$Read<T>`/`$Write<T>` markers for readOnly/writeOnly properties                                           |
 
 ### pathParamsAsTypes
 
@@ -234,5 +235,80 @@ export enum ApiPaths {
 ### generatePathParams
 
 This option is useful for generating path params optimistically when the schema has flaky path parameter definitions.
-Checks the path for opening and closing brackets and extracts them as path parameters. 
+Checks the path for opening and closing brackets and extracts them as path parameters.
 Does not override already defined by schema path parameters.
+
+### readWriteMarkers
+
+This option enables proper handling of OpenAPI's `readOnly` and `writeOnly` property modifiers. When enabled, properties are wrapped with marker types that allow [openapi-fetch](/openapi-fetch/) to enforce visibility rules at compile time.
+
+For example, given the following schema:
+
+::: code-group
+
+```yaml [my-openapi-3-schema.yaml]
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        password:
+          type: string
+          writeOnly: true
+```
+
+:::
+
+Enabling `--read-write-markers` would generate:
+
+::: code-group
+
+```ts [my-openapi-3-schema.d.ts]
+// Helper types generated inline when readWriteMarkers is enabled
+type $Read<T> = { readonly $read: T };
+type $Write<T> = { readonly $write: T };
+type Readable<T> = /* ... strips $Write properties, unwraps $Read */;
+type Writable<T> = /* ... strips $Read properties, unwraps $Write */;
+
+export interface components {
+  schemas: {
+    User: {
+      id?: $Read<number>;
+      name?: string;
+      password?: $Write<string>;
+    };
+  };
+}
+```
+
+:::
+
+When used with [openapi-fetch](/openapi-fetch/), the `Readable<T>` and `Writable<T>` helper types automatically:
+
+- **Exclude `readOnly` properties from request bodies** - You can't accidentally send `id` in a POST/PUT request
+- **Exclude `writeOnly` properties from responses** - You can't access `password` on response data
+
+::: code-group
+
+```ts [src/my-project.ts]
+import createClient from "openapi-fetch";
+import type { paths } from "./my-openapi-3-schema";
+
+const client = createClient<paths>({ baseUrl: "https://api.example.com" });
+
+// ✅ TypeScript error: 'id' is readOnly and not allowed in request body
+await client.POST("/users", {
+  body: { id: 123, name: "Alice", password: "secret" },
+});
+
+// ✅ TypeScript error: 'password' is writeOnly and not available in response
+const { data } = await client.GET("/users/{id}", { params: { path: { id: 1 } } });
+console.log(data?.password); // Error!
+```
+
+:::

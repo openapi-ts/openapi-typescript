@@ -535,11 +535,12 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
           );
         }
 
-        const { $ref, readOnly, hasDefault } =
+        const { $ref, readOnly, writeOnly, hasDefault } =
           typeof v === "object"
             ? {
                 $ref: "$ref" in v && v.$ref,
                 readOnly: "readOnly" in v && v.readOnly,
+                writeOnly: "writeOnly" in v && v.writeOnly,
                 hasDefault: "default" in v && v.default !== undefined,
               }
             : {};
@@ -580,9 +581,11 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
           }
         }
 
+        type = wrapWithReadWriteMarker(type, !!readOnly, !!writeOnly, options.ctx);
+
         let property = ts.factory.createPropertySignature(
           /* modifiers     */ tsModifiers({
-            readonly: options.ctx.immutable || readOnly,
+            readonly: options.ctx.immutable || (!options.ctx.readWriteMarkers && readOnly),
           }),
           /* name          */ tsPropertyIndex(k),
           /* questionToken */ optional,
@@ -609,16 +612,22 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
     if (schemaObject.$defs && typeof schemaObject.$defs === "object" && Object.keys(schemaObject.$defs).length) {
       const defKeys: ts.TypeElement[] = [];
       for (const [k, v] of Object.entries(schemaObject.$defs)) {
+        const defReadOnly = "readOnly" in v && !!v.readOnly;
+        const defWriteOnly = "writeOnly" in v && !!v.writeOnly;
+        const defType = wrapWithReadWriteMarker(
+          transformSchemaObject(v, { ...options, path: createRef([options.path, "$defs", k]) }),
+          defReadOnly,
+          defWriteOnly,
+          options.ctx,
+        );
+
         let property = ts.factory.createPropertySignature(
           /* modifiers    */ tsModifiers({
-            readonly: options.ctx.immutable || ("readonly" in v && !!v.readOnly),
+            readonly: options.ctx.immutable || (!options.ctx.readWriteMarkers && defReadOnly),
           }),
           /* name          */ tsPropertyIndex(k),
           /* questionToken */ undefined,
-          /* type          */ transformSchemaObject(v, {
-            ...options,
-            path: createRef([options.path, "$defs", k]),
-          }),
+          /* type          */ defType,
         );
 
         // Apply transformProperty hook if available
@@ -706,4 +715,23 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
  */
 function hasKey<K extends string>(possibleObject: unknown, key: K): possibleObject is { [key in K]: unknown } {
   return typeof possibleObject === "object" && possibleObject !== null && key in possibleObject;
+}
+
+/** Wrap type with $Read or $Write marker when readWriteMarkers flag is enabled */
+function wrapWithReadWriteMarker(
+  type: ts.TypeNode,
+  readOnly: boolean,
+  writeOnly: boolean,
+  ctx: { readWriteMarkers: boolean },
+): ts.TypeNode {
+  if (!ctx.readWriteMarkers || (readOnly && writeOnly)) {
+    return type;
+  }
+  if (readOnly) {
+    return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("$Read"), [type]);
+  }
+  if (writeOnly) {
+    return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("$Write"), [type]);
+  }
+  return type;
 }
