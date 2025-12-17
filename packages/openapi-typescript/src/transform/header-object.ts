@@ -1,5 +1,5 @@
-import { escapePointer } from "@redocly/openapi-core/lib/ref-utils.js";
 import ts from "typescript";
+import { escapePointer } from "../lib/redocly.js";
 import { addJSDocComment, tsModifiers, tsPropertyIndex, UNKNOWN } from "../lib/ts.js";
 import { getEntries } from "../lib/utils.js";
 import type { HeaderObject, TransformNodeOptions } from "../types.js";
