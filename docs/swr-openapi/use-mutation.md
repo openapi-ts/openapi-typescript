@@ -14,16 +14,20 @@ const client = createClient<paths>({ baseUrl: "https://my-api.com" });
 const useMutation = createMutationHook(client, "my-api");
 
 function MyComponent() {
-  const { trigger, data, isMutating } = useMutation("/users", "post");
+  const { trigger, data, isMutating } = useMutation("/users/{userId}", "post", {
+    params: {
+      userId: "123",
+    },
+  });
 
   return (
     <button
       disabled={isMutating}
       onClick={() => {
-        trigger({ body: { name: "New User" } });
+        trigger({ body: { name: "New User Name" } });
       }}
     >
-      Create User
+      Update User Name
     </button>
   );
 }

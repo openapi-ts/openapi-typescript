@@ -2,6 +2,7 @@ import type { Client } from "openapi-fetch";
 import type { HttpMethod, MediaType, PathsWithMethod } from "openapi-typescript-helpers";
 import useSWRMutation, { type SWRMutationConfiguration, type SWRMutationResponse } from "swr/mutation";
 import type { TypesForRequest } from "./types.js";
+import { useMemo } from "react";
 
 /**
  * Produces a typed wrapper for [`useSWRMutation`](https://swr.vercel.app/docs/mutation).
@@ -43,9 +44,10 @@ export function createMutationHook<Paths extends {}, IMediaType extends MediaTyp
   >(
     path: Path,
     method: Method,
-    config?: SWRMutationConfiguration<Data, Error, readonly [string, Path, Method], Init>,
-  ): SWRMutationResponse<Data, Error, readonly [string, Path, Method], Init> {
-    const key = [prefix, path, method] as const;
+    init: Init | null,
+    config?: SWRMutationConfiguration<Data, Error, readonly [string, Path, Init], Init>,
+  ): SWRMutationResponse<Data, Error, readonly [string, Path, Init], Init> {
+    const key = useMemo(() => (init !== null ? ([prefix, path, init] as const) : null), [prefix, path, init]);
 
     return useSWRMutation(
       key,
