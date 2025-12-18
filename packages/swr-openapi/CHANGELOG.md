@@ -1,5 +1,11 @@
 # swr-openapi
 
+## 5.5.0
+
+### Minor Changes
+
+- [#2552](https://github.com/openapi-ts/openapi-typescript/pull/2552) [`072543f`](https://github.com/openapi-ts/openapi-typescript/pull/2552/commits/072543fc1723b81eae2d99639d7c36bd8db94126) Thanks [@prescottprue](https://github.com/prescottprue)! - Add useMutation hook
+
 ## 5.4.2
 
 ### Patch Changes
