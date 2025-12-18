@@ -3,3 +3,4 @@ export * from "./infinite.js";
 export * from "./mutate.js";
 export * from "./query.js";
 export * from "./types.js";
+export * from "./mutation.js";
