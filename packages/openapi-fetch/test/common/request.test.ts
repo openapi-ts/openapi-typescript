@@ -358,3 +358,17 @@ describe("request", () => {
     });
   });
 });
+
+test("serialized body is not serialized again", async () => {
+  let body = "pre-serialized body",
+      bodySerialized = "";
+
+  const client = createObservedClient<paths>({}, async (req) => {
+    bodySerialized = await req.text();
+    return Response.json({});
+  });
+  await client.POST("/resources", {
+    body,
+  });
+  expect(bodySerialized).toBe(body);
+});
