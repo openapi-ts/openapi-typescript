@@ -361,7 +361,7 @@ describe("request", () => {
 
 test("serialized body is not serialized again", async () => {
   let body = "pre-serialized body",
-      bodySerialized = "";
+    bodySerialized = "";
 
   const client = createObservedClient<paths>({}, async (req) => {
     bodySerialized = await req.text();
