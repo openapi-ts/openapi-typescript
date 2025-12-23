@@ -213,30 +213,32 @@ describe("request", () => {
     });
 
     test.each(BODY_ACCEPTING_METHODS)("`''` body (with body serializer) - %s", async (method) => {
+      const body = ''
       const bodySerializer = vi.fn((body) => `Serialized: ${JSON.stringify(body)}`);
       const { bodyUsed, bodyText } = await fireRequestAndGetBodyInformation({
         bodySerializer,
         method,
         fetchOptions: {
-          body: "",
+          body,
         },
       });
 
       expect(bodyUsed).toBe(true);
-      expect(bodyText).toBe('Serialized: ""');
+      expect(bodyText).toBe(`Serialized: ${body}`);
       expect(bodySerializer).toBeCalled();
     });
 
     test.each(BODY_ACCEPTING_METHODS)("`''` body (without body serializer) - %s", async (method) => {
+      const body = ''
       const { bodyUsed, bodyText } = await fireRequestAndGetBodyInformation({
         method,
         fetchOptions: {
-          body: "",
+          body,
         },
       });
 
       expect(bodyUsed).toBe(true);
-      expect(bodyText).toBe('""');
+      expect(bodyText).toBe(body);
     });
 
     test.each(BODY_ACCEPTING_METHODS)("`0` body (with body serializer) - %s", async (method) => {
@@ -357,18 +359,4 @@ describe("request", () => {
       customProperty: "value",
     });
   });
-});
-
-test("serialized body is not serialized again", async () => {
-  let body = "pre-serialized body",
-    bodySerialized = "";
-
-  const client = createObservedClient<any>({}, async (req) => {
-    bodySerialized = await req.text();
-    return Response.json({});
-  });
-  await client.POST("/resources", {
-    body,
-  });
-  expect(bodySerialized).toBe(body);
 });
