@@ -3,16 +3,16 @@
  * Do not make direct changes to the file.
  */
 
-type $Read<T> = {
+export type $Read<T> = {
     readonly $read: T;
 };
-type $Write<T> = {
+export type $Write<T> = {
     readonly $write: T;
 };
-type Readable<T> = T extends $Write<any> ? never : T extends $Read<infer U> ? U : T extends (infer E)[] ? Readable<E>[] : T extends object ? {
+export type Readable<T> = T extends $Write<any> ? never : T extends $Read<infer U> ? Readable<U> : T extends (infer E)[] ? Readable<E>[] : T extends object ? {
     [K in keyof T as NonNullable<T[K]> extends $Write<any> ? never : K]: Readable<T[K]>;
 } : T;
-type Writable<T> = T extends $Read<any> ? never : T extends $Write<infer U> ? U : T extends (infer E)[] ? Writable<E>[] : T extends object ? {
+export type Writable<T> = T extends $Read<any> ? never : T extends $Write<infer U> ? Writable<U> : T extends (infer E)[] ? Writable<E>[] : T extends object ? {
     [K in keyof T as NonNullable<T[K]> extends $Read<any> ? never : K]: Writable<T[K]>;
 } & {
     [K in keyof T as NonNullable<T[K]> extends $Read<any> ? K : never]?: never;
@@ -76,6 +76,43 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/resources/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Resource"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -84,6 +121,21 @@ export interface components {
             id?: $Read<number>;
             name: string;
             password?: $Write<string>;
+        };
+        Resource: {
+            id: number;
+            items: components["schemas"]["ResourceItem"][];
+        };
+        ResourceItem: {
+            id: number;
+            nested: $Read<components["schemas"]["NestedObject"]>;
+        };
+        NestedObject: {
+            entries: $Read<components["schemas"]["Entry"][]>;
+        };
+        Entry: {
+            code: string;
+            label: $Read<string>;
         };
     };
     responses: never;
