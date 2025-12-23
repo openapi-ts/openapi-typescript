@@ -212,14 +212,14 @@ export type $Write<T> = { readonly $write: T };
 
 /**
  * Resolve type for reading (responses): strips $Write properties, unwraps $Read
- * - $Read<T> → T (readable)
+ * - $Read<T> → T (readable), continues recursion
  * - $Write<T> → never (excluded from response)
  * - object → recursively resolve
  */
 export type Readable<T> = T extends $Write<any>
   ? never
   : T extends $Read<infer U>
-    ? U
+    ? Readable<U>
     : T extends (infer E)[]
       ? Readable<E>[]
       : T extends object
@@ -228,14 +228,14 @@ export type Readable<T> = T extends $Write<any>
 
 /**
  * Resolve type for writing (requests): strips $Read properties, unwraps $Write
- * - $Write<T> → T (writable)
+ * - $Write<T> → T (writable), continues recursion
  * - $Read<T> → never (excluded from request)
  * - object → recursively resolve
  */
 export type Writable<T> = T extends $Read<any>
   ? never
   : T extends $Write<infer U>
-    ? U
+    ? Writable<U>
     : T extends (infer E)[]
       ? Writable<E>[]
       : T extends object

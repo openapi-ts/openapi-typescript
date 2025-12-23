@@ -22,8 +22,8 @@ const transformers: Record<SchemaTransforms, (node: any, options: GlobalContext)
 const READ_WRITE_HELPER_TYPES = `
 export type $Read<T> = { readonly $read: T };
 export type $Write<T> = { readonly $write: T };
-export type Readable<T> = T extends $Write<any> ? never : T extends $Read<infer U> ? U : T extends (infer E)[] ? Readable<E>[] : T extends object ? { [K in keyof T as NonNullable<T[K]> extends $Write<any> ? never : K]: Readable<T[K]> } : T;
-export type Writable<T> = T extends $Read<any> ? never : T extends $Write<infer U> ? U : T extends (infer E)[] ? Writable<E>[] : T extends object ? { [K in keyof T as NonNullable<T[K]> extends $Read<any> ? never : K]: Writable<T[K]> } & { [K in keyof T as NonNullable<T[K]> extends $Read<any> ? K : never]?: never } : T;
+export type Readable<T> = T extends $Write<any> ? never : T extends $Read<infer U> ? Readable<U> : T extends (infer E)[] ? Readable<E>[] : T extends object ? { [K in keyof T as NonNullable<T[K]> extends $Write<any> ? never : K]: Readable<T[K]> } : T;
+export type Writable<T> = T extends $Read<any> ? never : T extends $Write<infer U> ? Writable<U> : T extends (infer E)[] ? Writable<E>[] : T extends object ? { [K in keyof T as NonNullable<T[K]> extends $Read<any> ? never : K]: Writable<T[K]> } & { [K in keyof T as NonNullable<T[K]> extends $Read<any> ? K : never]?: never } : T;
 `;
 
 export default function transformSchema(schema: OpenAPI3, ctx: GlobalContext) {
