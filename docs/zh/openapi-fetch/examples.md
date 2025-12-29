@@ -10,10 +10,6 @@ title: openapi-fetch 示例
 
 See [openapi-react-query](/openapi-react-query/)
 
-## React + SWR
-
-See [swr-openapi](/swr-openapi/)
-
 ## Next.js
 
 [Next.js](https://nextjs.org/) 是 React 的最流行的 SSR 框架。虽然对于所有客户端获取 openapi-fetch，推荐使用 [React Query](#react--react-query)（而不是 SWR），但该示例展示了如何利用 Next.js 的[服务器端获取](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#fetching-data-on-the-server-with-fetch)并内建缓存。

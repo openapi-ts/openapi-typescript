@@ -79,18 +79,6 @@ export default defineConfig({
           ],
         },
         {
-          text: "swr-openapi",
-          base: "/swr-openapi",
-          items: [
-            { text: "Getting Started", link: "/" },
-            { text: "Hook Builders", link: "/hook-builders" },
-            { text: "useQuery", link: "/use-query" },
-            { text: "useImmutable", link: "/use-immutable" },
-            { text: "useInfinite", link: "/use-infinite" },
-            { text: "useMutate", link: "/use-mutate" },
-          ],
-        },
-        {
           text: "openapi-metadata",
           items: [
             { text: "Getting Started", link: "/openapi-metadata" },

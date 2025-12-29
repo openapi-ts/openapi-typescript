@@ -33,6 +33,5 @@ This monorepo has 2 main sections: the `docs/` that deploy to `openapi-ts.dev`, 
     ├── openapi-fetch/
     ├── openapi-react-query/
     ├── openapi-typescript/
-    ├── openapi-typescript-helpers/
-    └── swr-openapi/
+    └── openapi-typescript-helpers/
 ```
