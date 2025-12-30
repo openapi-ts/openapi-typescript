@@ -12,7 +12,7 @@ See [openapi-react-query](/openapi-react-query/)
 
 ## React + SWR
 
-See [swr-openapi](/swr-openapi/)
+See [swr-openapi](https://github.com/htunnicliff/swr-openapi)
 
 ## Next.js
 

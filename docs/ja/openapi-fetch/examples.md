@@ -10,10 +10,6 @@ openapi-fetchを他のフレームワークやライブラリと組み合わせ�
 
 See [openapi-react-query](/ja/openapi-react-query/)
 
-## React + SWR
-
-See [swr-openapi](/swr-openapi/)
-
 ## Next.js
 
 [Next.js](https://nextjs.org/) は、React向けの最も人気のあるSSR（サーバーサイドレンダリング）フレームワークです。[React Query](#react--react-query) はクライアントサイドでのデータ取得に推奨されていますが、この例では、Next.jsの[サーバーサイドでのデータ取得機能](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#fetching-data-on-the-server-with-fetch)を利用し、ビルトインのキャッシュ機能を活用する方法を示しています。

@@ -51,12 +51,6 @@ description: Additional info about this project
 2. Respect the original `@tanstack/react-query` APIs while reducing boilerplate.
 3. Be as light and performant as possible.
 
-### swr-openapi
-
-1. Types should be strict and inferred automatically from OpenAPI schemas with the absolute minimum number of generics needed.
-2. Respect the original `swr` APIs while reducing boilerplate.
-3. Be as light and performant as possible.
-
 ### openapi-metadata
 
 1. Must respect the OpenAPI V3 specification
