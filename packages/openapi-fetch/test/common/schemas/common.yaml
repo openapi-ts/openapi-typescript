@@ -421,6 +421,17 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /empty-json:
+    get:
+      operationId: getEmptyJsonResponse
+      responses:
+        200:
+          description: Empty JSON Response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
     Error:

@@ -230,18 +230,29 @@ export default function createClient(clientOptions) {
       }
     }
 
+    const contentLength = response.headers.get("Content-Length");
     // handle empty content
-    if (response.status === 204 || request.method === "HEAD" || response.headers.get("Content-Length") === "0") {
+    if (response.status === 204 || request.method === "HEAD" || contentLength === "0") {
       return response.ok ? { data: undefined, response } : { error: undefined, response };
     }
 
     // parse response (falling back to .text() when necessary)
     if (response.ok) {
-      // if "stream", skip parsing entirely
-      if (parseAs === "stream") {
-        return { data: response.body, response };
-      }
-      return { data: await response[parseAs](), response };
+      const getResponseData = async () => {
+        // if "stream", skip parsing entirely
+        if (parseAs === "stream") {
+          return response.body;
+        }
+
+        if (parseAs === "json" && !contentLength) {
+          // use text() when no content-length is provided to avoid errors parsing empty bodies (200 with no content)
+          const raw = await response.text();
+          return raw ? JSON.parse(raw) : undefined;
+        }
+
+        return await response[parseAs]();
+      };
+      return { data: await getResponseData(), response };
     }
 
     // handle errors
