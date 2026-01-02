@@ -4,6 +4,7 @@ export default defineBuildConfig({
   entries: [
     "./src/index.ts",
     "./src/decorators/index.ts",
+    "./src/loaders/index.ts",
     "./src/metadata/index.ts",
     "./src/errors/index.ts",
     "./src/ui/index.ts",

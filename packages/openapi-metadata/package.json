@@ -18,6 +18,10 @@
       "import": "./dist/decorators/index.mjs",
       "require": "./dist/decorators/index.cjs"
     },
+    "./loaders": {
+      "import": "./dist/loaders/index.mjs",
+      "require": "./dist/loaders/index.cjs"
+    },
     "./metadata": {
       "import": "./dist/metadata/index.mjs",
       "require": "./dist/metadata/index.cjs"
