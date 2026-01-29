@@ -89,8 +89,8 @@ export default function createClient(clientOptions) {
     const finalHeaders = mergeHeaders(
       // with no body, we should not to set Content-Type
       serializedBody === undefined ||
-        // if serialized body is FormData; browser will correctly set Content-Type & boundary expression
-        serializedBody instanceof FormData
+      // if serialized body is FormData; browser will correctly set Content-Type & boundary expression
+      serializedBody instanceof FormData
         ? {}
         : {
             "Content-Type": "application/json",
@@ -231,7 +231,12 @@ export default function createClient(clientOptions) {
     }
 
     // handle empty content
-    if (response.status === 204 || request.method === "HEAD" || (response.headers.get("Content-Length") === "0" && !response.headers.get("Transfer-Encoding")?.includes("chunked"))) {
+    if (
+      response.status === 204 ||
+      request.method === "HEAD" ||
+      (response.headers.get("Content-Length") === "0" &&
+        !response.headers.get("Transfer-Encoding")?.includes("chunked"))
+    ) {
       return response.ok ? { data: undefined, response } : { error: undefined, response };
     }
 
@@ -603,8 +608,8 @@ export function defaultBodySerializer(body, headers) {
   if (headers) {
     const contentType =
       headers.get instanceof Function
-        ? (headers.get("Content-Type") ?? headers.get("content-type"))
-        : (headers["Content-Type"] ?? headers["content-type"]);
+        ? headers.get("Content-Type") ?? headers.get("content-type")
+        : headers["Content-Type"] ?? headers["content-type"];
     if (contentType === "application/x-www-form-urlencoded") {
       return new URLSearchParams(body).toString();
     }

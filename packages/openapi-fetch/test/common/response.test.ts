@@ -196,13 +196,11 @@ describe("response", () => {
   describe("chunked transfer with zero Content-Length", () => {
     test("does not treat chunked body with Content-Length: 0 as empty", async () => {
       const mock = [{ id: 1 }];
-      const client = createObservedClient<paths>(
-        {},
-        async () =>
-          Response.json(mock, {
-            status: 200,
-            headers: { "Content-Length": "0", "Transfer-Encoding": "chunked" },
-          }),
+      const client = createObservedClient<paths>({}, async () =>
+        Response.json(mock, {
+          status: 200,
+          headers: { "Content-Length": "0", "Transfer-Encoding": "chunked" },
+        }),
       );
 
       const { data, error, response } = await client.GET("/resources");
@@ -213,13 +211,11 @@ describe("response", () => {
   });
   describe("Content-Length: 0 without chunked", () => {
     test("treats as empty when not chunked", async () => {
-      const client = createObservedClient<paths>(
-        {},
-        async () =>
-          Response.json([{ id: 1 }], {
-            status: 200,
-            headers: { "Content-Length": "0" },
-          }),
+      const client = createObservedClient<paths>({}, async () =>
+        Response.json([{ id: 1 }], {
+          status: 200,
+          headers: { "Content-Length": "0" },
+        }),
       );
 
       const { data, error, response } = await client.GET("/resources");
