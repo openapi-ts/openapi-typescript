@@ -340,8 +340,9 @@ describe("request", () => {
     function createCustomFetch(data: any) {
       const response = {
         clone: () => ({ ...response }),
-        headers: new Headers(),
+        headers: new Headers({ "content-type": "application/json" }),
         json: async () => data,
+        text: async () => JSON.stringify(data),
         status: 200,
         ok: true,
       } as Response;
@@ -353,7 +354,7 @@ describe("request", () => {
 
     const customFetch = createCustomFetch({});
     const client = createClient<paths>({ baseUrl: "https://fakeurl.example", fetch: customFetch });
-    client.GET("/resources", {
+    await client.GET("/resources", {
       customProperty: "value",
     });
   });
