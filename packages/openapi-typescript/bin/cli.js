@@ -167,6 +167,18 @@ function done(input, output, time) {
   console.log(`🚀 ${c.green(`${input} → ${c.bold(output)}`)} ${c.dim(`[${formatTime(time)}]`)}`);
 }
 
+function findRedocConfigPath() {
+  if (!flags.redocly) {
+    return findConfig();
+  }
+  const explicitPath = path.resolve(flags.redocly);
+  if (!fs.existsSync(explicitPath)) {
+    return undefined;
+  }
+  const stat = fs.statSync(explicitPath);
+  return stat.isDirectory() ? findConfig(explicitPath) : explicitPath;
+}
+
 async function main() {
   if ("help" in flags) {
     // biome-ignore lint/suspicious/noConsole: this is a CLI
@@ -188,10 +200,12 @@ async function main() {
 
   const input = flags._[0];
 
-  // load Redocly config
-  const maybeRedoc = findConfig(flags.redocly ? path.dirname(flags.redocly) : undefined);
-  const redocly = maybeRedoc
-    ? await loadConfig({ configPath: maybeRedoc })
+  const redocConfigPath = findRedocConfigPath();
+  if (flags.redocly && !redocConfigPath) {
+    errorAndExit(`Redocly config not found at: ${flags.redocly}`);
+  }
+  const redocly = redocConfigPath
+    ? await loadConfig({ configPath: redocConfigPath })
     : await createConfig({}, { extends: ["minimal"] });
 
   // handle Redoc APIs
