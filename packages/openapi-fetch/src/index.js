@@ -241,6 +241,14 @@ export default function createClient(clientOptions) {
       if (parseAs === "stream") {
         return { data: response.body, response };
       }
+      // only parse as JSON if content-type indicates JSON
+      if (parseAs === "json") {
+        const contentType = response.headers.get("content-type");
+        if (contentType?.includes("application/json")) {
+          return { data: await response.json(), response };
+        }
+        return { data: await response.text(), response };
+      }
       return { data: await response[parseAs](), response };
     }
 

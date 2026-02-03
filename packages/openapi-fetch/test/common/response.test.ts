@@ -135,6 +135,71 @@ describe("response", () => {
     });
   });
 
+  describe("content-type handling", () => {
+    test("parses JSON when content-type is application/json", async () => {
+      const client = createObservedClient<paths>({}, async () =>
+        Response.json([{ id: "1", name: "Test" }], { status: 200 }),
+      );
+      const { data, error } = await client.GET("/resources");
+      expect(error).toBeUndefined();
+      expect(data).toEqual([{ id: "1", name: "Test" }]);
+    });
+
+    test("returns text when content-type is not application/json", async () => {
+      const client = createObservedClient<paths>({}, async () =>
+        new Response("plain text response", {
+          status: 200,
+          headers: { "Content-Type": "text/plain" },
+        }),
+      );
+      const { data, error } = await client.GET("/resources");
+      expect(error).toBeUndefined();
+      expect(data).toBe("plain text response");
+    });
+
+    test("returns text when content-type header is missing", async () => {
+      const client = createObservedClient<paths>({}, async () =>
+        new Response("no content type", { status: 200 }),
+      );
+      const { data, error } = await client.GET("/resources");
+      expect(error).toBeUndefined();
+      expect(data).toBe("no content type");
+    });
+
+    test("parses error as JSON when content-type is application/json", async () => {
+      const client = createObservedClient<paths>({}, async () =>
+        Response.json({ code: 404, message: "Not found" }, { status: 404 }),
+      );
+      const { data, error } = await client.GET("/resources");
+      expect(data).toBeUndefined();
+      expect(error).toEqual({ code: 404, message: "Not found" });
+    });
+
+    test("keeps error as text when content-type is not application/json", async () => {
+      const client = createObservedClient<paths>({}, async () =>
+        new Response("Error: something went wrong", {
+          status: 500,
+          headers: { "Content-Type": "text/plain" },
+        }),
+      );
+      const { data, error } = await client.GET("/resources");
+      expect(data).toBeUndefined();
+      expect(error).toBe("Error: something went wrong");
+    });
+
+    test("handles application/json with charset", async () => {
+      const client = createObservedClient<paths>({}, async () =>
+        new Response(JSON.stringify([{ id: "1", name: "Test" }]), {
+          status: 200,
+          headers: { "Content-Type": "application/json; charset=utf-8" },
+        }),
+      );
+      const { data, error } = await client.GET("/resources");
+      expect(error).toBeUndefined();
+      expect(data).toEqual([{ id: "1", name: "Test" }]);
+    });
+  });
+
   describe("parseAs", () => {
     const client = createObservedClient<paths>({}, async () => Response.json({}));
 
