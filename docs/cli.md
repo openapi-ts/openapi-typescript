@@ -234,3 +234,12 @@ export enum ApiPaths {
 This option is useful for generating path params optimistically when the schema has flaky path parameter definitions.
 Checks the path for opening and closing brackets and extracts them as path parameters. 
 Does not override already defined by schema path parameters.
+
+### makeParametersWithDefaultNotUndefined
+
+Enabling `--make-parameters-with-default-not-undefined` will result in generated types where operation parameters that
+have default values defined are non-optional.
+
+This allows generating types for certain server implementation use cases where the default value is injected
+automatically by the framework for the handling function to consume and the signature on the handler should
+indicate that the value can not be undefined.

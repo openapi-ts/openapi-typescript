@@ -34,6 +34,8 @@ Options
   --root-types-no-schema-prefix (optional)
                              Do not add "Schema" prefix to types at the root level (should only be used with --root-types)
   --make-paths-enum          Generate ApiPaths enum for all paths
+  --make-parameters-with-default-not-undefined
+                             Generate non-optional parameter types if the parameter has a default
 `;
 
 const OUTPUT_FILE = "FILE";
@@ -86,6 +88,7 @@ const flags = parser(args, {
     "rootTypesNoSchemaPrefix",
     "makePathsEnum",
     "generatePathParams",
+    "makeParametersWithDefaultNotUndefined",
   ],
   string: ["output", "redocly"],
   alias: {
@@ -149,6 +152,7 @@ async function generateSchema(schema, { redocly, silent = false }) {
       rootTypesNoSchemaPrefix: flags.rootTypesNoSchemaPrefix,
       makePathsEnum: flags.makePathsEnum,
       generatePathParams: flags.generatePathParams,
+      makeParametersWithDefaultNotUndefined: flags.makeParametersWithDefaultNotUndefined,
       redocly,
       silent,
     }),
