@@ -33,6 +33,7 @@ Options
   --root-types (optional)    Export schemas types at root level
   --root-types-no-schema-prefix (optional)
                              Do not add "Schema" prefix to types at the root level (should only be used with --root-types)
+  --root-types-keep-casing   Keep casing of root types (should only be used with --root-types)
   --make-paths-enum          Generate ApiPaths enum for all paths
 `;
 
@@ -63,6 +64,10 @@ if (args.includes("--root-types-no-schema-prefix") && !args.includes("--root-typ
   // biome-ignore lint/suspicious/noConsole: this is a CLI
   console.warn("--root-types-no-schema-prefix has no effect without --root-types flag");
 }
+if (args.includes("--root-types-keep-casing") && !args.includes("--root-types")) {
+  // biome-ignore lint/suspicious/noConsole: this is a CLI
+  console.warn("--root-types-keep-casing has no effect without --root-types flag");
+}
 
 const flags = parser(args, {
   boolean: [
@@ -84,6 +89,7 @@ const flags = parser(args, {
     "pathParamsAsTypes",
     "rootTypes",
     "rootTypesNoSchemaPrefix",
+    "rootTypesKeepCasing",
     "makePathsEnum",
     "generatePathParams",
   ],
@@ -147,6 +153,7 @@ async function generateSchema(schema, { redocly, silent = false }) {
       pathParamsAsTypes: flags.pathParamsAsTypes,
       rootTypes: flags.rootTypes,
       rootTypesNoSchemaPrefix: flags.rootTypesNoSchemaPrefix,
+      rootTypesKeepCasing: flags.rootTypesKeepCasing,
       makePathsEnum: flags.makePathsEnum,
       generatePathParams: flags.generatePathParams,
       redocly,
