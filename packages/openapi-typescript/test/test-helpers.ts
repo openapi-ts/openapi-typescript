@@ -34,6 +34,7 @@ export const DEFAULT_CTX: GlobalContext = {
   transformProperty: undefined,
   makePathsEnum: false,
   generatePathParams: false,
+  readWriteMarkers: false,
 };
 
 /** Generic test case */
