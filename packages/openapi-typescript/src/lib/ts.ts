@@ -134,8 +134,8 @@ function isParameterObject(obj: OapiRefResolved | undefined): obj is ParameterOb
   return Boolean(obj && !isOasRef(obj) && obj.in);
 }
 
-function addIndexedAccess(node: ts.TypeReferenceNode | ts.IndexedAccessTypeNode, ...segments: readonly string[]) {
-  return segments.reduce((acc, segment) => {
+function addIndexedAccess(node: ts.TypeNode, ...segments: readonly string[]) {
+  return segments.reduce<ts.TypeNode>((acc, segment) => {
     return ts.factory.createIndexedAccessTypeNode(
       acc,
       ts.factory.createLiteralTypeNode(
@@ -145,6 +145,31 @@ function addIndexedAccess(node: ts.TypeReferenceNode | ts.IndexedAccessTypeNode,
       ),
     );
   }, node);
+}
+
+/**
+ * Wrap a type with Extract<T, { propertyName: unknown }> to narrow a union type
+ * before accessing a property that only exists on some variants.
+ */
+function wrapWithExtract(type: ts.TypeNode, propertyName: string): ts.TypeNode {
+  return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Extract"), [
+    type,
+    ts.factory.createTypeLiteralNode([
+      ts.factory.createPropertySignature(
+        /* modifiers     */ undefined,
+        /* name          */ ts.factory.createIdentifier(propertyName),
+        /* questionToken */ undefined,
+        /* type          */ ts.factory.createKeywordTypeNode(ts.SyntaxKind.UnknownKeyword),
+      ),
+    ]),
+  ]);
+}
+
+export interface OapiRefOptions {
+  /** Whether to wrap with FlattenedDeepRequired<> (default: false) */
+  deep?: boolean;
+  /** Array of property names to wrap with Extract<> when accessing */
+  extractProperties?: string[];
 }
 
 /**
@@ -163,14 +188,18 @@ function addIndexedAccess(node: ts.TypeReferenceNode | ts.IndexedAccessTypeNode,
  *       them according to their type; path, query, header, etc… so in these cases we
  *       must check the parameter definition to determine the how to index into
  *       the openapi-typescript type.
+ *   * Union variant properties (oneOf/anyOf)
+ *       When accessing properties that may only exist on some variants of a union type,
+ *       we use Extract<> to narrow the type before each property access.
  **/
-export function oapiRef(path: string, resolved?: OapiRefResolved, deep = false): ts.TypeNode {
+export function oapiRef(path: string, resolved?: OapiRefResolved, options: OapiRefOptions = {}): ts.TypeNode {
   const { pointer } = parseRef(path);
   if (pointer.length === 0) {
     throw new Error(`Error parsing $ref: ${path}. Is this a valid $ref?`);
   }
 
   const parametersObject = isParameterObject(resolved);
+  const extractSet = new Set(options.extractProperties ?? []);
 
   // Initial segments are handled in a fixed , then remaining segments are treated
   // according to heuristics based on the initial segments
@@ -180,12 +209,14 @@ export function oapiRef(path: string, resolved?: OapiRefResolved, deep = false):
 
   const leadingType = addIndexedAccess(
     ts.factory.createTypeReferenceNode(
-      ts.factory.createIdentifier(deep ? `FlattenedDeepRequired<${String(initialSegment)}>` : String(initialSegment)),
+      ts.factory.createIdentifier(
+        options.deep ? `FlattenedDeepRequired<${String(initialSegment)}>` : String(initialSegment),
+      ),
     ),
     ...leadingSegments,
   );
 
-  return restSegments.reduce<ts.TypeReferenceNode | ts.IndexedAccessTypeNode>((acc, segment, index, original) => {
+  return restSegments.reduce<ts.TypeNode>((acc, segment, index, original) => {
     // Skip `properties` items when in the middle of the pointer
     // See: https://github.com/openapi-ts/openapi-typescript/issues/1742
     if (segment === "properties") {
@@ -194,6 +225,14 @@ export function oapiRef(path: string, resolved?: OapiRefResolved, deep = false):
 
     if (parametersObject && index === original.length - 1) {
       return addIndexedAccess(acc, resolved.in, resolved.name);
+    }
+
+    // If this segment is in the extractProperties list,
+    // wrap the current type with Extract<T, { segment: unknown }> before accessing.
+    // This narrows union types to variants that have this property.
+    if (extractSet.has(segment)) {
+      const narrowedType = wrapWithExtract(acc, segment);
+      return addIndexedAccess(narrowedType, segment);
     }
 
     return addIndexedAccess(acc, segment);
