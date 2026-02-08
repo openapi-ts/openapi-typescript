@@ -78,26 +78,6 @@ export default defineConfig({
             { text: "queryOptions", link: "/query-options" },
           ],
         },
-        {
-          text: "openapi-metadata",
-          items: [
-            { text: "Getting Started", link: "/openapi-metadata" },
-            { text: "Decorators", link: "/openapi-metadata/decorators" },
-            { text: "Metadata", link: "/openapi-metadata/metadata" },
-            { text: "Type loader", link: "/openapi-metadata/type-loader" },
-            { text: "UI Integrations", link: "/openapi-metadata/ui" },
-            {
-              text: "Integrations",
-              items: [
-                {
-                  text: "AdonisJS",
-                  link: "https://friendsofadonis.com/docs/openapi",
-                },
-              ],
-            },
-            { text: "Examples", link: "/openapi-metadata/examples" },
-          ],
-        },
         { text: "About", link: "/about" },
       ],
     },
