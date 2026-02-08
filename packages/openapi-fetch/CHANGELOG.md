@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.15.2
+
+### Patch Changes
+
+- [#2537](https://github.com/openapi-ts/openapi-typescript/pull/2537) [`d37b082`](https://github.com/openapi-ts/openapi-typescript/commit/d37b08293131f6a1b6e38c1f9e6bf6c7e5153bd6) Thanks [@lindseystead](https://github.com/lindseystead)! - Fix incorrect `onError` middleware docs example that caused a TypeScript error when copy-pasted.
+
 ## 0.15.1
 
 ### Patch Changes
