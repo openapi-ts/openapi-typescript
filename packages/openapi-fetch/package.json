@@ -70,7 +70,7 @@
     "openapi-typescript": "workspace:^",
     "openapi-typescript-codegen": "0.29.0",
     "openapi-typescript-fetch": "2.2.1",
-    "superagent": "10.2.3",
+    "superagent": "10.3.0",
     "typescript": "catalog:",
     "undici": "7.16.0",
     "vite": "catalog:"
