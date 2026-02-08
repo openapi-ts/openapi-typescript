@@ -23,6 +23,8 @@ export interface ClientOptions extends Omit<RequestInit, "headers"> {
   querySerializer?: QuerySerializer<unknown> | QuerySerializerOptions;
   /** global bodySerializer */
   bodySerializer?: BodySerializer<unknown>;
+  /** global pathSerializer */
+  pathSerializer?: PathSerializer;
   headers?: HeadersOptions;
   /** RequestInit extension object to pass as 2nd argument to fetch when supported (defaults to undefined) */
   requestInitExt?: Record<string, unknown>;
@@ -63,6 +65,8 @@ export type QuerySerializerOptions = {
 };
 
 export type BodySerializer<T> = (body: OperationRequestBodyContent<T>) => any;
+
+export type PathSerializer = (pathname: string, pathParams: Record<string, unknown>) => string;
 
 type BodyType<T = unknown> = {
   json: T;
@@ -118,6 +122,7 @@ export type RequestOptions<T> = ParamsOption<T> &
     baseUrl?: string;
     querySerializer?: QuerySerializer<T> | QuerySerializerOptions;
     bodySerializer?: BodySerializer<T>;
+    pathSerializer?: PathSerializer;
     parseAs?: ParseAs;
     fetch?: ClientOptions["fetch"];
     headers?: HeadersOptions;
@@ -129,6 +134,7 @@ export type MergedOptions<T = unknown> = {
   parseAs: ParseAs;
   querySerializer: QuerySerializer<T>;
   bodySerializer: BodySerializer<T>;
+  pathSerializer: PathSerializer;
   fetch: typeof globalThis.fetch;
 };
 
@@ -324,6 +330,7 @@ export declare function createFinalURL<O>(
       path?: Record<string, unknown>;
     };
     querySerializer: QuerySerializer<O>;
+    pathSerializer: PathSerializer;
   },
 ): string;
 
