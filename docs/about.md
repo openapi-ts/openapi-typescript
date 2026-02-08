@@ -51,12 +51,6 @@ description: Additional info about this project
 2. Respect the original `@tanstack/react-query` APIs while reducing boilerplate.
 3. Be as light and performant as possible.
 
-### openapi-metadata
-
-1. Must respect the OpenAPI V3 specification
-2. Be extensible and easily integrated inside backend frameworks
-3. Be focused around developer experience
-
 ## Maintainers
 
 This library is currently maintained by these amazing individuals:
