@@ -342,6 +342,7 @@ describe("request", () => {
         clone: () => ({ ...response }),
         headers: new Headers(),
         json: async () => data,
+        text: async () => JSON.stringify(data),
         status: 200,
         ok: true,
       } as Response;
