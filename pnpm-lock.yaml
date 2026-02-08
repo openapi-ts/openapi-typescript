@@ -30,8 +30,8 @@ importers:
         specifier: 0.5.1
         version: 0.5.1
       '@changesets/cli':
-        specifier: 2.29.7
-        version: 2.29.7(@types/node@25.2.2)
+        specifier: 2.29.8
+        version: 2.29.8(@types/node@25.2.2)
       '@playwright/test':
         specifier: 1.56.0
         version: 1.56.0
@@ -596,8 +596,8 @@ packages:
   '@changesets/changelog-github@0.5.1':
     resolution: {integrity: sha512-BVuHtF+hrhUScSoHnJwTELB4/INQxVFc+P/Qdt20BLiBFIHFJDDUaGsZw+8fQeJTRP5hJZrzpt3oZWh0G19rAQ==}
 
-  '@changesets/cli@2.29.7':
-    resolution: {integrity: sha512-R7RqWoaksyyKXbKXBTbT4REdy22yH81mcFK6sWtqSanxUCbUi9Uf+6aqxZtDQouIqPdem2W56CdxXgsxdq7FLQ==}
+  '@changesets/cli@2.29.8':
+    resolution: {integrity: sha512-1weuGZpP63YWUYjay/E84qqwcnt5yJMM0tep10Up7Q5cS/DGe2IZ0Uj3HNMxGhCINZuR7aO9WBMdKnPit5ZDPA==}
     hasBin: true
 
   '@changesets/config@3.1.2':
@@ -5232,7 +5232,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@changesets/cli@2.29.7(@types/node@25.2.2)':
+  '@changesets/cli@2.29.8(@types/node@25.2.2)':
     dependencies:
       '@changesets/apply-release-plan': 7.0.14
       '@changesets/assemble-release-plan': 6.0.9

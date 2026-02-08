@@ -22,7 +22,7 @@
     "@arethetypeswrong/cli": "0.18.2",
     "@biomejs/biome": "2.2.6",
     "@changesets/changelog-github": "0.5.1",
-    "@changesets/cli": "2.29.7",
+    "@changesets/cli": "2.29.8",
     "@playwright/test": "1.56.0",
     "@size-limit/preset-small-lib": "11.2.0",
     "@types/node": "25.2.2",
