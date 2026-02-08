@@ -1,5 +1,11 @@
 # openapi-react-query
 
+## 0.5.2
+
+### Patch Changes
+
+- [#2519](https://github.com/openapi-ts/openapi-typescript/pull/2519) [`681ac87`](https://github.com/openapi-ts/openapi-typescript/commit/681ac876c4c5c20ad27c43b0960aabdbc247c59a) Thanks [@sacha-c](https://github.com/sacha-c)! - fixes mutation results type
+
 ## 0.5.1
 
 ### Patch Changes

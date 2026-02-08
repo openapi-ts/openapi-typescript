@@ -1,5 +1,15 @@
 # openapi-typescript
 
+## 7.12.0
+
+### Minor Changes
+
+- [#2524](https://github.com/openapi-ts/openapi-typescript/pull/2524) [`697f7fe`](https://github.com/openapi-ts/openapi-typescript/commit/697f7fe8bf3f23bfa36cb29c093a359b562a377e) Thanks [@gunnarvelle](https://github.com/gunnarvelle)! - Added flag to keep casing for exported root types
+
+### Patch Changes
+
+- [#2536](https://github.com/openapi-ts/openapi-typescript/pull/2536) [`e3c05a4`](https://github.com/openapi-ts/openapi-typescript/commit/e3c05a40752b02fcabe63fda88d7e0afae00ab6d) Thanks [@darkbasic](https://github.com/darkbasic)! - Fix `enumValues: true` output for schemas that use `oneOf`/`anyOf` unions by narrowing union types with `Extract<>` before accessing variant-specific properties. This prevents invalid type paths when an accessed property only exists on some union members.
+
 ## 7.11.0
 
 ### Minor Changes
