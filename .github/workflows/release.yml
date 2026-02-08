@@ -11,6 +11,7 @@ env:
 permissions:
   id-token: write # Required for OIDC
   contents: write
+  pull-requests: write
 
 jobs:
   changelog:
@@ -46,4 +47,3 @@ jobs:
           title: "[ci] release"
         env:
           GITHUB_TOKEN: ${{ secrets.OPENAPI_TS_BOT_GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
