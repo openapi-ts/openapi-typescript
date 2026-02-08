@@ -146,6 +146,14 @@ export function transformSchemaObjectWithComposition(
       // build a ref path for the type that ignores union indices (anyOf/oneOf) so
       // type references remain stable even when names include union positions
       const cleanedPointer: string[] = [];
+      // Track ALL properties after a oneOf/anyOf that need Extract<> narrowing.
+      // We apply Extract<> before EVERY property access after a union index because:
+      // - When the property exists on ALL variants, Extract<> is a no-op (returns same type)
+      // - When the property only exists on SOME variants, it correctly narrows the union
+      // - When both variants have same property name but different inner schemas,
+      //   we still narrow at each level to handle nested unions correctly
+      // This robust approach handles both simple and complex union structures.
+      const extractProperties: string[] = [];
       for (let i = 0; i < parsed.pointer.length; i++) {
         // Example: #/paths/analytics/data/get/responses/400/content/application/json/anyOf/0/message
         const segment = parsed.pointer[i];
@@ -154,6 +162,16 @@ export function transformSchemaObjectWithComposition(
           if (/^\d+$/.test(next)) {
             // If we encounter something like "anyOf/0", we want to skip that part of the path
             i++;
+            // Collect ALL remaining segments after the union index.
+            // Each one will be wrapped with Extract<> to safely narrow the type
+            // at each level, handling both top-level and nested union variants.
+            const remainingSegments = parsed.pointer.slice(i + 1);
+            for (const seg of remainingSegments) {
+              // Skip union keywords and indices, only add actual property names
+              if (seg !== "anyOf" && seg !== "oneOf" && !/^\d+$/.test(seg)) {
+                extractProperties.push(seg);
+              }
+            }
             continue;
           }
         }
@@ -166,10 +184,10 @@ export function transformSchemaObjectWithComposition(
         // If fromAdditionalProperties is true we are dealing with a record type and we should append [string] to the generated type
         fromAdditionalProperties
           ? ts.factory.createIndexedAccessTypeNode(
-              oapiRef(cleanedRefPath, undefined, true),
+              oapiRef(cleanedRefPath, undefined, { deep: true, extractProperties }),
               ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("string")),
             )
-          : oapiRef(cleanedRefPath, undefined, true),
+          : oapiRef(cleanedRefPath, undefined, { deep: true, extractProperties }),
         schemaObject.enum as (string | number)[],
         {
           export: true,
