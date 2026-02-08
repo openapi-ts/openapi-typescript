@@ -75,6 +75,7 @@ export default async function openapiTS(
     emptyObjectsUnknown: options.emptyObjectsUnknown ?? false,
     enum: options.enum ?? false,
     enumValues: options.enumValues ?? false,
+    conditionalEnums: options.conditionalEnums ?? false,
     dedupeEnums: options.dedupeEnums ?? false,
     excludeDeprecated: options.excludeDeprecated ?? false,
     exportType: options.exportType ?? false,
