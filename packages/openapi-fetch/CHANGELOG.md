@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.15.1
+
+### Patch Changes
+
+- [#2556](https://github.com/openapi-ts/openapi-typescript/pull/2556) [`36c0fb8`](https://github.com/openapi-ts/openapi-typescript/commit/36c0fb8a0504b27284843daaa9f49f80e2cfad0d) Thanks [@justAnArthur](https://github.com/justAnArthur)! - fix omit serializing for already serialized data
+
 ## 0.15.0
 
 ### Minor Changes

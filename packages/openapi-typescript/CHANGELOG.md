@@ -1,5 +1,13 @@
 # openapi-typescript
 
+## 7.10.2
+
+### Patch Changes
+
+- [#2139](https://github.com/openapi-ts/openapi-typescript/pull/2139) [`12f9c29`](https://github.com/openapi-ts/openapi-typescript/commit/12f9c29b7653db3ab5d6beb4ac698ce5b58177aa) Thanks [@darkbasic](https://github.com/darkbasic)! - All kinds of enum related fixes (enums in arrays, in optional props, in unions, in request body, with record types...)
+
+- [#2548](https://github.com/openapi-ts/openapi-typescript/pull/2548) [`4385590`](https://github.com/openapi-ts/openapi-typescript/commit/438559038baa931144768f186e8825f9e84cdb85) Thanks [@mynnx](https://github.com/mynnx)! - Fixes the `--redocly` flag so that it no longer hangs and is able to lookup the Redocly file at a custom path
+
 ## 7.10.1
 
 ### Patch Changes
