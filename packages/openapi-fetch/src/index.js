@@ -143,6 +143,7 @@ export default function createClient(clientOptions) {
             request,
             schemaPath,
             params,
+            body,
             options,
             id,
           });
