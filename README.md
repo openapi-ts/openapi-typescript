@@ -18,7 +18,6 @@ Ultra-fast fetching for TypeScript generated automatically from your OpenAPI sch
 
 <p align="center">
   <a href="https://zuplo.link/openapi-ts-gh"><img width="288" height="120" alt="Zuplo" src="./docs/public/assets/zuplo.svg"></a>
-  <a href="https://www.speakeasy.com/editor?utm_source=pow_openapi_ts" target="_blank"><img width="288" height="120" src="./docs/public/assets/speakeasy.png" /></a>
 </p>
 
 ### 🥈 Silver Sponsors

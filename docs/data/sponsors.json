@@ -1,9 +1,9 @@
 {
   "gold": [
     {
-      "name": "Speakeasy",
-      "logo": "/assets/speakeasy.png",
-      "url": "https://www.speakeasy.com/product/sdk-generation?utm_source=pow_openapi_ts"
+      "name": "Zuplo",
+      "logo": "/assets/zuplo.svg",
+      "url": "https://zuplo.link/openapi-ts-gh"
     }
   ],
   "silver": [
