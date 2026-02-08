@@ -270,7 +270,7 @@ export function transformSchemaObjectWithComposition(
   }
 
   // compile final type
-  let finalType: ts.TypeNode | undefined = undefined;
+  let finalType: ts.TypeNode | undefined;
 
   // core + allOf: intersect
   const coreObjectType = transformSchemaObjectCore(schemaObject, options);
