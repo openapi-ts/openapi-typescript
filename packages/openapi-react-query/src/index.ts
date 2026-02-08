@@ -182,9 +182,10 @@ export type MethodResponse<
     ? PathsWithMethod<Paths, Method>
     : never,
   Options = object,
-> = CreatedClient extends OpenapiQueryClient<infer Paths extends { [key: string]: any }, infer Media extends MediaType>
-  ? NonNullable<FetchResponse<Paths[Path][Method], Options, Media>["data"]>
-  : never;
+> =
+  CreatedClient extends OpenapiQueryClient<infer Paths extends { [key: string]: any }, infer Media extends MediaType>
+    ? NonNullable<FetchResponse<Paths[Path][Method], Options, Media>["data"]>
+    : never;
 
 // TODO: Add the ability to bring queryClient as argument
 export default function createClient<Paths extends {}, Media extends MediaType = MediaType>(

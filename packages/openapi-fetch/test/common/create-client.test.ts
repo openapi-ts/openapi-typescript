@@ -98,75 +98,70 @@ describe("createClient options", () => {
       BODIES.map((body) => [method, body] as const),
     );
 
-    test.each(METHOD_BODY_COMBINATIONS)(
-      "implicit default content-type for body-full requests - %s, %j",
-      async (method, body) => {
-        const contentType = await fireRequestAndGetContentType({
-          method,
-          fetchOptions: { body },
-        });
+    test.each(
+      METHOD_BODY_COMBINATIONS,
+    )("implicit default content-type for body-full requests - %s, %j", async (method, body) => {
+      const contentType = await fireRequestAndGetContentType({
+        method,
+        fetchOptions: { body },
+      });
 
-        expect(contentType).toBe("application/json");
-      },
-    );
+      expect(contentType).toBe("application/json");
+    });
 
-    test.each(METHOD_BODY_COMBINATIONS)(
-      "provided default content-type for body-full requests - %s, %j",
-      async (method, body) => {
-        const contentType = await fireRequestAndGetContentType({
-          defaultHeaders: { "content-type": "application/my-json" },
-          method,
-          fetchOptions: { body },
-        });
+    test.each(
+      METHOD_BODY_COMBINATIONS,
+    )("provided default content-type for body-full requests - %s, %j", async (method, body) => {
+      const contentType = await fireRequestAndGetContentType({
+        defaultHeaders: { "content-type": "application/my-json" },
+        method,
+        fetchOptions: { body },
+      });
 
-        expect(contentType).toBe("application/my-json");
-      },
-    );
+      expect(contentType).toBe("application/my-json");
+    });
 
-    test.each(METHOD_BODY_COMBINATIONS)(
-      "native-fetch default content-type for body-full requests, when default is suppressed - %s, %j",
-      async (method, body) => {
-        const contentType = await fireRequestAndGetContentType({
-          defaultHeaders: { "content-type": null },
-          method,
-          fetchOptions: { body },
-        });
-        // the fetch implementation won't allow sending a body without content-type,
-        // and it defaults to `text/plain;charset=UTF-8`, however the actual default value
-        // is irrelevant and might be flaky across different fetch implementations
-        // for us, it's important that it's not `application/json`
-        expect(contentType).not.toBe("application/json");
-      },
-    );
+    test.each(
+      METHOD_BODY_COMBINATIONS,
+    )("native-fetch default content-type for body-full requests, when default is suppressed - %s, %j", async (method, body) => {
+      const contentType = await fireRequestAndGetContentType({
+        defaultHeaders: { "content-type": null },
+        method,
+        fetchOptions: { body },
+      });
+      // the fetch implementation won't allow sending a body without content-type,
+      // and it defaults to `text/plain;charset=UTF-8`, however the actual default value
+      // is irrelevant and might be flaky across different fetch implementations
+      // for us, it's important that it's not `application/json`
+      expect(contentType).not.toBe("application/json");
+    });
 
-    test.each(METHOD_BODY_COMBINATIONS)(
-      "specified content-type for body-full requests - %s, %j",
-      async (method, body) => {
-        const contentType = await fireRequestAndGetContentType({
-          method,
-          fetchOptions: {
-            body,
-            headers: { "content-type": "application/my-json" },
-          },
-        });
+    test.each(
+      METHOD_BODY_COMBINATIONS,
+    )("specified content-type for body-full requests - %s, %j", async (method, body) => {
+      const contentType = await fireRequestAndGetContentType({
+        method,
+        fetchOptions: {
+          body,
+          headers: { "content-type": "application/my-json" },
+        },
+      });
 
-        expect(contentType).toBe("application/my-json");
-      },
-    );
+      expect(contentType).toBe("application/my-json");
+    });
 
-    test.each(METHOD_BODY_COMBINATIONS)(
-      "specified content-type for body-full requests, even when default is suppressed - %s, %j",
-      async (method, body) => {
-        const contentType = await fireRequestAndGetContentType({
-          method,
-          fetchOptions: {
-            body,
-            headers: { "content-type": "application/my-json" },
-          },
-        });
+    test.each(
+      METHOD_BODY_COMBINATIONS,
+    )("specified content-type for body-full requests, even when default is suppressed - %s, %j", async (method, body) => {
+      const contentType = await fireRequestAndGetContentType({
+        method,
+        fetchOptions: {
+          body,
+          headers: { "content-type": "application/my-json" },
+        },
+      });
 
-        expect(contentType).toBe("application/my-json");
-      },
-    );
+      expect(contentType).toBe("application/my-json");
+    });
   });
 });

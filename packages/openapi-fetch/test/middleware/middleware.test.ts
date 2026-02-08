@@ -421,7 +421,7 @@ test("baseUrl can be overridden", async () => {
 });
 
 test("auth header", async () => {
-  let accessToken: string | undefined = undefined;
+  let accessToken: string | undefined;
   const authMiddleware: Middleware = {
     async onRequest({ request }) {
       if (accessToken) {

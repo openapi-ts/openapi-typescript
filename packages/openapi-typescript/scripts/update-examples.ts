@@ -16,9 +16,7 @@ async function generateSchemas() {
     const cwd =
       process.platform === "win32"
         ? // execa/cross-spawn can not handle URL objects on Windows, so convert it to string and cut away the protocol
-          rootCWD
-            .toString()
-            .slice("file:///".length)
+          rootCWD.toString().slice("file:///".length)
         : rootCWD;
 
     try {
