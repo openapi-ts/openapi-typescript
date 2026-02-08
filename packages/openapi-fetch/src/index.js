@@ -597,7 +597,7 @@ export function defaultPathSerializer(pathname, pathParams) {
  * @type {import("./index.js").defaultBodySerializer}
  */
 export function defaultBodySerializer(body, headers) {
-  if (body instanceof FormData || typeof body === "string" || body instanceof URLSearchParams || body instanceof Blob) {
+  if (body instanceof FormData) {
     return body;
   }
   if (headers) {

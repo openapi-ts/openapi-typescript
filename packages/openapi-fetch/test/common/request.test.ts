@@ -213,32 +213,30 @@ describe("request", () => {
     });
 
     test.each(BODY_ACCEPTING_METHODS)("`''` body (with body serializer) - %s", async (method) => {
-      const body = ''
       const bodySerializer = vi.fn((body) => `Serialized: ${JSON.stringify(body)}`);
       const { bodyUsed, bodyText } = await fireRequestAndGetBodyInformation({
         bodySerializer,
         method,
         fetchOptions: {
-          body,
+          body: "",
         },
       });
 
       expect(bodyUsed).toBe(true);
-      expect(bodyText).toBe(`Serialized: ${body}`);
+      expect(bodyText).toBe('Serialized: ""');
       expect(bodySerializer).toBeCalled();
     });
 
     test.each(BODY_ACCEPTING_METHODS)("`''` body (without body serializer) - %s", async (method) => {
-      const body = ''
       const { bodyUsed, bodyText } = await fireRequestAndGetBodyInformation({
         method,
         fetchOptions: {
-          body,
+          body: "",
         },
       });
 
       expect(bodyUsed).toBe(true);
-      expect(bodyText).toBe(body);
+      expect(bodyText).toBe('""');
     });
 
     test.each(BODY_ACCEPTING_METHODS)("`0` body (with body serializer) - %s", async (method) => {
