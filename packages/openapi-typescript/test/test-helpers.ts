@@ -26,6 +26,7 @@ export const DEFAULT_CTX: GlobalContext = {
   propertiesRequiredByDefault: false,
   rootTypes: false,
   rootTypesNoSchemaPrefix: false,
+  rootTypesKeepCasing: false,
   redoc: await createConfig({}, { extends: ["minimal"] }),
   resolve($ref) {
     return resolveRef({}, $ref, { silent: false });

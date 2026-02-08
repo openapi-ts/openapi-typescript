@@ -101,14 +101,15 @@ export default function transformComponentsObject(componentsObject: ComponentsOb
 
           if (!shouldSkipEnumSchema) {
             const componentKey = changeCase.pascalCase(singularizeComponentKey(key));
-            let aliasName = `${componentKey}${changeCase.pascalCase(name)}`;
+            const componentName = ctx.rootTypesKeepCasing && key === "schemas" ? name : changeCase.pascalCase(name);
+            let aliasName = `${componentKey}${componentName}`;
 
             // Add counter suffix (e.g. "_2") if conflict in name
             let conflictCounter = 1;
 
             while (rootTypeAliases[aliasName] !== undefined) {
               conflictCounter++;
-              aliasName = `${componentKey}${changeCase.pascalCase(name)}_${conflictCounter}`;
+              aliasName = `${componentKey}${componentName}_${conflictCounter}`;
             }
             const ref = ts.factory.createTypeReferenceNode(`components['${key}']['${name}']`);
             if (ctx.rootTypesNoSchemaPrefix && key === "schemas") {
