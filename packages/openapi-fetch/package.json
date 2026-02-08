@@ -62,7 +62,7 @@
     "openapi-typescript-helpers": "workspace:^"
   },
   "devDependencies": {
-    "axios": "1.12.2",
+    "axios": "1.13.5",
     "execa": "catalog:",
     "express": "5.1.0",
     "feature-fetch": "0.0.51",

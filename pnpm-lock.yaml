@@ -67,7 +67,7 @@ importers:
         version: 7.3.1(@types/node@25.2.2)(jiti@2.6.1)(yaml@2.8.2)
       vitepress:
         specifier: 1.6.4
-        version: 1.6.4(@algolia/client-search@5.48.0)(@types/node@25.2.2)(@types/react@18.3.28)(axios@1.12.2)(change-case@5.4.4)(postcss@8.5.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(search-insights@2.13.0)(typescript@5.9.3)
+        version: 1.6.4(@algolia/client-search@5.48.0)(@types/node@25.2.2)(@types/react@18.3.28)(axios@1.13.5)(change-case@5.4.4)(postcss@8.5.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(search-insights@2.13.0)(typescript@5.9.3)
 
   packages/openapi-fetch:
     dependencies:
@@ -76,8 +76,8 @@ importers:
         version: link:../openapi-typescript-helpers
     devDependencies:
       axios:
-        specifier: 1.12.2
-        version: 1.12.2
+        specifier: 1.13.5
+        version: 1.13.5
       execa:
         specifier: 'catalog:'
         version: 9.6.1
@@ -2082,8 +2082,8 @@ packages:
     peerDependencies:
       postcss: ^8.1.0
 
-  axios@1.12.2:
-    resolution: {integrity: sha512-vMJzPewAlRyOgxV2dU0Cuz2O8zzzx9VYtbJOaBgXFeLc4IV/Eg50n4LowmehOOR61S8ZMpc2K5Sa7g6A4jfkUw==}
+  axios@1.13.5:
+    resolution: {integrity: sha512-cz4ur7Vb0xS4/KUN0tPWe44eqxrIu31me+fbang3ijiNscE129POzipJJA6zniq2C/Z6sJCjMimjS8Lc/GAs8Q==}
 
   axobject-query@4.1.0:
     resolution: {integrity: sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==}
@@ -5962,13 +5962,13 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@vueuse/integrations@12.8.2(axios@1.12.2)(change-case@5.4.4)(focus-trap@7.8.0)(typescript@5.9.3)':
+  '@vueuse/integrations@12.8.2(axios@1.13.5)(change-case@5.4.4)(focus-trap@7.8.0)(typescript@5.9.3)':
     dependencies:
       '@vueuse/core': 12.8.2(typescript@5.9.3)
       '@vueuse/shared': 12.8.2(typescript@5.9.3)
       vue: 3.5.27(typescript@5.9.3)
     optionalDependencies:
-      axios: 1.12.2
+      axios: 1.13.5
       change-case: 5.4.4
       focus-trap: 7.8.0
     transitivePeerDependencies:
@@ -6078,7 +6078,7 @@ snapshots:
       postcss: 8.5.6
       postcss-value-parser: 4.2.0
 
-  axios@1.12.2:
+  axios@1.13.5:
     dependencies:
       follow-redirects: 1.15.11
       form-data: 4.0.5
@@ -8333,7 +8333,7 @@ snapshots:
     optionalDependencies:
       vite: 7.3.1(@types/node@25.2.2)(jiti@2.6.1)(yaml@2.8.2)
 
-  vitepress@1.6.4(@algolia/client-search@5.48.0)(@types/node@25.2.2)(@types/react@18.3.28)(axios@1.12.2)(change-case@5.4.4)(postcss@8.5.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(search-insights@2.13.0)(typescript@5.9.3):
+  vitepress@1.6.4(@algolia/client-search@5.48.0)(@types/node@25.2.2)(@types/react@18.3.28)(axios@1.13.5)(change-case@5.4.4)(postcss@8.5.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(search-insights@2.13.0)(typescript@5.9.3):
     dependencies:
       '@docsearch/css': 3.8.2
       '@docsearch/js': 3.8.2(@algolia/client-search@5.48.0)(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(search-insights@2.13.0)
@@ -8346,7 +8346,7 @@ snapshots:
       '@vue/devtools-api': 7.7.9
       '@vue/shared': 3.5.27
       '@vueuse/core': 12.8.2(typescript@5.9.3)
-      '@vueuse/integrations': 12.8.2(axios@1.12.2)(change-case@5.4.4)(focus-trap@7.8.0)(typescript@5.9.3)
+      '@vueuse/integrations': 12.8.2(axios@1.13.5)(change-case@5.4.4)(focus-trap@7.8.0)(typescript@5.9.3)
       focus-trap: 7.8.0
       mark.js: 8.11.1
       minisearch: 7.2.0
