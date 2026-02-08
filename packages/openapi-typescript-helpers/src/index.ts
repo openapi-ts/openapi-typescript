@@ -107,14 +107,16 @@ type PickRequestBody<T> = "requestBody" extends keyof T ? Pick<T, "requestBody">
 export type IsOperationRequestBodyOptional<T> = RequiredKeysOf<PickRequestBody<T>> extends never ? true : false;
 
 /** Internal helper used in OperationRequestBodyContent */
-export type OperationRequestBodyMediaContent<T> = IsOperationRequestBodyOptional<T> extends true
-  ? ResponseContent<NonNullable<OperationRequestBody<T>>> | undefined
-  : ResponseContent<OperationRequestBody<T>>;
+export type OperationRequestBodyMediaContent<T> =
+  IsOperationRequestBodyOptional<T> extends true
+    ? ResponseContent<NonNullable<OperationRequestBody<T>>> | undefined
+    : ResponseContent<OperationRequestBody<T>>;
 
 /** Return first `content` from a Request Object Mapping, allowing any media type */
-export type OperationRequestBodyContent<T> = FilterKeys<OperationRequestBodyMediaContent<T>, MediaType> extends never
-  ? FilterKeys<NonNullable<OperationRequestBodyMediaContent<T>>, MediaType> | undefined
-  : FilterKeys<OperationRequestBodyMediaContent<T>, MediaType>;
+export type OperationRequestBodyContent<T> =
+  FilterKeys<OperationRequestBodyMediaContent<T>, MediaType> extends never
+    ? FilterKeys<NonNullable<OperationRequestBodyMediaContent<T>>, MediaType> | undefined
+    : FilterKeys<OperationRequestBodyMediaContent<T>, MediaType>;
 
 /** Return all 2XX responses from a Response Object Map */
 export type SuccessResponse<

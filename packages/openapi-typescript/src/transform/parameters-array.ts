@@ -86,7 +86,7 @@ export function transformParametersArray(
       if (resolved?.in !== paramIn) {
         continue;
       }
-      let optional: ts.QuestionToken | undefined = undefined;
+      let optional: ts.QuestionToken | undefined;
       if (paramIn !== "path" && !(resolved as ParameterObject).required) {
         optional = QUESTION_TOKEN;
       }

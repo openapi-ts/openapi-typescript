@@ -84,7 +84,7 @@ export async function parseSchema(schema: unknown, { absoluteRef, resolver }: Pa
 
 function _processProblems(problems: NormalizedProblem[], options: { silent: boolean }) {
   if (problems.length) {
-    let errorMessage: string | undefined = undefined;
+    let errorMessage: string | undefined;
     for (const problem of problems) {
       const problemLocation = problem.location?.[0].pointer;
       const problemMessage = problemLocation ? `${problem.message} at ${problemLocation}` : problem.message;
