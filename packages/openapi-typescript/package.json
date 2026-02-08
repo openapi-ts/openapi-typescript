@@ -1,7 +1,7 @@
 {
   "name": "openapi-typescript",
   "description": "Convert OpenAPI 3.0 & 3.1 schemas to TypeScript",
-  "version": "7.10.1",
+  "version": "7.10.2",
   "author": {
     "name": "Drew Powers",
     "email": "drew@pow.rs"
