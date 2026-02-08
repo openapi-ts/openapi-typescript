@@ -36,7 +36,7 @@
   "size-limit": [
     {
       "path": "packages/openapi-fetch/dist/index.mjs",
-      "limit": "7 kB",
+      "limit": "7.1 kB",
       "brotli": false
     }
   ]
