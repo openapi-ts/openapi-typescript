@@ -71,6 +71,6 @@
     "@vitest/coverage-v8": "3.2.4",
     "reflect-metadata": "0.2.2",
     "typescript": "catalog:",
-    "unplugin-swc": "1.5.7"
+    "unplugin-swc": "1.5.9"
   }
 }
