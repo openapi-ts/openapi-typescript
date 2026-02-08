@@ -7,7 +7,7 @@
     "name": "Drew Powers",
     "email": "drew@pow.rs"
   },
-  "packageManager": "pnpm@10.18.3",
+  "packageManager": "pnpm@10.29.1",
   "scripts": {
     "build": "turbo run build",
     "lint": "turbo run lint",
@@ -25,13 +25,13 @@
     "@changesets/cli": "2.29.7",
     "@playwright/test": "1.56.0",
     "@size-limit/preset-small-lib": "11.2.0",
-    "@types/node": "22.18.10",
+    "@types/node": "25.2.2",
     "prettier": "3.6.2",
     "size-limit": "11.2.0",
     "turbo": "2.5.8",
     "typescript": "catalog:",
     "unbuild": "3.6.1",
-    "vitest": "3.2.4"
+    "vitest": "4.0.18"
   },
   "size-limit": [
     {

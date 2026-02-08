@@ -566,7 +566,7 @@ export interface components {
 export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
         options: {
-          postTransform(type, options) {
+          postTransform(_type, options) {
             if (options.path?.includes("Date")) {
               /**
                * Tip: use astexplorer.net to first type out the desired TypeScript,
