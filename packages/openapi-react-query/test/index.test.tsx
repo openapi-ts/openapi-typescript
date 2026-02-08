@@ -792,6 +792,30 @@ describe("client", () => {
 
         await waitFor(() => rendered.findByText("data: Hello, status: success"));
       });
+
+      it("should type mutate results properly", async () => {
+        const fetchClient = createFetchClient<paths>({ baseUrl });
+        const client = createClient(fetchClient);
+
+        const onMutateReturnValue = { someArray: [1, 2, 3], someString: "abc" };
+        type expectedOnMutateResultType = typeof onMutateReturnValue | undefined;
+
+        const result = renderHook(
+          () =>
+            client.useMutation("put", "/comment", {
+              onMutate: () => onMutateReturnValue,
+              onError: (err, _, onMutateResult, context) => {
+                assertType<expectedOnMutateResultType>(onMutateResult);
+              },
+              onSettled: (_data, _error, _variables, onMutateResult, context) => {
+                assertType<expectedOnMutateResultType>(onMutateResult);
+              },
+            }),
+          { wrapper },
+        );
+
+        assertType<expectedOnMutateResultType>(result.result.current.context);
+      });
     });
 
     describe("mutateAsync", () => {
