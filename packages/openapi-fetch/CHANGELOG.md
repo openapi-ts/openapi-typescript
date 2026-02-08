@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.15.2
+
+### Patch Changes
+
+- [#2508](https://github.com/openapi-ts/openapi-typescript/pull/2508) [`89843b0`](https://github.com/openapi-ts/openapi-typescript/commit/89843b06296ac1b227cc27546009e79b3a749aaa) Thanks [@srbarba](https://github.com/srbarba)! - Use text() when no content-length is provided to avoid errors parsing empty bodies (200 with no content)
+
 ## 0.15.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.11.0
+
+### Minor Changes
+
+- [#2433](https://github.com/openapi-ts/openapi-typescript/pull/2433) [`27c9370`](https://github.com/openapi-ts/openapi-typescript/commit/27c9370911b50a981d146fa5c561b90d66dd2c0d) Thanks [@danitt](https://github.com/danitt)! - Conditionally generate TS enums
+
 ## 7.10.2
 
 ### Patch Changes
