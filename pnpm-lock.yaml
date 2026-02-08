@@ -278,8 +278,8 @@ importers:
         specifier: 'catalog:'
         version: 5.9.3
       vite-node:
-        specifier: 3.2.4
-        version: 3.2.4(@types/node@25.2.2)(jiti@2.6.1)(supports-color@10.2.2)(yaml@2.8.2)
+        specifier: 5.3.0
+        version: 5.3.0(@types/node@25.2.2)(jiti@2.6.1)(yaml@2.8.2)
 
   packages/openapi-typescript-helpers:
     devDependencies:
@@ -2517,6 +2517,9 @@ packages:
   es-module-lexer@1.7.0:
     resolution: {integrity: sha512-jEQoCwk8hyb2AZziIOLhDqpm5+2ww5uIE6lkO/6jcOCusfk6LhMHpXXfBLXTZ7Ydyt0j4VoUQv6uGNYbdW+kBA==}
 
+  es-module-lexer@2.0.0:
+    resolution: {integrity: sha512-5POEcUuZybH7IdmGsD8wlf0AI55wMecM9rVBTI/qEAy2c1kTOm3DjFYjrBdI2K3BaJjJYfYFeRtM0t9ssnRuxw==}
+
   es-object-atoms@1.1.1:
     resolution: {integrity: sha512-FGgH2h8zKNim9ljj7dankFPcICIK9Cp5bm+c2gQSYePhpaG5+esrLODihIorn+Pe6FGJzWhXQotPv73jTaldXA==}
     engines: {node: '>= 0.4'}
@@ -4164,9 +4167,9 @@ packages:
   vfile@6.0.3:
     resolution: {integrity: sha512-KzIbH/9tXat2u30jf+smMwFCsno4wHVdNmzFyL+T/L3UGqqk6JKfVqOFOZEpZSHADH1k40ab6NUIXZq422ov3Q==}
 
-  vite-node@3.2.4:
-    resolution: {integrity: sha512-EbKSKh+bh1E1IFxeO0pg1n4dvoOTt0UDiXMd/qn++r98+jPO1xtJilvXldeuQ8giIB5IkpjCgMleHMNEsGH6pg==}
-    engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
+  vite-node@5.3.0:
+    resolution: {integrity: sha512-8f20COPYJujc3OKPX6OuyBy3ZIv2det4eRRU4GY1y2MjbeGSUmPjedxg1b72KnTagCofwvZ65ThzjxDW2AtQFQ==}
+    engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
   vite@5.4.21:
@@ -6485,6 +6488,8 @@ snapshots:
 
   es-module-lexer@1.7.0: {}
 
+  es-module-lexer@2.0.0: {}
+
   es-object-atoms@1.1.1:
     dependencies:
       es-errors: 1.3.0
@@ -8285,11 +8290,11 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  vite-node@3.2.4(@types/node@25.2.2)(jiti@2.6.1)(supports-color@10.2.2)(yaml@2.8.2):
+  vite-node@5.3.0(@types/node@25.2.2)(jiti@2.6.1)(yaml@2.8.2):
     dependencies:
       cac: 6.7.14
-      debug: 4.4.3(supports-color@10.2.2)
-      es-module-lexer: 1.7.0
+      es-module-lexer: 2.0.0
+      obug: 2.1.1
       pathe: 2.0.3
       vite: 7.3.1(@types/node@25.2.2)(jiti@2.6.1)(yaml@2.8.2)
     transitivePeerDependencies:
@@ -8301,7 +8306,6 @@ snapshots:
       - sass-embedded
       - stylus
       - sugarss
-      - supports-color
       - terser
       - tsx
       - yaml
