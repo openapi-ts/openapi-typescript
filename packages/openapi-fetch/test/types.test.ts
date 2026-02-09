@@ -1,4 +1,10 @@
-import type { ErrorResponse, GetResponseContent, OkStatus, SuccessResponse } from "openapi-typescript-helpers";
+import type {
+  ErrorResponse,
+  GetResponseContent,
+  OkStatus,
+  RequiredKeysOf,
+  SuccessResponse,
+} from "openapi-typescript-helpers";
 import { assertType, describe, test } from "vitest";
 
 describe("types", () => {
@@ -278,6 +284,28 @@ describe("types", () => {
       );
       assertType<Response>({ error: "500 application/json" });
       assertType<Response>({ error: "default application/json" });
+    });
+  });
+
+  describe("RequiredKeysOf", () => {
+    test("returns never for any type", () => {
+      assertType<RequiredKeysOf<any>>(undefined as never);
+    });
+
+    test("returns required keys for objects with required properties", () => {
+      interface WithRequired {
+        required: string;
+        optional?: number;
+      }
+      assertType<RequiredKeysOf<WithRequired>>("required" as const);
+    });
+
+    test("returns never for objects with only optional properties", () => {
+      interface AllOptional {
+        optional1?: string;
+        optional2?: number;
+      }
+      assertType<RequiredKeysOf<AllOptional>>(undefined as never);
     });
   });
 });

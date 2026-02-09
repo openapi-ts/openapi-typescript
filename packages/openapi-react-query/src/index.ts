@@ -233,13 +233,14 @@ export default function createClient<Paths extends {}, Media extends MediaType =
           queryFn: async ({ queryKey: [method, path, init], pageParam = 0, signal }) => {
             const mth = method.toUpperCase() as Uppercase<typeof method>;
             const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
+            const initWithParams = init as { params?: { query?: DefaultParamsOption } } | undefined;
             const mergedInit = {
               ...init,
               signal,
               params: {
-                ...(init?.params || {}),
+                ...(initWithParams?.params || {}),
                 query: {
-                  ...(init?.params as { query?: DefaultParamsOption })?.query,
+                  ...(initWithParams?.params?.query || {}),
                   [pageParamName]: pageParam,
                 },
               },
