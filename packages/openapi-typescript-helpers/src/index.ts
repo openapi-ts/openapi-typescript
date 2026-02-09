@@ -216,15 +216,16 @@ export type $Write<T> = { readonly $write: T };
  * - $Write<T> → never (excluded from response)
  * - object → recursively resolve
  */
-export type Readable<T> = T extends $Write<any>
-  ? never
-  : T extends $Read<infer U>
-    ? Readable<U>
-    : T extends (infer E)[]
-      ? Readable<E>[]
-      : T extends object
-        ? { [K in keyof T as NonNullable<T[K]> extends $Write<any> ? never : K]: Readable<T[K]> }
-        : T;
+export type Readable<T> =
+  T extends $Write<any>
+    ? never
+    : T extends $Read<infer U>
+      ? Readable<U>
+      : T extends (infer E)[]
+        ? Readable<E>[]
+        : T extends object
+          ? { [K in keyof T as NonNullable<T[K]> extends $Write<any> ? never : K]: Readable<T[K]> }
+          : T;
 
 /**
  * Resolve type for writing (requests): strips $Read properties, unwraps $Write
@@ -232,14 +233,15 @@ export type Readable<T> = T extends $Write<any>
  * - $Read<T> → never (excluded from request)
  * - object → recursively resolve
  */
-export type Writable<T> = T extends $Read<any>
-  ? never
-  : T extends $Write<infer U>
-    ? Writable<U>
-    : T extends (infer E)[]
-      ? Writable<E>[]
-      : T extends object
-        ? { [K in keyof T as NonNullable<T[K]> extends $Read<any> ? never : K]: Writable<T[K]> } & {
-            [K in keyof T as NonNullable<T[K]> extends $Read<any> ? K : never]?: never;
-          }
-        : T;
+export type Writable<T> =
+  T extends $Read<any>
+    ? never
+    : T extends $Write<infer U>
+      ? Writable<U>
+      : T extends (infer E)[]
+        ? Writable<E>[]
+        : T extends object
+          ? { [K in keyof T as NonNullable<T[K]> extends $Read<any> ? never : K]: Writable<T[K]> } & {
+              [K in keyof T as NonNullable<T[K]> extends $Read<any> ? K : never]?: never;
+            }
+          : T;

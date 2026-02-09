@@ -99,11 +99,12 @@ export type ParamsOption<T> = T extends {
   : DefaultParamsOption;
 
 // Writable<T> strips $Read markers (readOnly properties excluded from request body)
-export type RequestBodyOption<T> = Writable<OperationRequestBodyContent<T>> extends never
-  ? { body?: never }
-  : IsOperationRequestBodyOptional<T> extends true
-    ? { body?: Writable<OperationRequestBodyContent<T>> }
-    : { body: Writable<OperationRequestBodyContent<T>> };
+export type RequestBodyOption<T> =
+  Writable<OperationRequestBodyContent<T>> extends never
+    ? { body?: never }
+    : IsOperationRequestBodyOptional<T> extends true
+      ? { body?: Writable<OperationRequestBodyContent<T>> }
+      : { body: Writable<OperationRequestBodyContent<T>> };
 
 export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body" | "headers">;
 
