@@ -230,12 +230,12 @@ export default function createClient(clientOptions) {
       }
     }
 
+    const contentLength = response.headers.get("Content-Length");
     // handle empty content
     if (
       response.status === 204 ||
       request.method === "HEAD" ||
-      (response.headers.get("Content-Length") === "0" &&
-        !response.headers.get("Transfer-Encoding")?.includes("chunked"))
+      (contentLength && !response.headers.get("Transfer-Encoding")?.includes("chunked"))
     ) {
       return response.ok ? { data: undefined, response } : { error: undefined, response };
     }
