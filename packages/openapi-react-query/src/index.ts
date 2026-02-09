@@ -1,4 +1,5 @@
 import {
+  type DataTag,
   type InfiniteData,
   type QueryClient,
   type QueryFunctionContext,
@@ -65,8 +66,9 @@ export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod,
       InferSelectReturnType<Response["data"], Options["select"]>,
       QueryKey<Paths, Method, Path>
     >,
-    "queryFn"
+    "queryFn" | "queryKey"
   > & {
+    queryKey: DataTag<QueryKey<Paths, Method, Path>, Response["data"], Response["error"]>;
     queryFn: Exclude<
       UseQueryOptions<
         Response["data"],
@@ -209,10 +211,10 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   };
 
   const queryOptions: QueryOptionsFunction<Paths, Media> = (method, path, ...[init, options]) => ({
-    queryKey: (init === undefined ? ([method, path] as const) : ([method, path, init] as const)) as QueryKey<
-      Paths,
-      typeof method,
-      typeof path
+    queryKey: (init === undefined ? ([method, path] as const) : ([method, path, init] as const)) as DataTag<
+      QueryKey<Paths, typeof method, typeof path>,
+      any,
+      any
     >,
     queryFn,
     ...options,
