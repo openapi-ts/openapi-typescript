@@ -23,6 +23,8 @@ export interface ClientOptions extends Omit<RequestInit, "headers"> {
   querySerializer?: QuerySerializer<unknown> | QuerySerializerOptions;
   /** global bodySerializer */
   bodySerializer?: BodySerializer<unknown>;
+  /** global pathSerializer */
+  pathSerializer?: PathSerializer;
   headers?: HeadersOptions;
   /** RequestInit extension object to pass as 2nd argument to fetch when supported (defaults to undefined) */
   requestInitExt?: Record<string, unknown>;
@@ -64,6 +66,8 @@ export type QuerySerializerOptions = {
 
 export type BodySerializer<T> = (body: OperationRequestBodyContent<T>) => any;
 
+export type PathSerializer = (pathname: string, pathParams: Record<string, unknown>) => string;
+
 type BodyType<T = unknown> = {
   json: T;
   text: Awaited<ReturnType<Response["text"]>>;
@@ -92,11 +96,12 @@ export type ParamsOption<T> = T extends {
     : { params: T["parameters"] }
   : DefaultParamsOption;
 
-export type RequestBodyOption<T> = OperationRequestBodyContent<T> extends never
-  ? { body?: never }
-  : IsOperationRequestBodyOptional<T> extends true
-    ? { body?: OperationRequestBodyContent<T> }
-    : { body: OperationRequestBodyContent<T> };
+export type RequestBodyOption<T> =
+  OperationRequestBodyContent<T> extends never
+    ? { body?: never }
+    : IsOperationRequestBodyOptional<T> extends true
+      ? { body?: OperationRequestBodyContent<T> }
+      : { body: OperationRequestBodyContent<T> };
 
 export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body" | "headers">;
 
@@ -117,6 +122,7 @@ export type RequestOptions<T> = ParamsOption<T> &
     baseUrl?: string;
     querySerializer?: QuerySerializer<T> | QuerySerializerOptions;
     bodySerializer?: BodySerializer<T>;
+    pathSerializer?: PathSerializer;
     parseAs?: ParseAs;
     fetch?: ClientOptions["fetch"];
     headers?: HeadersOptions;
@@ -128,8 +134,16 @@ export type MergedOptions<T = unknown> = {
   parseAs: ParseAs;
   querySerializer: QuerySerializer<T>;
   bodySerializer: BodySerializer<T>;
+  pathSerializer: PathSerializer;
   fetch: typeof globalThis.fetch;
 };
+
+export interface MiddlewareRequestParams {
+  query?: Record<string, unknown>;
+  header?: Record<string, unknown>;
+  path?: Record<string, unknown>;
+  cookie?: Record<string, unknown>;
+}
 
 export interface MiddlewareCallbackParams {
   /** Current Request object */
@@ -137,12 +151,7 @@ export interface MiddlewareCallbackParams {
   /** The original OpenAPI schema path (including curly braces) */
   readonly schemaPath: string;
   /** OpenAPI parameters as provided from openapi-fetch */
-  readonly params: {
-    query?: Record<string, unknown>;
-    header?: Record<string, unknown>;
-    path?: Record<string, unknown>;
-    cookie?: Record<string, unknown>;
-  };
+  readonly params: MiddlewareRequestParams;
   /** Unique ID for this request */
   readonly id: string;
   /** createClient options (read-only) */
@@ -177,19 +186,17 @@ export type Middleware =
     };
 
 /** This type helper makes the 2nd function param required if params/requestBody are required; otherwise, optional */
-export type MaybeOptionalInit<Params, Location extends keyof Params> = RequiredKeysOf<
-  FetchOptions<FilterKeys<Params, Location>>
-> extends never
-  ? FetchOptions<FilterKeys<Params, Location>> | undefined
-  : FetchOptions<FilterKeys<Params, Location>>;
+export type MaybeOptionalInit<Params, Location extends keyof Params> =
+  RequiredKeysOf<FetchOptions<FilterKeys<Params, Location>>> extends never
+    ? FetchOptions<FilterKeys<Params, Location>> | undefined
+    : FetchOptions<FilterKeys<Params, Location>>;
 
 // The final init param to accept.
 // - Determines if the param is optional or not.
 // - Performs arbitrary [key: string] addition.
 // Note: the addition MUST happen after all the inference happens (otherwise TS can’t infer if init is required or not).
-type InitParam<Init> = RequiredKeysOf<Init> extends never
-  ? [(Init & { [key: string]: unknown })?]
-  : [Init & { [key: string]: unknown }];
+type InitParam<Init> =
+  RequiredKeysOf<Init> extends never ? [(Init & { [key: string]: unknown })?] : [Init & { [key: string]: unknown }];
 
 export type ClientMethod<
   Paths extends Record<string, Record<HttpMethod, {}>>,
@@ -240,19 +247,18 @@ export interface Client<Paths extends {}, Media extends MediaType = MediaType> {
   eject(...middleware: Middleware[]): void;
 }
 
-export type ClientPathsWithMethod<
-  CreatedClient extends Client<any, any>,
-  Method extends HttpMethod,
-> = CreatedClient extends Client<infer Paths, infer _Media> ? PathsWithMethod<Paths, Method> : never;
+export type ClientPathsWithMethod<CreatedClient extends Client<any, any>, Method extends HttpMethod> =
+  CreatedClient extends Client<infer Paths, infer _Media> ? PathsWithMethod<Paths, Method> : never;
 
 export type MethodResponse<
   CreatedClient extends Client<any, any>,
   Method extends HttpMethod,
   Path extends ClientPathsWithMethod<CreatedClient, Method>,
   Options = {},
-> = CreatedClient extends Client<infer Paths extends { [key: string]: any }, infer Media extends MediaType>
-  ? NonNullable<FetchResponse<Paths[Path][Method], Options, Media>["data"]>
-  : never;
+> =
+  CreatedClient extends Client<infer Paths extends { [key: string]: any }, infer Media extends MediaType>
+    ? NonNullable<FetchResponse<Paths[Path][Method], Options, Media>["data"]>
+    : never;
 
 export default function createClient<Paths extends {}, Media extends MediaType = MediaType>(
   clientOptions?: ClientOptions,
@@ -324,6 +330,7 @@ export declare function createFinalURL<O>(
       path?: Record<string, unknown>;
     };
     querySerializer: QuerySerializer<O>;
+    pathSerializer: PathSerializer;
   },
 ): string;
 

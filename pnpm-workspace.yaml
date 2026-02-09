@@ -3,16 +3,16 @@ packages:
   - packages/**
 
 catalog:
-  execa: ^9.6.0
-  typescript: ^5.9.2
-  vite: ^7.1.5
+  execa: ^9.6.1
+  typescript: ^5.9.3
+  vite: ^7.3.1
 
 ignoredBuiltDependencies:
-  - "@swc/core"
+  - '@swc/core'
   - esbuild
   - msw
   - sharp
   - svelte-preprocess
 
 onlyBuiltDependencies:
-  - "@biomejs/biome"
+  - '@biomejs/biome'

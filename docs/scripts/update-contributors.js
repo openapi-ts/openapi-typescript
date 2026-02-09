@@ -4,10 +4,10 @@ import { URL } from "node:url";
 
 const MAINTAINERS = {
   drwpow: "Lead, Creator openapi-typescript/openapi-fetch",
-  kerwanp: "Core Contributor, Creator openapi-react-query",
+  kerwanp: "Creator openapi-react-query",
   gzm0: "Core Contributor",
   duncanbeevers: "Core Contributor",
-  htunnicliff: "Core Contributor, Creator swr-openapi",
+  htunnicliff: "Creator swr-openapi",
 };
 
 // all usernames
@@ -109,7 +109,7 @@ const CONTRIBUTORS = new Set([
   "phk422",
   "JeanRemiDelteil",
   "TzviPM",
-  "LucaSchwan",
+  "ehrenschwan-gh",
   "nzapponi",
   "luchsamapparat",
   "nmacmunn",
@@ -123,7 +123,6 @@ const CONTRIBUTORS = new Set([
   "nkt",
   "CodazziS",
   "michalfedyna",
-  "roj1512",
   "IGx89",
   "nickcaballero",
   "tcztzy",
@@ -225,7 +224,10 @@ class UserFetchError extends Error {
 const BACKOFF_INTERVALS_MINUTES = [1, 2, 3, 5];
 const MAX_RETRIES = BACKOFF_INTERVALS_MINUTES.length - 1;
 
-async function rateLimitDelay({ retryAfter, ratelimitReset, retryCount }) {
+/**
+ * @param {{ retryAfter?: number, ratelimitReset?: number, ratelimitRemaining?: string, retryCount?: number }} opts
+ */
+async function rateLimitDelay({ retryAfter, ratelimitReset, ratelimitRemaining, retryCount }) {
   let timeoutInMilliseconds = BACKOFF_INTERVALS_MINUTES[retryCount] * 1000;
   if (retryAfter) {
     timeoutInMilliseconds = retryAfter * 1000;
@@ -234,11 +236,15 @@ async function rateLimitDelay({ retryAfter, ratelimitReset, retryCount }) {
   }
 
   const timeoutInSeconds = (timeoutInMilliseconds / 1000).toLocaleString();
-  console.warn(`Waiting for ${timeoutInSeconds} seconds...`);
+  console.warn(`Waiting for ${pluralize(timeoutInSeconds, "second", "seconds")}...`);
 
   await timers.setTimeout(timeoutInMilliseconds);
 }
 
+/**
+ * @param {string} username
+ * @param {number} [retryCount]
+ */
 async function fetchUserInfo(username, retryCount = 0) {
   if (retryCount >= MAX_RETRIES) {
     throw new Error(`Hit max retries (${MAX_RETRIES}) for fetching user ${username}`);
@@ -251,12 +257,18 @@ async function fetchUserInfo(username, retryCount = 0) {
     },
   });
   if (process.env.GITHUB_TOKEN) {
-    request.headers.set("Authorization", `Bearer ${process.env.GITHUB_TOKEN}`);
+    request.headers.set("Authorization", process.env.GITHUB_TOKEN);
+  } else {
+    console.warn("🐢 Unauthenticated. To reduce chances of timeouts, set the GITHUB_TOKEN env var.");
   }
 
   const res = await fetch(request);
 
   if (!res.ok) {
+    if (res.status === 404) {
+      throw new Error(`Not found: ${username}. Please update the username or remove this user.`);
+    }
+
     const retryAfter = res.headers.get("retry-after"); // seconds
     const ratelimitRemaining = res.headers.get("x-ratelimit-remaining"); // quantity of requests remaining
     const ratelimitReset = res.headers.get("x-ratelimit-reset"); // UTC epoch seconds
@@ -268,6 +280,7 @@ async function fetchUserInfo(username, retryCount = 0) {
       await rateLimitDelay({
         retryAfter,
         ratelimitReset,
+        ratelimitRemaining,
         retryCount,
       });
 
@@ -280,6 +293,10 @@ async function fetchUserInfo(username, retryCount = 0) {
   return await res.json();
 }
 
+/**
+ * @param {{ username: string }[]} list
+ * @param {{ username: string }} userData
+ */
 function upsert(list, userData) {
   const i = list.findIndex((u) => u.username === userData.username);
   if (i >= 0) {
@@ -331,4 +348,13 @@ async function main() {
 
 if (import.meta.main) {
   main();
+}
+
+/**
+ * @param {number} count
+ * @param {string} singular
+ * @param {string} plural
+ */
+function pluralize(count, singular, plural) {
+  return `${count} ${count === 1 ? singular : plural}`;
 }

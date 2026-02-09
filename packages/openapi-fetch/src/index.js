@@ -28,6 +28,7 @@ export default function createClient(clientOptions) {
     fetch: baseFetch = globalThis.fetch,
     querySerializer: globalQuerySerializer,
     bodySerializer: globalBodySerializer,
+    pathSerializer: globalPathSerializer,
     headers: baseHeaders,
     requestInitExt = undefined,
     ...baseOptions
@@ -51,6 +52,7 @@ export default function createClient(clientOptions) {
       parseAs = "json",
       querySerializer: requestQuerySerializer,
       bodySerializer = globalBodySerializer ?? defaultBodySerializer,
+      pathSerializer: requestPathSerializer,
       body,
       middleware: requestMiddlewares = [],
       ...init
@@ -73,6 +75,8 @@ export default function createClient(clientOptions) {
               ...requestQuerySerializer,
             });
     }
+
+    const pathSerializer = requestPathSerializer || globalPathSerializer || defaultPathSerializer;
 
     const serializedBody =
       body === undefined
@@ -114,7 +118,7 @@ export default function createClient(clientOptions) {
     let id;
     let options;
     let request = new Request(
-      createFinalURL(schemaPath, { baseUrl: finalBaseUrl, params, querySerializer }),
+      createFinalURL(schemaPath, { baseUrl: finalBaseUrl, params, querySerializer, pathSerializer }),
       requestInit,
     );
     let response;
@@ -136,6 +140,7 @@ export default function createClient(clientOptions) {
         parseAs,
         querySerializer,
         bodySerializer,
+        pathSerializer,
       });
       for (const m of finalMiddlewares) {
         if (m && typeof m === "object" && typeof m.onRequest === "function") {
@@ -242,11 +247,21 @@ export default function createClient(clientOptions) {
 
     // parse response (falling back to .text() when necessary)
     if (response.ok) {
-      // if "stream", skip parsing entirely
-      if (parseAs === "stream") {
-        return { data: response.body, response };
-      }
-      return { data: await response[parseAs](), response };
+      const getResponseData = async () => {
+        // if "stream", skip parsing entirely
+        if (parseAs === "stream") {
+          return response.body;
+        }
+
+        if (parseAs === "json" && !contentLength) {
+          // use text() when no content-length is provided to avoid errors parsing empty bodies (200 with no content)
+          const raw = await response.text();
+          return raw ? JSON.parse(raw) : undefined;
+        }
+
+        return await response[parseAs]();
+      };
+      return { data: await getResponseData(), response };
     }
 
     // handle errors
@@ -624,7 +639,7 @@ export function defaultBodySerializer(body, headers) {
 export function createFinalURL(pathname, options) {
   let finalURL = `${options.baseUrl}${pathname}`;
   if (options.params?.path) {
-    finalURL = defaultPathSerializer(finalURL, options.params.path);
+    finalURL = options.pathSerializer(finalURL, options.params.path);
   }
   let search = options.querySerializer(options.params.query ?? {});
   if (search.startsWith("?")) {

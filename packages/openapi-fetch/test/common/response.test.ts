@@ -138,6 +138,18 @@ describe("response", () => {
   describe("parseAs", () => {
     const client = createObservedClient<paths>({}, async () => Response.json({}));
 
+    test("json with empty response", async () => {
+      const client = createObservedClient<paths>({}, async () => new Response());
+      const { data, error } = (await client.GET("/empty-json", {
+        parseAs: "json",
+      })) satisfies { data?: undefined };
+      if (error) {
+        throw new Error("parseAs json: error");
+      }
+
+      expect(data).toBe(undefined);
+    });
+
     test("text", async () => {
       const { data, error } = (await client.GET("/resources", {
         parseAs: "text",

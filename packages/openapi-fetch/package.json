@@ -1,7 +1,7 @@
 {
   "name": "openapi-fetch",
   "description": "Fast, type-safe fetch client for your OpenAPI schema. Only 6 kb (min). Works with React, Vue, Svelte, or vanilla JS.",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "author": {
     "name": "Drew Powers",
     "email": "drew@pow.rs"
@@ -62,15 +62,15 @@
     "openapi-typescript-helpers": "workspace:^"
   },
   "devDependencies": {
-    "axios": "1.12.2",
+    "axios": "1.13.5",
     "execa": "catalog:",
-    "express": "5.1.0",
+    "express": "5.2.1",
     "feature-fetch": "0.0.51",
     "node-forge": "1.3.1",
     "openapi-typescript": "workspace:^",
     "openapi-typescript-codegen": "0.29.0",
     "openapi-typescript-fetch": "2.2.1",
-    "superagent": "10.2.3",
+    "superagent": "10.3.0",
     "typescript": "catalog:",
     "undici": "7.16.0",
     "vite": "catalog:"

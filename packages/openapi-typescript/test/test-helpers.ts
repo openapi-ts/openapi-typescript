@@ -15,6 +15,7 @@ export const DEFAULT_CTX: GlobalContext = {
   emptyObjectsUnknown: false,
   enum: false,
   enumValues: false,
+  conditionalEnums: false,
   dedupeEnums: false,
   excludeDeprecated: false,
   exportType: false,
@@ -25,6 +26,7 @@ export const DEFAULT_CTX: GlobalContext = {
   propertiesRequiredByDefault: false,
   rootTypes: false,
   rootTypesNoSchemaPrefix: false,
+  rootTypesKeepCasing: false,
   redoc: await createConfig({}, { extends: ["minimal"] }),
   resolve($ref) {
     return resolveRef({}, $ref, { silent: false });

@@ -113,6 +113,7 @@ The following flags are supported in the CLI:
 | `--empty-objects-unknown`          |       | `false`  | Allow arbitrary properties for schema objects with no specified properties, and no specified `additionalProperties` |
 | `--enum`                           |       | `false`  | Generate true [TS enums](https://www.typescriptlang.org/docs/handbook/enums.html) rather than string unions.        |
 | `--enum-values`                    |       | `false`  | Export enum values as arrays.                                                                                       |
+| `--conditional-enums`              |       | `false`  | Only generate true TS enums when the `x-enum-*` metadata is available. Requires `--enum=true` to be enabled.        |
 | `--dedupe-enums`                   |       | `false`  | Dedupe enum types when `--enum=true` is set                                                                         |
 | `--check`                          |       | `false`  | Check that the generated types are up-to-date.                                                                      |
 | `--exclude-deprecated`             |       | `false`  | Exclude deprecated fields from types                                                                                |
@@ -121,6 +122,7 @@ The following flags are supported in the CLI:
 | `--path-params-as-types`           |       | `false`  | Allow dynamic string lookups on the `paths` object                                                                  |
 | `--root-types`                     |       | `false`  | Exports types from `components` as root level type aliases                                                          |
 | `--root-types-no-schema-prefix`    |       | `false`  | Do not add "Schema" prefix to types at the root level (should only be used with --root-types)                       |
+| `--root-types-keep-casing`         |       | `false`  | Do not convert root type names to pascal case                                                                        |
 | `--make-paths-enum`                |       | `false`  | Generate ApiPaths enum for all paths                                                                                |
 | `--generate-path-params`           |       | `false`  | Generate path parameters for all paths where they are undefined by schema                                           |
 

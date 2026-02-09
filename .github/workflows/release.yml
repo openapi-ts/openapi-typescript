@@ -5,24 +5,22 @@ on:
     branches:
       - main
 
-env:
-  GITHUB_TOKEN: ${{ secrets.OPENAPI_TS_BOT_GITHUB_TOKEN }}
+permissions:
+  id-token: write # Required for OIDC
+  contents: write
+  pull-requests: write
 
 jobs:
   changelog:
     runs-on: ubuntu-latest
-    if: ${{ github.repository_owner == 'openapi-ts' }}
-    permissions:
-      contents: write
-      pull-requests: write
     steps:
       - name: Git setup
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Node setup
         uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: latest
 
       - name: pnpm setup
         uses: pnpm/action-setup@v4
@@ -42,4 +40,3 @@ jobs:
           title: "[ci] release"
         env:
           GITHUB_TOKEN: ${{ secrets.OPENAPI_TS_BOT_GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

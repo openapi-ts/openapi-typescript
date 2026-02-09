@@ -1,7 +1,7 @@
 {
   "name": "openapi-react-query",
   "description": "Fast, type-safe @tanstack/react-query client to work with your OpenAPI schema.",
-  "version": "0.5.1",
+  "version": "0.5.3",
   "author": {
     "name": "Martin Paucot",
     "email": "contact@martin-paucot.fr"
@@ -58,11 +58,11 @@
   },
   "devDependencies": {
     "@tanstack/react-query": "5.90.3",
-    "@testing-library/react": "16.3.0",
+    "@testing-library/react": "16.3.2",
     "@types/react": "18.3.21",
     "@vitejs/plugin-react": "5.0.4",
     "execa": "catalog:",
-    "msw": "2.11.5",
+    "msw": "2.12.9",
     "openapi-fetch": "workspace:^",
     "openapi-typescript": "workspace:^",
     "react": "18.3.1",

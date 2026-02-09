@@ -7,7 +7,7 @@
     "name": "Drew Powers",
     "email": "drew@pow.rs"
   },
-  "packageManager": "pnpm@10.18.3",
+  "packageManager": "pnpm@10.29.1",
   "scripts": {
     "build": "turbo run build",
     "lint": "turbo run lint",
@@ -20,23 +20,23 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.2",
-    "@biomejs/biome": "2.2.6",
-    "@changesets/changelog-github": "0.5.1",
-    "@changesets/cli": "2.29.7",
+    "@biomejs/biome": "2.3.14",
+    "@changesets/changelog-github": "0.5.2",
+    "@changesets/cli": "2.29.8",
     "@playwright/test": "1.56.0",
-    "@size-limit/preset-small-lib": "11.2.0",
-    "@types/node": "22.18.10",
-    "prettier": "3.6.2",
-    "size-limit": "11.2.0",
-    "turbo": "2.5.8",
+    "@size-limit/preset-small-lib": "12.0.0",
+    "@types/node": "25.2.2",
+    "prettier": "3.8.1",
+    "size-limit": "12.0.0",
+    "turbo": "2.8.3",
     "typescript": "catalog:",
     "unbuild": "3.6.1",
-    "vitest": "3.2.4"
+    "vitest": "4.0.18"
   },
   "size-limit": [
     {
       "path": "packages/openapi-fetch/dist/index.mjs",
-      "limit": "7 kB",
+      "limit": "7.1 kB",
       "brotli": false
     }
   ]

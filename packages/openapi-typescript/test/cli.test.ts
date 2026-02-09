@@ -160,6 +160,21 @@ describe("CLI", () => {
       }
     });
 
+    test("--redocly explicit config path", async () => {
+      const altOutput = new URL("./test/fixtures/redocly-flag/output-alt/", root);
+      fs.rmSync(altOutput, { recursive: true, force: true });
+
+      await execa(cmd, ["--redocly", "test/fixtures/redocly-flag/redocly.alt.yaml"], {
+        cwd,
+      });
+
+      for (const schema of ["a", "b", "c"]) {
+        await expect(
+          fs.readFileSync(new URL(`./test/fixtures/redocly-flag/output-alt/${schema}.ts`, root), "utf8"),
+        ).toMatchFileSnapshot(fileURLToPath(new URL("./examples/simple-example.ts", root)));
+      }
+    });
+
     test.skipIf(os.platform() === "win32")("lint error", async () => {
       const cwd = new URL("./fixtures/redocly-lint-error", import.meta.url);
 

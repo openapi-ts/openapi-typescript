@@ -1,5 +1,23 @@
 # openapi-fetch
 
+## 0.16.0
+
+### Minor Changes
+
+- [#2362](https://github.com/openapi-ts/openapi-typescript/pull/2362) [`9002418`](https://github.com/openapi-ts/openapi-typescript/commit/90024185c7a251b5dbedd148e4eb5d15b95409c8) Thanks [@luxass](https://github.com/luxass)! - Added support for setting a custom path serializers either globally or per request. This allows you to customize how path parameters are serialized in the URL. E.g. you can use a custom serializer to prevent encoding of a path parameter, if you need to pass a value that should not be encoded.
+
+## 0.15.2
+
+### Patch Changes
+
+- [#2508](https://github.com/openapi-ts/openapi-typescript/pull/2508) [`89843b0`](https://github.com/openapi-ts/openapi-typescript/commit/89843b06296ac1b227cc27546009e79b3a749aaa) Thanks [@srbarba](https://github.com/srbarba)! - Use text() when no content-length is provided to avoid errors parsing empty bodies (200 with no content)
+
+## 0.15.1
+
+### Patch Changes
+
+- [#2556](https://github.com/openapi-ts/openapi-typescript/pull/2556) [`36c0fb8`](https://github.com/openapi-ts/openapi-typescript/commit/36c0fb8a0504b27284843daaa9f49f80e2cfad0d) Thanks [@justAnArthur](https://github.com/justAnArthur)! - fix omit serializing for already serialized data
+
 ## 0.15.0
 
 ### Minor Changes

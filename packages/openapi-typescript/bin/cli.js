@@ -17,6 +17,7 @@ Options
   --output, -o               Specify output file (if not specified in redocly.yaml)
   --enum                     Export true TS enums instead of unions
   --enum-values              Export enum values as arrays
+  --conditional-enums        Only generate true TS enums when enum metadata is available (default: false)
   --dedupe-enums             Dedupe enum types when \`--enum=true\` is set
   --check                    Check that the generated types are up-to-date. (default: false)
   --export-type, -t          Export top-level \`type\` instead of \`interface\`
@@ -33,6 +34,7 @@ Options
   --root-types (optional)    Export schemas types at root level
   --root-types-no-schema-prefix (optional)
                              Do not add "Schema" prefix to types at the root level (should only be used with --root-types)
+  --root-types-keep-casing   Keep casing of root types (should only be used with --root-types)
   --make-paths-enum          Generate ApiPaths enum for all paths
 `;
 
@@ -63,6 +65,10 @@ if (args.includes("--root-types-no-schema-prefix") && !args.includes("--root-typ
   // biome-ignore lint/suspicious/noConsole: this is a CLI
   console.warn("--root-types-no-schema-prefix has no effect without --root-types flag");
 }
+if (args.includes("--root-types-keep-casing") && !args.includes("--root-types")) {
+  // biome-ignore lint/suspicious/noConsole: this is a CLI
+  console.warn("--root-types-keep-casing has no effect without --root-types flag");
+}
 
 const flags = parser(args, {
   boolean: [
@@ -75,6 +81,7 @@ const flags = parser(args, {
     "emptyObjectsUnknown",
     "enum",
     "enumValues",
+    "conditionalEnums",
     "dedupeEnums",
     "check",
     "excludeDeprecated",
@@ -84,6 +91,7 @@ const flags = parser(args, {
     "pathParamsAsTypes",
     "rootTypes",
     "rootTypesNoSchemaPrefix",
+    "rootTypesKeepCasing",
     "makePathsEnum",
     "generatePathParams",
   ],
@@ -140,6 +148,7 @@ async function generateSchema(schema, { redocly, silent = false }) {
       emptyObjectsUnknown: flags.emptyObjectsUnknown,
       enum: flags.enum,
       enumValues: flags.enumValues,
+      conditionalEnums: flags.conditionalEnums,
       dedupeEnums: flags.dedupeEnums,
       excludeDeprecated: flags.excludeDeprecated,
       exportType: flags.exportType,
@@ -147,6 +156,7 @@ async function generateSchema(schema, { redocly, silent = false }) {
       pathParamsAsTypes: flags.pathParamsAsTypes,
       rootTypes: flags.rootTypes,
       rootTypesNoSchemaPrefix: flags.rootTypesNoSchemaPrefix,
+      rootTypesKeepCasing: flags.rootTypesKeepCasing,
       makePathsEnum: flags.makePathsEnum,
       generatePathParams: flags.generatePathParams,
       redocly,
@@ -165,6 +175,18 @@ function done(input, output, time) {
   // final console output
   // biome-ignore lint/suspicious/noConsole: this is a CLI
   console.log(`🚀 ${c.green(`${input} → ${c.bold(output)}`)} ${c.dim(`[${formatTime(time)}]`)}`);
+}
+
+function findRedocConfigPath() {
+  if (!flags.redocly) {
+    return findConfig();
+  }
+  const explicitPath = path.resolve(flags.redocly);
+  if (!fs.existsSync(explicitPath)) {
+    return undefined;
+  }
+  const stat = fs.statSync(explicitPath);
+  return stat.isDirectory() ? findConfig(explicitPath) : explicitPath;
 }
 
 async function main() {
@@ -188,10 +210,12 @@ async function main() {
 
   const input = flags._[0];
 
-  // load Redocly config
-  const maybeRedoc = findConfig(flags.redocly ? path.dirname(flags.redocly) : undefined);
-  const redocly = maybeRedoc
-    ? await loadConfig({ configPath: maybeRedoc })
+  const redocConfigPath = findRedocConfigPath();
+  if (flags.redocly && !redocConfigPath) {
+    errorAndExit(`Redocly config not found at: ${flags.redocly}`);
+  }
+  const redocly = redocConfigPath
+    ? await loadConfig({ configPath: redocConfigPath })
     : await createConfig({}, { extends: ["minimal"] });
 
   // handle Redoc APIs

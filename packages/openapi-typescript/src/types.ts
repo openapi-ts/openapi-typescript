@@ -658,6 +658,8 @@ export interface OpenAPITSOptions {
   enum?: boolean;
   /** Export union values as arrays */
   enumValues?: boolean;
+  /** Only generate TS Enums when `x-enum-*` metadata is available */
+  conditionalEnums?: boolean;
   /** Dedupe enum values */
   dedupeEnums?: boolean;
   /** (optional) Substitute path parameter names with their respective types */
@@ -668,6 +670,8 @@ export interface OpenAPITSOptions {
   rootTypes?: boolean;
   /** (optional) Do not add Schema prefix to types at root level */
   rootTypesNoSchemaPrefix?: boolean;
+  /** (optional) Keep casing of root types */
+  rootTypesKeepCasing?: boolean;
   /**
    * Configure Redocly for validation, schema fetching, and bundling
    * @see https://redocly.com/docs/cli/configuration/
@@ -695,6 +699,7 @@ export interface GlobalContext {
   emptyObjectsUnknown: boolean;
   enum: boolean;
   enumValues: boolean;
+  conditionalEnums: boolean;
   dedupeEnums: boolean;
   excludeDeprecated: boolean;
   exportType: boolean;
@@ -705,6 +710,7 @@ export interface GlobalContext {
   propertiesRequiredByDefault: boolean;
   rootTypes: boolean;
   rootTypesNoSchemaPrefix: boolean;
+  rootTypesKeepCasing: boolean;
   redoc: RedoclyConfig;
   silent: boolean;
   transform: OpenAPITSOptions["transform"];

@@ -1,5 +1,29 @@
 # openapi-typescript
 
+## 7.12.0
+
+### Minor Changes
+
+- [#2524](https://github.com/openapi-ts/openapi-typescript/pull/2524) [`697f7fe`](https://github.com/openapi-ts/openapi-typescript/commit/697f7fe8bf3f23bfa36cb29c093a359b562a377e) Thanks [@gunnarvelle](https://github.com/gunnarvelle)! - Added flag to keep casing for exported root types
+
+### Patch Changes
+
+- [#2536](https://github.com/openapi-ts/openapi-typescript/pull/2536) [`e3c05a4`](https://github.com/openapi-ts/openapi-typescript/commit/e3c05a40752b02fcabe63fda88d7e0afae00ab6d) Thanks [@darkbasic](https://github.com/darkbasic)! - Fix `enumValues: true` output for schemas that use `oneOf`/`anyOf` unions by narrowing union types with `Extract<>` before accessing variant-specific properties. This prevents invalid type paths when an accessed property only exists on some union members.
+
+## 7.11.0
+
+### Minor Changes
+
+- [#2433](https://github.com/openapi-ts/openapi-typescript/pull/2433) [`27c9370`](https://github.com/openapi-ts/openapi-typescript/commit/27c9370911b50a981d146fa5c561b90d66dd2c0d) Thanks [@danitt](https://github.com/danitt)! - Conditionally generate TS enums
+
+## 7.10.2
+
+### Patch Changes
+
+- [#2139](https://github.com/openapi-ts/openapi-typescript/pull/2139) [`12f9c29`](https://github.com/openapi-ts/openapi-typescript/commit/12f9c29b7653db3ab5d6beb4ac698ce5b58177aa) Thanks [@darkbasic](https://github.com/darkbasic)! - All kinds of enum related fixes (enums in arrays, in optional props, in unions, in request body, with record types...)
+
+- [#2548](https://github.com/openapi-ts/openapi-typescript/pull/2548) [`4385590`](https://github.com/openapi-ts/openapi-typescript/commit/438559038baa931144768f186e8825f9e84cdb85) Thanks [@mynnx](https://github.com/mynnx)! - Fixes the `--redocly` flag so that it no longer hangs and is able to lookup the Redocly file at a custom path
+
 ## 7.10.1
 
 ### Patch Changes
