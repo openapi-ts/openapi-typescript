@@ -235,7 +235,7 @@ export default function createClient(clientOptions) {
     if (
       response.status === 204 ||
       request.method === "HEAD" ||
-      (contentLength && !response.headers.get("Transfer-Encoding")?.includes("chunked"))
+      (contentLength === "0" && !response.headers.get("Transfer-Encoding")?.includes("chunked"))
     ) {
       return response.ok ? { data: undefined, response } : { error: undefined, response };
     }
