@@ -46,4 +46,50 @@ describe("DELETE", () => {
     // assert error is empty
     expect(error).toBeUndefined();
   });
+
+  test("handles error response with empty body when Content-Length header is stripped by proxy", async () => {
+    // Simulate proxy stripping Content-Length header from an empty error response
+    const client = createObservedClient<paths>(
+      {},
+      async () => new Response(null, { status: 500 }), // No Content-Length header
+    );
+    const { data, error, response } = await client.DELETE("/tags/{name}", {
+      params: {
+        path: { name: "Tag" },
+      },
+    });
+
+    // assert data is undefined for error response
+    expect(data).toBeUndefined();
+
+    // assert error is undefined for empty body (consistent with 204 and Content-Length: 0 handling)
+    expect(error).toBeUndefined();
+
+    // assert response status is preserved
+    expect(response.status).toBe(500);
+    expect(response.ok).toBe(false);
+  });
+
+  test("handles success response with empty body when Content-Length header is stripped by proxy", async () => {
+    // Simulate proxy stripping Content-Length header from an empty success response
+    const client = createObservedClient<paths>(
+      {},
+      async () => new Response(null, { status: 200 }), // No Content-Length header
+    );
+    const { data, error, response } = await client.DELETE("/tags/{name}", {
+      params: {
+        path: { name: "Tag" },
+      },
+    });
+
+    // assert data is undefined for empty body
+    expect(data).toBeUndefined();
+
+    // assert error is undefined for success response
+    expect(error).toBeUndefined();
+
+    // assert response status is preserved
+    expect(response.status).toBe(200);
+    expect(response.ok).toBe(true);
+  });
 });
