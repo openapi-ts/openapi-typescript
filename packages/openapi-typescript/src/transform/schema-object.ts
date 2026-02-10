@@ -280,10 +280,17 @@ export function transformSchemaObjectWithComposition(
     finalType = tsIntersection([...(coreObjectType ? [coreObjectType] : []), ...(allOf ? [allOf] : [])]);
   }
   // anyOf: union
-  // (note: this may seem counterintuitive, but as TypeScript’s unions are not true XORs, they mimic behavior closer to anyOf than oneOf)
+  // (note: this may seem counterintuitive, but as TypeScript's unions are not true XORs, they mimic behavior closer to anyOf than oneOf)
+  // When there are sibling properties alongside anyOf, they should be intersected with the union (issue #2380)
   const anyOfType = collectUnionCompositions(schemaObject.anyOf ?? [], "anyOf");
   if (anyOfType.length) {
-    finalType = tsUnion([...(finalType ? [finalType] : []), ...anyOfType]);
+    if (finalType) {
+      // If there are sibling properties, intersect them with the anyOf union
+      finalType = tsIntersection([finalType, tsUnion(anyOfType)]);
+    } else {
+      // If no sibling properties, just use the union
+      finalType = tsUnion(anyOfType);
+    }
   }
   // oneOf: union (within intersection with other types, if any)
   const oneOfType = collectUnionCompositions(
@@ -472,7 +479,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
             t === "null" || t === null
               ? NULL
               : transformSchemaObject(
-                  { ...schemaObject, type: t, oneOf: undefined } as SchemaObject, // don’t stack oneOf transforms
+                  { ...schemaObject, type: t, oneOf: undefined } as SchemaObject, // don't stack oneOf transforms
                   options,
                 ),
           );
@@ -558,7 +565,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
             options.ctx.defaultNonNullable &&
             !options.path?.includes("parameters") &&
             !options.path?.includes("requestBody") &&
-            !options.path?.includes("requestBodies")) // can’t be required, even with defaults
+            !options.path?.includes("requestBodies")) // can't be required, even with defaults
             ? undefined
             : QUESTION_TOKEN;
         let type = $ref
