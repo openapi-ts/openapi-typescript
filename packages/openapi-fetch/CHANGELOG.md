@@ -1,5 +1,18 @@
 # openapi-fetch
 
+## 0.17.0
+
+### Minor Changes
+
+- [#2549](https://github.com/openapi-ts/openapi-typescript/pull/2549) [`a690e52`](https://github.com/openapi-ts/openapi-typescript/commit/a690e526b7693479bc2f2f002d71a020fa5e4e16) Thanks [@abumalick](https://github.com/abumalick)! - Add readOnly/writeOnly support via `--read-write-markers` flag. When enabled, readOnly properties are wrapped with `$Read<T>` and writeOnly properties with `$Write<T>`. openapi-fetch uses `Readable<T>` and `Writable<T>` helpers to exclude these properties from responses and request bodies respectively.
+
+### Patch Changes
+
+- [#2572](https://github.com/openapi-ts/openapi-typescript/pull/2572) [`9350ddf`](https://github.com/openapi-ts/openapi-typescript/commit/9350ddfcd44b661a5288667ebfcf298868dd9784) Thanks [@luis-guideti](https://github.com/luis-guideti)! - Do not treat Content-Length=0 as empty when Transfer-Encoding is chunked
+
+- Updated dependencies [[`a690e52`](https://github.com/openapi-ts/openapi-typescript/commit/a690e526b7693479bc2f2f002d71a020fa5e4e16)]:
+  - openapi-typescript-helpers@0.1.0
+
 ## 0.16.0
 
 ### Minor Changes
