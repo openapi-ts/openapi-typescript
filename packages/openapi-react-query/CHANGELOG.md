@@ -1,6 +1,6 @@
 # openapi-react-query
 
-## 1.0.0
+## 0.5.4
 
 ### Patch Changes
 
