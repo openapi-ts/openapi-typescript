@@ -517,6 +517,113 @@ describe("transformSchemaObject > object", () => {
         },
       },
     ],
+    [
+      "options > readWriteMarkers: true (readOnly)",
+      {
+        given: {
+          type: "object",
+          properties: {
+            id: { type: "number", readOnly: true },
+            name: { type: "string" },
+          },
+        },
+        want: `{
+    id?: $Read<number>;
+    name?: string;
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, readWriteMarkers: true },
+        },
+      },
+    ],
+    [
+      "options > readWriteMarkers: true (writeOnly)",
+      {
+        given: {
+          type: "object",
+          properties: {
+            name: { type: "string" },
+            password: { type: "string", writeOnly: true },
+          },
+        },
+        want: `{
+    name?: string;
+    password?: $Write<string>;
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, readWriteMarkers: true },
+        },
+      },
+    ],
+    [
+      "options > readWriteMarkers: true (both)",
+      {
+        given: {
+          type: "object",
+          properties: {
+            id: { type: "number", readOnly: true },
+            name: { type: "string" },
+            password: { type: "string", writeOnly: true },
+          },
+          required: ["name"],
+        },
+        want: `{
+    id?: $Read<number>;
+    name: string;
+    password?: $Write<string>;
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, readWriteMarkers: true },
+        },
+      },
+    ],
+    [
+      "options > readWriteMarkers: false (default, no markers)",
+      {
+        given: {
+          type: "object",
+          properties: {
+            id: { type: "number", readOnly: true },
+            password: { type: "string", writeOnly: true },
+          },
+        },
+        want: `{
+    readonly id?: number;
+    password?: string;
+}`,
+      },
+    ],
+    [
+      "options > readWriteMarkers: true ($defs)",
+      {
+        given: {
+          type: "object",
+          properties: {
+            foo: { type: "string" },
+          },
+          $defs: {
+            readOnlyDef: { type: "string", readOnly: true },
+            writeOnlyDef: { type: "number", writeOnly: true },
+            normalDef: { type: "boolean" },
+          },
+        },
+        want: `{
+    foo?: string;
+    $defs: {
+        readOnlyDef: $Read<string>;
+        writeOnlyDef: $Write<number>;
+        normalDef: boolean;
+    };
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, readWriteMarkers: true },
+        },
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {

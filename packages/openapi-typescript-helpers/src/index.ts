@@ -201,3 +201,47 @@ type RequiredKeysOfHelper<T> = {
 }[keyof T];
 /** Get the required keys of an object, or `never` if no keys are required */
 export type RequiredKeysOf<T> = RequiredKeysOfHelper<T> extends undefined ? never : RequiredKeysOfHelper<T>;
+
+// readOnly/writeOnly visibility markers and helpers
+
+/** Marker type for readOnly properties (excluded from request bodies) */
+export type $Read<T> = { readonly $read: T };
+
+/** Marker type for writeOnly properties (excluded from response bodies) */
+export type $Write<T> = { readonly $write: T };
+
+/**
+ * Resolve type for reading (responses): strips $Write properties, unwraps $Read
+ * - $Read<T> → T (readable), continues recursion
+ * - $Write<T> → never (excluded from response)
+ * - object → recursively resolve
+ */
+export type Readable<T> =
+  T extends $Write<any>
+    ? never
+    : T extends $Read<infer U>
+      ? Readable<U>
+      : T extends (infer E)[]
+        ? Readable<E>[]
+        : T extends object
+          ? { [K in keyof T as NonNullable<T[K]> extends $Write<any> ? never : K]: Readable<T[K]> }
+          : T;
+
+/**
+ * Resolve type for writing (requests): strips $Read properties, unwraps $Write
+ * - $Write<T> → T (writable), continues recursion
+ * - $Read<T> → never (excluded from request)
+ * - object → recursively resolve
+ */
+export type Writable<T> =
+  T extends $Read<any>
+    ? never
+    : T extends $Write<infer U>
+      ? Writable<U>
+      : T extends (infer E)[]
+        ? Writable<E>[]
+        : T extends object
+          ? { [K in keyof T as NonNullable<T[K]> extends $Read<any> ? never : K]: Writable<T[K]> } & {
+              [K in keyof T as NonNullable<T[K]> extends $Read<any> ? K : never]?: never;
+            }
+          : T;

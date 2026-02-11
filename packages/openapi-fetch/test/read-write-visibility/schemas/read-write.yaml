@@ -1,0 +1,104 @@
+openapi: "3.1.0"
+info:
+  title: ReadWrite Test
+  version: 1.0.0
+paths:
+  /users:
+    get:
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /resources/{id}:
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Resource"
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        password:
+          type: string
+          writeOnly: true
+    # Tests deeply nested $Read wrapping: nested_details is $Read<NestedType>
+    # and NestedType contains items which are also $Read wrapped
+    Resource:
+      type: object
+      required:
+        - id
+        - items
+      properties:
+        id:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/ResourceItem"
+    ResourceItem:
+      type: object
+      required:
+        - id
+        - nested
+      properties:
+        id:
+          type: integer
+        nested:
+          readOnly: true
+          $ref: "#/components/schemas/NestedObject"
+    NestedObject:
+      type: object
+      required:
+        - entries
+      properties:
+        entries:
+          type: array
+          readOnly: true
+          items:
+            $ref: "#/components/schemas/Entry"
+    Entry:
+      type: object
+      required:
+        - code
+        - label
+      properties:
+        code:
+          type: string
+        label:
+          type: string
+          readOnly: true
