@@ -668,8 +668,9 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
       schemaObject.additionalProperties === true ||
       (typeof schemaObject.additionalProperties === "object" &&
         Object.keys(schemaObject.additionalProperties).length === 0);
+    const patternProperties = hasKey(schemaObject, "patternProperties") ? schemaObject.patternProperties : undefined;
     const hasExplicitPatternProperties =
-      typeof schemaObject.patternProperties === "object" && Object.keys(schemaObject.patternProperties).length;
+      typeof patternProperties === "object" && patternProperties !== null && Object.keys(patternProperties).length > 0;
     const stringIndexTypes = [];
     if (hasExplicitAdditionalProperties) {
       stringIndexTypes.push(transformSchemaObject(schemaObject.additionalProperties as SchemaObject, options, true));
@@ -677,8 +678,11 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
     if (hasImplicitAdditionalProperties || (!schemaObject.additionalProperties && options.ctx.additionalProperties)) {
       stringIndexTypes.push(UNKNOWN);
     }
-    if (hasExplicitPatternProperties) {
-      for (const [_, v] of getEntries(schemaObject.patternProperties ?? {}, options.ctx)) {
+    if (hasExplicitPatternProperties && patternProperties && typeof patternProperties === "object") {
+      for (const [_, v] of getEntries(
+        patternProperties as Record<string, SchemaObject | ReferenceObject>,
+        options.ctx,
+      )) {
         stringIndexTypes.push(transformSchemaObject(v, options));
       }
     }
