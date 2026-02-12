@@ -264,12 +264,17 @@ export default function createClient(clientOptions) {
       return { data: await getResponseData(), response };
     }
 
-    // handle errors
-    let error = await response.text();
+    // handle errors (use text() when no content-length to safely handle empty bodies from proxies)
+    const raw = await response.text();
+    if (!raw) {
+      // empty error body - return undefined to be consistent with status 204 handling
+      return { error: undefined, response };
+    }
+    let error = raw;
     try {
-      error = JSON.parse(error); // attempt to parse as JSON
+      error = JSON.parse(raw); // attempt to parse as JSON
     } catch {
-      // noop
+      // noop - keep as raw text
     }
     return { error, response };
   }
