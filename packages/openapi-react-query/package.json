@@ -62,7 +62,7 @@
     "@types/react": "18.3.21",
     "@vitejs/plugin-react": "5.0.4",
     "execa": "catalog:",
-    "msw": "2.12.9",
+    "msw": "2.12.10",
     "openapi-fetch": "workspace:^",
     "openapi-typescript": "workspace:^",
     "react": "18.3.1",
