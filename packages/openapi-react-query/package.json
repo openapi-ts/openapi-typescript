@@ -60,7 +60,7 @@
     "@tanstack/react-query": "5.90.3",
     "@testing-library/react": "16.3.2",
     "@types/react": "18.3.21",
-    "@vitejs/plugin-react": "5.0.4",
+    "@vitejs/plugin-react": "5.1.4",
     "execa": "catalog:",
     "msw": "2.12.10",
     "openapi-fetch": "workspace:^",
