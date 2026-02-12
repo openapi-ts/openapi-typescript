@@ -28,7 +28,7 @@
     "@types/node": "25.2.2",
     "prettier": "3.8.1",
     "size-limit": "12.0.0",
-    "turbo": "2.8.3",
+    "turbo": "2.8.7",
     "typescript": "catalog:",
     "unbuild": "3.6.1",
     "vitest": "4.0.18"
