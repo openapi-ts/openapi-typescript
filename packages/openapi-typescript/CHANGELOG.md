@@ -1,5 +1,11 @@
 # openapi-typescript
 
+## 7.13.1
+
+### Patch Changes
+
+- [#2415](https://github.com/openapi-ts/openapi-typescript/pull/2415) [`f55fb72`](https://github.com/openapi-ts/openapi-typescript/commit/f55fb72f93ef4fe009278bcc1f62e5d16e4012e5) Thanks [@remy90](https://github.com/remy90)! - Support `additionalProperties: true` on string enums by generating a loose autocomplete union (`(enum literals) | (string & {})`), preserving editor suggestions while still accepting arbitrary string values.
+
 ## 7.13.0
 
 ### Minor Changes
