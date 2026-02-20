@@ -13,7 +13,7 @@
     "@sveltejs/vite-plugin-svelte": "^5.1.1",
     "openapi-fetch": "workspace:^",
     "openapi-typescript": "workspace:^",
-    "svelte": "^5.50.0",
+    "svelte": "^5.51.5",
     "svelte-check": "^4.3.6",
     "typescript": "catalog:",
     "vite": "catalog:"
