@@ -1,5 +1,5 @@
 import { describe, expect, test, vi } from "vitest";
-import createClient, { type BodySerializer, type FetchOptions } from "../../src/index.js";
+import createClient, { type BodySerializer, defaultBodySerializer, type FetchOptions } from "../../src/index.js";
 import { createObservedClient, headersToObj } from "../helpers.js";
 import type { components, paths } from "./schemas/common.js";
 
@@ -277,6 +277,59 @@ describe("request", () => {
 
       expect(bodyUsed).toBe(true);
       expect(bodyText).toBe("key1=value1&key2=value2");
+    });
+
+    test("`application/x-www-form-urlencoded` body with Headers instance", async () => {
+      const { bodyUsed, bodyText } = await fireRequestAndGetBodyInformation({
+        method: "POST",
+        fetchOptions: {
+          body: { key1: "value1", key2: "value2" },
+          headers: new Headers({ "Content-Type": "application/x-www-form-urlencoded" }),
+        },
+      });
+
+      expect(bodyUsed).toBe(true);
+      expect(bodyText).toBe("key1=value1&key2=value2");
+    });
+  });
+
+  describe("defaultBodySerializer", () => {
+    test("serializes to JSON by default", () => {
+      const body = { key1: "value1", key2: "value2" };
+      expect(defaultBodySerializer(body, undefined)).toBe(JSON.stringify(body));
+    });
+
+    test("serializes to URLSearchParams with plain object headers", () => {
+      const body = { key1: "value1", key2: "value2" };
+      const headers = { "Content-Type": "application/x-www-form-urlencoded" };
+      expect(defaultBodySerializer(body, headers)).toBe("key1=value1&key2=value2");
+    });
+
+    test("serializes to URLSearchParams with Headers instance", () => {
+      const body = { key1: "value1", key2: "value2" };
+      const headers = new Headers({ "Content-Type": "application/x-www-form-urlencoded" });
+      expect(defaultBodySerializer(body, headers)).toBe("key1=value1&key2=value2");
+    });
+
+    test("serializes to URLSearchParams with lowercase content-type header", () => {
+      const body = { key1: "value1", key2: "value2" };
+      const headers = new Headers({ "content-type": "application/x-www-form-urlencoded" });
+      expect(defaultBodySerializer(body, headers)).toBe("key1=value1&key2=value2");
+    });
+
+    test("works with Headers-like object that has get method", () => {
+      // Simulates cross-realm scenario where instanceof Function fails but typeof works
+      const body = { key1: "value1", key2: "value2" };
+      const headersLike = {
+        get: (name: string) => (name.toLowerCase() === "content-type" ? "application/x-www-form-urlencoded" : null),
+      };
+      expect(defaultBodySerializer(body, headersLike as any)).toBe("key1=value1&key2=value2");
+    });
+
+    test("returns FormData as-is", () => {
+      const formData = new FormData();
+      formData.append("key1", "value1");
+      expect(defaultBodySerializer(formData, undefined)).toBe(formData);
     });
   });
 

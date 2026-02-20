@@ -627,7 +627,7 @@ export function defaultBodySerializer(body, headers) {
   }
   if (headers) {
     const contentType =
-      headers.get instanceof Function
+      typeof headers.get === "function"
         ? (headers.get("Content-Type") ?? headers.get("content-type"))
         : (headers["Content-Type"] ?? headers["content-type"]);
     if (contentType === "application/x-www-form-urlencoded") {
