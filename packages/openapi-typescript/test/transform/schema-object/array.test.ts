@@ -43,11 +43,77 @@ describe("transformSchemaObject > array", () => {
       },
     ],
     [
-      "tuple > prefixItems",
+      "tuple > prefixItems (open tuple using items)",
       {
         given: {
           type: "array",
           items: { type: "number" },
+          prefixItems: [{ type: "number" }, { type: "number" }, { type: "number" }],
+        },
+        want: `[
+    number,
+    number,
+    number,
+    ...number[]
+]`,
+        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "tuple > prefixItems (closed tuple using unevaluatedItems)",
+      {
+        given: {
+          type: "array",
+          unevaluatedItems: { type: "number" },
+          prefixItems: [{ type: "number" }, { type: "number" }, { type: "number" }],
+        },
+        want: `[
+    number,
+    number,
+    number,
+    ...number[]
+]`,
+        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "tuple > prefixItems (open tuple not specified)",
+      {
+        given: {
+          type: "array",
+          prefixItems: [{ type: "number" }, { type: "number" }, { type: "number" }],
+        },
+        want: `[
+    number,
+    number,
+    number,
+    ...unknown[]
+]`,
+        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "tuple > prefixItems (closed tuple using items)",
+      {
+        given: {
+          type: "array",
+          items: false,
+          prefixItems: [{ type: "number" }, { type: "number" }, { type: "number" }],
+        },
+        want: `[
+    number,
+    number,
+    number
+]`,
+        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "tuple > prefixItems (closed tuple using unevaluatedItems)",
+      {
+        given: {
+          type: "array",
+          unevaluatedItems: false,
           prefixItems: [{ type: "number" }, { type: "number" }, { type: "number" }],
         },
         want: `[
@@ -187,7 +253,7 @@ describe("transformSchemaObject > array", () => {
       {
         given: {
           type: "array",
-          items: { type: "number" },
+          items: false,
           prefixItems: [{ type: "number" }, { type: "number" }, { type: "number" }],
         },
         want: `readonly [
