@@ -1,5 +1,14 @@
 # openapi-react-query
 
+## 0.5.5
+
+### Patch Changes
+
+- [#1950](https://github.com/openapi-ts/openapi-typescript/pull/1950) [`ac9d082`](https://github.com/openapi-ts/openapi-typescript/commit/ac9d0821aba779b8effc6cf71efb0583cfaaaad6) Thanks [@freshgiammi](https://github.com/freshgiammi)! - Tag generated querykeys with `DataTag`, allowing us to infer the return type (data/error) associated with a given queryKey, making methods like `queryClient.setQueryData()` type-safe.
+
+- Updated dependencies [[`b775891`](https://github.com/openapi-ts/openapi-typescript/commit/b775891e2ac748aeab4cb3106c1df44a0b7ddf30)]:
+  - openapi-fetch@0.17.1
+
 ## 0.5.4
 
 ### Patch Changes
