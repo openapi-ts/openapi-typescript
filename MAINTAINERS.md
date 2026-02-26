@@ -13,7 +13,7 @@ This project also _did_ historically value **zero runtime**, in the belief that 
 Keeping the North Star in mind, here’s the necessary criteria for a PR:
 
 - **Tests written.** No exceptions. They make a change, they MUST write a test.
-  - Updating existing tests is not OK. It must be a new test (if their change does necessitate updating other tests, that’s fine but doesn’t count towards testing their PR, but also, updating existing tests falls under breaking change consideration)
+  - Be skeptical of PRs that ONLY alter existing tests! They may have taken away the only proof their change is backwards-compatible if the previous tests that failed now pass. Ideally _net-new_ tests are ALWAYS added, even for bugfixes, because preexisting tests weren’t written with this new PR in mind.
 - **Changeset applied.** We need authors to write a changeset. However, in case of emergency, or the author has dropped off the face of the earth, we can update changelogs ourselves, but at least prompt the author to add one themselves (also, changesets gives them credit automatically, so it’s less work for us if the changeset merges in the same PR as the original author, otherwise manual edits are needed).
 
 And lastly, if it’s backwards-compatible, perhaps give less scrutiny over it than if output is greatly-affected.
