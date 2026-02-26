@@ -74,7 +74,7 @@
     "@types/js-yaml": "4.0.9",
     "degit": "2.8.4",
     "execa": "catalog:",
-    "strip-ansi": "7.1.2",
+    "strip-ansi": "7.2.0",
     "typescript": "catalog:",
     "vite-node": "5.3.0"
   }
