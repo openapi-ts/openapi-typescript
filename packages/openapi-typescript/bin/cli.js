@@ -4,6 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { performance } from "node:perf_hooks";
 import { createConfig, findConfig, loadConfig } from "@redocly/openapi-core";
+import { kebabCase } from "scule";
 import parser from "yargs-parser";
 import openapiTS, { astToString, COMMENT_HEADER, c, error, formatTime, warn } from "../dist/index.mjs";
 
@@ -31,8 +32,8 @@ Options
   --path-params-as-types     Convert paths to template literal types
   --alphabetize              Sort object keys alphabetically
   --exclude-deprecated       Exclude deprecated types
-  --root-types (optional)    Export schemas types at root level
-  --root-types-no-schema-prefix (optional)
+  --root-types               Export schemas types at root level
+  --root-types-no-schema-prefix
                              Do not add "Schema" prefix to types at the root level (should only be used with --root-types)
   --root-types-keep-casing   Keep casing of root types (should only be used with --root-types)
   --make-paths-enum          Generate ApiPaths enum for all paths
@@ -71,32 +72,34 @@ if (args.includes("--root-types-keep-casing") && !args.includes("--root-types"))
   console.warn("--root-types-keep-casing has no effect without --root-types flag");
 }
 
+const BOOLEAN_FLAGS = [
+  "additionalProperties",
+  "alphabetize",
+  "arrayLength",
+  "check",
+  "conditionalEnums",
+  "contentNever",
+  "dedupeEnums",
+  "defaultNonNullable",
+  "emptyObjectsUnknown",
+  "enum",
+  "enumValues",
+  "excludeDeprecated",
+  "exportType",
+  "generatePathParams",
+  "help",
+  "immutable",
+  "makePathsEnum",
+  "pathParamsAsTypes",
+  "propertiesRequiredByDefault",
+  "readWriteMarkers",
+  "rootTypes",
+  "rootTypesKeepCasing",
+  "rootTypesNoSchemaPrefix",
+];
+
 const flags = parser(args, {
-  boolean: [
-    "additionalProperties",
-    "alphabetize",
-    "arrayLength",
-    "contentNever",
-    "defaultNonNullable",
-    "propertiesRequiredByDefault",
-    "emptyObjectsUnknown",
-    "enum",
-    "enumValues",
-    "conditionalEnums",
-    "dedupeEnums",
-    "check",
-    "excludeDeprecated",
-    "exportType",
-    "help",
-    "immutable",
-    "pathParamsAsTypes",
-    "rootTypes",
-    "rootTypesNoSchemaPrefix",
-    "rootTypesKeepCasing",
-    "makePathsEnum",
-    "generatePathParams",
-    "readWriteMarkers",
-  ],
+  boolean: BOOLEAN_FLAGS,
   string: ["output", "redocly"],
   alias: {
     redocly: ["c"],
@@ -136,36 +139,10 @@ function checkStaleOutput(current, outputPath) {
 
 /**
  * @param {string | URL} schema
- * @param {@type import('@redocly/openapi-core').Config} redocly
+ * @param {@type import('@redocly/openapi-core').Config} config
  */
-async function generateSchema(schema, { redocly, silent = false }) {
-  return `${COMMENT_HEADER}${astToString(
-    await openapiTS(schema, {
-      additionalProperties: flags.additionalProperties,
-      alphabetize: flags.alphabetize,
-      arrayLength: flags.arrayLength,
-      contentNever: flags.contentNever,
-      propertiesRequiredByDefault: flags.propertiesRequiredByDefault,
-      defaultNonNullable: flags.defaultNonNullable,
-      emptyObjectsUnknown: flags.emptyObjectsUnknown,
-      enum: flags.enum,
-      enumValues: flags.enumValues,
-      conditionalEnums: flags.conditionalEnums,
-      dedupeEnums: flags.dedupeEnums,
-      excludeDeprecated: flags.excludeDeprecated,
-      exportType: flags.exportType,
-      immutable: flags.immutable,
-      pathParamsAsTypes: flags.pathParamsAsTypes,
-      rootTypes: flags.rootTypes,
-      rootTypesNoSchemaPrefix: flags.rootTypesNoSchemaPrefix,
-      rootTypesKeepCasing: flags.rootTypesKeepCasing,
-      makePathsEnum: flags.makePathsEnum,
-      generatePathParams: flags.generatePathParams,
-      readWriteMarkers: flags.readWriteMarkers,
-      redocly,
-      silent,
-    }),
-  )}`;
+async function generateSchema(schema, config) {
+  return `${COMMENT_HEADER}${astToString(await openapiTS(schema, config))}`;
 }
 
 /** pretty-format error message but also throw */
@@ -230,6 +207,8 @@ async function main() {
     await Promise.all(
       Object.entries(redocly.apis).map(async ([name, api]) => {
         let configRoot = CWD;
+
+        const config = { ...flags, redocly };
         if (redocly.configFile) {
           // note: this will be absolute if --redoc is passed; otherwise, relative
           configRoot = path.isAbsolute(redocly.configFile)
@@ -241,7 +220,18 @@ async function main() {
             `API ${name} is missing an \`${REDOC_CONFIG_KEY}.output\` key. See https://openapi-ts.dev/cli/#multiple-schemas.`,
           );
         }
-        const result = await generateSchema(new URL(api.root, configRoot), { redocly });
+
+        if (api[REDOC_CONFIG_KEY]) {
+          for (const name of BOOLEAN_FLAGS) {
+            if (typeof api[REDOC_CONFIG_KEY][name] === "boolean") {
+              config[name] = api[REDOC_CONFIG_KEY][name];
+            } else if (typeof api[REDOC_CONFIG_KEY][kebabCase(name)] === "boolean") {
+              config[name] = api[REDOC_CONFIG_KEY][kebabCase(name)];
+            }
+          }
+        }
+        const result = await generateSchema(new URL(api.root, configRoot), config);
+
         const outFile = new URL(api[REDOC_CONFIG_KEY].output, configRoot);
         checkStaleOutput(result, outFile);
         fs.mkdirSync(new URL(".", outFile), { recursive: true });
@@ -254,6 +244,7 @@ async function main() {
   // handle stdin
   else if (!input) {
     const result = await generateSchema(process.stdin, {
+      ...flags,
       redocly,
       silent: outputType === OUTPUT_STDOUT,
     });
@@ -278,6 +269,7 @@ async function main() {
       );
     }
     const result = await generateSchema(new URL(input, CWD), {
+      ...flags,
       redocly,
       silent: outputType === OUTPUT_STDOUT,
     });

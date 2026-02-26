@@ -53,3 +53,8 @@ apis:
     root: ../../openapi-typescript/examples/stripe-api.yaml
     x-openapi-ts:
       output: ./examples/schemas/stripe.d.ts
+  read-write-visibility:
+    root: ./read-write-visibility/schemas/read-write.yaml
+    x-openapi-ts:
+      output: ./read-write-visibility/schemas/read-write.d.ts
+      read-write-markers: true
