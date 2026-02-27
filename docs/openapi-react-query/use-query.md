@@ -6,9 +6,9 @@ title: useQuery
 The `useQuery` method allows you to use the original [useQuery](https://tanstack.com/query/latest/docs/framework/react/guides/queries).
 
 - The result is the same as the original function.
-- The `functionKey` is `[method, path, params]`.
+- The query key is `[method, path, params]`.
 - `data` and `error` are fully typed.
-- You can pass queries options as fourth parameter.
+- You can pass query options as fourth parameter.
 
 ::: tip
 You can find more information about `useQuery` on the [@tanstack/react-query documentation](https://tanstack.com/query/latest/docs/framework/react/guides/queries).
