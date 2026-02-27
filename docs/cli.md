@@ -41,6 +41,7 @@ apis:
     root: ./openapi/external.yaml
     x-openapi-ts:
       output: ./openapi/external.ts
+      additional-properties: true # CLI flags are also supported, either in kebab-case or camelCase format
 ```
 
 :::
