@@ -322,7 +322,7 @@ export declare function createQuerySerializer<T = unknown>(
 export declare function defaultPathSerializer(pathname: string, pathParams: Record<string, unknown>): string;
 
 /** Serialize body object to string */
-export declare function defaultBodySerializer<T>(body: T): string;
+export declare function defaultBodySerializer<T>(body: T, headers?: HeadersOptions): T | string;
 
 /** Construct URL string from baseUrl and handle path and query params */
 export declare function createFinalURL<O>(
