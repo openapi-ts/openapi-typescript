@@ -15,7 +15,13 @@ describe("transformSchemaObject > array", () => {
       {
         given: { type: "array", items: { type: "string" } },
         want: "string[]",
-        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "nested",
+      {
+        given: { type: "array", items: { type: "array", items: { type: "string" } } },
+        want: "string[][]",
       },
     ],
     // Prevents: "TypeError: Cannot use 'in' operator to search for 'type' in true"
@@ -161,6 +167,26 @@ describe("transformSchemaObject > array", () => {
         want: `[
     string,
     string
+]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: { ...DEFAULT_OPTIONS.ctx, arrayLength: true },
+        },
+      },
+    ],
+    [
+      "options > arrayLength: true > minItems: 1, maxItems: 1; minItems: 1, maxItems: 1",
+      {
+        given: {
+          type: "array",
+          items: { type: "array", items: { type: "string" }, minItems: 1, maxItems: 1 },
+          minItems: 1,
+          maxItems: 1,
+        },
+        want: `[
+    [
+        string
+    ]
 ]`,
         options: {
           ...DEFAULT_OPTIONS,
