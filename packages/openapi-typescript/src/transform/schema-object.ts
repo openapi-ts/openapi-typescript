@@ -397,18 +397,16 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
     if (schemaObject.type === "array") {
       // default to `unknown[]`
       let itemType: ts.TypeNode = UNKNOWN;
+      let isTupleType = false;
       // tuple type
       if (schemaObject.prefixItems || Array.isArray(schemaObject.items)) {
         const prefixItems = schemaObject.prefixItems ?? (schemaObject.items as (SchemaObject | ReferenceObject)[]);
         itemType = ts.factory.createTupleTypeNode(prefixItems.map((item) => transformSchemaObject(item, options)));
+        isTupleType = true;
       }
       // standard array type
       else if (schemaObject.items) {
-        if (hasKey(schemaObject.items, "type") && schemaObject.items.type === "array") {
-          itemType = ts.factory.createArrayTypeNode(transformSchemaObject(schemaObject.items, options));
-        } else {
-          itemType = transformSchemaObject(schemaObject.items, options);
-        }
+        itemType = transformSchemaObject(schemaObject.items, options);
       }
 
       const min: number =
@@ -432,10 +430,9 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
         } else if ((schemaObject.maxItems as number) > 0) {
           // if maxItems is set, then return a union of all permutations of possible tuple types
           const members: ts.TypeNode[] = [];
-          // populate 1 short of min …
-          for (let i = 0; i <= (max ?? 0) - min; i++) {
+          for (let i = min; i <= (max ?? 0); i++) {
             const elements: ts.TypeNode[] = [];
-            for (let j = min; j < i + min; j++) {
+            for (let j = 0; j < i; j++) {
               elements.push(itemType);
             }
             members.push(ts.factory.createTupleTypeNode(elements));
@@ -453,10 +450,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
         }
       }
 
-      const finalType =
-        ts.isTupleTypeNode(itemType) || ts.isArrayTypeNode(itemType)
-          ? itemType
-          : ts.factory.createArrayTypeNode(itemType); // wrap itemType in array type, but only if not a tuple or array already
+      const finalType = isTupleType ? itemType : ts.factory.createArrayTypeNode(itemType);
 
       return options.ctx.immutable
         ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, finalType)
