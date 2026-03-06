@@ -7136,18 +7136,20 @@ export interface components {
              */
             type?: string;
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the action was initiated.
              * @example 2020-11-14T16:29:21Z
+             * @format date-time
              */
             started_at?: string;
             /**
-             * Format: date-time
+             * @nullable
              * @description A time value given in ISO8601 combined date and time format that represents when the action was completed.
              * @example 2020-11-14T16:30:06Z
+             * @format date-time
              */
             completed_at?: string | null;
             /**
+             * @nullable
              * @description A unique identifier for the resource that the action is associated with.
              * @example 3164444
              */
@@ -7159,6 +7161,7 @@ export interface components {
             resource_type?: string;
             region?: components["schemas"]["region"];
             /**
+             * @nullable
              * @description A human-readable string that is used as a unique identifier for each region.
              * @example nyc3
              */
@@ -7226,8 +7229,8 @@ export interface components {
             component_name?: string;
             /**
              * The end time of this step
-             * Format: date-time
              * @example 2020-11-19T20:27:18Z
+             * @format date-time
              */
             ended_at?: string;
             /**
@@ -7246,8 +7249,8 @@ export interface components {
             reason?: components["schemas"]["apps_deployment_progress_step_reason"];
             /**
              * The start time of this step
-             * Format: date-time
              * @example 2020-11-19T20:27:18Z
+             * @format date-time
              */
             started_at?: string;
             status?: components["schemas"]["apps_deployment_progress_step_status"];
@@ -7257,36 +7260,36 @@ export interface components {
         apps_deployment_progress: {
             /**
              * Number of unsuccessful steps
-             * Format: int32
              * @example 3
+             * @format int32
              */
             error_steps?: number;
             /**
              * Number of pending steps
-             * Format: int32
              * @example 2
+             * @format int32
              */
             pending_steps?: number;
             /**
              * Number of currently running steps
-             * Format: int32
              * @example 2
+             * @format int32
              */
             running_steps?: number;
             /** The deployment's steps */
             steps?: components["schemas"]["apps_deployment_progress_step"][];
             /**
              * Number of successful steps
-             * Format: int32
              * @example 4
+             * @format int32
              */
             success_steps?: number;
             /** A flattened summary of the steps */
             summary_steps?: components["schemas"]["apps_deployment_progress_step"][];
             /**
              * Total number of steps
-             * Format: int32
              * @example 5
+             * @format int32
              */
             total_steps?: number;
         };
@@ -7306,6 +7309,7 @@ export interface components {
             /**
              * @description The hostname for the domain
              * @example app.example.com
+             * @pattern ^((xn--)?[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,}\.?$
              */
             domain: string;
             /**
@@ -7323,7 +7327,6 @@ export interface components {
              */
             wildcard?: boolean;
             /**
-             * Format: hostname
              * @description Optional. If the domain uses DigitalOcean DNS and you would like App
              *     Platform to automatically manage it for you, set this to the name of the
              *     domain on your account.
@@ -7331,6 +7334,7 @@ export interface components {
              *     For example, If the domain you are adding is `app.domain.com`, the zone
              *     could be `domain.com`.
              * @example example.com
+             * @format hostname
              */
             zone?: string;
             /**
@@ -7452,6 +7456,7 @@ export interface components {
             /**
              * @description The variable name
              * @example BASE_URL
+             * @pattern ^[_A-Za-z][_A-Za-z0-9]*$
              */
             key: string;
             /**
@@ -7545,7 +7550,10 @@ export interface components {
         };
         /** Configurations for external logging. */
         app_log_destination_definition: {
-            /** @example my_log_destination */
+            /**
+             * @example my_log_destination
+             * @pattern ^[A-Za-z0-9()\[\]'"][-A-Za-z0-9_. \/()\[\]]{0,40}[A-Za-z0-9()\[\]'"]$
+             */
             name: string;
             papertrail?: components["schemas"]["app_log_destination_papertrail_spec"];
             datadog?: components["schemas"]["app_log_destination_datadog_spec"];
@@ -7556,6 +7564,7 @@ export interface components {
             /**
              * @description The name. Must be unique across all components within the same app.
              * @example api
+             * @pattern ^[a-z][a-z0-9-]{0,30}[a-z0-9]$
              */
             name?: string;
             git?: components["schemas"]["apps_git_source_spec"];
@@ -7595,10 +7604,10 @@ export interface components {
         };
         app_component_instance_base: {
             /**
-             * Format: int64
              * @description The amount of instances that this component should be scaled to. Default: 1. Must not be set if autoscaling is used.
              * @default 1
              * @example 2
+             * @format int64
              */
             instance_count: number;
             /**
@@ -7609,15 +7618,15 @@ export interface components {
             /** @description Configuration for automatically scaling this component based on metrics. */
             autoscaling?: {
                 /**
-                 * Format: uint32
                  * @description The minimum amount of instances for this component. Must be less than max_instance_count.
                  * @example 2
+                 * @format uint32
                  */
                 min_instance_count?: number;
                 /**
-                 * Format: uint32
                  * @description The maximum amount of instances for this component. Must be more than min_instance_count.
                  * @example 3
+                 * @format uint32
                  */
                 max_instance_count?: number;
                 /** @description The metrics that the component is scaled on. */
@@ -7625,10 +7634,10 @@ export interface components {
                     /** @description Settings for scaling the component based on CPU utilization. */
                     cpu?: {
                         /**
-                         * Format: uint32
                          * @description The average target CPU utilization for the component.
                          * @default 80
                          * @example 75
+                         * @format uint32
                          */
                         percent: number;
                     };
@@ -7707,15 +7716,15 @@ export interface components {
         };
         app_service_spec_health_check: {
             /**
-             * Format: int32
              * @description The number of failed health checks before considered unhealthy.
              * @example 2
+             * @format int32
              */
             failure_threshold?: number;
             /**
-             * Format: int64
              * @description The port on which the health check will be performed. If not set, the health check will be performed on the component's http_port.
              * @example 80
+             * @format int64
              */
             port?: number;
             /**
@@ -7724,27 +7733,27 @@ export interface components {
              */
             http_path?: string;
             /**
-             * Format: int32
              * @description The number of seconds to wait before beginning health checks.
              * @example 30
+             * @format int32
              */
             initial_delay_seconds?: number;
             /**
-             * Format: int32
              * @description The number of seconds to wait between health checks.
              * @example 60
+             * @format int32
              */
             period_seconds?: number;
             /**
-             * Format: int32
              * @description The number of successful health checks before considered healthy.
              * @example 3
+             * @format int32
              */
             success_threshold?: number;
             /**
-             * Format: int32
              * @description The number of seconds after which the check times out.
              * @example 45
+             * @format int32
              */
             timeout_seconds?: number;
         };
@@ -7763,15 +7772,15 @@ export interface components {
         };
         app_service_spec_termination: {
             /**
-             * Format: int32
              * @description The number of seconds to wait between selecting a container instance for termination and issuing the TERM signal. Selecting a container instance for termination begins an asynchronous drain of new requests on upstream load-balancers. (Default 15)
              * @example 15
+             * @format int32
              */
             drain_seconds?: number;
             /**
-             * Format: int32
              * @description The number of seconds to wait between sending a TERM signal to a container and issuing a KILL which causes immediate shutdown. (Default 120)
              * @example 120
+             * @format int32
              */
             grace_period_seconds?: number;
         };
@@ -7788,10 +7797,10 @@ export interface components {
              */
             protocol?: "HTTP" | "HTTP2";
             /**
-             * Format: int64
              * @description The internal port on which this service's run command will listen. Default: 8080
              *     If there is not an environment variable with the name `PORT`, one will be automatically added with its value set to the value of this field.
              * @example 3000
+             * @format int64
              */
             http_port?: number;
             /**
@@ -7841,9 +7850,9 @@ export interface components {
         };
         app_job_spec_termination: {
             /**
-             * Format: int32
              * @description The number of seconds to wait between sending a TERM signal to a container and issuing a KILL which causes immediate shutdown. (Default 120)
              * @example 120
+             * @format int32
              */
             grace_period_seconds?: number;
         };
@@ -7862,9 +7871,9 @@ export interface components {
         };
         app_worker_spec_termination: {
             /**
-             * Format: int32
              * @description The number of seconds to wait between sending a TERM signal to a container and issuing a KILL which causes immediate shutdown. (Default 120)
              * @example 120
+             * @format int32
              */
             grace_period_seconds?: number;
         };
@@ -7898,9 +7907,9 @@ export interface components {
             disabled?: boolean;
             operator?: components["schemas"]["app_alert_spec_operator"];
             /**
-             * Format: float
              * @description Threshold value for alert
              * @example 2.32
+             * @format float
              */
             value?: number;
             window?: components["schemas"]["app_alert_spec_window"];
@@ -7915,6 +7924,7 @@ export interface components {
             /**
              * @description The name. Must be unique across all components within the same app.
              * @example api
+             * @pattern ^[a-z][a-z0-9-]{0,30}[a-z0-9]$
              */
             name: string;
             /**
@@ -7963,6 +7973,7 @@ export interface components {
             /**
              * @description The database's name. The name must be unique across all components within the same app and cannot use capital letters.
              * @example prod-db
+             * @pattern ^[a-z][a-z0-9-]{0,30}[a-z0-9]$
              */
             name: string;
             /**
@@ -8019,9 +8030,9 @@ export interface components {
              */
             authority?: string;
             /**
-             * Format: int64
              * @description The port to redirect to.
              * @example 443
+             * @format int64
              */
             port?: number;
             /**
@@ -8030,9 +8041,9 @@ export interface components {
              */
             scheme?: string;
             /**
-             * Format: int64
              * @description The redirect code to use. Defaults to `302`. Supported values are 300, 301, 302, 303, 304, 307, 308.
              * @example 302
+             * @format int64
              */
             redirect_code?: number;
         };
@@ -8084,6 +8095,7 @@ export interface components {
             /**
              * @description The name of the app. Must be unique across all apps in the same account.
              * @example web-app-01
+             * @pattern ^[a-z][a-z0-9-]{0,30}[a-z0-9]$
              */
             name: string;
             /**
@@ -8151,8 +8163,8 @@ export interface components {
             cloned_from?: string;
             /**
              * The creation time of the deployment
-             * Format: date-time
              * @example 2020-07-28T18:00:00Z
+             * @format date-time
              */
             created_at?: string;
             /**
@@ -8167,8 +8179,8 @@ export interface components {
             phase?: components["schemas"]["apps_deployment_phase"];
             /**
              * When the deployment phase was last updated
-             * Format: date-time
              * @example 0001-01-01T00:00:00Z
+             * @format date-time
              */
             phase_last_updated_at?: string;
             progress?: components["schemas"]["apps_deployment_progress"];
@@ -8184,8 +8196,8 @@ export interface components {
             readonly tier_slug?: string;
             /**
              * When the deployment was last updated
-             * Format: date-time
              * @example 2020-07-28T18:00:00Z
+             * @format date-time
              */
             updated_at?: string;
             /** Worker components that are part of this deployment */
@@ -8228,8 +8240,8 @@ export interface components {
             readonly rotate_validation_records?: boolean;
             /**
              * Current SSL certificate expiration time
-             * Format: date-time
              * @example 2024-01-29T23:59:59Z
+             * @format date-time
              */
             readonly certificate_expires_at?: string;
         };
@@ -8303,8 +8315,8 @@ export interface components {
             active_deployment?: components["schemas"]["apps_deployment"];
             /**
              * The creation time of the app
-             * Format: date-time
              * @example 2020-11-19T20:27:18Z
+             * @format date-time
              */
             readonly created_at?: string;
             /**
@@ -8322,8 +8334,8 @@ export interface components {
             in_progress_deployment?: components["schemas"]["apps_deployment"];
             /**
              * The creation time of the last deployment
-             * Format: date-time
              * @example 2020-11-19T20:27:18Z
+             * @format date-time
              */
             readonly last_deployment_created_at?: string;
             /**
@@ -8361,8 +8373,8 @@ export interface components {
             readonly tier_slug?: string;
             /**
              * Time of the app's last configuration update
-             * Format: date-time
              * @example 2020-12-01T00:42:16Z
+             * @format date-time
              */
             readonly updated_at?: string;
             pinned_deployment?: unknown & components["schemas"]["apps_deployment"];
@@ -8448,15 +8460,15 @@ export interface components {
         apps_instance_size: {
             /**
              * The bandwidth allowance in GiB for the instance size
-             * Format: int64
              * @example 1
+             * @format int64
              */
             bandwidth_allowance_gib?: string;
             cpu_type?: components["schemas"]["instance_size_cpu_type"];
             /**
              * The number of allotted vCPU cores
-             * Format: int64
              * @example 3
+             * @format int64
              */
             cpus?: string;
             /**
@@ -8466,8 +8478,8 @@ export interface components {
             deprecation_intent?: boolean;
             /**
              * The allotted memory in bytes
-             * Format: int64
              * @example 1048
+             * @format int64
              */
             memory_bytes?: string;
             /**
@@ -8520,8 +8532,8 @@ export interface components {
         };
         apps_list_instance_sizes_response: {
             /**
-             * Format: float
              * @example 2.32
+             * @format float
              */
             discount_percent?: number;
             instance_sizes?: components["schemas"]["apps_instance_size"][];
@@ -8563,16 +8575,16 @@ export interface components {
             existing_static_apps?: string;
             spec?: components["schemas"]["app_spec"];
             /**
-             * Format: int32
              * @description The monthly cost of the proposed app in USD.
              * @example 5
+             * @format int32
              */
             app_cost?: number;
             /**
-             * Format: int32
              * @deprecated
              * @description The monthly cost of the proposed app in USD using the previous pricing plan tier. For example, if you propose an app that uses the Professional tier, the `app_tier_downgrade_cost` field displays the monthly cost of the app if it were to use the Basic tier. If the proposed app already uses the lest expensive tier, the field is empty.
              * @example 17
+             * @format int32
              */
             app_tier_downgrade_cost?: number;
         };
@@ -8626,14 +8638,14 @@ export interface components {
             status?: components["schemas"]["app_alert_progress_step_status"];
             /**
              * The start time of this step
-             * Format: date-time
              * @example 2020-11-19T20:27:18Z
+             * @format date-time
              */
             started_at?: string;
             /**
              * The start time of this step
-             * Format: date-time
              * @example 2020-11-19T20:27:18Z
+             * @format date-time
              */
             ended_at?: string;
             reason?: components["schemas"]["app_alert_progress_step_reason"];
@@ -8732,9 +8744,9 @@ export interface components {
              */
             app_id?: string;
             /**
-             * Format: uint64
              * @description The used bandwidth amount in bytes.
              * @example 513668
+             * @format uint64
              */
             bandwidth_bytes?: string;
         };
@@ -8742,9 +8754,9 @@ export interface components {
             /** @description A list of bandwidth usage details by app. */
             app_bandwidth_usage?: components["schemas"]["app_metrics_bandwidth_usage_details"][];
             /**
-             * Format: date-time
              * @description The date for the metrics data.
              * @example 2023-01-17T00:00:00Z
+             * @format date-time
              */
             date?: string;
         };
@@ -8758,29 +8770,29 @@ export interface components {
              */
             app_ids: string[];
             /**
-             * Format: date-time
              * @description Optional day to query. Only the date component of the timestamp will be considered. Default: yesterday.
              * @example 2023-01-17T00:00:00Z
+             * @format date-time
              */
             date?: string;
         };
         cdn_endpoint: {
             /**
-             * Format: uuid
              * @description A unique ID that can be used to identify and reference a CDN endpoint.
              * @example 892071a0-bb95-49bc-8021-3afd67a210bf
+             * @format uuid
              */
             readonly id?: string;
             /**
-             * Format: hostname
              * @description The fully qualified domain name (FQDN) for the origin server which provides the content for the CDN. This is currently restricted to a Space.
              * @example static-images.nyc3.digitaloceanspaces.com
+             * @format hostname
              */
             origin: string;
             /**
-             * Format: hostname
              * @description The fully qualified domain name (FQDN) from which the CDN-backed content is served.
              * @example static-images.nyc3.cdn.digitaloceanspaces.com
+             * @format hostname
              */
             readonly endpoint?: string;
             /**
@@ -8791,21 +8803,21 @@ export interface components {
              */
             ttl: 60 | 600 | 3600 | 86400 | 604800;
             /**
-             * Format: uuid
              * @description The ID of a DigitalOcean managed TLS certificate used for SSL when a custom subdomain is provided.
              * @example 892071a0-bb95-49bc-8021-3afd67a210bf
+             * @format uuid
              */
             certificate_id?: string;
             /**
-             * Format: hostname
              * @description The fully qualified domain name (FQDN) of the custom subdomain used with the CDN endpoint.
              * @example static.example.com
+             * @format hostname
              */
             custom_domain?: string;
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the CDN endpoint was created.
              * @example 2018-03-21T16:02:37Z
+             * @format date-time
              */
             readonly created_at?: string;
         };
@@ -8818,15 +8830,15 @@ export interface components {
              */
             ttl: 60 | 600 | 3600 | 86400 | 604800;
             /**
-             * Format: uuid
              * @description The ID of a DigitalOcean managed TLS certificate used for SSL when a custom subdomain is provided.
              * @example 892071a0-bb95-49bc-8021-3afd67a210bf
+             * @format uuid
              */
             certificate_id?: string;
             /**
-             * Format: hostname
              * @description The fully qualified domain name (FQDN) of the custom subdomain used with the CDN endpoint.
              * @example static.example.com
+             * @format hostname
              */
             custom_domain?: string;
         };
@@ -8842,9 +8854,9 @@ export interface components {
         };
         certificate: {
             /**
-             * Format: uuid
              * @description A unique ID that can be used to identify and reference a certificate.
              * @example 892071a0-bb95-49bc-8021-3afd67a210bf
+             * @format uuid
              */
             readonly id?: string;
             /**
@@ -8853,9 +8865,9 @@ export interface components {
              */
             name?: string;
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents the certificate's expiration date.
              * @example 2017-02-22T00:23:00Z
+             * @format date-time
              */
             readonly not_after?: string;
             /**
@@ -8864,9 +8876,9 @@ export interface components {
              */
             readonly sha1_fingerprint?: string;
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the certificate was created.
              * @example 2017-02-08T16:02:37Z
+             * @format date-time
              */
             readonly created_at?: string;
             /**
@@ -9061,9 +9073,9 @@ export interface components {
              */
             month_to_date_usage?: string;
             /**
-             * Format: date-time
              * @description The time at which balances were most recently generated.
              * @example 2019-07-09T15:01:12Z
+             * @format date-time
              */
             generated_at?: string;
         };
@@ -9089,9 +9101,9 @@ export interface components {
              */
             invoice_uuid?: string;
             /**
-             * Format: date-time
              * @description Time the billing history entry occurred.
              * @example 2018-06-01T08:44:38Z
+             * @format date-time
              */
             date?: string;
             /**
@@ -9368,11 +9380,13 @@ export interface components {
         };
         database_version_availability: {
             /**
+             * @nullable
              * @description A timestamp referring to the date when the particular version will no longer be supported. If null, the version does not have an end of life timeline.
              * @example 2023-11-09T00:00:00Z
              */
             end_of_life?: string | null;
             /**
+             * @nullable
              * @description A timestamp referring to the date when the particular version will no longer be available for creating new clusters. If null, the version does not have an end of availability timeline.
              * @example 2023-05-09T00:00:00Z
              */
@@ -9612,6 +9626,7 @@ export interface components {
             mysql_settings?: components["schemas"]["mysql_settings"];
             settings?: components["schemas"]["user_settings"];
         };
+        /** @nullable */
         database_maintenance_window: {
             /**
              * @description The day of the week on which to apply maintenance updates.
@@ -9641,11 +9656,13 @@ export interface components {
             /**
              * @description A unique ID for the firewall rule itself.
              * @example 79f26d28-ea8a-41f2-8ad8-8cfcdd020095
+             * @pattern ^$|[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}
              */
             uuid?: string;
             /**
              * @description A unique ID for the database cluster to which the rule is applied.
              * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+             * @pattern ^$|[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}
              */
             readonly cluster_uuid?: string;
             /**
@@ -9660,9 +9677,9 @@ export interface components {
              */
             value: string;
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the firewall rule was created.
              * @example 2019-01-11T18:37:36Z
+             * @format date-time
              */
             readonly created_at?: string;
         };
@@ -9680,9 +9697,9 @@ export interface components {
         };
         database_cluster: {
             /**
-             * Format: uuid
              * @description A unique ID that can be used to identify and reference a database cluster.
              * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+             * @format uuid
              */
             readonly id?: string;
             /**
@@ -9728,17 +9745,19 @@ export interface components {
              */
             readonly status?: "creating" | "online" | "resizing" | "migrating" | "forking";
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the database cluster was created.
              * @example 2019-01-11T18:37:36Z
+             * @format date-time
              */
             readonly created_at?: string;
             /**
              * @description A string specifying the UUID of the VPC to which the database cluster will be assigned. If excluded, the cluster when creating a new database cluster, it will be assigned to your account's default VPC for the region.
              * @example d455e75d-4858-4eec-8c95-da2f0a5f93a7
+             * @pattern ^$|[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}
              */
             private_network_uuid?: string;
             /**
+             * @nullable
              * @description An array of tags that have been applied to the database cluster.
              * @example [
              *       "production"
@@ -9746,6 +9765,7 @@ export interface components {
              */
             tags?: string[] | null;
             /**
+             * @nullable
              * @description An array of strings containing the names of databases created in the database cluster.
              * @example [
              *       "doadmin"
@@ -9758,12 +9778,13 @@ export interface components {
             private_connection?: components["schemas"]["database_connection"] & unknown;
             standby_connection?: components["schemas"]["database_connection"] & unknown;
             standby_private_connection?: components["schemas"]["database_connection"] & unknown;
+            /** @nullable */
             readonly users?: components["schemas"]["database_user"][] | null;
             maintenance_window?: components["schemas"]["database_maintenance_window"] & unknown;
             /**
-             * Format: uuid
              * @description The ID of the project that the database cluster is assigned to. If excluded when creating a new database cluster, it will be assigned to your default project.
              * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+             * @format uuid
              */
             project_id?: string;
             rules?: components["schemas"]["firewall_rule"][];
@@ -9792,9 +9813,9 @@ export interface components {
              */
             database_name: string;
             /**
-             * Format: date-time
              * @description The timestamp of an existing database cluster backup in ISO8601 combined date and time format. The most recent backup will be used if excluded.
              * @example 2019-01-31T19:25:22Z
+             * @format date-time
              */
             backup_created_at?: string;
         };
@@ -9812,6 +9833,7 @@ export interface components {
             /**
              * @description Global SQL mode. If empty, uses MySQL server defaults. Must only include uppercase alphabetic characters, underscores, and commas.
              * @example ANSI,TRADITIONAL
+             * @pattern ^[A-Z_]*(,[A-Z_]+)*$
              */
             sql_mode?: string;
             /**
@@ -9842,6 +9864,7 @@ export interface components {
             /**
              * @description The InnoDB FULLTEXT index stopword list for all InnoDB tables.
              * @example db_name/table_name
+             * @pattern ^.+/.+$
              */
             innodb_ft_server_stopword_table?: string;
             /**
@@ -10219,6 +10242,7 @@ export interface components {
             /**
              * @description Controls which role to use for pg_partman's scheduled background tasks. Must consist of alpha-numeric characters, dots, underscores, or dashes. May not start with dash or dot. Maximum of 64 characters.
              * @example myrolename
+             * @pattern ^[_A-Za-z0-9][-._A-Za-z0-9]{0,63}$
              */
             "pg_partman_bgw.role"?: string;
             /**
@@ -10384,6 +10408,7 @@ export interface components {
              *     - `A` &mdash; Alias for `"g$lshztxed"`
              * @default
              * @example K
+             * @pattern ^[KEg\$lshzxeA]*$
              */
             redis_notify_keyspace_events: string;
             /**
@@ -10927,9 +10952,9 @@ export interface components {
              */
             size: string;
             /**
-             * Format: int32
              * @description The number of nodes in the database cluster. Valid values are are 1-3. In addition to the primary node, up to two standby nodes may be added for highly available configurations.
              * @example 3
+             * @format int32
              */
             num_nodes: number;
             /**
@@ -10940,9 +10965,9 @@ export interface components {
         };
         backup: {
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format at which the backup was created.
              * @example 2019-01-31T19:25:22Z
+             * @format date-time
              */
             created_at: string;
             /**
@@ -10953,9 +10978,9 @@ export interface components {
         };
         database_replica: {
             /**
-             * Format: uuid
              * @description A unique ID that can be used to identify and reference a database replica.
              * @example 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+             * @format uuid
              */
             readonly id?: string;
             /**
@@ -10987,9 +11012,9 @@ export interface components {
              */
             tags?: string[];
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the database cluster was created.
              * @example 2019-01-11T18:37:36Z
+             * @format date-time
              */
             readonly created_at?: string;
             /**
@@ -11047,9 +11072,9 @@ export interface components {
              */
             mode: string;
             /**
-             * Format: int32
              * @description The desired size of the PGBouncer connection pool. The maximum allowed size is determined by the size of the cluster's primary node. 25 backend server connections are allowed for every 1GB of RAM. Three are reserved for maintenance. For example, a primary node with 1 GB of RAM allows for a maximum of 22 backend server connections while one with 4 GB would allow for 97. Note that these are shared across all connection pools in a cluster.
              * @example 10
+             * @format int32
              */
             size: number;
             /**
@@ -11078,9 +11103,9 @@ export interface components {
              */
             mode: string;
             /**
-             * Format: int32
              * @description The desired size of the PGBouncer connection pool. The maximum allowed size is determined by the size of the cluster's primary node. 25 backend server connections are allowed for every 1GB of RAM. Three are reserved for maintenance. For example, a primary node with 1 GB of RAM allows for a maximum of 22 backend server connections while one with 4 GB would allow for 97. Note that these are shared across all connection pools in a cluster.
              * @example 10
+             * @format int32
              */
             size: number;
             /**
@@ -11212,10 +11237,10 @@ export interface components {
              */
             message_timestamp_type: "create_time" | "log_append_time";
             /**
-             * Format: float
              * @description The min_cleanable_dirty_ratio specifies the frequency of log compaction (if enabled) in relation to duplicates present in the logs. For example, at 0.5, at most 50% of the log could be duplicates before compaction would begin.
              * @default 0.5
              * @example 0.5
+             * @format float
              */
             min_cleanable_dirty_ratio: number;
             /**
@@ -11291,6 +11316,7 @@ export interface components {
              * @example 0
              */
             earliest_offset?: number;
+            /** @nullable */
             consumer_groups?: {
                 /**
                  * @description Name of the consumer group.
@@ -11422,10 +11448,10 @@ export interface components {
              */
             index_days_max: number;
             /**
-             * Format: float
              * @description Elasticsearch request timeout limit
              * @default 10
              * @example 10
+             * @format float
              */
             timeout: number;
             /**
@@ -11452,10 +11478,10 @@ export interface components {
              */
             index_days_max: number;
             /**
-             * Format: float
              * @description Opensearch request timeout limit
              * @default 10
              * @example 10
+             * @format float
              */
             timeout: number;
             /**
@@ -11532,9 +11558,9 @@ export interface components {
              */
             size?: number;
             /**
-             * Format: date-time
              * @description The date and time the index was created.
              * @example 2021-01-01T00:00:00Z
+             * @format date-time
              */
             created_time?: string;
         };
@@ -11564,11 +11590,13 @@ export interface components {
              */
             ip_address?: string;
             /**
+             * @nullable
              * @description This value is the time to live for the records on this domain, in seconds. This defines the time frame that clients can cache queried information before a refresh should be requested.
              * @example 1800
              */
             readonly ttl?: number | null;
             /**
+             * @nullable
              * @description This attribute contains the complete contents of the zone file for the selected domain. Individual domain record resources should be used to get more granular control over records. However, this attribute can also be used to get information about the SOA record, which is created automatically and is not accessible as an individual record resource.
              * @example $ORIGIN example.com.
              *     $TTL 1800
@@ -11602,11 +11630,13 @@ export interface components {
              */
             data?: string;
             /**
+             * @nullable
              * @description The priority for SRV and MX records.
              * @example null
              */
             priority?: number | null;
             /**
+             * @nullable
              * @description The port for SRV records.
              * @example null
              */
@@ -11617,16 +11647,19 @@ export interface components {
              */
             ttl?: number;
             /**
+             * @nullable
              * @description The weight for SRV records.
              * @example null
              */
             weight?: number | null;
             /**
+             * @nullable
              * @description An unsigned integer between 0-255 used for CAA records.
              * @example null
              */
             flags?: number | null;
             /**
+             * @nullable
              * @description The parameter tag for CAA records. Valid values are "issue", "issuewild", or "iodef"
              * @example null
              */
@@ -11663,6 +11696,7 @@ export interface components {
         };
         /**
          * @deprecated
+         * @nullable
          * @description **Note**: All Droplets created after March 2017 use internal kernels by default.
          *     These Droplets will have this attribute set to `null`.
          *
@@ -11687,17 +11721,18 @@ export interface components {
              */
             version?: string;
         } | null;
+        /** @nullable */
         droplet_next_backup_window: {
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format specifying the start of the Droplet's backup window.
              * @example 2019-12-04T00:00:00Z
+             * @format date-time
              */
             start?: string;
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format specifying the end of the Droplet's backup window.
              * @example 2019-12-04T23:00:00Z
+             * @format date-time
              */
             end?: string;
         } | null;
@@ -11732,6 +11767,7 @@ export interface components {
          */
         image_description: string;
         /**
+         * @nullable
          * @description A flat array of tag names as strings to be applied to the resource. Tag names may be for either existing or new tags.
          * @example [
          *       "base-image",
@@ -11754,6 +11790,7 @@ export interface components {
             type?: "base" | "snapshot" | "backup" | "custom" | "admin";
             distribution?: components["schemas"]["distribution"];
             /**
+             * @nullable
              * @description A uniquely identifying string that is associated with each of the DigitalOcean-provided public images. These can be used to reference a public image as an alternative to the numeric id.
              * @example nifty1
              */
@@ -11765,20 +11802,22 @@ export interface components {
             public?: boolean;
             regions?: components["schemas"]["regions_array"];
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the image was created.
              * @example 2020-05-04T22:23:02Z
+             * @format date-time
              */
             created_at?: string;
             /**
+             * @nullable
              * @description The minimum disk size in GB required for a Droplet to use this image.
              * @example 20
              */
             min_disk_size?: number | null;
             /**
-             * Format: float
+             * @nullable
              * @description The size of the image in gigabytes.
              * @example 2.34
+             * @format float
              */
             size_gigabytes?: number | null;
             description?: components["schemas"]["image_description"];
@@ -11844,21 +11883,21 @@ export interface components {
              */
             disk: number;
             /**
-             * Format: float
              * @description The amount of transfer bandwidth that is available for Droplets created in this size. This only counts traffic on the public interface. The value is given in terabytes.
              * @example 1
+             * @format float
              */
             transfer: number;
             /**
-             * Format: float
              * @description This attribute describes the monthly cost of this Droplet size if the Droplet is kept for an entire month. The value is measured in US dollars.
              * @example 5
+             * @format float
              */
             price_monthly: number;
             /**
-             * Format: float
              * @description This describes the price of the Droplet size as measured hourly. The value is measured in US dollars.
              * @example 0.00743999984115362
+             * @format float
              */
             price_hourly: number;
             /**
@@ -11897,15 +11936,15 @@ export interface components {
         };
         network_v4: {
             /**
-             * Format: ipv4
              * @description The IP address of the IPv4 network interface.
              * @example 104.236.32.182
+             * @format ipv4
              */
             ip_address?: string;
             /**
-             * Format: ipv4
              * @description The netmask of the IPv4 network interface.
              * @example 255.255.192.0
+             * @format ipv4
              */
             netmask?: string;
             /**
@@ -11925,9 +11964,9 @@ export interface components {
         };
         network_v6: {
             /**
-             * Format: ipv6
              * @description The IP address of the IPv6 network interface.
              * @example 2604:a880:0:1010::18a:a001
+             * @format ipv6
              */
             ip_address?: string;
             /**
@@ -11936,9 +11975,9 @@ export interface components {
              */
             netmask?: number;
             /**
-             * Format: ipv6
              * @description The gateway of the specified IPv6 network interface.
              * @example 2604:a880:0:1010::1
+             * @format ipv6
              */
             gateway?: string;
             /**
@@ -11991,9 +12030,9 @@ export interface components {
             status: "new" | "active" | "off" | "archive";
             kernel?: components["schemas"]["kernel"];
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the Droplet was created.
              * @example 2020-07-21T18:37:44Z
+             * @format date-time
              */
             created_at: string;
             /**
@@ -12130,6 +12169,7 @@ export interface components {
              */
             monitoring: boolean;
             /**
+             * @nullable
              * @description A flat array of tag names as strings to apply to the Droplet after it is created. Tag names can either be existing or new tags.
              * @default []
              * @example [
@@ -12176,6 +12216,7 @@ export interface components {
             /**
              * @description The human-readable string you wish to use when displaying the Droplet name. The name, if set to a domain name managed in the DigitalOcean DNS management system, will configure a PTR record for the Droplet. The name set during creation will also determine the hostname for the Droplet in its internal configuration.
              * @example example.com
+             * @pattern ^[a-zA-Z0-9]?[a-z0-9A-Z.\-]*[a-z0-9A-Z]$
              */
             name: string;
         } & components["schemas"]["droplet_create"];
@@ -12203,9 +12244,9 @@ export interface components {
              */
             rel?: string;
             /**
-             * Format: uri
              * @description A URL that can be used to access the action.
              * @example https://api.digitalocean.com/v2/actions/7515
+             * @format uri
              */
             href?: string;
         };
@@ -12216,9 +12257,9 @@ export interface components {
              */
             name: string;
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the snapshot was created.
              * @example 2020-07-28T16:47:44Z
+             * @format date-time
              */
             created_at: string;
             /**
@@ -12235,9 +12276,9 @@ export interface components {
              */
             min_disk_size: number;
             /**
-             * Format: float
              * @description The billable size of the snapshot in gigabytes.
              * @example 2.34
+             * @format float
              */
             size_gigabytes: number;
         };
@@ -12399,6 +12440,7 @@ export interface components {
             type: "snapshot";
         };
         /**
+         * @nullable
          * @description A flat array of tag names as strings to be applied to the resource. Tag names must exist in order to be referenced in a request.
          * @example [
          *       "base-image",
@@ -12452,9 +12494,11 @@ export interface components {
             tags?: components["schemas"]["existing_tags_array"] & unknown;
         };
         firewall_rules: {
+            /** @nullable */
             inbound_rules?: (components["schemas"]["firewall_rule_base"] & {
                 sources: components["schemas"]["firewall_rule_target"] & unknown;
             })[] | null;
+            /** @nullable */
             outbound_rules?: (components["schemas"]["firewall_rule_base"] & {
                 destinations: components["schemas"]["firewall_rule_target"] & unknown;
             })[] | null;
@@ -12472,9 +12516,9 @@ export interface components {
              */
             readonly status?: "waiting" | "succeeded" | "failed";
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the firewall was created.
              * @example 2020-05-23T21:24:00Z
+             * @format date-time
              */
             readonly created_at?: string;
             /**
@@ -12498,9 +12542,11 @@ export interface components {
             /**
              * @description A human-readable name for a firewall. The name must begin with an alphanumeric character. Subsequent characters must either be alphanumeric characters, a period (.), or a dash (-).
              * @example firewall
+             * @pattern ^[a-zA-Z0-9][a-zA-Z0-9\.-]+$
              */
             name?: string;
             /**
+             * @nullable
              * @description An array containing the IDs of the Droplets assigned to the firewall.
              * @example [
              *       8043964
@@ -12579,9 +12625,9 @@ export interface components {
              */
             name?: string;
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format indicating when the resource was destroyed if the request was successful.
              * @example 2020-04-01T18:11:49Z
+             * @format date-time
              */
             destroyed_at?: string;
             /**
@@ -12602,9 +12648,9 @@ export interface components {
                 volume_snapshots?: components["schemas"]["destroyed_associated_resource"][];
             };
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format indicating when the requested action was completed.
              * @example 2020-04-01T18:11:49Z
+             * @format date-time
              */
             completed_at?: string;
             /**
@@ -12633,15 +12679,15 @@ export interface components {
              */
             max_instances: number;
             /**
-             * Format: float
              * @description Target CPU utilization as a decimal.
              * @example 0.6
+             * @format float
              */
             target_cpu_utilization?: number;
             /**
-             * Format: float
              * @description Target memory utilization as a decimal.
              * @example 0.6
+             * @format float
              */
             target_memory_utilization?: number;
             /**
@@ -12716,15 +12762,15 @@ export interface components {
         };
         current_utilization: {
             /**
-             * Format: float
              * @description The average memory utilization of the autoscale pool.
              * @example 0.3588531587713522
+             * @format float
              */
             memory?: number;
             /**
-             * Format: float
              * @description The average CPU utilization of the autoscale pool.
              * @example 0.0007338008770232183
+             * @format float
              */
             cpu?: number;
         };
@@ -12745,16 +12791,16 @@ export interface components {
             current_utilization?: components["schemas"]["current_utilization"];
             /**
              * The creation time of the autoscale pool
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the autoscale pool was created.
              * @example 2020-07-28T18:00:00Z
+             * @format date-time
              */
             created_at: string;
             /**
              * When the autoscale pool was last updated
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the autoscale pool was last updated.
              * @example 2020-07-28T18:00:00Z
+             * @format date-time
              */
             updated_at: string;
             /**
@@ -12781,15 +12827,15 @@ export interface components {
         };
         member_current_utilization: {
             /**
-             * Format: float
              * @description The memory utilization average of the individual Droplet.
              * @example 0.3588531587713522
+             * @format float
              */
             memory?: number;
             /**
-             * Format: float
              * @description The CPU utilization average of the individual Droplet.
              * @example 0.0007338008770232183
+             * @format float
              */
             cpu?: number;
         };
@@ -12800,15 +12846,15 @@ export interface components {
              */
             droplet_id: number;
             /**
-             * Format: date-time
              * @description The creation time of the Droplet in ISO8601 combined date and time format.
              * @example 2020-07-28T18:00:00Z
+             * @format date-time
              */
             created_at: string;
             /**
-             * Format: date-time
              * @description The last updated time of the Droplet in ISO8601 combined date and time format.
              * @example 2020-07-28T18:00:00Z
+             * @format date-time
              */
             updated_at: string;
             /**
@@ -12853,23 +12899,23 @@ export interface components {
              */
             status: "in_progress" | "success" | "error";
             /**
-             * Format: date-time
              * @description The creation time of the history event in ISO8601 combined date and time format.
              * @example 2020-07-28T18:00:00Z
+             * @format date-time
              */
             created_at: string;
             /**
-             * Format: date-time
              * @description The last updated time of the history event in ISO8601 combined date and time format.
              * @example 2020-07-28T18:00:00Z
+             * @format date-time
              */
             updated_at: string;
         };
         floating_ip: {
             /**
-             * Format: ipv4
              * @description The public IP address of the floating IP. It also serves as its identifier.
              * @example 45.55.96.47
+             * @format ipv4
              */
             ip?: string;
             region?: components["schemas"]["region"] & Record<string, never>;
@@ -12884,9 +12930,9 @@ export interface components {
              */
             locked?: boolean;
             /**
-             * Format: uuid
              * @description The UUID of the project to which the reserved IP currently belongs.
              * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
+             * @format uuid
              */
             project_id?: string;
         };
@@ -12903,9 +12949,9 @@ export interface components {
              */
             region: string;
             /**
-             * Format: uuid
              * @description The UUID of the project to which the floating IP will be assigned.
              * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
+             * @format uuid
              */
             project_id?: string;
         };
@@ -12998,7 +13044,10 @@ export interface components {
              * @example * * * * *
              */
             cron: string;
-            /** @description Optional data to be sent to function while triggering the function. */
+            /**
+             * @nullable
+             * @description Optional data to be sent to function while triggering the function.
+             */
             body?: {
                 /** @example Welcome to DO! */
                 name?: string;
@@ -13043,11 +13092,13 @@ export interface components {
             scheduled_details?: components["schemas"]["scheduled_details"];
             scheduled_runs?: {
                 /**
+                 * @nullable
                  * @description Indicates last run time. null value indicates trigger not run yet.
                  * @example 2022-11-11T04:16:45Z
                  */
                 last_run_at?: string | null;
                 /**
+                 * @nullable
                  * @description Indicates next run time. null value indicates trigger will not run.
                  * @example 2022-11-11T04:16:45Z
                  */
@@ -13150,9 +13201,9 @@ export interface components {
         };
         node: {
             /**
-             * Format: uuid
              * @description A unique ID that can be used to identify and reference the node.
              * @example e78247f8-b1bb-4f7a-8db9-2a5f8d4b8f8f
+             * @format uuid
              */
             id?: string;
             /**
@@ -13175,23 +13226,23 @@ export interface components {
              */
             droplet_id?: string;
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the node was created.
              * @example 2018-11-15T16:00:11Z
+             * @format date-time
              */
             created_at?: string;
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the node was last updated.
              * @example 2018-11-15T16:00:11Z
+             * @format date-time
              */
             updated_at?: string;
         };
         kubernetes_node_pool_base: {
             /**
-             * Format: uuid
              * @description A unique ID that can be used to identify and reference a specific node pool.
              * @example cdda885e-7663-40c8-bc74-3a036c66545d
+             * @format uuid
              */
             readonly id?: string;
             /**
@@ -13216,6 +13267,7 @@ export interface components {
              */
             tags?: string[];
             /**
+             * @nullable
              * @description An object of key/value mappings specifying labels to apply to all nodes in a pool. Labels will automatically be applied to all existing nodes and any subsequent nodes added to the pool. Note that when a label is removed, it is not deleted from the nodes in the pool.
              * @example null
              */
@@ -13241,7 +13293,10 @@ export interface components {
             readonly nodes?: components["schemas"]["node"][];
         };
         kubernetes_node_pool: WithRequired<components["schemas"]["kubernetes_node_pool_size"], "size"> & WithRequired<components["schemas"]["kubernetes_node_pool_base"], "name" | "count">;
-        /** @description An object specifying the maintenance window policy for the Kubernetes cluster. */
+        /**
+         * @nullable
+         * @description An object specifying the maintenance window policy for the Kubernetes cluster.
+         */
         maintenance_policy: {
             /**
              * @description The start time in UTC of the maintenance window policy in 24-hour clock format / HH:MM notation (e.g., `15:00`).
@@ -13260,7 +13315,10 @@ export interface components {
              */
             day?: "any" | "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
         } | null;
-        /** @description An object specifying the control plane firewall for the Kubernetes cluster. Control plane firewall is in early availability (invite only). */
+        /**
+         * @nullable
+         * @description An object specifying the control plane firewall for the Kubernetes cluster. Control plane firewall is in early availability (invite only).
+         */
         control_plane_firewall: {
             /**
              * @description Indicates whether the control plane firewall is enabled.
@@ -13278,9 +13336,9 @@ export interface components {
         } | null;
         cluster: {
             /**
-             * Format: uuid
              * @description A unique ID that can be used to identify and reference a Kubernetes cluster.
              * @example bd5f5959-5e1e-4205-a714-a914373942af
+             * @format uuid
              */
             readonly id?: string;
             /**
@@ -13299,21 +13357,21 @@ export interface components {
              */
             version: string;
             /**
-             * Format: cidr
              * @description The range of IP addresses for the overlay network of the Kubernetes cluster in CIDR notation.
              * @example 192.168.0.0/20
+             * @format cidr
              */
             cluster_subnet?: string;
             /**
-             * Format: cidr
              * @description The range of assignable IP addresses for services running in the Kubernetes cluster in CIDR notation.
              * @example 192.168.16.0/24
+             * @format cidr
              */
             service_subnet?: string;
             /**
-             * Format: uuid
              * @description A string specifying the UUID of the VPC to which the Kubernetes cluster is assigned.
              * @example c33931f2-a26a-4e61-b85c-4e95a2ec431b
+             * @format uuid
              */
             vpc_uuid?: string;
             /**
@@ -13360,15 +13418,15 @@ export interface components {
                 message?: string;
             };
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the Kubernetes cluster was created.
              * @example 2018-11-15T16:00:11Z
+             * @format date-time
              */
             readonly created_at?: string;
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the Kubernetes cluster was last updated.
              * @example 2018-11-15T16:00:11Z
+             * @format date-time
              */
             readonly updated_at?: string;
             /**
@@ -13498,20 +13556,20 @@ export interface components {
         };
         credentials: {
             /**
-             * Format: uri
              * @description The URL used to access the cluster API server.
              * @example https://bd5f5959-5e1e-4205-a714-a914373942af.k8s.ondigitalocean.com
+             * @format uri
              */
             server?: string;
             /**
-             * Format: byte
              * @description A base64 encoding of bytes representing the certificate authority data for accessing the cluster.
              * @example LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURKekNDQWcrZ0F3SUJBZ0lDQm5Vd0RRWUpLb1pJaHZjTkFRRUxCUUF3TXpFVk1CTUdBMVVFQ2hNTVJHbG4KYVhSaGJFOWpaV0Z1TVJvd0dBWURWUVFERXhGck9ITmhZWE1nUTJ4MWMzUmxjaUJEUVRBZUZ3MHlNREE0TURNeApOVEkxTWpoYUZ3MDBNREE0TURNeE5USTFNamhhTURNeEZUQVRCZ05WQkFvVERFUnBaMmwwWVd4UFkyVmhiakVhCk1CZ0dBMVVFQXhNUmF6aHpZV0Z6SUVOc2RYTjBaWElnUTBFd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUIKRHdBd2dnRUtBb0lCQVFDc21oa2JrSEpUcGhZQlN0R05VVE1ORVZTd2N3bmRtajArelQvcUZaNGsrOVNxUnYrSgpBd0lCaGpBU0JnTlZIUk1CQWY4RUNEQUdBUUgvQWdFQU1CMEdBMVVkRGdRV0JCUlRzazhhZ1hCUnFyZXdlTXJxClhwa3E1NXg5dVRBTkJna3Foa2lHOXcwQkFRc0ZBQU9DQVFFQXB6V2F6bXNqYWxXTEx3ZjVpbWdDblNINDlKcGkKYWkvbzFMdEJvVEpleGdqZzE1ZVppaG5BMUJMc0lWNE9BZGM3UEFsL040L0hlbENrTDVxandjamRnNVdaYnMzYwozcFVUQ0g5bVVwMFg1SVdhT1VKV292Q1hGUlM1R2VKYXlkSDVPUXhqTURzR2N2UlNvZGQrVnQ2MXE3aWdFZ2I1CjBOZ1l5RnRnc2p0MHpJN3hURzZFNnlsOVYvUmFoS3lIQks2eExlM1RnUGU4SXhWa2RwT3QzR0FhSDRaK0pLR3gKYisyMVZia1NnRE1QQTlyR0VKNVZwVXlBV0FEVXZDRVFHV0hmNGpQN2ZGZlc3T050S0JWY3h3YWFjcVBVdUhzWApwRG5DZVR3V1NuUVp6L05xNmQxWUtsMFdtbkwzTEowemJzRVFGbEQ4MkkwL09MY2dZSDVxMklOZHhBPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+             * @format byte
              */
             certificate_authority_data?: string;
             /**
-             * Format: byte
              * @deprecated
+             * @nullable
              * @description A base64 encoding of bytes representing the x509 client
              *     certificate data for access the cluster. This is only returned for clusters
              *     without support for token-based authentication.
@@ -13520,11 +13578,12 @@ export interface components {
              *     certificate-based authentication. For additional information,
              *     [see here](https://docs.digitalocean.com/products/kubernetes/how-to/connect-to-cluster/#authenticate).
              * @example null
+             * @format byte
              */
             client_certificate_data?: string | null;
             /**
-             * Format: byte
              * @deprecated
+             * @nullable
              * @description A base64 encoding of bytes representing the x509 client key
              *     data for access the cluster. This is only returned for clusters without
              *     support for token-based authentication.
@@ -13533,6 +13592,7 @@ export interface components {
              *     certificate-based authentication. For additional information,
              *     [see here](https://docs.digitalocean.com/products/kubernetes/how-to/connect-to-cluster/#authenticate).
              * @example null
+             * @format byte
              */
             client_key_data?: string | null;
             /**
@@ -13541,9 +13601,9 @@ export interface components {
              */
             token?: string;
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the access token expires.
              * @example 2019-11-09T11:50:28.889080521Z
+             * @format date-time
              */
             expires_at?: string;
         };
@@ -13572,9 +13632,9 @@ export interface components {
         user: {
             kubernetes_cluster_user?: {
                 /**
-                 * Format: email
                  * @description The username for the cluster admin user.
                  * @example sammy@digitalocean.com
+                 * @format email
                  */
                 username?: string;
                 /**
@@ -13624,15 +13684,15 @@ export interface components {
              */
             run_id?: string;
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the schedule clusterlint run request was made.
              * @example 2019-10-30T05:34:07Z
+             * @format date-time
              */
             requested_at?: string;
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the schedule clusterlint run request was completed.
              * @example 2019-10-30T05:34:11Z
+             * @format date-time
              */
             completed_at?: string;
             /** @description An array of diagnostics reporting potential problems for the given cluster. */
@@ -13895,9 +13955,9 @@ export interface components {
         };
         load_balancer_base: {
             /**
-             * Format: uuid
              * @description A unique ID that can be used to identify and reference a load balancer.
              * @example 4de7ac8b-495b-4884-9a69-1050c6793cd6
+             * @format uuid
              */
             readonly id?: string;
             /**
@@ -13913,6 +13973,7 @@ export interface components {
             /**
              * @description An attribute containing the public-facing IP address of the load balancer.
              * @example 104.131.186.241
+             * @pattern ^$|^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$
              */
             readonly ip?: string;
             /**
@@ -13949,9 +14010,9 @@ export interface components {
              */
             readonly status?: "new" | "active" | "errored";
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the load balancer was created.
              * @example 2017-02-01T22:22:58Z
+             * @format date-time
              */
             readonly created_at?: string;
             /** @description An array of objects specifying the forwarding rules for a load balancer. */
@@ -13983,9 +14044,9 @@ export interface components {
              */
             http_idle_timeout_seconds: number;
             /**
-             * Format: uuid
              * @description A string specifying the UUID of the VPC to which the load balancer is assigned.
              * @example c33931f2-a26a-4e61-b85c-4e95a2ec431b
+             * @format uuid
              */
             vpc_uuid?: string;
             /**
@@ -14113,8 +14174,8 @@ export interface components {
             /** @example 78b3da62-27e5-49ba-ac70-5db0b5935c64 */
             uuid: string;
             /**
-             * Format: float
              * @example 80
+             * @format float
              */
             value: number;
             /**
@@ -14155,8 +14216,8 @@ export interface components {
              */
             type: "v1/insights/droplet/load_1" | "v1/insights/droplet/load_5" | "v1/insights/droplet/load_15" | "v1/insights/droplet/memory_utilization_percent" | "v1/insights/droplet/disk_utilization_percent" | "v1/insights/droplet/cpu" | "v1/insights/droplet/disk_read" | "v1/insights/droplet/disk_write" | "v1/insights/droplet/public_outbound_bandwidth" | "v1/insights/droplet/public_inbound_bandwidth" | "v1/insights/droplet/private_outbound_bandwidth" | "v1/insights/droplet/private_inbound_bandwidth" | "v1/insights/lbaas/avg_cpu_utilization_percent" | "v1/insights/lbaas/connection_utilization_percent" | "v1/insights/lbaas/droplet_health" | "v1/insights/lbaas/tls_connections_per_second_utilization_percent" | "v1/insights/lbaas/increase_in_http_error_rate_percentage_5xx" | "v1/insights/lbaas/increase_in_http_error_rate_percentage_4xx" | "v1/insights/lbaas/increase_in_http_error_rate_count_5xx" | "v1/insights/lbaas/increase_in_http_error_rate_count_4xx" | "v1/insights/lbaas/high_http_request_response_time" | "v1/insights/lbaas/high_http_request_response_time_50p" | "v1/insights/lbaas/high_http_request_response_time_95p" | "v1/insights/lbaas/high_http_request_response_time_99p" | "v1/dbaas/alerts/load_15_alerts" | "v1/dbaas/alerts/memory_utilization_alerts" | "v1/dbaas/alerts/disk_utilization_alerts" | "v1/dbaas/alerts/cpu_alerts" | "v1/droplet/autoscale_alerts/current_instances" | "v1/droplet/autoscale_alerts/target_instances" | "v1/droplet/autoscale_alerts/current_cpu_utilization" | "v1/droplet/autoscale_alerts/target_cpu_utilization" | "v1/droplet/autoscale_alerts/current_memory_utilization" | "v1/droplet/autoscale_alerts/target_memory_utilization" | "v1/droplet/autoscale_alerts/scale_up" | "v1/droplet/autoscale_alerts/scale_down";
             /**
-             * Format: float
              * @example 80
+             * @format float
              */
             value: number;
             /**
@@ -14313,6 +14374,7 @@ export interface components {
         /**
          * @description The uniform resource name (URN) for the resource in the format do:resource_type:resource_id.
          * @example do:droplet:13457723
+         * @pattern ^do:(dbaas|domain|droplet|floatingip|loadbalancer|space|volume|kubernetes|vpc):.*
          */
         urn: string;
         opensearch_config: {
@@ -14378,6 +14440,7 @@ export interface components {
             /**
              * @description The uniform resource name (URN) for the resource in the format do:resource_type:resource_id.
              * @example do:kubernetes:f453aa14-646e-4cf8-8c62-75a19fb24ec2
+             * @pattern ^do:kubernetes:.*
              */
             urn: string;
             /**
@@ -14393,9 +14456,9 @@ export interface components {
         };
         project_base: {
             /**
-             * Format: uuid
              * @description The unique universal identifier of this project.
              * @example 4e1bfbc3-dc3e-41f2-a18f-1b4d7ba71679
+             * @format uuid
              */
             readonly id?: string;
             /**
@@ -14444,15 +14507,15 @@ export interface components {
              */
             environment?: "Development" | "Staging" | "Production";
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the project was created.
              * @example 2018-09-27T20:10:35Z
+             * @format date-time
              */
             readonly created_at?: string;
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the project was updated.
              * @example 2018-09-27T20:10:35Z
+             * @format date-time
              */
             readonly updated_at?: string;
         };
@@ -14466,17 +14529,17 @@ export interface components {
         resource: {
             urn?: components["schemas"]["urn"];
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the project was created.
              * @example 2018-09-28T19:26:37Z
+             * @format date-time
              */
             assigned_at?: string;
             /** @description The links object contains the `self` object, which contains the resource relationship. */
             links?: {
                 /**
-                 * Format: uri
                  * @description A URI that can be used to retrieve the resource.
                  * @example https://api.digitalocean.com/v2/droplets/13457723
+                 * @format uri
                  */
                 self?: string;
             };
@@ -14541,15 +14604,15 @@ export interface components {
         subscription: {
             tier?: components["schemas"]["subscription_tier_base"];
             /**
-             * Format: date-time
              * @description The time at which the subscription was created.
              * @example 2020-01-23T21:19:12Z
+             * @format date-time
              */
             readonly created_at?: string;
             /**
-             * Format: date-time
              * @description The time at which the subscription was last updated.
              * @example 2020-11-05T15:53:24Z
+             * @format date-time
              */
             readonly updated_at?: string;
         };
@@ -14557,12 +14620,13 @@ export interface components {
             /**
              * @description A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
              * @example example
+             * @pattern ^[a-z0-9-]{1,63}$
              */
             name?: string;
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format that represents when the registry was created.
              * @example 2020-03-21T16:02:37Z
+             * @format date-time
              */
             readonly created_at?: string;
             /**
@@ -14576,9 +14640,9 @@ export interface components {
              */
             readonly storage_usage_bytes?: number;
             /**
-             * Format: date-time
              * @description The time at which the storage usage was updated. Storage usage is calculated asynchronously, and may not immediately reflect pushes to the registry.
              * @example 2020-11-04T21:39:49.530562231Z
+             * @format date-time
              */
             readonly storage_usage_bytes_updated_at?: string;
             subscription?: unknown & components["schemas"]["subscription"];
@@ -14587,6 +14651,7 @@ export interface components {
             /**
              * @description A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
              * @example example
+             * @pattern ^[a-z0-9-]{1,63}$
              */
             name: string;
             /**
@@ -14617,6 +14682,7 @@ export interface components {
             /**
              * @description A globally unique name for the container registry. Must be lowercase and be composed only of numbers, letters and `-`, up to a limit of 63 characters.
              * @example example
+             * @pattern ^[a-z0-9-]{1,63}$
              */
             name: string;
         };
@@ -14652,9 +14718,9 @@ export interface components {
              */
             size_bytes?: number;
             /**
-             * Format: date-time
              * @description The time the tag was last updated.
              * @example 2020-04-09T23:54:25Z
+             * @format date-time
              */
             updated_at?: string;
         };
@@ -14715,9 +14781,9 @@ export interface components {
              */
             size_bytes?: number;
             /**
-             * Format: date-time
              * @description The time the manifest was last updated.
              * @example 2020-04-09T23:54:25Z
+             * @format date-time
              */
             updated_at?: string;
             /**
@@ -14773,15 +14839,15 @@ export interface components {
              */
             status?: "requested" | "waiting for write JWTs to expire" | "scanning manifests" | "deleting unreferenced blobs" | "cancelling" | "failed" | "succeeded" | "cancelled";
             /**
-             * Format: date-time
              * @description The time the garbage collection was created.
              * @example 2020-10-30T21:03:24Z
+             * @format date-time
              */
             created_at?: string;
             /**
-             * Format: date-time
              * @description The time the garbage collection was last updated.
              * @example 2020-10-30T21:03:44Z
+             * @format date-time
              */
             updated_at?: string;
             /**
@@ -14835,9 +14901,9 @@ export interface components {
         };
         reserved_ip: {
             /**
-             * Format: ipv4
              * @description The public IP address of the reserved IP. It also serves as its identifier.
              * @example 45.55.96.47
+             * @format ipv4
              */
             ip?: string;
             region?: components["schemas"]["region"] & Record<string, never>;
@@ -14852,9 +14918,9 @@ export interface components {
              */
             locked?: boolean;
             /**
-             * Format: uuid
              * @description The UUID of the project to which the reserved IP currently belongs.
              * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
+             * @format uuid
              */
             project_id?: string;
         };
@@ -14871,9 +14937,9 @@ export interface components {
              */
             region: string;
             /**
-             * Format: uuid
              * @description The UUID of the project to which the reserved IP will be assigned.
              * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
+             * @format uuid
              */
             project_id?: string;
         };
@@ -14923,6 +14989,7 @@ export interface components {
              */
             resource_type: "droplet" | "volume";
             /**
+             * @nullable
              * @description An array of Tags the snapshot has been tagged with.
              * @example [
              *       "web",
@@ -14959,6 +15026,7 @@ export interface components {
              *
              *     Tagged resources in the control panel will always display the canonical capitalization. For example, if you create a tag named "PROD", you can tag resources in the control panel by entering "prod". The tag will still display with its canonical capitalization, "PROD".
              * @example extra-awesome
+             * @pattern ^[a-zA-Z0-9_\-\:]+$
              */
             name?: string;
             /**
@@ -15003,6 +15071,7 @@ export interface components {
              */
             error: string;
             /**
+             * @nullable
              * @description A list of error messages.
              * @example null
              */
@@ -15052,6 +15121,7 @@ export interface components {
              */
             readonly id?: string;
             /**
+             * @nullable
              * @description An array containing the IDs of the Droplets the volume is attached to. Note that at this time, a volume can only be attached to a single Droplet.
              * @example []
              */
@@ -15174,7 +15244,10 @@ export interface components {
              * @example attach_volume
              */
             type?: string;
-            /** @example null */
+            /**
+             * @nullable
+             * @example null
+             */
             resource_id?: number | null;
         } & components["schemas"]["action"];
         volume_action_post_resize: components["schemas"]["volume_action_post_base"] & {
@@ -15185,6 +15258,7 @@ export interface components {
             /**
              * @description The name of the VPC. Must be unique and may only contain alphanumeric characters, dashes, and periods.
              * @example env.prod-vpc
+             * @pattern ^[a-zA-Z0-9\-\.]+$
              */
             name?: string;
             /**
@@ -15214,16 +15288,16 @@ export interface components {
         };
         vpc_base: {
             /**
-             * Format: uuid
              * @description A unique ID that can be used to identify and reference the VPC.
              * @example 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+             * @format uuid
              */
             readonly id?: string;
             urn?: components["schemas"]["urn"];
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format.
              * @example 2020-03-13T19:20:47.442049222Z
+             * @format date-time
              */
             readonly created_at?: string;
         };
@@ -15243,15 +15317,15 @@ export interface components {
         };
         vpc_peering_base: {
             /**
-             * Format: uuid
              * @description A unique ID that can be used to identify and reference the VPC peering.
              * @example 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+             * @format uuid
              */
             readonly id?: string;
             /**
-             * Format: date-time
              * @description A time value given in ISO8601 combined date and time format.
              * @example 2020-03-13T19:20:47.442049222Z
+             * @format date-time
              */
             readonly created_at?: string;
             /**
@@ -15275,15 +15349,16 @@ export interface components {
             /**
              * @description The name of the VPC peering. Must be unique within the team and may only contain alphanumeric characters and dashes.
              * @example nyc1-blr1-peering
+             * @pattern ^[a-zA-Z0-9\-]+$
              */
             name?: string;
         };
         vpc_peering: components["schemas"]["vpc_peering_base"] & components["schemas"]["vpc_peering_create"] & components["schemas"]["vpc_peering_updatable"];
         check_base: {
             /**
-             * Format: uuid
              * @description A unique ID that can be used to identify and reference the check.
              * @example 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+             * @format uuid
              */
             readonly id?: string;
         };
@@ -15300,9 +15375,9 @@ export interface components {
              */
             type?: "ping" | "http" | "https";
             /**
-             * Format: url
              * @description The endpoint to perform healthchecks on.
              * @example https://www.landingpage.com
+             * @format url
              */
             target?: string;
             /**
@@ -15353,9 +15428,9 @@ export interface components {
         };
         alert_base: {
             /**
-             * Format: uuid
              * @description A unique ID that can be used to identify and reference the alert.
              * @example 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+             * @format uuid
              */
             readonly id?: string;
         };
@@ -15371,15 +15446,15 @@ export interface components {
             /** @description Slack integration details. */
             slack: {
                 /**
-                 * Format: string
                  * @description Slack channel to notify of an alert trigger.
                  * @example Production Alerts
+                 * @format string
                  */
                 channel: string;
                 /**
-                 * Format: string
                  * @description Slack Webhook URL.
                  * @example https://hooks.slack.com/services/T1234567/AAAAAAAA/ZZZZZZ
+                 * @format string
                  */
                 url: string;
             }[];
@@ -15462,9 +15537,9 @@ export interface components {
         /** @description Description of deployment */
         apiDeployment: {
             /**
-             * Format: date-time
              * @description Creation date / time
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             created_at?: string;
             /**
@@ -15474,9 +15549,9 @@ export interface components {
             name?: string;
             status?: components["schemas"]["apiDeploymentStatus"];
             /**
-             * Format: date-time
              * @description Last modified
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             updated_at?: string;
             /**
@@ -15511,21 +15586,21 @@ export interface components {
         /** @description Version Information about a Model */
         apiModelVersion: {
             /**
-             * Format: int64
              * @description Major version number
              * @example 123
+             * @format int64
              */
             major?: number;
             /**
-             * Format: int64
              * @description Minor version number
              * @example 123
+             * @format int64
              */
             minor?: number;
             /**
-             * Format: int64
              * @description Patch version number
              * @example 123
+             * @format int64
              */
             patch?: number;
         };
@@ -15533,9 +15608,9 @@ export interface components {
         apiModel: {
             agreement?: components["schemas"]["apiAgreement"];
             /**
-             * Format: date-time
              * @description Creation date / time
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             created_at?: string;
             /**
@@ -15567,9 +15642,9 @@ export interface components {
             parent_uuid?: string;
             provider?: components["schemas"]["apiModelProvider"];
             /**
-             * Format: date-time
              * @description Last modified
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             updated_at?: string;
             /**
@@ -15598,15 +15673,15 @@ export interface components {
         /** @description IndexingJob description */
         apiIndexingJob: {
             /**
-             * Format: int64
              * @description Number of datasources indexed completed
              * @example 123
+             * @format int64
              */
             completed_datasources?: number;
             /**
-             * Format: date-time
              * @description Creation date / time
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             created_at?: string;
             /**
@@ -15616,8 +15691,8 @@ export interface components {
              */
             data_source_uuids?: string[];
             /**
-             * Format: date-time
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             finished_at?: string;
             /**
@@ -15627,26 +15702,26 @@ export interface components {
             knowledge_base_uuid?: string;
             phase?: components["schemas"]["apiBatchJobPhase"];
             /**
-             * Format: date-time
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             started_at?: string;
             /**
-             * Format: int64
              * @description Number of tokens
              * @example 123
+             * @format int64
              */
             tokens?: number;
             /**
-             * Format: int64
              * @description Number of datasources being indexed
              * @example 123
+             * @format int64
              */
             total_datasources?: number;
             /**
-             * Format: date-time
              * @description Last modified
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             updated_at?: string;
             /**
@@ -15658,15 +15733,15 @@ export interface components {
         /** @description Knowledgebase Description */
         apiKnowledgeBase: {
             /**
-             * Format: date-time
              * @description Time when the knowledge base was added to the agent
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             added_to_agent_at?: string;
             /**
-             * Format: date-time
              * @description Creation date / time
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             created_at?: string;
             /** @example "123e4567-e89b-12d3-a456-426614174000" */
@@ -15699,15 +15774,15 @@ export interface components {
              */
             tags?: string[];
             /**
-             * Format: date-time
              * @description Last modified
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             updated_at?: string;
             /**
-             * Format: int64
              * @description Id of user that created the knowledge base
              * @example "12345"
+             * @format int64
              */
             user_id?: string;
             /**
@@ -15719,9 +15794,9 @@ export interface components {
         /** @description Represents an AgentTemplate entity */
         apiAgentTemplate: {
             /**
-             * Format: date-time
              * @description The agent template's creation date
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             created_at?: string;
             /**
@@ -15735,17 +15810,17 @@ export interface components {
              */
             instruction?: string;
             /**
-             * Format: int64
              * @description The 'k' value for the agent template
              * @example 123
+             * @format int64
              */
             k?: number;
             /** @description List of knowledge bases associated with the agent template */
             knowledge_bases?: components["schemas"]["apiKnowledgeBase"][];
             /**
-             * Format: int64
              * @description The max_tokens setting for the agent template
              * @example 123
+             * @format int64
              */
             max_tokens?: number;
             model?: components["schemas"]["apiModel"];
@@ -15755,21 +15830,21 @@ export interface components {
              */
             name?: string;
             /**
-             * Format: float
              * @description The temperature setting for the agent template
              * @example 123
+             * @format float
              */
             temperature?: number;
             /**
-             * Format: float
              * @description The top_p setting for the agent template
              * @example 123
+             * @format float
              */
             top_p?: number;
             /**
-             * Format: date-time
              * @description The agent template's last updated date
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             updated_at?: string;
             /**
@@ -15784,9 +15859,9 @@ export interface components {
             /** @description Chatbot identifiers */
             chatbot_identifiers?: components["schemas"]["apiAgentChatbotIdentifier"][];
             /**
-             * Format: date-time
              * @description Creation date / time
              * @example 2021-01-01T00:00:00Z
+             * @format date-time
              */
             created_at?: string;
             deployment?: components["schemas"]["apiDeployment"];
@@ -15806,15 +15881,15 @@ export interface components {
              */
             instruction?: string;
             /**
-             * Format: int64
              * @description How many results should be considered from an attached knowledge base
              * @example 5
+             * @format int64
              */
             k?: number;
             /**
-             * Format: int64
              * @description Specifies the maximum number of tokens the model can process in a single input or output, set as a number between 1 and 512. This determines the length of each response.
              * @example 100
+             * @format int64
              */
             max_tokens?: number;
             model?: components["schemas"]["apiModel"];
@@ -15834,15 +15909,15 @@ export interface components {
              */
             region?: string;
             /**
-             * Format: date-time
              * @description Creation of route date / time
              * @example 2021-01-01T00:00:00Z
+             * @format date-time
              */
             route_created_at?: string;
             /**
-             * Format: uint64
              * @description Id of user that created the route
              * @example 12345678
+             * @format uint64
              */
             route_created_by?: string;
             /**
@@ -15863,22 +15938,22 @@ export interface components {
              */
             tags?: string[];
             /**
-             * Format: float
              * @description Controls the model’s creativity, specified as a number between 0 and 1. Lower values produce more predictable and conservative responses, while higher values encourage creativity and variation.
              * @example 0.5
+             * @format float
              */
             temperature?: number;
             template?: components["schemas"]["apiAgentTemplate"];
             /**
-             * Format: float
              * @description Defines the cumulative probability threshold for word selection, specified as a number between 0 and 1. Higher values allow for more diverse outputs, while lower values ensure focused and coherent responses.
              * @example 0.9
+             * @format float
              */
             top_p?: number;
             /**
-             * Format: date-time
              * @description Last modified
              * @example 2021-01-01T00:00:00Z
+             * @format date-time
              */
             updated_at?: string;
             /**
@@ -15887,9 +15962,9 @@ export interface components {
              */
             url?: string;
             /**
-             * Format: uint64
              * @description Id of user that created the agent
              * @example 12345678
+             * @format uint64
              */
             user_id?: string;
             /**
@@ -15928,21 +16003,21 @@ export interface components {
         /** @description Meta information about the data set */
         apiMeta: {
             /**
-             * Format: int64
              * @description The current page
              * @example 123
+             * @format int64
              */
             page?: number;
             /**
-             * Format: int64
              * @description Total number of pages
              * @example 123
+             * @format int64
              */
             pages?: number;
             /**
-             * Format: int64
              * @description Total amount of items over all pages
              * @example 123
+             * @format int64
              */
             total?: number;
         };
@@ -16003,21 +16078,21 @@ export interface components {
         /** @description Anthropic API Key Info */
         apiAnthropicAPIKeyInfo: {
             /**
-             * Format: date-time
              * @description Key creation date
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             created_at?: string;
             /**
-             * Format: uint64
              * @description Created by user id from DO
              * @example "12345"
+             * @format uint64
              */
             created_by?: string;
             /**
-             * Format: date-time
              * @description Key deleted date
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             deleted_at?: string;
             /**
@@ -16026,9 +16101,9 @@ export interface components {
              */
             name?: string;
             /**
-             * Format: date-time
              * @description Key last updated date
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             updated_at?: string;
             /**
@@ -16040,21 +16115,21 @@ export interface components {
         /** @description Agent API Key Info */
         apiAgentAPIKeyInfo: {
             /**
-             * Format: date-time
              * @description Creation date
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             created_at?: string;
             /**
-             * Format: uint64
              * @description Created by
              * @example "12345"
+             * @format uint64
              */
             created_by?: string;
             /**
-             * Format: date-time
              * @description Deleted date
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             deleted_at?: string;
             /**
@@ -16091,9 +16166,9 @@ export interface components {
             /** @description Child agents */
             child_agents?: components["schemas"]["apiAgent"][];
             /**
-             * Format: date-time
              * @description Creation date / time
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             created_at?: string;
             deployment?: components["schemas"]["apiDeployment"];
@@ -16113,15 +16188,15 @@ export interface components {
              */
             instruction?: string;
             /**
-             * Format: int64
              * @example 123
+             * @format int64
              */
             k?: number;
             /** @description Knowledge bases */
             knowledge_bases?: components["schemas"]["apiKnowledgeBase"][];
             /**
-             * Format: int64
              * @example 123
+             * @format int64
              */
             max_tokens?: number;
             model?: components["schemas"]["apiModel"];
@@ -16140,14 +16215,14 @@ export interface components {
              */
             region?: string;
             /**
-             * Format: date-time
              * @description Creation of route date / time
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             route_created_at?: string;
             /**
-             * Format: uint64
              * @example "12345"
+             * @format uint64
              */
             route_created_by?: string;
             /**
@@ -16165,20 +16240,20 @@ export interface components {
              */
             tags?: string[];
             /**
-             * Format: float
              * @example 123
+             * @format float
              */
             temperature?: number;
             template?: components["schemas"]["apiAgentTemplate"];
             /**
-             * Format: float
              * @example 123
+             * @format float
              */
             top_p?: number;
             /**
-             * Format: date-time
              * @description Last modified
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             updated_at?: string;
             /**
@@ -16187,9 +16262,9 @@ export interface components {
              */
             url?: string;
             /**
-             * Format: uint64
              * @description Id of user that created the agent
              * @example "12345"
+             * @format uint64
              */
             user_id?: string;
             /**
@@ -16206,9 +16281,9 @@ export interface components {
              */
             api_key?: string;
             /**
-             * Format: date-time
              * @description Creation date / time
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             created_at?: string;
             /**
@@ -16228,9 +16303,9 @@ export interface components {
             name?: string;
             output_schema?: Record<string, never>;
             /**
-             * Format: date-time
              * @description Last modified
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             updated_at?: string;
             /**
@@ -16255,8 +16330,8 @@ export interface components {
             /** @example "123e4567-e89b-12d3-a456-426614174000" */
             agent_uuid?: string;
             /**
-             * Format: date-time
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             created_at?: string;
             /** @example "example string" */
@@ -16273,14 +16348,14 @@ export interface components {
             /** @example "example name" */
             name?: string;
             /**
-             * Format: int32
              * @example 123
+             * @format int32
              */
             priority?: number;
             type?: components["schemas"]["apiGuardrailType"];
             /**
-             * Format: date-time
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             updated_at?: string;
             /** @example "123e4567-e89b-12d3-a456-426614174000" */
@@ -16535,15 +16610,15 @@ export interface components {
              */
             instruction?: string;
             /**
-             * Format: int64
              * @description How many results should be considered from an attached knowledge base
              * @example 5
+             * @format int64
              */
             k?: number;
             /**
-             * Format: int64
              * @description Specifies the maximum number of tokens the model can process in a single input or output, set as a number between 1 and 512. This determines the length of each response.
              * @example 100
+             * @format int64
              */
             max_tokens?: number;
             /**
@@ -16569,15 +16644,15 @@ export interface components {
              */
             tags?: string[];
             /**
-             * Format: float
              * @description Controls the model’s creativity, specified as a number between 0 and 1. Lower values produce more predictable and conservative responses, while higher values encourage creativity and variation.
              * @example 0.7
+             * @format float
              */
             temperature?: number;
             /**
-             * Format: float
              * @description Defines the cumulative probability threshold for word selection, specified as a number between 0 and 1. Higher values allow for more diverse outputs, while lower values ensure focused and coherent responses.
              * @example 0.9
+             * @format float
              */
             top_p?: number;
             /**
@@ -16640,9 +16715,9 @@ export interface components {
         };
         apiIndexedDataSource: {
             /**
-             * Format: date-time
              * @description Timestamp when data source completed indexing
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             completed_at?: string;
             /**
@@ -16651,33 +16726,33 @@ export interface components {
              */
             data_source_uuid?: string;
             /**
-             * Format: uint64
              * @description Total count of files that have been indexed
              * @example "12345"
+             * @format uint64
              */
             indexed_file_count?: string;
             /**
-             * Format: date-time
              * @description Timestamp when data source started indexing
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             started_at?: string;
             /**
-             * Format: uint64
              * @description Total size of files in data source in bytes
              * @example "12345"
+             * @format uint64
              */
             total_bytes?: string;
             /**
-             * Format: uint64
              * @description Total size of files in data source in bytes that have been indexed
              * @example "12345"
+             * @format uint64
              */
             total_bytes_indexed?: string;
             /**
-             * Format: uint64
              * @description Total file count in the data source
              * @example "12345"
+             * @format uint64
              */
             total_file_count?: string;
         };
@@ -16715,9 +16790,9 @@ export interface components {
              */
             original_file_name?: string;
             /**
-             * Format: uint64
              * @description The size of the file in bytes
              * @example "12345"
+             * @format uint64
              */
             size_in_bytes?: string;
             /**
@@ -16813,9 +16888,9 @@ export interface components {
              */
             bucket_name?: string;
             /**
-             * Format: date-time
              * @description Creation date / time
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             created_at?: string;
             file_upload_data_source?: components["schemas"]["apiFileUploadDataSource"];
@@ -16832,9 +16907,9 @@ export interface components {
             region?: string;
             spaces_data_source?: components["schemas"]["apiSpacesDataSource"];
             /**
-             * Format: date-time
              * @description Last modified
              * @example 2023-01-01T00:00:00Z
+             * @format date-time
              */
             updated_at?: string;
             /**
@@ -16939,9 +17014,9 @@ export interface components {
         apiModelPublic: {
             agreement?: components["schemas"]["apiAgreement"];
             /**
-             * Format: date-time
              * @description Creation date / time
              * @example 2021-01-01T00:00:00Z
+             * @format date-time
              */
             created_at?: string;
             /**
@@ -16960,9 +17035,9 @@ export interface components {
              */
             parent_uuid?: string;
             /**
-             * Format: date-time
              * @description Last modified
              * @example 2021-01-01T00:00:00Z
+             * @format date-time
              */
             updated_at?: string;
             /**
@@ -20390,9 +20465,9 @@ export interface components {
                 "application/json": {
                     action?: components["schemas"]["action"] & {
                         /**
-                         * Format: uuid
                          * @description The UUID of the project to which the reserved IP currently belongs.
                          * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
+                         * @format uuid
                          */
                         project_id?: string;
                     };
@@ -21057,6 +21132,7 @@ export interface components {
             };
             content: {
                 "application/json": {
+                    /** @nullable */
                     available_upgrade_versions?: components["schemas"]["kubernetes_version"][] | null;
                 };
             };
@@ -21900,9 +21976,9 @@ export interface components {
                 "application/json": {
                     action?: components["schemas"]["action"] & {
                         /**
-                         * Format: uuid
                          * @description The UUID of the project to which the reserved IP currently belongs.
                          * @example 746c6152-2fa2-11ed-92d3-27aaa54e4988
+                         * @format uuid
                          */
                         project_id?: string;
                     };
@@ -33081,12 +33157,13 @@ export interface operations {
                     /**
                      * @description The name of the VPC peering. Must be unique and may only contain alphanumeric characters, dashes, and periods.
                      * @example nyc1-blr1-peering
+                     * @pattern ^[a-zA-Z0-9\-\.]+$
                      */
                     name: string;
                     /**
-                     * Format: uuid
                      * @description The ID of the VPC to peer with.
                      * @example c140286f-e6ce-4131-8b7b-df4590ce8d6a
+                     * @format uuid
                      */
                     vpc_id: string;
                 };
