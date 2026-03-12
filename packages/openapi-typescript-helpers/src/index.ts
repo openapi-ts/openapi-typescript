@@ -221,8 +221,8 @@ export type Readable<T> =
     ? never
     : T extends $Read<infer U>
       ? Readable<U>
-      : T extends (infer E)[]
-        ? Readable<E>[]
+      : T extends readonly any[]
+        ? { [K in keyof T]: Readable<T[K]> }
         : T extends object
           ? { [K in keyof T as NonNullable<T[K]> extends $Write<any> ? never : K]: Readable<T[K]> }
           : T;
@@ -238,8 +238,8 @@ export type Writable<T> =
     ? never
     : T extends $Write<infer U>
       ? Writable<U>
-      : T extends (infer E)[]
-        ? Writable<E>[]
+      : T extends readonly any[]
+        ? { [K in keyof T]: Writable<T[K]> }
         : T extends object
           ? { [K in keyof T as NonNullable<T[K]> extends $Read<any> ? never : K]: Writable<T[K]> } & {
               [K in keyof T as NonNullable<T[K]> extends $Read<any> ? K : never]?: never;
