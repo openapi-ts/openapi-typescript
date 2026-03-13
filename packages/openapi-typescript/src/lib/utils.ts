@@ -1,4 +1,4 @@
-import { escapePointer, parseRef } from "@redocly/openapi-core/lib/ref-utils.js";
+import { escapePointerFragment } from "@redocly/openapi-core";
 import c from "ansi-colors";
 import supportsColor from "supports-color";
 import ts from "typescript";
@@ -15,6 +15,8 @@ const DEBUG_GROUPS: Record<string, c.StyleFunction | undefined> = {
   bundle: c.magentaBright,
   ts: c.blueBright,
 };
+
+import { parseRef } from "./ref-utils.js";
 
 export { c };
 
@@ -55,10 +57,10 @@ export function createRef(parts: (number | string | undefined | null)[]): string
     const maybeRef = parseRef(String(part)).pointer;
     if (maybeRef.length) {
       for (const refPart of maybeRef) {
-        pointer += `/${escapePointer(refPart)}`;
+        pointer += `/${escapePointerFragment(refPart)}`;
       }
     } else {
-      pointer += `/${escapePointer(part)}`;
+      pointer += `/${escapePointerFragment(part)}`;
     }
   }
   return pointer;

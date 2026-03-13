@@ -43,7 +43,7 @@
   },
   "scripts": {
     "build": "unbuild",
-    "dev": "tsc -p tsconfig.build.json --watch",
+    "dev": "unbuild --stub",
     "download:schemas": "vite-node ./scripts/download-schemas.ts",
     "format": "biome format . --write",
     "lint": "pnpm run lint:js && pnpm run lint:ts",
@@ -62,7 +62,7 @@
     "typescript": "^5.x"
   },
   "dependencies": {
-    "@redocly/openapi-core": "^1.34.6",
+    "@redocly/openapi-core": "^2.21.1",
     "ansi-colors": "^4.1.3",
     "change-case": "^5.4.4",
     "parse-json": "^8.3.0",

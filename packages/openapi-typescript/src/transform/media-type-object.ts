@@ -11,8 +11,9 @@ export default function transformMediaTypeObject(
   mediaTypeObject: MediaTypeObject,
   options: TransformNodeOptions,
 ): ts.TypeNode {
-  if (!mediaTypeObject.schema) {
+  const targetSchema = mediaTypeObject.itemSchema ?? mediaTypeObject.schema;
+  if (!targetSchema) {
     return UNKNOWN;
   }
-  return transformSchemaObject(mediaTypeObject.schema, options);
+  return transformSchemaObject(targetSchema, options);
 }

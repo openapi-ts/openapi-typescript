@@ -1,0 +1,99 @@
+openapi: "3.2.0"
+info:
+  title: SSE Streaming API
+  version: "1.0"
+paths:
+  /events:
+    get:
+      operationId: streamEvents
+      summary: Stream server-sent events
+      responses:
+        "200":
+          description: SSE event stream
+          content:
+            text/event-stream:
+              itemSchema:
+                type: object
+                properties:
+                  event:
+                    type: string
+                    enum:
+                      - message
+                      - heartbeat
+                      - error
+                  data:
+                    type: string
+                  id:
+                    type: integer
+                  timestamp:
+                    type: string
+                    format: date-time
+                required:
+                  - event
+                  - data
+  /chat:
+    post:
+      operationId: chatStream
+      summary: Chat with streaming response
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                model:
+                  type: string
+              required:
+                - message
+      responses:
+        "200":
+          description: Streaming chat response
+          content:
+            text/event-stream:
+              itemSchema:
+                oneOf:
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                          - content
+                      text:
+                        type: string
+                    required:
+                      - type
+                      - text
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                          - done
+                      usage:
+                        type: object
+                        properties:
+                          input_tokens:
+                            type: integer
+                          output_tokens:
+                            type: integer
+                        required:
+                          - input_tokens
+                          - output_tokens
+                    required:
+                      - type
+                      - usage
+components:
+  schemas:
+    SSEEvent:
+      type: object
+      properties:
+        event:
+          type: string
+        data:
+          type: string
+      required:
+        - event
+        - data
