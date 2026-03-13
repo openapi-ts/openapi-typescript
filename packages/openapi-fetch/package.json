@@ -72,7 +72,7 @@
     "openapi-typescript-fetch": "2.2.1",
     "superagent": "10.3.0",
     "typescript": "catalog:",
-    "undici": "7.24.0",
+    "undici": "7.24.1",
     "vite": "catalog:"
   }
 }
