@@ -484,7 +484,8 @@ export interface IntegerSubtype {
 export interface ArraySubtype {
   type: "array" | ["array", "null"];
   prefixItems?: (SchemaObject | ReferenceObject)[];
-  items?: SchemaObject | ReferenceObject | (SchemaObject | ReferenceObject)[];
+  items?: false | SchemaObject | ReferenceObject | (SchemaObject | ReferenceObject)[];
+  unevaluatedItems?: false | SchemaObject | ReferenceObject;
   minItems?: number;
   maxItems?: number;
   enum?: (SchemaObject | ReferenceObject)[];
