@@ -265,12 +265,12 @@ export default function createClient<Paths extends {}, Media extends MediaType =
           mutationFn: async (init) => {
             const mth = method.toUpperCase() as Uppercase<typeof method>;
             const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
-            const { data, error } = await fn(path, init as InitWithUnknowns<typeof init>);
+            const { data, error } = await fn(path, init as any); // TODO: find a way to avoid as any
             if (error) {
               throw error;
             }
 
-            return data as Exclude<typeof data, undefined>;
+            return data;
           },
           ...options,
         },

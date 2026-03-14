@@ -393,6 +393,18 @@ paths:
           items:
             type: string
       - in: query
+        name: second_array
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: third_array
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
         name: object
         schema:
           type: object
