@@ -90,6 +90,36 @@ export interface DefaultParamsOption {
   };
 }
 
+type DeepExact<Actual, Shape> = Actual extends Shape
+  ? Actual extends readonly (infer ActualItem)[]
+    ? Shape extends readonly (infer ShapeItem)[]
+      ? readonly DeepExact<ActualItem, ShapeItem>[]
+      : Actual
+    : Actual extends object
+      ? Shape extends object
+        ? { [K in keyof Actual]: K extends keyof Shape ? DeepExact<Actual[K], Shape[K]> : never }
+        : Actual
+      : Actual
+  : never;
+
+type ExactOptionProperty<Init extends object, Key extends "params" | "body", Shape> = Key extends keyof Init
+  ? {} extends Pick<Init, Key>
+    ? { [K in Key]?: DeepExact<Exclude<Init[K], undefined>, Shape> | Extract<Init[K], undefined> }
+    : { [K in Key]: DeepExact<Exclude<Init[K], undefined>, Shape> | Extract<Init[K], undefined> }
+  : {};
+
+type ExactParamsAndBody<Init, Operation> = Init extends undefined
+  ? Init
+  : Init extends object
+    ? Omit<Init, "params" | "body"> &
+        ExactOptionProperty<
+          Init,
+          "params",
+          ParamsOption<Operation> extends { params?: infer Params } ? Params : never
+        > &
+        ExactOptionProperty<Init, "body", RequestBodyOption<Operation> extends { body?: infer Body } ? Body : never>
+    : Init;
+
 export type ParamsOption<T> = T extends {
   parameters: any;
 }
@@ -208,7 +238,7 @@ export type ClientMethod<
   Media extends MediaType,
 > = <Path extends PathsWithMethod<Paths, Method>, Init extends MaybeOptionalInit<Paths[Path], Method>>(
   url: Path,
-  ...init: InitParam<Init>
+  ...init: InitParam<ExactParamsAndBody<Init, FilterKeys<Paths[Path], Method>>>
 ) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
 
 export type ClientRequestMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
@@ -218,12 +248,12 @@ export type ClientRequestMethod<Paths extends Record<string, Record<HttpMethod, 
 >(
   method: Method,
   url: Path,
-  ...init: InitParam<Init>
+  ...init: InitParam<ExactParamsAndBody<Init, FilterKeys<Paths[Path], Method>>>
 ) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
 
 export type ClientForPath<PathInfo extends Record<string | number, any>, Media extends MediaType> = {
   [Method in keyof PathInfo as Uppercase<string & Method>]: <Init extends MaybeOptionalInit<PathInfo, Method>>(
-    ...init: InitParam<Init>
+    ...init: InitParam<ExactParamsAndBody<Init, FilterKeys<PathInfo, Method>>>
   ) => Promise<FetchResponse<PathInfo[Method], Init, Media>>;
 };
 
