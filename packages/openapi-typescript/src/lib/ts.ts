@@ -33,8 +33,9 @@ export interface AnnotatedSchemaObject {
   enum?: unknown[]; // jsdoc without value
   example?: string; // jsdoc with value
   examples?: unknown;
-  format?: string; // not jsdoc
-  nullable?: boolean; // Node information
+  format?: string; // jsdoc with value
+  nullable?: boolean; // jsdoc without value
+  pattern?: string; // jsdoc with value
   summary?: string; // not jsdoc
   title?: string; // not jsdoc
   type?: string | string[]; // Type of node
@@ -51,25 +52,24 @@ export function addJSDocComment(schemaObject: AnnotatedSchemaObject, node: ts.Pr
   }
   const output: string[] = [];
 
-  // Not JSDoc tags: [title, format]
+  // Not JSDoc tags: [title]
   if (schemaObject.title) {
     output.push(schemaObject.title.trim().replace(LB_RE, "\n *     "));
   }
   if (schemaObject.summary) {
     output.push(schemaObject.summary.trim().replace(LB_RE, "\n *     "));
   }
-  if (schemaObject.format) {
-    output.push(`Format: ${schemaObject.format}`);
-  }
 
   // JSDoc tags without value
-  // 'Deprecated' without value
   if (schemaObject.deprecated) {
     output.push("@deprecated");
   }
+  if (schemaObject.nullable) {
+    output.push("@nullable");
+  }
 
   // JSDoc tags with value
-  const supportedJsDocTags = ["description", "default", "example"] as const;
+  const supportedJsDocTags = ["description", "default", "example", "format", "pattern"] as const;
   for (const field of supportedJsDocTags) {
     const allowEmptyString = field === "default" || field === "example";
     if (schemaObject[field] === undefined) {
