@@ -113,7 +113,7 @@ export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMetho
       Response["data"],
       Response["error"],
       InferSelectReturnType<InfiniteData<Response["data"]>, Options["select"]>,
-      QueryKey<Paths, Method, Path>,
+      readonly [...QueryKey<Paths, Method, Path>, "infinite"],
       unknown
     >,
     "queryKey" | "queryFn"
@@ -231,8 +231,8 @@ export default function createClient<Paths extends {}, Media extends MediaType =
       const { queryKey } = queryOptions(method, path, init);
       return useInfiniteQuery(
         {
-          queryKey,
-          queryFn: async ({ queryKey: [method, path, init], pageParam = 0, signal }) => {
+          queryKey: [...queryKey, "infinite"],
+          queryFn: async ({ pageParam = 0, signal }) => {
             const mth = method.toUpperCase() as Uppercase<typeof method>;
             const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
             const mergedInit = {
