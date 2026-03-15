@@ -3,20 +3,6 @@
  * Do not make direct changes to the file.
  */
 
-export type $Read<T> = {
-    readonly $read: T;
-};
-export type $Write<T> = {
-    readonly $write: T;
-};
-export type Readable<T> = T extends $Write<any> ? never : T extends $Read<infer U> ? Readable<U> : T extends (infer E)[] ? Readable<E>[] : T extends readonly (infer E)[] ? readonly Readable<E>[] : T extends object ? {
-    [K in keyof T as NonNullable<T[K]> extends $Write<any> ? never : K]: Readable<T[K]>;
-} : T;
-export type Writable<T> = T extends $Read<any> ? never : T extends $Write<infer U> ? Writable<U> : T extends (infer E)[] ? Writable<E>[] : T extends readonly (infer E)[] ? readonly Writable<E>[] : T extends object ? {
-    [K in keyof T as NonNullable<T[K]> extends $Read<any> ? never : K]: Writable<T[K]>;
-} & {
-    [K in keyof T as NonNullable<T[K]> extends $Read<any> ? K : never]?: never;
-} : T;
 export interface paths {
     "/users": {
         parameters: {
@@ -153,9 +139,9 @@ export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
         User: {
-            id?: $Read<number>;
+            readonly id?: number;
             name: string;
-            password?: $Write<string>;
+            password?: string;
         };
         Resource: {
             id: number;
@@ -163,14 +149,14 @@ export interface components {
         };
         ResourceItem: {
             id: number;
-            nested: $Read<components["schemas"]["NestedObject"]>;
+            readonly nested: components["schemas"]["NestedObject"];
         };
         NestedObject: {
-            entries: $Read<components["schemas"]["Entry"][]>;
+            readonly entries: components["schemas"]["Entry"][];
         };
         Entry: {
             code: string;
-            label: $Read<string>;
+            readonly label: string;
         };
         SuccessEvent: {
             /**

@@ -26,6 +26,22 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
+  /events:
+    get:
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/SuccessEvent"
+                  - $ref: "#/components/schemas/ErrorEvent"
+                discriminator:
+                  propertyName: type
+                  mapping:
+                    success: "#/components/schemas/SuccessEvent"
+                    error: "#/components/schemas/ErrorEvent"
   /resources/{id}:
     get:
       parameters:
@@ -102,3 +118,28 @@ components:
         label:
           type: string
           readOnly: true
+    # Discriminated union for narrowing regression test (#2620)
+    SuccessEvent:
+      type: object
+      required:
+        - type
+        - payload
+      properties:
+        type:
+          type: string
+          enum:
+            - success
+        payload:
+          type: string
+    ErrorEvent:
+      type: object
+      required:
+        - type
+        - message
+      properties:
+        type:
+          type: string
+          enum:
+            - error
+        message:
+          type: string
