@@ -196,24 +196,32 @@ async function main() {
   }
   const redocly = redocConfigPath
     ? await loadConfig({ configPath: redocConfigPath })
-    : await createConfig({}, { extends: ["minimal"] });
+    : await createConfig({
+        extends: ["minimal"],
+        rules: {
+          struct: "warn",
+          "no-server-trailing-slash": "warn",
+        },
+      });
 
   // handle Redoc APIs
-  const hasRedoclyApis = Object.keys(redocly?.apis ?? {}).length > 0;
+  const redoclyApis = redocly?.resolvedConfig?.apis ?? redocly?.apis ?? {};
+  const hasRedoclyApis = Object.keys(redoclyApis).length > 0;
   if (hasRedoclyApis) {
     if (input) {
       warn("APIs are specified both in Redocly Config and CLI argument. Only using Redocly config.");
     }
     await Promise.all(
-      Object.entries(redocly.apis).map(async ([name, api]) => {
+      Object.entries(redoclyApis).map(async ([name, api]) => {
         let configRoot = CWD;
 
         const config = { ...flags, redocly };
-        if (redocly.configFile) {
+        const configFile = redocly.configPath ?? redocly.configFile;
+        if (configFile) {
           // note: this will be absolute if --redoc is passed; otherwise, relative
-          configRoot = path.isAbsolute(redocly.configFile)
-            ? new URL(`file://${redocly.configFile}`)
-            : new URL(redocly.configFile, `file://${process.cwd()}/`);
+          configRoot = path.isAbsolute(configFile)
+            ? new URL(`file://${configFile}`)
+            : new URL(configFile, `file://${process.cwd()}/`);
         }
         if (!api[REDOC_CONFIG_KEY]?.output) {
           errorAndExit(

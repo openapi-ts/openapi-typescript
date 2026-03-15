@@ -21,7 +21,7 @@ describe("openapiTS", () => {
       "$refs > basic",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
@@ -77,7 +77,7 @@ export type operations = Record<string, never>;`,
       "$refs > arbitrary $refs are respected",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
@@ -337,7 +337,7 @@ export type operations = Record<string, never>;`,
       "parameters > operations get correct params",
       {
         given: {
-          openapi: "3.0",
+          openapi: "3.0.0",
           info: { title: "Test", version: "1.0" },
           paths: {
             "/post/{id}": {
@@ -457,7 +457,7 @@ export interface operations {
       "examples > skipped",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
@@ -505,7 +505,7 @@ export type operations = Record<string, never>;`,
       "operations > # character is parsed correctly",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           paths: {
             "/accounts": {
@@ -622,7 +622,7 @@ export type operations = Record<string, never>;`,
       "TypeScript > WithRequired type helper",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
@@ -691,7 +691,7 @@ export type operations = Record<string, never>;`,
       "inject option",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
         },
         want: `type Foo = string;
@@ -1111,6 +1111,224 @@ export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
       },
     ],
+    [
+      "SSE > itemSchema with $ref to component schema",
+      {
+        given: {
+          openapi: "3.1.0",
+          info: { title: "SSE Ref Test", version: "1.0" },
+          paths: {
+            "/notifications": {
+              get: {
+                responses: {
+                  200: {
+                    description: "Notification stream",
+                    content: {
+                      "text/event-stream": {
+                        itemSchema: {
+                          $ref: "#/components/schemas/Notification",
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          components: {
+            schemas: {
+              Notification: {
+                type: "object",
+                properties: {
+                  id: { type: "string" },
+                  title: { type: "string" },
+                  read: { type: "boolean" },
+                },
+                required: ["id", "title"],
+              },
+            },
+          },
+        },
+        want: `export interface paths {
+    "/notifications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Notification stream */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/event-stream": components["schemas"]["Notification"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        Notification: {
+            id: string;
+            title: string;
+            read?: boolean;
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+      },
+    ],
+    [
+      "OpenAPI 3.2 > SSE streaming with itemSchema",
+      {
+        given: new URL("./fixtures/sse-stream-test.yaml", import.meta.url),
+        want: `export interface paths {
+    "/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Stream server-sent events */
+        get: operations["streamEvents"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/chat": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Chat with streaming response */
+        post: operations["chatStream"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        SSEEvent: {
+            event: string;
+            data: string;
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export interface operations {
+    streamEvents: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description SSE event stream */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "text/event-stream": {
+                        /** @enum {string} */
+                        event: "message" | "heartbeat" | "error";
+                        data: string;
+                        id?: number;
+                        /** Format: date-time */
+                        timestamp?: string;
+                    };
+                };
+            };
+        };
+    };
+    chatStream: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    message: string;
+                    model?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Streaming chat response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "text/event-stream": {
+                        /** @enum {string} */
+                        type: "content";
+                        text: string;
+                    } | {
+                        /** @enum {string} */
+                        type: "done";
+                        usage: {
+                            input_tokens: number;
+                            output_tokens: number;
+                        };
+                    };
+                };
+            };
+        };
+    };
+}`,
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options, ci }] of tests) {
@@ -1130,7 +1348,7 @@ export type operations = Record<string, never>;`,
 
   test("does not mutate original reference", async () => {
     const schema: OpenAPI3 = {
-      openapi: "3.1",
+      openapi: "3.1.0",
       info: { title: "test", version: "1.0" },
       components: {
         schemas: {

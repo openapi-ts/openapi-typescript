@@ -14,10 +14,10 @@ describe("Node.js API", () => {
     [
       "input > string > YAML",
       {
-        given: `openapi: "3.1"
+        given: `openapi: "3.1.0"
 info:
   title: test
-  version: 1.0`,
+  version: "1.0"`,
         want: `export type paths = Record<string, never>;
 export type webhooks = Record<string, never>;
 export interface components {
@@ -37,7 +37,7 @@ export type operations = Record<string, never>;`,
       "input > string > JSON",
       {
         given: JSON.stringify({
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "test", version: "1.0" },
         }),
         want: `export type paths = Record<string, never>;
@@ -86,7 +86,7 @@ export type operations = Record<string, never>;`,
       "input > object",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "test", version: "1.0" },
         },
         want: `export type paths = Record<string, never>;
@@ -107,7 +107,7 @@ export type operations = Record<string, never>;`,
     [
       "input > buffer",
       {
-        given: Buffer.from(`openapi: "3.1"
+        given: Buffer.from(`openapi: "3.1.0"
 info:
   title: test
   version: 1.0`),
@@ -130,7 +130,7 @@ export type operations = Record<string, never>;`,
       "options > exportType > false",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
@@ -170,7 +170,7 @@ export type operations = Record<string, never>;`,
       "options > exportType > true",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
@@ -209,7 +209,7 @@ export type operations = Record<string, never>;`,
       "options > pathParamsAsTypes > false",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           paths: {
             "/user/{user_id}": {
@@ -280,7 +280,7 @@ export type operations = Record<string, never>;`,
       "options > pathParamsAsTypes > true",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           paths: {
             "/user/{user_id}": {
@@ -351,7 +351,7 @@ export type operations = Record<string, never>;`,
       "options > transform",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
@@ -392,7 +392,7 @@ export type operations = Record<string, never>;`,
       "options > transform with schema object",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
@@ -431,7 +431,7 @@ export type operations = Record<string, never>;`,
       "options > transform with blob",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             requestBodies: {
@@ -479,7 +479,7 @@ export type operations = Record<string, never>;`,
       "options > transform with optional blob property",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             requestBodies: {
@@ -535,7 +535,7 @@ export type operations = Record<string, never>;`,
       "options > postTransform",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
@@ -609,7 +609,7 @@ export type operations = Record<string, never>;`,
       "options > transformProperty > JSDoc validation annotations",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
@@ -717,7 +717,7 @@ export type operations = Record<string, never>;`,
       "options > transformProperty > no-op when returning undefined",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
@@ -766,7 +766,7 @@ export type operations = Record<string, never>;`,
       "options > enum",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           paths: {
             "/url": {
@@ -915,7 +915,7 @@ export type operations = Record<string, never>;`,
       "options > enumValues",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           paths: {
             "/url": {
@@ -1009,7 +1009,7 @@ export type operations = Record<string, never>;`,
       "options > enumValues with record types",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
@@ -1248,7 +1248,7 @@ export const pathsAnalyticsDataGetResponses400ContentApplicationJsonAnyOf2Messag
       "options > dedupeEnums",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           paths: {
             "/url": {
@@ -1380,7 +1380,7 @@ export type operations = Record<string, never>;`,
       "options > enumValues with request body enum",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           paths: {
             "/test": {
@@ -1478,7 +1478,7 @@ export type operations = Record<string, never>;`,
       "options > enumValues with nested union types",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
@@ -1582,7 +1582,7 @@ export type operations = Record<string, never>;`,
       "options > enumValues with same property different inner schemas",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
@@ -1681,7 +1681,7 @@ export type operations = Record<string, never>;`,
       "options > enumValues with deeply nested unions",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
