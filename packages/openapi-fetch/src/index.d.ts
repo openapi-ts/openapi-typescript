@@ -202,29 +202,38 @@ export type MaybeOptionalInit<Params, Location extends keyof Params> =
 type InitParam<Init> =
   RequiredKeysOf<Init> extends never ? [(Init & { [key: string]: unknown })?] : [Init & { [key: string]: unknown }];
 
+type InitWithParseAs<Init, ParseAsValue extends ParseAs | undefined> = Init &
+  ([Exclude<ParseAsValue, undefined>] extends [never] ? {} : { parseAs: Exclude<ParseAsValue, undefined> });
+
 export type ClientMethod<
   Paths extends Record<string, Record<HttpMethod, {}>>,
   Method extends HttpMethod,
   Media extends MediaType,
-> = <Path extends PathsWithMethod<Paths, Method>, Init extends MaybeOptionalInit<Paths[Path], Method>>(
+> = <Path extends PathsWithMethod<Paths, Method>, ParseAsValue extends ParseAs | undefined = undefined>(
   url: Path,
-  ...init: InitParam<Init>
-) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
+  ...init: InitParam<InitWithParseAs<MaybeOptionalInit<Paths[Path], Method>, ParseAsValue>>
+) => Promise<
+  FetchResponse<Paths[Path][Method], InitWithParseAs<MaybeOptionalInit<Paths[Path], Method>, ParseAsValue>, Media>
+>;
 
 export type ClientRequestMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
-  Init extends MaybeOptionalInit<Paths[Path], Method>,
+  ParseAsValue extends ParseAs | undefined = undefined,
 >(
   method: Method,
   url: Path,
-  ...init: InitParam<Init>
-) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
+  ...init: InitParam<InitWithParseAs<MaybeOptionalInit<Paths[Path], Method>, ParseAsValue>>
+) => Promise<
+  FetchResponse<Paths[Path][Method], InitWithParseAs<MaybeOptionalInit<Paths[Path], Method>, ParseAsValue>, Media>
+>;
 
 export type ClientForPath<PathInfo extends Record<string | number, any>, Media extends MediaType> = {
-  [Method in keyof PathInfo as Uppercase<string & Method>]: <Init extends MaybeOptionalInit<PathInfo, Method>>(
-    ...init: InitParam<Init>
-  ) => Promise<FetchResponse<PathInfo[Method], Init, Media>>;
+  [Method in keyof PathInfo as Uppercase<string & Method>]: <ParseAsValue extends ParseAs | undefined = undefined>(
+    ...init: InitParam<InitWithParseAs<MaybeOptionalInit<PathInfo, Method>, ParseAsValue>>
+  ) => Promise<
+    FetchResponse<PathInfo[Method], InitWithParseAs<MaybeOptionalInit<PathInfo, Method>, ParseAsValue>, Media>
+  >;
 };
 
 export interface Client<Paths extends {}, Media extends MediaType = MediaType> {
