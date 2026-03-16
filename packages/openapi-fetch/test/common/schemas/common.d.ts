@@ -672,6 +672,8 @@ export interface paths {
                 number?: number;
                 boolean?: boolean;
                 array?: string[];
+                second_array?: string[];
+                third_array?: string[];
                 object?: {
                     foo: string;
                     bar: string;
@@ -688,6 +690,8 @@ export interface paths {
                     number?: number;
                     boolean?: boolean;
                     array?: string[];
+                    second_array?: string[];
+                    third_array?: string[];
                     object?: {
                         foo: string;
                         bar: string;
