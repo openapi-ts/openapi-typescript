@@ -37,6 +37,22 @@ jobs:
         with:
           run_install: true
       - run: pnpm test
+      - name: Generate coverage
+        if: matrix.node-version == 24
+        run: |
+          pnpm --filter='openapi-fetch' --filter='openapi-react-query' --filter='openapi-typescript' run test:js -- --coverage
+          mkdir -p coverage
+          for pkg in openapi-fetch openapi-react-query openapi-typescript; do
+            if [ -f "packages/$pkg/coverage/lcov.info" ]; then
+              sed "s|SF:|SF:packages/$pkg/|g" "packages/$pkg/coverage/lcov.info" >> coverage/lcov.info
+            fi
+          done
+      - name: Upload coverage to Qlty
+        if: matrix.node-version == 24
+        uses: qltysh/qlty-action/coverage@v2
+        with:
+          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+          files: coverage/lcov.info
   test-e2e:
     runs-on: ubuntu-latest
     steps:

@@ -9,5 +9,9 @@ export default defineConfig({
       tsconfig: "./tsconfig.json",
     },
     restoreMocks: true,
+    coverage: {
+      provider: "v8",
+      reporter: ["lcov"],
+    },
   },
 });

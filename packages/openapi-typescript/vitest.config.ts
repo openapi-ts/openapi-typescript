@@ -5,5 +5,9 @@ export default defineConfig({
     environment: "node",
     clearMocks: true,
     globals: true,
+    coverage: {
+      provider: "v8",
+      reporter: ["lcov"],
+    },
   },
 });
