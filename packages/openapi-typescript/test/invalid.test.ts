@@ -25,7 +25,7 @@ describe("Invalid schemas", () => {
 
     await expect(() =>
       openapiTS({
-        openapi: "3.1",
+        openapi: "3.1.0",
         info: { title: "test", version: "1.0" },
         components: {
           schemas: {

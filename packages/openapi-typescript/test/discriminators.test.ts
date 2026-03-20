@@ -8,7 +8,7 @@ describe("3.1 discriminators", () => {
       "allOf > mapping",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "test", version: "1.0" },
           components: {
             schemas: {
@@ -120,7 +120,7 @@ export type operations = Record<string, never>;`,
       "allOf > no mapping",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "test", version: "1.0" },
           components: {
             schemas: {
@@ -189,7 +189,7 @@ export type operations = Record<string, never>;`,
       "allOf > inline inheritance",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "test", version: "1.0" },
           components: {
             schemas: {
@@ -237,7 +237,7 @@ export type operations = Record<string, never>;`,
       "oneOf > implicit mapping",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "test", version: "1.0" },
           components: {
             schemas: {

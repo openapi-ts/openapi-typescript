@@ -51,14 +51,14 @@ export default async function openapiTS(
 
   const redoc =
     options.redocly ??
-    (await createConfig(
-      {
-        rules: {
-          "operation-operationId-unique": { severity: "error" }, // throw error on duplicate operationIDs
-        },
+    (await createConfig({
+      extends: ["minimal"],
+      rules: {
+        "operation-operationId-unique": { severity: "error" }, // throw error on duplicate operationIDs
+        struct: "warn", // downgrade struct rule to warning to allow incomplete schemas
+        "no-server-trailing-slash": "warn",
       },
-      { extends: ["minimal"] },
-    ));
+    }));
 
   const schema = await validateAndBundle(source, {
     redoc,

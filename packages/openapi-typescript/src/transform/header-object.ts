@@ -1,4 +1,4 @@
-import { escapePointer } from "@redocly/openapi-core/lib/ref-utils.js";
+import { escapePointerFragment } from "@redocly/openapi-core";
 import ts from "typescript";
 import { addJSDocComment, tsModifiers, tsPropertyIndex, UNKNOWN } from "../lib/ts.js";
 import { getEntries } from "../lib/utils.js";
@@ -18,7 +18,7 @@ export default function transformHeaderObject(headerObject: HeaderObject, option
   if (headerObject.content) {
     const type: ts.TypeElement[] = [];
     for (const [contentType, mediaTypeObject] of getEntries(headerObject.content ?? {}, options.ctx)) {
-      const nextPath = `${options.path ?? "#"}/${escapePointer(contentType)}`;
+      const nextPath = `${options.path ?? "#"}/${escapePointerFragment(contentType)}`;
       const mediaType =
         "$ref" in mediaTypeObject
           ? transformSchemaObject(mediaTypeObject, {
