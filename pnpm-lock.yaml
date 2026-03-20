@@ -106,8 +106,8 @@ importers:
         specifier: 'catalog:'
         version: 5.9.3
       undici:
-        specifier: 7.24.4
-        version: 7.24.4
+        specifier: 7.24.5
+        version: 7.24.5
       vite:
         specifier: 'catalog:'
         version: 7.3.1(@types/node@25.5.0)(jiti@2.6.1)(yaml@2.8.2)
@@ -4089,8 +4089,8 @@ packages:
   undici-types@7.18.2:
     resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
 
-  undici@7.24.4:
-    resolution: {integrity: sha512-BM/JzwwaRXxrLdElV2Uo6cTLEjhSb3WXboncJamZ15NgUURmvlXvxa6xkwIOILIjPNo9i8ku136ZvWV0Uly8+w==}
+  undici@7.24.5:
+    resolution: {integrity: sha512-3IWdCpjgxp15CbJnsi/Y9TCDE7HWVN19j1hmzVhoAkY/+CJx449tVxT5wZc1Gwg8J+P0LWvzlBzxYRnHJ+1i7Q==}
     engines: {node: '>=20.18.1'}
 
   unicode-emoji-modifier-base@1.0.0:
@@ -8212,7 +8212,7 @@ snapshots:
 
   undici-types@7.18.2: {}
 
-  undici@7.24.4: {}
+  undici@7.24.5: {}
 
   unicode-emoji-modifier-base@1.0.0: {}
 
