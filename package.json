@@ -31,7 +31,7 @@
     "turbo": "2.8.20",
     "typescript": "catalog:",
     "unbuild": "3.6.1",
-    "vitest": "4.1.0"
+    "vitest": "4.1.1"
   },
   "size-limit": [
     {
