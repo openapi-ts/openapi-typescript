@@ -57,12 +57,12 @@
     "openapi-typescript-helpers": "workspace:^"
   },
   "devDependencies": {
-    "@tanstack/react-query": "5.90.21",
+    "@tanstack/react-query": "5.96.2",
     "@testing-library/react": "16.3.2",
     "@types/react": "18.3.21",
     "@vitejs/plugin-react": "5.2.0",
     "execa": "catalog:",
-    "msw": "2.12.10",
+    "msw": "2.12.14",
     "openapi-fetch": "workspace:^",
     "openapi-typescript": "workspace:^",
     "react": "18.3.1",
