@@ -85,8 +85,8 @@ importers:
         specifier: 5.2.1
         version: 5.2.1
       feature-fetch:
-        specifier: 0.0.54
-        version: 0.0.54(graphql@16.12.0)
+        specifier: 0.0.55
+        version: 0.0.55(graphql@16.12.0)
       node-forge:
         specifier: 1.4.0
         version: 1.4.0
@@ -538,11 +538,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@blgc/types@0.0.21':
-    resolution: {integrity: sha512-mKy5l2EYVT8+O8CqTKv9Q/cA8CLfzdSnRpeGOZYsZga355oq0WXVciIV35z2xY2Tvo4pp1YKWochHpQCbJa4Yg==}
+  '@blgc/types@0.0.22':
+    resolution: {integrity: sha512-BCW/N9/Z0KpakL9iT2hi49U//lAQGWU5GcK724BZ1NdmjQsXsJQfimCOOcrvjEuSY+mBUexpzx3ngXBmMJOnUg==}
 
-  '@blgc/utils@0.0.61':
-    resolution: {integrity: sha512-bCN4W/1oQgyz2S4mYUp1ZUXJJGm9w7NYjnW3Jq/toWiM6AtM47B1ygsBrtPVNEa/v2U0B8ykMB6ohY2pp+bnwg==}
+  '@blgc/utils@0.0.62':
+    resolution: {integrity: sha512-5hLMykKIrZs2FoGW/vE50A5btgM5szJF/nWmPbA6io0wKAHYusvksAB+hh4YkudjX+VBlC7k/Ii3SgXw+RjjLQ==}
 
   '@braidai/lang@1.1.2':
     resolution: {integrity: sha512-qBcknbBufNHlui137Hft8xauQMTZDKdophmLFv05r2eNmdIv/MlPuP4TdUknHG68UdWLgVZwgxVe735HzJNIwA==}
@@ -2655,8 +2655,8 @@ packages:
       picomatch:
         optional: true
 
-  feature-fetch@0.0.54:
-    resolution: {integrity: sha512-fB1Y5ehDdrcVB/W3jc96TqKIlifd0fzOgKK/9Fy1d4dsKVL8Us8wfOmK3tx17EBEs4zm5JTg3wSy5VG2kHkk1g==}
+  feature-fetch@0.0.55:
+    resolution: {integrity: sha512-5BvKcpZld4+YLtRo88vIUsCTwvxnr74cK61SVJjD7TDdUs8cmdKQ7i1ACi3KWCqKtBW7GV6QhTCQWLDioYOUZQ==}
 
   fflate@0.8.2:
     resolution: {integrity: sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A==}
@@ -4041,8 +4041,8 @@ packages:
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
-  tuple-result@0.0.11:
-    resolution: {integrity: sha512-h4T8ut4Aon/biceYKifPwhjUtmC+O7gXVBLOeeD9vHdBb2kBttAiEhiMBaBhl4YR122AGk5BYB0IaDVNib6Sig==}
+  tuple-result@0.0.12:
+    resolution: {integrity: sha512-psArZjDjcqmBKLE1IpmgtleT+Vd9xxjk6f6zGMWt/UfiAArQifBIEBNN/sIdJFEF26x/JTmpqYYjCXRvgBj7XQ==}
 
   turbo@2.9.5:
     resolution: {integrity: sha512-JXNkRe6H6MjSlk5UQRTjyoKX5YN2zlc2632xcSlSFBao5yvbMWTpv9SNolOZlZmUlcDOHuszPLItbKrvcXnnZA==}
@@ -4730,9 +4730,9 @@ snapshots:
   '@biomejs/cli-win32-x64@2.4.10':
     optional: true
 
-  '@blgc/types@0.0.21': {}
+  '@blgc/types@0.0.22': {}
 
-  '@blgc/utils@0.0.61': {}
+  '@blgc/utils@0.0.62': {}
 
   '@braidai/lang@1.1.2': {}
 
@@ -6715,12 +6715,12 @@ snapshots:
     optionalDependencies:
       picomatch: 4.0.3
 
-  feature-fetch@0.0.54(graphql@16.12.0):
+  feature-fetch@0.0.55(graphql@16.12.0):
     dependencies:
       '@0no-co/graphql.web': 1.2.0(graphql@16.12.0)
-      '@blgc/types': 0.0.21
-      '@blgc/utils': 0.0.61
-      tuple-result: 0.0.11
+      '@blgc/types': 0.0.22
+      '@blgc/utils': 0.0.62
+      tuple-result: 0.0.12
     transitivePeerDependencies:
       - graphql
 
@@ -8151,7 +8151,7 @@ snapshots:
 
   tslib@2.8.1: {}
 
-  tuple-result@0.0.11: {}
+  tuple-result@0.0.12: {}
 
   turbo@2.9.5:
     optionalDependencies:

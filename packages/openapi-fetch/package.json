@@ -65,7 +65,7 @@
     "axios": "1.14.0",
     "execa": "catalog:",
     "express": "5.2.1",
-    "feature-fetch": "0.0.54",
+    "feature-fetch": "0.0.55",
     "node-forge": "1.4.0",
     "openapi-typescript": "workspace:^",
     "openapi-typescript-codegen": "0.30.0",
