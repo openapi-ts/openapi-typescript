@@ -24,7 +24,7 @@
     "@changesets/changelog-github": "0.6.0",
     "@changesets/cli": "2.30.0",
     "@playwright/test": "1.59.1",
-    "@size-limit/preset-small-lib": "12.0.1",
+    "@size-limit/preset-small-lib": "12.1.0",
     "@types/node": "25.6.0",
     "prettier": "3.8.2",
     "size-limit": "12.0.1",
