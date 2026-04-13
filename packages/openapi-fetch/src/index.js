@@ -625,6 +625,9 @@ export function defaultBodySerializer(body, headers) {
   if (body instanceof FormData) {
     return body;
   }
+  if (typeof body === "string") {
+    return body;
+  }
   if (headers) {
     const contentType =
       headers.get instanceof Function
