@@ -9,10 +9,10 @@ export type $Read<T> = {
 export type $Write<T> = {
     readonly $write: T;
 };
-export type Readable<T> = T extends $Write<any> ? never : T extends $Read<infer U> ? Readable<U> : T extends (infer E)[] ? Readable<E>[] : T extends object ? {
+export type Readable<T> = T extends $Write<any> ? never : T extends $Read<infer U> ? Readable<U> : T extends (infer E)[] ? Readable<E>[] : T extends string | number | boolean | bigint | symbol ? T : T extends object ? {
     [K in keyof T as NonNullable<T[K]> extends $Write<any> ? never : K]: Readable<T[K]>;
 } : T;
-export type Writable<T> = T extends $Read<any> ? never : T extends $Write<infer U> ? Writable<U> : T extends (infer E)[] ? Writable<E>[] : T extends object ? {
+export type Writable<T> = T extends $Read<any> ? never : T extends $Write<infer U> ? Writable<U> : T extends (infer E)[] ? Writable<E>[] : T extends string | number | boolean | bigint | symbol ? T : T extends object ? {
     [K in keyof T as NonNullable<T[K]> extends $Read<any> ? never : K]: Writable<T[K]>;
 } & {
     [K in keyof T as NonNullable<T[K]> extends $Read<any> ? K : never]?: never;
