@@ -98,7 +98,7 @@ test("can modify response", async () => {
 
 test("returns original errors if nothing is returned", async () => {
   const actualError = new Error();
-  const client = createObservedClient<paths>({}, async (req) => {
+  const client = createObservedClient<paths>({}, async (_req) => {
     throw actualError;
   });
   client.use({
