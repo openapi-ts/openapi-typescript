@@ -67,7 +67,7 @@ const caToBuffer = (ca) => {
 const API_PORT = process.env.API_PORT || 4578;
 
 const app = express();
-app.get("/v1/foo", (req, res) => {
+app.get("/v1/foo", (_req, res) => {
   res.send("bar");
 });
 
