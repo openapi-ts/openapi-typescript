@@ -37,7 +37,7 @@ importers:
         version: 1.59.1
       '@size-limit/preset-small-lib':
         specifier: 12.1.0
-        version: 12.1.0(size-limit@12.0.1(jiti@2.6.1))
+        version: 12.1.0(size-limit@12.1.0(jiti@2.6.1))
       '@types/node':
         specifier: 25.6.0
         version: 25.6.0
@@ -45,8 +45,8 @@ importers:
         specifier: 3.8.2
         version: 3.8.2
       size-limit:
-        specifier: 12.0.1
-        version: 12.0.1(jiti@2.6.1)
+        specifier: 12.1.0
+        version: 12.1.0(jiti@2.6.1)
       turbo:
         specifier: 2.9.6
         version: 2.9.6
@@ -162,7 +162,7 @@ importers:
         version: 5.53.5
       svelte-check:
         specifier: ^4.3.6
-        version: 4.3.6(picomatch@4.0.3)(svelte@5.53.5)(typescript@5.9.3)
+        version: 4.3.6(picomatch@4.0.4)(svelte@5.53.5)(typescript@5.9.3)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -3544,6 +3544,10 @@ packages:
     resolution: {integrity: sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q==}
     engines: {node: '>=12'}
 
+  picomatch@4.0.4:
+    resolution: {integrity: sha512-QP88BAKvMam/3NxH6vj2o21R6MjxZUAd6nlwAS/pnGvN9IVLocLHxGYIzFhg6fUQ+5th6P4dv4eW9jX3DSIj7A==}
+    engines: {node: '>=12'}
+
   pify@4.0.1:
     resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
     engines: {node: '>=6'}
@@ -3991,8 +3995,8 @@ packages:
     resolution: {integrity: sha512-2wcC/oGxHis/BoHkkPwldgiPSYcpZK3JU28WoMVv55yHJgcZ8rlXvuG9iZggz+sU1d4bRgIGASwyWqjxu3FM0g==}
     engines: {node: '>=18'}
 
-  size-limit@12.0.1:
-    resolution: {integrity: sha512-vuFj+6lDOoBJQu6OLhcMQv7jnbXjuoEn4WsQHlSLOV/8EFfOka/tfjtLQ/rZig5Gagi3R0GnU/0kd4EY/y2etg==}
+  size-limit@12.1.0:
+    resolution: {integrity: sha512-VnDS2fycANrJFVPQwjaD+h+hkISY7EB3LsPsYWje4lBCjQwwsZLxjwwRwVJKHrcj2ZqyG+DdXykWm9mbZklZrw==}
     engines: {node: ^20.0.0 || ^22.0.0 || >=24.0.0}
     hasBin: true
     peerDependencies:
@@ -4156,6 +4160,10 @@ packages:
 
   tinyglobby@0.2.15:
     resolution: {integrity: sha512-j2Zq4NyQYG5XMST4cbs02Ak8iJUdxRM0XI5QyxXuZOzKOINmWurp3smXu3y5wDcJrptwpSjgXHzIQxR0omXljQ==}
+    engines: {node: '>=12.0.0'}
+
+  tinyglobby@0.2.16:
+    resolution: {integrity: sha512-pn99VhoACYR8nFHhxqix+uvsbXineAasWm5ojXoN8xEwK5Kd3/TrhNn1wByuD52UxWRLy8pu+kRMniEi6Eq9Zg==}
     engines: {node: '>=12.0.0'}
 
   tinyrainbow@3.1.0:
@@ -5831,21 +5839,21 @@ snapshots:
 
   '@sindresorhus/merge-streams@4.0.0': {}
 
-  '@size-limit/esbuild@12.1.0(size-limit@12.0.1(jiti@2.6.1))':
+  '@size-limit/esbuild@12.1.0(size-limit@12.1.0(jiti@2.6.1))':
     dependencies:
       esbuild: 0.28.0
       nanoid: 5.1.7
-      size-limit: 12.0.1(jiti@2.6.1)
+      size-limit: 12.1.0(jiti@2.6.1)
 
-  '@size-limit/file@12.1.0(size-limit@12.0.1(jiti@2.6.1))':
+  '@size-limit/file@12.1.0(size-limit@12.1.0(jiti@2.6.1))':
     dependencies:
-      size-limit: 12.0.1(jiti@2.6.1)
+      size-limit: 12.1.0(jiti@2.6.1)
 
-  '@size-limit/preset-small-lib@12.1.0(size-limit@12.0.1(jiti@2.6.1))':
+  '@size-limit/preset-small-lib@12.1.0(size-limit@12.1.0(jiti@2.6.1))':
     dependencies:
-      '@size-limit/esbuild': 12.1.0(size-limit@12.0.1(jiti@2.6.1))
-      '@size-limit/file': 12.1.0(size-limit@12.0.1(jiti@2.6.1))
-      size-limit: 12.0.1(jiti@2.6.1)
+      '@size-limit/esbuild': 12.1.0(size-limit@12.1.0(jiti@2.6.1))
+      '@size-limit/file': 12.1.0(size-limit@12.1.0(jiti@2.6.1))
+      size-limit: 12.1.0(jiti@2.6.1)
 
   '@standard-schema/spec@1.1.0': {}
 
@@ -6983,6 +6991,10 @@ snapshots:
     optionalDependencies:
       picomatch: 4.0.3
 
+  fdir@6.5.0(picomatch@4.0.4):
+    optionalDependencies:
+      picomatch: 4.0.4
+
   feature-fetch@0.0.55(graphql@16.12.0):
     dependencies:
       '@0no-co/graphql.web': 1.2.0(graphql@16.12.0)
@@ -7704,6 +7716,8 @@ snapshots:
 
   picomatch@4.0.3: {}
 
+  picomatch@4.0.4: {}
+
   pify@4.0.1: {}
 
   pkg-types@1.3.1:
@@ -8209,13 +8223,13 @@ snapshots:
       mrmime: 2.0.1
       totalist: 3.0.1
 
-  size-limit@12.0.1(jiti@2.6.1):
+  size-limit@12.1.0(jiti@2.6.1):
     dependencies:
       bytes-iec: 3.1.1
       lilconfig: 3.1.3
       nanospinner: 1.2.2
       picocolors: 1.1.1
-      tinyglobby: 0.2.15
+      tinyglobby: 0.2.16
     optionalDependencies:
       jiti: 2.6.1
 
@@ -8313,11 +8327,11 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  svelte-check@4.3.6(picomatch@4.0.3)(svelte@5.53.5)(typescript@5.9.3):
+  svelte-check@4.3.6(picomatch@4.0.4)(svelte@5.53.5)(typescript@5.9.3):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       chokidar: 4.0.3
-      fdir: 6.5.0(picomatch@4.0.3)
+      fdir: 6.5.0(picomatch@4.0.4)
       picocolors: 1.1.1
       sade: 1.8.1
       svelte: 5.53.5
@@ -8379,6 +8393,11 @@ snapshots:
     dependencies:
       fdir: 6.5.0(picomatch@4.0.3)
       picomatch: 4.0.3
+
+  tinyglobby@0.2.16:
+    dependencies:
+      fdir: 6.5.0(picomatch@4.0.4)
+      picomatch: 4.0.4
 
   tinyrainbow@3.1.0: {}
 
