@@ -3,7 +3,7 @@
   "$schema": "https://biomejs.dev/schemas/2.3.14/schema.json",
   "extends": "//",
   "files": {
-    "includes": ["src/**", "test/**", "!**/examples/**", "!test/**/schemas/**", "!test/bench/**/*.min.js"]
+    "includes": ["src/**", "test/**", "!**/examples", "!test/**/schemas", "!test/bench/**/*.min.js"]
   },
   "linter": {
     "rules": {
