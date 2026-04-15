@@ -223,9 +223,11 @@ export type Readable<T> =
       ? Readable<U>
       : T extends (infer E)[]
         ? Readable<E>[]
-        : T extends object
-          ? { [K in keyof T as NonNullable<T[K]> extends $Write<any> ? never : K]: Readable<T[K]> }
-          : T;
+        : T extends Date | RegExp | ((...args: never[]) => unknown)
+          ? T
+          : T extends object
+            ? { [K in keyof T as NonNullable<T[K]> extends $Write<any> ? never : K]: Readable<T[K]> }
+            : T;
 
 /**
  * Resolve type for writing (requests): strips $Read properties, unwraps $Write
@@ -240,8 +242,10 @@ export type Writable<T> =
       ? Writable<U>
       : T extends (infer E)[]
         ? Writable<E>[]
-        : T extends object
-          ? { [K in keyof T as NonNullable<T[K]> extends $Read<any> ? never : K]: Writable<T[K]> } & {
-              [K in keyof T as NonNullable<T[K]> extends $Read<any> ? K : never]?: never;
-            }
-          : T;
+        : T extends Date | RegExp | ((...args: never[]) => unknown)
+          ? T
+          : T extends object
+            ? { [K in keyof T as NonNullable<T[K]> extends $Read<any> ? never : K]: Writable<T[K]> } & {
+                [K in keyof T as NonNullable<T[K]> extends $Read<any> ? K : never]?: never;
+              }
+            : T;
