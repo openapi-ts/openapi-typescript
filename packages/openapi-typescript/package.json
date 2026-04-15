@@ -59,7 +59,7 @@
     "version": "pnpm run build"
   },
   "peerDependencies": {
-    "typescript": "^5.x"
+    "typescript": "^5.x || ^6.x"
   },
   "dependencies": {
     "@redocly/openapi-core": "^1.34.6",
