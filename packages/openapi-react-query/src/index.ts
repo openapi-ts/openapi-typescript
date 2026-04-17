@@ -204,7 +204,11 @@ export default function createClient<Paths extends {}, Media extends MediaType =
     ((method, path, init) => (init === undefined ? ([method, path] as const) : ([method, path, init] as const)));
 
   const queryOptions: QueryOptionsFunction<Paths, Media> = (method, path, ...[init, queryOpts]) => ({
-    queryKey: buildQueryKey(method, path as string, init) as DataTag<QueryKey<Paths, typeof method, typeof path>, any, any>,
+    queryKey: buildQueryKey(method, path as string, init) as DataTag<
+      QueryKey<Paths, typeof method, typeof path>,
+      any,
+      any
+    >,
     queryFn: async ({ signal }) => {
       const mth = method.toUpperCase() as Uppercase<typeof method>;
       const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
