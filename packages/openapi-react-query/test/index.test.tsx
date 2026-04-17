@@ -286,6 +286,98 @@ describe("client", () => {
     });
   });
 
+  describe("queryKeyFn", () => {
+    it("default key is [method, path] when no init is provided", () => {
+      const fetchClient = createFetchClient<minimalGetPaths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      const { queryKey } = client.queryOptions("get", "/foo");
+      expect(queryKey).toEqual(["get", "/foo"]);
+    });
+
+    it("default key is [method, path, init] when init is provided", () => {
+      const fetchClient = createFetchClient<minimalGetPaths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      const { queryKey } = client.queryOptions("get", "/foo", {});
+      expect(queryKey).toEqual(["get", "/foo", {}]);
+    });
+
+    it("uses custom queryKeyFn when provided", () => {
+      const fetchClient = createFetchClient<minimalGetPaths>({ baseUrl });
+      const client = createClient(fetchClient, {
+        queryKeyFn: (method, path, init) => ["ns", method, path, init],
+      });
+
+      const { queryKey } = client.queryOptions("get", "/foo");
+      expect(queryKey).toEqual(["ns", "get", "/foo", undefined]);
+    });
+
+    it("custom queryKeyFn prevents deduplication across clients with different namespaces", async () => {
+      const response = ["one", "two", "three"];
+
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client1 = createClient(fetchClient, {
+        queryKeyFn: (method, path, init) => ["ns1", method, path, init],
+      });
+      const client2 = createClient(fetchClient, {
+        queryKeyFn: (method, path, init) => ["ns2", method, path, init],
+      });
+
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/string-array",
+        status: 200,
+        body: response,
+      });
+
+      const { result: result1 } = renderHook(() => client1.useQuery("get", "/string-array"), { wrapper });
+      const { result: result2 } = renderHook(() => client2.useQuery("get", "/string-array"), { wrapper });
+
+      await waitFor(() => {
+        expect(result1.current.isFetching).toBe(false);
+        expect(result2.current.isFetching).toBe(false);
+      });
+
+      // Both clients should have data resolved independently
+      expect(result1.current.data).toEqual(response);
+      expect(result2.current.data).toEqual(response);
+
+      // Two separate cache entries should exist — one per namespace
+      const cacheKeys = queryClient
+        .getQueryCache()
+        .getAll()
+        .map((q) => q.queryKey);
+      expect(cacheKeys.some((k) => k[0] === "ns1")).toBe(true);
+      expect(cacheKeys.some((k) => k[0] === "ns2")).toBe(true);
+    });
+
+    it("custom queryKeyFn receives data via useQuery", async () => {
+      const response = ["one", "two", "three"];
+
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient, {
+        queryKeyFn: (method, path, init) => ["custom", method, path, init],
+      });
+
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/string-array",
+        status: 200,
+        body: response,
+      });
+
+      const { result } = renderHook(() => client.useQuery("get", "/string-array"), { wrapper });
+
+      await waitFor(() => expect(result.current.isFetching).toBe(false));
+
+      expect(result.current.data).toEqual(response);
+      expect(result.current.error).toBeNull();
+    });
+  });
+
   describe("useQuery", () => {
     it("should resolve data properly and have error as null when successful request", async () => {
       const response = ["one", "two", "three"];

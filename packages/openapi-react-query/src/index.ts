@@ -2,7 +2,6 @@ import {
   type DataTag,
   type InfiniteData,
   type QueryClient,
-  type QueryFunctionContext,
   type SkipToken,
   type UseInfiniteQueryOptions,
   type UseInfiniteQueryResult,
@@ -37,6 +36,12 @@ export type QueryKey<
   Path extends PathsWithMethod<Paths, Method>,
   Init = MaybeOptionalInit<Paths[Path], Method>,
 > = Init extends undefined ? readonly [Method, Path] : readonly [Method, Path, Init];
+
+export type QueryKeyFn = (method: HttpMethod, path: string, init: unknown) => readonly unknown[];
+
+export interface CreateClientOptions {
+  queryKeyFn?: QueryKeyFn;
+}
 
 export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
@@ -192,32 +197,27 @@ export type MethodResponse<
 // TODO: Add the ability to bring queryClient as argument
 export default function createClient<Paths extends {}, Media extends MediaType = MediaType>(
   client: FetchClient<Paths, Media>,
+  clientOptions?: CreateClientOptions,
 ): OpenapiQueryClient<Paths, Media> {
-  const queryFn = async <Method extends HttpMethod, Path extends PathsWithMethod<Paths, Method>>({
-    queryKey: [method, path, init],
-    signal,
-  }: QueryFunctionContext<QueryKey<Paths, Method, Path>>) => {
-    const mth = method.toUpperCase() as Uppercase<typeof method>;
-    const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
-    const { data, error, response } = await fn(path, { signal, ...(init as any) }); // TODO: find a way to avoid as any
-    if (error) {
-      throw error;
-    }
-    if (response.status === 204 || response.headers.get("Content-Length") === "0") {
-      return data ?? null;
-    }
+  const buildQueryKey: QueryKeyFn =
+    clientOptions?.queryKeyFn ??
+    ((method, path, init) => (init === undefined ? ([method, path] as const) : ([method, path, init] as const)));
 
-    return data;
-  };
-
-  const queryOptions: QueryOptionsFunction<Paths, Media> = (method, path, ...[init, options]) => ({
-    queryKey: (init === undefined ? ([method, path] as const) : ([method, path, init] as const)) as DataTag<
-      QueryKey<Paths, typeof method, typeof path>,
-      any,
-      any
-    >,
-    queryFn,
-    ...options,
+  const queryOptions: QueryOptionsFunction<Paths, Media> = (method, path, ...[init, queryOpts]) => ({
+    queryKey: buildQueryKey(method, path as string, init) as DataTag<QueryKey<Paths, typeof method, typeof path>, any, any>,
+    queryFn: async ({ signal }) => {
+      const mth = method.toUpperCase() as Uppercase<typeof method>;
+      const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
+      const { data, error, response } = await fn(path, { signal, ...(init as any) }); // TODO: find a way to avoid as any
+      if (error) {
+        throw error;
+      }
+      if (response.status === 204 || response.headers.get("Content-Length") === "0") {
+        return data ?? null;
+      }
+      return data;
+    },
+    ...queryOpts,
   });
 
   return {
@@ -232,7 +232,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
       return useInfiniteQuery(
         {
           queryKey,
-          queryFn: async ({ queryKey: [method, path, init], pageParam = 0, signal }) => {
+          queryFn: async ({ pageParam = 0, signal }) => {
             const mth = method.toUpperCase() as Uppercase<typeof method>;
             const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
             const mergedInit = {
