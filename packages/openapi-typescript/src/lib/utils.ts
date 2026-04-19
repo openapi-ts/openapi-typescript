@@ -157,14 +157,31 @@ export function resolveRef<T>(
   return node;
 }
 
+const GENERATED_DISCRIMINATOR_DESCRIPTION = "discriminator enum property added by openapi-typescript";
+
 function createDiscriminatorEnum(values: string[], prevSchema?: SchemaObject): SchemaObject {
+  const prevDescription = prevSchema?.description;
   return {
     type: "string",
     enum: values,
-    description: prevSchema?.description
-      ? `${prevSchema.description} (enum property replaced by openapi-typescript)`
-      : "discriminator enum property added by openapi-typescript",
+    description:
+      prevDescription && !prevDescription.includes(GENERATED_DISCRIMINATOR_DESCRIPTION)
+        ? `${prevDescription} (enum property replaced by openapi-typescript)`
+        : GENERATED_DISCRIMINATOR_DESCRIPTION,
   };
+}
+
+function isGeneratedDiscriminatorObject(item: SchemaObject | ReferenceObject, propertyName: string): item is SchemaObject {
+  if ("$ref" in item || item.type !== "object" || !item.properties || Object.keys(item.properties).length !== 1) {
+    return false;
+  }
+
+  const propertySchema = item.properties[propertyName];
+  if (!propertySchema || typeof propertySchema !== "object" || "$ref" in propertySchema) {
+    return false;
+  }
+
+  return propertySchema.description === GENERATED_DISCRIMINATOR_DESCRIPTION;
 }
 
 /** Adds or replaces the discriminator enum with the passed `values` in a schema defined by `ref` */
@@ -181,6 +198,37 @@ function patchDiscriminatorEnum(
   });
 
   if (resolvedSchema?.allOf) {
+    const generatedDiscriminatorIndices = resolvedSchema.allOf
+      .map((item, index) => (isGeneratedDiscriminatorObject(item, discriminator.propertyName) ? index : -1))
+      .filter((index) => index !== -1);
+
+    if (generatedDiscriminatorIndices.length) {
+      const keepIndex = generatedDiscriminatorIndices.at(-1) as number;
+      const existingDiscriminatorObject = resolvedSchema.allOf[keepIndex] as SchemaObject;
+
+      if (generatedDiscriminatorIndices.length > 1) {
+        resolvedSchema.allOf = resolvedSchema.allOf.filter(
+          (_, index) => !generatedDiscriminatorIndices.includes(index) || index === keepIndex,
+        );
+      }
+
+      // A schema may already have been patched from an inferred oneOf mapping.
+      // Replace that injected enum instead of intersecting a duplicate property.
+      if (!existingDiscriminatorObject.required) {
+        existingDiscriminatorObject.required = [discriminator.propertyName];
+      } else if (!existingDiscriminatorObject.required.includes(discriminator.propertyName)) {
+        existingDiscriminatorObject.required.push(discriminator.propertyName);
+      }
+
+      existingDiscriminatorObject.properties ??= {};
+      existingDiscriminatorObject.properties[discriminator.propertyName] = createDiscriminatorEnum(
+        values,
+        existingDiscriminatorObject.properties[discriminator.propertyName] as SchemaObject,
+      );
+
+      return true;
+    }
+
     // if the schema is an allOf, we can append a new schema object to the allOf array
     resolvedSchema.allOf.push({
       type: "object",

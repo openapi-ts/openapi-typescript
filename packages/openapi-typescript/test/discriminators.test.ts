@@ -627,6 +627,244 @@ export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
       },
     ],
+    [
+      "implicit oneOf mapping does not duplicate explicit allOf discriminator enum",
+      {
+        given: {
+          openapi: "3.1.0",
+          info: {
+            title: "test",
+            version: 1,
+          },
+          components: {
+            schemas: {
+              PaymentRequest: {
+                type: "object",
+                properties: {
+                  confirmation: {
+                    oneOf: [
+                      {
+                        $ref: "#/components/schemas/ConfirmationDataRedirect",
+                      },
+                      {
+                        $ref: "#/components/schemas/ConfirmationDataExternal",
+                      },
+                    ],
+                    discriminator: {
+                      propertyName: "type",
+                    },
+                  },
+                },
+              },
+              ConfirmationDataType: {
+                type: "string",
+                enum: ["redirect", "external"],
+              },
+              ConfirmationData: {
+                type: "object",
+                required: ["type"],
+                properties: {
+                  type: {
+                    $ref: "#/components/schemas/ConfirmationDataType",
+                  },
+                },
+                discriminator: {
+                  propertyName: "type",
+                  mapping: {
+                    redirect: "#/components/schemas/ConfirmationDataRedirect",
+                    external: "#/components/schemas/ConfirmationDataExternal",
+                  },
+                },
+              },
+              ConfirmationDataRedirect: {
+                allOf: [
+                  {
+                    $ref: "#/components/schemas/ConfirmationData",
+                  },
+                  {
+                    type: "object",
+                    properties: {
+                      return_url: {
+                        type: "string",
+                      },
+                    },
+                  },
+                ],
+              },
+              ConfirmationDataExternal: {
+                type: "object",
+                allOf: [
+                  {
+                    $ref: "#/components/schemas/ConfirmationData",
+                  },
+                  {
+                    type: "object",
+                  },
+                ],
+              },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        PaymentRequest: {
+            confirmation?: components["schemas"]["ConfirmationDataRedirect"] | components["schemas"]["ConfirmationDataExternal"];
+        };
+        /** @enum {string} */
+        ConfirmationDataType: "redirect" | "external";
+        ConfirmationData: {
+            type: components["schemas"]["ConfirmationDataType"];
+        };
+        ConfirmationDataRedirect: Omit<components["schemas"]["ConfirmationData"], "type"> & {
+            return_url?: string;
+        } & {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "redirect";
+        };
+        ConfirmationDataExternal: Omit<components["schemas"]["ConfirmationData"], "type"> & Record<string, never> & {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "external";
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+      },
+    ],
+    [
+      "implicit oneOf mapping updates injected allOf enum without rewriting inline discriminator property",
+      {
+        given: {
+          openapi: "3.1.0",
+          info: {
+            title: "test",
+            version: 1,
+          },
+          components: {
+            schemas: {
+              PaymentRequest: {
+                type: "object",
+                properties: {
+                  confirmation: {
+                    oneOf: [
+                      {
+                        $ref: "#/components/schemas/ConfirmationDataRedirect",
+                      },
+                      {
+                        $ref: "#/components/schemas/ConfirmationDataExternal",
+                      },
+                    ],
+                    discriminator: {
+                      propertyName: "type",
+                    },
+                  },
+                },
+              },
+              ConfirmationDataType: {
+                type: "string",
+                enum: ["redirect", "external"],
+              },
+              ConfirmationData: {
+                type: "object",
+                required: ["type"],
+                properties: {
+                  type: {
+                    $ref: "#/components/schemas/ConfirmationDataType",
+                  },
+                },
+                discriminator: {
+                  propertyName: "type",
+                  mapping: {
+                    redirect: "#/components/schemas/ConfirmationDataRedirect",
+                    external: "#/components/schemas/ConfirmationDataExternal",
+                  },
+                },
+              },
+              ConfirmationDataRedirect: {
+                allOf: [
+                  {
+                    $ref: "#/components/schemas/ConfirmationData",
+                  },
+                  {
+                    type: "object",
+                    properties: {
+                      type: {
+                        $ref: "#/components/schemas/ConfirmationDataType",
+                      },
+                      return_url: {
+                        type: "string",
+                      },
+                    },
+                  },
+                ],
+              },
+              ConfirmationDataExternal: {
+                type: "object",
+                allOf: [
+                  {
+                    $ref: "#/components/schemas/ConfirmationData",
+                  },
+                  {
+                    type: "object",
+                  },
+                ],
+              },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        PaymentRequest: {
+            confirmation?: components["schemas"]["ConfirmationDataRedirect"] | components["schemas"]["ConfirmationDataExternal"];
+        };
+        /** @enum {string} */
+        ConfirmationDataType: "redirect" | "external";
+        ConfirmationData: {
+            type: components["schemas"]["ConfirmationDataType"];
+        };
+        ConfirmationDataRedirect: Omit<components["schemas"]["ConfirmationData"], "type"> & {
+            type?: components["schemas"]["ConfirmationDataType"];
+            return_url?: string;
+        } & {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "redirect";
+        };
+        ConfirmationDataExternal: Omit<components["schemas"]["ConfirmationData"], "type"> & Record<string, never> & {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "external";
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options, ci }] of tests) {
