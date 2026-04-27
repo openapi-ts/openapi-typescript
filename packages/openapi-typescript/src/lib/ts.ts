@@ -353,7 +353,7 @@ export function tsArrayLiteralExpression(
     )
   ) {
     const helper = stringToAST(
-      "type FlattenedDeepRequired<T> = { [K in keyof T]-?: FlattenedDeepRequired<T[K] extends unknown[] | undefined | null ? Extract<T[K], unknown[]>[number] : T[K]>; };",
+      "type FlattenedDeepRequired<T> = { [K in keyof T]-?: FlattenedDeepRequired<NonNullable<T[K]> extends unknown[] ? Extract<NonNullable<T[K]>, unknown[]>[number] : NonNullable<T[K]>>; };",
     )[0] as any;
     options.injectFooter.push(helper);
   }
