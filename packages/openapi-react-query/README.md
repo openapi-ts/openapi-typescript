@@ -60,6 +60,37 @@ const MyComponent = () => {
 
 > You can find more information about `createFetchClient` in the [openapi-fetch documentation](../openapi-fetch).
 
+## Options
+
+### `queryKeyFn`
+
+TanStack Query deduplicates cache entries by query key. By default, `openapi-react-query`
+builds keys as `[method, path, init]`. If you use two separate `openapi-fetch` clients
+that target different servers but share endpoint paths, their keys will collide — only
+one request will fire and both hooks will receive the same cached data.
+
+Pass a `queryKeyFn` to `createClient` to namespace keys per client instance:
+
+```ts
+import createFetchClient from "openapi-fetch";
+import createClient from "openapi-react-query";
+import type { paths } from "./my-openapi-3-schema";
+
+const appClient = createClient(
+  createFetchClient<paths>({ baseUrl: "https://app-api.example.com" }),
+);
+
+const pdmClient = createClient(
+  createFetchClient<paths>({ baseUrl: "https://pdm-api.example.com" }),
+  {
+    queryKeyFn: (method, path, init) => ["pdm", method, path, init],
+  },
+);
+```
+
+Each client now maintains its own cache namespace, so identical paths on different
+servers are fetched and stored independently.
+
 ## 📓 Docs
 
 [View Docs](https://openapi-ts.dev/openapi-react-query/)
