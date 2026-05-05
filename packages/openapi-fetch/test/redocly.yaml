@@ -58,3 +58,7 @@ apis:
     x-openapi-ts:
       output: ./read-write-visibility/schemas/read-write.d.ts
       read-write-markers: true
+  read-write-no-markers:
+    root: ./read-write-visibility/schemas/read-write.yaml
+    x-openapi-ts:
+      output: ./read-write-visibility/schemas/read-write-no-markers.d.ts
