@@ -45,6 +45,14 @@ describe("CLI", () => {
       },
     ],
     [
+      "snapshot > GitHub API (root types, input file last)",
+      {
+        given: ["--root-types", "./examples/github-api.yaml"],
+        want: new URL("./examples/github-api-root-types.ts", root),
+        ci: { timeout: TIMEOUT },
+      },
+    ],
+    [
       "snapshot > GitHub API (next)",
       {
         given: ["./examples/github-api-next.yaml"],
@@ -80,6 +88,14 @@ describe("CLI", () => {
       "snapshot > enum root types filtering",
       {
         given: ["./examples/enum-root-types.yaml", "--root-types", "--root-types-no-schema-prefix", "--enum"],
+        want: new URL("./examples/enum-root-types.ts", root),
+        ci: { timeout: TIMEOUT },
+      },
+    ],
+    [
+      "snapshot > enum root types filtering, input file last",
+      {
+        given: ["--root-types", "--enum", "--root-types-no-schema-prefix", "./examples/enum-root-types.yaml"],
         want: new URL("./examples/enum-root-types.ts", root),
         ci: { timeout: TIMEOUT },
       },
