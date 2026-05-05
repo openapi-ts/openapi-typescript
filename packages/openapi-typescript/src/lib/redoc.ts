@@ -5,6 +5,7 @@ import {
   BaseResolver,
   bundle,
   type Document,
+  isPlainObject,
   lintDocument,
   makeDocumentFromString,
   type NormalizedProblem,
@@ -123,19 +124,17 @@ export async function validateAndBundle(
   debug("Parsed schema", "redoc", performance.now() - redocParseT);
 
   // 1. check for OpenAPI 3 or greater
-  const openapiVersion = Number.parseFloat(document.parsed.openapi);
-  if (
-    document.parsed.swagger ||
-    !document.parsed.openapi ||
-    Number.isNaN(openapiVersion) ||
-    openapiVersion < 3 ||
-    openapiVersion >= 4
-  ) {
-    if (document.parsed.swagger) {
+  if (!isPlainObject(document.parsed)) {
+    throw new Error("Unsupported schema format, expected `openapi: 3.x`");
+  }
+  const parsed = document.parsed;
+  const openapiVersion = Number.parseFloat(String(parsed.openapi ?? ""));
+  if (parsed.swagger || !parsed.openapi || Number.isNaN(openapiVersion) || openapiVersion < 3 || openapiVersion >= 4) {
+    if (parsed.swagger) {
       throw new Error("Unsupported Swagger version: 2.x. Use OpenAPI 3.x instead.");
     }
-    if (document.parsed.openapi || openapiVersion < 3 || openapiVersion >= 4) {
-      throw new Error(`Unsupported OpenAPI version: ${document.parsed.openapi}`);
+    if (parsed.openapi || openapiVersion < 3 || openapiVersion >= 4) {
+      throw new Error(`Unsupported OpenAPI version: ${parsed.openapi}`);
     }
     throw new Error("Unsupported schema format, expected `openapi: 3.x`");
   }
@@ -144,7 +143,7 @@ export async function validateAndBundle(
   const redocLintT = performance.now();
   const problems = await lintDocument({
     document,
-    config: options.redoc.styleguide,
+    config: options.redoc,
     externalRefResolver: resolver,
   });
   _processProblems(problems, options);
@@ -160,5 +159,5 @@ export async function validateAndBundle(
   _processProblems(bundled.problems, options);
   debug("Bundled schema", "bundle", performance.now() - redocBundleT);
 
-  return bundled.bundle.parsed;
+  return bundled.bundle.parsed as OpenAPI3;
 }

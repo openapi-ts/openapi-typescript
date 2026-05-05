@@ -21,7 +21,7 @@ describe("openapiTS", () => {
       "$refs > basic",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
@@ -77,7 +77,7 @@ export type operations = Record<string, never>;`,
       "$refs > arbitrary $refs are respected",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
@@ -337,7 +337,7 @@ export type operations = Record<string, never>;`,
       "parameters > operations get correct params",
       {
         given: {
-          openapi: "3.0",
+          openapi: "3.0.0",
           info: { title: "Test", version: "1.0" },
           paths: {
             "/post/{id}": {
@@ -457,7 +457,7 @@ export interface operations {
       "examples > skipped",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
@@ -505,7 +505,7 @@ export type operations = Record<string, never>;`,
       "operations > # character is parsed correctly",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           paths: {
             "/accounts": {
@@ -622,7 +622,7 @@ export type operations = Record<string, never>;`,
       "TypeScript > WithRequired type helper",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
           components: {
             schemas: {
@@ -691,7 +691,7 @@ export type operations = Record<string, never>;`,
       "inject option",
       {
         given: {
-          openapi: "3.1",
+          openapi: "3.1.0",
           info: { title: "Test", version: "1.0" },
         },
         want: `type Foo = string;
@@ -1130,7 +1130,7 @@ export type operations = Record<string, never>;`,
 
   test("does not mutate original reference", async () => {
     const schema: OpenAPI3 = {
-      openapi: "3.1",
+      openapi: "3.1.0",
       info: { title: "test", version: "1.0" },
       components: {
         schemas: {

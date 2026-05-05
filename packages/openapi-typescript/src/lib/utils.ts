@@ -1,8 +1,9 @@
-import { escapePointer, parseRef } from "@redocly/openapi-core/lib/ref-utils.js";
+import { escapePointerFragment } from "@redocly/openapi-core";
 import c from "ansi-colors";
 import supportsColor from "supports-color";
 import ts from "typescript";
 import type { DiscriminatorObject, OpenAPI3, OpenAPITSOptions, ReferenceObject, SchemaObject } from "../types.js";
+import { parseRef } from "./ref-utils.js";
 import { tsLiteral, tsModifiers, tsPropertyIndex } from "./ts.js";
 
 if (!supportsColor.stdout || supportsColor.stdout.hasBasic === false) {
@@ -55,10 +56,10 @@ export function createRef(parts: (number | string | undefined | null)[]): string
     const maybeRef = parseRef(String(part)).pointer;
     if (maybeRef.length) {
       for (const refPart of maybeRef) {
-        pointer += `/${escapePointer(refPart)}`;
+        pointer += `/${escapePointerFragment(refPart)}`;
       }
     } else {
-      pointer += `/${escapePointer(part)}`;
+      pointer += `/${escapePointerFragment(part)}`;
     }
   }
   return pointer;
