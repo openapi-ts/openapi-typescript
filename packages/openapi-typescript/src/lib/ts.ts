@@ -12,6 +12,7 @@ export const SPECIAL_CHARACTER_MAP: Record<string, string> = {
 };
 
 export const BOOLEAN = ts.factory.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword);
+export const BIGINT = ts.factory.createKeywordTypeNode(ts.SyntaxKind.BigIntKeyword);
 export const FALSE = ts.factory.createLiteralTypeNode(ts.factory.createFalse());
 export const NEVER = ts.factory.createKeywordTypeNode(ts.SyntaxKind.NeverKeyword);
 export const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull());

@@ -2,6 +2,7 @@ import { parseRef } from "@redocly/openapi-core/lib/ref-utils.js";
 import ts from "typescript";
 import {
   addJSDocComment,
+  BIGINT,
   BOOLEAN,
   NEVER,
   NULL,
@@ -386,7 +387,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
     }
     // type: number / type: integer
     if (schemaObject.type === "number" || schemaObject.type === "integer") {
-      return NUMBER;
+      return schemaObject.format === "int64" ? BIGINT : NUMBER;
     }
     // type: boolean
     if (schemaObject.type === "boolean") {
