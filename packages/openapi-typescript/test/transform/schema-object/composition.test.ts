@@ -612,6 +612,40 @@ describe("composition", () => {
         // options: DEFAULT_OPTIONS
       },
     ],
+    [
+      "anyOf > with sibling properties (issue #2380)",
+      {
+        given: {
+          anyOf: [
+            {
+              type: "object",
+              properties: { type: { type: "string", enum: ["email"] }, address: { type: "string" } },
+              required: ["type", "address"],
+            },
+            {
+              type: "object",
+              properties: { type: { type: "string", enum: ["phone"] }, number: { type: "string" } },
+              required: ["type", "number"],
+            },
+          ],
+          properties: {
+            name: { type: "string" },
+          },
+        },
+        want: `{
+    name?: string;
+} & ({
+    /** @enum {string} */
+    type: "email";
+    address: string;
+} | {
+    /** @enum {string} */
+    type: "phone";
+    number: string;
+})`,
+        // options: DEFAULT_OPTIONS
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
