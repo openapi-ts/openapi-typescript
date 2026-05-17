@@ -218,6 +218,14 @@ describe("tsEnum", () => {
 }`);
   });
 
+  test("empty string member", () => {
+    expect(astToString(tsEnum("type", ["", "foo", "bar"])).trim()).toBe(`enum Type {
+    "" = "",
+    foo = "foo",
+    bar = "bar"
+}`);
+  });
+
   test("number members", () => {
     expect(astToString(tsEnum(".Error.code.", [100, 101, 102, -100])).trim()).toBe(`enum ErrorCode {
     Value100 = 100,

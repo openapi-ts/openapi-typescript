@@ -237,6 +237,62 @@ export type operations = Record<string, never>;`,
       options: { ctx: createTestContext({ enum: true, conditionalEnums: true }) },
     },
   ],
+  [
+    "options > enum: true with empty string enum member",
+    {
+      given: mockEmptyStringEnumSchema(),
+      want: `export interface paths {
+    "/test": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Test */
+        get: operations["test"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}
+export type webhooks = Record<string, never>;
+export type components = Record<string, never>;
+export type $defs = Record<string, never>;
+export interface operations {
+    test: {
+        parameters: {
+            query?: {
+                type?: PathsTestGetParametersQueryType;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+}
+export enum PathsTestGetParametersQueryType {
+    "" = "",
+    foo = "foo",
+    bar = "bar"
+}`,
+      options: { ctx: createTestContext({ enum: true }) },
+    },
+  ],
 ];
 
 describe("transformComponentsObject", () => {
@@ -318,6 +374,42 @@ function mockSchema() {
           enum: ["pending", "active", "done"],
           "x-enum-varnames": ["Pending", "Active", "Done"],
           "x-enum-descriptions": ["The task is pending", "The task is active", "The task is done"],
+        },
+      },
+    },
+  };
+}
+
+function mockEmptyStringEnumSchema() {
+  return {
+    openapi: "3.1.0",
+    info: {
+      title: "Test",
+      version: "0.1.0",
+    },
+    paths: {
+      "/test": {
+        get: {
+          summary: "Test",
+          operationId: "test",
+          parameters: [
+            {
+              name: "type",
+              in: "query",
+              required: false,
+              schema: {
+                enum: ["", "foo", "bar"],
+                type: "string",
+                default: "",
+                title: "Type",
+              },
+            },
+          ],
+          responses: {
+            200: {
+              description: "OK",
+            },
+          },
         },
       },
     },
