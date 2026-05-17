@@ -200,7 +200,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
     const mth = method.toUpperCase() as Uppercase<typeof method>;
     const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
     const { data, error, response } = await fn(path, { signal, ...(init as any) }); // TODO: find a way to avoid as any
-    if (error) {
+    if (!response.ok) {
       throw error;
     }
     if (response.status === 204 || response.headers.get("Content-Length") === "0") {
@@ -247,8 +247,8 @@ export default function createClient<Paths extends {}, Media extends MediaType =
               },
             };
 
-            const { data, error } = await fn(path, mergedInit as any);
-            if (error) {
+            const { data, error, response } = await fn(path, mergedInit as any);
+            if (!response.ok) {
               throw error;
             }
             return data;
@@ -265,8 +265,8 @@ export default function createClient<Paths extends {}, Media extends MediaType =
           mutationFn: async (init) => {
             const mth = method.toUpperCase() as Uppercase<typeof method>;
             const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
-            const { data, error } = await fn(path, init as InitWithUnknowns<typeof init>);
-            if (error) {
+            const { data, error, response } = await fn(path, init as InitWithUnknowns<typeof init>);
+            if (!response.ok) {
               throw error;
             }
 
