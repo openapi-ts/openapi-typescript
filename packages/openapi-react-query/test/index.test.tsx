@@ -336,6 +336,33 @@ describe("client", () => {
       expect(data).toBeUndefined();
     });
 
+    it("should propagate error when response is not ok with empty body", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/string-array",
+        status: 500,
+        headers: {
+          "Content-Length": "0",
+        },
+        body: undefined,
+      });
+
+      const { result } = renderHook(() => client.useQuery("get", "/string-array"), {
+        wrapper,
+      });
+
+      await waitFor(() => expect(result.current.isFetching).toBe(false));
+
+      const { data, error } = result.current;
+
+      expect(error).toBeUndefined();
+      expect(data).toBeUndefined();
+    });
+
     it("should resolve data properly and have error as null when queryFn returns null", async () => {
       const fetchClient = createFetchClient<paths>({ baseUrl });
       const client = createClient(fetchClient);
