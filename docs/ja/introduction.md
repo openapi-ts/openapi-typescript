@@ -105,8 +105,9 @@ type ErrorResponse =
 
 ここから、これらの型を以下の用途で使用できます（ただし、これに限定されません）：
 
-- OpenAPI対応のfetchクライアントを使用する（例：[openapi-fetch](/ja/openapi-fetch/)）
+- 生成された `paths` からAPIを呼び出す（例：[openapi-fetch](/ja/openapi-fetch/) や [feature-fetch](/ja/examples)）
 - 他のAPIリクエストボディやレスポンスの型のアサート
 - API型に基づいたコアビジネスロジックの構築
+- 生成された `paths` に対して server routes を実装する（例：[openapi-ts-router](/ja/examples)）
 - モックテストデータが現在のスキーマと一致していることを確認する
 - 任意のnpmパッケージ（クライアントSDKなど）にAPI型をパッケージ化する

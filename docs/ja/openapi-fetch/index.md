@@ -15,7 +15,7 @@ openapi-fetchは、あなたのOpenAPIスキーマを取り込み、型安全な
 | superagent                 |      `55 kB` | `50k` ops/s (6倍遅い)    |
 | openapi-typescript-codegen |     `367 kB` | `100k` ops/s (3倍遅い)   |
 
-_\* [ベンチマークはおおよそのものです](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-fetch/test/index.bench.js) 。実際のパフォーマンスはマシンやブラウザによって異なる場合があります。ライブラリ間の相対的なパフォーマンスはより信頼性があります。_
+_\* [ベンチマークはおおよそのものです](https://github.com/openapi-ts/openapi-typescript/blob/main/packages/openapi-fetch/test/bench/index.bench.js) 。実際のパフォーマンスはマシンやブラウザによって異なる場合があります。ライブラリ間の相対的なパフォーマンスはより信頼性があります。_
 
 このシンタックスは、React QueryやApollo Clientのような人気のライブラリにインスパイアされたものでありながら、すべての装飾を省き、6 kbというコンパクトなパッケージに収まっています。
 

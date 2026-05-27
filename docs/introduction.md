@@ -105,8 +105,9 @@ type ErrorResponse =
 
 From here, you can use these types for any of the following (but not limited to):
 
-- Using an OpenAPI-supported fetch client (like [openapi-fetch](/openapi-fetch/))
+- Calling APIs from generated `paths` (like [openapi-fetch](/openapi-fetch/) or [feature-fetch](/examples#data-fetching))
 - Asserting types for other API requestBodies and responses
 - Building core business logic based on API types
+- Implementing server routes that compile against generated `paths` (like [openapi-ts-router](/examples#hono-with-openapi-ts-router))
 - Validating mock test data is up-to-date with the current schema
 - Packaging API types into any npm packages you publish (such as client SDKs, etc.)

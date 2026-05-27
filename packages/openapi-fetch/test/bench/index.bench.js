@@ -46,7 +46,7 @@ describe("setup", () => {
   });
 
   bench("feature-fetch", async () => {
-    createApiFetchClient({ prefixUrl: BASE_URL });
+    createApiFetchClient({ baseUrl: BASE_URL });
   });
 
   // superagent: N/A
@@ -63,7 +63,7 @@ describe("get (only URL)", () => {
   const axiosInstance = axios.create({
     baseURL: BASE_URL,
   });
-  const featureFetch = createApiFetchClient({ prefixUrl: BASE_URL });
+  const featureFetch = createApiFetchClient({ baseUrl: BASE_URL });
 
   bench("openapi-fetch", async () => {
     await openapiFetch.GET("/url");
@@ -113,7 +113,7 @@ describe("get (headers)", () => {
     baseURL: BASE_URL,
   });
   const featureFetch = createApiFetchClient({
-    prefixUrl: BASE_URL,
+    baseUrl: BASE_URL,
     headers: { "x-base-header": "123" },
   });
 

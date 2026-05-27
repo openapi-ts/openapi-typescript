@@ -80,65 +80,52 @@ try {
 </details>
 
 <details>
-<summary><a href="https://www.npmjs.com/package/feature-fetch" target="_blank" rel="noreferrer">feature-fetch</a> by <a href="https://builder.group" target="_blank" rel="noreferrer">builder.group</a></summary>
+<summary><a href="https://www.npmjs.com/package/feature-fetch" target="_blank" rel="noreferrer">feature-fetch</a> by <a href="https://github.com/builder-group/community" target="_blank" rel="noreferrer">builder.group</a></summary>
+
+`feature-fetch` は、OpenAPI で型付けされた request と、明示的な success/error 分岐が欲しい場合に向いています。生成された `paths` から path strings、params、request body、response data を型付けします。各リクエストは `[ok, error, data]` を返すため、失敗時の処理が呼び出し箇所に残り、成功分岐では data の型が絞り込まれます。retry、cache、hooks、middleware は client に production 向けの挙動が必要になったときに追加できます。
 
 ::: code-group
 
 ```ts [test/my-project.ts]
-import { createOpenApiFetchClient } from "feature-fetch";
+import {
+  createOpenApiFetchClient,
+  hasStatusCode,
+  retryFeature,
+} from "feature-fetch";
 import type { paths } from "./my-openapi-3-schema"; // openapi-typescriptで生成された型
 
-// OpenAPI fetch クライアントを作成
-const fetchClient = createOpenApiFetchClient<paths>({
-  prefixUrl: "https://myapi.dev/v1",
-});
+const api = createOpenApiFetchClient<paths>({
+  baseUrl: "https://myapi.dev/v1",
+}).with(retryFeature({ maxRetries: 3 }));
 
-// GET リクエストを送信
-const response = await fetchClient.get("/blogposts/{post_id}", {
+const [isPostOk, postErr, post] = await api.get("/blogposts/{post_id}", {
   pathParams: {
     post_id: "123",
   },
 });
 
-// レスポンスを処理する（アプローチ1：標準のif-else）
-if (response.isOk()) {
-  const data = response.value.data;
-  console.log(data); // 成功したレスポンスを処理
+if (isPostOk) {
+  console.log(post); // 2XX response schema から型付けされる
+} else if (hasStatusCode(postErr, 404)) {
+  console.error("Post not found");
 } else {
-  const error = response.error;
-  if (error instanceof NetworkError) {
-    console.error("Network error:", error.message);
-  } else if (error instanceof RequestError) {
-    console.error("Request error:", error.message, "Status:", error.status);
-  } else {
-    console.error("Service error:", error.message);
-  }
+  console.error(postErr.message); // NetworkError | HttpError | FetchError
 }
 
-// PUT リクエストを送信
-const putResponse = await fetchClient.put("/blogposts", {
+const [isUpdateOk, updateErr] = await api.put("/blogposts", {
   body: {
-    title: "My New Post",
+    title: "My New Post", // request body schema と照合される
   },
 });
 
-// レスポンスを処理する（アプローチ2：try-catch）
-try {
-  const putData = putResponse.unwrap().data;
-  console.log(putData); // 成功したレスポンスを処理
-} catch (error) {
-  // エラーを処理
-  if (error instanceof NetworkError) {
-    console.error("Network error:", error.message);
-  } else if (error instanceof RequestError) {
-    console.error("Request error:", error.message, "Status:", error.status);
-  } else {
-    console.error("Service error:", error.message);
-  }
+if (!isUpdateOk) {
+  console.error(updateErr.message);
 }
 ```
 
 :::
+
+[完全な例](https://github.com/builder-group/community/tree/develop/examples/feature-fetch/vanilla/basic)
 
 </details>
 
@@ -264,46 +251,36 @@ export default app;
 
 ## Hono と [`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router)
 
-[Honoの例](#hono) のように、各ルートをジェネリックで手動で型付けする代わりに、[`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router) は、[Hono router](https://hono.dev/docs/api/routing) をラップして完全な型安全性を提供し、バリデーターを使用してOpenAPIスキーマを強制します。
-
-::: tip 知っておくと良いこと
-
-TypeScriptの型はコンパイル時の安全性を保証しますが、実行時のスキーマ検証を強制するものではありません。実行時の検証を確保するためには、ZodやValibotなどのバリデーションライブラリと統合する必要があります。バリデーションルールを手動で定義する必要がありますが、それらは型安全であり、ルールが正しく定義されていることを保証します。
-
-:::
+[`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router) は、server code を OpenAPI document に沿って実装したい場合に向いています。[Hono router](https://hono.dev/docs/api/routing) をラップし、route registration では `/pet/{petId}` のような OpenAPI path strings をそのまま使えます。生成された `paths` に存在しない path や method、必須 schema の不足、schema に合わない JSON success response は TypeScript が拒否します。[Standard Schema](https://standardschema.dev/) library で request の各部分を検証し、handler では parse 済みの値を `c.req.valid()` から読み取れます。
 
 ::: code-group
 
 ```ts [src/router.ts]
-import { createHonoOpenApiRouter } from "openapi-ts-router";
 import { Hono } from "hono";
-import { zValidator } from "validation-adapters/zod";
+import { createHonoOpenApiRouter } from "openapi-ts-router/hono";
 import * as z from "zod";
+import type { paths } from "./my-openapi-3-schema"; // openapi-typescriptで生成された型
 
-import { paths } from "./gen/v1"; // openapi-typescriptで生成された型
-import { PetSchema } from "./schemas"; // 検証用の再利用可能なカスタムZodスキーマ
+const app = new Hono();
+const openApiRouter = createHonoOpenApiRouter<paths>(app);
 
-export const router = new Hono();
-export const openApiRouter = createHonoOpenApiRouter<paths>(router);
-
-// GET /pet/{petId}
 openApiRouter.get("/pet/{petId}", {
-  pathValidator: zValidator(
-    z.object({
-      petId: z.number(), // petIdが数値であることを検証
-    })
-  ),
+  pathSchema: z.object({
+    petId: z.number(),
+  }),
   handler: (c) => {
-    const { petId } = c.req.valid("param"); // 検証済みのパラメータにアクセス
-    return c.json({ name: "Falko", photoUrls: [] });
+    const { petId } = c.req.valid("param");
+    return c.json({ name: `Pet ${petId}`, photoUrls: [] });
   },
 });
 
-// POST /pet
 openApiRouter.post("/pet", {
-  bodyValidator: zValidator(PetSchema), // PetSchemaを使用してリクエストボディを検証
+  bodySchema: z.object({
+    name: z.string(),
+    photoUrls: z.array(z.string()),
+  }),
   handler: (c) => {
-    const { name, photoUrls } = c.req.valid("json"); // 検証済みのボディデータにアクセス
+    const { name, photoUrls } = c.req.valid("json");
     return c.json({ name, photoUrls });
   },
 });
@@ -315,47 +292,37 @@ openApiRouter.post("/pet", {
 
 ## Express と [`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router)
 
-[`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router) は、[Express ルーター](https://expressjs.com/en/5x/api.html#router) をラップして、完全な型安全性を提供し、バリデーターを使用して OpenAPI スキーマを強制します。
-
-::: tip 知っておくと良いこと
-
-TypeScriptの型はコンパイル時の安全性を保証しますが、実行時のスキーマ検証を強制するものではありません。実行時の検証を確保するためには、ZodやValibotなどのバリデーションライブラリと統合する必要があります。バリデーションルールを手動で定義する必要がありますが、それらは型安全であり、ルールが正しく定義されていることを保証します。
-
-:::
+[`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router) は、既存の Express API を OpenAPI document に沿って実装したい場合に向いています。[Express router](https://expressjs.com/en/5x/api.html#router) をラップし、route registration では `/pet/{petId}` のような OpenAPI path strings をそのまま使えます。生成された `paths` に存在しない path や method、必須 schema の不足、schema に合わない JSON success response は TypeScript が拒否します。[Standard Schema](https://standardschema.dev/) library で request の各部分を検証し、handler では parse 済みの値を `req.valid` から読み取れます。JSON body を検証する場合は、この router の前に `express.json()` を mount してください。
 
 ::: code-group
 
 ```ts [src/router.ts]
-import { createExpressOpenApiRouter } from "openapi-ts-router";
 import { Router } from "express";
-import * as v from "valibot";
-import { vValidator } from "validation-adapters/valibot";
+import { createExpressOpenApiRouter } from "openapi-ts-router/express";
+import * as z from "zod";
+import type { paths } from "./my-openapi-3-schema"; // openapi-typescriptで生成された型
 
-import { paths } from "./gen/v1"; // openapi-typescriptで生成された型
-import { PetSchema } from "./schemas"; // 検証用の再利用可能なカスタムZodスキーマ
+const router = Router();
+const openApiRouter = createExpressOpenApiRouter<paths>(router);
 
-export const router: Router = Router();
-export const openApiRouter = createExpressOpenApiRouter<paths>(router);
-
-// GET /pet/{petId}
 openApiRouter.get("/pet/{petId}", {
-  pathValidator: vValidator(
-    v.object({
-      petId: v.number(), // petIdが数値であることを検証
-    })
-  ),
+  pathSchema: z.object({
+    petId: z.number(),
+  }),
   handler: (req, res) => {
-    const { petId } = req.params; // 検証済みのパラメータにアクセス
-    res.send({ name: "Falko", photoUrls: [] });
+    const { petId } = req.valid.path;
+    res.json({ name: `Pet ${petId}`, photoUrls: [] });
   },
 });
 
-// POST /pet
 openApiRouter.post("/pet", {
-  bodyValidator: vValidator(PetSchema), // PetSchemaを使用してリクエストボディを検証
+  bodySchema: z.object({
+    name: z.string(),
+    photoUrls: z.array(z.string()),
+  }),
   handler: (req, res) => {
-    const { name, photoUrls } = req.body; // 検証済みのボディデータにアクセス
-    res.send({ name, photoUrls });
+    const { name, photoUrls } = req.valid.body;
+    res.json({ name, photoUrls });
   },
 });
 ```
