@@ -82,7 +82,7 @@ try {
 <details>
 <summary><a href="https://www.npmjs.com/package/feature-fetch" target="_blank" rel="noreferrer">feature-fetch</a> by <a href="https://github.com/builder-group/community" target="_blank" rel="noreferrer">builder.group</a></summary>
 
-`feature-fetch` は、OpenAPI で型付けされた request と、明示的な success/error 分岐が欲しい場合に向いています。生成された `paths` から path strings、params、request body、response data を型付けします。各 call は `[ok, error, data]` を返すため、失敗時の処理が呼び出し箇所に残り、成功分岐では data の型が絞り込まれます。retry、cache、hooks、middleware は client に production 向けの挙動が必要になったときに追加できます。
+`feature-fetch` は、OpenAPI で型付けされた request と、明示的な success/error 分岐が欲しい場合に向いています。生成された `paths` から path strings、params、request body、response data を型付けします。各リクエストは `[ok, error, data]` を返すため、失敗時の処理が呼び出し箇所に残り、成功分岐では data の型が絞り込まれます。retry、cache、hooks、middleware は client に production 向けの挙動が必要になったときに追加できます。
 
 ::: code-group
 

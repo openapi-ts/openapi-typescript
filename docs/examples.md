@@ -80,7 +80,7 @@ try {
 <details>
 <summary><a href="https://www.npmjs.com/package/feature-fetch" target="_blank" rel="noreferrer">feature-fetch</a> by <a href="https://github.com/builder-group/community" target="_blank" rel="noreferrer">builder.group</a></summary>
 
-`feature-fetch` fits when you want OpenAPI-typed requests with explicit success and error branches. It types path strings, params, request bodies, and response data from generated `paths`. Calls return `[ok, error, data]`, so failures stay visible at the call site and success branches narrow data. Retry, cache, hooks, and middleware can be added when the client needs production behavior.
+`feature-fetch` fits when you want OpenAPI-typed requests with explicit success and error branches. It types path strings, params, request bodies, and response data from generated `paths`. Each request returns `[ok, error, data]`, so failures stay visible at the call site and success branches narrow data. Retry, cache, hooks, and middleware can be added when the client needs production behavior.
 
 ::: code-group
 
