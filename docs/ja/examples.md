@@ -251,7 +251,7 @@ export default app;
 
 ## Hono と [`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router)
 
-[`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router) は、OpenAPI document で実装側の server code も制約したい場合に向いています。[Hono router](https://hono.dev/docs/api/routing) をラップし、route registration では `/pet/{petId}` のような OpenAPI path strings をそのまま使います。生成された `paths` に存在しない path や method、必須 schema の不足、schema に合わない JSON success response は TypeScript が拒否します。[Standard Schema](https://standardschema.dev/) library で request の各部分を検証し、handler では parse 済みの値を `c.req.valid()` から読み取れます。
+[`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router) は、server code を OpenAPI document に沿って実装したい場合に向いています。[Hono router](https://hono.dev/docs/api/routing) をラップし、route registration では `/pet/{petId}` のような OpenAPI path strings をそのまま使えます。生成された `paths` に存在しない path や method、必須 schema の不足、schema に合わない JSON success response は TypeScript が拒否します。[Standard Schema](https://standardschema.dev/) library で request の各部分を検証し、handler では parse 済みの値を `c.req.valid()` から読み取れます。
 
 ::: code-group
 
@@ -292,7 +292,7 @@ openApiRouter.post("/pet", {
 
 ## Express と [`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router)
 
-[`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router) は、既存の Express API implementation も OpenAPI document で制約したい場合に向いています。[Express router](https://expressjs.com/en/5x/api.html#router) をラップし、route registration では `/pet/{petId}` のような OpenAPI path strings をそのまま使います。生成された `paths` に存在しない path や method、必須 schema の不足、schema に合わない JSON success response は TypeScript が拒否します。[Standard Schema](https://standardschema.dev/) library で request の各部分を検証し、handler では parse 済みの値を `req.valid` から読み取れます。JSON body を検証する場合は、この router の前に `express.json()` を mount してください。
+[`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router) は、既存の Express API を OpenAPI document に沿って実装したい場合に向いています。[Express router](https://expressjs.com/en/5x/api.html#router) をラップし、route registration では `/pet/{petId}` のような OpenAPI path strings をそのまま使えます。生成された `paths` に存在しない path や method、必須 schema の不足、schema に合わない JSON success response は TypeScript が拒否します。[Standard Schema](https://standardschema.dev/) library で request の各部分を検証し、handler では parse 済みの値を `req.valid` から読み取れます。JSON body を検証する場合は、この router の前に `express.json()` を mount してください。
 
 ::: code-group
 

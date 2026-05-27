@@ -246,7 +246,7 @@ TypeChecking in server environments can be tricky, as you’re often querying da
 
 ## Hono with [`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router)
 
-[`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router) fits when the OpenAPI document should constrain the server code that implements it. It wraps a [Hono router](https://hono.dev/docs/api/routing), keeps OpenAPI path strings such as `/pet/{petId}` in route registration, and TypeScript rejects unknown paths, wrong methods, missing required schemas, and JSON success responses that do not match the schema. Validate request parts with any [Standard Schema](https://standardschema.dev/) library, then read parsed values from `c.req.valid()`.
+[`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router) fits when server code should stay aligned with the OpenAPI document. It wraps a [Hono router](https://hono.dev/docs/api/routing) and lets route registration use OpenAPI path strings such as `/pet/{petId}`. TypeScript rejects unknown paths, wrong methods, missing required schemas, and JSON success responses that do not match the schema. Validate request parts with any [Standard Schema](https://standardschema.dev/) library, then read parsed values from `c.req.valid()`.
 
 ::: code-group
 
@@ -287,7 +287,7 @@ openApiRouter.post("/pet", {
 
 ## Express with [`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router)
 
-[`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router) fits when the OpenAPI document should constrain an existing Express API implementation. It wraps an [Express router](https://expressjs.com/en/5x/api.html#router), keeps OpenAPI path strings such as `/pet/{petId}` in route registration, and TypeScript rejects unknown paths, wrong methods, missing required schemas, and JSON success responses that do not match the schema. Validate request parts with any [Standard Schema](https://standardschema.dev/) library, then read parsed values from `req.valid`. Mount `express.json()` before this router when validating JSON bodies.
+[`openapi-ts-router`](https://github.com/builder-group/community/tree/develop/packages/openapi-ts-router) fits when an existing Express API should stay aligned with the OpenAPI document. It wraps an [Express router](https://expressjs.com/en/5x/api.html#router) and lets route registration use OpenAPI path strings such as `/pet/{petId}`. TypeScript rejects unknown paths, wrong methods, missing required schemas, and JSON success responses that do not match the schema. Validate request parts with any [Standard Schema](https://standardschema.dev/) library, then read parsed values from `req.valid`. Mount `express.json()` before this router when validating JSON bodies.
 
 ::: code-group
 
