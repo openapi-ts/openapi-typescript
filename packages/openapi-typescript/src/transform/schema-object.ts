@@ -24,7 +24,14 @@ import {
   UNDEFINED,
   UNKNOWN,
 } from "../lib/ts.js";
-import { createDiscriminatorProperty, createRef, getEntries } from "../lib/utils.js";
+import {
+  collectDynamicAnchors,
+  createDiscriminatorProperty,
+  createRef,
+  getEntries,
+  resolveDynamicAnchor,
+  schemaContainsDynamicRef,
+} from "../lib/utils.js";
 import type { ReferenceObject, SchemaObject, TransformNodeOptions } from "../types.js";
 
 /**
@@ -77,7 +84,59 @@ export function transformSchemaObjectWithComposition(
    * ReferenceObject
    */
   if ("$ref" in schemaObject) {
+    const localAnchors = collectDynamicAnchors(schemaObject as unknown as Record<string, unknown>);
+    const inheritedAnchors = options.dynamicAnchors;
+    const allAnchors: Record<string, SchemaObject | ReferenceObject> = {
+      ...(inheritedAnchors ?? {}),
+      ...(localAnchors ?? {}),
+    };
+    if (Object.keys(allAnchors).length > 0) {
+      const resolved = options.ctx.resolve<SchemaObject>(schemaObject.$ref);
+      if (resolved && typeof resolved === "object" && schemaContainsDynamicRef(resolved)) {
+        return transformSchemaObjectWithComposition(resolved, {
+          ...options,
+          dynamicAnchors: allAnchors,
+        });
+      }
+    }
     return oapiRef(schemaObject.$ref);
+  }
+
+  /**
+   * $dynamicRef (JSON Schema Draft 2020-12 / OpenAPI 3.1)
+   */
+  if ("$dynamicRef" in schemaObject && typeof (schemaObject as any).$dynamicRef === "string") {
+    const ref = (schemaObject as any).$dynamicRef as string;
+    const anchorName = ref.startsWith("#") ? ref.slice(1) : ref;
+    const override = resolveDynamicAnchor(
+      anchorName,
+      { dynamicAnchors: options.dynamicAnchors, path: options.path },
+      schemaObject as SchemaObject,
+    );
+    if (override) {
+      if ("$ref" in override) {
+        return oapiRef(override.$ref);
+      }
+      return transformSchemaObject(override, {
+        ...options,
+        path: options.path,
+      });
+    }
+    return UNKNOWN;
+  }
+
+  const localAnchors = collectDynamicAnchors(schemaObject as unknown as Record<string, unknown>);
+  if (localAnchors) {
+    options = { ...options, dynamicAnchors: { ...localAnchors, ...(options.dynamicAnchors ?? {}) } };
+  }
+
+  if ("$dynamicAnchor" in schemaObject && typeof (schemaObject as any).$dynamicAnchor === "string" && options.path) {
+    const anchorName = (schemaObject as any).$dynamicAnchor as string;
+    const selfRef: ReferenceObject = { $ref: options.path };
+    const existing = options.dynamicAnchors;
+    if (!existing || !(anchorName in existing)) {
+      options = { ...options, dynamicAnchors: { ...(existing ?? {}), [anchorName]: selfRef } };
+    }
   }
 
   /**
