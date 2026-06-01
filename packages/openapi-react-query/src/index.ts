@@ -232,7 +232,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
       return useInfiniteQuery(
         {
           queryKey,
-          queryFn: async ({ queryKey: [method, path, init], pageParam = 0, signal }) => {
+          queryFn: async ({ queryKey: [method, path, init], pageParam, signal }) => {
             const mth = method.toUpperCase() as Uppercase<typeof method>;
             const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
             const mergedInit = {
@@ -242,7 +242,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
                 ...(init?.params || {}),
                 query: {
                   ...(init?.params as { query?: DefaultParamsOption })?.query,
-                  [pageParamName]: pageParam,
+                  ...(pageParam !== undefined ? { [pageParamName]: pageParam } : {}),
                 },
               },
             };
