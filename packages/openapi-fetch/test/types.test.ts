@@ -1,7 +1,55 @@
 import type { ErrorResponse, GetResponseContent, OkStatus, SuccessResponse } from "openapi-typescript-helpers";
 import { assertType, describe, test } from "vitest";
+import createClient from "../src/index.js";
 
 describe("types", () => {
+  describe("request body", () => {
+    interface Paths {
+      "/": {
+        post: {
+          parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+          };
+          requestBody: {
+            content: {
+              "application/json": Components["schemas"]["T"];
+            };
+          };
+          responses: {
+            200: {
+              headers: {
+                [name: string]: unknown;
+              };
+              content: {
+                "application/json": unknown;
+              };
+            };
+          };
+        };
+      };
+    }
+
+    interface Components {
+      schemas: {
+        T: {
+          x?: null;
+        };
+      };
+    }
+
+    test("allows optional null request body properties", () => {
+      const demo = (body: Components["schemas"]["T"]) => {
+        const client = createClient<Paths>();
+        return client.POST("/", { body });
+      };
+
+      assertType<(body: Components["schemas"]["T"]) => Promise<unknown>>(demo);
+    });
+  });
+
   describe("GetResponseContent", () => {
     describe("MixedResponses", () => {
       interface MixedResponses {
