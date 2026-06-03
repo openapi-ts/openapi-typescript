@@ -1,0 +1,8 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  clusters = client.kubernetes_clusters.all
+  clusters.each

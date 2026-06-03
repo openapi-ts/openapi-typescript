@@ -1,0 +1,21 @@
+type: object
+
+description: The linked actions can be used to check the status of a Droplet's create event.
+
+properties:
+  id:
+    type: integer
+    example: 7515
+    description: A unique numeric ID that can be used to identify and reference
+      an action.
+
+  rel:
+    type: string
+    example: create
+    description: A string specifying the type of the related action.
+
+  href:
+    type: string
+    format: uri
+    example: https://api.digitalocean.com/v2/actions/7515
+    description: A URL that can be used to access the action.

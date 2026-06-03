@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X PUT \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name":"blog"}' \
+    "https://api.digitalocean.com/v2/domains/example.com/records/3352896"

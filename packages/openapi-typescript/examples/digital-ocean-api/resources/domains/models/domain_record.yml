@@ -1,0 +1,78 @@
+type: object
+required:
+  - type
+properties:
+  id:
+    type: integer
+    description: A unique identifier for each domain record.
+    example: 28448429
+    readOnly: true
+  
+  type:
+    type: string
+    description: 'The type of the DNS record. For example: A, CNAME, TXT, ...'
+    example: NS
+  
+  name:
+    type: string
+    description: The host name, alias, or service being defined by the record.
+    example: '@'
+  
+  data:
+    type: string
+    description: >-
+      Variable data depending on record type. For example, the "data" value for
+      an A record would be the IPv4 address to which the domain will be mapped.
+      For a CAA record, it would contain the domain name of the CA being granted
+      permission to issue certificates.
+    example: ns1.digitalocean.com
+  
+  priority:
+    type: integer
+    description: The priority for SRV and MX records.
+    nullable: true
+    # Note: This field is nullable in the current API, but `null` is an invalid
+    # integer value for examples.
+    example: null
+  
+  port:
+    type: integer
+    description: The port for SRV records.
+    nullable: true
+    # Note: This field is nullable in the current API, but `null` is an invalid
+    # integer value for examples.
+    example: null
+  
+  ttl:
+    type: integer
+    description: >-
+      This value is the time to live for the record, in seconds. This defines
+      the time frame that clients can cache queried information before a refresh
+      should be requested.
+    example: 1800
+  
+  weight:
+    type: integer
+    description: The weight for SRV records.
+    nullable: true
+    # Note: This field is nullable in the current API, but `null` is an invalid
+    # integer value for examples.
+    example: null
+  
+  flags:
+    type: integer
+    description: An unsigned integer between 0-255 used for CAA records.
+    nullable: true
+    # Note: This field is nullable in the current API, but `null` is an invalid
+    # integer value for examples.
+    example: null
+  
+  tag:
+    type: string
+    description: >-
+      The parameter tag for CAA records. Valid values are "issue", "issuewild",
+      or "iodef"
+    # An enum was not used here since a null value is returned for non-CAA
+    # records. `null` would be an invalid string value in that case.
+    nullable: true
+    example: null

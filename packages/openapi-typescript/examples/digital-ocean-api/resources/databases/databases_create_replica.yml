@@ -1,0 +1,69 @@
+operationId: databases_create_replica
+
+summary: Create a Read-only Replica
+
+description: >-
+  To create a read-only replica for a PostgreSQL or MySQL database cluster,
+  send a POST request to `/v2/databases/$DATABASE_ID/replicas` specifying the
+  name it should be given, the size of the node to be used, and the region
+  where it will be located.
+
+
+  **Note**: Read-only replicas are not supported for Redis clusters.
+
+
+  The response will be a JSON object with a key called `replica`. The value of
+  this will be an object that contains the standard attributes associated with
+  a database replica. The initial value of the read-only replica's `status`
+  attribute will be `forking`. When the replica is ready to receive traffic,
+  this will transition to `active`.
+
+tags:
+  - Databases
+
+parameters:
+  - $ref: 'parameters.yml#/database_cluster_uuid'
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        allOf:
+        - $ref: 'models/database_replica.yml'
+        required:
+          - name
+          - size
+
+      example:
+        name: read-nyc3-01
+        region: nyc3
+        size: db-s-2vcpu-4gb
+        storage_size_mib: 61440
+
+responses:
+  '201':
+    $ref: 'responses/database_replica.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/databases_create_replica.yml'
+  - $ref: 'examples/go/databases_create_replica.yml'
+  - $ref: 'examples/python/databases_create_replica.yml'
+
+security:
+  - bearer_auth:
+    - 'database:create'

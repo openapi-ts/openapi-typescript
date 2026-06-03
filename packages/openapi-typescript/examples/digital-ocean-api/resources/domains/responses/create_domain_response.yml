@@ -1,0 +1,25 @@
+description: >-
+  The response will be a JSON object with a key called `domain`. The value of
+  this will be an object that contains the standard attributes associated with a
+  domain.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        domain:
+          $ref: '../models/domain.yml'
+
+      example:
+        domain:
+          name: example.com
+          ttl: 1800
+          zone_file: null

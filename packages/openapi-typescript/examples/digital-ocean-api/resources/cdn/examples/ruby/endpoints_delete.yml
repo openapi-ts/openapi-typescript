@@ -1,0 +1,7 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  client.cdns.delete(id: '19f06b6a-3ace-4315-b086-499a0e521b76')

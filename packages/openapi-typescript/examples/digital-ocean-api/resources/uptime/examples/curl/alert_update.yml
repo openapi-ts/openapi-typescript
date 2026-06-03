@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X PUT \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name":"Landing page down globally","type":"down_global","notifications":{"email":["bob@example.com"],"slack":[{"channel":"Production Alerts","url":"https://hooks.slack.com/services/T1234567/AAAAAAAA/ZZZZZZ"}]},"period":"2m"}' \
+    "https://api.digitalocean.com/v2/uptime/checks/{check_id}/alerts/{alert_id}"

@@ -1,0 +1,13 @@
+type: object
+
+properties:
+  memory:
+    type: number
+    format: float
+    example: 0.3588531587713522
+    description: The memory utilization average of the individual Droplet.
+  cpu:
+    type: number
+    format: float
+    example: 0.0007338008770232183
+    description: The CPU utilization average of the individual Droplet.

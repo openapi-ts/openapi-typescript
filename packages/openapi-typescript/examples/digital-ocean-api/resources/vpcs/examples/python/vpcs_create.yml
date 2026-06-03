@@ -1,0 +1,15 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "name": "env.prod-vpc",
+    "description": "VPC for production environment",
+    "region": "nyc1",
+    "ip_range": "10.10.10.0/24"
+  }
+
+  resp = client.vpcs.create(body=req)

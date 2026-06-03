@@ -1,0 +1,48 @@
+operationId: databases_list_users
+
+summary: List all Database Users
+
+description: |
+  To list all of the users for your database cluster, send a GET request to
+  `/v2/databases/$DATABASE_ID/users`.
+
+  Note: User management is not supported for Redis clusters.
+
+  The result will be a JSON object with a `users` key. This will be set to an array
+  of database user objects, each of which will contain the standard database user attributes.
+
+  For MySQL clusters, additional options will be contained in the mysql_settings object.
+
+tags:
+  - Databases
+
+parameters:
+  - $ref: 'parameters.yml#/database_cluster_uuid'
+
+responses:
+  '200':
+    $ref: 'responses/users.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/databases_list_users.yml'
+  - $ref: 'examples/go/databases_list_users.yml'
+  - $ref: 'examples/python/databases_list_users.yml'
+
+security:
+  - bearer_auth:
+    - 'database:read'

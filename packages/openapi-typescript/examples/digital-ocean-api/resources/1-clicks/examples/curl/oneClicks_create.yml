@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"addon_slugs": ["kube-state-metrics", "loki"], "cluster_uuid": "50a994b6-c303-438f-9495-7e896cfe6b08"}'' \
+    "https://api.digitalocean.com/v2/1-clicks/kubernetes"

@@ -1,0 +1,70 @@
+type: object
+
+properties:
+  invoice_uuid:
+    type: string
+    description: UUID of the invoice
+    example: 22737513-0ea7-4206-8ceb-98a575af7681
+
+  invoice_id:
+    type: string
+    description: ID of the invoice
+    example: '123456789'
+
+  billing_period:
+    type: string
+    description: >- 
+      Billing period of usage for which the invoice is issued, in `YYYY-MM` 
+      format.
+    example: 2020-01
+
+  amount:
+    type: string
+    description: >-
+      Total amount of the invoice, in USD. 
+      This will reflect month-to-date usage in the invoice preview.
+    example: '27.13'
+
+  user_name:
+    type: string
+    description: Name of the DigitalOcean customer being invoiced.
+    example: Sammy Shark
+
+  user_billing_address:
+    allOf:
+      - description: The billing address of the customer being invoiced.
+      - $ref: 'billing_address.yml'
+
+  user_company:
+    type: string
+    description: Company of the DigitalOcean customer being invoiced, if set.
+    example: DigitalOcean
+
+  user_email:
+    type: string
+    description: Email of the DigitalOcean customer being invoiced.
+    example: sammy@digitalocean.com
+
+  product_charges:
+    allOf:
+      - description: >-
+          A summary of the product usage charges contributing to the invoice. 
+          This will include an amount, and grouped aggregates by resource type 
+          under the `items` key.
+      - $ref: 'product_usage_charges.yml'
+
+  overages:
+    allOf:
+      - description: A summary of the overages contributing to the invoice.
+      - $ref: 'simple_charge.yml'
+
+  taxes:
+    allOf:
+      - description: A summary of the taxes contributing to the invoice.
+      - $ref: 'simple_charge.yml'
+
+  credits_and_adjustments:
+    allOf:
+      - description: >- 
+          A summary of the credits and adjustments contributing to the invoice.
+      - $ref: 'simple_charge.yml'

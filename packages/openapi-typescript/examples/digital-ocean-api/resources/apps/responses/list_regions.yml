@@ -1,0 +1,17 @@
+description: A JSON object with key `regions`
+
+content:
+  application/json:
+    schema:
+      $ref: ../models/apps_list_regions_response.yml
+    examples:
+      regions:
+        $ref: examples.yml#/regions
+
+headers:
+  ratelimit-limit:
+    $ref: ../../../shared/headers.yml#/ratelimit-limit
+  ratelimit-remaining:
+    $ref: ../../../shared/headers.yml#/ratelimit-remaining
+  ratelimit-reset:
+    $ref: ../../../shared/headers.yml#/ratelimit-reset

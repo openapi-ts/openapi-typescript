@@ -1,0 +1,103 @@
+operationId: databases_add_user
+
+summary: Add a Database User
+
+description: |
+  To add a new database user, send a POST request to `/v2/databases/$DATABASE_ID/users`
+  with the desired username.
+
+  Note: User management is not supported for Redis clusters.
+
+  When adding a user to a MySQL cluster, additional options can be configured in the
+  `mysql_settings` object.
+
+  When adding a user to a Kafka cluster, additional options can be configured in
+  the `settings` object.
+
+  The response will be a JSON object with a key called `user`. The value of this will be an
+  object that contains the standard attributes associated with a database user including
+  its randomly generated password.
+
+tags:
+  - Databases
+
+parameters:
+  - $ref: 'parameters.yml#/database_cluster_uuid'
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        allOf:
+        - $ref: 'models/database_user.yml'
+        - type: object
+          properties:
+            readonly:
+              type: boolean
+              example: true
+              description: |
+                For MongoDB clusters, set to `true` to create a read-only user.
+                This option is not currently supported for other database engines.             
+
+      examples:
+        Add New User:
+          value:
+            name: app-01
+
+        Add New User with MySQL Auth Plugin:
+          value:
+            name: app-02
+            mysql_settings:
+              auth_plugin: mysql_native_password
+
+        Add New Read Only User (MongoDB Only):
+          value:
+            name: my-readonly
+            readonly: true
+        
+        Add New User for Postgres with replication rights:
+          value:
+            name: app-02
+            settings:
+              pg_allow_replication: true
+
+        Add New User with Kafka ACLs:
+          value:
+            name: app-03
+            settings:
+              acl:
+              - permission: produceconsume
+                topic: customer-events
+              - permission: produce
+                topic: customer-events.*
+              - permission: consume
+                topic: customer-events
+
+responses:
+  '201':
+    $ref: 'responses/user.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/databases_add_user.yml'
+  - $ref: 'examples/go/databases_add_user.yml'
+  - $ref: 'examples/python/databases_add_user.yml'
+
+security:
+  - bearer_auth:
+    - 'database:create'

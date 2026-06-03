@@ -1,0 +1,13 @@
+type: object
+properties:
+  endpoint:
+    type: string
+    description: Datadog HTTP log intake endpoint.
+    example: https://mydatadogendpoint.com
+  api_key:
+    type: string
+    description: Datadog API key.
+    example: abcdefghijklmnopqrstuvwxyz0123456789
+description: DataDog configuration.
+required:
+  - api_key

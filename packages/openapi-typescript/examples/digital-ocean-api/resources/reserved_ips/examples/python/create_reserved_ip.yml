@@ -1,0 +1,12 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "droplet_id": 2457247
+  }
+
+  resp = client.reserved_ips.create(body=req)

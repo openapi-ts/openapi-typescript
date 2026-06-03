@@ -1,0 +1,52 @@
+operationId: uptime_create_check
+
+summary: Create a New Check
+
+description: |
+  To create an Uptime check, send a POST request to `/v2/uptime/checks` specifying the attributes
+  in the table below in the JSON body.
+
+tags:
+  - Uptime
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        type: object
+        allOf:
+          - $ref: 'models/check.yml#/check_updatable'
+
+        required:
+          - name
+          - method
+          - target
+          - regions
+          - type
+          - enabled
+
+responses:
+  '201':
+    $ref: 'responses/existing_check.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/check_create.yml'
+  - $ref: 'examples/python/check_create.yml'
+
+security:
+  - bearer_auth:
+      - 'uptime:create'

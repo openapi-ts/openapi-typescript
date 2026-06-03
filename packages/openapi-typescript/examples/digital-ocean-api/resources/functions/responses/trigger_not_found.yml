@@ -1,0 +1,25 @@
+description: Bad Request.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../../../shared/models/error.yml'
+    examples:
+      "namespace not found":
+        value:
+          id: not_found
+          message: 'namespace not found'
+          request_id: 88d17b7a-630b-4083-99ce-5b91045efdb4
+      "trigger not found":
+        value:
+          id: not_found
+          message: 'trigger not found'
+          request_id: 88d17b7a-630b-4083-99ce-5b91045efdb4

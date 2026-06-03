@@ -1,0 +1,58 @@
+type: object
+properties:
+  allow_origins:
+    type: array
+    description: The set of allowed CORS origins.
+    items:
+      $ref: apps_string_match.yml
+
+    example:
+    - exact: https://www.example.com
+    - regex: ^.*example.com
+
+  allow_methods:
+    type: array
+    items:
+      type: string
+    description: The set of allowed HTTP methods. This configures the
+      `Access-Control-Allow-Methods` header.
+    example:
+    - GET
+    - OPTIONS
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+
+  allow_headers:
+    type: array
+    items:
+      type: string
+    description: The set of allowed HTTP request headers. This configures the
+      `Access-Control-Allow-Headers` header.
+    example:
+    - Content-Type
+    - X-Custom-Header
+
+  expose_headers:
+    type: array
+    items:
+      type: string
+    description: The set of HTTP response headers that browsers are allowed to
+      access. This configures the `Access-Control-Expose-Headers` header.
+    example:
+    - Content-Encoding
+    - X-Custom-Header
+
+  max_age:
+    type: string
+    description: An optional duration specifying how long browsers can cache the
+      results of a preflight request. This configures the `Access-Control-Max-Age` header.
+    example: 5h30m
+
+  allow_credentials:
+    type: boolean
+    description: Whether browsers should expose the response to the client-side
+      JavaScript code when the request’s credentials mode is include. This
+      configures the `Access-Control-Allow-Credentials` header.
+    example: false

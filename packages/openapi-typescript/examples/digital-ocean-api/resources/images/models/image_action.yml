@@ -1,0 +1,25 @@
+image_action_base:
+  type: object
+  properties:
+    type:
+      type: string
+      description: >-
+        The action to be taken on the image. Can be either `convert` or
+        `transfer`.
+      enum:
+        - convert
+        - transfer
+      example: convert
+  required:
+  - type
+
+image_action_transfer:
+  allOf:
+  - $ref: '#/image_action_base'
+  - type: object
+    properties:
+      region:
+        $ref: '../../../shared/attributes/region_slug.yml'
+    required:
+    - type
+    - region

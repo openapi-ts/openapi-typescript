@@ -1,0 +1,8 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name": "prod-cluster-01","region": "nyc1","version": "1.14.1\
+    -do.4","tags": ["production","web-team"],"node_pools": [{"size": "s-1vcpu-2gb","count": 3,"name": "frontend-pool","tags": ["frontend"],"labels": {"service": "frontend", "priority": "high"}},{"size": "c-4","count": 2,"name": "backend-pool"}]}' \
+    "https://api.digitalocean.com/v2/kubernetes/clusters"

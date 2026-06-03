@@ -1,0 +1,18 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      vpcDesc := "An updated description"
+      _, _, err := client.VPCs.Set(ctx, "5a4981aa-9653-4bd1-bef5-d6bff52042e4", godo.VPCSetDescription(vpcDesc))
+  }

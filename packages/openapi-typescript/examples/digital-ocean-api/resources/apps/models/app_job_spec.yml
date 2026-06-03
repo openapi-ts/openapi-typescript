@@ -1,0 +1,24 @@
+allOf:
+- $ref: app_component_base.yml
+- $ref: app_component_instance_base.yml
+
+- type: object
+  properties:
+    kind:
+      type: string
+      enum:
+      - UNSPECIFIED
+      - PRE_DEPLOY
+      - POST_DEPLOY
+      - FAILED_DEPLOY
+      description: |2-
+        - UNSPECIFIED: Default job type, will auto-complete to POST_DEPLOY kind.
+        - PRE_DEPLOY: Indicates a job that runs before an app deployment.
+        - POST_DEPLOY: Indicates a job that runs after an app deployment.
+        - FAILED_DEPLOY: Indicates a job that runs after a component fails to deploy.
+      default: UNSPECIFIED
+      example: PRE_DEPLOY
+    termination:
+      $ref: app_job_spec_termination.yml
+  required:
+  - name

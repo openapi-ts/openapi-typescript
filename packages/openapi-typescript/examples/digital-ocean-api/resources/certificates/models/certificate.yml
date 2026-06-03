@@ -1,0 +1,70 @@
+type: object
+
+properties:
+
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+    example: 892071a0-bb95-49bc-8021-3afd67a210bf
+    description: A unique ID that can be used to identify and reference a
+      certificate.
+
+  name:
+    type: string
+    example: web-cert-01
+    description: A unique human-readable name referring to a certificate.
+
+  not_after:
+    type: string
+    format: date-time
+    readOnly: true
+    example: 2017-02-22T00:23:00Z
+    description: A time value given in ISO8601 combined date and time format
+      that represents the certificate's expiration date.
+
+  sha1_fingerprint:
+    type: string
+    readOnly: true
+    example: dfcc9f57d86bf58e321c2c6c31c7a971be244ac7
+    description: A unique identifier generated from the SHA-1 fingerprint of
+      the certificate.
+
+  created_at:
+    type: string
+    format: date-time
+    readOnly: true
+    example: 2017-02-08T16:02:37Z
+    description: A time value given in ISO8601 combined date and time format
+      that represents when the certificate was created.
+
+  dns_names:
+    type: array
+    items:
+      type: string
+    example:
+    - www.example.com
+    - example.com
+    description: An array of fully qualified domain names (FQDNs) for which the
+      certificate was issued.
+
+  state:
+    type: string
+    enum:
+    - pending
+    - verified
+    - error
+    readOnly: true
+    example: verified
+    description: A string representing the current state of the certificate. It
+      may be `pending`, `verified`, or `error`.
+
+  type:
+    type: string
+    enum:
+    - custom
+    - lets_encrypt
+    example: lets_encrypt
+    description: A string representing the type of the certificate. The value
+      will be `custom` for a user-uploaded certificate or `lets_encrypt` for
+      one automatically generated with Let's Encrypt.

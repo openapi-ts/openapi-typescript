@@ -1,0 +1,34 @@
+operationId: monitoring_list_destinations
+
+summary: List Logging Destinations
+
+description: To list all logging destinations, send a GET request to `/v2/monitoring/sinks/destinations`.
+
+tags:
+  - Monitoring
+
+responses:
+  '200':
+    $ref: 'responses/monitoring_list_destinations.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/monitoring_list_destinations.yml'
+
+security:
+  - bearer_auth:
+    - 'monitoring:read'

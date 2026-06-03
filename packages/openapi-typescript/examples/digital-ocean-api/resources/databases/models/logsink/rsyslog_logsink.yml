@@ -1,0 +1,59 @@
+type: object
+properties:
+  server:
+    type: string
+    example: 192.168.0.1
+    description: >-
+      DNS name or IPv4 address of the rsyslog server
+  port:
+    type: integer
+    example: 514
+    maximum: 65535
+    description: The internal port on which the rsyslog server is listening
+  tls:
+    type: boolean
+    example: false
+    description: >-
+      Use TLS (as the messages are not filtered and may contain sensitive information, it is highly recommended to set this to true if the remote server supports it)
+  format:
+    type: string
+    enum:
+    - rfc5424
+    - rfc3164
+    - custom
+    example: rfc5424
+    description: >-
+      Message format used by the server, this can be either rfc3164 (the old BSD style message format), `rfc5424` (current syslog message format) or custom
+  logline:
+    type: string
+    example: <%pri%>%timestamp:::date-rfc3339% %HOSTNAME% %app-name% %msg%
+    description: |
+      Conditional (required if `format` == `custom`).
+
+      Syslog log line template for a custom format, supporting limited rsyslog style templating (using `%tag%`). Supported tags are: `HOSTNAME`, `app-name`, `msg`, `msgid`, `pri`, `procid`, `structured-data`, `timestamp` and `timestamp:::date-rfc3339`.
+  sd:
+    type: string
+    example: TOKEN tag="LiteralValue"
+    description: >-
+      content of the structured data block of rfc5424 message
+  ca:
+    type: string
+    example: -----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----\n
+    description: >-
+      PEM encoded CA certificate
+  key:
+    type: string
+    example: -----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n
+    description: >-
+      (PEM format) client key if the server requires client authentication
+  cert:
+    type: string
+    example: -----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----\n
+    description: >-
+      (PEM format) client cert to use
+
+required:
+  - server
+  - port
+  - tls
+  - format

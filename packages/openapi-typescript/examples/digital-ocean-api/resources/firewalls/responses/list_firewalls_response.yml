@@ -1,0 +1,58 @@
+description: >-
+  To list all of the firewalls available on your account, send a GET request to
+  `/v2/firewalls`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            firewalls: 
+              type: array
+              items:
+                $ref: '../models/firewall.yml'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+    example:
+      firewalls:
+        - id: fb6045f1-cf1d-4ca3-bfac-18832663025b
+          name: firewall
+          status: succeeded
+          inbound_rules:
+            - protocol: tcp
+              ports: '80'
+              sources:
+                load_balancer_uids:
+                  - 4de7ac8b-495b-4884-9a69-1050c6793cd6
+            - protocol: tcp
+              ports: '22'
+              sources:
+                tags:
+                  - gateway
+                addresses:
+                  - 18.0.0.0/8
+          outbound_rules:
+            - protocol: tcp
+              ports: '80'
+              destinations:
+                addresses:
+                  - 0.0.0.0/0
+                  - "::/0"
+          created_at: '2017-05-23T21:23:59Z'
+          droplet_ids:
+            - 8043964
+          tags: []
+          pending_changes: []
+      links: {}
+      meta:
+        total: 1

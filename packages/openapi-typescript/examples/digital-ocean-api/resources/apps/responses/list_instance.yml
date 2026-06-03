@@ -1,0 +1,17 @@
+description: A JSON with key `instance_sizes`
+
+content:
+  application/json:
+    schema:
+      $ref: ../models/apps_list_instance_sizes_response.yml
+    examples:
+      instance_sizes:
+        $ref: examples.yml#/instance_sizes
+
+headers:
+  ratelimit-limit:
+    $ref: ../../../shared/headers.yml#/ratelimit-limit
+  ratelimit-remaining:
+    $ref: ../../../shared/headers.yml#/ratelimit-remaining
+  ratelimit-reset:
+    $ref: ../../../shared/headers.yml#/ratelimit-reset

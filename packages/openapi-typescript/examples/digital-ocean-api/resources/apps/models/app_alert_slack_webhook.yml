@@ -1,0 +1,10 @@
+properties:
+  url:
+    title: URL of the Slack webhook
+    type: string
+    example: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+  channel:
+    title: Name of the Slack Webhook Channel
+    type: string
+    example: Channel Name
+type: object

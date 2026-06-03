@@ -1,0 +1,15 @@
+type: object
+properties:
+  deployment_id:
+    type: string
+    description: >-
+      The ID of the deployment to rollback to.
+    example: 3aa4d20e-5527-4c00-b496-601fbd22520a
+  skip_pin:
+    type: boolean
+    description: >-
+      Whether to skip pinning the rollback deployment. If false, the rollback deployment will be pinned and
+      any new deployments including Auto Deploy on Push hooks will be disabled until the rollback is either
+      manually committed or reverted via the CommitAppRollback or RevertAppRollback endpoints respectively.
+      If true, the rollback will be immediately committed and the app will remain unpinned.
+    example: false

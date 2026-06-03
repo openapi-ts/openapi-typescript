@@ -1,0 +1,45 @@
+operationId: autoscalepools_create
+
+summary: Create a New Autoscale Pool
+
+description: |
+  To create a new autoscale pool, send a POST request to `/v2/droplets/autoscale` setting the required attributes.
+
+  The response body will contain a JSON object with a key called `autoscale_pool` containing the standard attributes for the new autoscale pool.
+
+tags:
+  - Droplet Autoscale Pools
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        $ref: 'models/autoscale_pool_create.yml'
+      examples:
+        Autoscale Create Request Dynamic Config:
+          $ref: 'examples.yml#/autoscale_create_request_dynamic'
+        Autoscale Create Request Static Config:
+          $ref: 'examples.yml#/autoscale_create_request_static'
+
+responses:
+  '202':
+    $ref: 'responses/autoscale_pool_create.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/autoscale_pool_create.yml'
+
+security:
+  - bearer_auth:
+      - 'droplet:create'

@@ -1,0 +1,8 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  snapshots = client.volumes.snapshots(id: '82a48a18-873f-11e6-96bf-000f53315a41')
+  snapshots.each

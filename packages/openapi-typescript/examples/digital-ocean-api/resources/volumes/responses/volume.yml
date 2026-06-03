@@ -1,0 +1,53 @@
+description: >-
+  The response will be a JSON object with a key called `volume`. The value will
+  be an object containing the standard attributes associated with a volume.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        volume:
+          $ref: '../models/volume_full.yml'
+
+      example:
+        volume:
+          id: 506f78a4-e098-11e5-ad9f-000f53306ae1
+          region:
+            name: New York 1
+            slug: nyc1
+            sizes:
+            - s-1vcpu-1gb
+            - s-1vcpu-2gb
+            - s-1vcpu-3gb
+            - s-2vcpu-2gb
+            - s-3vcpu-1gb
+            - s-2vcpu-4gb
+            - s-4vcpu-8gb
+            - s-6vcpu-16gb
+            - s-8vcpu-32gb
+            - s-12vcpu-48gb
+            - s-16vcpu-64gb
+            - s-20vcpu-96gb
+            - s-24vcpu-128gb
+            - s-32vcpu-192gb
+            features:
+            - private_networking
+            - backups
+            - ipv6
+            - metadata
+            available: true
+          droplet_ids: []
+          name: example
+          description: Block store for examples
+          size_gigabytes: 10
+          filesystem_type: ext4
+          filesystem_label: example
+          created_at: '2020-03-02T17:00:49Z'

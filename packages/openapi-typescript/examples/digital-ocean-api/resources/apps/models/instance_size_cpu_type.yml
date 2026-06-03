@@ -1,0 +1,10 @@
+default: UNSPECIFIED
+enum:
+- UNSPECIFIED
+- SHARED
+- DEDICATED
+title: |-
+  - SHARED: Shared vCPU cores
+   - DEDICATED: Dedicated vCPU cores
+type: string
+example: SHARED

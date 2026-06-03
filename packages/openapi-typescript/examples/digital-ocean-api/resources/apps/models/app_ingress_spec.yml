@@ -1,0 +1,8 @@
+type: object
+properties:
+  rules:
+    description: Rules for configuring HTTP ingress for component routes, CORS, rewrites, and redirects.
+    type: array
+    items:
+      $ref: app_ingress_spec_rule.yml
+description: Specification for app ingress configurations.

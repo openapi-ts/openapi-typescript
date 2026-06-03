@@ -1,0 +1,19 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  key = File.open('/path/to/privkey1.pem', 'r'){ |file| file.read }
+  cert = File.open('/path/to/cert1.pem', 'r'){ |file| file.read }
+  chain = File.open('/path/to/fullchain1.pem', 'r'){ |file| file.read }
+
+  certificate = DropletKit::Certificate.new(
+      name: 'web-cert-01',
+      private_key: key,
+      leaf_certificate: cert,
+      certificate_chain: chain,
+      type: 'custom'
+  )
+
+  client.certificates.create(certificate)

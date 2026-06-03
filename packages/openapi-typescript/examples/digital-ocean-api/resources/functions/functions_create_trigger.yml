@@ -1,0 +1,53 @@
+operationId: functions_create_trigger
+
+summary: Create Trigger
+
+description: >-
+  Creates a new trigger for a given function in a namespace. To create a trigger, send a POST request to `/v2/functions/namespaces/$NAMESPACE_ID/triggers` with the `name`, `function`, `type`, `is_enabled` and `scheduled_details` properties.
+
+parameters:
+  - $ref: 'parameters.yml#/namespace_id'
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: 'models/create_trigger.yml'
+
+tags:
+  - Functions
+
+responses:
+  '200':
+    $ref: 'responses/trigger_response.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '400':
+    $ref: 'responses/trigger_bad_request.yml'
+
+  '404':
+    $ref: 'responses/namespace_not_found.yml'
+
+  '422':
+    $ref: 'responses/trigger_limit_reached.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/create_trigger.yml'
+  - $ref: 'examples/python/create_trigger.yml'
+
+security:
+  - bearer_auth:
+    - 'function:create'
+    - 'function:admin'

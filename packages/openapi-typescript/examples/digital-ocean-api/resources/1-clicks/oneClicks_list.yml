@@ -1,0 +1,42 @@
+operationId: oneClicks_list
+
+summary: List 1-Click Applications
+
+description: |
+  To list all available 1-Click applications, send a GET request to `/v2/1-clicks`. The `type` may
+  be provided as query paramater in order to restrict results to a certain type of 1-Click, for
+  example: `/v2/1-clicks?type=droplet`. Current supported types are `kubernetes` and `droplet`.
+
+  The response will be a JSON object with a key called `1_clicks`. This will be set to an array of
+  1-Click application data, each of which will contain the the slug and type for the 1-Click.
+
+tags:
+  - 1-Click Applications
+
+parameters:
+  - $ref: 'parameters.yml#/oneClicks_type'
+
+responses:
+  '200':
+    $ref: 'responses/oneClicks_all.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/oneClicks.yml'
+  - $ref: 'examples/python/oneClicks.yml'
+
+security:
+  - bearer_auth:
+    - '1click:read'
+

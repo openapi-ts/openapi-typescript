@@ -1,0 +1,10 @@
+allOf:
+- $ref: app_component_base.yml
+- $ref: app_component_instance_base.yml
+- type: object
+  properties:
+    termination:
+      $ref: app_worker_spec_termination.yml
+required:
+  - name
+

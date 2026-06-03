@@ -1,0 +1,34 @@
+type: object
+
+properties:
+  urn:
+    $ref: '../../../shared/attributes/urn.yml'
+
+  assigned_at:
+    type: string
+    format: date-time
+    example: "2018-09-28T19:26:37Z"
+    description: A time value given in ISO8601 combined date and time format
+      that represents when the project was created.
+
+  links:
+    type: object
+    description: The links object contains the `self` object, which contains the
+      resource relationship.
+    properties:
+      self:
+        type: string
+        format: uri
+        example: https://api.digitalocean.com/v2/droplets/13457723
+        description: A URI that can be used to retrieve the resource.
+
+  status:
+    type: string
+    enum:
+    - ok
+    - not_found
+    - assigned
+    - already_assigned
+    - service_down
+    example: ok
+    description: The status of assigning and fetching the resources.

@@ -1,0 +1,17 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "type": "attach",
+    "droplet_id": 11612190,
+    "region": "nyc1",
+    "tags": [
+      "aninterestingtag"
+    ]
+  }
+
+  resp = client.volume_actions.post_by_id(volume_id="7724db7c", body=req)

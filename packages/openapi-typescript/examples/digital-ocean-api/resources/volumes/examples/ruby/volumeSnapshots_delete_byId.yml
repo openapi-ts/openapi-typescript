@@ -1,0 +1,7 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  client.snapshots.delete(id: "fbe805e8-866b-11e6-96bf-000f53315a41")

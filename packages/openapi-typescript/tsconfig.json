@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ESNext", "DOM"],
+    "skipLibCheck": true,
+    "outDir": "dist",
+    "types": ["vitest/globals"]
+  },
+  "include": ["scripts", "src", "test", "*.ts"],
+  "exclude": ["node_modules"]
+}

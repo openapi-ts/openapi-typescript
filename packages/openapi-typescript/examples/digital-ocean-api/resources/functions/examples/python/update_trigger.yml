@@ -1,0 +1,18 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "is_enabled": true,
+    "scheduled_details": {
+      "cron": "* * * * *",
+      "body": {
+        "name": "Welcome to DO!"
+      }
+    }
+  }
+
+  resp = client.functions.update_trigger(namespace_id="39f3ca", trigger_name="trig_name", body=req)

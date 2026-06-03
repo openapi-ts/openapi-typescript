@@ -1,0 +1,13 @@
+type: object
+
+properties:
+  versions:
+    type: array
+    items:
+      type: string
+    example:
+      - '4.4'
+      - '5.0'
+    readOnly: true
+    description: >-
+      An array of strings containing the names of available regions

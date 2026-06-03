@@ -1,0 +1,21 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      updateRequest := &godo.ImageUpdateRequest{
+          Name: "new-image-name",
+      }
+
+      image, _, err := client.Images.Update(ctx, id, updateRequest)
+  }

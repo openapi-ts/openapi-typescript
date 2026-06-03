@@ -1,0 +1,12 @@
+tag_id:
+  in: path
+  name: tag_id
+  description: >-
+    The name of the tag. Tags may contain letters, numbers, colons, dashes,
+    and underscores. There is a limit of 255 characters per tag.
+  required: true
+  schema:
+    type: string
+    maxLength: 255
+    pattern: '^[a-zA-Z0-9_\-\:]+$'
+  example: awesome

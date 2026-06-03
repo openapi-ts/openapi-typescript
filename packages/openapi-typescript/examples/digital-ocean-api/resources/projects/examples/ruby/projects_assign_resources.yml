@@ -1,0 +1,8 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  resource = DropletKit::ProjectAssignment.new(urn: 'do:droplet:1')
+  client.projects.assign_resources([resource], id: '4e1bfbc3-dc3e-41f2-a18f-1b4d7ba71679')

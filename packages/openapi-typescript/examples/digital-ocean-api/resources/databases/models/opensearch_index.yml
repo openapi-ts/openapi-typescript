@@ -1,0 +1,25 @@
+type: object
+
+allOf:
+- $ref: './opensearch_index_base.yml'
+- properties:
+    status:
+      type: string
+      enum:
+        - unknown
+        - open
+        - close
+        - none
+      example: open
+      description: The status of the OpenSearch index.
+    
+    health:
+      type: string
+      enum:
+        - unknown
+        - green
+        - yellow
+        - red
+        - red*
+      example: green
+      description: The health of the OpenSearch index.

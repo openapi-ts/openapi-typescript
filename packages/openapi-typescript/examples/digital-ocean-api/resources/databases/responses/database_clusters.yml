@@ -1,0 +1,64 @@
+description: A JSON object with a key of `databases`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        databases:
+          type: array
+          items:
+            $ref: '../models/database_cluster.yml'
+    example:
+      databases:
+      - id: 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+        name: backend
+        engine: pg
+        version: '10'
+        connection:
+          uri: postgres://doadmin:wv78n3zpz42xezdk@backend-do-user-19081923-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require
+          database: ''
+          host: backend-do-user-19081923-0.db.ondigitalocean.com
+          port: 25060
+          user: doadmin
+          password: wv78n3zpz42xezdk
+          ssl: true
+        private_connection:
+          uri: postgres://doadmin:wv78n3zpz42xezdk@private-backend-do-user-19081923-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require
+          database: ''
+          host: private-backend-do-user-19081923-0.db.ondigitalocean.com
+          port: 25060
+          user: doadmin
+          password: wv78n3zpz42xezdk
+          ssl: true
+        users:
+        - name: doadmin
+          role: primary
+          password: wv78n3zpz42xezdk
+        db_names:
+        - defaultdb
+        num_nodes: 1
+        region: nyc3
+        status: online
+        created_at: '2019-01-11T18:37:36Z'
+        maintenance_window:
+          day: saturday
+          hour: '08:45:12'
+          pending: true
+          description:
+          - Update TimescaleDB to version 1.2.1
+          - Upgrade to PostgreSQL 11.2 and 10.7 bugfix releases
+        size: db-s-2vcpu-4gb
+        tags:
+        - production
+        private_network_uuid: d455e75d-4858-4eec-8c95-da2f0a5f93a7
+        version_end_of_life: '2023-11-09T00:00:00Z'
+        version_end_of_availability: '2023-05-09T00:00:00Z'
+        storage_size_mib: 61440

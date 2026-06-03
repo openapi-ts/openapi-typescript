@@ -1,0 +1,55 @@
+operationId: databases_list_clusters
+
+summary: List All Database Clusters
+
+description: >-
+  To list all of the database clusters available on your account, send a GET request to
+  `/v2/databases`. To limit the results to database clusters with a specific tag, include
+  the `tag_name` query parameter set to the name of the tag. For example, `/v2/databases?tag_name=$TAG_NAME`.
+
+
+  The result will be a JSON object with a `databases` key. This will be set to an array of database objects,
+  each of which will contain the standard database attributes.
+
+
+  The embedded `connection` and `private_connection` objects will contain the information needed to access the
+  database cluster. For multi-node clusters, the `standby_connection` and `standby_private_connection` objects
+  will contain the information needed to connect to the cluster's standby node(s).
+
+
+  The embedded `maintenance_window` object will contain information about any scheduled maintenance for the
+  database cluster.
+
+tags:
+  - Databases
+
+parameters:
+  - $ref: 'parameters.yml#/tag_name'
+
+responses:
+  '200':
+    $ref: 'responses/database_clusters.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/databases_list_clusters.yml'
+  - $ref: 'examples/go/databases_list_clusters.yml'
+  - $ref: 'examples/python/databases_list_clusters.yml'
+
+security:
+  - bearer_auth:
+    - 'database:read'

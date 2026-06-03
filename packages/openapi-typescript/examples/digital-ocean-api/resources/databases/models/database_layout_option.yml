@@ -1,0 +1,16 @@
+type: object
+
+properties:
+  num_nodes:
+    type: integer
+    example: 1
+  sizes:
+    type: array
+    items:
+      type: string
+    example:
+      - db-s-1vcpu-1gb
+      - db-s-1vcpu-2gb
+    readOnly: true
+    description: >-
+      An array of objects containing the slugs available with various node counts

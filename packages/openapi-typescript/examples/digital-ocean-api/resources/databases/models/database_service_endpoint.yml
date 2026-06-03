@@ -1,0 +1,13 @@
+type: object
+
+properties:
+  host:
+    type: string
+    description: A FQDN pointing to the database cluster's node(s).
+    example: backend-do-user-19081923-0.db.ondigitalocean.com
+    readOnly: true
+  port:
+    type: integer
+    description: The port on which a service is listening.
+    example: 9273
+    readOnly: true

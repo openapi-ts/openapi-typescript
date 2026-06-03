@@ -1,0 +1,21 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+    // Assign a Floating IP to a Droplet
+      action, _, err := client.FloatingIPActions.Assign(ctx, "45.55.96.47", 8219222)
+
+    // Unassign a Floating IP
+    // action, _, err := client.FloatingIPActions.Unassign(ctx, "45.55.96.47")  
+  }

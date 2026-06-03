@@ -1,0 +1,17 @@
+description: Only an empty project can be deleted.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../../../shared/models/error.yml'
+    example:
+      id: precondition_failed
+      message: cannot delete a project with resources. move or remove the resources first

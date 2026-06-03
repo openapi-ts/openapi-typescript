@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/monitoring/sinks" \
+    --data '{"destination_uuid": "f2fcd5d9-f410-4f3a-8015-130ada94b1fe",  "resources": [{"name": "fra_kubernetes_cluster", "urn":"do:kubernetes:8463c9db-150c-4b44-830c-fca7f68d005b"}]}'

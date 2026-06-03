@@ -1,0 +1,22 @@
+type: object
+
+properties:
+  name: 
+    example: "my-autoscale-pool"
+    type: string
+    description: "The human-readable name of the autoscale pool. This field cannot be updated"
+  config:
+    oneOf:
+      - $ref: ../models/autoscale_pool_static_config.yml
+      - $ref: ../models/autoscale_pool_dynamic_config.yml
+    type: object
+    description: The scaling configuration for an autoscale pool, which
+      is how the pool scales up and down (either by resource utilization
+      or static configuration).
+  droplet_template:    
+    $ref: ../models/autoscale_pool_droplet_template.yml
+
+required:
+  - name
+  - config
+  - droplet_template

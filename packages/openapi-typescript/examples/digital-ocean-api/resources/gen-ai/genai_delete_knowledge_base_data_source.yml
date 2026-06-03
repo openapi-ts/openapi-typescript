@@ -1,0 +1,50 @@
+description: To delete a data source from a knowledge base, send a DELETE request
+  to `/v2/gen-ai/knowledge_bases/{knowledge_base_uuid}/data_sources/{data_source_uuid}`.
+operationId: genai_delete_knowledge_base_data_source
+parameters:
+- description: Knowledge base id
+  example: '"123e4567-e89b-12d3-a456-426614174000"'
+  in: path
+  name: knowledge_base_uuid
+  required: true
+  schema:
+    type: string
+- description: Data source id
+  example: '"123e4567-e89b-12d3-a456-426614174000"'
+  in: path
+  name: data_source_uuid
+  required: true
+  schema:
+    type: string
+responses:
+  "200":
+    content:
+      application/json:
+        schema:
+          $ref: ./definitions.yml#/apiDeleteKnowledgeBaseDataSourceOutput
+    description: A successful response.
+    headers:
+      ratelimit-limit:
+        $ref: ../../shared/headers.yml#/ratelimit-limit
+      ratelimit-remaining:
+        $ref: ../../shared/headers.yml#/ratelimit-remaining
+      ratelimit-reset:
+        $ref: ../../shared/headers.yml#/ratelimit-reset
+  "401":
+    $ref: ../../shared/responses/unauthorized.yml
+  "404":
+    $ref: ../../shared/responses/not_found.yml
+  "429":
+    $ref: ../../shared/responses/too_many_requests.yml
+  "500":
+    $ref: ../../shared/responses/server_error.yml
+  default:
+    $ref: ../../shared/responses/unexpected_error.yml
+security:
+- bearer_auth:
+  - genai:delete
+summary: Delete a Data Source from a Knowledge Base
+tags:
+- GenAI Platform (Public Preview)
+x-codeSamples:
+- $ref: examples/curl/genai_delete_knowledge_base_data_source.yml

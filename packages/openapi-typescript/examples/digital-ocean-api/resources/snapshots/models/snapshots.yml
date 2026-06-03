@@ -1,0 +1,43 @@
+allOf:
+  - type: object
+    properties:
+      id:
+        type: string
+        example: '6372321'
+        description: The unique identifier for the snapshot.
+
+    required:
+    - id
+
+  - $ref: 'snapshots_base.yml'
+
+  - type: object
+    properties:
+      resource_id:
+        type: string
+        example: "200776916"
+        description: The unique identifier for the resource that the snapshot
+          originated from.
+
+      resource_type:
+        type: string
+        enum:
+        - droplet
+        - volume
+        example: droplet
+        description: The type of resource that the snapshot originated from.
+
+      tags:
+        description: An array of Tags the snapshot has been tagged with.
+        type: array
+        items:
+          type: string
+        nullable: true
+        example:
+        - web
+        - env:prod
+
+    required:
+    - resource_id
+    - resource_type
+    - tags

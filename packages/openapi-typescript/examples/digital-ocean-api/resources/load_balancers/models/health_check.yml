@@ -1,0 +1,57 @@
+type: object
+
+description: An object specifying health check settings for the load balancer.
+
+properties:
+  protocol:
+    type: string
+    enum:
+    - http
+    - https
+    - tcp
+    default: http
+    example: http
+    description: The protocol used for health checks sent to the backend
+      Droplets. The possible values are `http`, `https`, or `tcp`.
+
+  port:
+    type: integer
+    default: 80
+    example: 80
+    description: An integer representing the port on the backend Droplets on
+      which the health check will attempt a connection.
+
+  path:
+    type: string
+    default: '/'
+    example: '/'
+    description: The path on the backend Droplets to which the load balancer
+      instance will send a request.
+
+  check_interval_seconds:
+    type: integer
+    default: 10
+    example: 10
+    description: The number of seconds between between two consecutive health
+      checks.
+
+  response_timeout_seconds:
+    type: integer
+    default: 5
+    example: 5
+    description: The number of seconds the load balancer instance will wait for
+      a response until marking a health check as failed.
+
+  unhealthy_threshold:
+    type: integer
+    default: 5
+    example: 5
+    description: The number of times a health check must fail for a backend
+      Droplet to be marked "unhealthy" and be removed from the pool.
+
+  healthy_threshold:
+    type: integer
+    default: 3
+    example: 3
+    description: The number of times a health check must pass for a backend
+      Droplet to be marked "healthy" and be re-added to the pool.

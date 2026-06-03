@@ -1,0 +1,17 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      db, _, err := client.Databases.GetEvictionPolicy(ctx, "9cc10173-e9ea-4176-9dbc-a4cee4c4ff30")
+  }

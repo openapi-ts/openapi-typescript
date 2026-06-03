@@ -1,0 +1,40 @@
+operationId: firewalls_list
+
+summary: List All Firewalls
+
+description: >-
+  To list all of the firewalls available on your account, send a GET request to
+  `/v2/firewalls`.
+
+tags:
+  - Firewalls
+
+parameters:
+  - $ref: '../../shared/parameters.yml#/per_page'
+  - $ref: '../../shared/parameters.yml#/page'
+
+responses:
+  '200':
+    $ref: 'responses/list_firewalls_response.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/firewalls_list.yml'
+  - $ref: 'examples/go/firewalls_list.yml'
+  - $ref: 'examples/ruby/firewalls_list.yml'
+  - $ref: 'examples/python/firewalls_list.yml'
+
+security:
+  - bearer_auth:
+    - 'firewall:read'

@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name":"my-web-api", "description": "My website API", "purpose": "Service or API", "environment": "Production"}' \
+    "https://api.digitalocean.com/v2/projects"

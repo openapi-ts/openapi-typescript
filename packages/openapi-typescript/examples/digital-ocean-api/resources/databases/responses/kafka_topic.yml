@@ -1,0 +1,61 @@
+description: A JSON object with a key of `topic`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        topic:
+          $ref:  '../models/kafka_topic_verbose.yml'
+
+    example:
+      topic:
+        name: customer-events
+        partitions:
+          - size: 4096
+            id: 0
+            in_sync_replicas: 3
+            earliest_offset: 0
+            consumer_groups:
+              - name: consumer-group-1
+                offset: 0
+              - name: consumer-group-2
+                offset: 1
+          - size: 4096
+            id: 1
+            in_sync_replicas: 3
+            earliest_offset: 0
+            consumer_groups: null
+        replication_factor: 3
+        state: active
+        config:
+          cleanup_policy: delete
+          compression_type: producer
+          delete_retention_ms: 86400000
+          file_delete_delay_ms: 60000
+          flush_messages: 9223372036854776000
+          flush_ms: 9223372036854776000
+          index_interval_bytes: 4096
+          max_compaction_lag_ms: 9223372036854776000
+          max_message_bytes: 1048588
+          message_down_conversion_enable: true
+          message_format_version: 3.0-IV1
+          message_timestamp_difference_max_ms: 9223372036854776000
+          message_timestamp_type: create_time
+          min_cleanable_dirty_ratio: 0.5
+          min_compaction_lag_ms: 0
+          min_insync_replicas: 1
+          preallocate: false
+          retention_bytes: -1
+          retention_ms: 604800000
+          segment_bytes: 209715200
+          segment_index_bytes: 10485760
+          segment_jitter_ms: 0
+          segment_ms: 604800000

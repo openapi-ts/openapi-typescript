@@ -1,0 +1,93 @@
+project_base:
+  type: object
+  properties:
+    id:
+      type: string
+      format: uuid
+      readOnly: true
+      example: 4e1bfbc3-dc3e-41f2-a18f-1b4d7ba71679
+      description: The unique universal identifier of this project.
+
+    owner_uuid:
+      type: string
+      readOnly: true
+      example: 99525febec065ca37b2ffe4f852fd2b2581895e7
+      description: The unique universal identifier of the project owner.
+
+    owner_id:
+      type: integer
+      readOnly: true
+      example: 258992
+      description: The integer id of the project owner.
+
+    name:
+      type: string
+      maxLength: 175
+      example: my-web-api
+      description: The human-readable name for the project. The maximum length is
+        175 characters and the name must be unique.
+
+    description:
+      type: string
+      maxLength: 255
+      example: My website API
+      description: The description of the project. The maximum length is 255
+        characters.
+
+    purpose:
+      type: string
+      maxLength: 255
+      example: Service or API
+      description: |
+        The purpose of the project. The maximum length is 255 characters. It can
+        have one of the following values:
+
+        - Just trying out DigitalOcean
+        - Class project / Educational purposes
+        - Website or blog
+        - Web Application
+        - Service or API
+        - Mobile Application
+        - Machine learning / AI / Data processing
+        - IoT
+        - Operational / Developer tooling
+
+        If another value for purpose is specified, for example, "your custom purpose",
+        your purpose will be stored as `Other: your custom purpose`.
+
+    environment:
+      type: string
+      enum:
+      - Development
+      - Staging
+      - Production
+      example: Production
+      description: The environment of the project's resources.
+
+    created_at:
+      type: string
+      format: date-time
+      readOnly: true
+      example: "2018-09-27T20:10:35Z"
+      description: A time value given in ISO8601 combined date and time format
+        that represents when the project was created.
+
+    updated_at:
+      type: string
+      format: date-time
+      readOnly: true
+      example: "2018-09-27T20:10:35Z"
+      description: A time value given in ISO8601 combined date and time format
+        that represents when the project was updated.
+
+project:
+  allOf:
+    - $ref: '#/project_base'
+
+    - type: object
+      properties:
+        is_default:
+          type: boolean
+          example: false
+          description: If true, all resources will be added to this project if no
+            project is specified.

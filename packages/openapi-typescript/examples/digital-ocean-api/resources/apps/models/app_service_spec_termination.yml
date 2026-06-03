@@ -1,0 +1,20 @@
+type: object
+properties:
+  drain_seconds:
+    type: integer
+    format: int32
+    description: The number of seconds to wait between selecting a container instance
+      for termination and issuing the TERM signal. Selecting a container instance for
+      termination begins an asynchronous drain of new requests on upstream load-balancers. (Default 15)
+    example: 15
+    maximum: 110
+    minimum: 1
+
+  grace_period_seconds:
+    type: integer
+    format: int32
+    description: The number of seconds to wait between sending a TERM signal to a container and issuing
+      a KILL which causes immediate shutdown. (Default 120)
+    example: 120
+    maximum: 600
+    minimum: 1

@@ -1,0 +1,33 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      req := godo.DatabaseUpdateFirewallRulesRequest{
+        Rules: []*godo.DatabaseFirewallRule{
+          {
+           Type:  "ip_addr",
+           Value: "192.168.1.1",
+         },
+          {
+           Type:  "droplet",
+           Value: "163973392",
+         },
+          {
+           Type:  "k8s",
+           Value: "ff2a6c52-5a44-4b63-b99c-0e98e7a63d61",
+          },
+        },
+      }
+      _, err := client.Databases.UpdateFirewallRules(ctx, dbID, &req)
+  }

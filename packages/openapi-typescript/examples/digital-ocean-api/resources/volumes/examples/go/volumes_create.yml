@@ -1,0 +1,24 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      createRequest := &VolumeCreateRequest{
+          Region:        "nyc1",
+          Name:          "example",
+          Description:   "Block store for examples",
+          SizeGigaBytes: 10,
+      }
+
+      volume, _, err := client.Storage.CreateVolume(ctx, createRequest)
+  }

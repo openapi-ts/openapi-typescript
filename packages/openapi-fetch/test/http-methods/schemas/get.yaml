@@ -1,0 +1,64 @@
+openapi: 3.1.0
+info:
+  title: openapi-fetch
+  version: "1.0"
+paths:
+  /posts:
+    get:
+      responses:
+        200:
+          description: OK
+          operationId: getPosts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Post"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /posts/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      responses:
+        200:
+          description: OK
+          operationId: getPost
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    Post:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer

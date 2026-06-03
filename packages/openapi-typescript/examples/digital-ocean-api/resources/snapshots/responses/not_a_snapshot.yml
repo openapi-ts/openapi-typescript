@@ -1,0 +1,18 @@
+description: Bad Request
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../../../shared/models/error.yml'
+    example:
+      id: bad_request
+      message: the resource is not a snapshot
+      request_id: bbd8d7d4-2beb-4be1-a374-338e6165e32d

@@ -1,0 +1,16 @@
+type: object
+
+allOf:
+  - properties:
+      type:
+        type: string
+        description: >-
+          This is the type of action that the object represents. For example,
+          this could be "attach_volume" to represent the state of a volume
+          attach action.
+        example: attach_volume
+      resource_id:
+        type: integer
+        nullable: true
+        example: null
+  - $ref: '../../actions/models/action.yml'

@@ -1,0 +1,22 @@
+type: object
+
+properties:
+  type:
+    type: string
+    enum:
+      - local
+      - scratch
+    description: The type of disk. All Droplets contain a `local` disk. Additionally,
+      GPU Droplets can also have a `scratch` disk for non-persistent data.
+    example: local
+  size:
+    type: object
+    properties:
+      amount:
+        type: integer
+        description: The amount of space allocated to the disk.
+        example: 25
+      unit:
+        type: string
+        description: The unit of measure for the disk size.
+        example: gib

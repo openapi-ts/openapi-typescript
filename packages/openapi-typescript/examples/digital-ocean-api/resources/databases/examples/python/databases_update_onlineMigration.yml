@@ -1,0 +1,20 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "source": {
+      "host": "source-do-user-6607903-0.b.db.ondigitalocean.com",
+      "dbname": "defaultdb",
+      "port": 25060,
+      "username": "doadmin",
+      "password": "paakjnfe10rsrsmf"
+    },
+    "disable_ssl": False
+    "ignore_dbs": ["db0","db1"]
+  }
+
+  update_resp = client.databases.update_online_migration(database_cluster_uuid="a7a8bas", body=req)

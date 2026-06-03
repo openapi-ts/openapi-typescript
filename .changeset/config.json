@@ -1,0 +1,10 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.0.1/schema.json",
+  "changelog": ["@changesets/changelog-github", { "repo": "openapi-ts/openapi-typescript" }],
+  "ignore": ["openapi-typescript-docs", "@example/*"],
+  "commit": false,
+  "fixed": [],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main"
+}

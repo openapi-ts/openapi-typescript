@@ -1,0 +1,16 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      pat := "mytoken"
+
+      client := godo.NewFromToken(pat)
+      ctx := context.TODO()
+
+      updateRequest := &godo.CDNUpdateTTLRequest{TTL: 1800}
+      cdn, _, err := client.CDNs.UpdateTTL(ctx, "19f06b6a-3ace-4315-b086-499a0e521b76", updateRequest)
+  }

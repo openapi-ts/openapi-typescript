@@ -1,0 +1,57 @@
+operationId: projects_update
+
+summary: Update a Project
+
+description: To update a project, send a PUT request to `/v2/projects/$PROJECT_ID`.
+  All of the following attributes must be sent.
+
+tags:
+  - Projects
+
+parameters:
+  - $ref: 'parameters.yml#/project_id'
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        allOf:
+        - $ref: 'models/project.yml#/project'
+
+        required:
+        - name
+        - description
+        - purpose
+        - environment
+        - is_default
+
+responses:
+  '200':
+    $ref: 'responses/existing_project.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/projects_update.yml'
+  - $ref: 'examples/go/projects_update.yml'
+  - $ref: 'examples/ruby/projects_update.yml'
+  - $ref: 'examples/python/projects_update.yml'
+
+security:
+  - bearer_auth:
+    - 'project:update'

@@ -1,0 +1,32 @@
+description: >-
+  The response will be a JSON object with a key called `domain`. The value of
+  this will be an object that contains the standard attributes defined for a
+  domain.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        domain:
+          $ref: '../models/domain.yml'
+
+      example:
+        domain:
+          name: example.com
+          ttl: 1800
+          zone_file: |
+            $ORIGIN example.com.
+            $TTL 1800
+            example.com. IN SOA ns1.digitalocean.com. hostmaster.example.com. 1415982611 10800 3600 604800 1800
+            example.com. 1800 IN NS ns1.digitalocean.com.
+            example.com. 1800 IN NS ns2.digitalocean.com.
+            example.com. 1800 IN NS ns3.digitalocean.com.
+            example.com. 1800 IN A 1.2.3.4

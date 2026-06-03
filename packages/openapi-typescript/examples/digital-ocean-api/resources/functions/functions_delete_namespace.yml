@@ -1,0 +1,46 @@
+operationId: functions_delete_namespace
+
+summary: Delete Namespace
+
+description: >-
+  Deletes the given namespace.  When a namespace is deleted all assets, in the namespace are deleted, this
+  includes packages, functions and triggers. Deleting a namespace is a destructive operation and assets in the
+  namespace are not recoverable after deletion. Some metadata is retained, such as activations, or soft deleted for reporting purposes.
+
+  To delete namespace, send a DELETE request to `/v2/functions/namespaces/$NAMESPACE_ID`.
+
+  A successful deletion returns a 204 response.
+
+tags:
+  - Functions
+
+parameters:
+  - $ref: 'parameters.yml#/namespace_id'
+
+responses:
+  '204':
+    $ref: '../../shared/responses/no_content.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: 'responses/namespace_not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/delete_namespace.yml'
+  - $ref: 'examples/python/delete_namespace.yml'
+
+security:
+  - bearer_auth:
+    - 'function:delete'
+    - 'function:admin'

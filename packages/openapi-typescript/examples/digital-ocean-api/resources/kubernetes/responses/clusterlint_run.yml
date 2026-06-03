@@ -1,0 +1,20 @@
+description: The response is a JSON object with a key called `run_id` that you
+  can later use to fetch the run results.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        run_id:
+          type: string
+          example: 50c2f44c-011d-493e-aee5-361a4a0d1844
+          description: ID of the clusterlint run that can be used later to
+            fetch the diagnostics.

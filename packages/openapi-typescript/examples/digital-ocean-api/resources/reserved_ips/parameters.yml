@@ -1,0 +1,10 @@
+reserved_ip:
+  in: path
+  name: reserved_ip
+  description: A reserved IP address.
+  required: true
+  schema:
+    type: string
+    format: ipv4
+    minimum: 1
+  example: 45.55.96.47

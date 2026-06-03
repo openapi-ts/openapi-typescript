@@ -1,0 +1,38 @@
+operationId: monitoring_get_dropletLoad1Metrics
+
+summary: Get Droplet Load1 Metrics
+
+description: >-
+  To retrieve 1 minute load average metrics for a given droplet, send a GET request to `/v2/monitoring/metrics/droplet/load_1`.
+tags:
+  - Monitoring
+
+responses:
+  '200':
+    $ref: 'responses/metric_response.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+
+parameters:
+  - $ref: 'parameters.yml#/droplet_id'
+  - $ref: 'parameters.yml#/metric_timestamp_start'
+  - $ref: 'parameters.yml#/metric_timestamp_end'
+
+x-codeSamples:
+  - $ref: 'examples/curl/monitoring_get_dropletLoad1Metrics.yml'
+  - $ref: 'examples/python/monitoring_get_dropletLoad1Metrics.yml'
+
+security:
+  - bearer_auth:
+    - 'monitoring:read'

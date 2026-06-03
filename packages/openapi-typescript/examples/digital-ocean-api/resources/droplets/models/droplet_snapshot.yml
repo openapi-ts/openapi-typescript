@@ -1,0 +1,27 @@
+allOf:
+  - type: object
+    properties:
+      id:
+        type: integer
+        example: 6372321
+        description: The unique identifier for the snapshot or backup.
+
+    required:
+    - id
+
+  - $ref: '../../snapshots/models/snapshots_base.yml'
+
+  - type: object
+    properties:
+      type:
+        type: string
+        enum:
+        - snapshot
+        - backup
+        example: snapshot
+        description: Describes the kind of image. It may be one of `snapshot`
+          or `backup`. This specifies whether an image is a user-generated
+          Droplet snapshot or automatically created Droplet backup.
+
+    required:
+    - type

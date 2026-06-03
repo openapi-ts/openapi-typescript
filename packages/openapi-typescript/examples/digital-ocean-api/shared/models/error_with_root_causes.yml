@@ -1,0 +1,28 @@
+type: object
+
+properties:
+  error:
+    description: A message providing information about the error.
+    type: string
+    example: not_found
+
+  messages:
+    description: A list of error messages.
+    type: array
+    items: 
+      type: string
+    nullable: true
+    example: null
+
+  root_causes:
+    description: >-
+      A list of underlying causes for the error, including details to help 
+      resolve it when possible.
+    type: array
+    items: 
+      type: string
+    example: []
+
+required:
+  - error
+  - root_causes

@@ -1,0 +1,41 @@
+type: object
+
+properties:
+  include_groups:
+    type: array
+    items:
+      type: string
+    example:
+      - basic
+      - doks
+      - security
+    description: An array of check groups that will be run when clusterlint
+      executes checks.
+
+  include_checks:
+    type: array
+    items:
+      type: string
+    example:
+    - bare-pods
+    - resource-requirements
+    description: An array of checks that will be run when clusterlint
+      executes checks.
+
+  exclude_groups:
+    type: array
+    items:
+      type: string
+    example:
+    - workload-health
+    description: An array of check groups that will be omitted when clusterlint
+      executes checks.
+
+  exclude_checks:
+    type: array
+    items:
+      type: string
+    example:
+    - default-namespace
+    description: An array of checks that will be run when clusterlint executes
+      checks.

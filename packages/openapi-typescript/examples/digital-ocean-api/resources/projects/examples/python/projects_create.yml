@@ -1,0 +1,15 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "name": "my-web-api",
+    "description": "My website API",
+    "purpose": "Service or API",
+    "environment": "Production"
+  }
+
+  resp = client.projects.create(body=req)

@@ -1,0 +1,45 @@
+operationId: sshKeys_get
+
+summary: Retrieve an Existing SSH Key
+
+description: >-
+  To get information about a key, send a GET request to `/v2/account/keys/$KEY_ID`
+  or `/v2/account/keys/$KEY_FINGERPRINT`.
+
+  The response will be a JSON object with the key `ssh_key` and value an ssh_key
+  object which contains the standard ssh_key attributes.
+
+tags:
+  - SSH Keys
+
+parameters:
+  - $ref: 'parameters/ssh_key_identifier.yml'
+
+responses:
+  '200':
+    $ref: 'responses/sshKeys_existing.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/sshKeys_get.yml'
+  - $ref: 'examples/go/sshKeys_get.yml'
+  - $ref: 'examples/ruby/sshKeys_get.yml'
+  - $ref: 'examples/python/sshKeys_get.yml'
+
+security:
+  - bearer_auth:
+    - 'ssh_key:read'

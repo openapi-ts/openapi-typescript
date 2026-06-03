@@ -1,0 +1,61 @@
+operationId: databases_update_onlineMigration
+
+summary: Start an Online Migration
+
+description: >-
+  To start an online migration, send a PUT request to
+  `/v2/databases/$DATABASE_ID/online-migration` endpoint. Migrating a cluster
+  establishes a connection with an existing cluster and replicates its
+  contents to the target cluster. Online migration is only available for
+  MySQL, PostgreSQL, and Redis clusters.
+
+tags:
+  - Databases
+
+parameters:
+  - $ref: "parameters.yml#/database_cluster_uuid"
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        $ref: "models/source_database.yml"
+
+      example:
+        source:
+          host: source-do-user-6607903-0.b.db.ondigitalocean.com
+          dbname: defaultdb
+          port: 25060
+          username: doadmin
+          password: paakjnfe10rsrsmf
+        disable_ssl: false
+        ignore_dbs: ["db0","db1"]
+
+responses:
+  "200":
+    $ref: "responses/online_migration.yml"
+
+  "401":
+    $ref: "../../shared/responses/unauthorized.yml"
+
+  "404":
+    $ref: "../../shared/responses/not_found.yml"
+
+  "429":
+    $ref: "../../shared/responses/too_many_requests.yml"
+
+  "500":
+    $ref: "../../shared/responses/server_error.yml"
+
+  default:
+    $ref: "../../shared/responses/unexpected_error.yml"
+
+x-codeSamples:
+  - $ref: "examples/curl/databases_update_onlineMigration.yml"
+  - $ref: "examples/python/databases_update_onlineMigration.yml"
+
+security:
+  - bearer_auth:
+      - "database:update"

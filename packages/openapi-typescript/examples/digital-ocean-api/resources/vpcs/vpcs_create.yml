@@ -1,0 +1,54 @@
+operationId: vpcs_create
+
+summary: Create a New VPC
+
+description: |
+  To create a VPC, send a POST request to `/v2/vpcs` specifying the attributes
+  in the table below in the JSON body.
+
+  **Note:** If you do not currently have a VPC network in a specific datacenter
+  region, the first one that you create will be set as the default for that
+  region. The default VPC for a region cannot be changed or deleted.
+
+tags:
+  - VPCs
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        type: object
+        allOf:
+        - $ref: 'models/vpc.yml#/vpc_updatable'
+        - $ref: 'models/vpc.yml#/vpc_create'
+
+        required:
+        - name
+        - region
+
+responses:
+  '201':
+    $ref: 'responses/existing_vpc.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/vpcs_create.yml'
+  - $ref: 'examples/go/vpcs_create.yml'
+  - $ref: 'examples/python/vpcs_create.yml'
+
+security:
+  - bearer_auth:
+    - 'vpc:create'

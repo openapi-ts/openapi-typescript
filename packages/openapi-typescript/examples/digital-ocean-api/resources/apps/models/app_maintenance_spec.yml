@@ -1,0 +1,15 @@
+type: object
+description: Specification to configure maintenance settings for the app, such as maintenance mode and archiving the app.
+properties:
+  enabled:
+    type: boolean
+    description: Indicates whether maintenance mode should be enabled for the app.
+    example: true
+  archive:
+    type: boolean
+    description: Indicates whether the app should be archived. Setting this to true implies that enabled is set to true. Note that this feature is currently in closed beta.
+    example: true
+  offline_page_url:
+    type: string
+    description: A custom offline page to display when maintenance mode is enabled or the app is archived.
+    example: https://example.com/offline.html

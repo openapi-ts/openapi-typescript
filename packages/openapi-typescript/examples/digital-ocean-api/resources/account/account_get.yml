@@ -1,0 +1,34 @@
+operationId: account_get
+
+summary: Get User Information
+
+description: To show information about the current user account, send a GET
+  request to `/v2/account`.
+
+tags:
+  - Account
+
+responses:
+  '200':
+    $ref: 'responses/account.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/account_get.yml'
+  - $ref: 'examples/python/account_get.yml'
+
+security:
+  - bearer_auth:
+    - 'account:read'
+

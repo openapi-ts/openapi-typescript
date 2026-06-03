@@ -1,0 +1,12 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/apps"
+    -d '{"spec":{"name":"web-app","region":"nyc", \
+    "services":[{"name":"api","github":{"branch":"main",\
+    "deploy_on_push":true,"repo":"digitalocean/sample-golang"}, \
+    "run_command":"bin/api","environment_slug":"node-js", \
+    "instance_count":2,"instance_size_slug":"apps-s-1vcpu-0.5gb", \
+    "routes":[{"path":"/api"}]}]}}'

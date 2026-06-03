@@ -1,0 +1,43 @@
+operationId: kubernetes_list_associatedResources
+
+summary: List Associated Resources for Cluster Deletion
+
+description: >-
+  To list the associated billable resources that can be destroyed along with a
+  cluster, send a GET request to the
+  `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/destroy_with_associated_resources`
+  endpoint.
+
+tags:
+  - Kubernetes
+
+parameters:
+  - $ref: 'parameters.yml#/kubernetes_cluster_id'
+
+responses:
+  '200':
+    $ref: 'responses/associated_kubernetes_resources_list.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/kubernetes_list_associatedResources.yml'
+  - $ref: 'examples/go/kubernetes_list_associatedResources.yml'
+  - $ref: 'examples/python/kubernetes_list_associatedResources.yml'
+
+security:
+  - bearer_auth:
+    - 'kubernetes:read'

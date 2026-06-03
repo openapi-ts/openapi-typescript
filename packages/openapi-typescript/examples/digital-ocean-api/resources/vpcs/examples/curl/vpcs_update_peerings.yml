@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X PATCH \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name": "renamed-my-first-vpc-peering"}' \
+    "https://api.digitalocean.com/v2/vpcs/997615ce-132d-4bae-9270-9ee21b395e5d/peerings/6b5c619c-359c-44ca-87e2-47e98170c01d"

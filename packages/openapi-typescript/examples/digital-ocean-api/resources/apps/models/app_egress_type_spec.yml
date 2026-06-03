@@ -1,0 +1,7 @@
+title: The app egress type.
+type: string
+default: AUTOASSIGN
+example: AUTOASSIGN
+enum:
+  - AUTOASSIGN
+  - DEDICATED_IP

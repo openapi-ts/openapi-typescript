@@ -1,0 +1,6 @@
+lang: Curl
+source: |-
+  curl -X POST https://api.digitalocean.com/v2/apps/{app_id}/components/{component_name}/trusted_sources \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{ "enable": true }'

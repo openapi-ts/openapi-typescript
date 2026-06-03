@@ -1,0 +1,46 @@
+operationId: vpcs_delete
+
+summary: Delete a VPC
+
+description: |
+  To delete a VPC, send a DELETE request to `/v2/vpcs/$VPC_ID`. A 204 status
+  code with no body will be returned in response to a successful request.
+
+  The default VPC for a region can not be deleted. Additionally, a VPC can only
+  be deleted if it does not contain any member resources. Attempting to delete
+  a region's default VPC or a VPC that still has members will result in a
+  403 Forbidden error response.
+
+tags:
+  - VPCs
+
+parameters:
+  - $ref: 'parameters.yml#/vpc_id'
+
+responses:
+  '204':
+    $ref: '../../shared/responses/no_content.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/vpcs_delete.yml'
+  - $ref: 'examples/go/vpcs_delete.yml'
+  - $ref: 'examples/python/vpcs_delete.yml'
+
+security:
+  - bearer_auth:
+    - 'vpc:delete'

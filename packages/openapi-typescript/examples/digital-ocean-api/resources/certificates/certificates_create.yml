@@ -1,0 +1,53 @@
+operationId: certificates_create
+
+summary: Create a New Certificate
+
+description: |
+  To upload new SSL certificate which you have previously generated, send a POST
+  request to `/v2/certificates`.
+
+  When uploading a user-generated certificate, the `private_key`,
+  `leaf_certificate`, and optionally the `certificate_chain` attributes should
+  be provided. The type must be set to `custom`.
+
+  When using Let's Encrypt to create a certificate, the `dns_names` attribute
+  must be provided, and the type must be set to `lets_encrypt`.
+
+tags:
+  - Certificates
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        oneOf:
+        - $ref: 'models/certificate_create.yml#/certificate_request_lets_encrypt'
+        - $ref: 'models/certificate_create.yml#/certificate_request_custom'
+
+responses:
+  '201':
+    $ref: 'responses/new_certificate.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/certificates_create.yml'
+  - $ref: 'examples/go/certificates_create.yml'
+  - $ref: 'examples/ruby/certificates_create.yml'
+  - $ref: 'examples/python/certificates_create.yml'
+
+security:
+  - bearer_auth:
+    - 'certificate:create'

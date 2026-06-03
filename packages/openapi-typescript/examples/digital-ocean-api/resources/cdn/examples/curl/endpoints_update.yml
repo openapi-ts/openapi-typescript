@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X PUT \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+  -d '{"ttl": 1800}' \
+  "https://api.digitalocean.com/v2/cdn/endpoints/19f06b6a-3ace-4315-b086-499a0e521b76" 

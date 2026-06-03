@@ -1,0 +1,23 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      createRequest := &godo.DomainRecordEditRequest{
+        Type: "A",
+        Name: "www",
+        Data: "1.2.3.4",
+      }
+
+      domainRecord, _, err := client.Domains.CreateRecord(ctx, "example.com", createRequest)
+  }

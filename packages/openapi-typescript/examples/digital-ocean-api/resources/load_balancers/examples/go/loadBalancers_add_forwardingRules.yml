@@ -1,0 +1,24 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      forwardingRule := []godo.ForwardingRule{
+          {
+              EntryProtocol:  "tcp",
+              EntryPort:      3306,
+              TargetProtocol: "tcp",
+              TargetPort:     3306,
+          },
+      }
+  }

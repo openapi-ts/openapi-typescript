@@ -1,0 +1,40 @@
+description: A JSON object with a key of `replicas`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        replicas:
+          type: array
+          items:
+            $ref: '../models/database_replica.yml'
+    example:
+      replicas:
+      - name: read-nyc3-01
+        connection:
+          uri: ''
+          database: defaultdb
+          host: read-nyc3-01-do-user-19081923-0.db.ondigitalocean.com
+          port: 25060
+          user: doadmin
+          password: wv78n3zpz42xezdk
+          ssl: true
+        private_connection:
+          uri: postgres://doadmin:wv78n3zpz42xezdk@private-read-nyc3-01-do-user-19081923-0.db.ondigitalocean.com:25060/defaultdb?sslmode=require
+          database: ''
+          host: private-read-nyc3-01-do-user-19081923-0.db.ondigitalocean.com
+          port: 25060
+          user: doadmin
+          password: wv78n3zpz42xezdk
+          ssl: true
+        region: nyc3
+        status: online
+        created_at: '2019-01-11T18:37:36Z'

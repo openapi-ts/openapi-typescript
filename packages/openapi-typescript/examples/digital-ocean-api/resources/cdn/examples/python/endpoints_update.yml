@@ -1,0 +1,14 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  update_req = {
+      "ttl": 3600,
+      "certificate_id": "892071a0-bb95-49bc-8021-3afd67a210bf",
+      "custom_domain": "static.example.com",
+  }
+
+  update_resp = client.cdn.update_endpoints("19f06b6a", update_req)

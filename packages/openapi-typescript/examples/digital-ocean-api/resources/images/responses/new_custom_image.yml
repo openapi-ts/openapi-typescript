@@ -1,0 +1,38 @@
+description: >-
+  The response will be a JSON object with a key set to `image`. 
+  The value of this will be an image object containing a subset of the standard 
+  image attributes as listed below, including the image's `id` and `status`. 
+  After initial creation, the `status` will be `NEW`. Using the image's id, you 
+  may query the image's status by sending a `GET` request to the 
+  `/v2/images/$IMAGE_ID` endpoint. 
+  When the `status` changes to `available`, the image will be ready for use.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        image:
+          $ref: '../models/image.yml'
+    
+    example:
+      image:
+        created_at: '2018-09-20T19:28:00Z'
+        description: Cloud-optimized image w/ small footprint
+        distribution: Ubuntu
+        error_message: ''
+        id: 38413969
+        name: ubuntu-18.04-minimal
+        regions: []
+        type: custom
+        tags:
+        - base-image
+        - prod
+        status: NEW

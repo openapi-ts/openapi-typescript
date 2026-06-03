@@ -1,0 +1,37 @@
+droplet_create_request:
+  value:
+    name: example.com
+    region: nyc3
+    size: s-1vcpu-1gb
+    image: ubuntu-20-04-x64
+    ssh_keys:
+    - 289794
+    - 3b:16:e4:bf:8b:00:8b:b8:59:8c:a9:d3:f0:19:fa:45
+    backups: true
+    ipv6: true
+    monitoring: true
+    tags:
+    - env:prod
+    - web
+    user_data: "#cloud-config\nruncmd:\n  - touch /test.txt\n"
+    vpc_uuid: 760e09ef-dc84-11e8-981e-3cfdfeaae000
+
+droplet_multi_create_request:
+  value:
+    names:
+    - sub-01.example.com
+    - sub-02.example.com
+    region: nyc3
+    size: s-1vcpu-1gb
+    image: ubuntu-20-04-x64
+    ssh_keys:
+    - 289794
+    - 3b:16:e4:bf:8b:00:8b:b8:59:8c:a9:d3:f0:19:fa:45
+    backups: true
+    ipv6: true
+    monitoring: true
+    tags:
+    - env:prod
+    - web
+    user_data: "#cloud-config\nruncmd:\n  - touch /test.txt\n"
+    vpc_uuid: 760e09ef-dc84-11e8-981e-3cfdfeaae000

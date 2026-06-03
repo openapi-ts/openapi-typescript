@@ -1,0 +1,28 @@
+openapi: "3.0"
+info:
+  title: Test
+  version: "1.0"
+paths:
+  /{id}/get-item-undefined-path-param:
+    description: Remote Ref
+    $ref: "_path-object-refs-paths.yaml#/GetItemOperation"
+  /{id}/get-item-undefined-nested-path-param/{secondId}:
+    description: Remote Ref
+    $ref: "_path-object-refs-paths.yaml#/GetItemOperation"
+    parameters:
+      -
+        name: id
+        in: path
+        required: true
+        schema:
+          type: number
+  /{id}/get-item-defined-path-param:
+    description: Remote Ref
+    $ref: "_path-object-refs-paths.yaml#/GetItemOperation"
+    parameters:
+      -
+        name: id
+        in: path
+        required: true
+        schema:
+          type: number

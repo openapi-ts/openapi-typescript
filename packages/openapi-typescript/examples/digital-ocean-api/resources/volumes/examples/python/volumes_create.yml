@@ -1,0 +1,17 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "size_gigabytes": 10,
+    "name": "ext4-example",
+    "description": "Block store for examples",
+    "region": "nyc1",
+    "filesystem_type": "ext4",
+    "filesystem_label": "ext4_volume_01"
+  }
+
+  resp = client.volumes.create(body=req)

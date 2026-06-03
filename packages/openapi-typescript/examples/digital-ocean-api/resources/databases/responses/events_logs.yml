@@ -1,0 +1,29 @@
+description: A JSON object with a key of `events`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        events:
+          type: array
+          items:
+            $ref:  '../models/events_logs.yml'
+
+    example:
+      events:
+        - id: 'pe8u2huh'
+          cluster_name: 'customer-events'
+          event_type: 'cluster_create'
+          create_time: '2020-10-29T15:57:38Z'
+        - id: 'pe8ufefuh'
+          cluster_name: 'customer-events'
+          event_type: 'cluster_update'
+          create_time: '2023-10-30T15:57:38Z'

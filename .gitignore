@@ -1,0 +1,10 @@
+.DS_Store
+.turbo
+dist
+node_modules
+coverage
+
+packages/openapi-typescript/test/fixtures/cli-outputs/out
+
+# IntelliJ IDEA settings folder
+/.idea

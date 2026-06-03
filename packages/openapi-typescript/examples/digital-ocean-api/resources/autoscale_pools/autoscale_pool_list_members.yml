@@ -1,0 +1,44 @@
+operationId: autoscalepools_list_members
+
+summary: List members
+
+description: |
+  To list the Droplets in an autoscale pool, send a GET request to `/v2/droplets/autoscale/$AUTOSCALE_POOL_ID/members`.
+
+  The response body will be a JSON object with a key of `droplets`. This will be
+  set to an array containing information about each of the Droplets in the autoscale pool.
+
+tags:
+  - Droplet Autoscale Pools
+
+parameters:
+  - $ref: '../../shared/parameters.yml#/per_page'
+  - $ref: '../../shared/parameters.yml#/page'
+  - $ref: 'parameters.yml#/autoscale_pool_id'
+
+responses:
+  '200':
+    $ref: 'responses/all_members.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/autoscale_pool_members.yml'
+
+
+security:
+  - bearer_auth:
+    - 'droplet:read'

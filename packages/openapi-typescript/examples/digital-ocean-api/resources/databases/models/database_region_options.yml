@@ -1,0 +1,13 @@
+type: object
+
+properties:
+  regions:
+    type: array
+    items:
+      type: string
+    example:
+      - ams3
+      - blr1
+    readOnly: true
+    description: >-
+      An array of strings containing the names of available regions

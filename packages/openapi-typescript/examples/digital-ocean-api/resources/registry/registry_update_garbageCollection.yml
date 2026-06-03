@@ -1,0 +1,49 @@
+operationId: registry_update_garbageCollection
+
+summary: Update Garbage Collection
+
+description: To cancel the currently-active garbage collection for a registry,
+  send a PUT request to `/v2/registry/$REGISTRY_NAME/garbage-collection/$GC_UUID`
+  and specify one or more of the attributes below.
+
+tags:
+  - Container Registry
+
+parameters:
+  - $ref: 'parameters.yml#/registry_name'
+  - $ref: 'parameters.yml#/garbage_collection_uuid'
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        $ref: 'models/update_registry.yml'
+
+responses:
+  '200':
+    $ref: 'responses/garbage_collection.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/registry_update_garbageCollection.yml'
+  - $ref: 'examples/python/registry_update_garbageCollection.yml'
+
+security:
+  - bearer_auth:
+    - 'registry:update'

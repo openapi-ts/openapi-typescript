@@ -1,0 +1,20 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      createRequest := &godo.FloatingIPCreateRequest{
+          DropletID: 123456,
+
+      }
+  }

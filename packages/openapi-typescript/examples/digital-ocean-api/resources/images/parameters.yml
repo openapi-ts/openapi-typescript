@@ -1,0 +1,38 @@
+image_id:
+  in: path
+  name: image_id
+  description: A unique number that can be used to identify and reference a specific image.
+  required: true
+  schema:
+    type: integer
+  example: 62137902
+
+type:
+  in: query
+  name: type
+  description: Filters results based on image type which can be either `application` or `distribution`.
+  required: false
+  schema:
+    type: string
+    enum:
+      - application
+      - distribution
+  example: distribution
+
+private:
+  in: query
+  name: private
+  description: Used to filter only user images.
+  required: false
+  schema:
+    type: boolean
+  example: true
+
+tag:
+  in: query
+  name: tag_name
+  description: Used to filter images by a specific tag.
+  required: false
+  schema:
+    type: string
+  example: base-image

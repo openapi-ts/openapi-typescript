@@ -1,0 +1,8 @@
+openapi: "3.0"
+info:
+  title: Test
+  version: "1.0"
+paths:
+  /get-item:
+    description: Remote Ref
+    $ref: "_path-object-refs-paths.yaml#/GetItemOperation"

@@ -1,0 +1,11 @@
+description: The action was successful and the response body is empty. This response has content-type set.
+
+headers:
+  ratelimit-limit:
+    $ref: '../headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../headers.yml#/ratelimit-reset'
+  content-type:
+    $ref: '../headers.yml#/content-type'

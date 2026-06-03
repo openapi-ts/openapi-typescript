@@ -1,0 +1,13 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  # List all images
+  images = client.images.all
+  images.each
+
+  # List all application images
+  images = client.images.all(type: 'application')
+  images.each

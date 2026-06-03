@@ -1,0 +1,12 @@
+# This file contains mappings of reused image attributes.
+image_name:
+  type: string
+  description: >-
+    The display name that has been given to an image. 
+    This is what is shown in the control panel and is generally a descriptive title for the image in question.
+  example: Nifty New Snapshot
+
+image_description:
+  type: string
+  description: An optional free-form text field to describe an image.
+  example: " "

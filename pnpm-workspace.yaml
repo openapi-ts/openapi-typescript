@@ -1,0 +1,18 @@
+packages:
+  - docs
+  - packages/**
+
+catalog:
+  execa: ^9.6.1
+  typescript: ^5.9.3
+  vite: ^7.3.1
+
+ignoredBuiltDependencies:
+  - '@swc/core'
+  - esbuild
+  - msw
+  - sharp
+  - svelte-preprocess
+
+onlyBuiltDependencies:
+  - '@biomejs/biome'

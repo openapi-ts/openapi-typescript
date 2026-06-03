@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/monitoring/sinks/destinations" \
+    --data '{"name":"cluster", "type":"opensearch_dbaas", "config": {"endpoint": "example.com", "credentials": {"username": "username", "password": "password"}}}'

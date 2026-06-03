@@ -1,0 +1,18 @@
+type: object
+nullable: true
+description: An object specifying the control plane firewall for the Kubernetes cluster.
+  Control plane firewall is in early availability (invite only).
+properties:
+  enable:
+    type: boolean
+    description: Indicates whether the control plane firewall is enabled.
+    example: true
+
+  allowed_addresses:
+    type: array
+    description: An array of public addresses (IPv4 or CIDR) allowed to access the control plane.
+    items:
+      type: string
+    example:
+      - "1.2.3.4/32"
+      - "1.1.0.0/16"

@@ -1,0 +1,46 @@
+operationId: monitoring_get_dropletBandwidthMetrics
+
+summary: Get Droplet Bandwidth Metrics
+
+description: >-
+  To retrieve bandwidth metrics for a given Droplet, send a GET request to
+  `/v2/monitoring/metrics/droplet/bandwidth`. Use the `interface` query parameter
+  to specify if the results should be for the `private` or `public` interface.
+  Use the `direction` query parameter to specify if the results should be for
+  `inbound` or `outbound` traffic.
+
+  The metrics in the response body are in megabits per second (Mbps).
+tags:
+  - Monitoring
+
+responses:
+  '200':
+    $ref: 'responses/droplet_bandwidth_metric_response.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+
+parameters:
+  - $ref: 'parameters.yml#/droplet_id'
+  - $ref: 'parameters.yml#/network_interface'
+  - $ref: 'parameters.yml#/network_direction'
+  - $ref: 'parameters.yml#/metric_timestamp_start'
+  - $ref: 'parameters.yml#/metric_timestamp_end'
+
+x-codeSamples:
+  - $ref: 'examples/curl/monitoring_get_dropletBandwidthMetrics.yml'
+  - $ref: 'examples/python/monitoring_get_dropletBandwidthMetrics.yml'
+
+security:
+  - bearer_auth:
+    - 'monitoring:read'

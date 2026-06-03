@@ -1,0 +1,66 @@
+properties:
+  cause:
+    title: What caused this deployment to be created
+    type: string
+    example: commit 9a4df0b pushed to github/digitalocean/sample-golang
+  cloned_from:
+    title: The ID of a previous deployment that this deployment was cloned from
+    type: string
+    example: 3aa4d20e-5527-4c00-b496-601fbd22520a
+  created_at:
+    format: date-time
+    title: The creation time of the deployment
+    type: string
+    example: 2020-07-28T18:00:00Z
+  id:
+    title: The ID of the deployment
+    type: string
+    example: b6bdf840-2854-4f87-a36c-5f231c617c84
+  jobs:
+    items:
+      $ref: apps_deployment_job.yml
+    title: Job components that are part of this deployment
+    type: array
+  functions:
+    type: array
+    items:
+      $ref: apps_deployment_functions.yml
+    title: Functions components that are part of this deployment
+  phase:
+    $ref: apps_deployment_phase.yml
+  phase_last_updated_at:
+    format: date-time
+    title: When the deployment phase was last updated
+    type: string
+    example: 0001-01-01T00:00:00Z
+  progress:
+    $ref: apps_deployment_progress.yml
+  services:
+    items:
+      $ref: apps_deployment_service.yml
+    title: Service components that are part of this deployment
+    type: array
+  spec:
+    $ref: app_spec.yml
+  static_sites:
+    items:
+      $ref: apps_deployment_static_site.yml
+    title: Static Site components that are part of this deployment
+    type: array
+  tier_slug:
+    readOnly: true
+    title: The current pricing tier slug of the deployment
+    type: string
+    example: basic 
+  updated_at:
+    format: date-time
+    title: When the deployment was last updated
+    type: string
+    example: 2020-07-28T18:00:00Z
+  workers:
+    items:
+      $ref: apps_deployment_worker.yml
+    title: Worker components that are part of this deployment
+    type: array
+title: An app deployment
+type: object

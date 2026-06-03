@@ -1,0 +1,46 @@
+operationId: dropletActions_get
+
+summary: Retrieve a Droplet Action
+
+description: |
+  To retrieve a Droplet action, send a GET request to
+  `/v2/droplets/$DROPLET_ID/actions/$ACTION_ID`.
+
+  The response will be a JSON object with a key called `action`. The value will
+  be a Droplet action object.
+
+tags:
+  - Droplet Actions
+
+parameters:
+  - $ref: 'parameters.yml#/droplet_id'
+  - $ref: '../actions/parameters.yml#/action_id'
+
+responses:
+  '200':
+    $ref: '../actions/responses/action.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/dropletActions_get.yml'
+  - $ref: 'examples/go/dropletActions_get.yml'
+  - $ref: 'examples/ruby/dropletActions_get.yml'
+  - $ref: 'examples/python/dropletActions_get.yml'
+
+security:
+  - bearer_auth:
+    - 'droplet:read'

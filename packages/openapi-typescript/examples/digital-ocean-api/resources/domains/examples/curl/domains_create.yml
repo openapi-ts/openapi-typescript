@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name":"example.com","ip_address":"1.2.3.4"}' \
+    "https://api.digitalocean.com/v2/domains"

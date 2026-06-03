@@ -1,0 +1,31 @@
+type: object
+properties:
+  name:
+    type: string
+    example: my trigger
+    description: The trigger's unique name within the namespace.
+
+  function:
+    type: string
+    example: hello
+    description: Name of function(action) that exists in the given namespace.
+
+  type:
+    type: string
+    example: SCHEDULED
+    description: One of different type of triggers. Currently only SCHEDULED is supported.
+  
+  is_enabled:
+    type: boolean
+    example: true
+    description: Indicates weather the trigger is paused or unpaused.
+  
+  scheduled_details:
+    $ref: './scheduled_details.yml'
+
+required:
+  - name
+  - function
+  - type
+  - is_enabled
+  - scheduled_details

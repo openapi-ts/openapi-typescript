@@ -1,0 +1,33 @@
+type: object
+
+description: The invoice preview.
+
+properties:
+  invoice_uuid:
+    type: string
+    description: >- 
+      The UUID of the invoice. The canonical reference for the invoice.
+    example: fdabb512-6faf-443c-ba2e-665452332a9e
+  invoice_id:
+    type: string
+    description: >-
+      ID of the invoice. Listed on the face of the invoice PDF as the "Invoice number".
+    example: "123456789"
+  amount:
+    type: string
+    description: >- 
+      Total amount of the invoice, in USD. 
+      This will reflect month-to-date usage in the invoice preview.
+    example: '23.45'
+  invoice_period:
+    type: string
+    description: >- 
+      Billing period of usage for which the invoice is issued, in `YYYY-MM` 
+      format.
+    example: 2020-01
+  updated_at:
+    type: string
+    description: >- 
+      Time the invoice was last updated. 
+      This is only included with the invoice preview.
+    example: 2020-01-23T06:31:50Z

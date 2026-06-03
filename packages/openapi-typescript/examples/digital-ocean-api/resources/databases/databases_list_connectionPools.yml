@@ -1,0 +1,44 @@
+operationId: databases_list_connectionPools
+
+summary: List Connection Pools (PostgreSQL)
+
+description: >-
+  To list all of the connection pools available to a PostgreSQL database
+  cluster, send a GET request to `/v2/databases/$DATABASE_ID/pools`.
+
+  The result will be a JSON object with a `pools` key. This will be set to an
+  array of connection pool objects.
+
+tags:
+  - Databases
+
+parameters:
+  - $ref: 'parameters.yml#/database_cluster_uuid'
+
+responses:
+  '200':
+    $ref: 'responses/connection_pools.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/databases_list_connectionPools.yml'
+  - $ref: 'examples/go/databases_list_connectionPools.yml'
+  - $ref: 'examples/python/databases_list_connectionPools.yml'
+
+security:
+  - bearer_auth:
+    - 'database:read'

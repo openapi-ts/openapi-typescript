@@ -1,0 +1,16 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  add_conn_pool_req = {
+    "name": "backend-pool",
+    "mode": "transaction",
+    "size": 10,
+    "db": "defaultdb",
+    "user": "doadmin"
+  }    
+
+  add_conn_pool_resp = client.databases.add_connection_pool(database_cluster_uuid="9cc10173", body=add_conn_pool_req)

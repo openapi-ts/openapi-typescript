@@ -1,0 +1,49 @@
+operationId: droplets_destroy_retryWithAssociatedResources
+
+summary: Retry a Droplet Destroy with Associated Resources Request
+
+description: |
+  If the status of a request to destroy a Droplet with its associated resources
+  reported any errors, it can be retried by sending a POST request to the
+  `/v2/droplets/$DROPLET_ID/destroy_with_associated_resources/retry` endpoint.
+
+  Only one destroy can be active at a time per Droplet. If a retry is issued
+  while another destroy is in progress for the Droplet a 409 status code will
+  be returned. A successful response will include a 202 response code and no
+  content.
+
+tags:
+  - Droplets
+
+parameters:
+  - $ref: 'parameters.yml#/droplet_id'
+
+responses:
+  '202':
+    $ref: '../../shared/responses/accepted.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '409':
+    $ref: '../../shared/responses/conflict.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/droplets_destroy_retryWithAssociatedResources.yml'
+  - $ref: 'examples/python/droplets_destroy_retryWithAssociatedResources.yml'
+
+security:
+  - bearer_auth:
+    - 'droplet:delete'

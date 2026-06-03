@@ -1,0 +1,22 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      opts := &godo.ListOptions{
+       Page:    1,
+       PerPage: 200,
+      }
+
+      vpcs, _, err := client.VPCs.List(ctx, opts)
+  }

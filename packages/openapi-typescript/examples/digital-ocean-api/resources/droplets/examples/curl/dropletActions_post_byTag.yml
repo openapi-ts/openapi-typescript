@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"enable_backups"}' \
+    "https://api.digitalocean.com/v2/droplets/actions?tag_name=awesome"

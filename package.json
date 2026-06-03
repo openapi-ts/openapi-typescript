@@ -1,0 +1,43 @@
+{
+  "name": "openapi-typescript-monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "author": {
+    "name": "Drew Powers",
+    "email": "drew@pow.rs"
+  },
+  "packageManager": "pnpm@10.30.3",
+  "scripts": {
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "dev": "pnpm run -r --parallel --filter \"{packages/*}\" --aggregate-output dev",
+    "format": "turbo run format",
+    "test": "turbo run test",
+    "test-e2e": "turbo run test-e2e",
+    "size": "turbo run size-limit",
+    "version": "pnpm run build && changeset version && pnpm i"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "0.18.2",
+    "@biomejs/biome": "2.4.14",
+    "@changesets/changelog-github": "0.7.0",
+    "@changesets/cli": "2.31.0",
+    "@playwright/test": "1.59.1",
+    "@size-limit/preset-small-lib": "12.1.0",
+    "@types/node": "25.6.0",
+    "prettier": "3.8.3",
+    "size-limit": "12.1.0",
+    "turbo": "2.9.9",
+    "typescript": "catalog:",
+    "unbuild": "3.6.1",
+    "vitest": "4.1.5"
+  },
+  "size-limit": [
+    {
+      "path": "packages/openapi-fetch/dist/index.mjs",
+      "limit": "7.5 kB",
+      "brotli": false
+    }
+  ]
+}

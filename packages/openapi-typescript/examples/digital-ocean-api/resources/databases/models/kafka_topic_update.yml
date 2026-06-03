@@ -1,0 +1,13 @@
+type: object
+
+properties:
+  replication_factor:
+    type: integer
+    example: 2
+    description: The number of nodes to replicate data across the cluster.
+  partition_count:
+    type: integer
+    example: 3
+    description: The number of partitions available for the topic. On update, this value can only be increased.
+  config:
+    $ref: './kafka_topic_config.yml'

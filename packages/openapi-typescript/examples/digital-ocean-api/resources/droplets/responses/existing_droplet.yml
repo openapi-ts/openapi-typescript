@@ -1,0 +1,21 @@
+description: |
+  The response will be a JSON object with a key called `droplet`. This will be
+  set to a JSON object that contains the standard Droplet attributes.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        droplet:
+          $ref: '../models/droplet.yml'
+    examples:
+      Single Droplet:
+        $ref: 'examples.yml#/droplet_single'

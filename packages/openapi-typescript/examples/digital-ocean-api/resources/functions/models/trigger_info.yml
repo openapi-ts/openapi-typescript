@@ -1,0 +1,55 @@
+type: object
+
+properties:
+  namespace:
+    type: string
+    example: fn-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+    description: A unique string format of UUID with a prefix fn-.
+
+  name:
+    type: string
+    example: my trigger
+    description: The trigger's unique name within the namespace.
+
+  function:
+    type: string
+    example: hello
+    description: Name of function(action) that exists in the given namespace.
+
+  type:
+    type: string
+    example: SCHEDULED
+    description: String which indicates the type of trigger source like SCHEDULED.
+  
+  is_enabled:
+    type: boolean
+    example: true
+    description: Indicates weather the trigger is paused or unpaused.
+  
+  created_at:
+    type: string
+    example: 2022-11-11T04:16:45Z
+    description: UTC time string.
+
+  updated_at:
+    type: string
+    example: 2022-11-11T04:16:45Z
+    description: UTC time string.
+
+  scheduled_details:
+    $ref: './scheduled_details.yml'
+
+  scheduled_runs:
+    type: object
+    properties:
+      last_run_at:
+        description: Indicates last run time. null value indicates trigger not run yet.
+        type: string
+        nullable: true
+        example: 2022-11-11T04:16:45Z
+
+      next_run_at:
+        description: Indicates next run time. null value indicates trigger will not run.
+        type: string
+        nullable: true
+        example: 2022-11-11T04:16:45Z

@@ -1,0 +1,10 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  post_req = {"deployment_id": "2", "skip_pin": False}
+
+  post_resp = client.apps.create_rollback("1", post_req)

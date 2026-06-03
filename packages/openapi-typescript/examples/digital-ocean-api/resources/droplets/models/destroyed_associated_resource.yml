@@ -1,0 +1,28 @@
+type: object
+
+description: An object containing information about a resource scheduled
+  for deletion.
+
+properties:
+  id:
+    type: string
+    example: '61486916'
+    description: The unique identifier for the resource scheduled for deletion.
+
+  name:
+    type: string
+    example: ubuntu-s-1vcpu-1gb-nyc1-01-1585758823330
+    description: The name of the resource scheduled for deletion.
+
+  destroyed_at:
+    type: string
+    format: date-time
+    example: 2020-04-01T18:11:49Z
+    description: A time value given in ISO8601 combined date and time format
+      indicating when the resource was destroyed if the request was successful.
+
+  error_message:
+    type: string
+    example: ' '
+    description: A string indicating that the resource was not successfully
+      destroyed and providing additional information.

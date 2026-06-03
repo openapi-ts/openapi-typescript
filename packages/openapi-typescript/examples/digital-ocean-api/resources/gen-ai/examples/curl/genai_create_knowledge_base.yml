@@ -1,0 +1,24 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json"  \
+    -H "Authorization: Bearer $PREVIEW_API_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/knowledge_bases" \
+    -d '{
+      "name": "kb-api-create",
+      "embedding_model_uuid": "05700391-7aa8-11ef-bf8f-4e013e2ddde4",
+      "project_id": "37455431-84bd-4fa2-94cf-e8486f8f8c5e",
+      "tags": [
+        "tag1"
+      ],
+      "database_id": "abf1055a-745d-4c24-a1db-1959ea819264",
+      "datasources": [
+        {
+          "bucket_name": "test-public-gen-ai",
+          "bucket_region": "tor1"
+        }
+      ],
+      "region": "tor1",
+      "vpc_uuid": "f7176e0b-8c5e-4e32-948e-79327e56225a"
+    }'
+

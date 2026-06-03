@@ -1,0 +1,472 @@
+load_balancer_basic_response:
+  value:
+    load_balancer:
+      id: 4de7ac8b-495b-4884-9a69-1050c6793cd6
+      name: example-lb-01
+      ip: 104.131.186.241
+      size: lb-small
+      algorithm: round_robin
+      status: new
+      created_at: '2017-02-01T22:22:58Z'
+      forwarding_rules:
+      - entry_protocol: http
+        entry_port: 80
+        target_protocol: http
+        target_port: 80
+        certificate_id: ''
+        tls_passthrough: false
+      - entry_protocol: https
+        entry_port: 443
+        target_protocol: https
+        target_port: 443
+        certificate_id: ''
+        tls_passthrough: true
+      health_check:
+        protocol: http
+        port: 80
+        path: "/"
+        check_interval_seconds: 10
+        response_timeout_seconds: 5
+        healthy_threshold: 5
+        unhealthy_threshold: 3
+      sticky_sessions:
+        type: none
+      region:
+        name: New York 3
+        slug: nyc3
+        sizes:
+        - s-1vcpu-1gb
+        - s-1vcpu-2gb
+        - s-1vcpu-3gb
+        - s-2vcpu-2gb
+        - s-3vcpu-1gb
+        - s-2vcpu-4gb
+        - s-4vcpu-8gb
+        - s-6vcpu-16gb
+        - s-8vcpu-32gb
+        - s-12vcpu-48gb
+        - s-16vcpu-64gb
+        - s-20vcpu-96gb
+        - s-24vcpu-128gb
+        - s-32vcpu-192gb
+        features:
+        - private_networking
+        - backups
+        - ipv6
+        - metadata
+        - install_agent
+        available: true
+      tag: ''
+      droplet_ids:
+      - 3164444
+      - 3164445
+      redirect_http_to_https: false
+      enable_proxy_protocol: false
+      enable_backend_keepalive: false
+      vpc_uuid: c33931f2-a26a-4e61-b85c-4e95a2ec431b
+      disable_lets_encrypt_dns_records: false
+      project_id: 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+      http_idle_timeout_seconds: 60
+      firewall:
+        deny: ["cidr:1.2.0.0/16", "ip:2.3.4.5"]
+        allow: ["ip:1.2.3.4", "cidr:2.3.4.0/24"]
+
+load_balancer_ssl_termination_response:
+  value:
+    load_balancer:
+      id: 4de7ac8b-495b-4884-9a69-1050c6793cd6
+      name: example-lb-01
+      ip: 104.131.186.241
+      size: lb-small
+      algorithm: round_robin
+      status: new
+      created_at: '2017-02-01T22:22:58Z'
+      forwarding_rules:
+      - entry_protocol: https
+        entry_port: 443
+        target_protocol: http
+        target_port: 8080
+        certificate_id: 892071a0-bb95-49bc-8021-3afd67a210bf
+      health_check:
+        protocol: http
+        port: 80
+        path: "/"
+        check_interval_seconds: 10
+        response_timeout_seconds: 5
+        healthy_threshold: 5
+        unhealthy_threshold: 3
+      sticky_sessions:
+        type: none
+      region:
+        name: New York 3
+        slug: nyc3
+        sizes:
+        - s-1vcpu-1gb
+        - s-1vcpu-2gb
+        - s-1vcpu-3gb
+        - s-2vcpu-2gb
+        - s-3vcpu-1gb
+        - s-2vcpu-4gb
+        - s-4vcpu-8gb
+        - s-6vcpu-16gb
+        - s-8vcpu-32gb
+        - s-12vcpu-48gb
+        - s-16vcpu-64gb
+        - s-20vcpu-96gb
+        - s-24vcpu-128gb
+        - s-32vcpu-192gb
+        features:
+        - private_networking
+        - backups
+        - ipv6
+        - metadata
+        - install_agent
+        available: true
+      tag: ''
+      droplet_ids:
+      - 3164444
+      - 3164445
+      redirect_http_to_https: false
+      enable_proxy_protocol: false
+      enable_backend_keepalive: false
+      vpc_uuid: c33931f2-a26a-4e61-b85c-4e95a2ec431b
+      disable_lets_encrypt_dns_records: false
+
+load_balancer_using_tag_response:
+  value:
+    load_balancer:
+      id: 4de7ac8b-495b-4884-9a69-1050c6793cd6
+      name: example-lb-01
+      ip: 104.131.186.241
+      size: lb-small
+      algorithm: round_robin
+      status: new
+      created_at: '2017-02-01T22:22:58Z'
+      forwarding_rules:
+      - entry_protocol: https
+        entry_port: 443
+        target_protocol: http
+        target_port: 8080
+        certificate_id: 892071a0-bb95-49bc-8021-3afd67a210bf
+      health_check:
+        protocol: http
+        port: 80
+        path: "/"
+        check_interval_seconds: 10
+        response_timeout_seconds: 5
+        healthy_threshold: 5
+        unhealthy_threshold: 3
+      sticky_sessions:
+        type: none
+      region:
+        name: New York 3
+        slug: nyc3
+        sizes:
+        - s-1vcpu-1gb
+        - s-1vcpu-2gb
+        - s-1vcpu-3gb
+        - s-2vcpu-2gb
+        - s-3vcpu-1gb
+        - s-2vcpu-4gb
+        - s-4vcpu-8gb
+        - s-6vcpu-16gb
+        - s-8vcpu-32gb
+        - s-12vcpu-48gb
+        - s-16vcpu-64gb
+        - s-20vcpu-96gb
+        - s-24vcpu-128gb
+        - s-32vcpu-192gb
+        features:
+        - private_networking
+        - backups
+        - ipv6
+        - metadata
+        - install_agent
+        available: true
+      tag: prod:web
+      droplet_ids:
+      - 3164444
+      - 3164445
+      redirect_http_to_https: false
+      enable_proxy_protocol: false
+      enable_backend_keepalive: false
+      vpc_uuid: c33931f2-a26a-4e61-b85c-4e95a2ec431b
+      disable_lets_encrypt_dns_records: false
+      project_id: 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+
+load_balancer_sticky_sessions_and_health_check_response:
+  value:
+    load_balancer:
+      id: 4de7ac8b-495b-4884-9a69-1050c6793cd6
+      name: example-lb-01
+      ip: 104.131.186.241
+      size: lb-small
+      algorithm: round_robin
+      status: new
+      created_at: '2017-02-01T22:22:58Z'
+      forwarding_rules:
+      - entry_protocol: https
+        entry_port: 443
+        target_protocol: http
+        target_port: 8080
+        certificate_id: 892071a0-bb95-49bc-8021-3afd67a210bf
+      health_check:
+        protocol: http
+        port: 8080
+        path: "/health"
+        check_interval_seconds: 10
+        response_timeout_seconds: 5
+        healthy_threshold: 5
+        unhealthy_threshold: 3
+      sticky_sessions:
+        type: cookies
+        cookie_name: LB_COOKIE
+        cookie_ttl_seconds: 300
+      region:
+        name: New York 3
+        slug: nyc3
+        sizes:
+        - s-1vcpu-1gb
+        - s-1vcpu-2gb
+        - s-1vcpu-3gb
+        - s-2vcpu-2gb
+        - s-3vcpu-1gb
+        - s-2vcpu-4gb
+        - s-4vcpu-8gb
+        - s-6vcpu-16gb
+        - s-8vcpu-32gb
+        - s-12vcpu-48gb
+        - s-16vcpu-64gb
+        - s-20vcpu-96gb
+        - s-24vcpu-128gb
+        - s-32vcpu-192gb
+        features:
+        - private_networking
+        - backups
+        - ipv6
+        - metadata
+        - install_agent
+        available: true
+      tag: prod:web
+      droplet_ids:
+      - 3164444
+      - 3164445
+      redirect_http_to_https: false
+      enable_proxy_protocol: false
+      enable_backend_keepalive: false
+      vpc_uuid: c33931f2-a26a-4e61-b85c-4e95a2ec431b
+      disable_lets_encrypt_dns_records: false
+      project_id: 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+
+load_balancer_update_response:
+  value:
+    load_balancer:
+      id: 4de7ac8b-495b-4884-9a69-1050c6793cd6
+      name: updated-example-lb-01
+      ip: 104.131.186.241
+      size: lb-small
+      algorithm: round_robin
+      status: new
+      created_at: '2017-02-01T22:22:58Z'
+      forwarding_rules:
+      - entry_protocol: http
+        entry_port: 80
+        target_protocol: http
+        target_port: 80
+        certificate_id: ''
+        tls_passthrough: false
+      - entry_protocol: https
+        entry_port: 443
+        target_protocol: https
+        target_port: 443
+        certificate_id: ''
+        tls_passthrough: true
+      health_check:
+        protocol: http
+        port: 80
+        path: "/"
+        check_interval_seconds: 10
+        response_timeout_seconds: 5
+        healthy_threshold: 5
+        unhealthy_threshold: 3
+      sticky_sessions:
+        type: none
+      region:
+        name: New York 3
+        slug: nyc3
+        sizes:
+        - s-1vcpu-1gb
+        - s-1vcpu-2gb
+        - s-1vcpu-3gb
+        - s-2vcpu-2gb
+        - s-3vcpu-1gb
+        - s-2vcpu-4gb
+        - s-4vcpu-8gb
+        - s-6vcpu-16gb
+        - s-8vcpu-32gb
+        - s-12vcpu-48gb
+        - s-16vcpu-64gb
+        - s-20vcpu-96gb
+        - s-24vcpu-128gb
+        - s-32vcpu-192gb
+        features:
+        - private_networking
+        - backups
+        - ipv6
+        - metadata
+        - install_agent
+        available: true
+      tag: ''
+      droplet_ids:
+      - 3164444
+      - 3164445
+      redirect_http_to_https: false
+      enable_proxy_protocol: true
+      enable_backend_keepalive: true
+      vpc_uuid: c33931f2-a26a-4e61-b85c-4e95a2ec431b
+      disable_lets_encrypt_dns_records: false
+      project_id: 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+      http_idle_timeout_seconds: 60
+      firewall:
+        deny: ["cidr:1.2.0.0/16", "ip:2.3.4.5"]
+        allow: ["ip:1.2.3.4", "cidr:2.3.4.0/24"]
+
+load_balancers_all:
+  value:
+    load_balancers:
+    - id: 4de7ac8b-495b-4884-9a69-1050c6793cd6
+      name: example-lb-01
+      ip: 104.131.186.241
+      size: lb-small
+      algorithm: round_robin
+      status: new
+      created_at: '2017-02-01T22:22:58Z'
+      forwarding_rules:
+      - entry_protocol: http
+        entry_port: 80
+        target_protocol: http
+        target_port: 80
+        certificate_id: ''
+        tls_passthrough: false
+      - entry_protocol: https
+        entry_port: 443
+        target_protocol: https
+        target_port: 443
+        certificate_id: ''
+        tls_passthrough: true
+      health_check:
+        protocol: http
+        port: 80
+        path: "/"
+        check_interval_seconds: 10
+        response_timeout_seconds: 5
+        healthy_threshold: 5
+        unhealthy_threshold: 3
+      sticky_sessions:
+        type: none
+      region:
+        name: New York 3
+        slug: nyc3
+        sizes:
+        - s-1vcpu-1gb
+        - s-1vcpu-2gb
+        - s-1vcpu-3gb
+        - s-2vcpu-2gb
+        - s-3vcpu-1gb
+        - s-2vcpu-4gb
+        - s-4vcpu-8gb
+        - s-6vcpu-16gb
+        - s-8vcpu-32gb
+        - s-12vcpu-48gb
+        - s-16vcpu-64gb
+        - s-20vcpu-96gb
+        - s-24vcpu-128gb
+        - s-32vcpu-192gb
+        features:
+        - private_networking
+        - backups
+        - ipv6
+        - metadata
+        - install_agent
+        available: true
+      tag: ''
+      droplet_ids:
+      - 3164444
+      - 3164445
+      redirect_http_to_https: false
+      enable_proxy_protocol: false
+      enable_backend_keepalive: false
+      vpc_uuid: c33931f2-a26a-4e61-b85c-4e95a2ec431b
+      disable_lets_encrypt_dns_records: false
+      firewall:
+        deny: ["cidr:1.2.0.0/16", "ip:2.3.4.5"]
+        allow: ["ip:1.2.3.4", "cidr:2.3.4.0/24"]
+    - id: 56775c3f-04ab-4fb3-a7ed-40ef9bc8eece
+      name: prod-web-lb-01
+      ip: 45.55.125.24
+      size: lb-small
+      algorithm: round_robin
+      status: active
+      created_at: '2020-09-08T18:58:04Z'
+      forwarding_rules:
+      - entry_protocol: https
+        entry_port: 443
+        target_protocol: http
+        target_port: 8080
+        certificate_id: 892071a0-bb95-49bc-8021-3afd67a210bf
+        tls_passthrough: false
+      health_check:
+        protocol: https
+        port: 443
+        path: "/"
+        check_interval_seconds: 10
+        response_timeout_seconds: 5
+        healthy_threshold: 5
+        unhealthy_threshold: 3
+      sticky_sessions:
+        type: cookies
+        cookie_name: DO-LB
+        cookie_ttl_seconds: 300
+      region:
+        name: New York 3
+        slug: nyc3
+        sizes:
+        - s-1vcpu-1gb
+        - s-1vcpu-2gb
+        - s-1vcpu-3gb
+        - s-2vcpu-2gb
+        - s-3vcpu-1gb
+        - s-2vcpu-4gb
+        - s-4vcpu-8gb
+        - s-6vcpu-16gb
+        - s-8vcpu-32gb
+        - s-12vcpu-48gb
+        - s-16vcpu-64gb
+        - s-20vcpu-96gb
+        - s-24vcpu-128gb
+        - s-32vcpu-192gb
+        features:
+        - private_networking
+        - backups
+        - ipv6
+        - metadata
+        - install_agent
+        available: true
+      tag: prod:web
+      droplet_ids:
+      - 55806512
+      - 55806515
+      - 55806524
+      redirect_http_to_https: true
+      enable_proxy_protocol: false
+      enable_backend_keepalive: false
+      vpc_uuid: 587d698c-de84-11e8-80bc-3cfdfea9fcd1
+      disable_lets_encrypt_dns_records: false
+      project_id: 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+      http_idle_timeout_seconds: 60
+      firewall:
+        deny: ["cidr:1.2.0.0/16", "ip:2.3.4.5"]
+        allow: ["ip:1.2.3.4", "cidr:2.3.4.0/24"]
+    links: {}
+    meta:
+      total: 2

@@ -1,0 +1,24 @@
+description: The response will be a JSON object with a key called `data` and `status`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../models/metrics.yml'
+
+    examples:
+      Inbound Private Bandwidth:
+        $ref: './examples.yml#/inbound_private_droplet_bandwidth'
+      Inbound Public Bandwidth:
+        $ref: './examples.yml#/inbound_public_droplet_bandwidth'
+      Outbound Private Bandwidth:
+        $ref: './examples.yml#/outbound_private_droplet_bandwidth'
+      Outbound Public Bandwidth:
+        $ref: './examples.yml#/outbound_public_droplet_bandwidth'

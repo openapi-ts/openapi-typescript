@@ -1,0 +1,18 @@
+remote_ref_a:
+  in: path
+  name: remote_ref_a
+  schema:
+    type: string
+  required: true
+remote_ref_b:
+  in: path
+  name: remote_ref_b
+  schema:
+    type: string
+  required: true
+remote_ref_override:
+  in: query
+  name: remote_ref_override
+  schema:
+    type: string
+  required: true

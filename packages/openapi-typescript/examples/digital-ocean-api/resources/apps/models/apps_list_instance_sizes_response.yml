@@ -1,0 +1,10 @@
+properties:
+  discount_percent:
+    format: float
+    type: number
+    example: 2.32
+  instance_sizes:
+    items:
+      $ref: apps_instance_size.yml
+    type: array
+type: object

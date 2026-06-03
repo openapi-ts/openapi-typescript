@@ -1,0 +1,8 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  cancel_resp = client.apps.cancel_deployment("12345", "24556")

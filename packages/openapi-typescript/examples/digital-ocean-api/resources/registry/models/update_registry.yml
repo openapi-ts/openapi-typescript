@@ -1,0 +1,7 @@
+type: object
+
+properties:
+  cancel:
+    type: boolean
+    example: true
+    description: A boolean value indicating that the garbage collection should be cancelled.

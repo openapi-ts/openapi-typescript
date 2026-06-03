@@ -1,0 +1,11 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  # Transfer an Image
+  client.image_actions.transfer(image_id: 7938269, region: 'nyc2')
+
+  # Convert an Image to a Snapshot
+  # client.image_actions.convert(image_id: 7938269)

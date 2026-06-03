@@ -1,0 +1,7 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  client.certificates.find(id: '892071a0-bb95-49bc-8021-3afd67a210bf')

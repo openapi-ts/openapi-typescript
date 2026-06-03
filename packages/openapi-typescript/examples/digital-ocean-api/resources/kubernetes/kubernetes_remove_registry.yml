@@ -1,0 +1,40 @@
+operationId: kubernetes_remove_registry
+
+summary: Remove Container Registry from Kubernetes Clusters
+
+description: To remove the container registry from Kubernetes clusters, send a
+  DELETE request to `/v2/kubernetes/registry`.
+
+tags:
+  - Kubernetes
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        $ref: 'models/cluster_registries.yml'
+
+responses:
+  '204':
+    $ref: '../../shared/responses/no_content.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/kubernetes_remove_registry.yml'
+  - $ref: 'examples/go/kubernetes_remove_registry.yml'
+  - $ref: 'examples/python/kubernetes_remove_registry.yml'
+
+security:
+  - bearer_auth:
+    - 'kubernetes:delete'

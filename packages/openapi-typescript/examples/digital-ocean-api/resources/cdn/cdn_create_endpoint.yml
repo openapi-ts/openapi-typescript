@@ -1,0 +1,62 @@
+operationId: cdn_create_endpoint
+
+summary: Create a New CDN Endpoint
+
+description: |
+  To create a new CDN endpoint, send a POST request to `/v2/cdn/endpoints`. The
+  origin attribute must be set to the fully qualified domain name (FQDN) of a
+  DigitalOcean Space. Optionally, the TTL may be configured by setting the `ttl`
+  attribute.
+
+  A custom subdomain may be configured by specifying the `custom_domain` and
+  `certificate_id` attributes.
+
+tags:
+  - CDN Endpoints
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        $ref: 'models/cdn_endpoint.yml'
+
+      examples:
+        CDN Endpoint:
+          value:
+            origin: static-images.nyc3.digitaloceanspaces.com
+            ttl: 3600
+
+        CDN Endpoint With Custom Domain:
+          value:
+            origin: static-images.nyc3.digitaloceanspaces.com
+            certificate_id: 892071a0-bb95-49bc-8021-3afd67a210bf
+            custom_domain: static.example.com
+            ttl: 3600
+
+responses:
+  '201':
+    $ref: 'responses/existing_endpoint.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/endpoints_create.yml'
+  - $ref: 'examples/go/endpoints_create.yml'
+  - $ref: 'examples/ruby/endpoints_create.yml'
+  - $ref: 'examples/python/endpoints_create.yml'
+
+security:
+  - bearer_auth:
+    - 'cdn:create'

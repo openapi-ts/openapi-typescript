@@ -1,0 +1,12 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "name": "example.com"
+  }
+
+  resp = client.domains.create(body=req)

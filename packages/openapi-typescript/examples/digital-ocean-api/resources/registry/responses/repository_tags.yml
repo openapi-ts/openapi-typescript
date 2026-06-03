@@ -1,0 +1,35 @@
+description: The response body will be a JSON object with a key of `tags`. This
+  will be set to an array containing objects each representing a tag.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            tags:
+              type: array
+              items:
+                $ref: '../models/repository_tag.yml'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+      example:
+        tags:
+        - registry_name: example
+          repository: repo-1
+          tag: latest
+          manifest_digest: sha256:cb8a924afdf0229ef7515d9e5b3024e23b3eb03ddbba287f4a19c6ac90b8d221
+          compressed_size_bytes: 2803255
+          size_bytes: 5861888
+          updated_at: '2020-04-09T23:54:25Z'
+        meta:
+          total: 1

@@ -1,0 +1,7 @@
+type: object
+properties:
+  path:
+    $ref: app_ingress_spec_rule_string_match.yml
+description: The match configuration for the rule.
+required:
+  - path

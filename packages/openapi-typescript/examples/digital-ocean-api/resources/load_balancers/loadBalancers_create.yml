@@ -1,0 +1,64 @@
+operationId: loadBalancers_create
+
+summary: Create a New Load Balancer
+
+description: |
+  To create a new load balancer instance, send a POST request to
+  `/v2/load_balancers`.
+
+  You can specify the Droplets that will sit behind the load balancer using one
+  of two methods:
+
+  * Set `droplet_ids` to a list of specific Droplet IDs.
+  * Set `tag` to the name of a tag. All Droplets with this tag applied will be
+    assigned to the load balancer. Additional Droplets will be automatically
+    assigned as they are tagged.
+
+  These methods are mutually exclusive.
+
+tags:
+  - Load Balancers
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        $ref: 'models/load_balancer_create.yml'
+
+      examples:
+        Basic Create Request:
+          $ref: 'examples.yml#/load_balancer_basic_create_request'
+        SSL Termination Create Request:
+          $ref: 'examples.yml#/load_balancer_ssl_termination_create_request'
+        Create Request Using Droplet Tag:
+          $ref: 'examples.yml#/load_balancer_using_tag_create_request'
+        Sticky Sessions and Custom Health Check:
+          $ref: 'examples.yml#/load_balancer_sticky_sessions_and_health_check_create_request'
+
+responses:
+  '202':
+    $ref: 'responses/load_balancer_create.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/loadBalancers_create.yml'
+  - $ref: 'examples/go/loadBalancers_create.yml'
+  - $ref: 'examples/ruby/loadBalancers_create.yml'
+  - $ref: 'examples/python/loadBalancers_create.yml'
+
+security:
+  - bearer_auth:
+    - 'load_balancer:create'

@@ -1,0 +1,40 @@
+description: The response will be a JSON object with a key called `reserved_ip`.
+  The value of this will be an object that contains the standard attributes
+  associated with a reserved IP.
+
+  When assigning a reserved IP to a Droplet at same time as it created, the
+  response's `links` object will contain links to both the Droplet and the
+  assignment action. The latter can be used to check the status of the action.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        reserved_ip:
+          $ref: '../models/reserved_ip.yml'
+        links:
+          type: object
+          properties:
+            droplets:
+              type: array
+              items:
+                $ref: '../../../shared/models/action_link.yml'
+            actions:
+              type: array
+              items:
+                $ref: '../../../shared/models/action_link.yml'
+
+    examples:
+      reserved_ip_assigning:
+        $ref: 'examples.yml#/reserved_ip_assigning'
+      reserved_ip_reserving:
+        $ref: 'examples.yml#/reserved_ip_reserving'

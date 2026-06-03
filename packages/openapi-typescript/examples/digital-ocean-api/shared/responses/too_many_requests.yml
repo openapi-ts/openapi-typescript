@@ -1,0 +1,17 @@
+description: API Rate limit exceeded
+
+headers:
+  ratelimit-limit:
+    $ref: '../headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../models/error.yml'
+    example:
+      id: too_many_requests
+      message: API Rate limit exceeded.

@@ -1,0 +1,27 @@
+openapi: 3.1.0
+paths:
+  /:
+    get:
+      responses:
+        200:
+          content:
+            "application/json":
+              required: true
+              schema:
+                type: object
+                required:
+                  - success
+                properties:
+                  success:
+                    type: boolean
+        default:
+          content:
+            "application/json":
+              required: true
+              schema:
+                type: object
+                required:
+                  - status
+                properties:
+                  status:
+                    type: number

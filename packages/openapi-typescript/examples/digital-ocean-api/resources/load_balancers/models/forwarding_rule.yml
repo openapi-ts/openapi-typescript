@@ -1,0 +1,66 @@
+type: object
+
+description: An object specifying a forwarding rule for a load balancer.
+
+properties:
+  entry_protocol:
+    type: string
+    enum:
+    - http
+    - https
+    - http2
+    - http3
+    - tcp
+    - udp
+    example: https
+    description: >
+      The protocol used for traffic to the load balancer. The possible values
+      are: `http`, `https`, `http2`, `http3`, `tcp`, or `udp`. If you set the 
+      `entry_protocol` to `udp`, the `target_protocol` must be set to `udp`. 
+      When using UDP, the load balancer requires that you set up a health 
+      check with a port that uses TCP, HTTP, or HTTPS to work properly.
+
+  entry_port:
+    type: integer
+    example: 443
+    description: An integer representing the port on which the load balancer
+      instance will listen.
+
+  target_protocol:
+    type: string
+    enum:
+    - http
+    - https
+    - http2
+    - tcp
+    - udp
+    example: http
+    description: >
+      The protocol used for traffic from the load balancer to the backend
+      Droplets. The possible values are: `http`, `https`, `http2`, `tcp`, or `udp`.
+      If you set the `target_protocol` to `udp`, the `entry_protocol` must be set to 
+      `udp`. When using UDP, the load balancer requires that you set up a health 
+      check with a port that uses TCP, HTTP, or HTTPS to work properly.
+
+  target_port:
+    type: integer
+    example: 80
+    description: An integer representing the port on the backend Droplets to
+      which the load balancer will send traffic.
+
+  certificate_id:
+    type: string
+    example: 892071a0-bb95-49bc-8021-3afd67a210bf
+    description: The ID of the TLS certificate used for SSL termination if enabled.
+
+  tls_passthrough:
+    type: boolean
+    example: false
+    description: A boolean value indicating whether SSL encrypted traffic will
+      be passed through to the backend Droplets.
+
+required:
+- entry_protocol
+- entry_port
+- target_protocol
+- target_port

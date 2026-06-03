@@ -1,0 +1,40 @@
+kubernetes_clusters_basic_request:
+  value:
+    name: prod-cluster-01
+    region: nyc1
+    version: 1.18.6-do.0
+    node_pools:
+    - size: s-1vcpu-2gb
+      count: 3
+      name: worker-pool
+
+kubernetes_clusters_multi_pool_request:
+  description: |
+    This example request creates a Kubernetes cluster with two node pools. It
+    also demonstrates setting tags, labels, auto scaling, and a maintenance
+    policy.
+  value:
+    name: prod-cluster-01
+    region: nyc1
+    version: 1.18.6-do.0
+    tags:
+    - production
+    - web-team
+    node_pools:
+    - size: s-1vcpu-2gb
+      count: 3
+      name: frontend-pool
+      tags:
+      - frontend
+    - size: g-4vcpu-16gb
+      count: 2
+      name: backend-pool
+      labels:
+        service: backend
+        priority: high
+      auto_scale: true
+      min_nodes: 2
+      max_nodes: 5
+    maintenance_policy:
+      start_time: '12:00'
+      day: any

@@ -1,0 +1,7 @@
+type: object
+
+allOf:
+- $ref: './kafka_topic_base.yml'
+- properties:
+    config:
+      $ref: './kafka_topic_config.yml'

@@ -1,0 +1,15 @@
+type: object
+
+properties:
+  sink_name:
+    type: string
+    description: The name of the Logsink
+    example: prod-logsink
+
+  sink_type:
+    type: string
+    enum:
+      - rsyslog
+      - elasticsearch
+      - opensearch
+    example: rsyslog

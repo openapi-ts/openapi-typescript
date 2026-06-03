@@ -1,0 +1,18 @@
+type: object
+
+properties:
+  slug:
+    title: slug
+    type: string
+    example: monitoring
+    description: The slug identifier for the 1-Click application.
+
+  type:
+    title: type
+    type: string
+    example: kubernetes
+    description: The type of the 1-Click application.
+
+required:
+  - slug
+  - type

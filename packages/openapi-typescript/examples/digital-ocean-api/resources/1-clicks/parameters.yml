@@ -1,0 +1,11 @@
+oneClicks_type:
+  in: query
+  name: type
+  description: Restrict results to a certain type of 1-Click.
+  required: false
+  schema:
+    type: string
+    enum:
+      - droplet
+      - kubernetes
+  example: kubernetes

@@ -1,0 +1,22 @@
+lang: cURL
+source: |-
+  curl -X PUT \
+    -H "Content-Type: application/json"  \
+    -H "Authorization: Bearer $PREVIEW_API_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/agents/1b418231-b7d6-11ef-bf8f-4e013e2ddde4" \
+    -d '{
+      "uuid": "1b418231-b7d6-11ef-bf8f-4e013e2ddde4",
+      "name": "rename-agent-api",
+      "instruction": "be a weather reporter and act like you are a pro",
+      "description": "weather-agent2",
+      "model_uuid": "95ea6652-75ed-11ef-bf8f-4e013e2ddde4",
+      "project_id": "37455431-84bd-4fa2-94cf-e8486f8f8c5e",
+      "tags": [
+        "tag2"
+      ],
+      "k": 5,
+      "temperature": 1,
+      "top_p": 1,
+      "max_tokens": 250
+    }'
+

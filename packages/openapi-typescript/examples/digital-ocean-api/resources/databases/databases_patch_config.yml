@@ -1,0 +1,50 @@
+operationId: databases_patch_config
+
+summary: Update the Database Configuration for an Existing Database
+
+description: |
+  To update the configuration for an existing database cluster, send a PATCH request to
+  `/v2/databases/$DATABASE_ID/config`.
+tags:
+  - Databases
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: 'models/database_config.yml'
+      example:
+        config:
+          sql_mode: ANSI,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE,STRICT_ALL_TABLES
+          sql_require_primary_key: true
+
+parameters:
+  - $ref: 'parameters.yml#/database_cluster_uuid'
+
+responses:
+  '200':
+    $ref: '../../shared/responses/no_content.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/databases_patch_config.yml'
+  - $ref: 'examples/python/databases_patch_config.yml'
+
+security:
+  - bearer_auth:
+    - 'database:update'

@@ -1,0 +1,12 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "name": "My SSH Public Key"
+  }
+
+  resp = client.ssh_keys.update(ssh_key_identifier=512190, body=req)

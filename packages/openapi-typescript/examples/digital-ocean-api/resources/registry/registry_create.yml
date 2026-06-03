@@ -1,0 +1,45 @@
+operationId: registry_create
+
+summary: Create Container Registry
+
+description: |
+  To create your container registry, send a POST request to `/v2/registry`.
+
+  The `name` becomes part of the URL for images stored in the registry. For
+  example, if your registry is called `example`, an image in it will have the
+  URL `registry.digitalocean.com/example/image:tag`.
+
+tags:
+  - Container Registry
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        $ref: 'models/registry_create.yml'
+
+responses:
+  '201':
+    $ref: 'responses/registry_info.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/registry_create.yml'
+  - $ref: 'examples/python/registry_create.yml'
+
+security:
+  - bearer_auth:
+    - 'registry:create'

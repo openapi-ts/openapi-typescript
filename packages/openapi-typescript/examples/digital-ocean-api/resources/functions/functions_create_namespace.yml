@@ -1,0 +1,48 @@
+operationId: functions_create_namespace
+
+summary: Create Namespace
+
+description: >-
+  Creates a new serverless functions namespace in the desired region and associates it with the provided label. A namespace is a collection of functions and their associated packages, triggers, and project specifications.
+  To create a namespace, send a POST request to `/v2/functions/namespaces` with the `region` and `label` properties.
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: 'models/create_namespace.yml'
+
+tags:
+  - Functions
+
+responses:
+  '200':
+    $ref: 'responses/namespace_created.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: 'responses/namespace_bad_request.yml'
+
+  '422':
+    $ref: 'responses/namespace_limit_reached.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/create_namespace.yml'
+  - $ref: 'examples/python/create_namespace.yml'
+
+security:
+  - bearer_auth:
+    - 'function:create'
+    - 'function:admin'

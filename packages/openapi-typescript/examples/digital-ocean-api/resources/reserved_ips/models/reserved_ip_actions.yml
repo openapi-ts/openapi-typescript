@@ -1,0 +1,36 @@
+reserved_ip_action_type:
+  type: object
+  required:
+  - type
+  properties:
+    type:
+      type: string
+      enum:
+      - assign
+      - unassign
+      description: The type of action to initiate for the reserved IP.
+  discriminator:
+    propertyName: type
+    mapping:
+      assign: '#/reserved_ip_action_assign'
+      unassign: '#/reserved_ip_action_unassign'
+
+reserved_ip_action_unassign:
+  allOf:
+    - $ref: '#/reserved_ip_action_type'
+    - type: object
+      required:
+      - type
+
+reserved_ip_action_assign:
+  allOf:
+    - $ref: '#/reserved_ip_action_type'
+    - type: object
+      required:
+      - type
+      - droplet_id
+      properties:
+        droplet_id:
+          type: integer
+          example: 758604968
+          description: The ID of the Droplet that the reserved IP will be assigned to.

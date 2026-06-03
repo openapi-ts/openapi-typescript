@@ -1,0 +1,23 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      pat := "mytoken"
+
+      client := godo.NewFromToken(pat)
+      ctx := context.TODO()
+
+      createPoolReq := &godo.DatabaseCreatePoolRequest{
+          Name:     "backend-pool",
+          Database: "defaultdb",
+          Size:     10,
+          User:     "doadmin",
+          Mode:     "transaction",
+      }
+
+      pool, _, err := client.Databases.CreatePool(ctx, "9cc10173-e9ea-4176-9dbc-a4cee4c4ff30", createPoolReq)
+  }

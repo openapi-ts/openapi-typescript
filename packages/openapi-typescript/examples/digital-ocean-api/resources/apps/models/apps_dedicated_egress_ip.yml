@@ -1,0 +1,13 @@
+type: object
+readOnly: true
+properties:
+  ip:
+    title: The IP address of the dedicated egress IP.
+    type: string
+    example: 192.168.1.1
+  id:
+    title: The ID of the dedicated egress IP. 
+    type: string
+    example: 9e7bc2ac-205a-45d6-919c-e1ac5e73f962
+  status:
+    $ref: apps_dedicated_egress_ip_status.yml

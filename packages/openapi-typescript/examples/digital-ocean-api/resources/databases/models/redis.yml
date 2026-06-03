@@ -1,0 +1,102 @@
+type: object
+
+properties:
+  redis_maxmemory_policy:
+    $ref: 'eviction_policy_model.yml'
+  redis_pubsub_client_output_buffer_limit:
+    description: >-
+      Set output buffer limit for pub / sub clients in MB. The value is the hard
+      limit, the soft limit is 1/4 of the hard limit. When setting the limit, be
+      mindful of the available memory in the selected service plan.
+    type: integer
+    minimum: 32
+    maximum: 512
+    example: 64
+  redis_number_of_databases:
+    type: integer
+    minimum: 1
+    maximum: 128
+    description: >-
+      Set number of redis databases. Changing this will cause a restart of redis
+      service.
+    example: 16
+  redis_io_threads:
+    description: Redis IO thread count
+    type: integer
+    minimum: 1
+    maximum: 32
+    example: 1
+  redis_lfu_log_factor:
+    description: >-
+      Counter logarithm factor for volatile-lfu and allkeys-lfu
+      maxmemory-policies
+    type: integer
+    minimum: 0
+    maximum: 100
+    default: 10
+    example: 10
+  redis_lfu_decay_time:
+    description: LFU maxmemory-policy counter decay time in minutes
+    type: integer
+    minimum: 1
+    maximum: 120
+    default: 1
+    example: 1
+  redis_ssl:
+    description: Require SSL to access Redis
+    type: boolean
+    default: true
+    example: true
+  redis_timeout:
+    description: Redis idle connection timeout in seconds
+    type: integer
+    minimum: 0
+    maximum: 31536000
+    default: 300
+    example: 300
+  redis_notify_keyspace_events:
+    description: |2-
+      Set notify-keyspace-events option. Requires at least `K` or `E` and accepts any combination of the following options. Setting the parameter to `""` disables notifications.
+      - `K` &mdash; Keyspace events
+      - `E` &mdash; Keyevent events
+      - `g` &mdash; Generic commands (e.g. `DEL`, `EXPIRE`, `RENAME`, ...)
+      - `$` &mdash; String commands
+      - `l` &mdash; List commands
+      - `s` &mdash; Set commands
+      - `h` &mdash; Hash commands
+      - `z` &mdash; Sorted set commands
+      - `t` &mdash; Stream commands
+      - `d` &mdash; Module key type events
+      - `x` &mdash; Expired events
+      - `e` &mdash; Evicted events
+      - `m` &mdash; Key miss events
+      - `n` &mdash; New key events
+      - `A` &mdash; Alias for `"g$lshztxed"`
+    type: string
+    pattern: ^[KEg\$lshzxeA]*$
+    default: ''
+    maxLength: 32
+    example: K
+  redis_persistence:
+    type: string
+    enum:
+      - 'off'
+      - rdb
+    description: >-
+      When persistence is 'rdb', Redis does RDB dumps each 10 minutes if any key
+      is changed. Also RDB dumps are done according to backup schedule for
+      backup purposes. When persistence is 'off', no RDB dumps and backups are
+      done, so data can be lost at any moment if service is restarted for any
+      reason, or if service is powered off. Also service can't be forked.
+    example: rdb
+  redis_acl_channels_default:
+    type: string
+    enum:
+      - allchannels
+      - resetchannels
+    description: >-
+      Determines default pub/sub channels' ACL for new users if ACL is not
+      supplied. When this option is not defined, all_channels is assumed to keep
+      backward compatibility. This option doesn't affect Redis configuration
+      acl-pubsub-default.
+    example: allchannels

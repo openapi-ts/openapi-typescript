@@ -1,0 +1,6 @@
+lang: cURL
+source: |-
+  curl -X GET \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/monitoring/metrics/apps/memory_percentage?app_id=2db3c021-15ad-4088-bfe8-99dc972b9cf6&app_component=sample-application&start=1636051668&end=1636051668"

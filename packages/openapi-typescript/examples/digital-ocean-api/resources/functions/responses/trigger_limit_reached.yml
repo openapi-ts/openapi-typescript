@@ -1,0 +1,19 @@
+
+description: Limit Reached
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../../../shared/models/error.yml'
+    example:
+      id: unprocessable_entity
+      message: 'triggers limit reached'
+      request_id: 7ba99a43-6618-4fe0-9af7-092752ad0d56

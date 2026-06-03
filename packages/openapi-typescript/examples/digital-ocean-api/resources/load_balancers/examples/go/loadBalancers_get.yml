@@ -1,0 +1,17 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      lb, _, err := client.LoadBalancers.Get(ctx, "4de7ac8b-495b-4884-9a69-1050c6793cd6")
+  }

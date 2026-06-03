@@ -1,0 +1,37 @@
+type: object
+properties:
+  url:
+    type: string
+    example: https://user:passwd@192.168.0.1:9200
+    description: >-
+      Elasticsearch connection URL
+  index_prefix:
+    type: string
+    example: elastic-logs
+    description: Elasticsearch index prefix
+  index_days_max:
+    type: integer
+    default: 7
+    example: 5
+    maximum: 10000
+    minimum: 1
+    description: >-
+      Maximum number of days of logs to keep
+  timeout:
+    type: number
+    format: float
+    example: 10.0
+    default: 10.0
+    minimum: 10.0
+    maximum: 120.0
+    description: >-
+      Elasticsearch request timeout limit
+  ca:
+    type: string
+    example: -----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----\n
+    description: >-
+      PEM encoded CA certificate
+
+required:
+  - url
+  - index_prefix

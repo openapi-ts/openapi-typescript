@@ -1,0 +1,50 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "name": "firewall",
+    "inbound_rules": [
+      {
+        "protocol": "tcp",
+        "ports": "80",
+        "sources": {
+          "load_balancer_uids": [
+            "4de7ac8b-495b-4884-9a69-1050c6793cd6"
+          ]
+        }
+      },
+      {
+        "protocol": "tcp",
+        "ports": "22",
+        "sources": {
+          "tags": [
+            "gateway"
+          ],
+          "addresses": [
+            "18.0.0.0/8"
+          ]
+        }
+      }
+    ],
+    "outbound_rules": [
+      {
+        "protocol": "tcp",
+        "ports": "80",
+        "destinations": {
+          "addresses": [
+            "0.0.0.0/0",
+            "::/0"
+          ]
+        }
+      }
+    ],
+    "droplet_ids": [
+      8043964
+    ]
+  }
+
+  resp = client.firewalls.create(body=req)

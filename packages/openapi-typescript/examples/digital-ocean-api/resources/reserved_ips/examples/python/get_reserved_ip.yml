@@ -1,0 +1,8 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  resp = client.reserved_ips.get(reserved_ip="45.55.96.47")

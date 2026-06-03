@@ -1,0 +1,4 @@
+properties:
+  alert:
+    $ref: app_alert.yml
+type: object

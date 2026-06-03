@@ -1,0 +1,35 @@
+description: A JSON object with a key of `indexes`.
+
+headers:
+  ratelimit-limit:
+    $ref: "../../../shared/headers.yml#/ratelimit-limit"
+  ratelimit-remaining:
+    $ref: "../../../shared/headers.yml#/ratelimit-remaining"
+  ratelimit-reset:
+    $ref: "../../../shared/headers.yml#/ratelimit-reset"
+
+content:
+  application/json:
+    schema:
+      properties:
+        indexes:
+          type: array
+          items:
+            $ref: "../models/opensearch_index.yml"
+
+    example:
+      indexes:
+        - index_name: sample-data
+          number_of_shards: 2
+          number_of_replicas: 3
+          size: 208
+          created_time: "2021-01-01T00:00:00Z"
+          status: open
+          health: green
+        - index_name: logs-*
+          number_of_shards: 2
+          number_of_replicas: 3
+          size: 208
+          created_time: "2021-01-01T00:00:00Z"
+          status: open
+          health: green

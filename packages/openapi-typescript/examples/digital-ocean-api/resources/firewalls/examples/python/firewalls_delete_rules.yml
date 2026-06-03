@@ -1,0 +1,33 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "inbound_rules": [
+      {
+        "protocol": "tcp",
+        "ports": "3306",
+        "sources": {
+          "droplet_ids": [
+            49696269
+          ]
+        }
+      }
+    ],
+    "outbound_rules": [
+      {
+        "protocol": "tcp",
+        "ports": "3306",
+        "destinations": {
+          "droplet_ids": [
+            49696269
+          ]
+        }
+      }
+    ]
+  }
+
+  resp = client.firewalls.delete_rules(firewall_id="39fa4gz", body=req)

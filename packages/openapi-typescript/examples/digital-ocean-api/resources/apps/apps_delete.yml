@@ -1,0 +1,40 @@
+operationId: apps_delete
+
+summary: Delete an App
+
+description: Delete an existing app. Once deleted, all active deployments will be
+  permanently shut down and the app deleted. If needed, be sure to back up your app
+  specification so that you may re-create it at a later time.
+
+tags:
+- Apps
+
+parameters:
+  - $ref: parameters.yml#/id_app
+
+responses:
+  "200":
+    $ref: responses/delete_app.yml
+
+  "401":
+    $ref: ../../shared/responses/unauthorized.yml
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  "429":
+    $ref: "../../shared/responses/too_many_requests.yml"
+
+  "500":
+    $ref: ../../shared/responses/server_error.yml
+
+  default:
+    $ref: ../../shared/responses/unexpected_error.yml
+
+x-codeSamples:
+  - $ref: 'examples/curl/apps_delete.yml'
+  - $ref: 'examples/python/apps_delete.yml'
+
+security:
+  - bearer_auth:
+    - 'app:delete'

@@ -1,0 +1,10 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {"name": "extra-awesome"}
+
+  resp = client.tags.create(body=req)

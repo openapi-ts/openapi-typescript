@@ -1,0 +1,53 @@
+operationId: reservedIPs_create
+
+summary: Create a New Reserved IP
+
+description: >-
+  On creation, a reserved IP must be either assigned to a Droplet or reserved
+  to a region.
+
+  * To create a new reserved IP assigned to a Droplet, send a POST
+    request to `/v2/reserved_ips` with the `droplet_id` attribute.
+
+  * To create a new reserved IP reserved to a region, send a POST request to
+    `/v2/reserved_ips` with the `region` attribute.
+
+  **Note**:  In addition to the standard rate limiting, only 12 reserved IPs may
+  be created per 60 seconds.
+
+tags:
+  - Reserved IPs
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        $ref: 'models/reserved_ip_create.yml'
+
+responses:
+  '202':
+    $ref: 'responses/reserved_ip_created.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/create_reserved_ip.yml'
+  - $ref: 'examples/go/create_reserved_ip.yml'
+  - $ref: 'examples/ruby/create_reserved_ip.yml'
+  - $ref: 'examples/python/create_reserved_ip.yml'
+
+security:
+  - bearer_auth:
+    - 'reserved_ip:create'

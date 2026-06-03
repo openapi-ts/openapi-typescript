@@ -1,0 +1,30 @@
+type: object
+
+properties:
+  name:
+    type: string
+    description: The name of the Kafka topic.
+    example: events
+
+  state:
+    type: string
+    enum:
+      - active
+      - configuring
+      - deleting
+      - unknown
+    example: active
+    description: The state of the Kafka topic.
+
+  replication_factor:
+    type: integer
+    example: 2
+    description: The number of nodes to replicate data across the cluster.
+
+  partitions:
+    type: array
+    items:
+      $ref: './kafka_topic_partition.yml'
+
+  config:
+    $ref: './kafka_topic_config.yml'

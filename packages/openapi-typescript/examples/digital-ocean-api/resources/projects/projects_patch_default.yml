@@ -1,0 +1,50 @@
+operationId: projects_patch_default
+
+summary: Patch the Default Project
+
+description: To update only specific attributes of your default project, send a
+  PATCH request to `/v2/projects/default`. At least one of the following attributes
+  needs to be sent.
+
+tags:
+  - Projects
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        $ref: 'models/project.yml#/project'
+
+      example:
+        name: my-web-api
+
+responses:
+  '200':
+    $ref: 'responses/existing_project.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/projects_patch_default.yml'
+  - $ref: 'examples/go/projects_patch_default.yml'
+  - $ref: 'examples/ruby/projects_patch_default.yml'
+  - $ref: 'examples/python/projects_patch_default.yml'
+
+security:
+  - bearer_auth:
+    - 'project:update'

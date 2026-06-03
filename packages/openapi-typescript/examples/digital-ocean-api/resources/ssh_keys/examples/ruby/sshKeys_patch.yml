@@ -1,0 +1,8 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  ssh_key = DropletKit::SSHKey.new(name: 'Renamed SSH Key')
+  client.ssh_keys.update(ssh_key, id: 512190)

@@ -1,0 +1,22 @@
+type: object
+
+description: |
+  Trigger details for SCHEDULED type, where body is optional.
+
+properties:
+  cron:
+    description: valid cron expression string which is required for SCHEDULED type triggers.
+    type: string
+    example: '* * * * *'
+
+  body:
+    description: Optional data to be sent to function while triggering the function.
+    type: object
+    nullable: true
+    properties:
+      name:
+        type: string
+        example: Welcome to DO!
+
+required: 
+  - cron

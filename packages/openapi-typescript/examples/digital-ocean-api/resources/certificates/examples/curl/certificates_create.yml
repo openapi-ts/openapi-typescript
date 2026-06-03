@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name": "web-cert-01", "type": "custom", "private_key": "'"$(</path/to/privkey1.pem)"'","leaf_certificate": "'"$(</path/to/cert1.pem)"'","certificate_chain": "'"$(</path/to/fullchain1.pem)"'"}' \
+    "https://api.digitalocean.com/v2/certificates"

@@ -1,0 +1,20 @@
+certificate_id:
+  in: path
+  name: certificate_id
+  description: A unique identifier for a certificate.
+  required: true
+  schema:
+    type: string
+    format: uuid
+    minimum: 1
+  example: 4de7ac8b-495b-4884-9a69-1050c6793cd6
+
+certificate_name:
+  name: name
+  in: query
+  description: Name of expected certificate
+  required: false
+  schema:
+    type: string
+    default: ""
+  example: "certificate-name"

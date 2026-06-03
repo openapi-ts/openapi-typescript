@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/apps/metrics/bandwidth_daily" \
+    -d '{ "app_ids": ["4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf"] }'

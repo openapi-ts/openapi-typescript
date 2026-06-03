@@ -1,0 +1,10 @@
+title: The status of the dedicated egress IP.
+type: string
+readOnly: true
+default: UNKNOWN
+enum:
+- UNKNOWN
+- ASSIGNING
+- ASSIGNED
+- REMOVED
+example: ASSIGNED

@@ -1,0 +1,13 @@
+lang: cURL
+source: |-
+  # List all volumes
+  curl -X GET \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/volumes?region=nyc1"
+
+  # List volumes filtered by name
+  curl -X GET \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/volumes?name=example"

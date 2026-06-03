@@ -1,0 +1,63 @@
+operationId: apps_create
+
+summary: Create a New App
+
+description:
+  Create a new app by submitting an app specification. For documentation
+  on app specifications (`AppSpec` objects), please refer to [the product documentation](https://docs.digitalocean.com/products/app-platform/reference/app-spec/).
+
+tags:
+  - Apps
+
+parameters:
+  - $ref: parameters.yml#/accept
+  - $ref: parameters.yml#/content-type
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        $ref: models/apps_create_app_request.yml
+      example:
+        spec:
+          name: web-app
+          region: nyc
+          services:
+            - name: api
+              github:
+                branch: main
+                deploy_on_push: true
+                repo: digitalocean/sample-golang
+              run_command: bin/api
+              environment_slug: node-js
+              instance_count: 2
+              instance_size_slug: apps-s-1vcpu-0.5gb
+              routes:
+                - path: /api
+          egress:
+            type: DEDICATED_IP
+  required: true
+
+responses:
+  '200':
+    $ref: responses/new_app.yml
+
+  '401':
+    $ref: ../../shared/responses/unauthorized.yml
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: ../../shared/responses/server_error.yml
+
+  default:
+    $ref: ../../shared/responses/unexpected_error.yml
+
+x-codeSamples:
+  - $ref: 'examples/curl/apps_create.yml'
+  - $ref: 'examples/python/apps_create.yml'
+
+security:
+  - bearer_auth:
+      - 'app:create'

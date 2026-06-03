@@ -1,0 +1,22 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+      "name": "my trigger",
+      "function": "hello",
+      "type": "SCHEDULED",
+      "is_enabled": True,
+      "scheduled_details": {
+      "cron": "* * * * *",
+      "body": {
+          "name": "Welcome to DO!"
+      }
+  }
+  }
+
+  resp = client.functions.create_trigger(namespace_id="aff93af3", body=req)
+

@@ -1,0 +1,55 @@
+description: >-
+  The response will be a JSON object with a key called `vpcs`. This will be set to
+  an array of objects, each of which will contain the standard attributes
+  associated with a VPC
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            vpcs:
+              type: array
+              items:
+                $ref: '../models/vpc.yml#/vpc'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+      example:
+        vpcs:
+        - name: env.prod-vpc
+          description: VPC for production environment
+          region: nyc1
+          ip_range: 10.10.10.0/24
+          id: 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+          urn: do:vpc:5a4981aa-9653-4bd1-bef5-d6bff52042e4
+          default: false
+          created_at: '2020-03-13T19:20:47.442049222Z'
+        - id: e0fe0f4d-596a-465e-a902-571ce57b79fa
+          urn: do:vpc:e0fe0f4d-596a-465e-a902-571ce57b79fa
+          name: default-nyc1
+          description: ''
+          region: nyc1
+          ip_range: 10.102.0.0/20
+          created_at: '2020-03-13T19:29:20Z'
+          default: true
+        - id: d455e75d-4858-4eec-8c95-da2f0a5f93a7
+          urn: do:vpc:d455e75d-4858-4eec-8c95-da2f0a5f93a7
+          name: default-nyc3
+          description: ''
+          region: nyc3
+          ip_range: 10.100.0.0/20
+          created_at: '2019-11-19T22:19:35Z'
+          default: true
+        links: {}
+        meta:
+          total: 3

@@ -1,0 +1,26 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      forwardingRule := []godo.ForwardingRule{
+          {
+              EntryProtocol:  "tcp",
+              EntryPort:      3306,
+              TargetProtocol: "tcp",
+              TargetPort:     3306,
+          },
+      }
+
+      _, err := client.LoadBalancers.RemoveForwardingRules(ctx, "4de7ac8b-495b-4884-9a69-1050c6793cd6", forwardingRule...)
+  }

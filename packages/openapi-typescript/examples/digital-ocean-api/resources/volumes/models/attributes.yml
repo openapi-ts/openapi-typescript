@@ -1,0 +1,38 @@
+volume_write_file_system_type:
+  type: object
+  properties:
+    filesystem_type:
+      type: string
+      description: >-
+        The name of the filesystem type to be used on the volume.
+        When provided, the volume will automatically be formatted to the
+        specified filesystem type. Currently, the available options are `ext4`
+        and `xfs`.
+        Pre-formatted volumes are automatically mounted when attached to
+        Ubuntu, Debian, Fedora, Fedora Atomic, and CentOS Droplets created on
+        or after April 26, 2018.
+        Attaching pre-formatted volumes to other Droplets is not recommended.
+      example: ext4
+
+volume_write_file_system_label:
+  type: string
+  description: >-
+    The label applied to the filesystem.
+    Labels for ext4 type filesystems may contain 16 characters while labels
+    for xfs type filesystems are limited to 12 characters.
+    May only be used in conjunction with filesystem_type.
+  example: example
+
+volume_action_droplet_id:
+  type: integer
+  description: >-
+    The unique identifier for the Droplet the volume will be attached or
+    detached from.
+  example: 11612190
+
+volume_snapshot_id:
+  properties:
+    snapshot_id:
+      type: string
+      description: The unique identifier for the volume snapshot from which to create the volume.
+      example: b0798135-fb76-11eb-946a-0a58ac146f33

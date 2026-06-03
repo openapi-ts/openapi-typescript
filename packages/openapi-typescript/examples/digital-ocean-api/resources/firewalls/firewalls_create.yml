@@ -1,0 +1,80 @@
+operationId: firewalls_create
+
+summary: Create a New Firewall
+
+description: |
+  To create a new firewall, send a POST request to `/v2/firewalls`. The request
+  must contain at least one inbound or outbound access rule.
+
+tags:
+  - Firewalls
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        allOf:
+          - $ref: 'models/firewall.yml'
+          - required:
+              - name
+          - anyOf:
+            - title: Inbound Rules
+              required:
+              - inbound_rules
+            - title: Outbound Rules
+              required:
+              - outbound_rules
+
+      example:
+        name: firewall
+        inbound_rules:
+          - protocol: tcp
+            ports: '80'
+            sources:
+              load_balancer_uids:
+                - 4de7ac8b-495b-4884-9a69-1050c6793cd6
+          - protocol: tcp
+            ports: '22'
+            sources:
+              tags:
+                - gateway
+              addresses:
+                - 18.0.0.0/8
+        outbound_rules:
+          - protocol: tcp
+            ports: '80'
+            destinations:
+              addresses:
+                - 0.0.0.0/0
+                - "::/0"
+        droplet_ids:
+          - 8043964
+
+responses:
+  '202':
+    $ref: 'responses/create_firewall_response.yml'
+
+  '400':
+    $ref: '../../shared/responses/bad_request.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/firewalls_create.yml'
+  - $ref: 'examples/go/firewalls_create.yml'
+  - $ref: 'examples/ruby/firewalls_create.yml'
+  - $ref: 'examples/python/firewalls_create.yml'
+
+security:
+  - bearer_auth:
+    - 'firewall:create'

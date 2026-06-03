@@ -1,0 +1,75 @@
+operationId: dropletActions_post_byTag
+
+summary: Acting on Tagged Droplets
+
+description: |
+  Some actions can be performed in bulk on tagged Droplets. The actions can be
+  initiated by sending a POST to `/v2/droplets/actions?tag_name=$TAG_NAME` with
+  the action arguments.
+
+  Only a sub-set of action types are supported:
+
+  - `power_cycle`
+  - `power_on`
+  - `power_off`
+  - `shutdown`
+  - `enable_ipv6`
+  - `enable_backups`
+  - `disable_backups`
+  - `snapshot`
+
+tags:
+  -  Droplet Actions
+
+parameters:
+  - $ref: 'parameters.yml#/droplet_tag_name'
+
+requestBody:
+  description: |
+    The `type` attribute set in the request body will specify the  action that
+    will be taken on the Droplet. Some actions will require additional
+    attributes to be set as well.
+
+  content:
+    application/json:
+      schema:
+        oneOf:
+          - $ref: 'models/droplet_actions.yml#/droplet_action'
+          - $ref: 'models/droplet_actions.yml#/droplet_action_snapshot'
+        discriminator:
+          propertyName: type
+          mapping:
+            enable_backups: 'models/droplet_actions.yml#/droplet_action'
+            disable_backups: 'models/droplet_actions.yml#/droplet_action'
+            power_cycle: 'models/droplet_actions.yml#/droplet_action'
+            shutdown: 'models/droplet_actions.yml#/droplet_action'
+            power_off: 'models/droplet_actions.yml#/droplet_action'
+            power_on: 'models/droplet_actions.yml#/droplet_action'
+            enable_ipv6: 'models/droplet_actions.yml#/droplet_action'
+            snapshot: 'models/droplet_actions.yml#/droplet_action_snapshot'
+
+responses:
+  '201':
+    $ref: 'responses/droplet_actions_response.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/dropletActions_post_byTag.yml'
+  - $ref: 'examples/go/dropletActions_post_byTag.yml'
+  - $ref: 'examples/ruby/dropletActions_post_byTag.yml'
+  - $ref: 'examples/python/dropletActions_post_byTag.yml'
+
+security:
+  - bearer_auth:
+    - 'droplet:update'

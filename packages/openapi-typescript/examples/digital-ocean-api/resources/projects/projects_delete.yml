@@ -1,0 +1,49 @@
+operationId: projects_delete
+
+summary: Delete an Existing Project
+
+description: |
+  To delete a project, send a DELETE request to `/v2/projects/$PROJECT_ID`. To
+  be deleted, a project must not have any resources assigned to it. Any existing
+  resources must first be reassigned or destroyed, or you will receive a 412 error.
+
+  A successful request will receive a 204 status code with no body in response.
+  This indicates that the request was processed successfully.
+
+tags:
+  - Projects
+
+parameters:
+  - $ref: 'parameters.yml#/project_id'
+
+responses:
+  '204':
+    $ref: '../../shared/responses/no_content.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '412':
+    $ref: 'responses/precondition_failed.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/projects_delete.yml'
+  - $ref: 'examples/go/projects_delete.yml'
+  - $ref: 'examples/ruby/projects_delete.yml'
+  - $ref: 'examples/python/projects_delete.yml'
+
+security:
+  - bearer_auth:
+    - 'project:delete'

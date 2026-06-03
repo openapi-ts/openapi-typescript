@@ -1,0 +1,27 @@
+description: |
+  The response will verify that a job has been successfully created to install a 1-Click. The
+  post-installation lifecycle of a 1-Click application can not be managed via the DigitalOcean
+  API. For additional details specific to the 1-Click, find and view its
+  [DigitalOcean Marketplace](https://marketplace.digitalocean.com) page.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message about the result of the request.
+          example: Successfully kicked off addon job.
+    examples:
+      Install a 1-Click Application:
+        value:
+          message: Successfully kicked off addon job.

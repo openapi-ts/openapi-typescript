@@ -1,0 +1,16 @@
+type: object
+
+description: Tagged Resource Statistics include metadata regarding the resource type that has been tagged.
+
+properties:
+
+  count:
+    type: integer
+    description: The number of tagged objects for this type of resource.
+    example: 5
+    minimum: 0
+    
+  last_tagged_uri:
+    type: string
+    description: The URI for the last tagged object for this type of resource.
+    example: 'https://api.digitalocean.com/v2/images/7555620'

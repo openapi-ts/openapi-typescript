@@ -1,0 +1,58 @@
+operationId: loadBalancers_update
+
+summary: Update a Load Balancer
+
+description: |
+  To update a load balancer's settings, send a PUT request to
+  `/v2/load_balancers/$LOAD_BALANCER_ID`. The request should contain a full
+  representation of the load balancer including existing attributes. It may
+  contain _one of_ the `droplets_ids` or `tag` attributes as they are mutually
+  exclusive. **Note that any attribute that is not provided will be reset to its
+  default value.**
+
+tags:
+  - Load Balancers
+
+parameters:
+  - $ref: 'parameters.yml#/load_balancer_id'
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        $ref: 'models/load_balancer_create.yml'
+
+      examples:
+        load_balancer_update_request:
+          $ref: 'examples.yml#/load_balancer_update_request'
+
+responses:
+  '200':
+    $ref: 'responses/updated_load_balancer.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/loadBalancers_update.yml'
+  - $ref: 'examples/go/loadBalancers_update.yml'
+  - $ref: 'examples/ruby/loadBalancers_update.yml'
+  - $ref: 'examples/python/loadBalancers_update.yml'
+
+security:
+  - bearer_auth:
+    - 'load_balancer:update'

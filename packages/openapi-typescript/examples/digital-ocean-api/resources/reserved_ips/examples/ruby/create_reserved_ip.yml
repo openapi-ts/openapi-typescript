@@ -1,0 +1,8 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  reserved_ip = DropletKit::ReservedIp.new(droplet_id: 123456)
+  client.reserved_ips.create(reserved_ip) 

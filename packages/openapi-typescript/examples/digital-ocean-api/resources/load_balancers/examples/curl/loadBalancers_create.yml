@@ -1,0 +1,15 @@
+lang: cURL
+source: |-
+  # Create new load balancer
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name": "example-lb-01","size_unit": 1, "region": "nyc3", "forwarding_rules":[{"entry_protocol":"http","entry_port":80,"target_protocol":"http","target_port":80,"certificate_id":"","tls_passthrough":false}, {"entry_protocol": "https","entry_port": 444,"target_protocol": "https","target_port": 443,"tls_passthrough": true}], "health_check":{"protocol":"http","port":80,"path":"/","check_interval_seconds":10,"response_timeout_seconds":5,"healthy_threshold":5,"unhealthy_threshold":3}, "sticky_sessions":{"type":"none"}, "firewall":{"deny":["ip:1.2.3.4","cidr:2.3.4.0/24"],"allow":["cidr:1.2.0.0/16","ip:2.3.4.5"]}, "droplet_ids": [3164444, 3164445]}' \
+    "https://api.digitalocean.com/v2/load_balancers"
+
+  # Create new load balancer with Droplet tag
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name": "example-lb-01", "region": "nyc3", "size_unit": 1, "forwarding_rules":[{"entry_protocol":"http","entry_port":80,"target_protocol":"http","target_port":80,"certificate_id":"","tls_passthrough":false}, {"entry_protocol": "https","entry_port": 444,"target_protocol": "https","target_port": 443,"tls_passthrough": true}], "health_check":{"protocol":"http","port":80,"path":"/","check_interval_seconds":10,"response_timeout_seconds":5,"healthy_threshold":5,"unhealthy_threshold":3}, "sticky_sessions":{"type":"none"}, "firewall":{"deny":["ip:1.2.3.4", "cidr:2.3.4.0/24"],"allow":["cidr:1.2.0.0/16","ip:2.3.4.5"]}, "tag": "web:prod"}' \
+    "https://api.digitalocean.com/v2/load_balancers"

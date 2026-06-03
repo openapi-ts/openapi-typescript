@@ -1,0 +1,86 @@
+operationId: domains_create_record
+
+summary: Create a New Domain Record
+
+description: |
+  To create a new record to a domain, send a POST request to
+  `/v2/domains/$DOMAIN_NAME/records`.
+
+  The request must include all of the required fields for the domain record type
+  being added.
+
+  See the [attribute table](#tag/Domain-Records) for details regarding record
+  types and their respective required attributes.
+
+tags:
+  - Domain Records
+
+parameters:
+  - $ref: 'parameters.yml#/domain_name'
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        anyOf:
+          - $ref: 'models/domain_record_types.yml#/domain_record_a'
+          - $ref: 'models/domain_record_types.yml#/domain_record_aaaa'
+          - $ref: 'models/domain_record_types.yml#/domain_record_caa'
+          - $ref: 'models/domain_record_types.yml#/domain_record_cname'
+          - $ref: 'models/domain_record_types.yml#/domain_record_mx'
+          - $ref: 'models/domain_record_types.yml#/domain_record_ns'
+          - $ref: 'models/domain_record_types.yml#/domain_record_soa'
+          - $ref: 'models/domain_record_types.yml#/domain_record_srv'
+          - $ref: 'models/domain_record_types.yml#/domain_record_txt'
+        discriminator:
+          propertyName: type
+          mapping:
+            A: 'models/domain_record_types.yml#/domain_record_a'
+            AAAA: 'models/domain_record_types.yml#/domain_record_aaaa'
+            CAA: 'models/domain_record_types.yml#/domain_record_caa'
+            CNAME: 'models/domain_record_types.yml#/domain_record_cname'
+            MX: 'models/domain_record_types.yml#/domain_record_mx'
+            NS: 'models/domain_record_types.yml#/domain_record_ns'
+            SOA: 'models/domain_record_types.yml#/domain_record_soa'
+            SRV: 'models/domain_record_types.yml#/domain_record_srv'
+            TXT: 'models/domain_record_types.yml#/domain_record_txt'
+
+      example:
+        type: A
+        name: www
+        data: 162.10.66.0
+        priority: null
+        port: null
+        ttl: 1800
+        weight: null
+        flags: null
+        tag: null
+
+responses:
+  '201':
+    $ref: 'responses/created_domain_record.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/domains_create_record.yml'
+  - $ref: 'examples/go/domains_create_record.yml'
+  - $ref: 'examples/ruby/domains_create_record.yml'
+  - $ref: 'examples/python/domains_create_record.yml'
+
+security:
+  - bearer_auth:
+    - 'domain:create'

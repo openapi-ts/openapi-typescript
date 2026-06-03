@@ -1,0 +1,14 @@
+type: object
+
+allOf:
+- $ref: './kafka_topic_base.yml'
+- properties:
+    state:
+      type: string
+      enum:
+        - active
+        - configuring
+        - deleting
+        - unknown
+      example: active
+      description: The state of the Kafka topic.

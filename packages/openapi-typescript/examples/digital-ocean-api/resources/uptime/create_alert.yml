@@ -1,0 +1,66 @@
+operationId: uptime_create_alert
+
+summary: Create a New Alert
+
+description: |
+  To create an Uptime alert, send a POST request to `/v2/uptime/checks/$CHECK_ID/alerts` specifying the attributes
+  in the table below in the JSON body.
+
+tags:
+  - Uptime
+parameters:
+  - $ref: 'parameters.yml#/check_id'
+
+requestBody:
+  required: true
+
+  description: |
+    The ''type'' field dictates the type of alert, and hence what type of value to pass into the threshold property.
+    Type | Description | Threshold Value
+    -----|-------------|--------------------
+    `latency` | alerts on the response latency | milliseconds
+    `down` | alerts on a target registering as down in any region | N/A (Not required)
+    `down_global` | alerts on a target registering as down globally | N/A (Not required)
+    `ssl_expiry` | alerts on a SSL certificate expiring within $threshold days | days
+
+  content:
+    application/json:
+      schema:
+        type: object
+        allOf:
+          - $ref: 'models/alert.yml#/alert'
+
+        required:
+          - name
+          - type
+          - notifications
+          - period
+
+responses:
+  '201':
+    $ref: 'responses/existing_alert.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+
+
+x-codeSamples:
+  - $ref: 'examples/curl/alert_create.yml'
+  - $ref: 'examples/python/alert_create.yml'
+
+security:
+  - bearer_auth:
+      - 'uptime:create'

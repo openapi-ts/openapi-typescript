@@ -1,0 +1,34 @@
+operationId: registry_get_subscription
+
+summary: Get Subscription Information
+
+description: A subscription is automatically created when you configure your
+  container registry. To get information about your subscription, send a GET
+  request to `/v2/registry/subscription`.
+
+tags:
+  - Container Registry
+
+responses:
+  '200':
+    $ref: 'responses/subscription_response.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/registry_get_subscription.yml'
+  - $ref: 'examples/python/registry_get_subscription.yml'
+
+security:
+  - bearer_auth:
+    - 'registry:read'

@@ -1,0 +1,63 @@
+operationId: loadBalancers_remove_forwardingRules
+
+summary: Remove Forwarding Rules from a Load Balancer
+
+description: |
+  To remove forwarding rules from a load balancer instance, send a DELETE
+  request to `/v2/load_balancers/$LOAD_BALANCER_ID/forwarding_rules`. In the
+  body of the request, there should be a `forwarding_rules` attribute containing
+  an array of rules to be removed.
+
+  No response body will be sent back, but the response code will indicate
+  success. Specifically, the response code will be a 204, which means that the
+  action was successful with no returned body data.
+
+tags:
+  - Load Balancers
+
+parameters:
+  - $ref: 'parameters.yml#/load_balancer_id'
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        properties:
+          forwarding_rules:
+            type: array
+            minItems: 1
+            items:
+              $ref: 'models/forwarding_rule.yml'
+        required:
+          - forwarding_rules
+
+responses:
+  '204':
+    $ref: '../../shared/responses/no_content.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/loadBalancers_remove_forwardingRules.yml'
+  - $ref: 'examples/go/loadBalancers_remove_forwardingRules.yml'
+  - $ref: 'examples/ruby/loadBalancers_remove_forwardingRules.yml'
+  - $ref: 'examples/python/loadBalancers_remove_forwardingRules.yml'
+
+security:
+  - bearer_auth:
+      - 'load_balancer:update'

@@ -1,0 +1,60 @@
+type: object
+
+properties:
+  product:
+    type: string
+    description: Name of the product being billed in the invoice item.
+    example: Kubernetes Clusters
+
+  resource_uuid:
+    type: string
+    description: UUID of the resource billing in the invoice item if available.
+    example: 711157cb-37c8-4817-b371-44fa3504a39c
+
+  resource_id:
+    type: string
+    description: ID of the resource billing in the invoice item if available.
+    example: "2353624"
+
+  group_description:
+    type: string
+    description: >-
+      Description of the invoice item when it is a grouped set of usage, such 
+      as DOKS or databases.
+    example: my-doks-cluster
+
+  description:
+    type: string
+    description: Description of the invoice item.
+    example: a56e086a317d8410c8b4cfd1f4dc9f82
+
+  amount:
+    type: string
+    description: Billed amount of this invoice item. Billed in USD.
+    example: "12.34"
+
+  duration:
+    type: string
+    description: >-
+      Duration of time this invoice item was used and subsequently billed.
+    example: "744"
+
+  duration_unit:
+    type: string
+    description: Unit of time for duration.
+    example: "Hours"
+
+  start_time:
+    type: string
+    description: Time the invoice item began to be billed for usage.
+    example: 2020-01-01T00:00:00Z
+
+  end_time:
+    type: string
+    description: Time the invoice item stopped being billed for usage.
+    example: 2020-02-01T00:00:00Z
+
+  project_name:
+    type: string
+    description: Name of the DigitalOcean Project this resource belongs to.
+    example: web

@@ -1,0 +1,37 @@
+type: object
+required:
+  - endpoint
+properties:
+  credentials:
+    type: object
+    description: "Credentials for an OpenSearch cluster user. Optional if `cluster_uuid` is passed."
+    properties:
+      username:
+        type: string
+        example: "username"
+      password:
+        type: string
+        example: "password"
+  endpoint:
+    type: string
+    example: "example.com"
+    description: "host of the OpenSearch cluster"
+  cluster_uuid:
+    type: string
+    example: "85148069-7e35-4999-80bd-6fa1637ca385"
+    description: "A unique identifier for a managed OpenSearch cluster."
+  cluster_name:
+    type: string
+    example: "managed_dbaas_cluster"
+    description: "Name of a managed OpenSearch cluster."
+  index_name:
+    type: string
+    description: "OpenSearch index to send logs to."
+    example: "logs"
+  retention_days:
+    type: integer
+    description: "Number of days to retain logs in an OpenSearch cluster."
+    example: 14
+    default: 14
+
+

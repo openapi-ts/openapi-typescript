@@ -1,0 +1,62 @@
+description: The response will be an object with a key called `action`. The
+  value of this will be an object that contains the standard reserved IP
+  action attributes.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        action:
+          allOf:
+            - $ref: '../../actions/models/action.yml'
+            - type: object
+              properties:
+                project_id:
+                  type: string
+                  format: uuid
+                  example: 746c6152-2fa2-11ed-92d3-27aaa54e4988
+                  description: The UUID of the project to which the reserved IP currently belongs.
+
+      example:
+        action:
+          id: 72531856
+          status: completed
+          type: assign_ip
+          started_at: '2015-11-12T17:51:03Z'
+          completed_at: '2015-11-12T17:51:14Z'
+          resource_id: 758604968
+          resource_type: reserved_ip
+          region:
+            name: New York 3
+            slug: nyc3
+            sizes:
+            - s-1vcpu-1gb
+            - s-1vcpu-2gb
+            - s-1vcpu-3gb
+            - s-2vcpu-2gb
+            - s-3vcpu-1gb
+            - s-2vcpu-4gb
+            - s-4vcpu-8gb
+            - s-6vcpu-16gb
+            - s-8vcpu-32gb
+            - s-12vcpu-48gb
+            - s-16vcpu-64gb
+            - s-20vcpu-96gb
+            - s-24vcpu-128gb
+            - s-32vcpu-192gb
+            features:
+            - private_networking
+            - backups
+            - ipv6
+            - metadata
+            available: true
+          region_slug: nyc3
+          project_id: 746c6152-2fa2-11ed-92d3-27aaa54e4988

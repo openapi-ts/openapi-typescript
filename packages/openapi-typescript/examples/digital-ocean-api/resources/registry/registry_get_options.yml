@@ -1,0 +1,44 @@
+operationId: registry_get_options
+
+summary: List Registry Options (Subscription Tiers and Available Regions)
+
+description: >-
+  This endpoint serves to provide additional information as to which option values
+  are available when creating a container registry.
+
+  There are multiple subscription tiers available for container registry. Each
+  tier allows a different number of image repositories to be created in your
+  registry, and has a different amount of storage and transfer included.
+
+  There are multiple regions available for container registry and controls
+  where your data is stored.
+
+  To list the available options, send a GET request to
+  `/v2/registry/options`.
+
+tags:
+  - Container Registry
+
+responses:
+  '200':
+    $ref: 'responses/registry_options_response.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/registry_get_options.yml'
+  - $ref: 'examples/python/registry_get_options.yml'
+
+security:
+  - bearer_auth:
+    - 'registry:read'

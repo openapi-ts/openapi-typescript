@@ -1,0 +1,15 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  create_req = {
+    "name": "read-nyc3-01",
+    "region": "nyc3",
+    "size": "db-s-2vcpu-4gb",
+    "storage_size_mib": 61440,
+  }
+
+  create_resp = client.databases.create_replica(database_cluster_uuid="9cc10173", body=create_req)

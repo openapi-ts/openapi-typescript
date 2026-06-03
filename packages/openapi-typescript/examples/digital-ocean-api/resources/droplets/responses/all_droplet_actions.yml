@@ -1,0 +1,59 @@
+description: A JSON object with an `actions` key.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            actions:
+              type: array
+              items:
+                $ref: '../../actions/models/action.yml'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+    example:
+      actions:
+      - id: 982864273
+        status: completed
+        type: create
+        started_at: 2020-07-20T19:37:30Z
+        completed_at: 2020-07-20T19:37:45Z
+        resource_id: 3164444
+        resource_type: droplet
+        region:
+          name: New York 3
+          slug: nyc3
+          features:
+          - private_networking
+          - backups
+          - ipv6
+          - metadata
+          - install_agent
+          - image_transfer
+          available: true
+          sizes:
+          - s-1vcpu-1gb
+          - s-1vcpu-2gb
+          - s-3vcpu-1gb
+          - s-2vcpu-2gb
+          - s-1vcpu-3gb
+          - s-2vcpu-4gb
+          - s-4vcpu-8gb
+          - m-1vcpu-8gb
+          - s-6vcpu-16gb
+          - s-8vcpu-32gb
+          - s-12vcpu-48gb
+        region_slug: nyc3
+      links: {}
+      meta:
+        total: 1

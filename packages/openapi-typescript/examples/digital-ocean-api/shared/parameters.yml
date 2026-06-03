@@ -1,0 +1,31 @@
+per_page:
+  in: query
+  name: per_page
+  required: false
+  description: Number of items returned per page
+  schema:
+    type: integer
+    minimum: 1
+    default: 20
+    maximum: 200
+  example: 2
+
+page:
+  in: query
+  name: page
+  required: false
+  description: Which 'page' of paginated results to return.
+  schema:
+    type: integer
+    minimum: 1
+    default: 1
+  example: 1
+
+region:
+  name: region
+  in: query
+  description: >-
+    The slug identifier for the region where the resource is available.
+  schema:
+    $ref: 'attributes/region_slug.yml'
+  example: nyc3

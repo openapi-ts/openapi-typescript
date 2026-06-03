@@ -1,0 +1,46 @@
+type: object
+
+description: An object containing information about a resource to be scheduled
+  for deletion.
+
+properties:
+  floating_ips:
+    type: array
+    deprecated: true
+    description: An array of unique identifiers for the floating IPs to be scheduled for deletion.
+    items:
+      type: string
+    example:
+      - '6186916'
+
+  reserved_ips:
+    type: array
+    description: An array of unique identifiers for the reserved IPs to be scheduled for deletion.
+    items:
+      type: string
+    example:
+      - '6186916'
+
+  snapshots:
+    type: array
+    description: An array of unique identifiers for the snapshots to be scheduled for deletion.
+    items:
+      type: string
+    example:
+      - '61486916'
+
+  volumes:
+    type: array
+    description: An array of unique identifiers for the volumes to be scheduled for deletion.
+    items:
+       type: string
+    example:
+      - ba49449a-7435-11ea-b89e-0a58ac14480f
+
+  volume_snapshots:
+    type: array
+    description: An array of unique identifiers for the volume snapshots to be scheduled for deletion.
+    items:
+      type: string
+    example:
+      - edb0478d-7436-11ea-86e6-0a58ac144b91

@@ -1,0 +1,32 @@
+description: >-
+  The response will be a JSON object with a key called `domain_record`. The
+  value of this will be a domain record object which contains the standard
+  domain record attributes.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        domain_record:
+          $ref: '../models/domain_record.yml'
+
+      example:
+        domain_record:
+          id: 3352896
+          type: A
+          name: blog
+          data: 162.10.66.0
+          priority:
+          port:
+          ttl: 1800
+          weight:
+          flags:
+          tag:

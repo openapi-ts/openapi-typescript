@@ -1,0 +1,7 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  client.kubernetes_clusters.delete_node_pool(id: 'bd5f5959-5e1e-4205-a714-a914373942af', pool_id: '86c9bc8c-b2c3-4d40-8000-b0c7bee27305')

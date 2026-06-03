@@ -1,0 +1,44 @@
+operationId: droplets_destroy
+
+summary: Delete an Existing Droplet
+
+description: |
+  To delete a Droplet, send a DELETE request to `/v2/droplets/$DROPLET_ID`.
+
+  A successful request will receive a 204 status code with no body in response.
+  This indicates that the request was processed successfully.
+
+tags:
+  - Droplets
+
+parameters:
+  - $ref: 'parameters.yml#/droplet_id'
+
+responses:
+  '204':
+    $ref: '../../shared/responses/no_content_with_content_type.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/droplets_destroy.yml'
+  - $ref: 'examples/go/droplets_destroy.yml'
+  - $ref: 'examples/ruby/droplets_destroy.yml'
+  - $ref: 'examples/python/droplets_destroy.yml'
+
+security:
+  - bearer_auth:
+    - 'droplet:delete'

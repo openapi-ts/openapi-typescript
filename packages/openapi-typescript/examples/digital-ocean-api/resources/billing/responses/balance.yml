@@ -1,0 +1,21 @@
+description: >-
+  The response will be a JSON object that contains the following attributes
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../models/balance.yml'
+
+    example:
+      month_to_date_balance: '23.44'
+      account_balance: '12.23'
+      month_to_date_usage: '11.21'
+      generated_at: '2019-07-09T15:01:12Z'

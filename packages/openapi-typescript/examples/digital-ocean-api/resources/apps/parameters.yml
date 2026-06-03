@@ -1,0 +1,141 @@
+accept:
+  description: The content-type that should be used by the response. By default,
+    the response will be `application/json`. `application/yaml` is also supported.
+  in: header
+  name: Accept
+  schema:
+    type: string
+    enum:
+    - application/json
+    - application/yaml
+  example: application/json
+
+content-type:
+  description: The content-type used for the request. By default, the requests
+    are assumed to use `application/json`. `application/yaml` is also supported.
+  in: header
+  name: Content-Type
+  schema:
+    type: string
+    enum:
+    - application/json
+    - application/yaml
+  example: application/json
+
+app_id:
+  description: The app ID
+  in: path
+  name: app_id
+  required: true
+  schema:
+    type: string
+  example: 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+
+deployment_id:
+  description: The deployment ID
+  in: path
+  name: deployment_id
+  required: true
+  schema:
+    type: string
+  example: 3aa4d20e-5527-4c00-b496-601fbd22520a
+
+app_name:
+  description: The name of the app to retrieve.
+  in: query
+  name: name
+  schema:
+    type: string
+  example: myApp
+
+id_app:
+  description: The ID of the app
+  in: path
+  name: id
+  required: true
+  schema:
+    type: string
+  example: 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+
+slug_size:
+  description: The slug of the instance size
+  in: path
+  name: slug
+  required: true
+  schema:
+    type: string
+  example: apps-s-1vcpu-0.5gb
+
+component:
+  description: An optional component name. If set, logs will be limited to this component
+    only.
+  in: path
+  name: component_name
+  required: true
+  schema:
+    type: string
+  example: component
+
+live_updates:
+  description: Whether the logs should follow live updates.
+  in: query
+  name: follow
+  schema:
+    type: boolean
+  example: true
+
+with_projects:
+  description: Whether the project_id of listed apps should be fetched and included.
+  in: query
+  name: with_projects
+  schema:
+    type: boolean
+  example: true
+
+log_type:
+  description: |-
+    The type of logs to retrieve
+    - BUILD: Build-time logs
+    - DEPLOY: Deploy-time logs
+    - RUN: Live run-time logs
+    - RUN_RESTARTED: Logs of crashed/restarted instances during runtime
+  in: query
+  name: type
+  required: true
+  schema:
+    default: UNSPECIFIED
+    enum:
+    - UNSPECIFIED
+    - BUILD
+    - DEPLOY
+    - RUN
+    - RUN_RESTARTED
+    type: string
+  example: BUILD
+
+time_wait:
+  description: 'An optional time duration to wait if the underlying component instance
+    is not immediately available. Default: `3m`.'
+  in: query
+  name: pod_connection_timeout
+  schema:
+    type: string
+  example: 3m
+
+slug_tier:
+  description: The slug of the tier
+  in: path
+  name: slug
+  required: true
+  schema:
+    type: string
+  example: basic
+
+alert_id:
+  description: The alert ID
+  in: path
+  name: alert_id
+  required: true
+  schema:
+    type: string
+  example: 5a624ab5-dd58-4b39-b7dd-8b7c36e8a91d

@@ -1,0 +1,37 @@
+properties:
+  error_steps:
+    format: int32
+    title: Number of unsuccessful steps
+    type: integer
+    example: 3 
+  pending_steps:
+    format: int32
+    title: Number of pending steps
+    type: integer
+    example: 2
+  running_steps:
+    format: int32
+    title: Number of currently running steps
+    type: integer
+    example: 2
+  steps:
+    items:
+      $ref: apps_deployment_progress_step.yml
+    title: The deployment's steps
+    type: array
+  success_steps:
+    format: int32
+    title: Number of successful steps
+    type: integer
+    example: 4
+  summary_steps:
+    items:
+      $ref: apps_deployment_progress_step.yml
+    title: A flattened summary of the steps
+    type: array
+  total_steps:
+    format: int32
+    title: Total number of steps
+    type: integer
+    example: 5
+type: object

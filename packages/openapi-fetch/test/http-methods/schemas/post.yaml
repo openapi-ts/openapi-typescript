@@ -1,0 +1,140 @@
+openapi: 3.1.0
+info:
+  title: openapi-fetch
+  version: "1.0"
+paths:
+  /posts:
+    post:
+      requestBody:
+        $ref: "#/components/requestBodies/CreatePost"
+      responses:
+        201:
+          $ref: "#/components/responses/CreatePost"
+        500:
+          $ref: "#/components/responses/Error"
+  /posts-optional:
+    post:
+      requestBody:
+        $ref: "#/components/requestBodies/CreatePostOptional"
+      responses:
+        201:
+          $ref: "#/components/responses/CreatePost"
+        500:
+          $ref: "#/components/responses/Error"
+  /posts-optional-inline:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Post"
+      responses:
+        201:
+          $ref: "#/components/responses/CreatePost"
+        500:
+          $ref: "#/components/responses/Error"
+  /multipart-form-data-file-upload:
+    post:
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: string
+              format: binary
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text:
+                    type: string
+                required:
+                  - text
+components:
+  schemas:
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+    Post:
+      type: object
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        publish_date:
+          type: number
+      required:
+        - title
+        - body
+
+  requestBodies:
+    CreatePost:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              body:
+                type: string
+              publish_date:
+                type: number
+            required:
+              - title
+              - body
+              - publish_date
+    CreatePostOptional:
+      required: false
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              body:
+                type: string
+              publish_date:
+                type: number
+            required:
+              - title
+              - body
+              - publish_date
+
+  responses:
+    CreatePost:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+            required:
+              - status
+    Error:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: number
+              message:
+                type: string
+            required:
+              - code
+              - message

@@ -1,0 +1,48 @@
+type: object
+
+allOf:
+  - $ref: 'volume_base.yml'
+  - properties:
+      region:
+        allOf:
+          - description: >-
+              The region that the block storage volume is located in. When setting
+              a region, the value should be the slug identifier for the region. When
+              you query a block storage volume, the entire region object will be
+              returned.
+          - $ref: '../../regions/models/region.yml'
+        example: 
+          name: New York 1
+          slug: nyc1
+          sizes:
+            - s-1vcpu-1gb
+            - s-1vcpu-2gb
+            - s-1vcpu-3gb
+            - s-2vcpu-2gb
+            - s-3vcpu-1gb
+            - s-2vcpu-4gb
+            - s-4vcpu-8gb
+            - s-6vcpu-16gb
+            - s-8vcpu-32gb
+            - s-12vcpu-48gb
+            - s-16vcpu-64gb
+            - s-20vcpu-96gb
+            - s-24vcpu-128gb
+            - s-32vcpu-192gb
+          features:
+            - private_networking
+            - backups
+            - ipv6
+            - metadata
+          available: true
+        readOnly: true
+  
+      filesystem_type:
+        type: string
+        description: The type of filesystem currently in-use on the volume.
+        example: ext4
+      
+      filesystem_label:
+        type: string
+        description: The label currently applied to the filesystem.
+        example: example

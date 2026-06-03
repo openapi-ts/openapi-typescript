@@ -1,0 +1,9 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  create_req = {"origin": "static-images.nyc3.digitaloceanspaces.com", "ttl": 3600}
+  create_resp = client.cdn.create_endpoint(create_req)

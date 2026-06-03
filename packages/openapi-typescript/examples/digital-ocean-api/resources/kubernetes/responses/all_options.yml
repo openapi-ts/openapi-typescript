@@ -1,0 +1,21 @@
+description: |
+  The response will be a JSON object with a key called `options` which contains
+  `regions`, `versions`, and `sizes` objects listing the available options and
+  the matching slugs for use when creating a new cluster.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../models/options.yml#/kubernetes_options'
+
+    examples:
+      All Kubernetes Options:
+        $ref: 'examples.yml#/kubernetes_options'

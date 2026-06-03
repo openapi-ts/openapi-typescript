@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"size": "s-2vcpu-4gb","count": 1,"name": "pool-02","tags": ["web"], "labels": {"service": "web", "priority": "high"}}' \
+    "https://api.digitalocean.com/v2/kubernetes/clusters/bd5f5959-5e1e-4205-a714-a914373942af/node_pools"

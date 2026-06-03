@@ -1,0 +1,22 @@
+lang: cURL
+source: |-
+  # Attach a Volume to a Droplet by ID
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type": "attach", "droplet_id": 11612190, "region": "nyc1", "tags":["aninterestingtag"]}' \
+    "https://api.digitalocean.com/v2/volumes/7724db7c-e098-11e5-b522-000f53304e51/actions"
+
+  # Remove a Volume from a Droplet by ID
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type": "detach", "droplet_id": "11612190", "region": "nyc1"}' \
+    "https://api.digitalocean.com/v2/volumes/7724db7c-e098-11e5-b522-000f53304e51/actions"
+
+  # Resize a Volume
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type":"resize","size_gigabytes": 100, "region":"nyc1"}' \
+    "https://api.digitalocean.com/v2/volumes/7724db7c-e098-11e5-b522-000f53304e51/actions"

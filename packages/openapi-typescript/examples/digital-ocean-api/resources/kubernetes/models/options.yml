@@ -1,0 +1,67 @@
+kubernetes_options:
+
+  type: object
+  properties:
+    options:
+      properties:
+        regions:
+          type: array
+          items:
+            $ref: '#/kubernetes_region'
+        versions:
+          type: array
+          items:
+            $ref: '#/kubernetes_version'
+        sizes:
+          type: array
+          items:
+            $ref: '#/kubernetes_size'
+
+kubernetes_version:
+  type: object
+  properties:
+    slug:
+      type: string
+      example: 1.16.13-do.0
+      description: The slug identifier for an available version of Kubernetes
+        for use when creating or updating a cluster. The string contains both
+        the upstream version of Kubernetes as well as the DigitalOcean revision.
+    kubernetes_version:
+      type: string
+      example: '1.16.13'
+      description: The upstream version string for the version of Kubernetes
+        provided by a given slug.
+    supported_features:
+      type: array
+      items:
+        type: string
+      example:
+      - cluster-autoscaler
+      - docr-integration
+      - token-authentication
+      description: The features available with the version of Kubernetes
+        provided by a given slug.
+
+kubernetes_region:
+  type: object
+  properties:
+    name:
+      type: string
+      example: New York 3
+      description: A DigitalOcean region where Kubernetes is available.
+    slug:
+      type: string
+      example: nyc3
+      description: The identifier for a region for use when creating a new cluster.
+
+kubernetes_size:
+  type: object
+  properties:
+    name:
+      type: string
+      example: s-1vcpu-2gb
+      description: A Droplet size available for use in a Kubernetes node pool.
+    slug:
+      type: string
+      example: s-1vcpu-2gb
+      description: The identifier for a size for use when creating a new cluster.

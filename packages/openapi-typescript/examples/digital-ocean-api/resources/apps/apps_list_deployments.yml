@@ -1,0 +1,41 @@
+operationId: apps_list_deployments
+
+summary: List App Deployments
+
+description: List all deployments of an app.
+
+tags:
+- Apps
+
+parameters:
+  - $ref: parameters.yml#/app_id
+  - $ref: ../../shared/parameters.yml#/page
+  - $ref: ../../shared/parameters.yml#/per_page
+
+responses:
+  "200":
+    $ref: responses/existing_deployments.yml
+
+  "401":
+    $ref: ../../shared/responses/unauthorized.yml
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  "429":
+    $ref: "../../shared/responses/too_many_requests.yml"
+
+  "500":
+    $ref: ../../shared/responses/server_error.yml
+
+  default:
+    $ref: ../../shared/responses/unexpected_error.yml
+
+x-codeSamples:
+  - $ref: 'examples/curl/apps_list_deployments.yml'
+  - $ref: 'examples/python/apps_list_deployments.yml'
+
+security:
+  - bearer_auth:
+    - 'app:read'
+

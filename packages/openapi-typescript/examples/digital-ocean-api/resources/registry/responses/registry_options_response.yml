@@ -1,0 +1,67 @@
+description: The response will be a JSON object with a key called `options`
+  which contains a key called `subscription_tiers` listing the available tiers.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        options:
+          type: object
+          properties:
+            available_regions:
+              type: array
+              items:
+                type: string
+              example: 
+              - nyc3
+            subscription_tiers:
+              type: array
+              items:
+                allOf:
+                - $ref: '../models/subscription_tier.yml#/subscription_tier_base'
+                - $ref: '../models/subscription_tier.yml#/subscription_tier_extended'
+
+    example:
+      options:
+        available_regions:
+          - nyc3
+          - sfo3
+          - ams3
+          - sgp1
+          - fra1
+        subscription_tiers:
+          - name: Starter
+            slug: starter
+            included_repositories: 1
+            included_storage_bytes: 524288000
+            allow_storage_overage: false
+            included_bandwidth_bytes: 524288000
+            monthly_price_in_cents: 0
+            eligible: false
+            eligibility_reasons:
+              - OverRepositoryLimit
+          - name: Basic
+            slug: basic
+            included_repositories: 5
+            included_storage_bytes: 5368709120
+            allow_storage_overage: true
+            included_bandwidth_bytes: 5368709120
+            monthly_price_in_cents: 500
+            eligible: true
+          - name: Professional
+            slug: professional
+            included_repositories: 0
+            included_storage_bytes: 107374182400
+            allow_storage_overage: true
+            included_bandwidth_bytes: 107374182400
+            monthly_price_in_cents: 2000
+            eligible: true

@@ -1,0 +1,39 @@
+{
+  "name": "openapi-typescript-helpers",
+  "description": "TypeScript helpers for consuming openapi-typescript types",
+  "version": "0.1.0",
+  "author": {
+    "name": "Drew Powers",
+    "email": "drew@pow.rs"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.mjs"
+    },
+    "./*": "./*"
+  },
+  "homepage": "https://openapi-ts.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openapi-ts/openapi-typescript",
+    "directory": "packages/openapi-fetch"
+  },
+  "bugs": {
+    "url": "https://github.com/openapi-ts/openapi-typescript/issues"
+  },
+  "scripts": {
+    "build": "unbuild",
+    "format": "biome format src --write",
+    "lint": "pnpm run lint:js && pnpm run lint:ts",
+    "lint:js": "biome check src",
+    "lint:ts": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

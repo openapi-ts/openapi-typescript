@@ -1,0 +1,62 @@
+check:
+  type: object
+  allOf:
+  - $ref: '#/check_base'
+  - $ref: '#/check_updatable'
+
+
+check_base:
+  type: object
+  properties:
+    id:
+      type: string
+      format: uuid
+      readOnly: true
+      example: 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+      description: A unique ID that can be used to identify and reference the check.
+
+
+check_updatable:
+  type: object
+  properties:
+    name:
+      type: string
+      example: "Landing page check"
+      description: A human-friendly display name.
+
+    type:
+      type: string
+      example: https
+      enum:
+        - ping
+        - http
+        - https
+      description: The type of health check to perform.
+
+    target:
+      type: string
+      format: url
+      example: "https://www.landingpage.com"
+      description: The endpoint to perform healthchecks on.
+
+
+    regions:
+      type: array
+      items:
+        type: string
+        enum:
+          - us_east
+          - us_west
+          - eu_west
+          - se_asia
+
+      example:
+        - us_east
+        - eu_west
+      description: An array containing the selected regions to perform healthchecks from.
+
+    enabled:
+      type: boolean
+      example: true
+      default: true
+      description: A boolean value indicating whether the check is enabled/disabled.

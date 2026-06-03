@@ -1,0 +1,20 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "size": "s-1vcpu-2gb",
+    "count": 3,
+    "name": "new-pool",
+    "tags": [
+      "frontend"
+    ],
+    "auto_scale": True,
+    "min_nodes": 3,
+    "max_nodes": 6
+  }
+
+  resp = client.kubernetes.add_node_pool(cluster_id="ba9d8da", body=req)

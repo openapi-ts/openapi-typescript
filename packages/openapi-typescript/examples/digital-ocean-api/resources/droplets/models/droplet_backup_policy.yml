@@ -1,0 +1,48 @@
+type: object
+
+properties:
+  plan:
+    type: string
+    enum:
+    - daily
+    - weekly
+    example: daily
+    description: The backup plan used for the Droplet. The plan can be either
+      `daily` or `weekly`.
+
+  weekday:
+    type: string
+    enum:
+    - SUN
+    - MON
+    - TUE
+    - WED
+    - THU
+    - FRI
+    - SAT
+    example: SUN
+    description: The day of the week on which the backup will occur.
+
+  hour:
+    type: integer
+    enum:
+    - 0
+    - 4
+    - 8
+    - 12
+    - 16
+    - 20
+    example: 0
+    description: The hour of the day that the backup window will start.
+
+  window_length_hours:
+    type: integer
+    readOnly: true
+    example: 4
+    description: The length of the backup window starting from `hour`.
+
+  retention_period_days:
+    type: integer
+    readOnly: true
+    example: 7
+    description: The number of days the backup will be retained.

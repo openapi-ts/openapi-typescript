@@ -1,0 +1,21 @@
+type: object
+
+description: An object specifying domain configurations for a Global load balancer.
+
+properties:
+  name:
+    type: string
+    example: example.com
+    description: FQDN to associate with a Global load balancer.
+
+  is_managed:
+    type: boolean
+    example: true
+    description: A boolean value indicating if the domain is already managed 
+      by DigitalOcean. If true, all A and AAAA records required to enable Global
+      load balancers will be automatically added.
+
+  certificate_id:
+    type: string
+    example: 892071a0-bb95-49bc-8021-3afd67a210bf
+    description: The ID of the TLS certificate used for SSL termination.

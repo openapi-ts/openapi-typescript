@@ -1,0 +1,33 @@
+operationId: registry_get
+
+summary: Get Container Registry Information
+
+description: To get information about your container registry, send a GET
+  request to `/v2/registry`.
+
+tags:
+  - Container Registry
+
+responses:
+  '200':
+    $ref: 'responses/registry_info.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/registry_get.yml'
+  - $ref: 'examples/python/registry_get.yml'
+
+security:
+  - bearer_auth:
+    - 'registry:read'

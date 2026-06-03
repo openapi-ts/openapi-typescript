@@ -1,0 +1,38 @@
+operationId: tags_list
+
+summary: List All Tags
+
+description: To list all of your tags, you can send a GET request to `/v2/tags`.
+
+tags:
+  - Tags
+
+parameters:
+  - $ref: '../../shared/parameters.yml#/per_page'
+  - $ref: '../../shared/parameters.yml#/page'
+
+responses:
+  '200':
+    $ref: 'responses/tags_all.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/tags_list.yml'
+  - $ref: 'examples/go/tags_list.yml'
+  - $ref: 'examples/ruby/tags_list.yml'
+  - $ref: 'examples/python/tags_list.yml'
+
+security:
+  - bearer_auth:
+    - 'tag:read'

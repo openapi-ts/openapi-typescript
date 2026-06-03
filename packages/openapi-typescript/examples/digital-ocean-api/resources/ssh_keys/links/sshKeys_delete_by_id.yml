@@ -1,0 +1,8 @@
+operationId: sshKeys_delete_by_id
+
+parameters:
+  ssh_key_identifier: '$response.body#/ssh_key/id'
+
+description: >-
+  The `id` value returned in the response can be used as the 
+  `ssh_key_identifier` parameter in `DELETE /v2/account/keys/{ssh_key_identifier}`.

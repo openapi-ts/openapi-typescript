@@ -1,0 +1,40 @@
+operationId: uptime_get_checkState
+
+summary: Retrieve Check State
+
+description:
+  To show information about an existing check's state, send a GET request to
+  `/v2/uptime/checks/$CHECK_ID/state`.
+
+tags:
+  - Uptime
+
+parameters:
+  - $ref: 'parameters.yml#/check_id'
+
+responses:
+  '200':
+    $ref: 'responses/existing_check_state.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/check_state_get.yml'
+  - $ref: 'examples/python/check_state_get.yml'
+
+security:
+  - bearer_auth:
+      - 'uptime:read'

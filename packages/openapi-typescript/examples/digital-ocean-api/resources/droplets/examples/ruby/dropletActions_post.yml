@@ -1,0 +1,53 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  # Enable Backups
+  client.droplet_actions.enable_backups(droplet_id: 3164450)
+
+  # Disable Backups
+  # client.droplet_actions.disable_backups(droplet_id: 3164450)
+
+  # Reboot a Droplet
+  # client.droplet_actions.reboot(droplet_id: 3164450)
+
+  # Power Cycle a Droplet
+  # client.droplet_actions.power_cycle(droplet_id: 3164450)
+
+  # Shutdown a Droplet
+  # client.droplet_actions.shutdown(droplet_id: 3067649)
+
+  # Power Off a Droplet
+  # client.droplet_actions.power_off(droplet_id: 3164450)
+
+  # Power On a Droplet
+  # client.droplet_actions.power_on(droplet_id: 3164450)
+
+  # Restore a Droplet
+  # client.droplet_actions.restore(droplet_id: 3067649, image: 12389723)
+
+  # Password Reset a Droplet
+  # client.droplet_actions.password_reset(droplet_id: 3164450)
+
+  # Resize a Droplet
+  # client.droplet_actions.resize(droplet_id: 3164450, size: '1gb')
+
+  # Rebuild a Droplet
+  # client.droplet_actions.rebuild(droplet_id: 3164450, image: 'ubuntu-16-04-x64')
+
+  # Rename a Droplet
+  # client.droplet_actions.rename(droplet_id: 3164450, name: 'nifty-new-name')
+
+  # Change the Kernel
+  # client.droplet_actions.change_kernel(droplet_id: 3164450, kernel: 991)
+
+  # Enable IPv6
+  # client.droplet_actions.enable_ipv6(droplet_id: 3164450)
+
+  # Enable Private Networking
+  # client.droplet_actions.enable_private_networking(droplet_id: 3164450)
+
+  # Snapshot a Droplet
+  # client.droplet_actions.snapshot(droplet_id: 3164450, name: 'Nifty New Snapshot')

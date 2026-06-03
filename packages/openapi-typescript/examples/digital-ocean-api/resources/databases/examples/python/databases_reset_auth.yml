@@ -1,0 +1,14 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "mysql_settings": {
+      "auth_plugin": "caching_sha2_password"
+    }
+  }
+
+  get_resp = client.databases.reset_auth(database_cluster_uuid="a7a8bas", username="admin", body=req)

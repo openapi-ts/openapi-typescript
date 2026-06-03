@@ -1,0 +1,26 @@
+{
+  "name": "@example/openapi-fetch-vue-3",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "preview": "vite preview",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --build --force",
+    "generate": "openapi-typescript src/schema/catfact.json -o src/generated/catfact.d.ts"
+  },
+  "dependencies": {
+    "openapi-fetch": "workspace:^",
+    "vue": "^3.5.27"
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.9",
+    "@vitejs/plugin-vue": "^5.2.4",
+    "@vue/tsconfig": "^0.5.1",
+    "openapi-typescript": "workspace:^",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vue-tsc": "^2.2.12"
+  }
+}

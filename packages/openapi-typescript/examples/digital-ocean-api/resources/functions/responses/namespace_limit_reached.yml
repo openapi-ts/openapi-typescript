@@ -1,0 +1,19 @@
+
+description: Limit Reached
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../../../shared/models/error.yml'
+    example:
+      id: unprocessable_entity
+      message: 'namespace limit reached'
+      request_id: a3275238-3d04-4405-a123-55c389b406c0

@@ -1,0 +1,47 @@
+description: To list all datacenter regions, send a GET request to `/v2/gen-ai/regions`.
+operationId: genai_list_datacenter_regions
+parameters:
+- description: Include datacenters that serve inference.
+  example: true
+  in: query
+  name: serves_inference
+  schema:
+    type: boolean
+- description: Include datacenters that are capable of running batch jobs.
+  example: true
+  in: query
+  name: serves_batch
+  schema:
+    type: boolean
+responses:
+  "200":
+    content:
+      application/json:
+        schema:
+          $ref: ./definitions.yml#/apiListRegionsOutput
+    description: A successful response.
+    headers:
+      ratelimit-limit:
+        $ref: ../../shared/headers.yml#/ratelimit-limit
+      ratelimit-remaining:
+        $ref: ../../shared/headers.yml#/ratelimit-remaining
+      ratelimit-reset:
+        $ref: ../../shared/headers.yml#/ratelimit-reset
+  "401":
+    $ref: ../../shared/responses/unauthorized.yml
+  "404":
+    $ref: ../../shared/responses/not_found.yml
+  "429":
+    $ref: ../../shared/responses/too_many_requests.yml
+  "500":
+    $ref: ../../shared/responses/server_error.yml
+  default:
+    $ref: ../../shared/responses/unexpected_error.yml
+security:
+- bearer_auth:
+  - genai:read
+summary: List Datacenter Regions
+tags:
+- GenAI Platform (Public Preview)
+x-codeSamples:
+- $ref: examples/curl/genai_list_datacenter_regions.yml

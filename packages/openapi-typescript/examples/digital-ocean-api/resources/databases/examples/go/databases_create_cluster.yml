@@ -1,0 +1,27 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      createRequest := &godo.DatabaseCreateRequest{
+          Name:       "backend",
+          EngineSlug: "pg",
+          Version:    "14",
+          Region:     "nyc3",
+          SizeSlug:   "db-s-2vcpu-4gb",
+          NumNodes:   2,
+          StorageSizeMiB : 61440,
+      }
+
+      cluster, _, err := client.Databases.Create(ctx, createRequest)
+  }

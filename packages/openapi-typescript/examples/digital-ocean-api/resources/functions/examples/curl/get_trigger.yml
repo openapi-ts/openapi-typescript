@@ -1,0 +1,5 @@
+lang: cURL
+source: |-
+  curl -X GET \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/functions/namespaces/{{namespace_id}}/triggers/{{trigger_name}}"

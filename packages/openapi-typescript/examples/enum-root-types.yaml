@@ -1,0 +1,21 @@
+openapi: 3.0.0
+info:
+  title: Enum Root Types Test
+  version: 1.0.0
+components:
+  schemas:
+    Status:
+      type: string
+      enum: [active, inactive, pending]
+    Priority:
+      type: number
+      enum: [1, 2, 3]
+    Item:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          $ref: '#/components/schemas/Status'
+        priority:
+          $ref: '#/components/schemas/Priority'

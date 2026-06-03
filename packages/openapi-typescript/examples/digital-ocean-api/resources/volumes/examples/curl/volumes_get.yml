@@ -1,0 +1,13 @@
+lang: cURL
+source: |-
+  # Retrieve an existing volume
+  curl -X GET \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/volumes/7724db7c-e098-11e5-b522-000f53304e51"
+
+  # Retrieve and existing volume by name
+  curl -X GET \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/volumes?name=example&region=nyc1"

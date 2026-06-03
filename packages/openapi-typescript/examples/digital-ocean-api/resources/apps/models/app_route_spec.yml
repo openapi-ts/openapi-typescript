@@ -1,0 +1,12 @@
+title: A criterion for routing HTTP traffic to a component.
+type: object
+properties:
+  path:
+    description: (Deprecated - Use Ingress Rules instead). An HTTP path prefix. Paths must start with / and must be unique across
+      all components within an app.
+    type: string
+    example: /api
+  preserve_path_prefix:
+    description: An optional flag to preserve the path that is forwarded to the backend service. By default, the HTTP request path will be trimmed from the left when forwarded to the component. For example, a component with `path=/api` will have requests to `/api/list` trimmed to `/list`. If this value is `true`, the path will remain `/api/list`.
+    type: boolean
+    example: true

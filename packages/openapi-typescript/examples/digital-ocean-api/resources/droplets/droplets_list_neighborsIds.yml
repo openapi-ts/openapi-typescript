@@ -1,0 +1,43 @@
+operationId: droplets_list_neighborsIds
+
+summary: List All Droplet Neighbors
+
+description: |
+  To retrieve a list of all Droplets that are co-located on the same physical
+  hardware, send a GET request to `/v2/reports/droplet_neighbors_ids`.
+
+  The results will be returned as a JSON object with a key of `neighbor_ids`.
+  This will be set to an array of arrays. Each array will contain a set of
+  Droplet IDs for Droplets that share a physical server. An empty array
+  indicates that all Droplets associated with your account are located on
+  separate physical hardware.
+
+tags:
+  - Droplets
+
+responses:
+  '200':
+    $ref: 'responses/droplet_neighbors_ids.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/droplets_list_neighborsIds.yml'
+  - $ref: 'examples/python/droplets_list_neighborsIds.yml'
+
+security:
+  - bearer_auth:
+    - 'droplet:read'

@@ -1,0 +1,55 @@
+operationId: droplets_destroy_withAssociatedResourcesSelective
+
+summary: Selectively Destroy a Droplet and its Associated Resources
+
+description: |
+  To destroy a Droplet along with a sub-set of its associated resources, send a
+  DELETE request to the `/v2/droplets/$DROPLET_ID/destroy_with_associated_resources/selective`
+  endpoint. The JSON body of the request should include `reserved_ips`, `snapshots`, `volumes`,
+  or `volume_snapshots` keys each set to an array of IDs for the associated
+  resources to be destroyed. The IDs can be found by querying the Droplet's
+  associated resources. Any associated resource not included in the request
+  will remain and continue to accrue changes on your account.
+
+  A successful response will include a 202 response code and no content. Use
+  the status endpoint to check on the success or failure of the destruction of
+  the individual resources.
+
+tags:
+  - Droplets
+
+parameters:
+  - $ref: 'parameters.yml#/droplet_id'
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        $ref: 'models/selective_destroy_associated_resource.yml'
+
+responses:
+  '202':
+    $ref: '../../shared/responses/accepted.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/droplets_destroy_withAssociatedResourcesSelective.yml'
+  - $ref: 'examples/python/droplets_destroy_withAssociatedResourcesSelective.yml'
+
+security:
+  - bearer_auth:
+    - 'droplet:delete'

@@ -1,0 +1,31 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "name": "frontend-pool",
+    "count": 3,
+    "tags": [
+      "k8s",
+      "k8s:bd5f5959-5e1e-4205-a714-a914373942af",
+      "k8s-worker",
+      "production",
+      "web-team"
+    ],
+    "labels": None,
+    "taints": [
+      {
+        "key": "priority",
+        "value": "high",
+        "effect": "NoSchedule"
+      }
+    ],
+    "auto_scale": True,
+    "min_nodes": 3,
+    "max_nodes": 6
+  }
+
+  resp = client.kubernetes.update_node_pool(cluster_id="1fd32a", node_pool_id="392fa3a", body=req)

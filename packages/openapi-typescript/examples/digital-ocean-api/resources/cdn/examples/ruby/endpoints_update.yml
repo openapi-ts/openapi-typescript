@@ -1,0 +1,7 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = '16f79fc8cd5adcfe528a0994311fa63cc877737b385b6ff7d12ed6684ba4fef5'
+  client = DropletKit::Client.new(access_token: token)
+
+  client.cdns.update_ttl(id: '19f06b6a-3ace-4315-b086-499a0e521b76', ttl: 1800)

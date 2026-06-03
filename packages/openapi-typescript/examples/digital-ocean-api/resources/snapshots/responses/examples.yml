@@ -1,0 +1,68 @@
+snapshots_all:
+  value:
+    snapshots:
+    - id: '6372321'
+      name: web-01-1595954862243
+      created_at: '2020-07-28T16:47:44Z'
+      regions:
+      - nyc3
+      - sfo3
+      resource_id: '200776916'
+      resource_type: droplet
+      min_disk_size: 25
+      size_gigabytes: 2.34
+      tags:
+      - web
+      - env:prod
+    - id: 'fbe805e8-866b-11e6-96bf-000f53315a41'
+      name: pvc-01-1595954862243
+      created_at: '2019-09-28T23:14:30Z'
+      regions:
+      - nyc1
+      resource_id: '89bcc42f-85cf-11e6-a004-000f53315871'
+      resource_type: volume
+      min_disk_size: 2
+      size_gigabytes: 0.1008
+      tags:
+      - k8s
+    links: {}
+    meta:
+      total: 2
+
+snapshots_droplets_only:
+  value:
+    snapshots:
+    - id: '6372321'
+      name: web-01-1595954862243
+      created_at: '2020-07-28T16:47:44Z'
+      regions:
+      - nyc3
+      - sfo3
+      resource_id: '200776916'
+      resource_type: droplet
+      min_disk_size: 25
+      size_gigabytes: 2.34
+      tags:
+      - web
+      - env:prod
+    links: {}
+    meta:
+      total: 1
+
+snapshots_volumes_only:
+  value:
+    snapshots:
+    - id: 'fbe805e8-866b-11e6-96bf-000f53315a41'
+      name: pvc-01-1595954862243
+      created_at: '2019-09-28T23:14:30Z'
+      regions:
+      - nyc1
+      resource_id: '89bcc42f-85cf-11e6-a004-000f53315871'
+      resource_type: volume
+      min_disk_size: 2
+      size_gigabytes: 0.1008
+      tags:
+      - k8s
+    links: {}
+    meta:
+      total: 1

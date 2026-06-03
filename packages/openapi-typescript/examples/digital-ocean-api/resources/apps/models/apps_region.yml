@@ -1,0 +1,47 @@
+properties:
+  continent:
+    readOnly: true
+    title: The continent that this region is in
+    type: string
+    example: europe
+  data_centers:
+    items:
+      type: string
+      example: "ams"
+    readOnly: true
+    title: Data centers that are in this region
+    type: array
+    example:
+      - ams
+  default:
+    description: Whether or not the region is presented as the default.
+    readOnly: true
+    type: boolean
+    example: true
+  disabled:
+    readOnly: true
+    title: Whether or not the region is open for new apps
+    type: boolean
+    example: true
+  flag:
+    readOnly: true
+    title: The flag of this region
+    type: string
+    example: ams
+  label:
+    readOnly: true
+    title: A human-readable name of the region
+    type: string
+    example: ams
+  reason:
+    readOnly: true
+    title: Reason that this region is not available
+    type: string
+    example: to crowded
+  slug:
+    readOnly: true
+    title: The slug form of the region name
+    type: string
+    example: basic
+title: Geographical information about an app origin
+type: object

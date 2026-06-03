@@ -1,0 +1,46 @@
+operationId: domains_create
+
+summary: Create a New Domain
+
+description: |
+  To create a new domain, send a POST request to `/v2/domains`. Set the "name"
+  attribute to the domain name you are adding. Optionally, you may set the
+  "ip_address" attribute, and an A record will be automatically created pointing
+  to the apex domain.
+
+tags:
+  - Domains
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        $ref: 'models/domain.yml'
+      example:
+        name: example.com
+
+responses:
+  '201':
+    $ref: 'responses/create_domain_response.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/domains_create.yml'
+  - $ref: 'examples/go/domains_create.yml'
+  - $ref: 'examples/ruby/domains_create.yml'
+  - $ref: 'examples/python/domains_create.yml'
+
+security:
+  - bearer_auth:
+    - 'domain:create'

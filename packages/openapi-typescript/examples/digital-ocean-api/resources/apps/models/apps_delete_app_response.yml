@@ -1,0 +1,6 @@
+properties:
+  id:
+    title: The ID of the app that was deleted
+    type: string
+    example: 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+type: object

@@ -1,0 +1,20 @@
+type: object
+
+properties:
+  kubernetes_cluster_user:
+    type: object
+    properties:
+
+      username:
+        type: string
+        format: email
+        example: sammy@digitalocean.com
+        description: The username for the cluster admin user.
+
+      groups:
+        type: array
+        items:
+          type: string
+        example:
+        - k8saas:authenticated
+        description: A list of in-cluster groups that the user belongs to.

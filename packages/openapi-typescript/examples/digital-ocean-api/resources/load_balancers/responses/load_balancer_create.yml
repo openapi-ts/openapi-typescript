@@ -1,0 +1,26 @@
+description: Accepted
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        load_balancer:
+          $ref: '../models/load_balancer.yml'
+
+    examples:
+      Basic Create Response:
+        $ref: 'examples.yml#/load_balancer_basic_response'
+      SSL Termination Create Response:
+        $ref: 'examples.yml#/load_balancer_ssl_termination_response'
+      Create Response Using Droplet Tag:
+        $ref: 'examples.yml#/load_balancer_using_tag_response'
+      Sticky Sessions and Custom Health Check:
+        $ref: 'examples.yml#/load_balancer_sticky_sessions_and_health_check_response'

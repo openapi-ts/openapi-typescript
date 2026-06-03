@@ -1,0 +1,59 @@
+description: A JSON object containing `snapshots`, `volumes`, and
+  `volume_snapshots` keys.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            reserved_ips:
+              type: array
+              items:
+                $ref: '../models/associated_resource.yml'
+            floating_ips:
+              type: array
+              items:
+                $ref: '../models/associated_resource.yml'
+            snapshots:
+              type: array
+              items:
+                $ref: '../models/associated_resource.yml'
+            volumes:
+              type: array
+              items:
+                $ref: '../models/associated_resource.yml'
+            volume_snapshots:
+              type: array
+              items:
+                $ref: '../models/associated_resource.yml'
+
+    example:
+      reserved_ips:
+      - id: '6186916'
+        name: 45.55.96.47
+        cost: '4.00'
+      floating_ips:
+      - id: '6186916'
+        name: 45.55.96.47
+        cost: '4.00'
+      snapshots:
+      - id: '61486916'
+        name: ubuntu-s-1vcpu-1gb-nyc1-01-1585758823330
+        cost: '0.05'
+      volumes:
+      - id: ba49449a-7435-11ea-b89e-0a58ac14480f
+        name: volume-nyc1-01
+        cost: '10.00'
+      volume_snapshots:
+      - id: edb0478d-7436-11ea-86e6-0a58ac144b91
+        name: volume-nyc1-01-1585758983629
+        cost: '0.04'

@@ -1,0 +1,45 @@
+operationId: sshKeys_create
+
+summary: Create a New SSH Key
+
+description: >-
+  To add a new SSH public key to your DigitalOcean account, send a POST request to `/v2/account/keys`.
+  Set the `name` attribute to the name you wish to use and the `public_key` attribute
+  to the full public key you are adding.
+
+tags:
+  - SSH Keys
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        $ref: 'models/sshKeys.yml'
+
+responses:
+  '201':
+    $ref: 'responses/sshKeys_new.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/sshKeys_create.yml'
+  - $ref: 'examples/go/sshKeys_create.yml'
+  - $ref: 'examples/ruby/sshKeys_create.yml'
+  - $ref: 'examples/python/sshKeys_create.yml'
+
+security:
+  - bearer_auth:
+    - 'ssh_key:create'

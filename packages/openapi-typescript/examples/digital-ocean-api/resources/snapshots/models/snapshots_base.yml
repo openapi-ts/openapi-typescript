@@ -1,0 +1,43 @@
+type: object
+
+properties:
+  name:
+    type: string
+    example: web-01-1595954862243
+    description: A human-readable name for the snapshot.
+
+  created_at:
+    type: string
+    format: date-time
+    example: "2020-07-28T16:47:44Z"
+    description: A time value given in ISO8601 combined date and time format
+      that represents when the snapshot was created.
+
+  regions:
+    type: array
+    items:
+      type: string
+    example:
+    - nyc3
+    - sfo3
+    description: An array of the regions that the snapshot is available in. The
+      regions are represented by their identifying slug values.
+
+  min_disk_size:
+    type: integer
+    example: 25
+    description: The minimum size in GB required for a volume or Droplet to use
+      this snapshot.
+
+  size_gigabytes:
+    type: number
+    format: float
+    example: 2.34
+    description: The billable size of the snapshot in gigabytes.
+
+required:
+  - name
+  - created_at
+  - regions
+  - min_disk_size
+  - size_gigabytes

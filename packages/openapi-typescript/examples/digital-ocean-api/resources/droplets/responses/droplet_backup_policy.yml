@@ -1,0 +1,32 @@
+description: |
+  The response will be a JSON object with a key called `policy`. This will be
+  set to a JSON object that contains the standard Droplet backup policy attributes.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        policy:
+          $ref: '../models/droplet_backup_policy_record.yml'
+
+    example:
+      policy:
+        droplet_id: 444909706
+        backup_enabled: true
+        backup_policy:
+          plan: "weekly"
+          weekday: "SUN"
+          hour: 20
+          window_length_hours: 4
+          retention_period_days: 28
+        next_backup_window:
+          start: "2024-09-15T20:00:00Z"
+          end: "2024-09-16T00:00:00Z"

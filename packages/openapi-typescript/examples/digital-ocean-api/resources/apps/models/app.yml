@@ -1,0 +1,91 @@
+description: An application's configuration and status.
+properties:
+  active_deployment:
+    $ref: apps_deployment.yml
+  created_at:
+    format: date-time
+    readOnly: true
+    title: The creation time of the app
+    type: string
+    example: 2020-11-19T20:27:18Z
+  default_ingress:
+    readOnly: true
+    title: The default hostname on which the app is accessible
+    type: string
+    example: digitalocean.com
+  domains:
+    items:
+      $ref: apps_domain.yml
+    readOnly: true
+    title: Contains all domains for the app
+    type: array
+  id:
+    readOnly: true
+    title: The ID of the application
+    type: string
+    example: 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+  in_progress_deployment:
+    $ref: apps_deployment.yml
+  last_deployment_created_at:
+    format: date-time
+    readOnly: true
+    title: The creation time of the last deployment
+    type: string
+    example: 2020-11-19T20:27:18Z
+  live_domain:
+    readOnly: true
+    title: The live domain of the app
+    type: string
+    example: live_domain
+  live_url:
+    readOnly: true
+    title: The live URL of the app
+    type: string
+    example: google.com
+  live_url_base:
+    readOnly: true
+    title: The live URL base of the app, the URL excluding the path
+    type: string
+    example: digitalocean.com
+  owner_uuid:
+    readOnly: true
+    title: The ID of the account to which the application belongs
+    type: string
+    example: 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+  pending_deployment:
+    allOf:
+      - description: The most recent pending deployment. For CreateApp and UpdateApp transactions this is guaranteed to reflect the associated deployment.
+      - $ref: apps_deployment.yml
+  project_id:
+    readOnly: true
+    type: string
+    example: 88b72d1a-b78a-4d9f-9090-b53c4399073f
+    title: The ID of the project the app is assigned to. This will be empty if there is a lookup failure.
+  region:
+    $ref: apps_region.yml
+  spec:
+    $ref: app_spec.yml
+  tier_slug:
+    readOnly: true
+    title: The current pricing tier slug of the app
+    type: string
+    example: basic
+  updated_at:
+    format: date-time
+    readOnly: true
+    title: Time of the app's last configuration update
+    type: string
+    example: 2020-12-01T00:42:16Z
+  pinned_deployment:
+    allOf:
+      - description: The deployment that the app is pinned to.
+      - $ref: apps_deployment.yml
+  dedicated_ips:
+    readOnly: true
+    title: The dedicated egress IP addresses associated with the app.
+    type: array
+    items:
+      $ref: apps_dedicated_egress_ip.yml
+required:
+- spec
+type: object

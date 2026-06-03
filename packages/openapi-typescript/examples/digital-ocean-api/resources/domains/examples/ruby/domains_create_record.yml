@@ -1,0 +1,12 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  record = DropletKit::DomainRecord.new(
+    type: 'A',
+    name: 'www',
+    data: '162.10.66.0'
+  )
+  client.domain_records.create(record, for_domain: 'example.com')

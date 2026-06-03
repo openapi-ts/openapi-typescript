@@ -1,0 +1,46 @@
+operationId: tags_create
+
+summary: Create a New Tag
+
+description: To create a tag you can send a POST request to `/v2/tags` with a `name` attribute.
+
+tags:
+  - Tags
+
+requestBody:
+
+  required: true
+
+  content:
+    application/json:
+      schema:
+        $ref: 'models/tags.yml'
+
+responses:
+  '201':
+    $ref: 'responses/tags_new.yml'
+
+  '400':
+    $ref: 'responses/tags_bad_request.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/tags_create.yml'
+  - $ref: 'examples/go/tags_create.yml'
+  - $ref: 'examples/ruby/tags_create.yml'
+  - $ref: 'examples/python/tags_create.yml'
+
+security:
+  - bearer_auth:
+    - 'tag:create'

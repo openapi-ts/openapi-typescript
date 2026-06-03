@@ -1,0 +1,25 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      createRequest := &godo.KubernetesNodePoolCreateRequest{
+          Name:  "pool-02",
+          Size:  "s-2vcpu-4gb",
+          Count: 1,
+          Tags:  []string{"web"},
+          Labels:  map[string]string{"service": "web", "priority": "high"},
+      }
+
+      nodePool, _, err := client.Kubernetes.CreateNodePool(ctx, "bd5f5959-5e1e-4205-a714-a914373942af", createRequest)
+  }

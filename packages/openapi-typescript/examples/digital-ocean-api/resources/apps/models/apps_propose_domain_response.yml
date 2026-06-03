@@ -1,0 +1,16 @@
+properties:
+  app_domain:
+    $ref: propose_domain_response_app_domain.yml
+  do_domain_records:
+    items:
+      $ref: propose_domain_response_do_domain_record.yml
+    type: array
+  nameservers:
+    items:
+      type: string
+      example: name server
+    type: array
+  zone:
+    type: string
+    example: zone
+type: object

@@ -1,0 +1,44 @@
+openapi: 3.1.0
+info:
+  title: openapi-fetch
+  version: "1.0"
+paths:
+  /resources:
+    put:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+      responses:
+        "200":
+          description: OK
+          operationId: createResource
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Resource"
+components:
+  schemas:
+    Resource:
+      type: object
+      required:
+        - id
+        - name
+        - created_at
+        - updated_at
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string

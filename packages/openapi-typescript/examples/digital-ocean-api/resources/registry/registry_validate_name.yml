@@ -1,0 +1,49 @@
+operationId: registry_validate_name
+
+summary: Validate a Container Registry Name
+
+description: |
+  To validate that a container registry name is available for use, send a POST
+  request to `/v2/registry/validate-name`.
+
+  If the name is both formatted correctly and available, the response code will
+  be 204 and contain no body. If the name is already in use, the response will
+  be a 409 Conflict.
+
+tags:
+  - Container Registry
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        $ref: 'models/validate_registry.yml'
+
+responses:
+  '204':
+    $ref: '../../shared/responses/no_content.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '409':
+    $ref: '../../shared/responses/conflict.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/registry_validate_name.yml'
+  - $ref: 'examples/python/registry_validate_name.yml'
+
+security:
+  - bearer_auth:
+    - 'registry:create'

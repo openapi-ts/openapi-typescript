@@ -1,0 +1,12 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "name": "big-data-snapshot1475261774"
+  }
+
+  resp = client.volume_snapshots.list(snapshot_id="da3aa3a")

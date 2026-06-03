@@ -1,0 +1,41 @@
+operationId: functions_list_triggers
+
+summary: List Triggers
+
+description: >-
+  Returns a list of triggers associated with the current user and namespace.
+  To get all triggers, send a GET request to `/v2/functions/namespaces/$NAMESPACE_ID/triggers`.
+
+parameters:
+  - $ref: 'parameters.yml#/namespace_id'
+
+tags:
+  - Functions
+
+responses:
+  '200':
+    $ref: 'responses/list_triggers.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: 'responses/namespace_not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/list_triggers.yml'
+  - $ref: 'examples/python/list_triggers.yml'
+
+security:
+  - bearer_auth:
+    - 'function:read'
+    - 'function:admin'

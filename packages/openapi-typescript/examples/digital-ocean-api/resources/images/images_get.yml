@@ -1,0 +1,62 @@
+operationId: images_get
+
+summary: Retrieve an Existing Image
+
+description: |
+  To retrieve information about an image, send a `GET` request to
+  `/v2/images/$IDENTIFIER`.
+
+tags:
+  - Images
+
+parameters:
+  - in: path
+    name: image_id
+    description: |
+      A unique number (id) or string (slug) used to identify and reference a
+      specific image.
+
+      **Public** images can be identified by image `id` or `slug`.
+
+      **Private** images *must* be identified by image `id`.
+    required: true
+    schema:
+      anyOf:
+        - type: integer
+        - type: string
+    examples:
+      byId:
+        summary: Retrieve a public or private image by id
+        value: 62137902
+      bySlug:
+        summary: Retrieve a public image by slug
+        value: ubuntu-16-04-x64
+
+responses:
+  '200':
+    $ref: 'responses/existing_image.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/images_get.yml'
+  - $ref: 'examples/go/images_get.yml'
+  - $ref: 'examples/ruby/images_get.yml'
+  - $ref: 'examples/python/images_get.yml'
+
+security:
+  - bearer_auth:
+    - 'image:read'

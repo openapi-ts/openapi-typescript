@@ -1,0 +1,24 @@
+type: object
+
+properties:
+  droplet_id:
+    type: integer
+    example: 7101383
+    description: The unique identifier for the Droplet.
+
+  backup_enabled:
+    type: boolean
+    example: true
+    description: A boolean value indicating whether backups are enabled for the
+      Droplet.
+
+  backup_policy:
+    allOf:
+      - $ref: 'droplet_backup_policy.yml'
+      - description: An object specifying the backup policy for the Droplet.
+
+  next_backup_window:
+    allOf:
+    - $ref: 'droplet_next_backup_window.yml'
+    - description: An object containing keys with the start and end times of the
+        window during which the backup will occur.

@@ -1,0 +1,23 @@
+description: Bad Request
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+  x-request-id:
+    $ref: '../../../shared/headers.yml#/x-request-id'
+
+content:
+  application/json:
+    schema:
+      $ref: '../../../shared/models/error_with_root_causes.yml'
+    examples:
+      InvalidCharacters:
+        value:
+          error: 'Error validating resource tag: \"tag-name \\\"здорово\\\" contains invalid characters\"'
+          messages: null
+          root_causes:
+            - 'rpc error: code = InvalidArgument desc = Error validating resource tag: \"tag-name \\\"здорово\\\" contains invalid characters\"'

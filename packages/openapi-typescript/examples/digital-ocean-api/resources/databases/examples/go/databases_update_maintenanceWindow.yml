@@ -1,0 +1,22 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      maintenanceRequest := &godo.DatabaseUpdateMaintenanceRequest{
+          Day:  "thursday",
+          Hour: "16:00",
+      }
+
+      _, err := client.Databases.UpdateMaintenance(ctx, "88055188-9e54-4f21-ab11-8a918ed79ee2", maintenanceRequest)
+  }

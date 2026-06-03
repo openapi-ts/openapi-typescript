@@ -1,0 +1,30 @@
+type: object
+
+properties:
+  ttl:
+    type: integer
+    example: 3600
+    enum:
+    - 60
+    - 600
+    - 3600
+    - 86400
+    - 604800
+    default: 3600
+    description: The amount of time the content is cached by the CDN's edge
+      servers in seconds. TTL must be one of 60, 600, 3600, 86400, or 604800.
+      Defaults to 3600 (one hour) when excluded.
+
+  certificate_id:
+    type: string
+    format: uuid
+    example: 892071a0-bb95-49bc-8021-3afd67a210bf
+    description: The ID of a DigitalOcean managed TLS certificate used for SSL
+      when a custom subdomain is provided.
+
+  custom_domain:
+    type: string
+    format: hostname
+    example: static.example.com
+    description: The fully qualified domain name (FQDN) of the custom subdomain
+      used with the CDN endpoint.

@@ -1,0 +1,49 @@
+allOf:
+- $ref: app_component_base.yml
+
+- type: object
+  properties:
+    index_document:
+      type: string
+      description: 'The name of the index document to use when serving this static site. Default:
+        index.html'
+      default: index.html
+      example: main.html
+
+    error_document:
+      type: string
+      description: 'The name of the error document to use when serving this static site.
+        Default: 404.html. If no such file exists within the built assets, App Platform
+        will supply one.'
+      default: 404.html
+      example: error.html
+
+    catchall_document:
+      type: string
+      description: The name of the document to use as the fallback for any requests
+        to documents that are not found when serving this static site. Only 1 of `catchall_document`
+        or `error_document` can be set.
+      example: index.html
+
+    output_dir:
+      type: string
+      description: 'An optional path to where the built assets will be located, relative
+        to the build context. If not set, App Platform will automatically scan for these
+        directory names: `_static`, `dist`, `public`, `build`.'
+      example: dist/
+
+    cors:
+      allOf:
+        - $ref: apps_cors_policy.yml
+        - description: (Deprecated - Use Ingress Rules instead).
+        - deprecated: true
+
+    routes:
+      type: array
+      items:
+        $ref: app_route_spec.yml
+      description: (Deprecated - Use Ingress Rules instead). A list of HTTP routes that should be routed to this component.
+      deprecated: true
+
+required:
+- name

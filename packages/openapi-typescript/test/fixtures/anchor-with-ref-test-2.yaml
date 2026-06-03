@@ -1,0 +1,14 @@
+openapi: "3.0"
+info:
+  title: test
+  version: "1.0"
+paths:
+  /:
+    get:
+      responses:
+        200:
+          description: OK
+components:
+  schemas:
+    obj:
+      $ref: './anchor-with-ref-test.yaml#/components/schemas/anchorTest'

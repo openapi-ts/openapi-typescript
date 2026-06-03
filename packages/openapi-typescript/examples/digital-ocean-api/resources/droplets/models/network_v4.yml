@@ -1,0 +1,31 @@
+type: object
+
+properties:
+  ip_address:
+    type: string
+    format: ipv4
+    example: 104.236.32.182
+    description: The IP address of the IPv4 network interface.
+
+  netmask:
+    type: string
+    format: ipv4
+    example: 255.255.192.0
+    description: The netmask of the IPv4 network interface.
+
+  gateway:
+    type: string
+    example: 104.236.0.1
+    description: |
+      The gateway of the specified IPv4 network interface.
+
+      For private interfaces, a gateway is not provided. This is denoted by
+      returning `nil` as its value.
+
+  type:
+    type: string
+    enum:
+    - public
+    - private
+    example: public
+    description: The type of the IPv4 network interface.

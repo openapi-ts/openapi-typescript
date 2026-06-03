@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name": "ubuntu-18.04-minimal", "url": "http://cloud-images.ubuntu.com/minimal/releases/bionic/release/ubuntu-18.04-minimal-cloudimg-amd64.img", "distribution": "Ubuntu", "region": "nyc3", "description": "Cloud-optimized image w/ small footprint", "tags":["base-image", "prod"]}' \
+    "https://api.digitalocean.com/v2/images"

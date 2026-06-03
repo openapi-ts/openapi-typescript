@@ -1,0 +1,39 @@
+operationId: apps_cancel_deployment
+
+summary: Cancel a Deployment
+
+description: Immediately cancel an in-progress deployment.
+
+tags:
+- Apps
+
+parameters:
+  - $ref: parameters.yml#/app_id
+  - $ref: parameters.yml#/deployment_id
+
+responses:
+  "200":
+    $ref: responses/cancel_deployment.yml
+
+  "401":
+    $ref: ../../shared/responses/unauthorized.yml
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  "429":
+    $ref: "../../shared/responses/too_many_requests.yml"
+
+  "500":
+    $ref: ../../shared/responses/server_error.yml
+
+  default:
+    $ref: ../../shared/responses/unexpected_error.yml
+
+x-codeSamples:
+  - $ref: 'examples/curl/apps_cancel_deployment.yml'
+  - $ref: 'examples/python/apps_cancel_deployment.yml'
+
+security:
+  - bearer_auth:
+    - 'app:update'

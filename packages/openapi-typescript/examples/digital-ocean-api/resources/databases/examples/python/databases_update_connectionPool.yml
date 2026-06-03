@@ -1,0 +1,15 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+      "mode": "transaction",
+      "size": 10,
+      "db": "defaultdb",
+      "user": "doadmin"
+  }
+
+  update_resp = client.databases.update_connection_pool(database_cluster_uuid="a7a8bas", pool_name="conn_pool", body=req)

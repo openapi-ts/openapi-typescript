@@ -1,0 +1,49 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      updateRequest := &godo.FirewallRequest{
+          Name: 'firewall',
+          InboundRules: []godo.InboundRule{
+              {
+                  Protocol: 'tcp',
+                  PortRange: '8080',
+                  Sources: &godo.Sources{
+                      LoadBalancerUIDs: []string{'4de7ac8b-495b-4884-9a69-1050c6793cd6'},
+                  },
+              },
+              {
+                  Protocol:  'tcp',
+                  PortRange: '22',
+                  Sources: &godo.Sources{
+                      Addresses: []string{'18.0.0.0/8'},
+                      Tags: []string{'gateway'},
+                  },
+              },
+          },
+          OutboundRules: []godo.OutboundRule{
+              {
+                  Protocol: 'tcp',
+                  PortRange: '8080',
+                  Destinations: &godo.Destinations{
+                      Addresses: []string{'0.0.0.0/0', '::/0'},
+                  },
+              },
+          },
+          DropletIDs: []int{8043964},
+          Tags: []string{'frontend'}
+      }
+
+      firewall, req, err := client.Firewalls.Create(ctx, 'bb4b2611-3d72-467b-8602-280330ecd65c', updateRequest)
+  }

@@ -1,0 +1,7 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  client.volumes.create_snapshot(id: "82a48a18-873f-11e6-96bf-000f53315a41", name: "big-data-snapshot1475261774")

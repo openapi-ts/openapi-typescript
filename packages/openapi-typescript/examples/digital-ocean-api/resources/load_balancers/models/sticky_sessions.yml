@@ -1,0 +1,28 @@
+type: object
+
+description: An object specifying sticky sessions settings for the load balancer.
+
+properties:
+  type:
+    type: string
+    enum:
+    - cookies
+    - none
+    example: cookies
+    default: none
+    description: An attribute indicating how and if requests from a client will
+      be persistently served by the same backend Droplet. The possible values
+      are `cookies` or `none`.
+
+  cookie_name:
+    type: string
+    example: DO-LB
+    description: The name of the cookie sent to the client. This attribute is
+      only returned when using `cookies` for the sticky sessions type.
+
+  cookie_ttl_seconds:
+    type: integer
+    example: 300
+    description: The number of seconds until the cookie set by the load balancer
+      expires. This attribute is only returned when using `cookies` for the
+      sticky sessions type.

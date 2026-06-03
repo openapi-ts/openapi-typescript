@@ -1,0 +1,27 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "name": "Landing page degraded performance",
+    "type": "latency",
+    "threshold": 300,
+    "comparison": "greater_than",
+    "notifications": {
+      "email": [
+        "bob@example.com"
+      ],
+      "slack": [
+        {
+          "channel": "Production Alerts",
+          "url": "https://hooks.slack.com/services/T1234567/AAAAAAAA/ZZZZZZ"
+        }
+      ]
+    },
+    "period": "2m"
+  }
+
+  resp = client.uptime.alert_create(check_id="4de7ac8b", body=req)

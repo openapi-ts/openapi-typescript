@@ -1,0 +1,27 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      // Transfer an existing image
+      transferRequest := &godo.ActionRequest{
+          "type":   "transfer",
+          "region": "nyc2",
+      }
+    # Transfer an Image
+      transfer, _, err := client.ImageActions.Transfer(ctx, 7938269, transferRequest)
+
+    # Convert an Image to a Snapshot
+    # client.image_actions.convert(image_id: 7938269)
+
+  }

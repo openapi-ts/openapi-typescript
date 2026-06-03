@@ -1,0 +1,21 @@
+type: object
+properties:
+  name:
+    type: string
+    maxLength: 42
+    minLength: 2
+    pattern: >-
+      ^[A-Za-z0-9()\[\]'"][-A-Za-z0-9_.
+      \/()\[\]]{0,40}[A-Za-z0-9()\[\]'"]$
+    example: my_log_destination
+  papertrail:
+    $ref: app_log_destination_papertrail_spec.yml
+  datadog:
+    $ref: app_log_destination_datadog_spec.yml
+  logtail:
+    $ref: app_log_destination_logtail_spec.yml
+  open_search:
+    $ref: app_log_destination_open_search_spec.yml
+title: Configurations for external logging.
+required:
+  - name

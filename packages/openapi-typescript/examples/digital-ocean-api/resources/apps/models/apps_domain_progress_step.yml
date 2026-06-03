@@ -1,0 +1,25 @@
+properties:
+  ended_at:
+    format: date-time
+    title: The end time of this step
+    type: string
+    example: 2020-12-01T00:42:16Z
+  name:
+    title: The name of this step
+    type: string
+    example: First Step!
+  reason:
+    $ref: apps_domain_progress_step_reason.yml
+  started_at:
+    format: date-time
+    title: The start time of this step
+    type: string
+    example: 2020-12-01T00:42:16Z
+  status:
+    $ref: apps_domain_progress_step_status.yml
+  steps:
+    items:
+      $ref: apps_domain_progress_step.yml
+    title: Child steps of this step
+    type: array
+type: object

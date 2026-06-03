@@ -1,0 +1,17 @@
+type: object
+required:
+  - slack
+  - email
+properties:
+  email:
+    description: "An email to notify on an alert trigger."
+    example:
+      - "bob@exmaple.com"
+    type: array
+    items:
+      type: string
+  slack:
+    type: array
+    description: "Slack integration details."
+    items:
+      $ref: 'slack_details.yml'

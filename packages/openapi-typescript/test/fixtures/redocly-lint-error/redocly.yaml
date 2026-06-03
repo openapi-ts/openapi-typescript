@@ -1,0 +1,8 @@
+extends:
+  - recommended
+
+apis:
+  a@v1:
+    root: ./openapi/openapi.yaml
+    x-openapi-ts:
+      output: ./output/openapi.ts

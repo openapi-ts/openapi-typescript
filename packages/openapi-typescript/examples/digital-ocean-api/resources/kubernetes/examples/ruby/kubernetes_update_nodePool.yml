@@ -1,0 +1,14 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  node_pool = DropletKit::KubernetesNodePool.new(
+    name: 'frontend',
+    count: 1,
+    tags: ['frontend']
+    labels: {service: 'frontend', priority: 'high'}
+  )
+
+  client.kubernetes_clusters.update_node_pool(node_pool, id: 'bd5f5959-5e1e-4205-a714-a914373942af', pool_id: '86c9bc8c-b2c3-4d40-8000-b0c7bee27305')

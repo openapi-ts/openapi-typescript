@@ -1,0 +1,13 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  volume = DropletKit::Volume.new(
+    size_gigabytes: 10,
+    name: 'Example',
+    description: 'Block store for examples',
+    region: 'nyc1'
+  )
+  client.volumes.create(volume)

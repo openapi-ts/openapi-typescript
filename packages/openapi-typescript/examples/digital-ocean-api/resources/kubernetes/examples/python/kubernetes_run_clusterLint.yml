@@ -1,0 +1,26 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "include_groups": [
+      "basic",
+      "doks",
+      "security"
+    ],
+    "include_checks": [
+      "bare-pods",
+      "resource-requirements"
+    ],
+    "exclude_groups": [
+      "workload-health"
+    ],
+    "exclude_checks": [
+      "default-namespace"
+    ]
+  }
+
+  resp = client.kubernetes.run_cluster_lint(cluster_id="1fd32a", body=req)

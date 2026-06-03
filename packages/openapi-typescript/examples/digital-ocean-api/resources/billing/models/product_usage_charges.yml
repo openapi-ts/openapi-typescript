@@ -1,0 +1,25 @@
+type: object
+
+properties:
+  name: 
+    type: string
+    description: Description of usage charges
+    example: 'Product usage charges'
+  
+  amount: 
+    type: string
+    description: Total amount charged
+    example: '12.34'
+  
+  items:
+    type: array
+    description: List of amount, and grouped aggregates by resource type.
+    items:
+      $ref: 'product_charge_item.yml'
+    example: 
+      - amount: '10.00'
+        name: Spaces Subscription
+        count: '1'
+      - amount: '2.34'
+        name: Database Clusters
+        count: '1'

@@ -1,0 +1,43 @@
+type: object
+
+properties:
+  app_is_static:
+    type: boolean
+    description: Indicates whether the app is a static app.
+    example: true
+
+  app_name_available:
+    type: boolean
+    description: Indicates whether the app name is available.
+    example: true
+
+  app_name_suggestion:
+    type: string
+    description: The suggested name if the proposed app name is unavailable.
+    example: newName
+
+  existing_static_apps:
+    type: string
+    description: The maximum number of free static apps the account can have.
+      We will charge you for any additional static apps.
+    example: '2'
+
+  spec:
+    $ref: app_spec.yml
+
+  app_cost:
+    type: integer
+    format: int32
+    description: The monthly cost of the proposed app in USD.
+    example: 5
+
+  app_tier_downgrade_cost:
+    type: integer
+    format: int32
+    description: The monthly cost of the proposed app in USD using the previous
+      pricing plan tier. For example, if you propose an app that uses the
+      Professional tier, the `app_tier_downgrade_cost` field displays the
+      monthly cost of the app if it were to use the Basic tier. If the proposed
+      app already uses the lest expensive tier, the field is empty.
+    example: 17
+    deprecated: true

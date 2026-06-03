@@ -1,0 +1,60 @@
+openapi: "3.0"
+info:
+  title: test
+  version: "1.0"
+paths:
+  /endpoint:
+    parameters:
+      - in: path
+        name: local_param_a
+        schema:
+          type: string
+        required: true
+      - $ref: "#/components/parameters/local_ref_a"
+      - $ref: "#/components/parameters/local_ref_override"
+      - $ref: "./_parameters-test-partial.yaml#/remote_ref_a"
+      - $ref: "./_parameters-test-partial.yaml#/remote_ref_override"
+    get:
+      description: OK
+      parameters:
+        - in: path
+          name: local_param_a
+          schema:
+            type: number
+          description: This overrides parameters
+          required: true
+        - in: query
+          name: local_ref_override
+          description: This overrides parameters with local $ref
+          schema:
+            type: string
+        - in: query
+          name: remote_ref_override
+          description: This overrides parameters with remote $ref
+          schema:
+            type: string
+        - $ref: "#/components/parameters/local_ref_b"
+        - $ref: "./_parameters-test-partial.yaml#/remote_ref_b"
+  /endpoint2:
+    parameters: 
+      - $ref: "#/paths/~1endpoint/get/parameters/0"
+components:
+  parameters:
+    local_ref_a:
+      in: path
+      name: local_ref_a
+      schema:
+        type: string
+      required: true
+    local_ref_b:
+      in: path
+      name: local_ref_b
+      schema:
+        type: string
+      required: true
+    local_ref_override:
+      in: query
+      name: local_ref_override
+      schema:
+        type: string
+      required: true

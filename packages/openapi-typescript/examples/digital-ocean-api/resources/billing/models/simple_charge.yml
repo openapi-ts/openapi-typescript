@@ -1,0 +1,11 @@
+type: object
+
+properties:
+  name:
+    type: string
+    description: Name of the charge
+    example: Overages
+  amount:
+    type: string
+    description: Total amount charged in USD
+    example: '3.45'

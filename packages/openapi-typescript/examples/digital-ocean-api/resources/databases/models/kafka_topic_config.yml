@@ -1,0 +1,226 @@
+type: object
+properties:
+  cleanup_policy:
+    type: string
+    enum:
+      - delete
+      - compact
+      - compact_delete
+    example: delete
+    default: delete
+    description: >-
+      The cleanup_policy sets the retention policy to use on log segments.
+      'delete' will discard old segments when retention time/size limits
+      are reached. 'compact' will enable log compaction, resulting in
+      retention of the latest value for each key.
+  compression_type:
+    type: string
+    enum:
+      - producer
+      - gzip
+      - snappy
+      - Iz4
+      - zstd
+      - uncompressed
+    example: producer
+    default: producer
+    description: The compression_type specifies the compression type of the topic.
+  delete_retention_ms:
+    type: integer
+    example: 86400000
+    default: 86400000
+    description: >-
+      The delete_retention_ms specifies how long (in ms) to retain delete
+      tombstone markers for topics.
+  file_delete_delay_ms:
+    type: integer
+    example: 60000
+    default: 60000
+    description: >-
+      The file_delete_delay_ms specifies the time (in ms) to wait before
+      deleting a file from the filesystem.
+  flush_messages:
+    type: integer
+    example: 9223372036854776000
+    default: 9223372036854776000
+    description: >-
+      The flush_messages specifies the number of messages to accumulate on
+      a log partition before messages are flushed to disk.
+  flush_ms:
+    type: integer
+    example: 9223372036854776000
+    default: 9223372036854776000
+    description: >-
+      The flush_ms specifies the maximum time (in ms) that a message is
+      kept in memory before being flushed to disk.
+  index_interval_bytes:
+    type: integer
+    example: 4096
+    default: 4096
+    description: >-
+      The index_interval_bytes specifies the number of bytes between
+      entries being added into te offset index.
+  max_compaction_lag_ms:
+    type: integer
+    example: 9223372036854776000
+    default: 9223372036854776000
+    description: >-
+      The max_compaction_lag_ms specifies the maximum amount of time (in
+      ms) that a message will remain uncompacted. This is only applicable
+      if the logs are have compaction enabled.
+  max_message_bytes:
+    type: integer
+    example: 1048588
+    default: 1048588
+    description: >-
+      The max_messages_bytes specifies the largest record batch size (in
+      bytes) that can be sent to the server.  This is calculated after
+      compression if compression is enabled.
+  message_down_conversion_enable:
+    type: boolean
+    example: true
+    default: true
+    description: >-
+      The message_down_conversion_enable specifies whether down-conversion
+      of message formats is enabled to satisfy consumer requests. When
+      'false', the broker will not perform conversion for consumers
+      expecting older message formats. The broker will respond with an
+      `UNSUPPORTED_VERSION` error for consume requests from these older
+      clients.
+  message_format_version:
+    type: string
+    example: 3.0-IV1
+    enum:
+      - 0.8.0
+      - 0.8.1
+      - 0.8.2
+      - 0.9.0
+      - 0.10.0-IV0
+      - 0.10.0-IV1
+      - 0.10.1-IV0
+      - 0.10.1-IV1
+      - 0.10.1-IV2
+      - 0.10.2-IV0
+      - 0.11.0-IV0
+      - 0.11.0-IV1
+      - 0.11.0-IV2
+      - 1.0-IV0
+      - 1.1-IV0
+      - 2.0-IV0
+      - 2.0-IV1
+      - 2.1-IV0
+      - 2.1-IV1
+      - 2.1-IV2
+      - 2.2-IV0
+      - 2.2-IV1
+      - 2.3-IV0
+      - 2.3-IV1
+      - 2.4-IV0
+      - 2.4-IV1
+      - 2.5-IV0
+      - 2.6-IV0
+      - 2.7-IV0
+      - 2.7-IV1
+      - 2.7-IV2
+      - 2.8-IV0
+      - 2.8-IV1
+      - 3.0-IV0
+      - 3.0-IV1
+      - 3.1-IV0
+      - 3.2-IV0
+      - 3.3-IV0
+      - 3.3-IV1
+      - 3.3-IV2
+      - 3.3-IV3
+    default: 3.0-IV1
+    description: >-
+      The message_format_version specifies the message format version used
+      by the broker to append messages to the logs. The value of this
+      setting is assumed to be 3.0-IV1 if the broker protocol version is
+      3.0 or higher. By setting a  particular message format version, all
+      existing messages on disk must be smaller or equal to the specified
+      version.
+  message_timestamp_type:
+    type: string
+    example: create_time
+    enum:
+      - create_time
+      - log_append_time
+    default: create_time
+    description: >-
+      The message_timestamp_type specifies whether to use the message
+      create time or log append time as the timestamp on a message.
+  min_cleanable_dirty_ratio:
+    type: number
+    format: float
+    default: 0.5
+    example: 0.5
+    minimum: 0
+    maximum: 1
+    description: >-
+      The min_cleanable_dirty_ratio specifies the frequency of log
+      compaction (if enabled) in relation to duplicates present in the
+      logs. For example, at 0.5, at most 50% of the log could be
+      duplicates before compaction would begin.
+  min_compaction_lag_ms:
+    type: integer
+    example: 0
+    default: 0
+    description: >-
+      The min_compaction_lag_ms specifies the minimum time (in ms) that a
+      message will remain uncompacted in the log. Only relevant if log
+      compaction is enabled.
+  min_insync_replicas:
+    type: integer
+    example: 1
+    default: 1
+    minimum: 1
+    description: >-
+      The min_insync_replicas specifies the number of replicas that must
+      ACK a write for the write to be considered successful.
+  preallocate:
+    type: boolean
+    example: false
+    default: false
+    description: >-
+      The preallocate specifies whether a file should be preallocated on
+      disk when creating a new log segment.
+  retention_bytes:
+    type: integer
+    example: 1000000
+    default: -1
+    description: >-
+      The retention_bytes specifies the maximum size of the log (in bytes)
+      before deleting messages. -1 indicates that there is no limit.
+  retention_ms:
+    type: integer
+    example: 604800000
+    default: 604800000
+    description: >-
+      The retention_ms specifies the maximum amount of time (in ms) to
+      keep a message before deleting it.
+  segment_bytes:
+    type: integer
+    example: 209715200
+    default: 209715200
+    minimum: 14
+    description: >-
+      The segment_bytes specifies the maximum size of a single log file
+      (in bytes).
+  segment_jitter_ms:
+    type: integer
+    example: 0
+    default: 0
+    description: >-
+      The segment_jitter_ms specifies the maximum random jitter subtracted
+      from the scheduled segment roll time to avoid thundering herds of
+      segment rolling.
+  segment_ms:
+    type: integer
+    example: 604800000
+    default: 604800000
+    minimum: 1
+    description: >-
+      The segment_ms specifies the period of time after which the log will
+      be forced to roll if the segment file isn't full. This ensures that
+      retention can delete or compact old data.

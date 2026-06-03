@@ -1,0 +1,19 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      pat := "mytoken"
+
+      client := godo.NewFromToken(pat)
+      ctx := context.TODO()
+
+      resizeRequest := &godo.DatabaseResizeRequest{
+          SizeSlug: "db-s-4vcpu-8gb",
+          NumNodes: 3,
+          StorageSizeMib: 163840,
+      }
+  }

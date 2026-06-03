@@ -1,0 +1,21 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      recycleRequest := &godo.KubernetesNodePoolRecycleNodesRequest{
+          Nodes: []string{"3385619f-8ec3-42ba-bb23-8d21b8ba7518", "4b8f60ff-ba06-4523-a6a4-b8148244c7e6"},
+      }
+
+      _, err := client.Kubernetes.RecycleNodePoolNodes(ctx, "bd5f5959-5e1e-4205-a714-a914373942af", "86c9bc8c-b2c3-4d40-8000-b0c7bee27305", recycleRequest)
+  }

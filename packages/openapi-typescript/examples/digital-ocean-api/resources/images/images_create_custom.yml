@@ -1,0 +1,46 @@
+operationId: images_create_custom
+
+summary: Create a Custom Image
+
+description: |
+  To create a new custom image, send a POST request to /v2/images.
+  The body must contain a url attribute pointing to a Linux virtual machine
+  image to be imported into DigitalOcean.
+  The image must be in the raw, qcow2, vhdx, vdi, or vmdk format.
+  It may be compressed using gzip or bzip2 and must be smaller than 100 GB after
+   being decompressed.
+
+tags:
+  - Images
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        $ref: 'models/image_new_custom.yml'
+
+responses:
+  '202':
+    $ref: 'responses/new_custom_image.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/images_create_custom.yml'
+  - $ref: 'examples/python/images_create_custom.yml'
+
+security:
+  - bearer_auth:
+    - 'image:create'

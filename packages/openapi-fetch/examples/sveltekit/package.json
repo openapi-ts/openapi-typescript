@@ -1,0 +1,21 @@
+{
+  "name": "@example/openapi-fetch-sveltekit",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^6.1.1",
+    "@sveltejs/kit": "^2.52.2",
+    "@sveltejs/vite-plugin-svelte": "^5.1.1",
+    "openapi-fetch": "workspace:^",
+    "openapi-typescript": "workspace:^",
+    "svelte": "^5.53.5",
+    "svelte-check": "^4.3.6",
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  }
+}

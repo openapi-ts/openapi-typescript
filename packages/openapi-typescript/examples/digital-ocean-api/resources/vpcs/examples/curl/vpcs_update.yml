@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X PUT \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name":"renamed-new-vpc", "description": "A new description", "default": true}' \
+    "https://api.digitalocean.com/v2/vpcs/5a4981aa-9653-4bd1-bef5-d6bff52042e4"

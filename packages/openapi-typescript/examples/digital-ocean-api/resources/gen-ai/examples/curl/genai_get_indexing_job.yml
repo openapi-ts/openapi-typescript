@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X GET \
+    -H "Content-Type: application/json"  \
+    -H "Authorization: Bearer $PREVIEW_API_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/indexing_jobs/9758a232-b351-11ef-bf8f-4e013e2ddde4"
+   

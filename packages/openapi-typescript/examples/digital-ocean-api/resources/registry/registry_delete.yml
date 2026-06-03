@@ -1,0 +1,36 @@
+operationId: registry_delete
+
+summary: Delete Container Registry
+
+description: To delete your container registry, destroying all container image
+  data stored in it, send a DELETE request to `/v2/registry`.
+
+tags:
+  - Container Registry
+
+responses:
+  '204':
+    $ref: '../../shared/responses/no_content.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/registry_delete.yml'
+  - $ref: 'examples/python/registry_delete.yml'
+
+security:
+  - bearer_auth:
+    - 'registry:delete'

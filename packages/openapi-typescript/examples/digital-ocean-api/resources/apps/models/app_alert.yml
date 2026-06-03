@@ -1,0 +1,29 @@
+properties:
+  id:
+    readOnly: true
+    title: The ID of the alert
+    type: string
+    example: 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+  component_name:
+    title: Name of component the alert belongs to
+    type: string
+    example: backend
+  spec:
+    $ref: app_alert_spec.yml
+  emails:
+    title: Emails for alerts to go to
+    type: array
+    items:
+      $ref: app_alert_email.yml
+    example:
+    - "sammy@digitalocean.com"
+  slack_webhooks:
+    title: Slack Webhooks to send alerts to
+    type: array
+    items:
+      $ref: app_alert_slack_webhook.yml
+  phase:
+    $ref: app_alert_phase.yml
+  progress:
+    $ref: app_alert_progress.yml
+type: object

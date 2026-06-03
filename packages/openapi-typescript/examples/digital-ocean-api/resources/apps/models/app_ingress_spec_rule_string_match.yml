@@ -1,0 +1,10 @@
+type: object
+properties:
+  prefix:
+    type: string
+    description: Prefix-based match. For example, `/api` will match `/api`, `/api/`, and any nested paths such as `/api/v1/endpoint`.
+    maxLength: 256
+    example: /api
+description: The path to match on.
+required:
+- prefix

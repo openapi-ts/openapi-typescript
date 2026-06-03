@@ -1,0 +1,62 @@
+operationId: databases_reset_auth
+
+summary: Reset a Database User's Password or Authentication Method
+
+description: |
+  To reset the password for a database user, send a POST request to
+  `/v2/databases/$DATABASE_ID/users/$USERNAME/reset_auth`.
+
+  For `mysql` databases, the authentication method can be specifying by
+  including a key in the JSON body called `mysql_settings` with the `auth_plugin`
+  value specified.
+
+  The response will be a JSON object with a `user` key. This will be set to an
+  object containing the standard database user attributes.
+
+tags:
+  - Databases
+
+parameters:
+  - $ref: 'parameters.yml#/database_cluster_uuid'
+  - $ref: 'parameters.yml#/username'
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          mysql_settings:
+            $ref: 'models/mysql_settings.yml'
+      example:
+        mysql_settings:
+          auth_plugin: caching_sha2_password
+
+responses:
+  '200':
+    $ref: 'responses/user.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/databases_reset_auth.yml'
+  - $ref: 'examples/go/databases_reset_auth.yml'
+  - $ref: 'examples/python/databases_reset_auth.yml'
+
+security:
+  - bearer_auth:
+    - 'database:update'

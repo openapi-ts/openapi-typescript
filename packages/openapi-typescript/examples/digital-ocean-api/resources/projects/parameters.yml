@@ -1,0 +1,10 @@
+project_id:
+  in: path
+  name: project_id
+  description: A unique identifier for a project.
+  required: true
+  schema:
+    type: string
+    format: uuid
+    minimum: 1
+  example: 4de7ac8b-495b-4884-9a69-1050c6793cd6

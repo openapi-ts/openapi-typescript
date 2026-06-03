@@ -1,0 +1,4 @@
+properties:
+  spec:
+    $ref: app_spec.yml
+type: object

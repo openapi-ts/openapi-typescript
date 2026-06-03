@@ -1,0 +1,29 @@
+type: object
+
+properties:
+  ip_address:
+    type: string
+    format: ipv6
+    example: 2604:a880:0:1010::18a:a001
+    description: The IP address of the IPv6 network interface.
+
+  netmask:
+    type: integer
+    example: 64
+    description: The netmask of the IPv6 network interface.
+
+  gateway:
+    type: string
+    format: ipv6
+    example: 2604:a880:0:1010::1
+    description: The gateway of the specified IPv6 network interface.
+
+  type:
+    type: string
+    enum:
+    - public
+    example: public
+    description: |
+      The type of the IPv6 network interface.
+
+      **Note**: IPv6 private  networking is not currently supported.

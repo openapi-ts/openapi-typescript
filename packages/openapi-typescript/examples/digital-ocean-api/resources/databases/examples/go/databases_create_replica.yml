@@ -1,0 +1,25 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      replicaRequest := &godo.DatabaseCreateReplicaRequest{
+
+          Name:   "read-nyc3-01",
+          Region: "nyc3",
+          Size:   "db-s-2vcpu-4gb",
+          StorageSizeMiB : 61440,
+      }
+
+      replica, _, err := client.Databases.CreateReplica(ctx, "9cc10173-e9ea-4176-9dbc-a4cee4c4ff30", replicaRequest)
+  }

@@ -1,0 +1,52 @@
+operationId: apps_create_rollback
+
+summary: Rollback App
+
+description: |
+  Rollback an app to a previous deployment. A new deployment will be created to perform the rollback.
+  The app will be pinned to the rollback deployment preventing any new deployments from being created,
+  either manually or through Auto Deploy on Push webhooks. To resume deployments, the rollback must be
+  either committed or reverted.
+
+  It is recommended to use the Validate App Rollback endpoint to double check if the rollback is
+  valid and if there are any warnings.
+
+tags:
+  - Apps
+
+parameters:
+  - $ref: parameters.yml#/app_id
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        $ref: models/apps_rollback_app_request.yml
+  required: true
+
+responses:
+  "200":
+    $ref: responses/new_app_deployment.yml
+
+  "401":
+    $ref: ../../shared/responses/unauthorized.yml
+
+  "404":
+    $ref: "../../shared/responses/not_found.yml"
+
+  "429":
+    $ref: "../../shared/responses/too_many_requests.yml"
+
+  "500":
+    $ref: ../../shared/responses/server_error.yml
+
+  default:
+    $ref: ../../shared/responses/unexpected_error.yml
+
+x-codeSamples:
+  - $ref: "examples/curl/apps_create_rollback.yml"
+  - $ref: "examples/python/apps_create_rollback.yml"
+
+security:
+  - bearer_auth:
+    - 'app:update'

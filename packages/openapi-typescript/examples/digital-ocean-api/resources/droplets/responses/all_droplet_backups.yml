@@ -1,0 +1,39 @@
+description: A JSON object with an `backups` key.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            backups:
+              type: array
+              items:
+                $ref: '../models/droplet_snapshot.yml'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+    example:
+      backups:
+      - id: 67539192
+        name: web-01- 2020-07-29
+        distribution: Ubuntu
+        slug: null
+        public: false
+        regions:
+        - nyc3
+        created_at: '2020-07-29T01:44:35Z'
+        min_disk_size: 50
+        size_gigabytes: 2.34
+        type: backup
+      links: {}
+      meta:
+        total: 1

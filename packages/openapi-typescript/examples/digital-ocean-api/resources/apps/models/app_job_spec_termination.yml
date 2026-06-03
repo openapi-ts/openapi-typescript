@@ -1,0 +1,10 @@
+type: object
+properties:
+  grace_period_seconds:
+    type: integer
+    format: int32
+    description: The number of seconds to wait between sending a TERM signal to a container and issuing
+      a KILL which causes immediate shutdown. (Default 120)
+    example: 120
+    maximum: 600
+    minimum: 1

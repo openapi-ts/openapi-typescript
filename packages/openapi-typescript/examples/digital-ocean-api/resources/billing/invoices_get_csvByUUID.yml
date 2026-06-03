@@ -1,0 +1,41 @@
+operationId: invoices_get_csvByUUID
+
+summary: Retrieve an Invoice CSV by UUID
+
+description: >-
+  To retrieve a CSV for an invoice, send a GET request to
+  `/v2/customers/my/invoices/$INVOICE_UUID/csv`.
+
+tags:
+  - Billing
+
+parameters:
+  - $ref: 'parameters.yml#/invoice_uuid'
+
+responses:
+  '200':
+    $ref: 'responses/invoice_csv.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/invoices_get_csvByUUID.yml'
+  - $ref: 'examples/python/invoices_get_csvByUUID.yml'
+
+security:
+  - bearer_auth:
+    - 'billing:read'
+

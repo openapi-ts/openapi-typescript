@@ -1,0 +1,51 @@
+description: >- 
+  To retrieve a summary for an invoice, send a GET request to 
+  `/v2/customers/my/invoices/$INVOICE_UUID/summary`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../models/invoice_summary.yml'
+    example:
+      invoice_uuid: 22737513-0ea7-4206-8ceb-98a575af7681
+      invoice_id: '123456789'
+      billing_period: 2020-01
+      amount: '27.13'
+      user_name: Sammy Shark
+      user_billing_address:
+        address_line1: 101 Shark Row
+        city: Atlantis
+        region: OC
+        postal_code: '12345'
+        country_iso2_code: US
+        created_at: '2019-09-03T16:34:46.000+00:00'
+        updated_at: '2019-09-03T16:34:46.000+00:00'
+      user_company: DigitalOcean
+      user_email: sammy@digitalocean.com
+      product_charges:
+        name: Product usage charges
+        amount: '12.34'
+        items:
+        - amount: '10.00'
+          name: Spaces Subscription
+          count: '1'
+        - amount: '2.34'
+          name: Database Clusters
+          count: '1'
+      overages:
+        name: Overages
+        amount: '3.45'
+      taxes:
+        name: Taxes
+        amount: '4.56'
+      credits_and_adjustments:
+        name: Credits & adjustments
+        amount: '6.78'

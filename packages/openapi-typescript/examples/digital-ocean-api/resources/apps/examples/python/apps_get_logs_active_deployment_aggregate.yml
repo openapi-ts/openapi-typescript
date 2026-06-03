@@ -1,0 +1,8 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  get_resp = client.apps.get_logs_active_deployment_aggregate(app_id="a6adf840")

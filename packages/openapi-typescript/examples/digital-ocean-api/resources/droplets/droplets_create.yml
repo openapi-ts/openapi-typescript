@@ -1,0 +1,73 @@
+operationId: droplets_create
+
+summary: Create a New Droplet
+
+description: |
+  To create a new Droplet, send a POST request to `/v2/droplets` setting the
+  required attributes.
+
+  A Droplet will be created using the provided information. The response body
+  will contain a JSON object with a key called `droplet`. The value will be an
+  object containing the standard attributes for your new Droplet. The response
+  code, 202 Accepted, does not indicate the success or failure of the operation,
+  just that the request has been accepted for processing. The `actions` returned
+  as part of the response's `links` object can be used to check the status
+  of the Droplet create event.
+
+  ### Create Multiple Droplets
+
+  Creating multiple Droplets is very similar to creating a single Droplet.
+  Instead of sending `name` as a string, send `names` as an array of strings. A
+  Droplet will be created for each name you send using the associated
+  information. Up to ten Droplets may be created this way at a time.
+
+  Rather than returning a single Droplet, the response body will contain a JSON
+  array with a key called `droplets`. This will be set to an array of JSON
+  objects, each of which will contain the standard Droplet attributes. The
+  response code, 202 Accepted, does not indicate the success or failure of any
+  operation, just that the request has been accepted for processing. The array
+  of `actions` returned as part of the response's `links` object can be used to
+  check the status of each individual Droplet create event.
+
+tags:
+  - Droplets
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        oneOf:
+          - $ref: 'models/droplet_single_create.yml'
+          - $ref: 'models/droplet_multi_create.yml'
+
+      examples:
+        Single Droplet Create Request:
+          $ref: 'examples.yml#/droplet_create_request'
+        Multiple Droplet Create Request:
+          $ref: 'examples.yml#/droplet_multi_create_request'
+
+responses:
+  '202':
+    $ref: 'responses/droplet_create.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/droplets_create.yml'
+  - $ref: 'examples/go/droplets_create.yml'
+  - $ref: 'examples/ruby/droplets_create.yml'
+  - $ref: 'examples/python/droplets_create.yml'
+
+security:
+  - bearer_auth:
+      - 'droplet:create'

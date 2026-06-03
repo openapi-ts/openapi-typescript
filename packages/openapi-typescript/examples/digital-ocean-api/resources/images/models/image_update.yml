@@ -1,0 +1,11 @@
+type: object
+
+properties:
+  name:
+    $ref: '../attributes.yml#/image_name'
+
+  distribution:
+    $ref: '../../../shared/attributes/distribution.yml' 
+
+  description:
+    $ref: '../attributes.yml#/image_description'

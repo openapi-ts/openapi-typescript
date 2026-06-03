@@ -1,0 +1,8 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  resp = client.droplets.get_destroy_associated_resources_status(droplet_id=5624512)

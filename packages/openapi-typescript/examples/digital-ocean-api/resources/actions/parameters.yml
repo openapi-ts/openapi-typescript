@@ -1,0 +1,9 @@
+action_id:
+  in: path
+  name: action_id
+  description: A unique numeric ID that can be used to identify and reference an action.
+  required: true
+  schema:
+    type: integer
+    minimum: 1
+  example: 36804636

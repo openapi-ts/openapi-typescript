@@ -1,0 +1,46 @@
+operationId: databases_list
+
+summary: List All Databases
+
+description: |
+  To list all of the databases in a clusters, send a GET request to
+  `/v2/databases/$DATABASE_ID/dbs`.
+
+  The result will be a JSON object with a `dbs` key. This will be set to an array
+  of database objects, each of which will contain the standard database attributes.
+
+  Note: Database management is not supported for Redis clusters.
+
+tags:
+  - Databases
+
+parameters:
+  - $ref: 'parameters.yml#/database_cluster_uuid'
+
+responses:
+  '200':
+    $ref: 'responses/databases.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/databases_list.yml'
+  - $ref: 'examples/go/databases_list.yml'
+  - $ref: 'examples/python/databases_list.yml'
+
+security:
+  - bearer_auth:
+    - 'database:read'

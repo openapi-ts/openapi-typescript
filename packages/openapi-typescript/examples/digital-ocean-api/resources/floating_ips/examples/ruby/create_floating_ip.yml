@@ -1,0 +1,8 @@
+lang: Ruby
+source: |-
+  require 'droplet_kit'
+  token = ENV['DIGITALOCEAN_TOKEN']
+  client = DropletKit::Client.new(access_token: token)
+
+  floating_ip = DropletKit::FloatingIp.new(droplet_id: 123456)
+  client.floating_ips.create(floating_ip) 

@@ -1,0 +1,33 @@
+type: object
+nullable: true
+description: An object specifying the maintenance window policy for the
+  Kubernetes cluster.
+
+properties:
+  start_time:
+    type: string
+    example: "12:00"
+    description: The start time in UTC of the maintenance window policy in
+      24-hour clock format / HH:MM notation (e.g., `15:00`).
+
+  duration:
+    type: string
+    readOnly: true
+    example: 4h0m0s
+    description: The duration of the maintenance window policy in
+      human-readable format.
+
+  day:
+    type: string
+    enum:
+    - any
+    - monday
+    - tuesday
+    - wednesday
+    - thursday
+    - friday
+    - saturday
+    - sunday
+    example: any
+    description: The day of the maintenance window policy. May be one of
+      `monday` through `sunday`, or `any` to indicate an arbitrary week day.

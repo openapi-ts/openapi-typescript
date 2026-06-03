@@ -1,0 +1,19 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      upgradeRequest := &godo.KubernetesClusterUpgradeRequest{
+      	VersionSlug: "1.12.3-do.1",
+      }
+  }

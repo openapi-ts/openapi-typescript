@@ -1,0 +1,23 @@
+lang: Go
+source: |-
+    import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+      )
+
+    func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      createRequest := &godo.DomainCreateRequest{
+        Name:      "example.com",
+        IPAddress: "1.2.3.4",
+      }
+
+      domain, _, err := client.Domains.Create(ctx, createRequest)
+
+    }

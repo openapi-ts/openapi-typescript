@@ -1,0 +1,51 @@
+operationId: functions_update_trigger
+
+summary: Update Trigger
+
+description: >-
+  Updates the details of the given trigger. To update a trigger, send a PUT request to `/v2/functions/namespaces/$NAMESPACE_ID/triggers/$TRIGGER_NAME` with new values for the `is_enabled ` or `scheduled_details` properties.
+
+parameters:
+  - $ref: 'parameters.yml#/namespace_id'
+  - $ref: 'parameters.yml#/trigger_name'
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: 'models/update_trigger.yml'
+
+tags:
+  - Functions
+
+responses:
+  '200':
+    $ref: 'responses/trigger_response.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '400':
+    $ref: 'responses/trigger_bad_request.yml'
+
+  '404':
+    $ref: 'responses/trigger_not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/update_trigger.yml'
+  - $ref: 'examples/python/update_trigger.yml'
+
+security:
+  - bearer_auth:
+    - 'function:update'
+    - 'function:admin'

@@ -1,0 +1,15 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "name": "Nifty New Snapshot",
+    "distribution": "Ubuntu",
+    "description": " "
+  }
+
+  resp = client.images.update(image_id=234532, body=req)
+

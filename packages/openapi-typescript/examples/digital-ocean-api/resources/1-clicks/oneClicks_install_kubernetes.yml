@@ -1,0 +1,43 @@
+operationId: oneClicks_install_kubernetes
+
+summary: Install Kubernetes 1-Click Applications
+
+description: |
+  To install a Kubernetes 1-Click application on a cluster, send a POST request to
+  `/v2/1-clicks/kubernetes`. The `addon_slugs` and `cluster_uuid` must be provided as body
+  parameter in order to specify which 1-Click application(s) to install. To list all available
+  1-Click Kubernetes applications, send a request to `/v2/1-clicks?type=kubernetes`.
+
+tags:
+  - 1-Click Applications
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: 'models/oneClicks_create.yml'
+
+responses:
+  '200':
+    $ref: 'responses/oneClicks_create.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/oneClicks_create.yml'
+  - $ref: 'examples/python/oneClicks_create.yml'
+
+security:
+  - bearer_auth:
+    - '1click:create'

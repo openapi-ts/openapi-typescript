@@ -1,0 +1,20 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "load_balancers": [
+      "4de7ac8b-495b-4884-9a69-1050c6793cd6"
+    ],
+    "volumes": [
+      "ba49449a-7435-11ea-b89e-0a58ac14480f"
+    ],
+    "volume_snapshots": [
+      "edb0478d-7436-11ea-86e6-0a58ac144b91"
+    ]
+  }
+
+  resp = client.kubernetes.destroy_associated_resources_selective(cluster_id="da8fda8", body=req)

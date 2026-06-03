@@ -1,0 +1,11 @@
+properties:
+  "txt_name":
+    title: "TXT record name"
+    type: string
+    readOnly: true
+    example: "_acme-challenge.app.example.com"
+  "txt_value":
+    title: "TXT record value"
+    type: string
+    readOnly: true
+    example: "lXLOcN6cPv0nproViNcUHcahD9TrIPlNgdwesj0pYpk"

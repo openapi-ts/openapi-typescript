@@ -1,0 +1,37 @@
+description: >-
+  The response will be a JSON object with a key called `volumes`.
+  This will be set to an array of volume objects, each of which will contain the
+  standard volume attributes.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            volumes:
+              type: array
+              items:
+                $ref: '../models/volume_full.yml'
+              description: Array of volumes.
+          required:
+            - volumes
+
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+    examples:
+      All Volumes:
+        $ref: '../examples.yml#/volumes_all'
+      Filtered by Name:
+        $ref: '../examples.yml#/volumes_filtered_by_name'
+      Filtered by Region:
+        $ref: '../examples.yml#/volumes_filtered_by_region'

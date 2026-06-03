@@ -1,0 +1,35 @@
+operationId: functions_list_namespaces
+
+summary: List Namespaces
+
+description: >-
+  Returns a list of namespaces associated with the current user.
+  To get all namespaces, send a GET request to `/v2/functions/namespaces`.
+
+tags:
+  - Functions
+
+responses:
+  '200':
+    $ref: 'responses/list_namespaces.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/list_namespaces.yml'
+  - $ref: 'examples/python/list_namespaces.yml'
+
+security:
+  - bearer_auth:
+    - 'function:read'
+    - 'function:admin'

@@ -1,0 +1,8 @@
+lang: cURL
+source: |-
+  curl -X PATCH \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"environment": "Staging"}' \
+    "https://api.digitalocean.com/v2/projects/4e1bfbc3\
+    -dc3e-41f2-a18f-1b4d7ba71679"

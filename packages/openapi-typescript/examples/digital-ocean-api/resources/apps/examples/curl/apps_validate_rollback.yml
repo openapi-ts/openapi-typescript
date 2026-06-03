@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{ "deployment_id": "3aa4d20e-5527-4c00-b496-601fbd22520a" }' \
+    "https://api.digitalocean.com/v2/apps/{app_id}/rollback/validate"

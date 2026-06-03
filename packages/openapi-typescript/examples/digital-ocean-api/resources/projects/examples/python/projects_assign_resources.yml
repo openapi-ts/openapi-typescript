@@ -1,0 +1,15 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "resources": [
+      "do:droplet:13457723",
+      "do:domain:example.com"
+    ]
+  }
+
+  resp = client.projects.assign_resources(project_id="8dafda", body=req)

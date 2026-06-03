@@ -1,0 +1,21 @@
+type: object
+
+properties:
+  end_of_life:
+    type: string
+    example: '2023-11-09T00:00:00Z'
+    nullable: true
+    description: >-
+      A timestamp referring to the date when the particular version will no longer be supported. If null, the version
+      does not have an end of life timeline.
+  end_of_availability:
+    type: string
+    example: '2023-05-09T00:00:00Z'
+    nullable: true
+    description: >-
+      A timestamp referring to the date when the particular version will no longer be available for creating new
+      clusters. If null, the version does not have an end of availability timeline.
+  version:
+    type: string
+    example: '8'
+    description: The engine version.

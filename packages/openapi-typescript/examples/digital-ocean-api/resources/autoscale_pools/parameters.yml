@@ -1,0 +1,24 @@
+autoscale_pool_id:
+  in: path
+  name: autoscale_pool_id
+  description: A unique identifier for an autoscale pool.
+  required: true
+  schema:
+    type: string
+  example: 0d3db13e-a604-4944-9827-7ec2642d32ac
+x_dangerous:
+  in: header
+  name: X-Dangerous
+  description: Acknowledge this action will destroy the autoscale pool and its
+    associated resources and _can not_ be reversed.
+  schema:
+    type: boolean
+  example: true
+  required: true
+autoscale_pool_name:
+  name: name
+  in: query
+  description: The name of the autoscale pool
+  schema:
+    type: string
+  example: my-autoscale-pool

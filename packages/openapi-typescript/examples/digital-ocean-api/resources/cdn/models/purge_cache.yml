@@ -1,0 +1,15 @@
+type: object
+
+properties:
+  files:
+    type: array
+    items:
+      type: string
+    example:
+    - path/to/image.png
+    - path/to/css/*
+    description: An array of strings containing the path to the content to be
+      purged from the CDN cache.
+
+required:
+- files

@@ -1,0 +1,41 @@
+openapi: "3.1.0"
+info:
+  title: Test
+  version: "1.0.0"
+x-error-response: &x-error-response
+  4XX:
+    description: Error response
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/HTTPError'
+paths:
+  /admin/ping:
+    get:
+      summary: Ping pongs
+      operationId: AdminPing
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: pong
+        !!merge <<: *x-error-response
+      tags:
+        - admin
+components:
+  schemas:
+    HTTPError:
+      description: represents an error message response.
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
+        status:
+          type: integer
+        error:
+          type: string
