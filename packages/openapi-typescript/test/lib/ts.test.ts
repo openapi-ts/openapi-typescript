@@ -187,6 +187,14 @@ describe("tsEnum", () => {
 }`);
   });
 
+  test("empty string member", () => {
+    expect(astToString(tsEnum("/my/enum/", ["", "foo", "bar"])).trim()).toBe(`enum MyEnum {
+    "" = "",
+    foo = "foo",
+    bar = "bar"
+}`);
+  });
+
   test("with setting: export", () => {
     expect(
       astToString(
