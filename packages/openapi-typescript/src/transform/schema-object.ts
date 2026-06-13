@@ -1,4 +1,3 @@
-import { parseRef } from "@redocly/openapi-core/lib/ref-utils.js";
 import ts from "typescript";
 import {
   addJSDocComment,
@@ -7,6 +6,7 @@ import {
   NULL,
   NUMBER,
   oapiRef,
+  parseRef,
   QUESTION_TOKEN,
   STRING,
   tsArrayLiteralExpression,

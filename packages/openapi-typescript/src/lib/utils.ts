@@ -1,9 +1,9 @@
-import { escapePointer, parseRef } from "@redocly/openapi-core/lib/ref-utils.js";
+import { escapePointer } from "@redocly/openapi-core/lib/ref-utils.js";
 import c from "ansi-colors";
 import supportsColor from "supports-color";
 import ts from "typescript";
 import type { DiscriminatorObject, OpenAPI3, OpenAPITSOptions, ReferenceObject, SchemaObject } from "../types.js";
-import { tsLiteral, tsModifiers, tsPropertyIndex } from "./ts.js";
+import { parseRef, tsLiteral, tsModifiers, tsPropertyIndex } from "./ts.js";
 
 if (!supportsColor.stdout || supportsColor.stdout.hasBasic === false) {
   c.enabled = false;
