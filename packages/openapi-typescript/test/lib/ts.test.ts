@@ -6,6 +6,7 @@ import {
   NULL,
   NUMBER,
   oapiRef,
+  parseRef,
   STRING,
   tsArrayLiteralExpression,
   tsEnum,
@@ -14,6 +15,21 @@ import {
   tsPropertyIndex,
   tsUnion,
 } from "../../src/lib/ts.js";
+
+describe("parseRef", () => {
+  test("parses pointer segments", () => {
+    expect(parseRef("#/components/schemas/Foo").pointer).toEqual(["components", "schemas", "Foo"]);
+  });
+
+  test("decodes percent-encoded segments", () => {
+    expect(parseRef("#/paths/~1users~1%7Bid%7D/get").pointer).toEqual(["paths", "/users/{id}", "get"]);
+  });
+
+  test("does not throw on a literal percent sign (#2251)", () => {
+    expect(() => parseRef("#/components/schemas/response/25%")).not.toThrow();
+    expect(parseRef("#/components/schemas/response/25%").pointer).toEqual(["components", "schemas", "response", "25%"]);
+  });
+});
 
 describe("addJSDocComment", () => {
   test("single-line comment", () => {
