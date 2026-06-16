@@ -201,7 +201,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
     const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
     const { data, error, response } = await fn(path, { signal, ...(init as any) }); // TODO: find a way to avoid as any
     if (error !== undefined || !response.ok) {
-      throw error;
+      throw error ?? new Error(`Request failed with status ${response.status}`);
     }
     if (response.status === 204 || response.headers.get("Content-Length") === "0") {
       return data ?? null;
@@ -249,7 +249,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
 
             const { data, error, response } = await fn(path, mergedInit as any);
             if (error !== undefined || !response.ok) {
-              throw error;
+              throw error ?? new Error(`Request failed with status ${response.status}`);
             }
             return data;
           },
@@ -267,7 +267,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
             const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
             const { data, error, response } = await fn(path, init as InitWithUnknowns<typeof init>);
             if (error !== undefined || !response.ok) {
-              throw error;
+              throw error ?? new Error(`Request failed with status ${response.status}`);
             }
 
             return data as Exclude<typeof data, undefined>;
