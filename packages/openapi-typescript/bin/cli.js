@@ -98,8 +98,14 @@ const BOOLEAN_FLAGS = [
   "rootTypesNoSchemaPrefix",
 ];
 
+// yargs-parser only recognizes boolean flags by their exact registered name,
+// so --enum-values (kebab-case) is not treated as boolean unless "enum-values"
+// is also in the boolean list. Generate kebab-case equivalents so positional
+// args after multi-word flags aren't silently consumed as flag values.
+const BOOLEAN_FLAGS_KEBAB = BOOLEAN_FLAGS.map((f) => f.replace(/([A-Z])/g, (c) => `-${c.toLowerCase()}`));
+
 const flags = parser(args, {
-  boolean: BOOLEAN_FLAGS,
+  boolean: [...BOOLEAN_FLAGS, ...BOOLEAN_FLAGS_KEBAB],
   string: ["output", "redocly"],
   alias: {
     redocly: ["c"],
