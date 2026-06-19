@@ -236,7 +236,19 @@ describe("request", () => {
       });
 
       expect(bodyUsed).toBe(true);
-      expect(bodyText).toBe('""');
+      expect(bodyText).toBe("");
+    });
+
+    test.each(BODY_ACCEPTING_METHODS)("string body is passed through without JSON serialization - %s", async (method) => {
+      const { bodyUsed, bodyText } = await fireRequestAndGetBodyInformation({
+        method,
+        fetchOptions: {
+          body: "pre-serialized string",
+        },
+      });
+
+      expect(bodyUsed).toBe(true);
+      expect(bodyText).toBe("pre-serialized string");
     });
 
     test.each(BODY_ACCEPTING_METHODS)("`0` body (with body serializer) - %s", async (method) => {
