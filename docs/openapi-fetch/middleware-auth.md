@@ -145,22 +145,6 @@ onError({ error }) {
 :::
 
 
-### Ejecting middleware
-
-To remove middleware, call `client.eject(middleware)`:
-
-```ts{9}
-const myMiddleware = {
-  // …
-};
-
-// register middleware
-client.use(myMiddleware);
-
-// remove middleware
-client.eject(myMiddleware);
-```
-
 ### Handling statefulness
 
 Since middleware uses native `Request` and `Response` instances, it’s important to remember that [bodies are stateful](https://developer.mozilla.org/en-US/docs/Web/API/Response/bodyUsed). This means:
@@ -181,6 +165,73 @@ const myMiddleware: Middleware = {
 };
 ```
 
+## Global vs. request middleware
+
+Middleware can be registered in two ways.
+
+- **Global middleware** is registered on the client with `.use()` and runs for
+  *every* request until you remove it with `.eject()`.
+- **Request middleware** is passed to an individual API call via the `middleware`
+  option. It applies only to that one request.
+
+### Why this matters
+
+This matters when the client runs on a server, where one instance is shared across many concurrent requests from different users. Two cases:
+
+- **Pure server applications** — a backend that calls another API on behalf of all its users through one shared client.
+- **BFF-based applications** — frameworks that run on both the server and the browser (React Router 7, TanStack Router, and others), where the server resolves request data in a per-request middleware chain.
+
+In either case, request-scoped data such as an access token must not go in _global_ middleware: it would live in state shared by every concurrent request, so one user's token could be sent on another user's request.
+
+Adding the middleware to the request keep it scoped to that one request.
+
+### Managing global middleware
+
+To register middleware, call `client.use(middleware)`. To remove it, call
+`client.eject(middleware)`.
+
+```ts{7,9}
+const myMiddleware = {
+// …
+};
+
+// register middleware
+client.use(myMiddleware);
+
+// remove middleware
+client.eject(myMiddleware);
+```
+
+Use global middleware for stateless, cross-cutting concerns — logging, telemetry,
+base headers.
+
+### Using request middleware
+
+To apply middleware to a single request, pass it via the `middleware` option on the
+call:
+
+```ts{14}
+const userId = "123";
+
+const authMiddleware = {
+  // … e.g. adds access- and CSRF-tokens
+};
+
+const createPostBody = {
+  // …
+};
+
+client.POST("/posts/{userId}", {
+  params: { path: { userId } },
+  body: createPostBody,
+  middleware: [authMiddleware],
+});
+```
+
+Use request middleware for anything that varies per call or per user/session —
+especially auth on the server.
+
+
 ## Auth
 
 This library is unopinionated and can work with any [Authorization](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization) setup. But here are a few suggestions that may make working with auth easier.
@@ -188,6 +239,7 @@ This library is unopinionated and can work with any [Authorization](https://deve
 ### Basic auth
 
 This basic example uses middleware to retrieve the most up-to-date token at every request. In our example, the access token is kept in JavaScript module state, which is safe to do for client applications but should be avoided for server applications.
+For server applications, use request middleware instead, as described in: [Using request middleware](#using-request-middleware)
 
 ::: code-group
 
