@@ -1,4 +1,4 @@
-import { expect, type Page, test } from "@playwright/test";
+import { type Page, test } from "@playwright/test";
 
 // note: these tests load Chrome, Firefox, and Safari in Playwright to test a browser-realistic runtime.
 // the frontend is prepared via Vite to create a production-accurate app (and throw add’l type errors)
