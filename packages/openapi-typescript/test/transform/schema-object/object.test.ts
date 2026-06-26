@@ -340,7 +340,7 @@ describe("transformSchemaObject > object", () => {
         },
         want: `{
     foo?: string;
-    $defs: {
+    $defs?: {
         /** @enum {string} */
         defEnum: "one" | "two" | "three";
     };
@@ -612,7 +612,7 @@ describe("transformSchemaObject > object", () => {
         },
         want: `{
     foo?: string;
-    $defs: {
+    $defs?: {
         readOnlyDef: $Read<string>;
         writeOnlyDef: $Write<number>;
         normalDef: boolean;

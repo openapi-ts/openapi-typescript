@@ -655,7 +655,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
         ts.factory.createPropertySignature(
           /* modifiers     */ undefined,
           /* name          */ tsPropertyIndex("$defs"),
-          /* questionToken */ undefined,
+          /* questionToken */ QUESTION_TOKEN,
           /* type          */ ts.factory.createTypeLiteralNode(defKeys),
         ),
       );
