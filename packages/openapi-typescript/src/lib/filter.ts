@@ -18,7 +18,8 @@ export function applyPathsFilter(schema: OpenAPI3, pathsFilter: PathsFilterFn): 
     }
 
     if ("$ref" in pathItem) {
-      // $ref path items cannot be filtered at method level; include as-is
+      // $ref path items are always included — individual methods can't be inspected
+      // without resolving the reference. See OpenAPITSOptions.pathsFilter docs.
       filteredPaths[pathname] = pathItem;
       continue;
     }

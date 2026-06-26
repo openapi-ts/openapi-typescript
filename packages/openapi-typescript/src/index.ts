@@ -3,6 +3,7 @@ import type { Readable } from "node:stream";
 import { createConfig } from "@redocly/openapi-core";
 import type ts from "typescript";
 import { applyPathsFilter } from "./lib/filter.js";
+export type { PathsFilterFn } from "./lib/filter.js";
 import { validateAndBundle } from "./lib/redoc.js";
 import { debug, resolveRef, scanDiscriminators } from "./lib/utils.js";
 import transformSchema from "./transform/index.js";
