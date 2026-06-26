@@ -6,15 +6,18 @@ description: |
   To show information about an existing database user, send a GET request to
   `/v2/databases/$DATABASE_ID/users/$USERNAME`.
 
-  Note: User management is not supported for Redis clusters.
+  Note: User management is not supported for Caching or Valkey clusters.
 
   The response will be a JSON object with a `user` key. This will be set to an object
-  containing the standard database user attributes.
+  containing the standard database user attributes. The user's password will not show
+  up unless the `database:view_credentials` scope is present.
 
   For MySQL clusters, additional options will be contained in the `mysql_settings`
   object.
 
   For Kafka clusters, additional options will be contained in the `settings` object.
+
+  For MongoDB clusters, additional information will be contained in the mongo_user_settings object
 
 tags:
   - Databases

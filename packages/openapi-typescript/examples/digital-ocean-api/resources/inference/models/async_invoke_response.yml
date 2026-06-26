@@ -1,0 +1,59 @@
+type: object
+description: >
+  Response returned when an asynchronous invocation request is accepted.
+  The job status is QUEUED initially. Use the request_id to poll for the result.
+required:
+  - request_id
+  - status
+  - model_id
+  - created_at
+properties:
+  request_id:
+    type: string
+    description: >
+      A unique identifier for the async invocation request. Use this ID
+      to check the status and retrieve the result.
+    example: "6590784a-ce47-4556-9ff4-53baff2693fb"
+  status:
+    type: string
+    description: The current status of the async invocation.
+    enum:
+      - QUEUED
+      - IN_PROGRESS
+      - COMPLETED
+      - FAILED
+    example: "QUEUED"
+  model_id:
+    type: string
+    description: The model ID that was invoked.
+    example: "fal-ai/fast-sdxl"
+  created_at:
+    type: string
+    format: date-time
+    description: The timestamp when the request was created.
+    example: "2026-01-22T19:19:19.112403432Z"
+  started_at:
+    type: string
+    format: date-time
+    nullable: true
+    description: The timestamp when the job started processing. Null while queued.
+    example: null
+  completed_at:
+    type: string
+    format: date-time
+    nullable: true
+    description: The timestamp when the job completed. Null until finished.
+    example: null
+  output:
+    type: object
+    nullable: true
+    description: >
+      The output of the invocation. Null while the job is queued or in progress.
+      Contains the result once completed.
+    additionalProperties: true
+    example: null
+  error:
+    type: string
+    nullable: true
+    description: Error message if the job failed. Null on success.
+    example: null

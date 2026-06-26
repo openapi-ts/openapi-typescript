@@ -1,0 +1,48 @@
+description: To list all of the vector databases on your account, send a GET request
+  to `/v2/vector-databases`. Use the `page` and `per_page` query parameters to paginate
+  the results. The response body contains a `vector_dbs` array of vector database
+  objects and a `total` field with the overall count.
+operationId: vectorDatabases_list
+parameters:
+- example: 1
+  in: query
+  name: page
+  schema:
+    type: integer
+- example: 1
+  in: query
+  name: per_page
+  schema:
+    type: integer
+responses:
+  "200":
+    content:
+      application/json:
+        schema:
+          $ref: ./definitions.yml#/vectordbListVectorDBsResponse
+    description: A successful response.
+    headers:
+      ratelimit-limit:
+        $ref: ../../shared/headers.yml#/ratelimit-limit
+      ratelimit-remaining:
+        $ref: ../../shared/headers.yml#/ratelimit-remaining
+      ratelimit-reset:
+        $ref: ../../shared/headers.yml#/ratelimit-reset
+  "401":
+    $ref: ../../shared/responses/unauthorized.yml
+  "404":
+    $ref: ../../shared/responses/not_found.yml
+  "429":
+    $ref: ../../shared/responses/too_many_requests.yml
+  "500":
+    $ref: ../../shared/responses/server_error.yml
+  default:
+    $ref: ../../shared/responses/unexpected_error.yml
+security:
+- bearer_auth:
+  - database:read
+summary: List All Vector Databases
+tags:
+- Vector Databases
+x-codeSamples:
+- $ref: examples/curl/vector_databases_list.yml

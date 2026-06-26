@@ -14,7 +14,7 @@ parameters:
   - $ref: "parameters.yml#/database_cluster_uuid"
 
 responses:
-  "201":
+  "200":
     $ref: "responses/logsinks.yml"
 
   "401":
@@ -37,4 +37,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'database:read'
+      - "database:read"

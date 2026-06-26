@@ -1,0 +1,24 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.getenv("$DIGITALOCEAN_TOKEN"))
+
+  req = { 
+    "connection_bandwidth_in_mbps": 1000,
+    "naas_provider": "MEGAPORT",  
+    "name": "c5pAqd-ped-007",
+    "region": "NYC",
+    "vpc_ids": [
+        "bafc1c1d-bac1-2412-7f5e-fezc832z213z"
+    ],
+    "bgp": {
+        "auth_key": "0zzyTNuRZa00vqkzIToPG3q",
+        "local_router_ip": "169.254.11.1/29",
+        "peer_router_asn": 133938,
+        "peer_router_ip": "169.254.11.2/29"
+    },
+  }
+
+  resp = client.partner_attachments.create(body=req)

@@ -37,6 +37,6 @@ security:
   - genai:read
 summary: List Data Sources for Indexing Job for a Knowledge Base
 tags:
-- GenAI Platform (Public Preview)
+- GradientAI Platform
 x-codeSamples:
 - $ref: examples/curl/genai_list_indexing_job_data_sources.yml

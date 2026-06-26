@@ -1,0 +1,17 @@
+description: A JSON with key `instances`
+
+content:
+  application/json:
+    schema:
+      $ref: ../models/app_instances.yml
+    examples:
+      app_instances:
+        $ref: examples.yml#/app_instances
+
+headers:
+  ratelimit-limit:
+    $ref: ../../../shared/headers.yml#/ratelimit-limit
+  ratelimit-remaining:
+    $ref: ../../../shared/headers.yml#/ratelimit-remaining
+  ratelimit-reset:
+    $ref: ../../../shared/headers.yml#/ratelimit-reset

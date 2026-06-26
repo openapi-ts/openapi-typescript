@@ -1,0 +1,36 @@
+operationId: inference_list_models
+summary: List available models
+description: Lists the currently available models, and provides basic information about each one such as the owner and availability.
+tags:
+  - Serverless Inference
+servers:
+  - url: "https://inference.do-ai.run"
+    description: production
+responses:
+  "200":
+    description: A list of available models.
+    headers:
+      ratelimit-limit:
+        $ref: '../../shared/headers.yml#/ratelimit-limit'
+      ratelimit-remaining:
+        $ref: '../../shared/headers.yml#/ratelimit-remaining'
+      ratelimit-reset:
+        $ref: '../../shared/headers.yml#/ratelimit-reset'
+    content:
+      application/json:
+        schema:
+          $ref: "models/list_models_response.yml"
+  "401":
+    $ref: '../../shared/responses/unauthorized.yml'
+  "429":
+    $ref: '../../shared/responses/too_many_requests.yml'
+  "500":
+    $ref: '../../shared/responses/server_error.yml'
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+x-codeSamples:
+  - $ref: 'examples/curl/inference_list_models.yml'
+  - $ref: 'examples/python/inference_list_models.yml'
+  - $ref: 'examples/dots/inference_list_models.yml'
+security:
+  - inference_bearer_auth: []

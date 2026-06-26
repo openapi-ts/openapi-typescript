@@ -1,0 +1,11 @@
+lang: cURL
+source: |-
+  curl -X PUT \
+    -H "Content-Type: application/json"  \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/workspaces/1b418231-b7d6-11ef-bf8f-4e013e2ddde4" \
+    -d '{
+      "workspace_uuid": "1b418231-b7d6-11ef-bf8f-4e013e2ddde4",
+      "name": "rename-agent-api",
+      "description": "workspace description"
+    }'

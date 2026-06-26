@@ -1,0 +1,118 @@
+type: object
+
+properties:
+  id:
+    type: string
+    example: 70e1b58d-cdec-4e95-b3ee-2d4d95feff51
+    description: The unique identifier for the VPC NAT gateway. This is automatically generated upon creation.
+
+  name:
+    type: string
+    example: my-vpc-nat-gateway
+    description: The human-readable name of the VPC NAT gateway.
+
+  type:
+    type: string
+    enum:
+      - PUBLIC
+    example: PUBLIC
+    description: The type of the VPC NAT gateway.
+
+  state:
+    type: string
+    enum:
+      - NEW
+      - PROVISIONING
+      - ACTIVE
+      - DELETING
+      - ERROR
+      - INVALID
+    description: The current state of the VPC NAT gateway.
+    example: ACTIVE
+
+  region:
+    type: string
+    enum:
+      - nyc1
+      - nyc2
+      - nyc3
+      - ams2
+      - ams3
+      - sfo1
+      - sfo2
+      - sfo3
+      - sgp1
+      - lon1
+      - fra1
+      - tor1
+      - blr1
+      - syd1
+      - atl1
+    example: tor1
+    description: The region in which the VPC NAT gateway is created.
+
+  size:
+    type: integer
+    example: 1
+    description: The size of the VPC NAT gateway.
+
+  vpcs:
+    type: array
+    items:
+      type: object
+      properties:
+        vpc_uuid:
+          type: string
+          example: 0d3db13e-a604-4944-9827-7ec2642d32ac
+          description: The unique identifier of the VPC to which the NAT gateway is attached.
+        gateway_ip:
+          type: string
+          example: 10.118.0.35
+          description: The gateway IP address of the VPC NAT gateway.
+    description: An array of VPCs associated with the VPC NAT gateway.
+
+  egresses:
+    type: object
+    properties:
+      public_gateways:
+        type: array
+        description: An array of public gateway IP addresses for the VPC NAT gateway.
+        items:
+          type: object
+          properties:
+            ipv4:
+              type: string
+              example: 174.138.113.197
+              description: IPv4 address of the public gateway.
+    description: An object containing egress information for the VPC NAT gateway.
+
+  udp_timeout_seconds:
+    type: integer
+    example: 30
+    description: The UDP timeout in seconds for the VPC NAT gateway.
+
+  icmp_timeout_seconds:
+    type: integer
+    example: 30
+    description: The ICMP timeout in seconds for the VPC NAT gateway.
+
+  tcp_timeout_seconds:
+    type: integer
+    example: 30
+    description: The TCP timeout in seconds for the VPC NAT gateway.
+
+  created_at:
+    format: date-time
+    title: The creation time of the VPC NAT gateway.
+    type: string
+    example: 2020-07-28T18:00:00Z
+    description: A time value given in ISO8601 combined date and time format
+      that represents when the VPC NAT gateway was created.
+
+  updated_at:
+    format: date-time
+    title: The last update time of the VPC NAT gateway.
+    type: string
+    example: 2020-07-28T18:00:00Z
+    description: A time value given in ISO8601 combined date and time format
+      that represents when the VPC NAT gateway was last updated.

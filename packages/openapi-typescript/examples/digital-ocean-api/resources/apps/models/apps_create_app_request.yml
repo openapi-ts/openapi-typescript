@@ -3,7 +3,9 @@ properties:
     $ref: app_spec.yml
   project_id:
     type: string
-    description: The ID of the project the app should be assigned to. If omitted, it will be assigned to your default project.
+    description: |
+      The ID of the project the app should be assigned to. If omitted, it will be assigned to your default project.
+      <br><br>Requires `project:update` scope.
 required:
 - spec
 type: object

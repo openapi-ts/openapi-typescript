@@ -1,0 +1,74 @@
+operationId: inference_upload_batch_file
+summary: Upload a Batch Inference Input File
+description: >
+  Uploads the raw JSONL bytes to the presigned `upload_url` returned by
+  `POST /v1/batches/files`.
+
+
+  **The URL is dynamic — do not construct it.** Use the `upload_url`
+  value from the previous step verbatim. Its host, path, and query
+  parameters are part of the short-lived (~15 minute) signature and
+  change per request; the server and path shown here are illustrative.
+  If the URL expires before the upload completes, create a new file
+  intent and retry.
+
+
+  `POST /v1/batches` performs a `HEAD` check on the uploaded object and
+  will reject the batch if this upload has not completed.
+
+
+  Send the raw JSONL bytes verbatim. Presigned PUT URLs are
+  signature-sensitive to request headers — prefer `application/octet-stream`
+  or omit `Content-Type` entirely. A custom value (for example
+  `application/jsonl`) can cause signature mismatches unless the URL was
+  signed for that exact header.
+tags:
+  - Batch Inference
+servers:
+  - url: "https://"
+    description: >
+      Use the exact `upload_url` returned by `POST /v1/batches/files`.
+      Do not construct this URL — it is presigned, short-lived, and
+      different per request.
+requestBody:
+  required: true
+  description: Raw JSONL bytes — one request per line.
+  content:
+    application/octet-stream:
+      schema:
+        type: string
+        format: binary
+responses:
+  "200":
+    description: Upload accepted by object storage.
+    headers:
+      ratelimit-limit:
+        $ref: '../../shared/headers.yml#/ratelimit-limit'
+      ratelimit-remaining:
+        $ref: '../../shared/headers.yml#/ratelimit-remaining'
+      ratelimit-reset:
+        $ref: '../../shared/headers.yml#/ratelimit-reset'
+  "401":
+    $ref: '../../shared/responses/unauthorized.yml'
+  "403":
+    description: >
+      Signature mismatch or URL expired. Create a new file intent with
+      `POST /v1/batches/files` and upload again.
+    headers:
+      ratelimit-limit:
+        $ref: '../../shared/headers.yml#/ratelimit-limit'
+      ratelimit-remaining:
+        $ref: '../../shared/headers.yml#/ratelimit-remaining'
+      ratelimit-reset:
+        $ref: '../../shared/headers.yml#/ratelimit-reset'
+  "429":
+    $ref: '../../shared/responses/too_many_requests.yml'
+  "500":
+    $ref: '../../shared/responses/server_error.yml'
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+x-codeSamples:
+  - $ref: 'examples/curl/inference_upload_batch_file.yml'
+  - $ref: 'examples/python/inference_upload_batch_file.yml'
+  - $ref: 'examples/dots/inference_upload_batch_file.yml'
+security: []

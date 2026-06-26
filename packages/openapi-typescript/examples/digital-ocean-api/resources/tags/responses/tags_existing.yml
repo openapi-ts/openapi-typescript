@@ -1,6 +1,8 @@
-description: >-
+description: |
   The response will be a JSON object with a key called `tag`. 
   The value of this will be a tag object containing the standard tag attributes.
+
+  Tagged resources will only include resources that you are authorized to see.
 
 headers:
   ratelimit-limit:

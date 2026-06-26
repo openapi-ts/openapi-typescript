@@ -1,0 +1,23 @@
+type: object
+description: Tool invocation block in a request message (from the model or a prior turn).
+required:
+  - type
+  - id
+  - name
+  - input
+properties:
+  type:
+    type: string
+    enum:
+      - tool_use
+    example: tool_use
+  id:
+    type: string
+    example: toolu_01ABCdefGhIjKlMnOpQrStUv
+  name:
+    type: string
+    example: get_weather
+  input:
+    type: object
+    description: JSON object matching the tool's `input_schema`.
+    additionalProperties: true

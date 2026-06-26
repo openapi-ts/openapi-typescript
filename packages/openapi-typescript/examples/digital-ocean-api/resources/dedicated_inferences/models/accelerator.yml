@@ -1,0 +1,35 @@
+dedicated_inference_accelerator:
+  type: object
+  description: A Dedicated Inference accelerator (GPU) in use by an instance.
+  properties:
+    id:
+      type: string
+      format: uuid
+      readOnly: true
+      example: 5b5c619c-359c-44ca-87e2-47e98170c02f
+      description: Unique ID of the accelerator.
+    name:
+      type: string
+      readOnly: true
+      example: mi300x1-ghfpsf
+      description: Name of the accelerator.
+    slug:
+      type: string
+      readOnly: true
+      example: gpu-mi300x1-192gb
+      description: DigitalOcean GPU slug.
+    role:
+      type: string
+      readOnly: true
+      example: prefill_decode
+      description: Role of the accelerator (e.g. prefill_decode).
+    status:
+      type: string
+      readOnly: true
+      example: active
+      description: Status of the accelerator.
+    created_at:
+      type: string
+      format: date-time
+      readOnly: true
+      example: "2024-01-09T20:44:32Z"

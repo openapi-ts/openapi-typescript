@@ -1,0 +1,37 @@
+type: object
+title: BatchListResponse
+description: Cursor-paginated list of batch inference jobs.
+required:
+  - object
+  - data
+  - has_more
+properties:
+  object:
+    type: string
+    description: The object type, always `list`.
+    enum:
+      - list
+    example: "list"
+  data:
+    type: array
+    description: Batch jobs on this page, ordered newest first.
+    items:
+      $ref: "batch.yml"
+  first_id:
+    type: string
+    format: uuid
+    nullable: true
+    description: ID of the first batch on this page. Null when the page is empty.
+    example: "0e9d1d35-3d1e-4d66-9a2f-8c7e0f6b3e21"
+  last_id:
+    type: string
+    format: uuid
+    nullable: true
+    description: >
+      ID of the last batch on this page. Pass as `after` to fetch the
+      next page.
+    example: "7b2e9c1a-6f4d-4d9b-a0f1-5c4b7e2f8a12"
+  has_more:
+    type: boolean
+    description: Whether additional batches exist beyond this page.
+    example: false

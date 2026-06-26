@@ -1,0 +1,4 @@
+lang: cURL
+source: |-
+  curl -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/byoip_prefixes/fa3b-1234-5678-90ab-cdef01234567"

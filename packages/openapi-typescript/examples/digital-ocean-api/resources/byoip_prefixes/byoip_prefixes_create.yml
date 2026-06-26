@@ -1,0 +1,42 @@
+operationId: byoipPrefixes_create
+
+summary: "Create a BYOIP Prefix"
+
+description: |
+  To create a BYOIP prefix, send a POST request to `/v2/byoip_prefixes`.
+
+  A successful request will initiate the process of bringing your BYOIP Prefix into your account.
+  The response will include the details of the created prefix, including its UUID and status.
+
+tags:
+  - "BYOIP Prefixes"
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema: 
+        $ref: "models/byoip_prefix_create.yml#/byoip_prefix_create"
+
+responses:
+  "202":
+    $ref: "responses/byoip_prefix_create.yml#/byoip_prefix_create"
+  "401":
+    $ref: "../../shared/responses/unauthorized.yml"
+  "422":
+    $ref: "../../shared/responses/unprocessable_entity.yml"
+  "429":
+    $ref: "../../shared/responses/too_many_requests.yml"
+  "500":
+    $ref: "../../shared/responses/server_error.yml"
+  default:
+    $ref: "../../shared/responses/unexpected_error.yml"
+
+x-codeSamples:
+  - $ref: "examples/curl/create_byoip_prefix.yml"
+  - $ref: "examples/go/create_byoip_prefix.yml"
+  - $ref: "examples/python/create_byoip_prefix.yml"
+
+security:
+  - bearer_auth:
+      - "byoip_prefix:create"

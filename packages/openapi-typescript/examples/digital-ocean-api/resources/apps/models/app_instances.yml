@@ -1,0 +1,6 @@
+type: object
+properties:
+  instances:
+    type: array
+    items:
+      "$ref": app_instance.yml

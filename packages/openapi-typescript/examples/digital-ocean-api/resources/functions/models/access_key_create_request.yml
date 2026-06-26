@@ -1,0 +1,19 @@
+type: object
+
+properties:
+  name:
+    type: string
+    description: The access key's name.
+    example: "my-function-access-key"
+
+  expires_in:
+    type: string
+    description: >-
+      The duration after which the access key expires, specified as a
+      human-readable duration string in the format `<int>h` (hours) or
+      `<int>d` (days). Minimum value is `1h`. If omitted, the key will
+      never expire.
+    example: "7d"
+
+required:
+  - name

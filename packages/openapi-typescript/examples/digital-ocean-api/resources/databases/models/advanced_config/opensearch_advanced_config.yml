@@ -288,3 +288,26 @@ properties:
     type: boolean
     example: false
     default: false
+  knn_memory_circuit_breaker_enabled:
+    description: >-
+      Enable or disable KNN memory circuit breaker.
+    type: boolean
+    example: true
+    default: true
+  knn_memory_circuit_breaker_limit:
+    description: >-
+      Maximum amount of memory in percentage that can be used for the KNN index. Defaults to 50% of the JVM heap size. 
+      0 is used to set it to null which can be used to invalidate caches.
+    type: integer
+    example: 60
+    minimum: 0
+    maximum: 100
+    default: 50
+  keep_index_refresh_interval:
+    description: >-
+      DigitalOcean automatically resets the `index.refresh_interval` to the default value (once per second) to 
+      ensure that new documents are quickly available for search queries. If you are setting your own refresh intervals, 
+      you can disable this by setting this field to true.
+    example: true
+    type: boolean
+    default: false

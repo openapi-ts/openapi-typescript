@@ -1,0 +1,27 @@
+description: |-
+  The response will be a JSON object with a `service_key` object containing 
+  the service key value and creation information
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            service_key:
+              type: object
+              items:
+                $ref: '../models/service_key.yml#/partner_attachment_service_key'
+      example:
+        service_key:
+          created_at: '2020-03-13T19:20:47.442049222Z'
+          value: 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+          state: 'CREATED'

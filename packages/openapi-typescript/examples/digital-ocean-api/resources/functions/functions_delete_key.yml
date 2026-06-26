@@ -1,0 +1,53 @@
+operationId: functionsAccessKey_delete
+
+summary: "Delete a Namespace Access Key"
+
+description: |
+  Deletes an access key for a serverless functions namespace.
+  
+  To delete an access key, send a DELETE request to `/v2/functions/namespaces/{namespace_id}/keys/{key_id}`.
+
+tags:
+  - Functions
+
+parameters:
+  - $ref: "parameters.yml#/namespace_id"
+  - $ref: "parameters.yml#/key_id"
+
+responses:
+  "200":
+    description: Success. The access key was deleted.
+    headers:
+      ratelimit-limit:
+        $ref: "../../shared/headers.yml#/ratelimit-limit"
+      ratelimit-remaining:
+        $ref: "../../shared/headers.yml#/ratelimit-remaining"
+      ratelimit-reset:
+        $ref: "../../shared/headers.yml#/ratelimit-reset"
+    content:
+      application/json:
+        schema:
+          type: object
+        example: {}
+
+  "401":
+    $ref: "../../shared/responses/unauthorized.yml"
+
+  "404":
+    $ref: "responses/namespace_not_found.yml"
+
+  "429":
+    $ref: "../../shared/responses/too_many_requests.yml"
+
+  "500":
+    $ref: "../../shared/responses/server_error.yml"
+
+  default:
+    $ref: "../../shared/responses/unexpected_error.yml"
+
+x-codeSamples:
+  - $ref: "examples/curl/delete_access_key.yml"
+
+security:
+  - bearer_auth:
+      - "function:admin"

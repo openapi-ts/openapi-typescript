@@ -1,0 +1,25 @@
+type: object
+description: OpenAI-style embeddings response.
+required:
+  - object
+  - model
+  - data
+  - usage
+properties:
+  object:
+    type: string
+    description: The object type, which is always the string `list`.
+    enum:
+      - list
+    example: list
+  model:
+    type: string
+    description: The embedding model that produced the vectors.
+    example: qwen3-embedding-0.6b
+  data:
+    type: array
+    description: One entry for each `input` string, in the same order.
+    items:
+      $ref: embedding_data_item.yml
+  usage:
+    $ref: embeddings_usage.yml

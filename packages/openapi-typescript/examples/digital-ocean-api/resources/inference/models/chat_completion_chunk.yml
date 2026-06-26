@@ -1,0 +1,87 @@
+type: object
+description: Represents a streamed chunk of a chat completion response returned by the model, based on the provided input.
+required:
+  - choices
+  - created
+  - id
+  - model
+  - object
+properties:
+  id:
+    type: string
+    description: A unique identifier for the chat completion. Each chunk has the same ID.
+    example: chatcmpl-abc123
+  choices:
+    type: array
+    description: >
+      A list of chat completion choices. Can contain more than one element if n is greater than 1.
+      Can also be empty for the last chunk if you set stream_options include_usage to true.
+    items:
+      type: object
+      required:
+        - delta
+        - finish_reason
+        - index
+      properties:
+        delta:
+          $ref: "chat_completion_stream_response_delta.yml"
+        logprobs:
+          type: object
+          nullable: true
+          description: Log probability information for the choice.
+          properties:
+            content:
+              type: array
+              nullable: true
+              description: A list of message content tokens with log probability information.
+              items:
+                $ref: "chat_completion_token_logprob.yml"
+            refusal:
+              type: array
+              nullable: true
+              description: A list of message refusal tokens with log probability information.
+              items:
+                $ref: "chat_completion_token_logprob.yml"
+          required:
+            - content
+            - refusal
+        finish_reason:
+          type: string
+          nullable: true
+          description: >
+            The reason the model stopped generating tokens. stop if the model hit a natural stop point or a provided stop sequence,
+            length if the maximum number of tokens specified in the request was reached,
+            tool_calls if the model called a tool.
+          enum:
+            - stop
+            - length
+            - tool_calls
+            - content_filter
+          example: stop
+        index:
+          type: integer
+          description: The index of the choice in the list of choices.
+          example: 0
+  created:
+    type: integer
+    description: The Unix timestamp (in seconds) of when the chat completion was created. Each chunk has the same timestamp.
+    example: 1677649420
+  model:
+    type: string
+    description: The model to generate the completion.
+    example: llama3-8b-instruct
+  object:
+    type: string
+    description: The object type, which is always chat.completion.chunk.
+    enum:
+      - chat.completion.chunk
+    example: chat.completion.chunk
+  usage:
+    nullable: true
+    description: >
+      An optional field that will only be present when you set
+      stream_options include_usage to true in your request. When present, it
+      contains a null value except for the last chunk which contains the
+      token usage statistics for the entire request.
+    allOf:
+      - $ref: completion_usage.yml

@@ -22,6 +22,10 @@ apps:
             type: "PRIMARY"
             zone: "example.com"
             minimum_tls_version: "1.3"
+          vpc:
+            id: c22d8f48-4bc4-49f5-8ca0-58e7164427ac
+            egress_ips:
+              - ip: 10.0.0.1
         default_ingress: https://sample-php-iaj87.ondigitalocean.app
         created_at: 2020-11-19T20:27:18Z
         updated_at: 2020-12-01T00:42:16Z
@@ -47,6 +51,10 @@ apps:
                 type: "PRIMARY"
                 zone: "example.com"
                 minimum_tls_version: "1.3"
+            vpc:
+              id: c22d8f48-4bc4-49f5-8ca0-58e7164427ac
+              egress_ips:
+                - ip: 10.0.0.1
           services:
             - name: sample-php
               source_commit_hash: 54d4a727f457231062439895000d45437c7bb405
@@ -76,6 +84,10 @@ apps:
                 type: "PRIMARY"
                 zone: "example.com"
                 minimum_tls_version: "1.3"
+            vpc:
+              id: c22d8f48-4bc4-49f5-8ca0-58e7164427ac
+              egress_ips:
+                - ip: 10.0.0.1
           services:
             - name: sample-php
               source_commit_hash: 54d4a727f457231062439895000d45437c7bb405
@@ -199,6 +211,10 @@ apps:
           - ip: 192.168.1.2
             id: 4768fb15-2837-4dda-9be5-3951df4bc3d0
             status: ASSIGNED
+        vpc:
+          id: c22d8f48-4bc4-49f5-8ca0-58e7164427ac
+          egress_ips:
+            - ip: 10.0.0.1
     links:
       pages: {}
     meta:
@@ -212,6 +228,8 @@ app:
       owner_uuid: a4e16f25-cdd1-4483-b246-d77f283c9209
       spec:
         name: sample-golang
+        disable_edge_cache: true
+        enhanced_threat_control_enabled: true
         services:
         - name: web
           github:
@@ -229,6 +247,10 @@ app:
         - domain: "sample-golang.example.com"
           zone: "example.com"
           minimum_tls_version: "1.3"
+        vpc:
+          id: c22d8f48-4bc4-49f5-8ca0-58e7164427ac
+          egress_ips:
+            - ip: 10.0.0.1
       default_ingress: https://sample-golang-zyhgn.ondigitalocean.app
       created_at: '2021-02-10T16:45:14Z'
       updated_at: '2021-02-10T17:06:56Z'
@@ -253,6 +275,10 @@ app:
           - domain: "sample-golang.example.com"
             zone: "example.com"
             minimum_tls_version: "1.3"
+          vpc:
+            id: c22d8f48-4bc4-49f5-8ca0-58e7164427ac
+            egress_ips:
+              - ip: 10.0.0.1
         services:
         - name: web
           source_commit_hash: db6936cb46047c576962962eed81ad52c21f35d7
@@ -338,6 +364,10 @@ app:
               type: "PRIMARY"
               zone: "example.com"
               minimum_tls_version: "1.3"
+          vpc:
+            id: c22d8f48-4bc4-49f5-8ca0-58e7164427ac
+            egress_ips:
+              - ip: 10.0.0.1
       region:
         slug: ams
         label: Amsterdam
@@ -428,6 +458,10 @@ app:
         - ip: 192.168.1.2
           id: 4768fb15-2837-4dda-9be5-3951df4bc3d0
           status: ASSIGNED
+      vpc:
+        id: c22d8f48-4bc4-49f5-8ca0-58e7164427ac
+        egress_ips:
+          - ip: 10.0.0.1
 
 
 deployments:
@@ -436,6 +470,9 @@ deployments:
       - id: b6bdf840-2854-4f87-a36c-5f231c617c84
         spec:
           name: sample-golang
+          disable_edge_cache: true
+          disable_email_obfuscation: true
+          enhanced_threat_control_enabled: true
           services:
             - name: web
               github:
@@ -507,6 +544,9 @@ deployment:
       id: b6bdf840-2854-4f87-a36c-5f231c617c84
       spec:
         name: sample-golang
+        disable_edge_cache: true
+        disable_email_obfuscation: true
+        enhanced_threat_control_enabled: true
         services:
           - name: web
             github:
@@ -912,3 +952,77 @@ app_bandwidth_usage_multiple:
       - app_id: c2a93513-8d9b-4223-9d61-5e7272c81cf5
         bandwidth_bytes: '254847'
     date: 2023-01-17T00:00:00Z
+
+app_health:
+  value:
+    components:
+      - name: sample-expressjs
+        cpu_usage_percent: 5.555
+        memory_usage_percent: 20.32
+        replicas_desired: 1
+        replicas_ready: 2
+        state: HEALTHY
+app_instances:
+  value:
+    instances:
+      - component_name: sample-golang
+        instance_name: sample-golang-76b84c7fb8-6p8kq
+        instance_alias: sample-golang-0
+        component_type: SERVICE
+      - component_name: sample-golang
+        instance_name: sample-golang-76b84c7fb8-ngvpc
+        instance_alias: sample-golang-1
+        component_type: SERVICE
+      - component_name: sample-php
+        instance_name: sample-php-767c6b49c4-dkgpt
+        instance_alias: sample-php-0
+        component_type: SERVICE
+      - component_name: sample-php
+        instance_name: sample-php-767c6b49c4-z8dll
+        instance_alias: sample-php-1
+        component_type: SERVICE
+
+job_invocations:
+  value:
+    job_invocations:
+      - id: ba32b134-569c-4c0c-ba02-8ffdb0492ece
+        job_name: good-job
+        deployment_id: c020763f-ddb7-4112-a0df-7f01c69fc00b
+        phase: SUCCEEDED
+        created_at: "2025-09-11T11:04:05Z"
+        started_at: "2025-09-11T11:04:10Z"
+        completed_at: "2025-09-11T11:04:40Z"
+        trigger:
+          type: SCHEDULE
+          properties:
+              type:
+                type: string
+              scheduled:
+                type: object
+                properties:
+                  schedule:
+                    type: object
+                    properties:
+                      cron:
+                        type: string
+                        example: "*/2 * * * *"
+                      time_zone:
+                        type: string
+                        example: "UTC"
+
+job_invocation:
+  value:
+    job_invocation:
+      - id: ba32b134-569c-4c0c-ba02-8ffdb0492ece
+        job_name: good-job
+        deployment_id: c020763f-ddb7-4112-a0df-7f01c69fc00b
+        phase: SUCCEEDED
+        created_at: "2025-09-11T11:04:05Z"
+        started_at: "2025-09-11T11:04:10Z"
+        completed_at: "2025-09-11T11:04:40Z"
+        trigger:
+          - type: SCHEDULED
+            scheduled:
+              - schedule:
+                  cron: "*/2 * * * *"
+                  time_zone: UTC

@@ -1,0 +1,31 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+      createReq := &godo.PartnerAttachmentCreateRequest{ 
+          Name:"c5pAqd-ped-007", 
+          ConnectionBandwidthInMbps:1000, 
+          Region:"NYC", 
+          NaaSProvider:"MEGAPORT", 
+          VPCIDs:[]string{"bafc1c1d-bac1-2412-7f5e-fezc832z213z"}, 
+          BGP: godo.BGP{ 
+              LocalRouterIP:"169.254.11.1/29",
+              PeerRouterIP:"169.254.11.2/29",
+              PeerASN:133938,
+              AuthKey:"0zzyTNuRZa00vqkzIToPG3q",
+          },
+      }
+
+      response, _, err := client.PartnerAttachment.Create(ctx, createReq)
+  }
+

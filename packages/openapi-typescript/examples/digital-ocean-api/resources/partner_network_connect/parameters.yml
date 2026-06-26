@@ -1,0 +1,10 @@
+pa_id:
+  in: path
+  name: pa_id
+  description: A unique identifier for a partner attachment.
+  required: true
+  schema:
+    type: string
+    format: string
+    minimum: 1
+  example: 4de7ac8b-495b-4884-9a69-1050c6793cd6

@@ -6,13 +6,16 @@ description: |
   To add a new database user, send a POST request to `/v2/databases/$DATABASE_ID/users`
   with the desired username.
 
-  Note: User management is not supported for Redis clusters.
+  Note: User management is not supported for Caching or Valkey clusters.
 
   When adding a user to a MySQL cluster, additional options can be configured in the
   `mysql_settings` object.
 
   When adding a user to a Kafka cluster, additional options can be configured in
   the `settings` object.
+
+   When adding a user to a MongoDB cluster, additional options can be configured in
+  the `settings.mongo_user_settings` object.
 
   The response will be a JSON object with a key called `user`. The value of this will be an
   object that contains the standard attributes associated with a database user including
@@ -37,8 +40,10 @@ requestBody:
               type: boolean
               example: true
               description: |
+                (To be deprecated: use settings.mongo_user_settings.role instead for access controls to MongoDB databases). 
                 For MongoDB clusters, set to `true` to create a read-only user.
-                This option is not currently supported for other database engines.             
+                This option is not currently supported for other database engines.
+                           
 
       examples:
         Add New User:
@@ -55,6 +60,16 @@ requestBody:
           value:
             name: my-readonly
             readonly: true
+
+        Add New User that is restricted to a database (MongoDB Only):
+          value:
+            name: my-readWrite
+            settings:
+              mongo_user_settings:
+                databases:
+                  - my-db
+                  - my-db-2
+                role: readWrite
         
         Add New User for Postgres with replication rights:
           value:

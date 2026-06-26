@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"id": "9cc10173-e9ea-4176-9dbc-a4cee4c4ff30", "backup_id": "vectordb-9cc10173-e9ea-4176-9dbc-a4cee4c4ff30-20240101-120000"}' \
+    "https://api.digitalocean.com/v2/vector-databases/9cc10173-e9ea-4176-9dbc-a4cee4c4ff30/backups/vectordb-9cc10173-e9ea-4176-9dbc-a4cee4c4ff30-20240101-120000/restore"

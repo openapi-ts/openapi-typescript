@@ -1,0 +1,13 @@
+lang: JavaScript
+source: |-
+  import { InferenceClient } from "@digitalocean/dots";
+
+  const client = new InferenceClient({
+      apiKey: process.env.DIGITALOCEAN_TOKEN,
+  });
+
+  const resp = await client.models.list();
+
+  for (const model of resp.data) {
+      console.log(model.id);
+  }

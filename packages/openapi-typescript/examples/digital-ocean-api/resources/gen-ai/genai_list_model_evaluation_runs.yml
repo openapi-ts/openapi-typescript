@@ -1,0 +1,134 @@
+description: To list model evaluation runs, send a GET request to `/v2/genai/model_evaluation_runs`.
+operationId: genai_list_model_evaluation_runs
+parameters:
+- description: UUID of the evaluation preset to filter by.
+  example: 123e4567-e89b-12d3-a456-426614174000
+  in: query
+  name: eval_preset_uuid
+  schema:
+    type: string
+- description: Filter by evaluation run status.
+  example: MODEL_EVALUATION_RUN_STATUS_UNSPECIFIED
+  in: query
+  name: status
+  schema:
+    default: MODEL_EVALUATION_RUN_STATUS_UNSPECIFIED
+    enum:
+    - MODEL_EVALUATION_RUN_STATUS_UNSPECIFIED
+    - MODEL_EVALUATION_RUN_QUEUED
+    - MODEL_EVALUATION_RUN_RUNNING_DATASET
+    - MODEL_EVALUATION_RUN_EVALUATING_RESULTS
+    - MODEL_EVALUATION_RUN_CANCELLING
+    - MODEL_EVALUATION_RUN_CANCELLED
+    - MODEL_EVALUATION_RUN_SUCCESSFUL
+    - MODEL_EVALUATION_RUN_PARTIALLY_SUCCESSFUL
+    - MODEL_EVALUATION_RUN_FAILED
+    type: string
+- description: Page number.
+  example: 1
+  in: query
+  name: page
+  schema:
+    type: integer
+- description: Items per page.
+  example: 1
+  in: query
+  name: per_page
+  schema:
+    type: integer
+- description: Filter by one or more statuses. Empty means no status filter.
+  example:
+  - MODEL_EVALUATION_RUN_STATUS_UNSPECIFIED
+  in: query
+  name: statuses
+  schema:
+    items:
+      enum:
+      - MODEL_EVALUATION_RUN_STATUS_UNSPECIFIED
+      - MODEL_EVALUATION_RUN_QUEUED
+      - MODEL_EVALUATION_RUN_RUNNING_DATASET
+      - MODEL_EVALUATION_RUN_EVALUATING_RESULTS
+      - MODEL_EVALUATION_RUN_CANCELLING
+      - MODEL_EVALUATION_RUN_CANCELLED
+      - MODEL_EVALUATION_RUN_SUCCESSFUL
+      - MODEL_EVALUATION_RUN_PARTIALLY_SUCCESSFUL
+      - MODEL_EVALUATION_RUN_FAILED
+      type: string
+    type: array
+- description: |-
+    Filter by one or more candidate model source types
+    (serverless, dedicated, router). Empty means no candidate-type filter.
+  example:
+  - CANDIDATE_MODEL_SOURCE_SERVERLESS
+  in: query
+  name: candidate_types
+  schema:
+    items:
+      enum:
+      - CANDIDATE_MODEL_SOURCE_SERVERLESS
+      - CANDIDATE_MODEL_SOURCE_DEDICATED
+      - CANDIDATE_MODEL_SOURCE_ROUTER
+      type: string
+    type: array
+- description: |-
+    Free-text search across the eval run name, candidate model name and
+    dataset name (case-insensitive substring match). Empty means no search.
+  example: example string
+  in: query
+  name: search
+  schema:
+    type: string
+- description: Field to sort by. Defaults to creation date when unspecified.
+  example: MODEL_EVALUATION_RUN_SORT_FIELD_UNSPECIFIED
+  in: query
+  name: sort_by
+  schema:
+    default: MODEL_EVALUATION_RUN_SORT_FIELD_UNSPECIFIED
+    enum:
+    - MODEL_EVALUATION_RUN_SORT_FIELD_UNSPECIFIED
+    - MODEL_EVALUATION_RUN_SORT_FIELD_CREATED_AT
+    - MODEL_EVALUATION_RUN_SORT_FIELD_STATUS
+    type: string
+- description: Sort direction. Defaults to descending when unspecified.
+  example: SORT_DIRECTION_UNSPECIFIED
+  in: query
+  name: sort_direction
+  schema:
+    default: SORT_DIRECTION_UNSPECIFIED
+    enum:
+    - SORT_DIRECTION_UNSPECIFIED
+    - SORT_DIRECTION_ASC
+    - SORT_DIRECTION_DESC
+    type: string
+responses:
+  "200":
+    content:
+      application/json:
+        schema:
+          $ref: ./definitions.yml#/apiListModelEvaluationRunsOutput
+    description: A successful response.
+    headers:
+      ratelimit-limit:
+        $ref: ../../shared/headers.yml#/ratelimit-limit
+      ratelimit-remaining:
+        $ref: ../../shared/headers.yml#/ratelimit-remaining
+      ratelimit-reset:
+        $ref: ../../shared/headers.yml#/ratelimit-reset
+  "401":
+    $ref: ../../shared/responses/unauthorized.yml
+  "404":
+    $ref: ../../shared/responses/not_found.yml
+  "429":
+    $ref: ../../shared/responses/too_many_requests.yml
+  "500":
+    $ref: ../../shared/responses/server_error.yml
+  default:
+    $ref: ../../shared/responses/unexpected_error.yml
+security:
+- bearer_auth:
+  - genai:read
+summary: List Model Evaluation Runs
+tags:
+- GradientAI Platform
+x-codeSamples:
+- $ref: examples/curl/genai_list_model_evaluation_runs.yml

@@ -70,6 +70,7 @@ allOf:
         type: array
         description: >-
           An array containing the IDs of the Droplets assigned to the firewall.
+          <br><br>Requires `droplet:read` scope.
         nullable: true
         items:
           type: integer
@@ -81,6 +82,7 @@ allOf:
           - $ref: "../../../shared/attributes/existing_tags_array.yml"
           - description: >-
               An array containing the names of the Tags assigned to the firewall.
+              <br><br>Requires `tag:read` scope.
             example: gateway
 
   - $ref: "firewall_rule.yml#/firewall_rules"

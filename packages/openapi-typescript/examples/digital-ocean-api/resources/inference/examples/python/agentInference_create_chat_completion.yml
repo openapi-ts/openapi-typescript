@@ -1,0 +1,18 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(
+      token=os.environ.get("AGENT_ACCESS_KEY"),
+      agent_endpoint=os.environ.get("AGENT_ENDPOINT"),
+  )
+
+  resp = client.agent.chat.completions.create(
+      model="llama3.3-70b-instruct",
+      messages=[
+          {"role": "user", "content": "What is the capital of Portugal?"},
+      ],
+  )
+
+  print(resp.choices[0].message.content)

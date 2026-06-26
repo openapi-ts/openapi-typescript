@@ -1,0 +1,14 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json"  \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/evaluation_datasets" \
+    -d '{
+      "name": "dataset.csv",
+      "file_upload_dataset": {
+        "original_file_name": "dataset.csv",
+        "stored_object_key": "123abc",
+        "size_in_bytes": 255
+      }
+    }'

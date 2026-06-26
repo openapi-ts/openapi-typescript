@@ -1,0 +1,9 @@
+allOf:
+  - type: object
+    properties:
+      events:
+        title: A list of events
+        type: array
+        items:
+          $ref: app_event.yml
+  - $ref: ../../../shared/pages.yml#/pagination

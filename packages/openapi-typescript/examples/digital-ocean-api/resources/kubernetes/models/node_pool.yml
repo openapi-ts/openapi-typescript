@@ -61,6 +61,7 @@ kubernetes_node_pool_base:
       description: An array containing the tags applied to the node pool. All
         node pools are automatically tagged `k8s`, `k8s-worker`, and
         `k8s:$K8S_CLUSTER_ID`.
+        <br><br>Requires `tag:read` scope.
 
     labels:
       type: object

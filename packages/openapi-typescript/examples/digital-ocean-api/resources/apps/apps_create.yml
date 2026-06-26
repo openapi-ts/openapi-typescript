@@ -22,6 +22,9 @@ requestBody:
         spec:
           name: web-app
           region: nyc
+          disable_edge_cache: true
+          disable_email_obfuscation: false
+          enhanced_threat_control_enabled: true
           services:
             - name: api
               github:
@@ -36,6 +39,8 @@ requestBody:
                 - path: /api
           egress:
             type: DEDICATED_IP
+          vpc:
+            id: c22d8f48-4bc4-49f5-8ca0-58e7164427ac
   required: true
 
 responses:

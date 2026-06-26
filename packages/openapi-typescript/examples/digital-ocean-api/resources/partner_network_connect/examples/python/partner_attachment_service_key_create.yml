@@ -1,0 +1,6 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+  client = Client(token=os.getenv("$DIGITALOCEAN_TOKEN"))
+  response = client.partner_attachments.create_service_key("5a4981aa-9653-4bd1-bef5-d6bff52042e4")

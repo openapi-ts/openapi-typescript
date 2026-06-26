@@ -1,0 +1,15 @@
+type: object
+description: A text block in an assistant message in the response.
+required:
+  - type
+  - text
+properties:
+  type:
+    type: string
+    enum:
+      - text
+    example: text
+  text:
+    type: string
+    description: Generated text for this block.
+    example: Hi! How can I help?

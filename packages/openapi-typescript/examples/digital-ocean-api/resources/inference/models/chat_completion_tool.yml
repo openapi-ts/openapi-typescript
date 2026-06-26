@@ -1,0 +1,13 @@
+type: object
+required:
+  - type
+  - function
+properties:
+  type:
+    type: string
+    enum:
+      - function
+    description: The type of the tool. Currently, only function is supported.
+    example: function
+  function:
+    $ref: "function_object.yml"

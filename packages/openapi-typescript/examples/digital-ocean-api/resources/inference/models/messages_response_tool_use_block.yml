@@ -1,0 +1,23 @@
+type: object
+description: Tool call emitted by the assistant in the response.
+required:
+  - type
+  - id
+  - name
+  - input
+properties:
+  type:
+    type: string
+    enum:
+      - tool_use
+    example: tool_use
+  id:
+    type: string
+    example: toolu_01ABCdefGhIjKlMnOpQrStUv
+  name:
+    type: string
+    example: get_weather
+  input:
+    type: object
+    additionalProperties: true
+    description: Arguments for the tool invocation.

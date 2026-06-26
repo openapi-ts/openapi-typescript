@@ -1,0 +1,29 @@
+type: object
+
+description: >-
+  Configuration for database cluster storage autoscaling
+
+properties:
+  enabled:
+    type: boolean
+    description: >-
+      Whether storage autoscaling is enabled for the cluster
+    example: true
+  threshold_percent:
+    type: integer
+    minimum: 15
+    maximum: 95
+    description: >-
+      The storage usage threshold percentage that triggers autoscaling.
+      When storage usage exceeds this percentage, additional storage will be added automatically.
+    example: 80
+  increment_gib:
+    type: integer
+    minimum: 10
+    maximum: 500
+    description: >-
+      The amount of additional storage to add (in GiB) when autoscaling is triggered
+    example: 10
+
+required:
+  - enabled

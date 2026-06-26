@@ -1,0 +1,53 @@
+description: >-
+  A JSON response containing details about the new key.
+
+headers:
+  ratelimit-limit:
+    $ref: "../../../shared/headers.yml#/ratelimit-limit"
+  ratelimit-remaining:
+    $ref: "../../../shared/headers.yml#/ratelimit-remaining"
+  ratelimit-reset:
+    $ref: "../../../shared/headers.yml#/ratelimit-reset"
+
+content:
+  application/json:
+    schema:
+      properties:
+        key:
+          $ref: "../models/key_create_response.yml"
+
+    examples:
+      Read Only Key:
+        value:
+          key:
+            name: read-only-key
+            access_key: DOACCESSKEYEXAMPLE
+            secret_key: DOSECRETKEYEXAMPLE
+            grants:
+              - bucket: my-bucket
+                permission: read
+            created_at: "2018-07-19T15:04:16Z"
+
+      Full Access Key:
+        value:
+          key:
+            name: full-access-key
+            access_key: DOACCESSKEYEXAMPLE
+            secret_key: DOSECRETKEYEXAMPLE
+            grants:
+              - bucket: ""
+                permission: fullaccess
+            created_at: "2018-07-19T15:04:16Z"
+
+      Mixed Permission Access Key:
+        value:
+          key:
+            name: custom-bucket-key
+            access_key: DOACCESSKEYEXAMPLE
+            secret_key: DOSECRETKEYEXAMPLE
+            grants:
+              - bucket: my-bucket
+                permission: readwrite
+              - bucket: my-other-bucket
+                permission: read
+            created_at: "2018-07-19T15:04:16Z"

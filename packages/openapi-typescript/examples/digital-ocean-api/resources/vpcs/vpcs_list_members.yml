@@ -10,6 +10,9 @@ description: |
   included a `resource_type` query parameter. For example, to only list Droplets
   in the VPC, send a GET request to `/v2/vpcs/$VPC_ID/members?resource_type=droplet`.
 
+  Only resources that you are authorized to see will be returned (e.g. to see Droplets,
+  you must have `droplet:read`).
+
 tags:
   - VPCs
 

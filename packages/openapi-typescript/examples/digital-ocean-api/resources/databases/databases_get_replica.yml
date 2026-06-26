@@ -7,7 +7,7 @@ description: >-
   to `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.
 
 
-  **Note**: Read-only replicas are not supported for Redis clusters.
+  **Note**: Read-only replicas are not supported for Caching or Valkey clusters.
 
 
   The response will be a JSON object with a `replica key`. This will be set to

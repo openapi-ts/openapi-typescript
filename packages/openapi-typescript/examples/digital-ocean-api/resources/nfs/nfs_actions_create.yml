@@ -1,0 +1,77 @@
+operationId: nfs_create_action
+
+summary: Initiate an NFS action
+
+description: |
+  To execute an action (such as resize) on a specified NFS share, 
+  send a POST request to `/v2/nfs/{nfs_id}/actions`. In the JSON body 
+  to the request, set the `type` attribute to on of the supported action types:
+
+  | Action                           | Details |
+  | -------------------------------- | ----------- |
+  | <nobr>`resize`</nobr>            | Resizes an NFS share. Set the size_gib attribute to a desired value in GiB |
+  | <nobr>`snapshot`</nobr>          | Takes a snapshot of an NFS share |
+  | <nobr>`attach`</nobr>            | Attaches an NFS share to a VPC. Set the vpc_id attribute to the desired VPC ID |
+  | <nobr>`detach`</nobr>            | Detaches an NFS share from a VPC. Set the vpc_id attribute to the desired VPC ID |
+  | <nobr>`reassign`</nobr>          | Reassigns an NFS share from one VPC to another. Set the old_vpc_id and new_vpc_id attributes to the desired VPC IDs |
+  | <nobr>`switch_performance_tier`</nobr> | Switches the performance tier of an NFS share. Set the performance_tier attribute to the desired tier (e.g., standard, high) |
+
+tags:
+  - NFS Actions
+
+parameters:
+  - $ref: "parameters.yml#/nfs_id"
+
+requestBody:
+  required: true
+
+  description: |
+    The `type` attribute set in the request body will specify the  action that
+    will be taken on the NFS share. Some actions will require additional
+    attributes to be set as well.
+
+  content:
+    application/json:
+      schema:
+        anyOf:
+          - $ref: 'models/nfs_actions.yml#/nfs_action_resize'
+          - $ref: 'models/nfs_actions.yml#/nfs_action_snapshot'
+          - $ref: 'models/nfs_actions.yml#/nfs_action_attach'
+          - $ref: 'models/nfs_actions.yml#/nfs_action_detach'
+          - $ref: 'models/nfs_actions.yml#/nfs_action_reassign'
+          - $ref: 'models/nfs_actions.yml#/nfs_action_switch_performance_tier'
+        discriminator:
+          propertyName: type
+          mapping:
+            resize: 'models/nfs_actions.yml#/nfs_action_resize'
+            snapshot: 'models/nfs_actions.yml#/nfs_action_snapshot'
+            attach: 'models/nfs_actions.yml#/nfs_action_attach'
+            detach: 'models/nfs_actions.yml#/nfs_action_detach'
+            reassign: 'models/nfs_actions.yml#/nfs_action_reassign'
+            switch_performance_tier: 'models/nfs_actions.yml#/nfs_action_switch_performance_tier'
+
+responses:
+  '201':
+    $ref: 'responses/nfs_actions.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/nfs_actions_create.yml'
+
+security:
+  - bearer_auth:
+    - 'nfs:create'

@@ -1,0 +1,35 @@
+type: object
+description: Token usage information for the image generation.
+required:
+  - total_tokens
+  - input_tokens
+  - output_tokens
+  - input_tokens_details
+properties:
+  total_tokens:
+    type: integer
+    description: The total number of tokens (images and text) used for the image generation.
+    example: 4172
+  input_tokens:
+    type: integer
+    description: The number of tokens (images and text) in the input prompt.
+    example: 12
+  output_tokens:
+    type: integer
+    description: The number of image tokens in the output image.
+    example: 4160
+  input_tokens_details:
+    type: object
+    description: Detailed breakdown of input tokens.
+    required:
+      - text_tokens
+      - image_tokens
+    properties:
+      text_tokens:
+        type: integer
+        description: The number of text tokens in the input prompt.
+        example: 12
+      image_tokens:
+        type: integer
+        description: The number of image tokens in the input prompt.
+        example: 0

@@ -1,0 +1,56 @@
+description: To get agent usage, send a GET request to `/v2/gen-ai/agents/{uuid}/usage`.
+  Returns usage metrics for the specified agent within the provided time range.
+operationId: genai_get_agent_usage
+parameters:
+- description: Agent id
+  example: '"123e4567-e89b-12d3-a456-426614174000"'
+  in: path
+  name: uuid
+  required: true
+  schema:
+    type: string
+- description: Return all usage data from this date.
+  example: '"example string"'
+  in: query
+  name: start
+  schema:
+    type: string
+- description: Return all usage data up to this date, if omitted, will return up to
+    the current date.
+  example: '"example string"'
+  in: query
+  name: stop
+  schema:
+    type: string
+responses:
+  "200":
+    content:
+      application/json:
+        schema:
+          $ref: ./definitions.yml#/apiGetAgentUsageOutput
+    description: A successful response.
+    headers:
+      ratelimit-limit:
+        $ref: ../../shared/headers.yml#/ratelimit-limit
+      ratelimit-remaining:
+        $ref: ../../shared/headers.yml#/ratelimit-remaining
+      ratelimit-reset:
+        $ref: ../../shared/headers.yml#/ratelimit-reset
+  "401":
+    $ref: ../../shared/responses/unauthorized.yml
+  "404":
+    $ref: ../../shared/responses/not_found.yml
+  "429":
+    $ref: ../../shared/responses/too_many_requests.yml
+  "500":
+    $ref: ../../shared/responses/server_error.yml
+  default:
+    $ref: ../../shared/responses/unexpected_error.yml
+security:
+- bearer_auth:
+  - genai:read
+summary: Get Agent Usage
+tags:
+- GradientAI Platform
+x-codeSamples:
+- $ref: examples/curl/genai_get_agent_usage.yml

@@ -80,7 +80,7 @@ properties:
       - 53893572
     description: An array of backup IDs of any backups that have been taken
       of the Droplet instance.  Droplet backups are enabled at the time of the
-      instance creation.
+      instance creation.<br>Requires `image:read` scope.
 
   next_backup_window:
     allOf:
@@ -96,10 +96,12 @@ properties:
     example:
       - 67512819
     description: An array of snapshot IDs of any snapshots created from the
-      Droplet instance.
+      Droplet instance.<br>Requires `image:read` scope.
 
   image:
-    $ref: '../../images/models/image.yml'
+    allOf:
+      - $ref: '../../images/models/image.yml'
+      - description: The Droplet's image.<br>Requires `image:read` scope.
 
   volume_ids:
     type: array
@@ -108,7 +110,7 @@ properties:
     example:
       - '506f78a4-e098-11e5-ad9f-000f53306ae1'
     description: A flat array including the unique identifier for each Block
-      Storage volume attached to the Droplet.
+      Storage volume attached to the Droplet.<br>Requires `block_storage:read` scope.
 
   size:
     $ref: '../../sizes/models/size.yml'
@@ -146,13 +148,13 @@ properties:
     example:
       - web
       - env:prod
-    description: An array of Tags the Droplet has been tagged with.
+    description: An array of Tags the Droplet has been tagged with.<br>Requires `tag:read` scope.
 
   vpc_uuid:
     type: string
     example: '760e09ef-dc84-11e8-981e-3cfdfeaae000'
     description: A string specifying the UUID of the VPC to which the Droplet
-      is assigned.
+      is assigned.<br>Requires `vpc:read` scope.
 
   gpu_info:
     $ref: '../../sizes/models/gpu_info.yml'

@@ -42,6 +42,6 @@ security:
   - genai:create
 summary: Add Data Source to a Knowledge Base
 tags:
-- GenAI Platform (Public Preview)
+- GradientAI Platform
 x-codeSamples:
 - $ref: examples/curl/genai_create_knowledge_base_data_source.yml

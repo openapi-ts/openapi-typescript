@@ -12,7 +12,7 @@ requestBody:
   content:
     application/json:
       schema:
-        $ref: 'models/cluster_registries.yml'
+        $ref: 'models/cluster_registry.yml'
 
 responses:
   '204':
@@ -37,4 +37,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'kubernetes:delete'
+    - 'kubernetes:update'

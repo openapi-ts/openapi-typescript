@@ -1,0 +1,9 @@
+allOf:
+  - type: object
+    properties:
+      job_invocations:
+        title: A list of job invocations
+        type: array
+        items:
+          $ref: app_job_invocation.yml
+  - $ref: ../../../shared/pages.yml#/pagination

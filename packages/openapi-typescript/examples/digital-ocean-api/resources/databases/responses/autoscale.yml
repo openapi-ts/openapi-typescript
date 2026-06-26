@@ -1,0 +1,23 @@
+description: A JSON object with autoscale configuration details.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        autoscale:
+          $ref: '../models/database_autoscale_params.yml'
+    example:
+      autoscale:
+        storage:
+          enabled: true
+          threshold_percent: 80
+          increment_gib: 10

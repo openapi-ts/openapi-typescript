@@ -1,0 +1,86 @@
+vpc_nat_gateways:
+  value:
+    vpc_nat_gateways:
+    - id: 70e1b58d-cdec-4e95-b3ee-2d4d95feff51
+      name: "test-vpc-nat-gateways"
+      type: "PUBLIC"
+      state: "ACTIVE"
+      region: "tor1"
+      size: 1
+      vpcs:
+        - vpc_uuid: "0eb1752f-807b-4562-a077-8018e13ab1fb"
+          gateway_ip: "10.118.0.35"
+      egresses:
+        public_gateways:
+          - ipv4: "174.138.113.197"
+      udp_timeout_seconds: 30
+      icmp_timeout_seconds: 30
+      tcp_timeout_seconds: 30
+      created_at: "2025-08-12T18:43:14Z"
+      updated_at: "2025-08-12T19:00:04Z"
+      project_id: "9cc10173-e9ea-4176-9dbc-a4cee4c4ff30"
+    links: {}
+    meta:
+      total: 1
+
+vpc_nat_gateway:
+  value:
+    vpc_nat_gateway:
+      id: 70e1b58d-cdec-4e95-b3ee-2d4d95feff51
+      name: "test-vpc-nat-gateways"
+      type: "PUBLIC"
+      state: "ACTIVE"
+      region: "tor1"
+      size: 1
+      vpcs:
+        - vpc_uuid: "0eb1752f-807b-4562-a077-8018e13ab1fb"
+          gateway_ip: "10.118.0.35"
+          default_gateway: true
+      egresses:
+        public_gateways:
+          - ipv4: "174.138.113.197"
+      udp_timeout_seconds: 30
+      icmp_timeout_seconds: 30
+      tcp_timeout_seconds: 30
+      created_at: "2025-08-12T18:43:14Z"
+      updated_at: "2025-08-12T19:00:04Z"
+
+vpc_nat_gateway_create:
+  value:
+    vpc_nat_gateway:
+      id: 70e1b58d-cdec-4e95-b3ee-2d4d95feff51
+      name: "test-vpc-nat-gateways"
+      type: "PUBLIC"
+      state: "ACTIVE"
+      region: "tor1"
+      size: 1
+      vpcs:
+        - vpc_uuid: "0eb1752f-807b-4562-a077-8018e13ab1fb"
+          default_gateway: true
+      egresses: {}
+      udp_timeout_seconds: 30
+      icmp_timeout_seconds: 30
+      tcp_timeout_seconds: 30
+      created_at: "2025-08-12T18:43:14Z"
+      updated_at: "2025-08-12T18:43:14Z"
+
+vpc_nat_gateway_update:
+  value:
+    vpc_nat_gateway:
+      id: 70e1b58d-cdec-4e95-b3ee-2d4d95feff51
+      name: "test-vpc-nat-gateways"
+      type: "PUBLIC"
+      state: "ACTIVE"
+      region: "tor1"
+      size: 2
+      vpcs:
+        - vpc_uuid: "0eb1752f-807b-4562-a077-8018e13ab1fb"
+          gateway_ip: "10.118.0.35"
+      egresses:
+        public_gateways:
+          - ipv4: "174.138.113.197"
+      udp_timeout_seconds: 30
+      icmp_timeout_seconds: 30
+      tcp_timeout_seconds: 30
+      created_at: "2025-08-12T18:43:14Z"
+      updated_at: "2025-08-12T19:00:04Z"

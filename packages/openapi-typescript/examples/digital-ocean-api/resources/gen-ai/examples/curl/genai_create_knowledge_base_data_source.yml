@@ -1,6 +1,19 @@
 lang: cURL
 source: |-
-  curl -X DELETE \
+  curl -X POST \
     -H "Content-Type: application/json"  \
-    -H "Authorization: Bearer $PREVIEW_API_TOKEN" \
-    "https://api.digitalocean.com/v2/gen-ai/knowledge_bases/9a6e3975-b0c6-11ef-bf8f-4e013e2ddde4/data_sources/bd2a2db5-b8b0-11ef-bf8f-4e013e2ddde4"
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/knowledge_bases/20cd8434-6ea1-11f0-bf8f-4e013e2ddde4/data_sources" \
+    -d '{
+  "knowledge_base_uuid": "20cd8434-6ea1-11f0-bf8f-4e013e2ddde4",
+  "web_crawler_data_source": {
+    "base_url": "https://example.com",
+    "crawling_option": "SCOPED",
+    "embed_media": false,
+    "exclude_tags": ["nav","footer","header","aside","script","style","form","iframe", "noscript"]
+  },
+  "chunking_algorithm": "CHUNKING_ALGORITHM_SECTION_BASED",
+  "chunking_options": {
+    "max_chunk_size": 500
+  }
+  }'

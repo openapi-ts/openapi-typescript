@@ -1,0 +1,75 @@
+operationId: inference_get_batch_results
+summary: Get Batch Inference Results Download Links
+description: >
+  Returns short-lived presigned download URLs for the output (and optional
+  error sidecar) of a completed batch job. If results are not yet ready,
+  the response sets `result_available: false` or returns `412 Precondition
+  Failed`; in both cases, keep polling batch status and retry.
+
+
+  Download the artifacts soon after fetching — the URLs are short-lived.
+  Result files themselves are retained for up to 30 days after the job
+  completes, after which they are deleted.
+tags:
+  - Batch Inference
+servers:
+  - url: "https://inference.do-ai.run"
+    description: production
+x-inference-base-url: "https://inference.do-ai.run"
+parameters:
+  - in: path
+    name: batch_id
+    description: The batch job identifier.
+    required: true
+    schema:
+      type: string
+      format: uuid
+    example: "0e9d1d35-3d1e-4d66-9a2f-8c7e0f6b3e21"
+responses:
+  "200":
+    description: Presigned download URLs.
+    headers:
+      ratelimit-limit:
+        $ref: '../../shared/headers.yml#/ratelimit-limit'
+      ratelimit-remaining:
+        $ref: '../../shared/headers.yml#/ratelimit-remaining'
+      ratelimit-reset:
+        $ref: '../../shared/headers.yml#/ratelimit-reset'
+    content:
+      application/json:
+        schema:
+          $ref: "models/batch_results_response.yml"
+  "401":
+    $ref: '../../shared/responses/unauthorized.yml'
+  "403":
+    $ref: '../../shared/responses/forbidden.yml'
+  "404":
+    $ref: '../../shared/responses/not_found.yml'
+  "412":
+    description: Results are not yet available. Poll batch status and retry.
+    headers:
+      ratelimit-limit:
+        $ref: '../../shared/headers.yml#/ratelimit-limit'
+      ratelimit-remaining:
+        $ref: '../../shared/headers.yml#/ratelimit-remaining'
+      ratelimit-reset:
+        $ref: '../../shared/headers.yml#/ratelimit-reset'
+    content:
+      application/json:
+        schema:
+          $ref: '../../shared/models/error.yml'
+        example:
+          id: precondition_failed
+          message: Batch results are not yet available. Retry once the job has completed.
+  "429":
+    $ref: '../../shared/responses/too_many_requests.yml'
+  "500":
+    $ref: '../../shared/responses/server_error.yml'
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+x-codeSamples:
+  - $ref: 'examples/curl/inference_get_batch_results.yml'
+  - $ref: 'examples/python/inference_get_batch_results.yml'
+  - $ref: 'examples/dots/inference_get_batch_results.yml'
+security:
+  - inference_bearer_auth: []

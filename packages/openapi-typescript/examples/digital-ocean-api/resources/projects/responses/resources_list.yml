@@ -1,5 +1,8 @@
-description: The response will be a JSON object with a key called `resources`.
+description: |
+  The response will be a JSON object with a key called `resources`.
   The value of this will be an object with the standard resource attributes.
+
+  Only resources that you are authorized to see will be returned.
 
 headers:
   ratelimit-limit:
@@ -16,6 +19,7 @@ content:
         - type: object
           properties:
             resources:
+              description: The resources that are assigned to this project. Only resources that you are authorized to see will be returned.
               type: array
               items:
                 $ref: '../models/resource.yml'

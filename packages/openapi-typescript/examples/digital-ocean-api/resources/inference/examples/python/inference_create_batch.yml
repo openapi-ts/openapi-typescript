@@ -1,0 +1,19 @@
+lang: Python
+source: |-
+  import os
+  import uuid
+
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  batch = client.batches.create(
+      file_id=os.environ["BATCH_INPUT_FILE_ID"],
+      provider="openai",
+      endpoint="/v1/chat/completions",
+      completion_window="24h",
+      request_id=str(uuid.uuid4()),
+  )
+
+  print("batch_id:", batch.get("batch_id"))
+  print("status:  ", batch.get("status"))

@@ -1,0 +1,64 @@
+operationId: inference_create_messages
+summary: Create the next assistant message
+description: >
+  Send a structured list of input messages with text and/or image content, and the model
+  will generate the next message in the conversation.
+tags:
+  - Serverless Inference
+servers:
+  - url: "https://inference.do-ai.run"
+    description: production
+x-inference-base-url: "https://inference.do-ai.run"
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "models/messages_create_request.yml"
+responses:
+  "200":
+    description: >
+      Successful generation. When `stream` is true, the body is `text/event-stream` with
+      server-sent event (SSE) payloads; otherwise `application/json` with
+      `CreateMessageResponse`.
+    headers:
+      ratelimit-limit:
+        $ref: '../../shared/headers.yml#/ratelimit-limit'
+      ratelimit-remaining:
+        $ref: '../../shared/headers.yml#/ratelimit-remaining'
+      ratelimit-reset:
+        $ref: '../../shared/headers.yml#/ratelimit-reset'
+    content:
+      application/json:
+        schema:
+          $ref: "models/messages_create_response.yml"
+      text/event-stream:
+        schema:
+          $ref: "models/messages_stream_event.yml"
+  "400":
+    description: Invalid request body, validation error, or policy rejection.
+    headers:
+      ratelimit-limit:
+        $ref: '../../shared/headers.yml#/ratelimit-limit'
+      ratelimit-remaining:
+        $ref: '../../shared/headers.yml#/ratelimit-remaining'
+      ratelimit-reset:
+        $ref: '../../shared/headers.yml#/ratelimit-reset'
+    content:
+      application/json:
+        schema:
+          $ref: "models/messages_create_error_response.yml"
+  "401":
+    $ref: '../../shared/responses/unauthorized.yml'
+  "429":
+    $ref: '../../shared/responses/too_many_requests.yml'
+  "500":
+    $ref: '../../shared/responses/server_error.yml'
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+x-codeSamples:
+  - $ref: 'examples/curl/inference_create_messages.yml'
+  - $ref: 'examples/python/inference_create_messages.yml'
+  - $ref: 'examples/dots/inference_create_messages.yml'
+security:
+  - inference_bearer_auth: []

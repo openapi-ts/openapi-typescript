@@ -1,0 +1,44 @@
+---
+type: object
+description: Represents an NFS snapshot.
+properties:
+  id:
+    type: string
+    description: The unique identifier of the snapshot.
+    example: "0a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d"
+  name:
+    type: string
+    description: The human-readable name of the snapshot.
+    example: "daily-backup"
+  size_gib:
+    type: integer
+    format: uint64
+    description: The size of the snapshot in GiB.
+    example: 1024
+  region:
+    type: string
+    description: The DigitalOcean region slug where the snapshot is located.
+    example: "atl1"
+  status:
+    type: string
+    enum: [UNKNOWN, CREATING, ACTIVE, FAILED, DELETED]
+    description: The current status of the snapshot.
+    example: "CREATING"
+  created_at:
+    type: string
+    format: date-time
+    description: The timestamp when the snapshot was created.
+    example: "2023-11-14T16:29:21Z"
+  share_id:
+    type: string
+    format: uuid
+    description: The unique identifier of the share from which this snapshot was created.
+    example: "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d"
+required:
+  - id
+  - name
+  - region
+  - size_gib
+  - status
+  - created_at
+  - share_id

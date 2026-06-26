@@ -1,0 +1,44 @@
+description: >-
+  The response will be a JSON object containing the deleted access point (marked as DELETED)
+  and an action object indicating the delete operation.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../models/access_point_action_response.yml'
+
+    examples:
+      Deleted Access Point:
+        value:
+          access_point:
+            id: "7659ce91-354d-4f61-9cda-ae2c7feb61d9"
+            name: "other-vpc"
+            share_id: "baf4827c-6fa9-456f-9dbd-9ddfcacd0720"
+            path: "/other-vpc"
+            vpc_id: "3f34cdb2-1e4f-4100-b5c7-f55f2762085f"
+            status: "ACCESS_POINT_DELETED"
+            is_default: false
+            created_at: "2026-06-25T08:11:12Z"
+            updated_at: "2026-06-25T08:14:14Z"
+            access_policy:
+              anonuid: 65534
+              anongid: 65534
+              protocols: ["NFS4", "NFS"]
+              squash_config: "ROOT_SQUASH"
+              identity_enforcement_enabled: false
+          action:
+            id: "3fa0d618-6f8b-4245-9c0f-e16f9e295949"
+            region_slug: "s2r1"
+            resource_id: "7659ce91-354d-4f61-9cda-ae2c7feb61d9"
+            resource_type: "SHARE"
+            type: "DELETE_ACCESS_POINT"
+            status: "IN_PROGRESS"
+            started_at: "2026-06-25T08:14:14Z"

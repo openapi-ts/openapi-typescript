@@ -27,7 +27,7 @@ content:
           warnings:
             - code: image_source_missing_digest
               components: ["docker-worker"]
-              message: one or more components are missing an image digest and are not guaranteed rollback to the old version
+              message: one or more components are missing an image digest and are not guaranteed rollback to the old version.
       "Invalid rollback":
         value:
           valid: false

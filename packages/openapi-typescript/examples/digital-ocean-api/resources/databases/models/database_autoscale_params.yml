@@ -1,0 +1,18 @@
+type: object
+
+description: >-
+  Contains all autoscaling configuration for a database cluster
+
+properties:
+  storage:
+    allOf:
+    - $ref: './database_storage_autoscale_params.yml'
+    - description: >-
+        Storage autoscaling configuration
+
+# Future expansion:
+# compute:
+#   allOf:
+#   - $ref: './database_compute_autoscale_params.yml'
+#   - description: >-
+#       Compute autoscaling configuration

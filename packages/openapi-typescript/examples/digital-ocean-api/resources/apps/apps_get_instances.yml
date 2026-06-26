@@ -1,0 +1,37 @@
+operationId: apps_get_instances
+
+summary: Retrieve App Instances
+
+description: Retrieve the list of running instances for a given application, including instance names and component types. Please note that these instances are ephemeral and may change over time. It is recommended not to make persistent changes or develop scripts that rely on their persistence.
+
+parameters:
+  - $ref: parameters.yml#/app_id
+
+tags:
+  - Apps
+
+responses:
+  "200":
+    $ref: responses/apps_instances.yml
+
+  "401":
+    $ref: ../../shared/responses/unauthorized.yml
+
+  "404":
+    $ref: "../../shared/responses/not_found.yml"
+
+  "429":
+    $ref: "../../shared/responses/too_many_requests.yml"
+
+  "500":
+    $ref: ../../shared/responses/server_error.yml
+
+  default:
+    $ref: ../../shared/responses/unexpected_error.yml
+
+x-codeSamples:
+  - $ref: "examples/curl/get_app_instances.yml"
+
+security:
+  - bearer_auth:
+      - "app:read"

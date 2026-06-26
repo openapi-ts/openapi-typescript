@@ -49,6 +49,6 @@ security:
   - genai:update
 summary: Update Agent Route for an Agent
 tags:
-- GenAI Platform (Public Preview)
+- GradientAI Platform
 x-codeSamples:
 - $ref: examples/curl/genai_update_attached_agent.yml

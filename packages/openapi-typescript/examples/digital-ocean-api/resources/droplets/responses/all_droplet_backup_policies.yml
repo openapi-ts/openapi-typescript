@@ -17,6 +17,7 @@ content:
         - type: object
           properties:
             policies:
+              type: object
               description: |
                 A map where the keys are the Droplet IDs and the values are
                 objects containing the backup policy information for each Droplet.

@@ -1,0 +1,30 @@
+type: object
+description: Token usage for a non-streaming `POST /v1/messages` response.
+required:
+  - input_tokens
+  - output_tokens
+properties:
+  input_tokens:
+    type: integer
+    description: Number of input tokens billed for this request.
+    example: 42
+  output_tokens:
+    type: integer
+    description: Number of output tokens generated.
+    example: 128
+  cache_creation_input_tokens:
+    type: integer
+    description: Input tokens used to create a prompt cache entry, if applicable.
+    example: 0
+  cache_read_input_tokens:
+    type: integer
+    description: Input tokens read from a prompt cache, if applicable.
+    example: 0
+  speed:
+    type: string
+    nullable: true
+    description: Inference speed tier reflected in billing or routing.
+    enum:
+      - standard
+      - fast
+    example: standard

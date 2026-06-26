@@ -1,0 +1,13 @@
+lang: JavaScript
+source: |-
+  import { InferenceClient } from "@digitalocean/dots";
+
+  const client = new InferenceClient({
+      apiKey: process.env.DIGITALOCEAN_TOKEN,
+  });
+
+  const result = await client.batches.cancel(process.env.BATCH_ID);
+
+  console.log("batch_id:    ", result.batch_id);
+  console.log("status:      ", result.status);
+  console.log("cancelled_at:", result.cancelled_at);

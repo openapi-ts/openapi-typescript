@@ -1,0 +1,40 @@
+description: >-
+  The response will be a JSON object with a key called `accelerators`. This
+  will be set to an array of accelerator objects. Pagination uses the same
+  `links` and `meta` structure as other list endpoints.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            accelerators:
+              type: array
+              items:
+                $ref: '../models/accelerator.yml#/dedicated_inference_accelerator'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+
+    example:
+      accelerators:
+        - id: 5b5c619c-359c-44ca-87e2-47e98170c02f
+          name: mi300x1-ghfpsf
+          slug: gpu-mi300x1-192gb
+          role: prefill_and_decode
+          status: active
+          created_at: "2024-01-09T20:44:32Z"
+      links:
+        pages:
+          first: "https://api.digitalocean.com/v2/dedicated-inferences/6b5c619c-359c-44ca-87e2-47e98170c01d/accelerators?page=1&per_page=20"
+          last: "https://api.digitalocean.com/v2/dedicated-inferences/6b5c619c-359c-44ca-87e2-47e98170c01d/accelerators?page=1&per_page=20"
+      meta:
+        total: 1

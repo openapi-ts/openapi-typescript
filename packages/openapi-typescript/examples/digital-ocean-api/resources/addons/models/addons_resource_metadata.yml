@@ -1,0 +1,23 @@
+type: object
+
+properties:
+  name:
+    title: name
+    type: string
+    example: "property_name"
+    description: The name of the metadata item to be set.
+
+  value:
+    example: "example_value"
+    oneOf:
+      - title: string_value
+        type: string
+        example: "example_value"
+      - title: boolean_value
+        type: boolean
+        example: true
+    description: The value to be set for the metadata item, which can be a string or boolean.
+
+required:
+  - name
+  - value

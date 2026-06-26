@@ -1,0 +1,24 @@
+type: object
+description: Error envelope for some failures from this endpoint.
+required:
+  - type
+  - error
+properties:
+  type:
+    type: string
+    enum:
+      - error
+  error:
+    type: object
+    required:
+      - type
+      - message
+    properties:
+      type:
+        type: string
+        description: Machine-readable error code.
+        example: invalid_request_error
+      message:
+        type: string
+        description: Human-readable error message.
+        example: max_tokens must be positive

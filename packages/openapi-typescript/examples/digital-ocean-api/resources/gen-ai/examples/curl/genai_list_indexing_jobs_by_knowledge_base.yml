@@ -1,0 +1,5 @@
+lang: cURL
+source: |-
+  curl --location --request GET 'https://api.digitalocean.com/v2/gen-ai/knowledge_bases/1139121f-a860-11f0-b542-ca68c578b04b/indexing_jobs' \
+  --header 'Authorization: Bearer $DIGITALOCEAN_TOKEN' \
+  --header 'Content-Type: application/json' 

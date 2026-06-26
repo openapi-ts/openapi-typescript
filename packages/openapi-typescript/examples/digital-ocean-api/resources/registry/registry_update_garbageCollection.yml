@@ -1,8 +1,12 @@
 operationId: registry_update_garbageCollection
 
-summary: Update Garbage Collection
+deprecated: true
 
-description: To cancel the currently-active garbage collection for a registry,
+summary: 'Update Garbage Collection'
+description: |
+  **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+
+  To cancel the currently-active garbage collection for a registry,
   send a PUT request to `/v2/registry/$REGISTRY_NAME/garbage-collection/$GC_UUID`
   and specify one or more of the attributes below.
 

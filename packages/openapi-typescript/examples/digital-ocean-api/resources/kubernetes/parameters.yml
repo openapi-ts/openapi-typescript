@@ -44,6 +44,20 @@ kubernetes_expiry_seconds:
     default: 0
   example: 300
 
+kubernetes_credentials_type:
+  in: query
+  name: type
+  required: false
+  description: |
+    The type of credentials to return in the kubeconfig. When omitted, the
+    default credential type for the cluster is used: `sso` for clusters with SSO enabled, `token` for clusters without SSO enabled.
+  schema:
+    type: string
+    enum:
+      - token
+      - sso
+  example: sso
+
 clusterlint_run_id:
   in: query
   name: run_id
@@ -83,3 +97,14 @@ kubernetes_node_replace:
     maximum: 1
     default: 0
   example: 1
+
+kubernetes_status_messages_since:
+  in: query
+  name: since
+  required: false
+  description: A timestamp used to return status messages emitted since the
+    specified time. The timestamp should be in ISO8601 format.
+  schema:
+    type: string
+    format: date-time
+  example: 2018-11-15T16:00:11Z

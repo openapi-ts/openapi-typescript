@@ -1,0 +1,8 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  resp = client.byoip_prefixes.resources_list(byoip_prefix_uuid="fa3b-1234-5678-90ab-cdef01234567")

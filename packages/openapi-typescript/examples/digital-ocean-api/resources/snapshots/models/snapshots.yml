@@ -28,7 +28,7 @@ allOf:
         description: The type of resource that the snapshot originated from.
 
       tags:
-        description: An array of Tags the snapshot has been tagged with.
+        description: An array of Tags the snapshot has been tagged with.<br><br>Requires `tag:read` scope.
         type: array
         items:
           type: string

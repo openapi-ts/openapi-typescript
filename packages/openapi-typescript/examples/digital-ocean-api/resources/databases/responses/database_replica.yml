@@ -14,7 +14,7 @@ content:
       type: object
       properties:
         replica:
-          $ref: '../models/database_replica.yml'
+          $ref: '../models/database_replica_read.yml'
     example:
       replica:
         name: read-nyc3-01
@@ -37,3 +37,7 @@ content:
         region: nyc3
         status: online
         created_at: '2019-01-11T18:37:36Z'
+        do_settings:
+          service_cnames:
+            - "replica-db.example.com"
+            - "read-replica.myapp.io"

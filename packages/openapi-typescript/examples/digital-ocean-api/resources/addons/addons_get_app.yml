@@ -1,0 +1,31 @@
+operationId: addons_get_app
+
+summary: List Available Add-On Applications
+
+description: | 
+  To fetch details of all available Add-On Applications, send a GET request to `/v2/add-ons/apps`.
+
+tags:
+  - Add-Ons
+
+responses:
+  '200':
+    $ref: 'responses/addons_get_app.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/addons_get_app.yml'
+
+security:
+  - bearer_auth: []

@@ -2,7 +2,24 @@ type: object
 
 properties:
   redis_maxmemory_policy:
-    $ref: "../eviction_policy_model.yml"
+    type: string
+    enum:
+      - noeviction
+      - allkeys-lru
+      - allkeys-random
+      - volatile-lru
+      - volatile-random
+      - volatile-ttl
+    description: |2-
+      A string specifying the desired eviction policy for the Caching cluster.
+
+      - `noeviction`: Don't evict any data, returns error when memory limit is reached.
+      - `allkeys-lru:` Evict any key, least recently used (LRU) first.
+      - `allkeys-random`: Evict keys in a random order.
+      - `volatile-lru`: Evict keys with expiration only, least recently used (LRU) first.
+      - `volatile-random`: Evict keys with expiration only in a random order.
+      - `volatile-ttl`: Evict keys with expiration only, shortest time-to-live (TTL) first.
+    example: allkeys-lru
   redis_pubsub_client_output_buffer_limit:
     description: >-
       Set output buffer limit for pub / sub clients in MB. The value is the hard
@@ -21,7 +38,7 @@ properties:
       service.
     example: 16
   redis_io_threads:
-    description: Redis IO thread count
+    description: Caching IO thread count
     type: integer
     minimum: 1
     maximum: 32
@@ -44,14 +61,14 @@ properties:
     example: 1
   redis_ssl:
     description: |
-      Require SSL to access Redis.
-      - When enabled, Redis accepts only SSL connections on port `25061`.
+      Require SSL to access Caching.
+      - When enabled, Caching accepts only SSL connections on port `25061`.
       - When disabled, port `25060` is opened for non-SSL connections, while port `25061` remains available for SSL connections.
     type: boolean
     default: true
     example: true
   redis_timeout:
-    description: Redis idle connection timeout in seconds
+    description: Caching idle connection timeout in seconds
     type: integer
     minimum: 0
     maximum: 31536000
@@ -101,6 +118,6 @@ properties:
     description: >-
       Determines default pub/sub channels' ACL for new users if ACL is not
       supplied. When this option is not defined, all_channels is assumed to keep
-      backward compatibility. This option doesn't affect Redis configuration
+      backward compatibility. This option doesn't affect Caching configuration
       acl-pubsub-default.
     example: allchannels

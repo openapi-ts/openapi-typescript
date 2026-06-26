@@ -12,7 +12,7 @@ droplet_tag_name:
   in: query
   name: tag_name
   description: Used to filter Droplets by a specific tag. Can not be combined
-    with `name` or `type`.
+    with `name` or `type`.<br>Requires `tag:read` scope.
   required: false
   schema:
     type: string

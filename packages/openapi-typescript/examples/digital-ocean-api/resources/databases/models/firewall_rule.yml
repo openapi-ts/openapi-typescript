@@ -39,7 +39,11 @@ properties:
       A time value given in ISO8601 combined date and time format that
       represents when the firewall rule was created.
     readOnly: true
-
+  description:
+      type: string
+      example: 'an IP address for local development'
+      description: >-
+        A human-readable description of the rule.
 required:
   - type
   - value

@@ -1,0 +1,16 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "storage": {
+      "enabled": True,
+      "threshold_percent": 80,
+      "increment_gib": 10
+    }
+  }
+
+  update_resp = client.databases.set_autoscale(database_cluster_uuid="a7a89a", body=req)

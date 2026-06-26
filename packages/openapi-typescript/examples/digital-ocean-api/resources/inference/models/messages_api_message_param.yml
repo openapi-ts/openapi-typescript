@@ -1,0 +1,24 @@
+type: object
+description: >
+  One turn in the conversation. Roles are `user` or `assistant` (no `system` role; use the
+  top-level `system` field). Content may be a string (equivalent to a single text block) or
+  an array of content blocks.
+required:
+  - role
+  - content
+properties:
+  role:
+    type: string
+    description: Speaker role for this message.
+    enum:
+      - user
+      - assistant
+    example: user
+  content:
+    description: Message body as plain text or structured blocks.
+    example: What is the capital of Portugal?
+    oneOf:
+      - type: string
+      - type: array
+        items:
+          $ref: messages_request_content_block_param.yml

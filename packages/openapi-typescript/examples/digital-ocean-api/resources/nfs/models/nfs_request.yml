@@ -1,0 +1,30 @@
+---
+type: object
+properties:
+  name:
+    type: string
+    description: The human-readable name of the share.
+    example: "my-nfs-share"
+  size_gib:
+    type: integer
+    description: The desired/provisioned size of the share in GiB (Gibibytes). Must be >= 50.
+    example: 50
+  region:
+    type: string
+    description: The DigitalOcean region slug (e.g., nyc2, atl1) where the NFS share resides.
+    example: atl1
+  vpc_ids:
+    type: array
+    items:
+      type: string
+    description: List of VPC IDs that should be able to access the share.
+    example: ["796c6fe3-2a1d-4da2-9f3e-38239827dc91"]
+  performance_tier:
+    type: string
+    description: The performance tier of the share.
+    example: "standard"
+required:
+  - name
+  - size_gib
+  - region
+  - vpc_ids

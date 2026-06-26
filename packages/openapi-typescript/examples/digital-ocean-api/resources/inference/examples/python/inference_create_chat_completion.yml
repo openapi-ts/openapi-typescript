@@ -1,0 +1,15 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  resp = client.chat.completions.create(
+      model="llama3.3-70b-instruct",
+      messages=[
+          {"role": "user", "content": "What is the capital of Portugal?"},
+      ],
+  )
+
+  print(resp.choices[0].message.content)

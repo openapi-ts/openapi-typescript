@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name": "test-key", "grants": [{"bucket": "test-bucket", "permission": "read"}]}' \
+    "https://api.digitalocean.com/v2/spaces/keys"

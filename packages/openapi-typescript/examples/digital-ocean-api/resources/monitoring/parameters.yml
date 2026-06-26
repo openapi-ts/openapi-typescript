@@ -119,3 +119,92 @@ sink_uuid:
   schema:
     type: string
   example: 78b172b6-52c3-4a4b-96d5-78d3f1a0b18c
+
+# DBaaS MySQL monitoring metrics parameters
+
+db_id:
+  in: query
+  name: db_id
+  required: true
+  description: The DBaaS cluster UUID (database ID).
+  schema:
+    type: string
+    format: uuid
+  example: 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
+
+aggregate_avg_max_min:
+  in: query
+  name: aggregate
+  required: true
+  description: Aggregation over the time range (avg, max, or min).
+  schema:
+    type: string
+    enum:
+      - avg
+      - max
+      - min
+  example: avg
+
+aggregate_avg_max:
+  in: query
+  name: aggregate
+  required: true
+  description: Aggregation over the time range (avg or max).
+  schema:
+    type: string
+    enum:
+      - avg
+      - max
+  example: avg
+
+metric_load:
+  in: query
+  name: metric
+  required: true
+  description: >-
+    Load window: **load1** (1-minute), **load5** (5-minute), **load15** (15-minute). The value is
+    either average or max over that window, depending on the **aggregate** parameter (avg or max).
+  schema:
+    type: string
+    enum:
+      - load1
+      - load5
+      - load15
+  example: load1
+
+metric_op_rates:
+  in: query
+  name: metric
+  required: true
+  description: Operation type (select, insert, update, or delete).
+  schema:
+    type: string
+    enum:
+      - select
+      - insert
+      - update
+      - delete
+  example: select
+
+metric_schema_io:
+  in: query
+  name: metric
+  required: true
+  description: Table I/O operation (insert, fetch, update, or delete).
+  schema:
+    type: string
+    enum:
+      - insert
+      - fetch
+      - update
+      - delete
+  example: insert
+
+schema:
+  in: query
+  name: schema
+  required: true
+  description: The schema (database) name.
+  schema:
+    type: string
+  example: defaultdb

@@ -1,0 +1,49 @@
+operationId: vpcnatgateways_update
+
+summary: Update VPC NAT Gateway
+
+description: |
+  To update the configuration of an existing VPC NAT Gateway, send a PUT request to
+  `/v2/vpc_nat_gateways/$VPC_NAT_GATEWAY_ID`. The request must contain a full representation
+  of the VPC NAT Gateway including existing attributes. 
+
+tags:
+  - "VPC NAT Gateways"
+
+parameters:
+  - $ref: 'parameters.yml#/vpc_nat_gateway_id'
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        $ref: 'models/vpc_nat_gateway_update.yml'
+      examples:
+        VPC NAT Gateway Update Request:
+          $ref: 'examples.yml#/vpc_nat_gateway_update_request'
+
+responses:
+  '200':
+    $ref: 'responses/vpc_nat_gateway_update.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/vpc_nat_gateway_update.yml'
+
+security:
+  - bearer_auth:
+      - 'nat_gateway:update'

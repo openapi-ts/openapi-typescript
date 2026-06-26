@@ -1,0 +1,420 @@
+vectordbBackup:
+  description: Backup represents a single backup of a vector database.
+  properties:
+    backup_id:
+      description: Unique identifier for the backup (e.g., "vectordb-{uuid}-20240101-120000").
+      example: 123e4567-e89b-12d3-a456-426614174000
+      type: string
+    completed_at:
+      description: Timestamp when the backup process completed.
+      example: "2023-01-01T00:00:00Z"
+      format: date-time
+      type: string
+    started_at:
+      description: Timestamp when the backup process started.
+      example: "2023-01-01T00:00:00Z"
+      format: date-time
+      type: string
+    status:
+      description: 'Status of the backup: SUCCESS.'
+      example: example string
+      type: string
+  type: object
+vectordbCreateBackupResponse:
+  properties:
+    backup_id:
+      description: The generated backup ID (e.g., "vectordb-{uuid}-{timestamp}").
+      example: 123e4567-e89b-12d3-a456-426614174000
+      type: string
+    status:
+      description: Initial status of the backup operation (e.g., "STARTED").
+      example: example string
+      type: string
+  type: object
+vectordbCreateVectorDBRequest:
+  properties:
+    name:
+      description: Required. Human-readable name for the database.
+      example: example name
+      type: string
+    project_id:
+      description: Required. ID of the project to create the vector database in.
+      example: 123e4567-e89b-12d3-a456-426614174000
+      type: string
+    region:
+      description: Required. Region slug where the database will be provisioned.
+      example: tor1
+      type: string
+    size:
+      description: 'Required. Resource tier: small, medium, or large.'
+      example: example string
+      type: string
+    tags:
+      description: A set of arbitrary tags to organize your vector database
+      example:
+      - example string
+      items:
+        example: example string
+        type: string
+      type: array
+  type: object
+vectordbCreateVectorDBResponse:
+  properties:
+    vector_db:
+      $ref: '#/vectordbVectorDB'
+  type: object
+vectordbDeleteVectorDBResponse:
+  type: object
+vectordbForkBackupMode:
+  default: FORK_BACKUP_MODE_UNSPECIFIED
+  description: |-
+    ForkBackupMode selects how ForkVectorDB obtains the backup it restores
+    onto the new instance.
+
+     - FORK_BACKUP_MODE_UNSPECIFIED: Default; rejected by the API. Callers must pick one of the modes below
+    explicitly so behaviour is never inferred from a missing value.
+     - USE_BACKUP_ID: Restore from the backup_id supplied in the request. The backup must
+    belong to the source instance and have completed successfully.
+     - LATEST_SUCCESS: Restore from the most recent successful backup of the source instance.
+    Fastest path because it skips taking a new backup; backup_id is ignored.
+     - FRESH_BACKUP: Trigger a new backup on the source instance and restore from it once
+    it completes. The intermediate backup is deleted after the fork
+    succeeds; backup_id is ignored.
+  enum:
+  - FORK_BACKUP_MODE_UNSPECIFIED
+  - USE_BACKUP_ID
+  - LATEST_SUCCESS
+  - FRESH_BACKUP
+  example: FORK_BACKUP_MODE_UNSPECIFIED
+  type: string
+vectordbForkVectorDBRequest:
+  properties:
+    backup_id:
+      description: |-
+        Required when backup_mode = USE_BACKUP_ID. Ignored otherwise.
+        Must reference a SUCCESS backup belonging to the source instance.
+      example: 123e4567-e89b-12d3-a456-426614174000
+      type: string
+    backup_mode:
+      $ref: '#/vectordbForkBackupMode'
+    id:
+      description: Required. ID of the source vector database to fork from (path parameter).
+      example: example string
+      type: string
+    name:
+      description: |-
+        Required. Human-readable name for the new (forked) database.
+        Must be unique within the owner.
+      example: example name
+      type: string
+    project_id:
+      description: Required. ID of the project the forked database will be created
+        in.
+      example: 123e4567-e89b-12d3-a456-426614174000
+      type: string
+    region:
+      description: |-
+        Required. Region slug where the forked database will be provisioned.
+        May differ from the source region.
+      example: tor1
+      type: string
+    size:
+      description: 'Required. Resource tier for the forked database: small, medium,
+        or large.'
+      example: example string
+      type: string
+    tags:
+      description: |-
+        Optional. Tags to apply to the forked database. Tags are not inherited
+        from the source instance.
+      example:
+      - example string
+      items:
+        example: example string
+        type: string
+      type: array
+  type: object
+vectordbForkVectorDBResponse:
+  properties:
+    vector_db:
+      $ref: '#/vectordbVectorDB'
+  type: object
+vectordbGetRestoreStatusResponse:
+  properties:
+    backup_id:
+      description: The backup ID being restored.
+      example: 123e4567-e89b-12d3-a456-426614174000
+      type: string
+    error:
+      description: Error message if the restore failed.
+      example: example string
+      type: string
+    status:
+      description: 'Current status: STARTED, TRANSFERRING, TRANSFERRED, FINALIZING,
+        SUCCESS, FAILED, CANCELLING, CANCELED.'
+      example: example string
+      type: string
+  type: object
+vectordbGetVectorDBAdminCredentialsResponse:
+  properties:
+    api_token:
+      description: API token for that user.
+      example: example string
+      type: string
+    user_id:
+      description: Database user id from the cluster secret (opaque; matches what
+        was provisioned).
+      example: 123e4567-e89b-12d3-a456-426614174000
+      type: string
+  type: object
+vectordbGetVectorDBResponse:
+  properties:
+    vector_db:
+      $ref: '#/vectordbVectorDB'
+  type: object
+vectordbListBackupsResponse:
+  properties:
+    backups:
+      description: List of available backups.
+      items:
+        $ref: '#/vectordbBackup'
+      type: array
+  type: object
+vectordbListPlansResponse:
+  properties:
+    plans:
+      items:
+        $ref: '#/vectordbVectorDBPlan'
+      type: array
+  type: object
+vectordbListVectorDBsResponse:
+  properties:
+    total:
+      example: 123
+      format: int64
+      type: integer
+    vector_dbs:
+      items:
+        $ref: '#/vectordbVectorDB'
+      type: array
+  type: object
+vectordbResizeVectorDBRequest:
+  properties:
+    id:
+      description: Required. ID of the vector database to resize.
+      example: example string
+      type: string
+    size:
+      description: 'Required. Target resource tier: small, medium, or large.'
+      example: example string
+      type: string
+  type: object
+vectordbResizeVectorDBResponse:
+  properties:
+    vector_db:
+      $ref: '#/vectordbVectorDB'
+  type: object
+vectordbRestoreBackupRequest:
+  properties:
+    backup_id:
+      description: Required. ID of the backup to restore from.
+      example: 123e4567-e89b-12d3-a456-426614174000
+      type: string
+    id:
+      description: Required. ID of the vector database.
+      example: example string
+      type: string
+  type: object
+vectordbRestoreBackupResponse:
+  properties:
+    backup_id:
+      description: The backup ID being restored.
+      example: 123e4567-e89b-12d3-a456-426614174000
+      type: string
+    status:
+      description: Initial status of the restore operation (e.g., "STARTED").
+      example: example string
+      type: string
+  type: object
+vectordbRotateVectorDBUserCredentialsRequest:
+  properties:
+    id:
+      description: Required. ID of the vector database whose user API key should be
+        rotated.
+      example: example string
+      type: string
+    user:
+      description: |-
+        Required. Database user id whose API key should be rotated
+        (e.g. "do-admin"). Must be 1-63 chars, [A-Za-z0-9_-]; the server
+        validates this independently of any path routing.
+      example: example string
+      type: string
+  type: object
+vectordbUpdateVectorDBRequest:
+  properties:
+    config:
+      $ref: '#/vectordbVectorDBConfig'
+    id:
+      description: ID of the vector database.
+      example: example string
+      type: string
+    project_id:
+      description: Optional. New project UUID to assign the database to.
+      example: 123e4567-e89b-12d3-a456-426614174000
+      type: string
+  type: object
+vectordbUpdateVectorDBResponse:
+  properties:
+    vector_db:
+      $ref: '#/vectordbVectorDB'
+  type: object
+vectordbUpdateVectorDBTagsRequest:
+  properties:
+    id:
+      description: Required. ID of the vector database to update tags for.
+      example: example string
+      type: string
+    tags:
+      description: Tags to set on the vector database. Replaces all existing tags.
+      example:
+      - example string
+      items:
+        example: example string
+        type: string
+      type: array
+  type: object
+vectordbUpdateVectorDBTagsResponse:
+  properties:
+    vector_db:
+      $ref: '#/vectordbVectorDB'
+  type: object
+vectordbVectorDB:
+  description: VectorDB represents a provisioned vector database instance.
+  properties:
+    config:
+      $ref: '#/vectordbVectorDBConfig'
+    created_at:
+      example: "2023-01-01T00:00:00Z"
+      format: date-time
+      type: string
+    endpoints:
+      $ref: '#/vectordbVectorDBEndpoints'
+    forked_from_id:
+      description: |-
+        ID of the vector database this instance was forked from. Empty when the
+        instance was created directly via CreateVectorDB. Read-only and set by
+        the platform at fork time; never modifiable through UpdateVectorDB.
+      example: 123e4567-e89b-12d3-a456-426614174000
+      type: string
+    id:
+      example: example string
+      type: string
+    last_restore_id:
+      description: |-
+        Backup_id of the most recent restore initiated against this instance.
+        Empty if no restore has ever been triggered. Lets callers recover the
+        identifier of an in-flight or last-completed restore without having
+        to retain the RestoreBackupResponse themselves. Use it with
+        GetRestoreStatus to fetch the live status.
+      example: 123e4567-e89b-12d3-a456-426614174000
+      type: string
+    name:
+      example: example name
+      type: string
+    owner_uuid:
+      example: 123e4567-e89b-12d3-a456-426614174000
+      type: string
+    project_id:
+      description: Project this database belongs to.
+      example: 123e4567-e89b-12d3-a456-426614174000
+      type: string
+    region:
+      example: tor1
+      type: string
+    size:
+      description: 'Resource tier: small, medium, or large.'
+      example: example string
+      type: string
+    status:
+      description: 'Lifecycle state: pending, creating, active, errored, or deleting.'
+      example: example string
+      type: string
+    tags:
+      example:
+      - example string
+      items:
+        example: example string
+        type: string
+      type: array
+    updated_at:
+      example: "2023-01-01T00:00:00Z"
+      format: date-time
+      type: string
+  type: object
+vectordbVectorDBConfig:
+  description: VectorDBConfig holds optional, advanced cluster settings.
+  properties:
+    default_quantization:
+      description: 'Default vector compression for new collections: rq, pq, bq, or
+        sq. Empty means platform default (rq).'
+      example: example string
+      type: string
+    enable_auto_schema:
+      example: true
+      type: boolean
+    weaviate_version:
+      description: The Vector Database version running on the cluster.
+      example: example string
+      type: string
+  type: object
+vectordbVectorDBEndpoints:
+  description: VectorDBEndpoints contains the connection endpoints for a vector database
+    instance.
+  properties:
+    grpc:
+      description: Endpoint for gRPC connections (e.g. "my-db-tor1-a1b2c3d4-grpc.weaviate.ondigitalocean.com:443").
+      example: my-db-tor1-a1b2c3d4-grpc.weaviate.ondigitalocean.com:443
+      type: string
+    http:
+      description: Endpoint for HTTPS connections (e.g. "https://my-db-tor1-a1b2c3d4.weaviate.ondigitalocean.com").
+      example: https://my-db-tor1-a1b2c3d4.weaviate.ondigitalocean.com
+      type: string
+  type: object
+vectordbVectorDBPlan:
+  properties:
+    deprecated:
+      example: true
+      type: boolean
+    disk_mib:
+      example: 123
+      format: int64
+      type: integer
+    enabled_regions:
+      description: |-
+        Regions where this plan can be provisioned. An empty list means the
+        plan is not currently offered anywhere.
+      example:
+      - tor1
+      items:
+        example: example string
+        type: string
+      type: array
+    hourly_price:
+      example: example string
+      type: string
+    monthly_price:
+      example: example string
+      type: string
+    size:
+      example: example string
+      type: string
+    usable_memory_mib:
+      example: 123
+      format: int64
+      type: integer
+    vcpu:
+      example: 123
+      format: int64
+      type: integer
+  type: object

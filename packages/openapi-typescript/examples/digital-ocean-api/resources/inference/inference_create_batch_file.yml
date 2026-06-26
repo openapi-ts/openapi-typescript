@@ -1,0 +1,57 @@
+operationId: inference_create_batch_file
+summary: Create a Batch Inference Input File
+description: >
+  Creates a file record and returns a `file_id` plus a short-lived
+  presigned `PUT` URL (typically valid for ~15 minutes). Upload the raw
+  JSONL bytes to `upload_url` (see `PUT /{upload_path}`) before calling
+  `POST /v1/batches`.
+tags:
+  - Batch Inference
+servers:
+  - url: "https://inference.do-ai.run"
+    description: production
+x-inference-base-url: "https://inference.do-ai.run"
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "models/batch_file_create_request.yml"
+      examples:
+        Default:
+          value:
+            file_name: "batch_requests.jsonl"
+responses:
+  "201":
+    description: File intent created.
+    headers:
+      ratelimit-limit:
+        $ref: '../../shared/headers.yml#/ratelimit-limit'
+      ratelimit-remaining:
+        $ref: '../../shared/headers.yml#/ratelimit-remaining'
+      ratelimit-reset:
+        $ref: '../../shared/headers.yml#/ratelimit-reset'
+    content:
+      application/json:
+        schema:
+          $ref: "models/batch_file_create_response.yml"
+  "400":
+    $ref: '../../shared/responses/bad_request.yml'
+  "401":
+    $ref: '../../shared/responses/unauthorized.yml'
+  "403":
+    $ref: '../../shared/responses/forbidden.yml'
+  "422":
+    $ref: '../../shared/responses/unprocessable_entity.yml'
+  "429":
+    $ref: '../../shared/responses/too_many_requests.yml'
+  "500":
+    $ref: '../../shared/responses/server_error.yml'
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+x-codeSamples:
+  - $ref: 'examples/curl/inference_create_batch_file.yml'
+  - $ref: 'examples/python/inference_create_batch_file.yml'
+  - $ref: 'examples/dots/inference_create_batch_file.yml'
+security:
+  - inference_bearer_auth: []

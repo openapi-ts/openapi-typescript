@@ -81,4 +81,5 @@ x-codeSamples:
 
 security:
   - bearer_auth:
+    - 'api:write'  
     - 'block_storage:create'

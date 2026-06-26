@@ -1,0 +1,24 @@
+type: object
+description: Result for a prior `tool_use` block, returned to the model.
+required:
+  - type
+  - tool_use_id
+  - content
+properties:
+  type:
+    type: string
+    enum:
+      - tool_result
+    example: tool_result
+  tool_use_id:
+    type: string
+    example: toolu_01ABCdefGhIjKlMnOpQrStUv
+  content:
+    description: Tool output as plain text or structured objects.
+    example: 72°F and sunny
+    oneOf:
+      - type: string
+      - type: array
+        items:
+          type: object
+          additionalProperties: true

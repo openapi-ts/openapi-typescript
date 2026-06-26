@@ -1,0 +1,10 @@
+lang: cURL
+source: |-
+  curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+  -d '{"name":"c5pAqd-ped-007","connection_bandwidth_in_mbps":1000,"region":"NYC","naas_provider":"MEGAPORT","vpc_ids":["bafc1c1d-bac1-2412-7f5e-fezc832z213z"],"bgp":{"local_router_ip":"169.254.11.1/29","peer_router_ip":"169.254.11.2/29","peer_router_asn":133938,"auth_key":"0zzyTNuRZa00vqkzIToPG3q"}}' \
+  "https://api.digitalocean.com/v2/partner_network_connect/attachments"
+
+
+

@@ -9,7 +9,8 @@ source: |-
     "rules": [
       {
         "type": "ip_addr",
-        "value": "192.168.1.1"
+        "value": "192.168.1.1",
+        "description": "a development IP address",
       },
       {
         "type": "k8s",

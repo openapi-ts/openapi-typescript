@@ -20,7 +20,7 @@ properties:
   password:
     type: string
     example: jge5lfxtzhx42iff
-    description: A randomly generated password for the database user.
+    description: A randomly generated password for the database user.<br>Requires `database:view_credentials` scope.
     readOnly: true
 
   access_cert:

@@ -1,0 +1,8 @@
+type: object
+nullable: true
+description: An object specifying whether the AMD Device Metrics Exporter should be enabled in the Kubernetes cluster.
+properties:
+  enabled:
+    type: boolean
+    description: Indicates whether the AMD Device Metrics Exporter is enabled.
+    example: true

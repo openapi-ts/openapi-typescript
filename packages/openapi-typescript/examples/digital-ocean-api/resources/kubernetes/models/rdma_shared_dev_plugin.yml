@@ -1,0 +1,8 @@
+type: object
+nullable: true
+description: An object specifying whether the RDMA shared device plugin should be enabled in the Kubernetes cluster.
+properties:
+  enabled:
+    type: boolean
+    description: Indicates whether the RDMA shared device plugin is enabled.
+    example: true

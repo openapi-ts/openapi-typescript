@@ -50,36 +50,3 @@ properties:
         example: basic-xxs
         deprecated: true
     example: apps-s-1vcpu-0.5gb
-
-  autoscaling:
-    description: Configuration for automatically scaling this component based on metrics.
-    type: object
-    properties:
-      min_instance_count:
-        description: The minimum amount of instances for this component. Must be less than max_instance_count.
-        type: integer
-        format: uint32
-        minimum: 1
-        example: 2
-      max_instance_count:
-        description: The maximum amount of instances for this component. Must be more than min_instance_count.
-        type: integer
-        format: uint32
-        minimum: 1
-        example: 3
-      metrics:
-        description: The metrics that the component is scaled on.
-        type: object
-        properties:
-          cpu:
-            description: Settings for scaling the component based on CPU utilization.
-            type: object
-            properties:
-              percent:
-                description: The average target CPU utilization for the component.
-                type: integer
-                format: uint32
-                minimum: 1
-                maximum: 100
-                default: 80
-                example: 75

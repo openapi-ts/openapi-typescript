@@ -1,0 +1,47 @@
+operationId: dedicatedInferences_get_gpu_model_config
+
+summary: Get Dedicated Inference GPU Model Config
+
+description: |
+  Get supported GPU and model configurations for Dedicated Inference. Use this to
+  discover supported GPU slugs and model slugs (e.g. Hugging Face). Send a GET
+  request to `/v2/dedicated-inferences/gpu-model-config`.
+
+tags:
+  - Dedicated Inference
+
+responses:
+  '200':
+    description: GPU model configs (gpu_slugs, model_slug, model_name, is_gated_model).
+    headers:
+      ratelimit-limit:
+        $ref: '../../shared/headers.yml#/ratelimit-limit'
+      ratelimit-remaining:
+        $ref: '../../shared/headers.yml#/ratelimit-remaining'
+      ratelimit-reset:
+        $ref: '../../shared/headers.yml#/ratelimit-reset'
+    content:
+      application/json:
+        schema:
+          $ref: 'models/gpu_model_config.yml#/dedicated_inference_gpu_model_configs_response'
+        example:
+          gpu_model_configs:
+            - gpu_slugs: [gpu-mi300x1-192gb]
+              model_slug: mistral/mistral-7b-instruct-v3
+              model_name: Mistral-7B-Instruct-v0.3
+              is_gated_model: true
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/dedicated_inferences_gpu_model_config_get.yml'
+
+security:
+  - bearer_auth:
+    - 'dedicated_inference:read'

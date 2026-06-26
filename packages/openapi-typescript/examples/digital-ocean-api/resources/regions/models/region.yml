@@ -14,6 +14,7 @@ properties:
     example: nyc3
 
   features:
+    type: array
     items:
       type: string
     description: This attribute is set to an array which contains features available
@@ -34,10 +35,11 @@ properties:
     example: true
 
   sizes:
+    type: array
     items:
       type: string
     description: This attribute is set to an array which contains the identifying
-      slugs for the sizes available in this region.
+      slugs for the sizes available in this region. sizes:read is required to view.
     example:
       - s-1vcpu-1gb
       - s-1vcpu-2gb

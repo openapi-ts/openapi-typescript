@@ -204,7 +204,7 @@ properties:
       This may be extended for services that require binlog entries for longer than the default, for example if using the MySQL Debezium Kafka connector.
     type: number
     minimum: 600
-    maximum: 86400
+    maximum: 604800
     example: 600
   innodb_change_buffer_max_size:
     description: >-
@@ -265,3 +265,5 @@ properties:
       - NONE
     example: INSIGHTS
     default: NONE
+  mysql_incremental_backup:
+    $ref: './helpers/mysql_incremental_backup.yml'

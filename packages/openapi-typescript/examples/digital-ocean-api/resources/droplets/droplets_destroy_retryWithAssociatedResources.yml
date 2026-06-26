@@ -47,3 +47,7 @@ x-codeSamples:
 security:
   - bearer_auth:
     - 'droplet:delete'
+    - 'block_storage:delete'
+    - 'block_storage_snapshot:delete'
+    - 'image:delete'
+    - 'reserved_ip:delete'

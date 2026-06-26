@@ -1,0 +1,49 @@
+operationId: addons_create
+
+summary: Create/Provision a New Add-on Resource
+
+description: | 
+  To create an add-on resource, send a POST request to `/v2/add-ons/saas` with required parameters.
+  Some add-ons require additional metadata to be provided in the request body. To find out
+  what metadata is required for a specific add-on, send a GET request to `/v2/add-ons/apps/{app_slug}/metadata`.
+
+tags:
+  - Add-Ons
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        allOf:
+        - $ref: 'models/addons_resource_new.yml'
+
+        required:
+        - name
+        - app_slug
+        - plan_slug
+        - metadata
+
+responses:
+  '200':
+    $ref: 'responses/addons_create.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/addons_create.yml'
+
+security:
+  - bearer_auth: 
+    - 'addon:create'

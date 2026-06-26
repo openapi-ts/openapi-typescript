@@ -1,0 +1,12 @@
+lang: cURL
+source: |-
+  curl -X PUT \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/knowledge_bases/12345678-1234-1234-1234-123456789012/data_sources/98765432-1234-1234-1234-123456789012" \
+    -d '{
+      "chunking_algorithm": "CHUNKING_ALGORITHM_SECTION_BASED",
+      "chunking_options": {
+        "max_chunk_size": 500
+      }
+    }'

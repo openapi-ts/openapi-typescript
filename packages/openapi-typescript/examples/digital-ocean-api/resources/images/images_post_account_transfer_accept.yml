@@ -1,0 +1,50 @@
+operationId: images_post_account_transfer_accept
+
+summary: Accept an Image Account Transfer
+
+description: |
+  To accept an account transfer for an image, send a POST request to
+  `/v2/images/$IMAGE_ID/account_transfer/accept`.
+
+tags:
+  - Images
+
+parameters:
+  - $ref: 'parameters.yml#/image_id'
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        $ref: 'models/images_post_account_transfer_accept.yml'
+
+responses:
+  '201':
+    $ref: '../../shared/responses/no_content.yml'
+
+  '400':
+    $ref: '../../shared/responses/bad_request.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/images_post_account_transfer_accept.yml'
+
+security:
+  - bearer_auth:
+    - 'image:create'

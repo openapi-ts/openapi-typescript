@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X PATCH \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name":"new-name"}' \
+    "https://api.digitalocean.com/v2/add-ons/saas/abc12345-6789-0123-4567-89abcdef0123"

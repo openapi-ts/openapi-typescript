@@ -2,12 +2,16 @@ type: object
 
 properties:
   droplet_limit:
-    description: The total number of Droplets current user or team may have active at one time.
+    description: |
+      The total number of Droplets current user or team may have active at one time.
+      <br><br>Requires `droplet:read` scope.
     type: integer
     example: 25
 
   floating_ip_limit:
-    description: The total number of Floating IPs the current user or team may have.
+    description: |
+      The total number of Floating IPs the current user or team may have.
+      <br><br>Requires `reserved_ip:read` scope.
     type: integer
     example: 5
 

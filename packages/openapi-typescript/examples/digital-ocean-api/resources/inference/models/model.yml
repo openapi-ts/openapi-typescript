@@ -1,0 +1,26 @@
+type: object
+description: Describes a model offering that can be used with the API.
+required:
+  - id
+  - object
+  - created
+  - owned_by
+properties:
+  id:
+    type: string
+    description: The model identifier, which can be referenced in the API endpoints.
+    example: "meta-llama/Meta-Llama-3.1-8B-Instruct"
+  created:
+    type: integer
+    description: The Unix timestamp (in seconds) when the model was created.
+    example: 1686935002
+  object:
+    type: string
+    description: The object type, which is always "model".
+    enum:
+      - model
+    example: "model"
+  owned_by:
+    type: string
+    description: The organization that owns the model.
+    example: "digitalocean"

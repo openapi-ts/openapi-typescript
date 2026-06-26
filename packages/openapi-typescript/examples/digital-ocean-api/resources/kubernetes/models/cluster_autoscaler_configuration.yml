@@ -1,0 +1,34 @@
+type: object
+nullable: true
+description: An object specifying custom cluster autoscaler configuration.
+properties:
+  scale_down_utilization_threshold:
+    type: number
+    description: Used to customize when cluster autoscaler scales down non-empty nodes by setting the node utilization threshold.
+    example: 0.65
+
+  scale_down_unneeded_time:
+    type: string
+    description: Used to customize how long a node is unneeded before being scaled down.
+    example: "1m0s"
+
+  expanders:
+    type: array
+    items:
+      type: string
+      enum:
+        - random
+        - priority
+        - least_waste
+    description: |
+      Customizes expanders used by cluster-autoscaler.
+      The autoscaler will apply each expander from the provided list to narrow down the selection of node types created to scale up,
+      until either a single node type is left, or the list of expanders is exhausted.
+      If this flag is unset, autoscaler will use its default expander `random`.
+      Passing an empty list (_not_ `null`) will unset any previous expander customizations.
+
+      Available expanders:
+      - `random`: Randomly selects a node group to scale.
+      - `priority`: Selects the node group with the highest priority as per [user-provided configuration](https://docs.digitalocean.com/products/kubernetes/how-to/autoscale/#configuring-priority-expander)
+      - `least_waste`: Selects the node group that will result in the least amount of idle resources.
+    example: ["priority", "random"]

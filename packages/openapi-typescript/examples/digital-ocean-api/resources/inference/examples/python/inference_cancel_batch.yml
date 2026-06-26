@@ -1,0 +1,13 @@
+lang: Python
+source: |-
+  import os
+
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  result = client.batches.cancel(os.environ["BATCH_ID"])
+
+  print("batch_id:    ", result.get("batch_id"))
+  print("status:      ", result.get("status"))
+  print("cancelled_at:", result.get("cancelled_at"))

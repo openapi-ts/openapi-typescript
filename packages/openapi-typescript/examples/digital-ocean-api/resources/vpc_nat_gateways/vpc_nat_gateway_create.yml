@@ -1,0 +1,43 @@
+operationId: vpcnatgateways_create
+
+summary: Create a New VPC NAT Gateway
+
+description: |
+  To create a new VPC NAT gateway, send a POST request to `/v2/vpc_nat_gateways` setting the required attributes.
+
+  The response body will contain a JSON object with a key called `vpc_nat_gateway` containing the standard attributes for the new VPC NAT gateway.
+
+tags:
+  - "VPC NAT Gateways"
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        $ref: 'models/vpc_nat_gateway_create.yml'
+      examples:
+        VPC NAT Gateway Create Request:
+          $ref: 'examples.yml#/vpc_nat_gateway_create_request'
+
+responses:
+  '202':
+    $ref: 'responses/vpc_nat_gateway_create.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/vpc_nat_gateway_create.yml'
+
+security:
+  - bearer_auth:
+      - 'nat_gateway:create'

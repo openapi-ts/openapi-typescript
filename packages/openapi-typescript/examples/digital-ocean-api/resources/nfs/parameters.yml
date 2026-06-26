@@ -1,0 +1,81 @@
+nfs_id:
+  in: path
+  name: nfs_id
+  description: The unique ID of the NFS share
+  required: true
+  schema:
+    type: string
+  example: 0a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d
+
+name:
+  in: query
+  name: name
+  required: true
+  description: The human-readable name of the share.
+  schema:
+    type: string
+  example: my-nfs-share
+
+size_gib:
+  in: query
+  name: size_gib
+  required: true
+  description: The desired/provisioned size of the share in GiB (Gibibytes). Must be >= 50.
+  schema:
+    type: integer
+  example: 50
+
+region:
+  in: query
+  name: region
+  description: The DigitalOcean region slug (e.g., nyc2, atl1) where the NFS share resides.
+  schema:
+    type: string
+  example: atl1
+
+vpc_ids:
+  in: query
+  name: vpc_ids
+  required: true
+  description: List of VPC IDs that should be able to access the share.
+  schema:
+    type: string
+  example: ["796c6fe3-2a1d-4da2-9f3e-38239827dc91"]
+
+nfs_snapshot_id:
+  in: path
+  name: nfs_snapshot_id
+  description: The unique ID of the NFS snapshot
+  required: true
+  schema:
+    type: string
+  example: 0a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d
+
+share_id:
+  in: query
+  name: share_id
+  required: false
+  description: The unique ID of an NFS share. If provided, only snapshots of this specific share will be returned.
+  schema:
+    type: string
+  example: 0a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d
+
+share_id_path:
+  in: path
+  name: share_id
+  description: The unique identifier of the NFS share.
+  required: true
+  schema:
+    type: string
+    format: uuid
+  example: baf4827c-6fa9-456f-9dbd-9ddfcacd0720
+
+access_point_id:
+  in: path
+  name: access_point_id
+  description: The unique identifier of the NFS access point.
+  required: true
+  schema:
+    type: string
+    format: uuid
+  example: becd9f04-8afa-4ccd-b03e-9676447df603

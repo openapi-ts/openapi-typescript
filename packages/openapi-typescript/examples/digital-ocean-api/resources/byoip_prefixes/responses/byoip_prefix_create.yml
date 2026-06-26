@@ -1,0 +1,30 @@
+byoip_prefix_create:
+  description: BYOIP prefix request accepted, response will contain the details of the created prefix.
+  
+  headers:
+    ratelimit-limit:
+      $ref: '../../../shared/headers.yml#/ratelimit-limit'
+    ratelimit-remaining:
+      $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+    ratelimit-reset:
+      $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+  content:
+    application/json:
+      example:
+        $ref: 'examples.yml#/byoip_prefix_create'
+      schema:
+        type: object
+        properties:
+          uuid:
+            type: string
+            description: The unique identifier for the BYOIP prefix
+            example: "123e4567-e89b-12d3-a456-426614174000"
+          region:
+            type: string
+            description: The region where the prefix is created
+            example: "nyc3"
+          status:
+            type: string
+            description: The status of the BYOIP prefix
+            example: "in_progress"

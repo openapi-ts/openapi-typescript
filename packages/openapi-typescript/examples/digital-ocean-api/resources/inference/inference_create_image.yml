@@ -1,0 +1,45 @@
+operationId: inference_create_image
+summary: Generate images from text prompts
+description: Creates a high-quality image from a text prompt using GPT-IMAGE-1, the latest image generation model with automatic prompt optimization and enhanced visual capabilities.
+tags:
+  - Serverless Inference
+servers:
+  - url: "https://inference.do-ai.run"
+    description: production
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "models/create_image_request.yml"
+responses:
+  "200":
+    description: Successful image generation. When stream is true, response is sent as Server-Sent Events (text/event-stream); otherwise a single JSON object (application/json) is returned.
+    headers:
+      ratelimit-limit:
+        $ref: '../../shared/headers.yml#/ratelimit-limit'
+      ratelimit-remaining:
+        $ref: '../../shared/headers.yml#/ratelimit-remaining'
+      ratelimit-reset:
+        $ref: '../../shared/headers.yml#/ratelimit-reset'
+    content:
+      application/json:
+        schema:
+          $ref: "models/images_response.yml"
+      text/event-stream:
+        schema:
+          $ref: "models/image_gen_partial_image_event.yml"
+  "401":
+    $ref: '../../shared/responses/unauthorized.yml'
+  "429":
+    $ref: '../../shared/responses/too_many_requests.yml'
+  "500":
+    $ref: '../../shared/responses/server_error.yml'
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+x-codeSamples:
+  - $ref: 'examples/curl/inference_create_image.yml'
+  - $ref: 'examples/python/inference_create_image.yml'
+  - $ref: 'examples/dots/inference_create_image.yml'
+security:
+  - inference_bearer_auth: []

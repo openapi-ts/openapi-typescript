@@ -1,8 +1,11 @@
 operationId: registry_delete_repositoryManifest
 
-summary: Delete Container Registry Repository Manifest
+deprecated: true
 
+summary: 'Delete Container Registry Repository Manifest'
 description: |
+  **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+
   To delete a container repository manifest by digest, send a DELETE request to
   `/v2/registry/$REGISTRY_NAME/repositories/$REPOSITORY_NAME/digests/$MANIFEST_DIGEST`.
 

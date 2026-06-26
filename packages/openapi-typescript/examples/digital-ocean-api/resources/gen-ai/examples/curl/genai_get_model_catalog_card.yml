@@ -1,0 +1,5 @@
+lang: cURL
+source: |-
+  curl -X GET \
+    -H "Content-Type: application/json"  \
+    "https://api.digitalocean.com/v2/gen-ai/models/catalog/18bc9b8f-73c5-11f0-b074-4e013e2ddde4"

@@ -1,6 +1,7 @@
 description: >-
   The response will be a JSON object with a key called `invoice_items`.
-  This will be set to an array of invoice item objects.
+  This will be set to an array of invoice item objects. All resources will
+  be shown on invoices, regardless of permissions.
 
 headers:
   ratelimit-limit:

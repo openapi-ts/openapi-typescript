@@ -1,0 +1,35 @@
+type: object
+
+properties:
+  schema_id:
+    type: integer
+    description: The id for schema.
+    example: 12345
+  version:
+    type: string
+    description: The version of the schema.
+    example: "1"
+  subject_name: 
+    type: string
+    description: The name of the schema subject.
+    example: customer-schema
+  schema_type:
+    type: string
+    enum:
+      - AVRO
+      - JSON
+      - PROTOBUF
+    description: The type of the schema.
+    example: AVRO
+  schema:
+    type: string
+    description: The schema definition in the specified format.
+    example: |-
+      {
+        "type": "record",
+        "name": "Customer",
+        "fields": [  
+          {"name": "id", "type": "int"},
+          {"name": "name", "type": "string"}
+        ]
+      } 

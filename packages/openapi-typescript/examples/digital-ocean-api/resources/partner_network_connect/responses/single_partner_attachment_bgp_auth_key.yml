@@ -1,0 +1,25 @@
+description:  |-
+  The response will be a JSON object with a `bgp_auth_key` object containing a 
+  `value` field with the BGP auth key value
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            bgp_auth_key:
+              type: object
+              items:
+                $ref: '../models/service_key.yml#/partner_attachment_service_key'
+      example:
+        bgp_auth_key:
+          value: secret

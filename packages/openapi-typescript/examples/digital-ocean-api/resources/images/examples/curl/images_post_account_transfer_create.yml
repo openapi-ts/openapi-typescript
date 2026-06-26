@@ -1,0 +1,15 @@
+lang: cURL
+source: |-
+  # transfer to email
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"recipient_email": "alice@example.com"}' \
+    "https://api.digitalocean.com/v2/images/7555620/account_transfer"
+
+  # transfer to team
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"recipient_uuid": "4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf"}' \
+    "https://api.digitalocean.com/v2/images/9375231/account_transfer"

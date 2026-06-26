@@ -1,0 +1,81 @@
+operationId: inference_list_batches
+summary: List Batch Inference Jobs
+description: >
+  Returns a cursor-paginated list of batch jobs, ordered newest first. Use
+  `limit` to control page size and `after` to page forward using the
+  `last_id` from the previous response.
+tags:
+  - Batch Inference
+servers:
+  - url: "https://inference.do-ai.run"
+    description: production
+x-inference-base-url: "https://inference.do-ai.run"
+parameters:
+  - in: query
+    name: after
+    description: >
+      Cursor for pagination. Pass the `last_id` value from the previous
+      response to fetch the next page. Omit for the first page.
+    required: false
+    schema:
+      type: string
+      format: uuid
+    example: "7b2e9c1a-6f4d-4d9b-a0f1-5c4b7e2f8a12"
+  - in: query
+    name: limit
+    description: Maximum number of batches to return per page.
+    required: false
+    schema:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 20
+    example: 20
+  - in: query
+    name: status
+    description: >
+      Optional filter restricting results to batches in the given
+      lifecycle state.
+    required: false
+    schema:
+      type: string
+      enum:
+        - validating
+        - in_progress
+        - finalizing
+        - completed
+        - failed
+        - expired
+        - cancelling
+        - cancelled
+    example: "in_progress"
+responses:
+  "200":
+    description: Page of batch jobs.
+    headers:
+      ratelimit-limit:
+        $ref: '../../shared/headers.yml#/ratelimit-limit'
+      ratelimit-remaining:
+        $ref: '../../shared/headers.yml#/ratelimit-remaining'
+      ratelimit-reset:
+        $ref: '../../shared/headers.yml#/ratelimit-reset'
+    content:
+      application/json:
+        schema:
+          $ref: "models/batch_list_response.yml"
+  "401":
+    $ref: '../../shared/responses/unauthorized.yml'
+  "403":
+    $ref: '../../shared/responses/forbidden.yml'
+  "429":
+    $ref: '../../shared/responses/too_many_requests.yml'
+  "500":
+    $ref: '../../shared/responses/server_error.yml'
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+x-codeSamples:
+  - $ref: 'examples/curl/inference_list_batches.yml'
+  - $ref: 'examples/python/inference_list_batches.yml'
+  - $ref: 'examples/dots/inference_list_batches.yml'
+security:
+  - inference_bearer_auth: []
