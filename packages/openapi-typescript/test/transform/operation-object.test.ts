@@ -120,6 +120,59 @@ responses: {
       },
     ],
     [
+      "parameters > content field uses schema from single media type entry",
+      {
+        given: {
+          parameters: [
+            {
+              in: "query",
+              name: "my_complex_query",
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "object",
+                    properties: {
+                      foo: { type: "string" },
+                      bar: { type: "number" },
+                    },
+                  },
+                },
+              },
+            },
+          ],
+          responses: {
+            "200": {
+              description: "OK",
+              content: { "application/json": { schema: { type: "string" } } },
+            },
+          },
+        },
+        want: `parameters: {
+    query?: {
+        my_complex_query?: {
+            foo?: string;
+            bar?: number;
+        };
+    };
+    header?: never;
+    path?: never;
+    cookie?: never;
+};
+requestBody?: never;
+responses: {
+    /** @description OK */
+    200: {
+        headers: {
+            [name: string]: unknown;
+        };
+        content: {
+            "application/json": string;
+        };
+    };
+};`,
+      },
+    ],
+    [
       "parameters > root not optional if any path params",
       {
         given: {
