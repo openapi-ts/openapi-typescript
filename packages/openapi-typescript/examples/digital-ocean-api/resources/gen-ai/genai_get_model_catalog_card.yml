@@ -1,0 +1,49 @@
+description: Returns detailed information for a specific model in the catalog including
+  capabilities, pricing, and code examples.
+operationId: genai_get_model_catalog_card
+parameters:
+- example: '"example string"'
+  in: path
+  name: id
+  required: true
+  schema:
+    type: string
+- description: Model identifier used for API calls (e.g., "llama3.1-70b-instruct").
+    Alternative to UUID lookup.
+  example: '"example string"'
+  in: query
+  name: model_id
+  schema:
+    type: string
+responses:
+  "200":
+    content:
+      application/json:
+        schema:
+          $ref: ./definitions.yml#/apiGetModelCatalogCardOutput
+    description: A successful response.
+    headers:
+      ratelimit-limit:
+        $ref: ../../shared/headers.yml#/ratelimit-limit
+      ratelimit-remaining:
+        $ref: ../../shared/headers.yml#/ratelimit-remaining
+      ratelimit-reset:
+        $ref: ../../shared/headers.yml#/ratelimit-reset
+  "401":
+    $ref: ../../shared/responses/unauthorized.yml
+  "404":
+    $ref: ../../shared/responses/not_found.yml
+  "429":
+    $ref: ../../shared/responses/too_many_requests.yml
+  "500":
+    $ref: ../../shared/responses/server_error.yml
+  default:
+    $ref: ../../shared/responses/unexpected_error.yml
+security:
+- bearer_auth:
+  - genai:read
+summary: Get Model Catalog Card
+tags:
+- GradientAI Platform
+x-codeSamples:
+- $ref: examples/curl/genai_get_model_catalog_card.yml

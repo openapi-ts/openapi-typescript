@@ -1,0 +1,43 @@
+severity:
+  in: query
+  name: severity
+  required: false
+  description: The finding severity level to include.
+  schema:
+    type: string
+    enum:
+      - LOW
+      - MEDIUM
+      - HIGH
+      - CRITICAL
+  example: CRITICAL
+
+scan_id:
+  in: path
+  name: scan_id
+  description: The scan UUID.
+  required: true
+  schema:
+    type: string
+    format: uuid
+  example: 497dcba3-ecbf-4587-a2dd-5eb0665e6880
+
+finding_uuid:
+  in: path
+  name: finding_uuid
+  description: The finding UUID.
+  required: true
+  schema:
+    type: string
+    format: uuid
+  example: 50e14f43-dd4e-412f-864d-78943ea28d91
+
+suppression_uuid:
+  in: path
+  name: suppression_uuid
+  description: The suppression UUID to remove.
+  required: true
+  schema:
+    type: string
+    format: uuid
+  example: 5b3b2b2d-5c9c-4a61-9e2f-4d8f80f30a12

@@ -1,0 +1,5 @@
+type: string
+pattern: ^do:(dbaas|domain|droplet|floatingip|loadbalancer|space|volume|kubernetes|vpc):.*
+example: do:vpc:5a4981aa-9653-4bd1-bef5-d6bff52042e4
+description: The uniform resource name (URN) for the resource in the format
+  do:resource_type:resource_id.

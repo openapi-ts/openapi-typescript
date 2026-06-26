@@ -1,0 +1,81 @@
+operationId: inference_create_async_invoke
+summary: Generate Image, Audio, or Text-to-Speech Using fal Models
+description: >
+  Generate Image, Audio, or Text-to-Speech Using fal Models. This endpoint
+  starts an asynchronous job and returns a request_id. The job status is
+  QUEUED initially. Use the request_id to poll for the result.
+tags:
+  - Serverless Inference
+servers:
+  - url: "https://inference.do-ai.run"
+    description: production
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "models/async_invoke_request.yml"
+      examples:
+        Image Generation:
+          value:
+            model_id: "fal-ai/flux/schnell"
+            input:
+              prompt: "A futuristic city at sunset"
+        Generate Audio:
+          value:
+            model_id: "fal-ai/stable-audio-25/text-to-audio"
+            input:
+              prompt: "Techno song with futuristic sounds"
+              seconds_total: 60
+            tags:
+              - key: "type"
+                value: "test"
+        Text-to-Speech:
+          value:
+            model_id: "fal-ai/elevenlabs/tts/multilingual-v2"
+            input:
+              text: "This text-to-speech example uses DigitalOcean multilingual voice."
+            tags:
+              - key: "type"
+                value: "test"
+responses:
+  "200":
+    description: The async invocation completed synchronously.
+    headers:
+      ratelimit-limit:
+        $ref: '../../shared/headers.yml#/ratelimit-limit'
+      ratelimit-remaining:
+        $ref: '../../shared/headers.yml#/ratelimit-remaining'
+      ratelimit-reset:
+        $ref: '../../shared/headers.yml#/ratelimit-reset'
+    content:
+      application/json:
+        schema:
+          $ref: "models/async_invoke_response.yml"
+  "202":
+    description: The async invocation request was accepted.
+    headers:
+      ratelimit-limit:
+        $ref: '../../shared/headers.yml#/ratelimit-limit'
+      ratelimit-remaining:
+        $ref: '../../shared/headers.yml#/ratelimit-remaining'
+      ratelimit-reset:
+        $ref: '../../shared/headers.yml#/ratelimit-reset'
+    content:
+      application/json:
+        schema:
+          $ref: "models/async_invoke_response.yml"
+  "401":
+    $ref: '../../shared/responses/unauthorized.yml'
+  "429":
+    $ref: '../../shared/responses/too_many_requests.yml'
+  "500":
+    $ref: '../../shared/responses/server_error.yml'
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+x-codeSamples:
+  - $ref: 'examples/curl/inference_async_invoke.yml'
+  - $ref: 'examples/python/inference_async_invoke.yml'
+  - $ref: 'examples/dots/inference_async_invoke.yml'
+security:
+  - inference_bearer_auth: []

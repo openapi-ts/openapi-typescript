@@ -1,0 +1,22 @@
+type: object
+properties:
+  component_name:
+    type: string
+    example: sample-golang
+    description: Name of the component, from the app spec.
+  component_type:
+    type: string
+    description: Supported compute component by DigitalOcean App Platform.
+    enum:
+      - SERVICE
+      - WORKER
+      - JOB
+    example: SERVICE
+  instance_name:
+    type: string
+    description: Name of the instance, which is a unique identifier for the instance.
+    example: sample-golang-76b84c7fb8-6p8kq
+  instance_alias:
+    type: string
+    description: Readable identifier, an alias of the instance name, reference for mapping insights to instance names.
+    example: sample-golang-0

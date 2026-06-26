@@ -35,6 +35,6 @@ security:
   - genai:create
 summary: Create an Agent
 tags:
-- GenAI Platform (Public Preview)
+- GradientAI Platform
 x-codeSamples:
 - $ref: examples/curl/genai_create_agent.yml

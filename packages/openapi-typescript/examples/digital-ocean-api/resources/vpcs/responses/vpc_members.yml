@@ -1,7 +1,10 @@
-description: >-
+description: |
   The response will be a JSON object with a key called members. This will be set
   to an array of objects, each of which will contain the standard attributes
   associated with a VPC member.
+
+  Only resources that you are authorized to see will be returned (e.g. to see Droplets,
+  you must have `droplet:read`).
 
 headers:
   ratelimit-limit:

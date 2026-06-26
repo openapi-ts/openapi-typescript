@@ -1,0 +1,11 @@
+---
+type: object
+description: Response returned after starting an access point mutation.
+properties:
+  access_point:
+    $ref: "access_point_response.yml"
+  action:
+    $ref: "nfs_action.yml"
+required:
+  - access_point
+  - action

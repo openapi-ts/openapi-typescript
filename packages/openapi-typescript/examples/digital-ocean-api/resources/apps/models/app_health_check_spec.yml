@@ -1,0 +1,54 @@
+type: object
+properties:
+  failure_threshold:
+    type: integer
+    format: int32
+    description: The number of failed health checks before considered unhealthy.
+    minimum: 1
+    maximum: 50
+    example: 18
+
+  port:
+    type: integer
+    format: int64
+    description: The port on which the health check will be performed.
+    example: 80
+    maximum: 65535
+    minimum: 1
+
+  http_path:
+    type: string
+    description: The route path used for the HTTP health check ping. If not set, the HTTP health check will be disabled and a TCP health check used instead.
+    example: /health
+
+  initial_delay_seconds:
+    type: integer
+    format: int32
+    description: The number of seconds to wait before beginning health checks.
+    minimum: 0
+    maximum: 3600
+    example: 30
+
+  period_seconds:
+    type: integer
+    format: int32
+    description: The number of seconds to wait between health checks.
+    minimum: 1
+    maximum: 300
+    example: 10
+
+  success_threshold:
+    type: integer
+    format: int32
+    description: The number of successful health checks before considered healthy.
+    example: 1
+    minimum: 1
+    maximum: 1
+
+  timeout_seconds:
+    type: integer
+    format: int32
+    description: The number of seconds after which the check times out.
+    minimum: 1
+    maximum: 120
+    example: 1

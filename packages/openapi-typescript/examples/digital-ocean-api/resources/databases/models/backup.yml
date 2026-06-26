@@ -12,6 +12,11 @@ properties:
     type: number
     example: 0.03364864
     description: The size of the database backup in GBs.
+  incremental:
+    type: boolean
+    example: false
+    description: >-
+      Indicates if this backup is a full or an incremental one (available only for MySQL).
 
 required:
   - created_at

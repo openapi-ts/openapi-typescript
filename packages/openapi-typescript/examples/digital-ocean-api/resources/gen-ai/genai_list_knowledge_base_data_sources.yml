@@ -50,6 +50,6 @@ security:
   - genai:read
 summary: List Data Sources for a Knowledge Base
 tags:
-- GenAI Platform (Public Preview)
+- GradientAI Platform
 x-codeSamples:
 - $ref: examples/curl/genai_list_knowledge_base_data_sources.yml

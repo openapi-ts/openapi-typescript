@@ -1,0 +1,8 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  get_resp = client.apps.cancel_event(app_id="4f6c71e2", event_id="3aa4d20e")

@@ -1,0 +1,70 @@
+---
+type: object
+description: Represents an NFS access point resource.
+properties:
+  id:
+    type: string
+    format: uuid
+    description: The unique identifier of the access point.
+    readOnly: true
+    example: "a1b2c3d4-e5f6-4a5b-9c8d-1e2f3a4b5c6d"
+  name:
+    type: string
+    description: The human-readable name of the access point. Must be unique per share.
+    example: "other-vpc"
+  share_id:
+    type: string
+    format: uuid
+    description: The unique identifier of the share this access point belongs to.
+    readOnly: true
+    example: "0a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d"
+  path:
+    type: string
+    description: The export sub-path for this access point (always starts with `/`).
+    example: "/other-vpc"
+  status:
+    type: string
+    enum: ["ACCESS_POINT_CREATING", "ACCESS_POINT_ACTIVE", "ACCESS_POINT_FAILED", "ACCESS_POINT_DELETED"]
+    description: |
+      The current lifecycle status of an access point. There is no ACCESS_POINT_DELETING state:
+      DELETE soft-deletes the access point synchronously (mirroring share deletion);
+      the response of a delete request returns the access point already in ACCESS_POINT_DELETED.
+    readOnly: true
+    example: "ACCESS_POINT_ACTIVE"
+  access_policy:
+    $ref: "access_policy.yml"
+  created_at:
+    type: string
+    format: date-time
+    description: The timestamp when the access point was created.
+    readOnly: true
+    example: "2023-01-01T00:00:00Z"
+  updated_at:
+    type: string
+    description: |
+      The timestamp when the access point was last updated. May be empty while the
+      access point is still being created.
+    readOnly: true
+    example: "2026-06-25T08:11:16Z"
+  is_default:
+    type: boolean
+    description: Whether this is the share's default access point.
+    readOnly: true
+    example: false
+  vpc_id:
+    type: string
+    description: |
+      The VPC this access point is pinned to. Omitted on the default access point.
+      Every non-default access point owns its own storage gateway in this VPC and
+      is independent of the parent share's VPC lifecycle.
+    example: "3f34cdb2-1e4f-4100-b5c7-f55f2762085f"
+required:
+  - id
+  - name
+  - share_id
+  - path
+  - status
+  - access_policy
+  - created_at
+  - updated_at
+  - is_default

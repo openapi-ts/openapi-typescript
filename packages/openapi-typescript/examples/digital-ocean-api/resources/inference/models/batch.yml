@@ -1,0 +1,139 @@
+type: object
+description: A Batch Inference job.
+required:
+  - batch_id
+  - status
+  - provider
+  - completion_window
+  - input_file_id
+  - created_at
+properties:
+  batch_id:
+    type: string
+    format: uuid
+    description: Unique identifier for the batch job.
+    example: "0e9d1d35-3d1e-4d66-9a2f-8c7e0f6b3e21"
+  status:
+    type: string
+    description: >
+      Lifecycle status. Terminal states: `completed`, `failed`,
+      `expired`, `cancelled`.
+    enum:
+      - validating
+      - in_progress
+      - finalizing
+      - completed
+      - failed
+      - expired
+      - cancelling
+      - cancelled
+    example: "in_progress"
+  provider:
+    type: string
+    enum:
+      - openai
+      - anthropic
+    example: "openai"
+  endpoint:
+    type: string
+    description: Inference endpoint each request is dispatched to.
+    example: "/v1/chat/completions"
+  completion_window:
+    type: string
+    enum:
+      - 24h
+    example: "24h"
+  input_file_id:
+    type: string
+    format: uuid
+    description: The uploaded JSONL input file.
+    example: "a1b2c3d4-e5f6-4789-90ab-cdef12345678"
+  output_file_id:
+    type: string
+    format: uuid
+    nullable: true
+    description: Output JSONL file. Populated once the job completes.
+    example: null
+  error_file_id:
+    type: string
+    format: uuid
+    nullable: true
+    description: Error sidecar file. Null when no errors were produced.
+    example: null
+  request_counts:
+    type: object
+    description: Aggregate request counts.
+    properties:
+      total:
+        type: integer
+        example: 10000
+      completed:
+        type: integer
+        example: 0
+      failed:
+        type: integer
+        example: 0
+  request_id:
+    type: string
+    description: The idempotency key supplied at creation.
+    example: "c7e3ad1e-20c3-4e47-9bf2-6f2a4d6a2f11"
+  metadata:
+    type: object
+    nullable: true
+    description: Metadata attached at creation.
+    additionalProperties:
+      type: string
+    example: null
+  errors:
+    type: array
+    nullable: true
+    description: Top-level errors that prevented the batch from completing.
+    items:
+      type: object
+      properties:
+        code:
+          type: string
+          example: "invalid_input_file"
+        message:
+          type: string
+          example: "Line 42: missing required field 'custom_id'."
+        line:
+          type: integer
+          nullable: true
+          description: 1-based JSONL line number, if applicable.
+          example: 42
+  created_at:
+    type: string
+    format: date-time
+    example: "2026-04-24T19:19:19Z"
+  in_progress_at:
+    type: string
+    format: date-time
+    nullable: true
+    example: "2026-04-24T19:20:05Z"
+  finalizing_at:
+    type: string
+    format: date-time
+    nullable: true
+    example: "2026-04-24T20:10:42Z"
+  completed_at:
+    type: string
+    format: date-time
+    nullable: true
+    example: "2026-04-24T20:15:30Z"
+  expires_at:
+    type: string
+    format: date-time
+    nullable: true
+    description: Derived from `created_at` plus `completion_window`.
+    example: "2026-04-25T19:19:19Z"
+  cancelled_at:
+    type: string
+    format: date-time
+    nullable: true
+    example: "2026-04-24T19:45:11Z"
+  failed_at:
+    type: string
+    format: date-time
+    nullable: true
+    example: "2026-04-24T19:50:00Z"

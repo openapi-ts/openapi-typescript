@@ -3,7 +3,7 @@ nullable: true
 description: An object specifying the control plane firewall for the Kubernetes cluster.
   Control plane firewall is in early availability (invite only).
 properties:
-  enable:
+  enabled:
     type: boolean
     description: Indicates whether the control plane firewall is enabled.
     example: true

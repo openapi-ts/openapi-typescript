@@ -1,0 +1,36 @@
+type: object
+title: BatchResultsResponse
+description: >
+  Presigned download URLs for a batch job. URLs are short-lived —
+  download the artifacts soon after fetching them.
+required:
+  - batch_id
+  - result_available
+properties:
+  batch_id:
+    type: string
+    format: uuid
+    example: "0e9d1d35-3d1e-4d66-9a2f-8c7e0f6b3e21"
+  result_available:
+    type: boolean
+    description: >
+      When `false`, keep polling batch status and retry later.
+    example: true
+  output_file_url:
+    type: string
+    format: uri
+    nullable: true
+    description: Presigned URL for the main results JSONL.
+    example: "https://batch-inference.nyc3.digitaloceanspaces.com/outputs/0e9d1d35-3d1e-4d66-9a2f-8c7e0f6b3e21.jsonl?X-Amz-Signature=..."
+  error_file_url:
+    type: string
+    format: uri
+    nullable: true
+    description: Presigned URL for the error sidecar JSONL, if any.
+    example: null
+  expires_at:
+    type: string
+    format: date-time
+    nullable: true
+    description: When the presigned URLs expire.
+    example: "2026-04-24T20:19:19Z"

@@ -1,0 +1,14 @@
+lang: cURL
+source: |-
+  curl --location --request POST 'https://api.digitalocean.com/v2/gen-ai/scheduled-indexing' \
+  --header 'Authorization: Bearer $DIGITALOCEAN_TOKEN"' \
+  --header 'Content-Type: application/json' \
+  --data '{
+      "knowledge_base_uuid": "knowledge_base_uuid",
+      "time": "18:00",
+      "days": [
+          1,
+          2,
+          3
+      ]
+  }'

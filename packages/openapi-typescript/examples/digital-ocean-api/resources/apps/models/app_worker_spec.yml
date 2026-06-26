@@ -3,8 +3,13 @@ allOf:
 - $ref: app_component_instance_base.yml
 - type: object
   properties:
+    autoscaling:
+      $ref: app_autoscaling_spec.yml
+
     termination:
       $ref: app_worker_spec_termination.yml
+    liveness_health_check:
+      $ref: app_health_check_spec.yml
 required:
   - name
 

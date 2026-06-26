@@ -1,0 +1,33 @@
+type: object
+nullable: true
+description: An object specifying Single Sign-On (SSO) configuration for the Kubernetes cluster.
+properties:
+  enabled:
+    type: boolean
+    default: false
+    description: Indicates whether SSO authentication is enabled for the cluster.
+    example: true
+
+  required:
+    type: boolean
+    default: false
+    description: |
+      Indicates whether any non-SSO forms of authentication are disallowed.
+      Can only be set to `true` when `enabled` is
+      `true`.
+    example: false
+
+  issuer_url:
+    type: string
+    format: uri
+    description: |
+      The OIDC issuer URL for the identity provider. Required when `enabled` is
+      `true`.
+    example: https://sso.example.com
+
+  client_id:
+    type: string
+    description: |
+      The OIDC client ID registered with the identity provider. Required when
+      `enabled` is `true`.
+    example: doks-cluster-client

@@ -25,23 +25,35 @@ properties:
 
   resources:
     type: object
-    description: >-
+    description: |
       An embedded object containing key value pairs of resource type and resource statistics.
       It also includes a count of the total number of resources tagged with the current tag as well as a `last_tagged_uri` attribute set to the last resource tagged with the current tag.
+
+      This will only include resources that you are authorized to see. For example, to see tagged Droplets, include the `droplet:read` scope.
     readOnly: true
     allOf:
       - $ref: 'tags_metadata.yml'
       - properties:
           droplets:
-            $ref: 'tags_metadata.yml'
+            allOf:
+              - description: Droplets that are tagged with the specified tag.<br>Requires `droplet:read` scope.
+              - $ref: 'tags_metadata.yml'
           imgages:
-            $ref: 'tags_metadata.yml'
+            allOf:
+              - description: Images that are tagged with the specified tag.<br>Requires `image:read` scope.
+              - $ref: 'tags_metadata.yml'
           volumes:
-            $ref: 'tags_metadata.yml'
+            allOf:
+              - description: Volumes that are tagged with the specified tag.<br>Requires `block_storage:read` scope.
+              - $ref: 'tags_metadata.yml'
           volume_snapshots:
-            $ref: 'tags_metadata.yml'
+            allOf:
+              - description: Volume Snapshots that are tagged with the specified tag.<br>Requires `block_storage_snapshot:read` scope.
+              - $ref: 'tags_metadata.yml'
           databases:
-            $ref: 'tags_metadata.yml'
+            allOf:
+              - description: Databases that are tagged with the specified tag.<br>Requires `database:read` scope.
+              - $ref: 'tags_metadata.yml'
     example:
       count: 5
       last_tagged_uri: https://api.digitalocean.com/v2/images/7555620

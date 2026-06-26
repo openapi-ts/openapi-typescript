@@ -1,0 +1,35 @@
+# CPU-only autoscaling for worker components. Services use app_autoscaling_spec_service.yml.
+description: Configuration for automatically scaling this component based on metrics.
+type: object
+properties:
+  min_instance_count:
+    description: The minimum amount of instances for this component.
+    type: integer
+    format: uint32
+    minimum: 1
+    example: 2
+  max_instance_count:
+    description: >-
+      The maximum amount of instances for this component. Maximum 250.
+      Consider using a larger instance size if your application requires more than 250 instances.
+    type: integer
+    format: uint32
+    minimum: 1
+    maximum: 250
+    example: 3
+  metrics:
+    description: The metrics that the component is scaled on.
+    type: object
+    properties:
+      cpu:
+        description: Settings for scaling the component based on CPU utilization.
+        type: object
+        properties:
+          percent:
+            description: The average target CPU utilization for the component.
+            type: integer
+            format: uint32
+            minimum: 1
+            maximum: 100
+            default: 80
+            example: 75

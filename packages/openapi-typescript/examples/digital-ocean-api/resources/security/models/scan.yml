@@ -1,0 +1,242 @@
+scan:
+  type: object
+  properties:
+    id:
+      title: id
+      type: string
+      example: 760e09ef-dc84-11e8-981e-3cfdfeaae000
+      description: The unique identifier for the scan.
+    status:
+      title: status
+      type: string
+      enum:
+        - IN_PROGRESS
+        - COMPLETED
+        - FAILED
+        - CSPM_NOT_ENABLED
+        - SCAN_NOT_RUN
+      example: COMPLETED
+      description: The status of the scan.
+    created_at:
+      title: created_at
+      type: string
+      format: date-time
+      example: "2025-12-04T00:00:00Z"
+      description: When scan was created.
+    findings:
+      title: findings
+      type: array
+      items:
+        type: object
+        description: The results of the scan.
+        properties:
+          rule_uuid:
+            title: rule_uuid
+            type: string
+            example: 760e09ef-dc84-11e8-981e-3cfdfeaae000
+            description: The unique identifier for the rule that triggered the finding.
+          name:
+            title: name
+            type: string
+            example: All Firewall Ports Exposed to a Source
+            description: The name of the rule that triggered the finding.
+          details:
+            title: details
+            type: string
+            example: |-
+              The Cloud Firewall protecting this Droplet includes a rule that allows traffic on all
+              ports for one or more protocols. Even if sources are restricted, this overly
+              permissive configuration can expose sensitive internal or administrative services.
+            description: A description of the risk associated with the finding.
+          found_at:
+            title: found_at
+            type: string
+            format: date-time
+            example: "2025-12-04T00:00:00Z"
+            description: When the finding was discovered.
+          severity:
+            title: severity
+            type: string
+            enum:
+              - CRITICAL
+              - HIGH
+              - MEDIUM
+              - LOW
+            example: CRITICAL
+            description: The severity of the finding.
+          business_impact:
+            title: business_impact
+            type: string
+            example: |-
+              Without at least one completed backup, any critical event such as hardware failure,
+              ransomware, or accidental deletion could result in permanent data loss. This can lead
+              to downtime, expensive recovery efforts, and loss of customer trust. Until a backup
+              successfully completes, your environment remains unprotected.
+            description: A description of the business impact of the finding.
+          technical_details:
+            title: technical_details
+            type: string
+            example: |-
+              DigitalOcean's backup service automatically runs on a weekly schedule. This condition
+              can occur for two main reasons:\n- The Droplet is newly created and its first scheduled
+              backup window hasn't run yet, or\n- A previous backup attempt failed. In both cases,
+              no backup image currently exists in your account, leaving the Droplet without a
+              restorable recovery point managed by the platform.
+            description: A description of the technical details related to the finding.
+          mitigation_steps:
+            title: mitigation_steps
+            type: array
+            items:
+              type: object
+              properties:
+                step:
+                  title: step
+                  type: integer
+                  example: 1
+                title:
+                  title: title
+                  type: string
+                  example: Enable backups
+                description:
+                  title: description
+                  type: string
+                  example: Turn on automated backups for this Droplet.
+            description: The mitigation steps to resolve the finding.
+          affected_resources_count:
+            title: affected_resources_count
+            type: integer
+            example: 12
+            description: The number of affected resources for the finding.
+
+affected_resource:
+  type: object
+  properties:
+    urn:
+      title: urn
+      type: string
+      example: do:droplet:760e09ef-dc84-11e8-981e-3cfdfeaae000
+      description: The URN for the affected resource.
+    name:
+      title: name
+      type: string
+      example: Test Droplet
+      description: The name of the affected resource.
+    type:
+      title: type
+      type: string
+      example: Droplet
+      description: The type of the affected resource.
+
+suppressed_resource:
+  type: object
+  properties:
+    id:
+      title: id
+      type: string
+      example: 760e09ef-dc84-11e8-981e-3cfdfeaae000
+      description: Unique identifier for the suppressed resource.
+    rule_uuid:
+      title: rule_uuid
+      type: string
+      example: 460e09ef-dc84-11e8-981e-3cfdfeaae000
+      description: Unique identifier for the suppressed rule.
+    rule_name:
+      title: rule_name
+      type: string
+      example: Droplet Backups Not Enabled
+      description: Human-readable rule name for the suppressed rule.
+    resource_id:
+      title: resource_id
+      type: string
+      example: "123"
+      description: Unique identifier for the resource suppressed.
+    resource_type:
+      title: resource_type
+      type: string
+      example: Droplet
+      description: Resource type for the resource suppressed.
+
+suppressed_resource_root:
+  type: object
+  properties:
+    resources:
+      type: array
+      items:
+        $ref: '#/suppressed_resource'
+    meta:
+      type: object
+      properties:
+        page:
+          type: integer
+          example: 1
+        pages:
+          type: integer
+          example: 3
+        total:
+          type: integer
+          example: 25
+    links:
+      type: object
+      properties:
+        pages:
+          type: object
+          properties:
+            first:
+              type: string
+              example: https://api.digitalocean.com/v2/security/settings/suppressions?page=1
+            prev:
+              type: string
+              example: https://api.digitalocean.com/v2/security/settings/suppressions?page=1
+            next:
+              type: string
+              example: https://api.digitalocean.com/v2/security/settings/suppressions?page=2
+            last:
+              type: string
+              example: https://api.digitalocean.com/v2/security/settings/suppressions?page=3
+
+plan_downgrades:
+  type: object
+  description: Resources moving to a tier at a given effective time.
+  properties:
+    resources:
+      type: array
+      items:
+        type: string
+      description: URNs of resources that will be downgraded.
+      example:
+        - do:droplet:fe3a2fd7-903d-46e6-ada3-3e4f285fb89d
+    effective_at:
+      type: string
+      format: date-time
+      description: When the coverage downgrade takes effect.
+      example: "2025-12-01T00:00:00Z"
+
+settings:
+  type: object
+  properties:
+    settings:
+      type: object
+      properties:
+        suppressions:
+          $ref: '#/suppressed_resource_root'
+    tier_coverage:
+      type: object
+      additionalProperties:
+        type: object
+        properties:
+          resources:
+            type: array
+            items:
+              type: string
+            example:
+              - do:droplet:fe3a2fd7-903d-46e6-ada3-3e4f285fb89d
+          tags:
+            type: array
+            items:
+              type: string
+            example:
+              - production
+    plan_downgrades:
+      type: object
+      additionalProperties:
+        $ref: '#/plan_downgrades'

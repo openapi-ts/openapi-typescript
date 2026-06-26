@@ -3,18 +3,23 @@ operationId: databases_create_cluster
 summary: Create a New Database Cluster
 
 description: >-
-  To create a database cluster, send a POST request to `/v2/databases`.
+  To create a database cluster, send a POST request to `/v2/databases`. To see a list 
+  of options for each engine, such as available regions, size slugs, and versions,
+  send a GET request to the `/v2/databases/options` endpoint. The available sizes for 
+  the `storage_size_mib` field depends on the cluster's size. To see a list of available
+  sizes, see [Managed Database Pricing](https://www.digitalocean.com/pricing/managed-databases).
+  
 
-  The response will be a JSON object with a key called `database`. The value of this
-  will be an object that contains the standard attributes associated with a database
-  cluster. The initial value of the database cluster's `status` attribute will be
-  `creating`. When the cluster is ready to receive traffic, this will transition to
+  The create response returns a JSON object with a key called `database`. The value of this
+  is an object that contains the standard attributes associated with a database
+  cluster. The initial value of the database cluster's `status` attribute is
+  `creating`. When the cluster is ready to receive traffic, this changes to
   `online`.
 
 
-  The embedded `connection` and `private_connection` objects will contain the
+  The embedded `connection` and `private_connection` objects contains the
   information needed to access the database cluster. For multi-node clusters, the
-  `standby_connection` and `standby_private_connection` objects will contain the information
+  `standby_connection` and `standby_private_connection` objects contain the information
   needed to connect to the cluster's standby node(s).
 
 
@@ -25,7 +30,19 @@ description: >-
   database cluster and the timestamp of the backup to be restored. Creating a database
   from a backup is the same as forking a database in the control panel.
 
-  Note: Backups are not supported for Redis clusters.
+
+  PostgreSQL and MySQL Advanced Edition clusters can be provisioned by setting `engine` to
+  `advanced_pg` or `advanced_mysql`. Advanced Edition clusters are currently in public
+  preview and target highly available workloads. `advanced_pg` supports 1-, 2-, and
+  3-node deployments; `advanced_mysql` only supports 1- and 3-node deployments. See the
+  [PostgreSQL Advanced Edition](https://docs.digitalocean.com/products/databases/postgresql/how-to/use-advanced-edition-clusters/)
+  and
+  [MySQL Advanced Edition](https://docs.digitalocean.com/products/databases/mysql/how-to/use-advanced-edition-clusters/)
+  documentation for the feature differences vs. Standard Edition and current preview limitations.
+
+
+  Note: Caching cluster creates are no longer supported as of 2025-04-30T00:00:00Z.
+  Backups are also not supported for Caching or Valkey clusters.
 
 tags:
   - Databases
@@ -74,6 +91,7 @@ requestBody:
                 value: "163973392"
               - type: tag
                 value: test
+                description: "a test tag"
 
         Restore from a Database Cluster Backup:
           value:
@@ -86,6 +104,58 @@ requestBody:
             region: nyc3
             size: db-s-2vcpu-4gb
             num_nodes: 2
+
+        Create a New Database Cluster with service CNAMEs:
+          value:
+            name: backend
+            engine: pg
+            version: "14"
+            region: nyc3
+            size: db-s-2vcpu-4gb
+            num_nodes: 2
+            storage_size_mib: 61440
+            tags:
+              - production
+            do_settings:
+              service_cnames:
+                - "db.example.com"
+                - "database.myapp.io"
+
+        Create a New PostgreSQL Advanced Edition Cluster:
+          value:
+            name: backend-advanced
+            engine: advanced_pg
+            version: "18"
+            region: nyc3
+            size: db-s-2vcpu-4gb
+            num_nodes: 3
+            storage_size_mib: 61440
+            tags:
+              - production
+
+        Create a New MySQL Advanced Edition Cluster:
+          value:
+            name: backend-advanced
+            engine: advanced_mysql
+            version: "8.4.8"
+            region: nyc3
+            size: db-s-2vcpu-4gb
+            num_nodes: 3
+            storage_size_mib: 61440
+            tags:
+              - production
+
+        Create a Single-Node MySQL Advanced Edition Cluster:
+          value:
+            name: backend-advanced-single
+            engine: advanced_mysql
+            version: "8.4.8"
+            region: nyc3
+            size: db-s-2vcpu-4gb
+            num_nodes: 1
+            storage_size_mib: 61440
+            tags:
+              - production
 
 responses:
   "201":

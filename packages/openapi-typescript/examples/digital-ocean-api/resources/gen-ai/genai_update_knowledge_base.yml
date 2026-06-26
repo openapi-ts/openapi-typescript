@@ -42,6 +42,6 @@ security:
   - genai:update
 summary: Update a Knowledge Base
 tags:
-- GenAI Platform (Public Preview)
+- GradientAI Platform
 x-codeSamples:
 - $ref: examples/curl/genai_update_knowledge_base.yml

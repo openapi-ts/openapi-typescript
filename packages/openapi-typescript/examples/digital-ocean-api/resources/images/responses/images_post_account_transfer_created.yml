@@ -1,0 +1,23 @@
+description: >-
+  The response will be a JSON object with a key called `transfer_id`. 
+  The value of this will be a number that identifies the initiated transfer. If
+  the value is `0`, then the transfer has been accepted. Otherwise, the
+  transfer is pending and waiting for the recipient to accept it.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        transfer_id:
+          $ref: '../models/transfer_id.yml'
+    
+    example:
+      transfer_id: 3164444

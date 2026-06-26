@@ -18,6 +18,7 @@ content:
             - $ref: '../models/advanced_config/mysql_advanced_config.yml'
             - $ref: '../models/advanced_config/postgres_advanced_config.yml'
             - $ref: '../models/advanced_config/redis_advanced_config.yml'
+            - $ref: '../models/advanced_config/valkey_advanced_config.yml'
             - $ref: '../models/advanced_config/kafka_advanced_config.yml'
             - $ref: '../models/advanced_config/opensearch_advanced_config.yml'
             - $ref: '../models/advanced_config/mongo_advanced_config.yml'

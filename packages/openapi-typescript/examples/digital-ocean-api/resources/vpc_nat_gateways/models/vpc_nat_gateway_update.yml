@@ -1,0 +1,47 @@
+type: object
+
+properties:
+  name:
+    type: string
+    example: my-vpc-nat-gateway
+    description: The human-readable name of the VPC NAT gateway.
+
+  size:
+    type: integer
+    example: 1
+    description: The size of the VPC NAT gateway.
+
+  vpcs:
+    type: array
+    items:
+      type: object
+      properties:
+        vpc_uuid:
+          type: string
+          example: 0d3db13e-a604-4944-9827-7ec2642d32ac
+          description: The unique identifier of the VPC to which the NAT gateway is attached.
+        default_gateway:
+          type: boolean
+          example: false
+          description: The classification of the NAT gateway as the default egress route for the VPC traffic.
+    description:
+      An array of VPCs associated with the VPC NAT gateway.
+
+  udp_timeout_seconds:
+    type: integer
+    example: 30
+    description: The UDP timeout in seconds for the VPC NAT gateway.
+
+  icmp_timeout_seconds:
+    type: integer
+    example: 30
+    description: The ICMP timeout in seconds for the VPC NAT gateway.
+
+  tcp_timeout_seconds:
+    type: integer
+    example: 30
+    description: The TCP timeout in seconds for the VPC NAT gateway.
+
+required:
+  - name
+  - size

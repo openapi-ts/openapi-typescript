@@ -1,0 +1,7 @@
+type: object
+
+properties:
+  snapshots:
+    type: array
+    items:
+      $ref: 'nfs_snapshot_response.yml'

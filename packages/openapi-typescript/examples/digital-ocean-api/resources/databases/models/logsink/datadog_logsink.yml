@@ -1,0 +1,16 @@
+type: object
+description: |
+  Configuration for Datadog integration **applicable only to MongoDB clusters**.
+properties:
+  site:
+    type: string
+    example: http-intake.logs.datadoghq.com
+    description: Datadog connection URL
+  datadog_api_key:
+    type: string
+    example: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    description: Datadog API key
+
+required:
+  - site
+  - datadog_api_key

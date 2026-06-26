@@ -16,7 +16,7 @@ content:
     schema:
       properties:
         kubernetes_cluster:
-          $ref: '../models/cluster.yml'
+          $ref: '../models/cluster_read.yml'
     examples:
       Single Kubernetes Cluster:
         $ref: 'examples.yml#/kubernetes_single'

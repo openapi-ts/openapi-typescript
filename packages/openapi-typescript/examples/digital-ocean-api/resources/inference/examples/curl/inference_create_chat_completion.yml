@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"messages": [{"role": "user", "content": "What is the capital of Portugal?"}], "model": "meta-llama/Meta-Llama-3.1-8B-Instruct"}' \
+    "https://inference.do-ai.run/v1/chat/completions"

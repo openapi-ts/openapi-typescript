@@ -1,0 +1,36 @@
+lang: Python
+source: |-
+  # Two-step upload flow:
+  #   1. Reserve a file_id + presigned upload_url via client.batches.files.create.
+  #   2. PUT the raw JSONL bytes to upload_url.
+  #
+  # The presigned URL is short-lived (~15 minutes) and signature-sensitive —
+  # use it verbatim and prefer Content-Type application/octet-stream (or
+  # omit the header entirely). A custom value such as application/jsonl
+  # can break signature matching.
+  import os
+  from pathlib import Path
+
+  import requests
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  input_path = Path("batch_requests.jsonl")
+
+  # Step 1: reserve the upload slot.
+  intent = client.batches.files.create(file_name=input_path.name)
+  upload_url = intent["upload_url"]
+  file_id = intent["file_id"]
+
+  # Step 2: PUT the JSONL bytes to the presigned URL.
+  with input_path.open("rb") as fh:
+      put = requests.put(
+          upload_url,
+          data=fh,
+          headers={"Content-Type": "application/octet-stream"},
+          timeout=60,
+      )
+  put.raise_for_status()
+
+  print("uploaded file_id:", file_id)

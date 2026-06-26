@@ -1,0 +1,64 @@
+operationId: reservedIPv6Actions_post
+
+summary: "Initiate a Reserved IPv6 Action"
+
+description: |
+    To initiate an action on a reserved IPv6 send a POST request to
+    `/v2/reserved_ipv6/$RESERVED_IPV6/actions`. In the JSON body to the request,
+    set the `type` attribute to on of the supported action types:
+
+    | Action     | Details
+    |------------|--------
+    | `assign`   | Assigns a reserved IPv6 to a Droplet
+    | `unassign` | Unassign a reserved IPv6 from a Droplet
+
+tags:
+  -  "Reserved IPv6 Actions"
+
+parameters:
+  - $ref: 'parameters.yml#/reserved_ipv6'
+
+requestBody:
+  description: |
+    The `type` attribute set in the request body will specify the action that
+    will be taken on the reserved IPv6.
+
+  content:
+    application/json:
+      schema:
+        anyOf:
+          - $ref: 'models/reserved_ipv6_actions.yml#/reserved_ipv6_action_unassign'
+          - $ref: 'models/reserved_ipv6_actions.yml#/reserved_ipv6_action_assign'
+        discriminator:
+          propertyName: type
+          mapping:
+            unassign: 'models/reserved_ipv6_actions.yml#/reserved_ipv6_action_unassign'
+            assign: 'models/reserved_ipv6_actions.yml#/reserved_ipv6_action_assign'
+
+responses:
+  '201':
+    $ref: 'responses/reserved_ipv6_action.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/post_reserved_ipv6_action.yml'
+  - $ref: 'examples/go/post_reserved_ipv6_action.yml'
+  - $ref: 'examples/python/post_reserved_ipv6_action.yml'
+
+security:
+  - bearer_auth:
+    - 'reserved_ip:update'

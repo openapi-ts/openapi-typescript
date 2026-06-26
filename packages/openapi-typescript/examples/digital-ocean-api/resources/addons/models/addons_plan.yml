@@ -1,0 +1,118 @@
+type: object
+
+properties:
+  id:
+    title: id
+    type: integer
+    example: 1
+    description: ID of a given plan.
+
+  app_id:
+    title: app_id
+    type: integer
+    example: 2
+    description: ID of the app associated with this plan.
+
+  display_name:
+    title: display_name
+    type: string
+    example: "Basic Plan"
+    description: Display name for a given plan.
+
+  description:
+    title: description
+    type: string
+    example: "Description of the app plan."
+    description: Description of an app plan.
+
+  slug:
+    title: slug
+    type: string
+    example: "plan_basic"
+    description: Slug identifier for the plan.
+
+  price_per_month:
+    title: price_per_month
+    type: integer
+    example: 10
+    description: Price of a month's usage of the plan in US dollars.
+
+  active:
+    title: active
+    type: boolean
+    example: true
+    description: Indicates if the plan is currently active.
+
+  state:
+    title: state
+    type: string
+    enum:
+    - unknown
+    - draft
+    - in_review
+    - approved
+    - suspended
+    - archived
+    example: "approved"
+    description: Current state of the plan.
+
+  features:
+    title: features
+    type: array
+    items:
+      $ref: addons_feature.yml
+    example: []
+    description: List of features included in the plan. 
+
+  created_at:
+    title: created_at
+    type: string
+    format: date-time
+    example: "2023-10-01T12:00:00Z"
+    description: Timestamp when the plan was created.
+
+  updated_at:
+    title: updated_at
+    type: string
+    format: date-time
+    example: "2023-10-01T12:00:00Z"
+    description: Timestamp when the plan was last updated.
+
+  available:
+    title: available
+    type: boolean
+    example: true
+    description: Indicates if the plan is available for selection.
+
+  uuid:
+    title: uuid
+    type: string
+    example: "123e4567-e89b-12d3-a456-426 614174000"
+    description: Unique identifier for the plan.  
+
+  by_default:
+    title: by_default
+    type: boolean
+    example: false
+    description: Indicates if this plan is the default option for the app.
+
+  dimensions:
+    title: dimensions
+    type: array
+    description: List of dimensions associated with the plan, each with its own pricing.
+    items:
+      $ref: addons_dimension_with_price.yml
+
+required:
+  - id
+  - app_id
+  - display_name
+  - slug
+  - price_per_month
+  - active
+  - state
+  - created_at
+  - updated_at
+  - available
+  - uuid
+  - by_default

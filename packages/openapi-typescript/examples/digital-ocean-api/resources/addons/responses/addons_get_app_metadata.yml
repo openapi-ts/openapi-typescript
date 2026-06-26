@@ -1,0 +1,21 @@
+description: The response will be a JSON object with a key called `metadata`. `metadata` will be an array of objects, each representing a metadata item for the app.
+  Each object will contain details such as `id`, `name`, `display_name`, `description`, `type`, and `options`.
+  For additional details specific to the app, find and view its
+  [DigitalOcean Marketplace](https://marketplace.digitalocean.com) page.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        metadata:
+          type: array
+          items:
+            $ref: '../models/addons_app_metadata.yml'

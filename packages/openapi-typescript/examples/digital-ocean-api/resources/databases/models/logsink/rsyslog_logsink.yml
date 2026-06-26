@@ -31,6 +31,24 @@ properties:
       Conditional (required if `format` == `custom`).
 
       Syslog log line template for a custom format, supporting limited rsyslog style templating (using `%tag%`). Supported tags are: `HOSTNAME`, `app-name`, `msg`, `msgid`, `pri`, `procid`, `structured-data`, `timestamp` and `timestamp:::date-rfc3339`.
+
+      ---
+      **Datadog Integration Example for Non-Mongo clusters**:
+      ```
+      DD_KEY <%pri%>1 %timestamp:::date-rfc3339% %HOSTNAME%.DB_NAME %app-name% - - - %msg%
+      ```
+      - Replace `DD_KEY` with your actual Datadog API key.
+      - Replace `DB_NAME` with the actual name of your database cluster.
+      - Configure the Server:
+        - US Region: Use `intake.logs.datadoghq.com`
+        - EU Region: Use `tcp-intake.logs.datadoghq.eu`
+      - Configure the Port:
+        - US Region: Use port `10516`
+        - EU Region: Use port `443`
+      - Enable TLS:
+        - Ensure the TLS checkbox is enabled.
+      - Note: This configuration applies to **non-Mongo clusters only**. For **Mongo clusters**, use the `datadog_logsink` integration instead.
+
   sd:
     type: string
     example: TOKEN tag="LiteralValue"

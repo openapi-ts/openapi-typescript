@@ -1,0 +1,94 @@
+type: object
+description: Request body for image generation.
+required:
+  - prompt
+  - model
+  - "n"
+properties:
+  prompt:
+    type: string
+    minLength: 1
+    description: >
+      A text description of the desired image(s). Supports up to 32,000 characters
+      and provides automatic prompt optimization for best results.
+    example: "A cute baby sea otter floating on its back in calm blue water"
+  model:
+    type: string
+    description: >
+      The model to use for image generation.
+    example: "openai-gpt-image-1"
+  moderation:
+    type: string
+    nullable: true
+    description: >
+      The moderation setting for the image generation. Supported values: low, auto.
+    example: "auto"
+  background:
+    type: string
+    nullable: true
+    description: >
+      The background setting for the image generation. Supported values:
+      transparent, opaque, auto.
+    example: "auto"
+  output_format:
+    type: string
+    nullable: true
+    description: >
+      The output format for the image generation. Supported values: png, webp, jpeg.
+    example: "png"
+  output_compression:
+    type: integer
+    minimum: 0
+    nullable: true
+    description: >
+      The output compression level for the image generation (0-100).
+    example: 100
+  "n":
+    type: integer
+    minimum: 1
+    maximum: 10
+    description: >
+      The number of images to generate. Must be between 1 and 10.
+    example: 1
+  quality:
+    type: string
+    nullable: true
+    description: >
+      The quality of the image that will be generated. Supported values:
+      auto, high, medium, low.
+    example: "auto"
+  size:
+    type: string
+    description: >
+      The size of the generated images. GPT-IMAGE-1 supports: auto (automatically select best size), 1536x1024 (landscape), 1024x1536 (portrait).
+    enum:
+      - auto
+      - 1536x1024
+      - 1024x1536
+    example: "auto"
+  stream:
+    type: boolean
+    default: false
+    nullable: true
+    description: >
+      If set to true, partial image data will be streamed as the image is being generated.
+      The response will be sent as server-sent events with partial image chunks.
+      When stream is true, partial_images must be greater than 0.
+    example: false
+  partial_images:
+    type: integer
+    minimum: 0
+    nullable: true
+    description: >
+      The number of partial image chunks to return during streaming generation.
+      Defaults to 0. When stream=true, this must be greater than 0 to receive
+      progressive updates of the image as it is being generated.
+    example: 1
+  user:
+    type: string
+    maxLength: 256
+    nullable: true
+    description: >
+      A unique identifier representing your end-user, which can help DigitalOcean
+      to monitor and detect abuse.
+    example: "user-1234"

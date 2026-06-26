@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X PATCH \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"advertise": true}' \
+    "https://api.digitalocean.com/v2/byoip_prefixes/$BYOIP_PREFIX_UUID"

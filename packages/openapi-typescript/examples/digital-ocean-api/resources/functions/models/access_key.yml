@@ -1,0 +1,35 @@
+type: object
+
+properties:
+  id:
+    type: string
+    description: The access key's unique identifier with prefix 'dof_v1_'.
+    example: "dof_v1_d79e8aeb42e5476893c7d4c59a166264"
+    readOnly: true
+
+  name:
+    type: string
+    description: The access key's name.
+    example: "my-function-access-key"
+
+  expires_at:
+    type: string
+    format: date-time
+    nullable: true
+    description: When the key expires (null for non-expiring keys).
+    example: "2026-12-19T10:30:00Z"
+    readOnly: true
+
+  created_at:
+    type: string
+    format: date-time
+    description: The date and time the key was created.
+    example: "2025-12-19T10:30:00Z"
+    readOnly: true
+
+  updated_at:
+    type: string
+    format: date-time
+    description: The date and time the key was last updated.
+    example: "2025-12-19T10:30:00Z"
+    readOnly: true

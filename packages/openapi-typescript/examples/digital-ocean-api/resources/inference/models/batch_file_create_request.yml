@@ -1,0 +1,15 @@
+type: object
+title: BatchFileCreateRequest
+description: Request body for creating a batch input file intent.
+required:
+  - file_name
+properties:
+  file_name:
+    type: string
+    description: >
+      The file you plan to upload. Must end with `.jsonl`
+      (case-insensitive) and contain one request per line in the schema
+      expected by the target `provider`.
+    minLength: 7
+    pattern: '.+\.[Jj][Ss][Oo][Nn][Ll]$'
+    example: "batch_requests.jsonl"

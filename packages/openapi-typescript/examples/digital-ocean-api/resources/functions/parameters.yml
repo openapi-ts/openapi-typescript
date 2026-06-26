@@ -15,3 +15,12 @@ trigger_name:
     type: string
   example: my trigger
   required: true
+
+key_id:
+  name: key_id
+  description: The ID of the access key to be managed.
+  in: path
+  schema:
+    type: string
+  example: dof-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+  required: true

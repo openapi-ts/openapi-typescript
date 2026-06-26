@@ -1,0 +1,99 @@
+type: object
+properties:
+  id:
+    type: string
+    title: The ID of the job invocation
+    example: "ba32b134-569c-4c0c-ba02-8ffdb0492ece"
+  job_name:
+    type: string
+    title: The name of the job this invocation belongs to.
+    example: "good-job"
+  deployment_id:
+    type: string
+    title: The deployment ID this job invocation belongs to.
+    example: "c020763f-ddb7-4112-a0df-7f01c69fc00b"
+  phase:
+    type: string
+    description: The phase of the job invocation
+    enum:
+      - UNKNOWN
+      - PENDING
+      - RUNNING
+      - SUCCEEDED
+      - FAILED
+      - CANCELED
+      - SKIPPED
+    example: SUCCEEDED
+  trigger:  
+    title: The JobInvocation Trigger
+    type: object
+    properties:
+      type:
+        type: string
+        description: The type of trigger that initiated the job invocation.
+        default: UNKNOWN
+        enum:
+          - MANUAL
+          - SCHEDULE
+          - UNKNOWN
+        example: MANUAL
+      scheduled:
+        type: object
+        description: The schedule for the job
+        properties:
+          schedule:
+            type: object
+            properties:
+              cron:
+                type: string
+                description: The cron expression defining the schedule
+                example: "0 0 * * *"
+              time_zone:
+                type: string
+                description: The time zone for the schedule
+                example: "America/New_York"
+        example:
+          schedule:
+            cron: "0 0 * * *"
+            time_zone: "America/New_York"
+      manual:
+        type: object
+        description: Details about the manual trigger, if applicable
+        properties:
+          user:
+            type: object
+            properties:
+              uuid:
+                type: string
+                title: The ID of the user who triggered the job
+                example: "550e8400-e29b-41d4-a716-446655440000"
+              email:
+                type: string
+                format: email
+                title: The email of the user who triggered the job
+                example: "user@example.com"
+              full_name:
+                type: string
+                title: The name of the user who triggered the job
+                example: "John Doe"
+            description: The user who triggered the job
+        example:
+          user:
+            uuid: "550e8400-e29b-41d4-a716-446655440000"
+            email: "user@example.com"
+            full_name: "John Doe"
+  created_at:
+    type: string
+    format: date-time
+    title: The time when the job invocation was created
+    example: "2023-10-01T12:00:00Z"
+  started_at:
+    type: string
+    format: date-time
+    title: The time when the job invocation started
+    example: "2023-10-01T12:05:00Z"
+  completed_at:
+    type: string
+    format: date-time
+    title: The time when the job invocation completed
+    example: "2023-10-01T12:10:00Z"

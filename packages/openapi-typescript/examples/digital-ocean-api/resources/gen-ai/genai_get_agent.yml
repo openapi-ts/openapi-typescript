@@ -14,7 +14,7 @@ responses:
     content:
       application/json:
         schema:
-          $ref: ./definitions.yml#/apiGetAgentOutputPublic
+          $ref: ./definitions.yml#/apiGetAgentOutput
     description: A successful response.
     headers:
       ratelimit-limit:
@@ -38,6 +38,6 @@ security:
   - genai:read
 summary: Retrieve an Existing Agent
 tags:
-- GenAI Platform (Public Preview)
+- GradientAI Platform
 x-codeSamples:
 - $ref: examples/curl/genai_get_agent.yml

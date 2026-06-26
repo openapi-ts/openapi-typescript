@@ -17,22 +17,27 @@ content:
           properties:
             reserved_ips:
               type: array
+              description: Reserved IPs that are associated with this Droplet.<br>Requires `reserved_ip:read` scope.
               items:
                 $ref: '../models/associated_resource.yml'
             floating_ips:
               type: array
+              description: Floating IPs that are associated with this Droplet.<br>Requires `reserved_ip:read` scope.
               items:
                 $ref: '../models/associated_resource.yml'
             snapshots:
               type: array
+              description: Snapshots that are associated with this Droplet.<br>Requires `image:read` scope.
               items:
                 $ref: '../models/associated_resource.yml'
             volumes:
               type: array
+              description: Volumes that are associated with this Droplet.<br>Requires `block_storage:read` scope.
               items:
                 $ref: '../models/associated_resource.yml'
             volume_snapshots:
               type: array
+              description: Volume Snapshots that are associated with this Droplet.<br>Requires `block_storage_snapshot:read` scope.
               items:
                 $ref: '../models/associated_resource.yml'
 

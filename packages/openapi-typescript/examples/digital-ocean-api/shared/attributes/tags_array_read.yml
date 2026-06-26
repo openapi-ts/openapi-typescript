@@ -1,0 +1,10 @@
+type: array
+items:
+  type: string
+nullable: true
+description: >-
+  A flat array of tag names as strings applied to the resource.
+  <br><br>Requires `tag:read` scope.
+example:
+  - base-image
+  - prod

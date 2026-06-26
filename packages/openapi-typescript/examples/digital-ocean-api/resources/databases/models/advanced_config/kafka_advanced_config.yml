@@ -10,12 +10,12 @@ properties:
       compression codec set by the producer.
     type: string
     enum:
-    - gzip
-    - snappy
-    - lz4
-    - zstd
-    - uncompressed
-    - producer
+      - gzip
+      - snappy
+      - lz4
+      - zstd
+      - uncompressed
+      - producer
     example: gzip
   group_initial_rebalance_delay_ms:
     description: >-
@@ -116,9 +116,9 @@ properties:
       window
     type: string
     enum:
-    - delete
-    - compact
-    - compact,delete
+      - delete
+      - compact
+      - compact,delete
     example: delete
   log_flush_interval_messages:
     description: >-
@@ -164,8 +164,8 @@ properties:
       create time or log append time.
     type: string
     enum:
-    - CreateTime
-    - LogAppendTime
+      - CreateTime
+      - LogAppendTime
     example: CreateTime
   log_message_timestamp_difference_max_ms:
     description: >-
@@ -239,6 +239,7 @@ properties:
       Enable auto creation of topics
     type: boolean
     example: true
+    default: false
   min_insync_replicas:
     description: >-
       When a producer sets acks to 'all' (or '-1'), min_insync_replicas
@@ -326,3 +327,10 @@ properties:
     minimum: 600000
     maximum: 3600000
     example: 3600000
+  schema_registry:
+    description: >-
+      Enable creation of schema registry for the Kafka cluster.
+      Schema_registry only works with General Purpose - Dedicated CPU plans.
+    type: boolean
+    example: true
+    default: false

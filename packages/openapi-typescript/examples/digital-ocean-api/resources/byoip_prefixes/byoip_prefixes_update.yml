@@ -1,0 +1,54 @@
+operationId: byoipPrefixes_patch
+
+summary: "Update a BYOIP Prefix"
+
+description: |
+  To update a BYOIP prefix, send a PATCH request to `/v2/byoip_prefixes/$byoip_prefix_uuid`.
+
+  Currently, you can update the advertisement status of the prefix.
+  The response will include the updated details of the prefix.
+
+tags:
+  - "BYOIP Prefixes"
+
+parameters:
+  - in: path
+    name: byoip_prefix_uuid
+    schema:
+      type: string
+      format: uuid
+    required: true
+    description: A unique identifier for a BYOIP prefix.
+    example: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema: 
+        $ref: "models/byoip_prefix_update.yml#/byoip_prefix_update"
+
+responses:
+  "202":
+    $ref: "responses/byoip_prefix_update.yml#/byoip_prefix_update"
+  "401":
+    $ref: "../../shared/responses/unauthorized.yml"
+  "404":
+    $ref: "../../shared/responses/not_found.yml"
+  "422":
+    $ref: "../../shared/responses/unprocessable_entity.yml"
+  "429":
+    $ref: "../../shared/responses/too_many_requests.yml"
+  "500":
+    $ref: "../../shared/responses/server_error.yml"
+  default:
+    $ref: "../../shared/responses/unexpected_error.yml"
+
+x-codeSamples:
+  - $ref: "examples/curl/update_byoip_prefix.yml"
+  - $ref: "examples/go/update_byoip_prefix.yml"
+  - $ref: "examples/python/update_byoip_prefix.yml"
+
+security:
+  - bearer_auth:
+      - "byoip_prefix:write"

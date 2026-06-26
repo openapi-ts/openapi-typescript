@@ -1,0 +1,17 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      messages, _, err := client.Kubernetes.GetClusterStatusMessages(ctx, "8d91899c-0739-4a1a-acc5-deadbeefbb8f", nil)
+  }

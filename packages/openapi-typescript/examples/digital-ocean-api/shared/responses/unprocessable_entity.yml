@@ -1,0 +1,17 @@
+description: Unprocessable Entity
+headers:
+  ratelimit-limit:
+    $ref: '../headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../models/error.yml'
+    example:
+      id: unprocessable_entity
+      message: request payload validation failed
+      request_id: 4851a473-1621-42ea-b2f9-5071c0ea8414

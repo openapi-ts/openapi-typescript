@@ -1,0 +1,12 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req={
+    "type": "unassign"
+  }
+
+  resp = client.reserved_ipv6s_actions.post(reserved_ipv6="2409:40d0:f7:1017:74b4:3a96:105e:4c6e", body=req)

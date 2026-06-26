@@ -23,7 +23,7 @@ properties:
     example: ubuntu-20-04-x64
     description: The image ID of a public or private image or the slug
       identifier for a public image. This image will be the base image for
-      your Droplet.
+      your Droplet.<br>Requires `image:read` scope.
 
   ssh_keys:
     type: array
@@ -36,7 +36,8 @@ properties:
     - 3b:16:e4:bf:8b:00:8b:b8:59:8c:a9:d3:f0:19:fa:45
     default: []
     description: An array containing the IDs or fingerprints of the SSH keys
-      that you wish to embed in the Droplet's root account upon creation.
+      that you wish to embed in the Droplet's root account upon creation. You must add 
+      the keys to your team before they can be embedded on a Droplet.<br>Requires `ssh_key:read` scope.
 
   backups:
     type: boolean
@@ -74,7 +75,7 @@ properties:
     - web
     default: []
     description: A flat array of tag names as strings to apply to the Droplet
-      after it is created. Tag names can either be existing or new tags.
+      after it is created. Tag names can either be existing or new tags.<br>Requires `tag:create` scope.
 
   user_data:
     type: string
@@ -104,14 +105,14 @@ properties:
     default: []
     description: An array of IDs for block storage volumes that will be attached
       to the Droplet once created. The volumes must not already be attached to
-      an existing Droplet.
+      an existing Droplet.<br>Requires `block_storage:read` scpoe.
 
   vpc_uuid:
     type: string
     example: 760e09ef-dc84-11e8-981e-3cfdfeaae000
     description: A string specifying the UUID of the VPC to which the Droplet
       will be assigned. If excluded, the Droplet will be assigned to your
-      account's default VPC for the region.
+      account's default VPC for the region.<br>Requires `vpc:read` scope.
 
   with_droplet_agent:
     type: boolean
@@ -122,6 +123,19 @@ properties:
       (i.e. OS not supported) are ignored. To prevent it from being installed,
       set to `false`. To make installation errors fatal, explicitly set it
       to `true`.
+
+  public_networking:
+    type: boolean
+    example: true
+    default: true
+    description: An optional boolean indicating whether this Droplet should be created with
+      public networking or not.
+      By default, all Droplets are created with public networking available.
+      If explicitly set to `false`, only private networking will be enabled,
+      and public networking will be disabled; currently this means that it will
+      not have any public static or Reserved IPv4 or IPv6 address, nor can one
+      be assigned later.
+      If explicitly set to `false`, `ipv6` must also be `false`.
 
 required:
 - size

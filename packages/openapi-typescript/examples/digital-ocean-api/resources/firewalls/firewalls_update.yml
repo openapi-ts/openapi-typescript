@@ -7,6 +7,8 @@ description: |
   `/v2/firewalls/$FIREWALL_ID`. The request should contain a full representation
   of the firewall including existing attributes. **Note that any attributes that
   are not provided will be reset to their default values.**
+  <br><br>You must have read access (e.g. `droplet:read`) to all resources attached
+  to the firewall to successfully update the firewall.
 
 tags:
   - Firewalls

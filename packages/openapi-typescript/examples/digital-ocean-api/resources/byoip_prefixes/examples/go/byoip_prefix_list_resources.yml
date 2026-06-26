@@ -1,0 +1,23 @@
+lang: Go
+source: |-
+    import (
+        "context"
+        "os"
+
+        "github.com/digitalocean/godo"
+    )
+
+    func main() {
+        token := os.Getenv("DIGITALOCEAN_TOKEN")
+        client := godo.NewFromToken(token)
+        ctx := context.TODO()
+
+        resources, _, err := client.BYOIPPrefixes.GetResources(ctx, "fa3b-1234-5678-90ab-cdef01234567", &godo.ListOptions{
+            Page:    1,
+            PerPage: 20,
+        })
+        if err != nil {
+            panic(err)
+        }
+        // use resources
+    }

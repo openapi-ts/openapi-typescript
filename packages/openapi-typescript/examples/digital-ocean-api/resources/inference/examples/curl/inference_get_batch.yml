@@ -1,0 +1,5 @@
+lang: cURL
+source: |-
+  curl -sS -X GET "https://inference.do-ai.run/v1/batches/0e9d1d35-3d1e-4d66-9a2f-8c7e0f6b3e21" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -H "Content-Type: application/json"

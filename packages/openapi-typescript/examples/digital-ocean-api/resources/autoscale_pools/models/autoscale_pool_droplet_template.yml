@@ -43,7 +43,9 @@ properties:
       type: string
     example: 
       - "88:66:90:d2:68:d5:b5:85:e3:26:26:11:31:57:e6:f8"
-    description: The SSH keys to be installed on the Droplets in the autoscale pool. You can either specify the key ID or the fingerprint.
+    description: |
+      The SSH keys to be installed on the Droplets in the autoscale pool. You can either specify the key ID or the fingerprint.
+      Requires `ssh_key:read` scope.
   
   tags:
     type: array
@@ -51,11 +53,15 @@ properties:
       type: string
     example: 
       - my-tag
-    description: The tags to apply to each of the Droplets in the autoscale pool.
+    description: |
+      The tags to apply to each of the Droplets in the autoscale pool.
+      Requires `tag:read` scope.
   
   vpc_uuid:
     type: string
-    description: The VPC where the Droplets in the autoscale pool will be created. The VPC must be in the region where you want to create the Droplets.
+    description: |
+      The VPC where the Droplets in the autoscale pool will be created. The VPC must be in the region where you want to create the Droplets.
+      Requires `vpc:read` scope.
     example: 760e09ef-dc84-11e8-981e-3cfdfeaae000
   
   with_droplet_agent:
@@ -65,7 +71,9 @@ properties:
   
   project_id:
     type: string
-    description: The project that the Droplets in the autoscale pool will belong to.
+    description: |
+      The project that the Droplets in the autoscale pool will belong to.
+      Requires `project:read` scope.
     example: 746c6152-2fa2-11ed-92d3-27aaa54e4988
   
   ipv6:
@@ -81,6 +89,19 @@ properties:
         - touch /test.txt
     description: A string containing user data that cloud-init consumes to configure a Droplet on first boot.
       User data is often a cloud-config file or Bash script. It must be plain text and may not exceed 64 KiB in size.
+
+  public_networking:
+    type: boolean
+    example: true
+    default: true
+    description: An optional boolean indicating whether the Droplets should be created with
+      public networking or not.
+      By default, all Droplets are created with public networking available.
+      If explicitly set to `false`, only private networking will be enabled,
+      and public networking will be disabled; currently this means that it will
+      not have any public static or Reserved IPv4 or IPv6 address, nor can one
+      be assigned later.
+      If explicitly set to `false`, `ipv6` must also be `false`.
 
 required:
   - region

@@ -40,4 +40,5 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - '1click:create'
+    - 'kubernetes:update'
+    - 'addon:create'

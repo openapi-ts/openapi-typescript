@@ -1,8 +1,12 @@
 operationId: registry_get_subscription
 
-summary: Get Subscription Information
+deprecated: true
 
-description: A subscription is automatically created when you configure your
+summary: 'Get Subscription'
+description: |
+  **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+
+  A subscription is automatically created when you configure your
   container registry. To get information about your subscription, send a GET
   request to `/v2/registry/subscription`.
 

@@ -1,0 +1,92 @@
+type: object
+
+properties:
+  uuid:
+    title: uuid
+    type: string
+    example: "123e4567-e89b-12d3-a456-426614174000"
+    description: The unique identifier for the addon resource.
+
+  name:
+    title: name
+    type: string
+    example: "my-resource-01"
+    description: The name of the addon resource.
+
+  state:
+    title: state
+    type: string
+    enum:
+      - pending
+      - provisioning
+      - provisioned
+      - deprovisioning
+      - deprovisioned
+      - provisioning-failed
+      - deprovisioning-failed
+      - suspended
+    example: "provisioned"
+    description: The state the resource is currently in.
+
+  app_name:
+    title: app_name
+    type: string
+    example: "Example App"
+    description: The name of the application associated with the resource.
+
+  app_slug:
+    title: app_slug
+    type: string
+    example: "example_app"
+    description: The slug identifier for the application associated with the resource.
+
+  plan_name:
+    title: plan_name
+    type: string
+    example: "Basic Plan"
+    description: The name of the plan associated with the resource.
+
+  plan_slug:
+    title: plan_slug
+    type: string
+    example: "basic_plan"
+    description: The slug identifier for the plan associated with the resource.
+
+  plan_price_per_month:
+    title: plan_price_per_month
+    type: integer
+    example: 10
+    description: The price of the plan per month in US dollars.
+
+  has_config:
+    title: has_config
+    type: boolean
+    example: true
+    description: Indicates if the resource has configuration values set by the vendor.
+
+  metadata:
+    title: metadata
+    type: array
+    description: Metadata associated with the resource, set by the user.
+    items:
+      $ref: './addons_resource_metadata.yml'
+
+  sso_url:
+    title: sso_url
+    type: string
+    example: "https://example.com/sso"
+    description: The Single Sign-On URL for the resource, if applicable.
+
+  message:
+    title: message
+    type: string
+    example: "Resource is provisioned successfully."
+    description: A message related to the resource, if applicable.
+
+required:
+  - uuid
+  - name
+  - state
+  - app_slug
+  - plan_slug
+  - has_config

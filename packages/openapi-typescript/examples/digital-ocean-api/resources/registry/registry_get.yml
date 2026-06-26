@@ -1,9 +1,15 @@
 operationId: registry_get
 
-summary: Get Container Registry Information
+deprecated: true
 
-description: To get information about your container registry, send a GET
+summary: 'Get Container Registry Information'
+description: |
+  **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+
+  To get information about your container registry, send a GET
   request to `/v2/registry`.
+  
+  This operation is not compatible with multiple registries in a DO account. You should use `/v2/registries/{registry_name}` instead.
 
 tags:
   - Container Registry
@@ -14,6 +20,9 @@ responses:
 
   '401':
     $ref: '../../shared/responses/unauthorized.yml'
+  
+  '412':
+    $ref: './responses/registries_precondition_fail.yml'
 
   '429':
     $ref: '../../shared/responses/too_many_requests.yml'

@@ -1,0 +1,47 @@
+type: object
+description: >
+  One server-sent event (SSE) JSON payload when `stream` is true. Each event line contains
+  a JSON object after the `data:` prefix.
+required:
+  - type
+properties:
+  type:
+    type: string
+    description: SSE event type.
+    enum:
+      - message_start
+      - content_block_start
+      - content_block_delta
+      - content_block_stop
+      - message_delta
+      - message_stop
+      - ping
+  message:
+    type: object
+    description: Present on `message_start`; initial message metadata.
+    additionalProperties: true
+  index:
+    type: integer
+    description: Index of the content block this event refers to.
+  content_block:
+    type: object
+    description: Present on `content_block_start`.
+    additionalProperties: true
+  delta:
+    type: object
+    description: Present on `content_block_delta` and `message_delta`.
+    additionalProperties: true
+  usage:
+    type: object
+    description: Streamed usage (for example on `message_delta`).
+    properties:
+      output_tokens:
+        type: integer
+        example: 64
+      speed:
+        type: string
+        nullable: true
+        enum:
+          - standard
+          - fast
+        example: fast

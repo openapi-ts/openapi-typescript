@@ -61,6 +61,7 @@ properties:
     type: string
     example: 88b72d1a-b78a-4d9f-9090-b53c4399073f
     title: The ID of the project the app is assigned to. This will be empty if there is a lookup failure.
+    description: Requires `project:read` scope.
   region:
     $ref: apps_region.yml
   spec:
@@ -86,6 +87,8 @@ properties:
     type: array
     items:
       $ref: apps_dedicated_egress_ip.yml
+  vpc:
+    $ref: apps_vpc.yml
 required:
 - spec
 type: object

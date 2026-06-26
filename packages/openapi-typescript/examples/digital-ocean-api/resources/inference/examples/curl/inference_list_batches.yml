@@ -1,0 +1,5 @@
+lang: cURL
+source: |-
+  curl -sS -X GET "https://inference.do-ai.run/v1/batches?limit=20" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -H "Content-Type: application/json" | jq

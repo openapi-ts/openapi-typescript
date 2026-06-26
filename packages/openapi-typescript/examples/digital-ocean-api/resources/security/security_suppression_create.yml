@@ -1,0 +1,55 @@
+operationId: security_create_suppression
+
+summary: Create Suppression
+
+description: To suppress scan findings, send a POST request to `/v2/security/settings/suppressions`.
+
+tags:
+  - Security
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          rule_uuid:
+            type: string
+            description: The rule UUID to suppress for the listed resources.
+          resources:
+            type: array
+            items:
+              type: string
+            example:
+              - do:droplet:fe3a2fd7-903d-46e6-ada3-3e4f285fb89d
+            description: The URNs of resources to suppress for the rule.
+
+responses:
+  '201':
+    $ref: 'responses/suppressed_resources.yml'
+
+  '400':
+    $ref: '../../shared/responses/bad_request.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/security_suppression_create.yml'
+
+security:
+  - bearer_auth:
+      - 'security:create'

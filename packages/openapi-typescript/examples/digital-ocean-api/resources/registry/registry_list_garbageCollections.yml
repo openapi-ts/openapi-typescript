@@ -1,8 +1,12 @@
 operationId: registry_list_garbageCollections
 
-summary: List Garbage Collections
+deprecated: true
 
-description: To get information about past garbage collections for a registry,
+summary: 'List Garbage Collections'
+description: |
+  **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+
+  To get information about past garbage collections for a registry,
   send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collections`.
 
 tags:

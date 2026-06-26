@@ -1,0 +1,5 @@
+type: object
+
+properties:
+  snapshot:
+    $ref: 'nfs_snapshot_response.yml'

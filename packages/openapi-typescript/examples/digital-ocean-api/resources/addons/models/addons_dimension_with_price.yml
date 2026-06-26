@@ -1,0 +1,47 @@
+type: object
+
+properties:
+  id:
+    title: id
+    type: integer
+    example: 1
+    description: Unique identifier for the dimension.
+
+  sku:
+    title: sku
+    type: string
+    example: "addon_sku_123"
+    description: Unique string identifier for the dimension, tied to a price.
+
+  slug:
+    title: slug
+    type: string
+    example: "addon_dimension_slug"
+    description: Slug identifier for the dimension.
+
+  display_name:
+    title: display_name
+    type: string
+    example: "Addon Dimension Display Name"
+    description: Display name for the dimension.
+
+  feature_name:
+    title: feature_name
+    type: string
+    example: "Feature Name"
+    description: Name of the feature associated with the dimension.
+
+  volumes:
+    title: volumes
+    type: array
+    description: A list of volumes associated with the dimension, each with its own price.
+    items:
+      $ref: addons_dimension_volume_with_price.yml
+
+required:
+  - id
+  - sku
+  - slug
+  - display_name
+  - feature_name
+  - volumes

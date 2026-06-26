@@ -1,0 +1,19 @@
+type: object
+required:
+  - token
+  - logprob
+  - bytes
+properties:
+  token:
+    type: string
+    description: The token.
+    example: Hello
+  logprob:
+    type: number
+    description: The log probability of this token.
+    example: -1.2345
+  bytes:
+    type: array
+    nullable: true
+    items:
+      type: integer

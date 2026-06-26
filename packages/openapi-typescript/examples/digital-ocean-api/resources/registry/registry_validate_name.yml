@@ -1,8 +1,11 @@
 operationId: registry_validate_name
 
-summary: Validate a Container Registry Name
+deprecated: true
 
+summary: 'Validate a Container Registry Name'
 description: |
+ **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+
   To validate that a container registry name is available for use, send a POST
   request to `/v2/registry/validate-name`.
 

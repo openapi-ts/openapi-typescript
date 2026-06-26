@@ -1,0 +1,41 @@
+operationId: nfs_get_snapshot
+
+summary: Get an NFS snapshot by ID
+
+description: |
+  To get an NFS snapshot, send a GET request to `/v2/nfs/snapshots/{nfs_snapshot_id}?region=${region}`.
+
+  A successful request will return the NFS snapshot.
+
+tags:
+  - NFS
+
+parameters:
+  - $ref: "parameters.yml#/nfs_snapshot_id"
+  - $ref: "parameters.yml#/region"
+
+responses:
+  "200":
+    $ref: "responses/nfs_snapshot_get.yml"
+
+  "401":
+    $ref: "../../shared/responses/unauthorized.yml"
+
+  "404":
+    $ref: "../../shared/responses/not_found.yml"
+
+  "429":
+    $ref: "../../shared/responses/too_many_requests.yml"
+
+  "500":
+    $ref: "../../shared/responses/server_error.yml"
+
+  default:
+    $ref: "../../shared/responses/unexpected_error.yml"
+
+x-codeSamples:
+  - $ref: 'examples/curl/nfs_snapshot_get.yml'
+
+security:
+  - bearer_auth:
+      - "nfs:read"

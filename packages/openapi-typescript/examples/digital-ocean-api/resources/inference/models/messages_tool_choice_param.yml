@@ -1,0 +1,22 @@
+description: >
+  Controls how the model uses tools: automatic selection, require any tool, force a specific
+  tool, or a string form accepted by the service.
+oneOf:
+  - type: string
+    example: auto
+  - type: object
+    required:
+      - type
+    properties:
+      type:
+        type: string
+        enum:
+          - auto
+          - any
+          - tool
+        description: Tool selection mode.
+        example: tool
+      name:
+        type: string
+        description: When `type` is `tool`, the tool name to use.
+        example: get_weather

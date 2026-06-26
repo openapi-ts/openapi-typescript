@@ -1,0 +1,19 @@
+type: object
+description: Image payload (for example base64-encoded bytes).
+required:
+  - type
+  - media_type
+  - data
+properties:
+  type:
+    type: string
+    description: Source kind (for example `base64`).
+    example: base64
+  media_type:
+    type: string
+    description: MIME type of the image (for example `image/jpeg`).
+    example: image/jpeg
+  data:
+    type: string
+    description: Encoded image data.
+    example: /9j/4AAQSkZJRg==

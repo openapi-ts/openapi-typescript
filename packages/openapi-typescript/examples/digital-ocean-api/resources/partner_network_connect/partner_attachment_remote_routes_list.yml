@@ -1,0 +1,46 @@
+operationId: partnerAttachments_list_remote_routes
+
+summary: List remote routes for a partner attachment
+
+description: |
+  To list all remote routes associated with a partner attachment, send a `GET` request to
+  `/v2/partner_network_connect/attachments/{pa_id}/remote_routes`.
+
+tags:
+  - Partner Network Connect
+
+parameters:
+  - $ref: 'parameters.yml#/pa_id'
+  - $ref: '../../shared/parameters.yml#/per_page'
+  - $ref: '../../shared/parameters.yml#/page'
+
+responses:
+  '200':
+    $ref: 'responses/all_partner_attachment_remote_routes.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - lang: cURL
+    source: |-
+      curl -X GET \
+        -H "Content-Type: application/json" \
+        -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+        "https://api.digitalocean.com/v2/partner_network_connect/attachments/9ddccad8-a6d2-42f1-84e7-c92916193978/remote_routes"
+
+security:
+  - bearer_auth:
+      - partner_network_connect:read

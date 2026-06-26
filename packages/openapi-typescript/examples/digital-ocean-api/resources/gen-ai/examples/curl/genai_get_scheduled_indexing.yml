@@ -1,0 +1,5 @@
+lang: cURL
+source: |-
+  curl --location --request GET 'https://api.digitalocean.com/v2/gen-ai/scheduled-indexing/knowledge-base/{knowledge_base_uuid}' \
+  --header 'Authorization: Bearer $DIGITALOCEAN_TOKEN' \
+  --header 'Content-Type: application/json' 

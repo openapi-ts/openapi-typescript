@@ -1,0 +1,15 @@
+type: object
+description: Represents the content of a generated image.
+required:
+  - b64_json
+properties:
+  b64_json:
+    type: string
+    description: >
+      The base64-encoded JSON of the generated image.
+    example: "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAAA1BMVEX..."
+  revised_prompt:
+    type: string
+    description: >
+      The optimized prompt that was used to generate the image.
+    example: "A cute baby sea otter floating on its back in calm blue water, captured with professional photography lighting and composition"

@@ -16,7 +16,7 @@ description: |
   - `enable_ipv6`
   - `enable_backups`
   - `disable_backups`
-  - `snapshot`
+  - `snapshot` (also requires `image:create` permission)
 
 tags:
   -  Droplet Actions
@@ -26,7 +26,7 @@ parameters:
 
 requestBody:
   description: |
-    The `type` attribute set in the request body will specify the  action that
+    The `type` attribute set in the request body will specify the action that
     will be taken on the Droplet. Some actions will require additional
     attributes to be set as well.
 

@@ -1,0 +1,8 @@
+type: object
+nullable: true
+description: An object specifying whether the routing-agent component should be enabled for the Kubernetes cluster.
+properties:
+  enabled:
+    type: boolean
+    description: Indicates whether the routing-agent component is enabled.
+    example: true

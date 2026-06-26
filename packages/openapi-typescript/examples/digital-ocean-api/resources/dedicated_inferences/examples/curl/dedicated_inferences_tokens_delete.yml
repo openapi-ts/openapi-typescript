@@ -1,0 +1,5 @@
+lang: cURL
+source: |-
+  curl -i -X DELETE "https://api.digitalocean.com/v2/dedicated-inferences/6b5c619c-359c-44ca-87e2-47e98170c01d/tokens/f11d4795-c1db-4ac3-9aa6-a0ea3c58877e" \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DO_TOKEN"

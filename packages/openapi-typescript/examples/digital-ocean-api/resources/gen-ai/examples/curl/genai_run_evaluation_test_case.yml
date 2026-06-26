@@ -1,0 +1,11 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json"  \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/evaluation_runs" \
+    -d '{
+      "test_case_uuid": "1b418231-b7d6-11ef-bf8f-4e013e2ddde4",
+      "agent_uuids": ["1b418231-b7d6-11ef-bf8f-4e013e2ddde4", "2b418231-b7d6-11ef-bf8f-4e013e2ddde4"],
+      "run_name": "My Evaluation Run",
+    }'

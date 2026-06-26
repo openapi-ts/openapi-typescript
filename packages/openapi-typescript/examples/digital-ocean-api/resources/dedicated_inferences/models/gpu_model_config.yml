@@ -1,0 +1,26 @@
+dedicated_inference_gpu_model_configs_response:
+  type: object
+  description: Supported GPU and model configurations for Dedicated Inference.
+  properties:
+    gpu_model_configs:
+      type: array
+      items:
+        $ref: '#/dedicated_inference_gpu_model_config'
+
+dedicated_inference_gpu_model_config:
+  type: object
+  properties:
+    gpu_slugs:
+      type: array
+      items:
+        type: string
+      example: [gpu-mi300x1-192gb]
+    model_slug:
+      type: string
+      example: mistral/mistral-7b-instruct-v3
+    model_name:
+      type: string
+      example: Mistral-7B-Instruct-v0.3
+    is_gated_model:
+      type: boolean
+      description: Whether the model requires gated access (e.g. Hugging Face token).

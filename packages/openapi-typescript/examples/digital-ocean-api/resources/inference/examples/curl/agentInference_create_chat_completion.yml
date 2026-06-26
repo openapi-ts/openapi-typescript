@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $AGENT_ACCESS_KEY" \
+    -d '{"messages": [{"role": "user", "content": "What is the capital of Portugal?"}], "model": "ignored"}' \
+    "https://$AGENT_URL/api/v1/chat/completions?agent=true"

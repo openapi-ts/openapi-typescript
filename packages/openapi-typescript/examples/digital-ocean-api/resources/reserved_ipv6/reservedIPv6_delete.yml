@@ -1,0 +1,47 @@
+operationId: reservedIPv6_delete
+
+summary: "Delete a Reserved IPv6"
+
+description: |
+  To delete a reserved IP and remove it from your account, send a DELETE request
+  to `/v2/reserved_ipv6/$RESERVED_IPV6`.
+
+  A successful request will receive a 204 status code with no body in response.
+  This indicates that the request was processed successfully.
+
+tags:
+  - "Reserved IPv6"
+
+parameters:
+  - $ref: 'parameters.yml#/reserved_ipv6'
+
+responses:
+  '204':
+    $ref: '../../shared/responses/no_content.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+  
+  '422':
+    $ref: '../../shared/responses/unprocessable_entity.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/delete_reserved_ipv6.yml'
+  - $ref: 'examples/go/delete_reserved_ipv6.yml'
+  - $ref: 'examples/python/delete_reserved_ipv6.yml'
+
+security:
+  - bearer_auth:
+    - 'reserved_ip:delete'

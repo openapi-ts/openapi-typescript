@@ -1,0 +1,55 @@
+access_key_id:
+  in: path
+  name: access_key
+  description: The access key's ID.
+  required: true
+  schema:
+    type: string
+  example: DOACCESSKEYEXAMPLE
+
+sort:
+  in: query
+  name: sort
+  required: false
+  description: The field to sort by.
+  schema:
+    type: string
+    default: "created_at"
+  example: created_at
+
+sort_direction:
+  in: query
+  name: sort_direction
+  required: false
+  description: The direction to sort by. Possible values are `asc` or `desc`.
+  schema:
+    type: string
+    default: "desc"
+  example: desc
+
+name:
+  in: query
+  name: name
+  required: false
+  description: The access key's name.
+  schema:
+    type: string
+  example: my-access-key
+
+bucket:
+  in: query
+  name: bucket
+  required: false
+  description: The bucket's name.
+  schema:
+    type: string
+  example: my-bucket
+
+permission:
+  in: query
+  name: permission
+  required: false
+  description: The permission of the access key. Possible values are `read`, `readwrite`, `fullaccess`, or an empty string.
+  schema:
+    type: string
+  example: read

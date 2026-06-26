@@ -14,7 +14,7 @@ content:
       type: object
       properties:
         database:
-          $ref: '../models/database_cluster.yml'
+          $ref: '../models/database_cluster_read.yml'
       required:
         - database
     example:
@@ -80,3 +80,7 @@ content:
         version_end_of_life: '2023-11-09T00:00:00Z'
         version_end_of_availability: '2023-05-09T00:00:00Z'
         storage_size_mib: 61440
+        do_settings:
+          service_cnames:
+            - "db.example.com"
+            - "database.myapp.io"

@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"type": "resize", "params": {"size_gib": 1024}, "region": "atl1"}' \
+    "https://api.digitalocean.com/v2/nfs/${nfs_id}/actions"

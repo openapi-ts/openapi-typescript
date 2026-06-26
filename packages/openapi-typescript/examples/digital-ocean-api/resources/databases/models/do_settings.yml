@@ -1,0 +1,20 @@
+type: object
+
+description: >-
+  DigitalOcean-specific settings for the database cluster.
+
+properties:
+  service_cnames:
+    type: array
+    items:
+      type: string
+      pattern: '^[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)+$'
+      maxLength: 253
+    maxItems: 16
+    example:
+      - "db.example.com"
+      - "database.myapp.io"
+    description: >-
+      An array of custom CNAMEs for the database cluster. Each CNAME must be a valid
+      RFC 1123 hostname (e.g., "db.example.com"). Maximum of 16 CNAMEs allowed, each
+      up to 253 characters.

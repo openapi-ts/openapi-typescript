@@ -1,0 +1,18 @@
+type: object
+description: Tool definition the model may call (`name`, JSON Schema for `input`).
+required:
+  - name
+  - input_schema
+properties:
+  name:
+    type: string
+    description: Tool name referenced in `tool_use` blocks.
+    example: get_weather
+  description:
+    type: string
+    description: Human-readable description of what the tool does.
+    example: Get the current weather for a location.
+  input_schema:
+    type: object
+    description: JSON Schema (draft 2020-12 style) describing the tool input object.
+    additionalProperties: true

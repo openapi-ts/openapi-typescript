@@ -1,0 +1,29 @@
+type: object
+properties:
+  name:
+    type: string
+    example: sample_app
+  cpu_usage_percent:
+    type: number
+    format: double
+    example: 30
+  memory_usage_percent:
+    type: number
+    format: double
+    example: 25
+  replicas_desired:
+    type: integer
+    format: int64
+    example: 1
+  replicas_ready:
+    type: integer
+    format: int64
+    example: 1
+  state:
+    type: string
+    enum:
+      - UNKNOWN
+      - HEALTHY
+      - UNHEALTHY
+    default: UNKNOWN
+    example: HEALTHY

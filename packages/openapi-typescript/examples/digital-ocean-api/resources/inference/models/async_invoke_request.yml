@@ -1,0 +1,104 @@
+type: object
+description: >
+  Request body for asynchronously invoking a model. Supports image generation,
+  audio generation, and text-to-speech models. The `input` object fields vary
+  depending on the model type.
+required:
+  - model_id
+  - input
+properties:
+  model_id:
+    type: string
+    description: >
+      The ID of the model to invoke asynchronously.
+    example: "fal-ai/flux/schnell"
+  input:
+    type: object
+    description: >
+      The input parameters for the model invocation. Fields vary by model type.
+
+
+      For **image generation** models (e.g., `fal-ai/flux/schnell`, `fal-ai/fast-sdxl`),
+      use `prompt` along with optional image parameters like `output_format`,
+      `num_inference_steps`, `guidance_scale`, `num_images`, and `enable_safety_checker`.
+
+
+      For **audio generation** models (e.g., `fal-ai/stable-audio-25/text-to-audio`),
+      use `prompt` along with `seconds_total` to control the duration.
+
+
+      For **text-to-speech** models (e.g., `fal-ai/elevenlabs/tts/multilingual-v2`),
+      use `text` with the content you want converted to speech.
+    properties:
+      prompt:
+        type: string
+        description: >
+          The text prompt describing the desired output. Used for image
+          generation and audio generation models.
+        example: "A futuristic city at sunset"
+      text:
+        type: string
+        description: >
+          The text content to convert to speech. Used for text-to-speech models.
+        example: "This text-to-speech example uses DigitalOcean multilingual voice."
+      output_format:
+        type: string
+        nullable: true
+        description: >
+          The desired output format or aspect ratio for image generation.
+        example: "landscape_4_3"
+      num_inference_steps:
+        type: integer
+        minimum: 1
+        nullable: true
+        description: >
+          The number of inference steps to use during image generation. More
+          steps generally produce higher quality output but take longer.
+        example: 4
+      guidance_scale:
+        type: number
+        nullable: true
+        description: >
+          Controls how closely the image generation model follows the prompt.
+          Higher values produce output more closely matching the prompt.
+        example: 3.5
+      num_images:
+        type: integer
+        minimum: 1
+        nullable: true
+        description: The number of images to generate.
+        example: 1
+      enable_safety_checker:
+        type: boolean
+        nullable: true
+        description: Whether to enable the safety checker for generated content.
+        example: true
+      seconds_total:
+        type: integer
+        minimum: 1
+        nullable: true
+        description: >
+          The total duration in seconds for generated audio. Used for audio
+          generation models.
+        example: 60
+    additionalProperties: true
+  tags:
+    type: array
+    nullable: true
+    description: >
+      An optional list of key-value tags to attach to the invocation request
+      for tracking or categorization.
+    items:
+      type: object
+      required:
+        - key
+        - value
+      properties:
+        key:
+          type: string
+          description: The tag key.
+          example: "type"
+        value:
+          type: string
+          description: The tag value.
+          example: "test"

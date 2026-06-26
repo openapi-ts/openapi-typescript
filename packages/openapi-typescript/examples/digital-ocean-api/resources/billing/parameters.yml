@@ -6,3 +6,32 @@ invoice_uuid:
     type: string
   example: 22737513-0ea7-4206-8ceb-98a575af7681
   required: true
+
+account_urn:
+  name: account_urn
+  description: URN of the customer account, can be a team (do:team:uuid) or an organization (do:teamgroup:uuid)
+  in: path
+  schema:
+    type: string
+  example: do:team:12345678-1234-1234-1234-123456789012
+  required: true
+
+start_date:
+  name: start_date
+  description: Start date for billing insights in YYYY-MM-DD format
+  in: path
+  schema:
+    type: string
+    format: date
+  example: '2025-01-01'
+  required: true
+
+end_date:
+  name: end_date
+  description: End date for billing insights in YYYY-MM-DD format. Must be within 31 days of start_date
+  in: path
+  schema:
+    type: string
+    format: date
+  example: '2025-01-31'
+  required: true

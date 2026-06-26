@@ -9,7 +9,7 @@ description: |
   A status of 204 will be given. This indicates that the request was processed
   successfully, but that no response body is needed.
 
-  Note: User management is not supported for Redis clusters.
+  Note: User management is not supported for Caching or Valkey clusters.
 
 tags:
   - Databases

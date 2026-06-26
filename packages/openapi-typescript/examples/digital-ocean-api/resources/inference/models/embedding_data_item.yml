@@ -1,0 +1,29 @@
+type: object
+description: One row in the embeddings `data` array, aligned with a single `input` item.
+required:
+  - index
+  - object
+  - embedding
+properties:
+  index:
+    type: integer
+    description: Zero-based index of the corresponding `input` item (0 when `input` is a string).
+    example: 0
+  object:
+    type: string
+    description: The object type, which is always `embedding`.
+    enum:
+      - embedding
+    example: embedding
+  embedding:
+    description: The embedding vector, or a base64-encoded string when the request set encoding_format to base64.
+    example: [0.0123, -0.0456, 0.0001]
+    oneOf:
+      - type: array
+        description: Float vector when encoding_format is float or omitted.
+        items:
+          type: number
+        example: [0.0123, -0.0456, 0.0001]
+      - type: string
+        description: Base64 payload when encoding_format is base64.
+        example: AGZ...encoded...

@@ -29,13 +29,15 @@ properties:
       - MONGODB
       - KAFKA
       - OPENSEARCH
+      - VALKEY
     description: |-
       - MYSQL: MySQL
       - PG: PostgreSQL
-      - REDIS: Redis
+      - REDIS: Caching
       - MONGODB: MongoDB
       - KAFKA: Kafka
       - OPENSEARCH: OpenSearch
+      - VALKEY: ValKey
     example: PG
 
   name:

@@ -1,0 +1,10 @@
+byoip_prefix:
+  in: path
+  name: byoip_prefix_uuid
+  description: The unique identifier for the BYOIP Prefix.
+  required: true
+  schema:
+    type: string
+    format: uuid
+    minimum: 1
+  example: 'f47ac10b-58cc-4372-a567-0e02b2c3d479'

@@ -1,0 +1,26 @@
+lang: Go
+source: |-
+    import (
+        "context"
+        "os"
+
+        "github.com/digitalocean/godo"
+    )
+
+    func main() {
+        token := os.Getenv("DIGITALOCEAN_TOKEN")
+        client := godo.NewFromToken(token)
+        ctx := context.TODO()
+        byoipPrefixUUID := "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+        
+        advertise := true
+        updateRequest := &godo.BYOIPPrefixUpdateReq{
+            Advertise: &advertise,
+        }
+
+        byoipPrefix, _, err := client.BYOIPPrefixes.Update(ctx, byoipPrefixUUID, updateRequest)
+        if err != nil {
+            panic(err)
+        }
+        // use byoipPrefix
+    }

@@ -1,0 +1,20 @@
+oneOf:
+  - title: Transfer To Email
+    type: object
+    properties:
+      recipient_email:
+        type: string
+        example: alice@example.com
+        description: The email address of the user account that the image will be transferred to.
+    required:
+      - recipient_email
+
+  - title: Transfer To Team
+    type: object
+    properties:
+      recipient_uuid:
+        type: string
+        example: 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+        description: The UUID of the team that the image will be transferred to.
+    required:
+      - recipient_uuid

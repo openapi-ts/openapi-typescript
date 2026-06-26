@@ -1,0 +1,19 @@
+lang: cURL
+source: |-
+  curl -X PUT \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{
+      "name": "test-vpc-nat-gateways",
+      "size": 2,
+      "vpcs": [
+        {
+          "vpc_uuid": "0eb1752f-807b-4562-a077-8018e13ab1fb",
+          "default_gateway": false
+        }
+      ],
+      "udp_timeout_seconds": 30,
+      "icmp_timeout_seconds": 30,
+      "tcp_timeout_seconds": 300
+    }' \
+    "https://api.digitalocean.com/v2/vpc_nat_gateways/a21d90fe-dc75-4097-993a-2dc7d1a8a438"

@@ -1,4 +1,4 @@
-description: Unauthorized
+description: Authentication failed due to invalid credentials.
 
 headers:
   ratelimit-limit:

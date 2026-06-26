@@ -37,6 +37,6 @@ security:
   - genai:read
 summary: View Agent Routes
 tags:
-- GenAI Platform (Public Preview)
+- GradientAI Platform
 x-codeSamples:
 - $ref: examples/curl/genai_get_agent_children.yml

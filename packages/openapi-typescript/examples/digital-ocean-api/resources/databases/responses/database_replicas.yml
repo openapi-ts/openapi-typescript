@@ -15,7 +15,7 @@ content:
         replicas:
           type: array
           items:
-            $ref: '../models/database_replica.yml'
+            $ref: '../models/database_replica_read.yml'
     example:
       replicas:
       - name: read-nyc3-01

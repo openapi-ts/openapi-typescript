@@ -1,0 +1,11 @@
+---
+type: object
+description: Response containing a list of access points.
+properties:
+  access_points:
+    type: array
+    items:
+      $ref: "access_point_response.yml"
+    description: Array of access point objects.
+required:
+  - access_points

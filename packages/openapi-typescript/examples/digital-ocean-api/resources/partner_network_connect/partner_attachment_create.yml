@@ -1,0 +1,48 @@
+operationId: partnerAttachments_create
+
+summary: Create a new partner attachment
+
+description: |
+  To create a new partner attachment, send a `POST` request to
+  `/v2/partner_network_connect/attachments` with a JSON object containing the
+  required configuration details.
+
+tags:
+  - Partner Network Connect
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        $ref: 'models/partner_attachment.yml#/partner_attachment_writable'
+
+responses:
+  '202':
+    $ref: 'responses/single_partner_attachment.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '422':
+    $ref: '../../shared/responses/unprocessable_entity.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/partner_attachment_create.yml'
+  - $ref: 'examples/go/partner_attachment_create.yml'
+  - $ref: 'examples/python/partner_attachment_create.yml'
+
+security:
+  - bearer_auth:
+      - partner_network_connect:create

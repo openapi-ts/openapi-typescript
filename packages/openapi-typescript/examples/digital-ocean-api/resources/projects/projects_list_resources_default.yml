@@ -2,8 +2,10 @@ operationId: projects_list_resources_default
 
 summary: List Default Project Resources
 
-description: To list all your resources in your default project, send a GET
-  request to `/v2/projects/default/resources`.
+description: |
+  To list all your resources in your default project, send a GET request to `/v2/projects/default/resources`.
+
+  Only resources that you are authorized to see will be returned. For example, to see Droplets in a project, include the `droplet:read` scope.
 
 tags:
   - Project Resources

@@ -1,0 +1,12 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "region_slug": nyc3
+  }
+
+  resp = client.reserved_ipv6s.create(body=req)

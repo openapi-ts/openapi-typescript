@@ -20,7 +20,7 @@ content:
             kubernetes_clusters:
               type: array
               items:
-                $ref: '../models/cluster.yml'
+                $ref: '../models/cluster_read.yml'
         - $ref: '../../../shared/pages.yml#/pagination'
         - $ref: '../../../shared/meta.yml'
 

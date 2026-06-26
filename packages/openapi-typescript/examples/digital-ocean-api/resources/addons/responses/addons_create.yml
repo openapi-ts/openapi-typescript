@@ -1,0 +1,19 @@
+description: The response will be a JSON object with a key called `resource`. The
+  value of this will be the resource created with the given.
+  For additional details specific to the app, find and view its
+  [DigitalOcean Marketplace](https://marketplace.digitalocean.com) page.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        resource:
+          $ref: '../models/addons_resource.yml'

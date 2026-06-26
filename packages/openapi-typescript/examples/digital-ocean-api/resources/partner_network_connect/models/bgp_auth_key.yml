@@ -1,0 +1,8 @@
+partner_attachment_bgp_auth_key:
+  type: object
+  properties:
+    value:
+      type: string
+      readOnly: true
+      example: secret
+  description: The BGP authentication key for the partner attachment.

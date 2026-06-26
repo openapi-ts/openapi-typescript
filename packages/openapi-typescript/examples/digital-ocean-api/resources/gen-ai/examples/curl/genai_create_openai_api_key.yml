@@ -1,0 +1,10 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json"  \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/openai/keys" \
+    -d '{
+      "api_key": "sk-proj--12345678901234567890123456789012",
+      "name": "test-key"
+    }'

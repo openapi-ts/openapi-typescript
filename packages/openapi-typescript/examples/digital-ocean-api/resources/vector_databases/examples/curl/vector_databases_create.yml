@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name": "my-vector-db", "region": "tor1", "size": "medium", "tags": ["production"], "project_id": "84e1e297-0000-0000-0000-1067cf2206e9"}' \
+    "https://api.digitalocean.com/v2/vector-databases"

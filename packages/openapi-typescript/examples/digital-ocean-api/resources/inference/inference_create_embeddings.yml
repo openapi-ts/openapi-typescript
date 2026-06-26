@@ -1,0 +1,46 @@
+operationId: inference_create_embedding
+summary: Create embedding
+description: >
+  Create vector embeddings for one or more text inputs. OpenAI-compatible request and
+  response. Unknown fields in the request body are rejected. There is no streaming
+  response for this endpoint.
+tags:
+  - Serverless Inference
+  - Embeddings
+servers:
+  - url: "https://inference.do-ai.run"
+    description: production
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "models/embeddings_request.yml"
+responses:
+  "200":
+    description: Embeddings and usage for the given `input` or `inputs`, in order.
+    headers:
+      ratelimit-limit:
+        $ref: '../../shared/headers.yml#/ratelimit-limit'
+      ratelimit-remaining:
+        $ref: '../../shared/headers.yml#/ratelimit-remaining'
+      ratelimit-reset:
+        $ref: '../../shared/headers.yml#/ratelimit-reset'
+    content:
+      application/json:
+        schema:
+          $ref: "models/embeddings_response.yml"
+  "401":
+    $ref: '../../shared/responses/unauthorized.yml'
+  "429":
+    $ref: '../../shared/responses/too_many_requests.yml'
+  "500":
+    $ref: '../../shared/responses/server_error.yml'
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+x-codeSamples:
+  - $ref: 'examples/curl/inference_create_embeddings.yml'
+  - $ref: 'examples/python/inference_create_embeddings.yml'
+  - $ref: 'examples/dots/inference_create_embeddings.yml'
+security:
+  - inference_bearer_auth: []
