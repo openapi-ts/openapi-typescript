@@ -13,8 +13,8 @@ export function applyPathsFilter(schema: OpenAPI3, pathsFilter: PathsFilterFn): 
   const filteredPaths: PathsObject = {};
 
   for (const [pathname, pathItem] of Object.entries(schema.paths ?? {})) {
-    if (!pathItem || typeof pathItem !== "object") { 
-      continue; 
+    if (!pathItem || typeof pathItem !== "object") {
+      continue;
     }
 
     if ("$ref" in pathItem) {
@@ -44,7 +44,9 @@ export function applyPathsFilter(schema: OpenAPI3, pathsFilter: PathsFilterFn): 
 
   const schemaWithFilteredPaths: OpenAPI3 = { ...schema, paths: filteredPaths };
 
-  if (!schema.components) { return schemaWithFilteredPaths; }
+  if (!schema.components) {
+    return schemaWithFilteredPaths;
+  }
 
   // Step 2: collect all $refs reachable from the filtered paths (transitively)
   const usedRefs = new Set<string>();
@@ -54,11 +56,16 @@ export function applyPathsFilter(schema: OpenAPI3, pathsFilter: PathsFilterFn): 
   const queue = [...usedRefs];
 
   while (queue.length > 0) {
+    // biome-ignore lint/style/noNonNullAssertion: condition checked above
     const ref = queue.pop()!;
-    if (processed.has(ref)) { continue; }
+    if (processed.has(ref)) {
+      continue;
+    }
     processed.add(ref);
 
-    if (!ref.startsWith("#/")) { continue; }
+    if (!ref.startsWith("#/")) {
+      continue;
+    }
 
     // Walk the original schema to resolve the ref
     const parts = ref.slice(2).split("/");
@@ -85,15 +92,15 @@ export function applyPathsFilter(schema: OpenAPI3, pathsFilter: PathsFilterFn): 
 
   // Step 3: keep only components that are referenced
   const usedComponentPaths = new Set(
-    [...usedRefs]
-      .filter((ref) => ref.startsWith("#/"))
-      .map((ref) => ref.slice(2)), // e.g. "components/schemas/User"
+    [...usedRefs].filter((ref) => ref.startsWith("#/")).map((ref) => ref.slice(2)), // e.g. "components/schemas/User"
   );
 
   const filteredComponents: Partial<ComponentsObject> = {};
 
   for (const [componentType, componentItems] of Object.entries(schema.components)) {
-    if (!componentItems || typeof componentItems !== "object") { continue; }
+    if (!componentItems || typeof componentItems !== "object") {
+      continue;
+    }
 
     const kept: Record<string, unknown> = {};
     for (const [name, item] of Object.entries(componentItems as Record<string, unknown>)) {
@@ -114,9 +121,13 @@ export function applyPathsFilter(schema: OpenAPI3, pathsFilter: PathsFilterFn): 
 }
 
 function collectRefs(obj: unknown, refs: Set<string>): void {
-  if (!obj || typeof obj !== "object") { return; }
+  if (!obj || typeof obj !== "object") {
+    return;
+  }
   if (Array.isArray(obj)) {
-    for (const item of obj) { collectRefs(item, refs); }
+    for (const item of obj) {
+      collectRefs(item, refs);
+    }
     return;
   }
   for (const [key, value] of Object.entries(obj as Record<string, unknown>)) {

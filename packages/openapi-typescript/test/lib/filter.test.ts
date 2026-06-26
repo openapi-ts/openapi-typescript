@@ -1,5 +1,5 @@
-import type { OpenAPI3 } from "../../src/types.js";
 import { applyPathsFilter } from "../../src/lib/filter.js";
+import type { OpenAPI3 } from "../../src/types.js";
 
 const BASE: OpenAPI3 = {
   openapi: "3.1.0",
@@ -18,7 +18,9 @@ function pathNames(schema: OpenAPI3): string[] {
 
 function methodsAt(schema: OpenAPI3, pathname: string): string[] {
   const item = schema.paths?.[pathname];
-  if (!item || "$ref" in item) return [];
+  if (!item || "$ref" in item) {
+    return [];
+  }
   const HTTP = ["get", "put", "post", "delete", "options", "head", "patch", "trace"];
   return HTTP.filter((m) => m in item);
 }
@@ -111,7 +113,6 @@ describe("applyPathsFilter – $ref path items", () => {
         "/orders": { get: { responses: {} } },
       },
       components: {
-        // biome-ignore lint/suspicious/noExplicitAny: test fixture
         pathItems: { Users: { get: { responses: {} } } } as any,
       },
     });
