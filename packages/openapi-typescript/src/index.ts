@@ -2,6 +2,8 @@ import { performance } from "node:perf_hooks";
 import type { Readable } from "node:stream";
 import { createConfig } from "@redocly/openapi-core";
 import type ts from "typescript";
+import { applyPathsFilter } from "./lib/filter.js";
+export type { PathsFilterFn } from "./lib/filter.js";
 import { validateAndBundle } from "./lib/redoc.js";
 import { debug, resolveRef, scanDiscriminators } from "./lib/utils.js";
 import transformSchema from "./transform/index.js";
@@ -66,12 +68,14 @@ export default async function openapiTS(
     silent: options.silent ?? false,
   });
 
+  const filteredSchema = options.pathsFilter ? applyPathsFilter(schema, options.pathsFilter) : schema;
+
   const ctx: GlobalContext = {
     additionalProperties: options.additionalProperties ?? false,
     alphabetize: options.alphabetize ?? false,
     arrayLength: options.arrayLength ?? false,
     defaultNonNullable: options.defaultNonNullable ?? true,
-    discriminators: scanDiscriminators(schema, options),
+    discriminators: scanDiscriminators(filteredSchema, options),
     emptyObjectsUnknown: options.emptyObjectsUnknown ?? false,
     enum: options.enum ?? false,
     enumValues: options.enumValues ?? false,
@@ -96,12 +100,12 @@ export default async function openapiTS(
     generatePathParams: options.generatePathParams ?? false,
     readWriteMarkers: options.readWriteMarkers ?? false,
     resolve($ref) {
-      return resolveRef(schema, $ref, { silent: options.silent ?? false });
+      return resolveRef(filteredSchema, $ref, { silent: options.silent ?? false });
     },
   };
 
   const transformT = performance.now();
-  const result = transformSchema(schema, ctx);
+  const result = transformSchema(filteredSchema, ctx);
   debug("Completed AST transformation for entire document", "ts", performance.now() - transformT);
 
   return result;

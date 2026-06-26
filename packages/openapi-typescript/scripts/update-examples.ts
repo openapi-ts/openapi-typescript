@@ -1,6 +1,8 @@
+import fs from "node:fs";
 import path from "node:path";
 import { performance } from "node:perf_hooks";
 import { execa } from "execa";
+import openapiTS, { astToString, COMMENT_HEADER } from "../src/index.js";
 import { multiFile, singleFile } from "./schemas.js";
 
 async function generateSchemas() {
@@ -16,7 +18,9 @@ async function generateSchemas() {
     const cwd =
       process.platform === "win32"
         ? // execa/cross-spawn can not handle URL objects on Windows, so convert it to string and cut away the protocol
-          rootCWD.toString().slice("file:///".length)
+          rootCWD
+            .toString()
+            .slice("file:///".length)
         : rootCWD;
 
     try {
@@ -70,9 +74,33 @@ async function generateSchemas() {
     }),
   ]);
 
+  // programmatic examples (use JS API features not available via CLI, e.g. pathsFilter)
+  await generateGithubPullsOnly();
+
   // biome-ignore lint/suspicious/noConsole: this is a script
   console.log("Updating examples done.");
   process.exit(0); // helps process close in npm script
+}
+
+async function generateGithubPullsOnly() {
+  const start = performance.now();
+  const PULLS_PATH_PREFIX = "/repos/{owner}/{repo}/pulls";
+  const schemaUrl = new URL("../examples/github-api.yaml", import.meta.url);
+  const output = new URL("../examples/github-api-pulls-only.ts", import.meta.url);
+
+  try {
+    const ast = await openapiTS(schemaUrl, {
+      pathsFilter: (pathname) => pathname === PULLS_PATH_PREFIX || pathname.startsWith(`${PULLS_PATH_PREFIX}/`),
+    });
+    fs.writeFileSync(output, COMMENT_HEADER + astToString(ast));
+    // biome-ignore lint/suspicious/noConsole: this is a script
+    console.log(`✔︎ Updated github-api-pulls-only (${Math.round(performance.now() - start)}ms)`);
+  } catch (err) {
+    // biome-ignore lint/suspicious/noConsole: this is a script
+    console.error("✘ Failed to update github-api-pulls-only", {
+      error: err instanceof Error ? err.message : err,
+    });
+  }
 }
 
 generateSchemas();
