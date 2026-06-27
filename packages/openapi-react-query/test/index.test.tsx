@@ -867,10 +867,10 @@ describe("client", () => {
           () =>
             client.useMutation("put", "/comment", {
               onMutate: () => onMutateReturnValue,
-              onError: (err, _, onMutateResult, context) => {
+              onError: (_err, _, onMutateResult, _context) => {
                 assertType<expectedOnMutateResultType>(onMutateResult);
               },
-              onSettled: (_data, _error, _variables, onMutateResult, context) => {
+              onSettled: (_data, _error, _variables, onMutateResult, _context) => {
                 assertType<expectedOnMutateResultType>(onMutateResult);
               },
             }),
@@ -941,9 +941,9 @@ describe("client", () => {
           wrapper,
         });
 
-        await expect(
-          result.current.mutateAsync({ body: { message: "Hello", replied_at: 0 } }),
-        ).rejects.toThrow("Request failed with status 500");
+        await expect(result.current.mutateAsync({ body: { message: "Hello", replied_at: 0 } })).rejects.toThrow(
+          "Request failed with status 500",
+        );
       });
 
       it("should use provided custom queryClient", async () => {
@@ -1126,7 +1126,7 @@ describe("client", () => {
       expect(firstRequestUrl?.searchParams.get("cursor")).toBe("0");
 
       // Set up mock for second page before triggering next page fetch
-      const secondRequestHandler = useMockRequestHandler({
+      const _secondRequestHandler = useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/paginated-data",
@@ -1253,7 +1253,7 @@ describe("client", () => {
       const client = createClient(fetchClient);
 
       // First page request handler
-      const firstRequestHandler = useMockRequestHandler({
+      const _firstRequestHandler = useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/paginated-data",
@@ -1289,7 +1289,7 @@ describe("client", () => {
       expect(result.current.data).toEqual([1, 2, 3]);
 
       // Set up mock for second page before triggering next page fetch
-      const secondRequestHandler = useMockRequestHandler({
+      const _secondRequestHandler = useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/paginated-data",
