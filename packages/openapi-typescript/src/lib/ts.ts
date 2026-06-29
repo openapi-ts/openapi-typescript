@@ -446,7 +446,12 @@ export function tsEnumMember(value: string | number, metadata: { name?: string; 
     return member;
   }
 
-  return ts.addSyntheticLeadingComment(member, ts.SyntaxKind.SingleLineCommentTrivia, ` ${trimmedDescription}`, true);
+  return ts.addSyntheticLeadingComment(
+    member,
+    ts.SyntaxKind.SingleLineCommentTrivia,
+    ` ${trimmedDescription.replace(LB_RE, " ")}`,
+    true,
+  );
 }
 
 /** Create an intersection type */
