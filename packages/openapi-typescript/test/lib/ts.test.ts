@@ -326,6 +326,23 @@ describe("tsEnum", () => {
     Etc_GMT_1 = "Etc/GMT-1"
 }`);
   });
+
+  test("multi-line x-enum-descriptions stay on a single comment line", () => {
+    expect(
+      astToString(
+        tsEnum(
+          ".Error.code.",
+          [100, 101],
+          [{ description: "Code 100\nspanning two lines" }, { description: "Code 101" }],
+        ),
+      ).trim(),
+    ).toBe(`enum ErrorCode {
+    // Code 100 spanning two lines
+    Value100 = 100,
+    // Code 101
+    Value101 = 101
+}`);
+  });
 });
 
 describe("tsArrayLiteralExpression", () => {
