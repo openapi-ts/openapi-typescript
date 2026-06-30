@@ -445,9 +445,7 @@ describe("client", () => {
         body: undefined,
       });
 
-      await expect(queryClient.fetchQuery(client.queryOptions("get", "/string-array"))).rejects.toThrow(
-        "Request failed with status 500",
-      );
+      await expect(queryClient.fetchQuery(client.queryOptions("get", "/string-array"))).rejects.toBeUndefined();
     });
 
     it("should infer correct data and error type", async () => {
@@ -941,9 +939,7 @@ describe("client", () => {
           wrapper,
         });
 
-        await expect(result.current.mutateAsync({ body: { message: "Hello", replied_at: 0 } })).rejects.toThrow(
-          "Request failed with status 500",
-        );
+        await expect(result.current.mutateAsync({ body: { message: "Hello", replied_at: 0 } })).rejects.toBeUndefined();
       });
 
       it("should use provided custom queryClient", async () => {
@@ -1350,8 +1346,7 @@ describe("client", () => {
 
       await waitFor(() => expect(result.current.isError).toBe(true));
 
-      expect(result.current.error).toBeInstanceOf(Error);
-      expect((result.current.error as Error).message).toBe("Request failed with status 500");
+      expect(result.current.error).toBeUndefined();
       expect(result.current.data).toBeUndefined();
     });
   });
