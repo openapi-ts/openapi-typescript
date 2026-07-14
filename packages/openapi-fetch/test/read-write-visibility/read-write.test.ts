@@ -5,10 +5,10 @@ import type { paths } from "./schemas/read-write.js";
 
 describe("readOnly/writeOnly", () => {
   test("preserves tuple arity in readable and writable types", () => {
-    type Availability = ["digital", "print"] | ["digital", "print", "presentation"];
+    type Tuple = ["a", "b"] | ["a", "b", "c"];
 
-    expectTypeOf<Readable<Availability>>().toEqualTypeOf<Availability>();
-    expectTypeOf<Writable<Availability>>().toEqualTypeOf<Availability>();
+    expectTypeOf<Readable<Tuple>>().toEqualTypeOf<Tuple>();
+    expectTypeOf<Writable<Tuple>>().toEqualTypeOf<Tuple>();
   });
 
   describe("deeply nested $Read unwrapping through $Read<Object>", () => {
