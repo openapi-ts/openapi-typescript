@@ -1,8 +1,16 @@
+import type { Readable, Writable } from "openapi-typescript-helpers";
 import { describe, expect, expectTypeOf, test } from "vitest";
 import { createObservedClient } from "../helpers.js";
 import type { paths } from "./schemas/read-write.js";
 
 describe("readOnly/writeOnly", () => {
+  test("preserves tuple arity in readable and writable types", () => {
+    type Tuple = ["a", "b"] | ["a", "b", "c"];
+
+    expectTypeOf<Readable<Tuple>>().toEqualTypeOf<Tuple>();
+    expectTypeOf<Writable<Tuple>>().toEqualTypeOf<Tuple>();
+  });
+
   describe("deeply nested $Read unwrapping through $Read<Object>", () => {
     test("$Read should continue recursion when unwrapping $Read<ObjectWithReadProperties>", async () => {
       // This tests the fix for a bug where Readable<$Read<U>> returned U directly
