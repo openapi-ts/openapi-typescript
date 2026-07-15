@@ -109,6 +109,18 @@ describe("transformPathItemObject", () => {
               200: { $ref: "#/components/responses/AllGood" },
             },
           },
+          query: {
+            description: "Basic QUERY",
+            requestBody: {
+              content: {
+                "application/json": { $ref: "#/components/schemas/User" },
+              },
+            },
+            responses: {
+              200: { $ref: "#/components/responses/AllGood" },
+              404: { $ref: "#/components/responses/NotFound" },
+            },
+          },
         },
         want: `{
     parameters: {
@@ -252,6 +264,24 @@ describe("transformPathItemObject", () => {
             200: components["responses"]["AllGood"];
         };
     };
+    /** @description Basic QUERY */
+    query: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["User"];
+            };
+        };
+        responses: {
+            200: components["responses"]["AllGood"];
+            404: components["responses"]["NotFound"];
+        };
+    };
 }`,
         // options: DEFAULT_OPTIONS,
       },
@@ -298,6 +328,7 @@ describe("transformPathItemObject", () => {
     head?: never;
     patch?: never;
     trace?: never;
+    query?: never;
 }`,
         // options: DEFAULT_OPTIONS,
       },
@@ -325,6 +356,7 @@ describe("transformPathItemObject", () => {
     head?: never;
     patch?: never;
     trace?: never;
+    query?: never;
 }`,
         // options: DEFAULT_OPTIONS,
       },
@@ -352,6 +384,7 @@ describe("transformPathItemObject", () => {
     head?: never;
     patch?: never;
     trace?: never;
+    query?: never;
 }`,
         options: {
           ...DEFAULT_OPTIONS,
@@ -416,6 +449,7 @@ describe("transformPathItemObject", () => {
     head?: never;
     patch?: never;
     trace?: never;
+    query?: never;
 }`,
       },
     ],

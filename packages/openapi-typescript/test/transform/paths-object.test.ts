@@ -102,6 +102,7 @@ describe("transformPathsObject", () => {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }`,
         // options: DEFAULT_OPTIONS,
@@ -146,6 +147,7 @@ describe("transformPathsObject", () => {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }`,
         options: {
@@ -227,6 +229,7 @@ describe("transformPathsObject", () => {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }`,
         options: {
@@ -370,6 +373,7 @@ describe("transformPathsObject", () => {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }`,
         options: { ...DEFAULT_OPTIONS, pathParamsAsTypes: true },
