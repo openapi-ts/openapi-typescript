@@ -20,6 +20,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/pets": {
         parameters: {
@@ -37,6 +38,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/pets/model": {
         parameters: {
@@ -54,6 +56,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/pets/person": {
         parameters: {
@@ -71,6 +74,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/": {
         parameters: {
@@ -88,6 +92,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/{var}": {
         parameters: {
@@ -104,6 +109,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/unevaluated-properties": {
         parameters: {
@@ -121,6 +127,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export interface webhooks {
@@ -147,6 +154,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export interface components {

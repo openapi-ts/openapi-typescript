@@ -23,6 +23,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/account_links": {
         parameters: {
@@ -43,6 +44,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/account_sessions": {
         parameters: {
@@ -63,6 +65,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/accounts": {
         parameters: {
@@ -91,6 +94,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/accounts/{account}": {
         parameters: {
@@ -137,6 +141,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/accounts/{account}/bank_accounts": {
         parameters: {
@@ -157,6 +162,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/accounts/{account}/bank_accounts/{id}": {
         parameters: {
@@ -191,6 +197,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/accounts/{account}/capabilities": {
         parameters: {
@@ -211,6 +218,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/accounts/{account}/capabilities/{capability}": {
         parameters: {
@@ -235,6 +243,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/accounts/{account}/external_accounts": {
         parameters: {
@@ -259,6 +268,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/accounts/{account}/external_accounts/{id}": {
         parameters: {
@@ -293,6 +303,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/accounts/{account}/login_links": {
         parameters: {
@@ -315,6 +326,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/accounts/{account}/people": {
         parameters: {
@@ -339,6 +351,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/accounts/{account}/people/{person}": {
         parameters: {
@@ -367,6 +380,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/accounts/{account}/persons": {
         parameters: {
@@ -391,6 +405,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/accounts/{account}/persons/{person}": {
         parameters: {
@@ -419,6 +434,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/accounts/{account}/reject": {
         parameters: {
@@ -441,6 +457,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/apple_pay/domains": {
         parameters: {
@@ -459,6 +476,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/apple_pay/domains/{domain}": {
         parameters: {
@@ -477,6 +495,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/application_fees": {
         parameters: {
@@ -497,6 +516,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/application_fees/{fee}/refunds/{id}": {
         parameters: {
@@ -523,6 +543,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/application_fees/{id}": {
         parameters: {
@@ -543,6 +564,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/application_fees/{id}/refund": {
         parameters: {
@@ -559,6 +581,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/application_fees/{id}/refunds": {
         parameters: {
@@ -591,6 +614,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/apps/secrets": {
         parameters: {
@@ -615,6 +639,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/apps/secrets/delete": {
         parameters: {
@@ -635,6 +660,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/apps/secrets/find": {
         parameters: {
@@ -655,6 +681,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/balance": {
         parameters: {
@@ -676,6 +703,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/balance/history": {
         parameters: {
@@ -698,6 +726,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/balance/history/{id}": {
         parameters: {
@@ -720,6 +749,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/balance_transactions": {
         parameters: {
@@ -742,6 +772,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/balance_transactions/{id}": {
         parameters: {
@@ -764,6 +795,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing/alerts": {
         parameters: {
@@ -788,6 +820,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing/alerts/{id}": {
         parameters: {
@@ -808,6 +841,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing/alerts/{id}/activate": {
         parameters: {
@@ -828,6 +862,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing/alerts/{id}/archive": {
         parameters: {
@@ -848,6 +883,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing/alerts/{id}/deactivate": {
         parameters: {
@@ -868,6 +904,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing/credit_balance_summary": {
         parameters: {
@@ -888,6 +925,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing/credit_balance_transactions": {
         parameters: {
@@ -908,6 +946,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing/credit_balance_transactions/{id}": {
         parameters: {
@@ -928,6 +967,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing/credit_grants": {
         parameters: {
@@ -952,6 +992,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing/credit_grants/{id}": {
         parameters: {
@@ -976,6 +1017,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing/credit_grants/{id}/expire": {
         parameters: {
@@ -996,6 +1038,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing/credit_grants/{id}/void": {
         parameters: {
@@ -1016,6 +1059,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing/meter_event_adjustments": {
         parameters: {
@@ -1036,6 +1080,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing/meter_events": {
         parameters: {
@@ -1056,6 +1101,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing/meters": {
         parameters: {
@@ -1080,6 +1126,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing/meters/{id}": {
         parameters: {
@@ -1104,6 +1151,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing/meters/{id}/deactivate": {
         parameters: {
@@ -1124,6 +1172,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing/meters/{id}/event_summaries": {
         parameters: {
@@ -1144,6 +1193,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing/meters/{id}/reactivate": {
         parameters: {
@@ -1164,6 +1214,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing_portal/configurations": {
         parameters: {
@@ -1188,6 +1239,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing_portal/configurations/{configuration}": {
         parameters: {
@@ -1212,6 +1264,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/billing_portal/sessions": {
         parameters: {
@@ -1232,6 +1285,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/charges": {
         parameters: {
@@ -1257,6 +1311,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/charges/search": {
         parameters: {
@@ -1280,6 +1335,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/charges/{charge}": {
         parameters: {
@@ -1304,6 +1360,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/charges/{charge}/capture": {
         parameters: {
@@ -1328,6 +1385,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/charges/{charge}/dispute": {
         parameters: {
@@ -1345,6 +1403,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/charges/{charge}/dispute/close": {
         parameters: {
@@ -1361,6 +1420,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/charges/{charge}/refund": {
         parameters: {
@@ -1391,6 +1451,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/charges/{charge}/refunds": {
         parameters: {
@@ -1425,6 +1486,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/charges/{charge}/refunds/{refund}": {
         parameters: {
@@ -1443,6 +1505,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/checkout/sessions": {
         parameters: {
@@ -1467,6 +1530,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/checkout/sessions/{session}": {
         parameters: {
@@ -1491,6 +1555,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/checkout/sessions/{session}/expire": {
         parameters: {
@@ -1513,6 +1578,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/checkout/sessions/{session}/line_items": {
         parameters: {
@@ -1533,6 +1599,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/climate/orders": {
         parameters: {
@@ -1559,6 +1626,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/climate/orders/{order}": {
         parameters: {
@@ -1583,6 +1651,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/climate/orders/{order}/cancel": {
         parameters: {
@@ -1606,6 +1675,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/climate/products": {
         parameters: {
@@ -1626,6 +1696,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/climate/products/{product}": {
         parameters: {
@@ -1646,6 +1717,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/climate/suppliers": {
         parameters: {
@@ -1666,6 +1738,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/climate/suppliers/{supplier}": {
         parameters: {
@@ -1686,6 +1759,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/confirmation_tokens/{confirmation_token}": {
         parameters: {
@@ -1706,6 +1780,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/country_specs": {
         parameters: {
@@ -1726,6 +1801,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/country_specs/{country}": {
         parameters: {
@@ -1746,6 +1822,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/coupons": {
         parameters: {
@@ -1772,6 +1849,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/coupons/{coupon}": {
         parameters: {
@@ -1800,6 +1878,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/credit_notes": {
         parameters: {
@@ -1837,6 +1916,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/credit_notes/preview": {
         parameters: {
@@ -1857,6 +1937,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/credit_notes/preview/lines": {
         parameters: {
@@ -1877,6 +1958,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/credit_notes/{credit_note}/lines": {
         parameters: {
@@ -1897,6 +1979,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/credit_notes/{id}": {
         parameters: {
@@ -1921,6 +2004,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/credit_notes/{id}/void": {
         parameters: {
@@ -1941,6 +2025,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customer_sessions": {
         parameters: {
@@ -1961,6 +2046,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers": {
         parameters: {
@@ -1985,6 +2071,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/search": {
         parameters: {
@@ -2008,6 +2095,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}": {
         parameters: {
@@ -2038,6 +2126,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/balance_transactions": {
         parameters: {
@@ -2062,6 +2151,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/balance_transactions/{transaction}": {
         parameters: {
@@ -2086,6 +2176,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/bank_accounts": {
         parameters: {
@@ -2115,6 +2206,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/bank_accounts/{id}": {
         parameters: {
@@ -2141,6 +2233,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/bank_accounts/{id}/verify": {
         parameters: {
@@ -2161,6 +2254,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/cards": {
         parameters: {
@@ -2192,6 +2286,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/cards/{id}": {
         parameters: {
@@ -2218,6 +2313,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/cash_balance": {
         parameters: {
@@ -2242,6 +2338,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/cash_balance_transactions": {
         parameters: {
@@ -2262,6 +2359,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/cash_balance_transactions/{transaction}": {
         parameters: {
@@ -2282,6 +2380,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/discount": {
         parameters: {
@@ -2302,6 +2401,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/funding_instructions": {
         parameters: {
@@ -2324,6 +2424,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/payment_methods": {
         parameters: {
@@ -2344,6 +2445,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/payment_methods/{payment_method}": {
         parameters: {
@@ -2364,6 +2466,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/sources": {
         parameters: {
@@ -2389,6 +2492,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/sources/{id}": {
         parameters: {
@@ -2411,6 +2515,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/sources/{id}/verify": {
         parameters: {
@@ -2431,6 +2536,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/subscriptions": {
         parameters: {
@@ -2455,6 +2561,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}": {
         parameters: {
@@ -2487,6 +2594,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/subscriptions/{subscription_exposed_id}/discount": {
         parameters: {
@@ -2507,6 +2615,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/tax_ids": {
         parameters: {
@@ -2531,6 +2640,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/customers/{customer}/tax_ids/{id}": {
         parameters: {
@@ -2555,6 +2665,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/disputes": {
         parameters: {
@@ -2575,6 +2686,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/disputes/{dispute}": {
         parameters: {
@@ -2601,6 +2713,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/disputes/{dispute}/close": {
         parameters: {
@@ -2623,6 +2736,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/entitlements/active_entitlements": {
         parameters: {
@@ -2643,6 +2757,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/entitlements/active_entitlements/{id}": {
         parameters: {
@@ -2663,6 +2778,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/entitlements/features": {
         parameters: {
@@ -2687,6 +2803,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/entitlements/features/{id}": {
         parameters: {
@@ -2711,6 +2828,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/ephemeral_keys": {
         parameters: {
@@ -2731,6 +2849,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/ephemeral_keys/{key}": {
         parameters: {
@@ -2751,6 +2870,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/events": {
         parameters: {
@@ -2771,6 +2891,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/events/{id}": {
         parameters: {
@@ -2791,6 +2912,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/exchange_rates": {
         parameters: {
@@ -2811,6 +2933,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/exchange_rates/{rate_id}": {
         parameters: {
@@ -2831,6 +2954,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/file_links": {
         parameters: {
@@ -2855,6 +2979,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/file_links/{link}": {
         parameters: {
@@ -2879,6 +3004,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/files": {
         parameters: {
@@ -2905,6 +3031,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/files/{file}": {
         parameters: {
@@ -2925,6 +3052,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/financial_connections/accounts": {
         parameters: {
@@ -2945,6 +3073,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/financial_connections/accounts/{account}": {
         parameters: {
@@ -2965,6 +3094,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/financial_connections/accounts/{account}/disconnect": {
         parameters: {
@@ -2985,6 +3115,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/financial_connections/accounts/{account}/owners": {
         parameters: {
@@ -3005,6 +3136,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/financial_connections/accounts/{account}/refresh": {
         parameters: {
@@ -3025,6 +3157,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/financial_connections/accounts/{account}/subscribe": {
         parameters: {
@@ -3045,6 +3178,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/financial_connections/accounts/{account}/unsubscribe": {
         parameters: {
@@ -3065,6 +3199,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/financial_connections/sessions": {
         parameters: {
@@ -3085,6 +3220,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/financial_connections/sessions/{session}": {
         parameters: {
@@ -3105,6 +3241,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/financial_connections/transactions": {
         parameters: {
@@ -3125,6 +3262,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/financial_connections/transactions/{transaction}": {
         parameters: {
@@ -3145,6 +3283,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/forwarding/requests": {
         parameters: {
@@ -3169,6 +3308,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/forwarding/requests/{id}": {
         parameters: {
@@ -3189,6 +3329,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/identity/verification_reports": {
         parameters: {
@@ -3209,6 +3350,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/identity/verification_reports/{report}": {
         parameters: {
@@ -3229,6 +3371,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/identity/verification_sessions": {
         parameters: {
@@ -3259,6 +3402,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/identity/verification_sessions/{session}": {
         parameters: {
@@ -3289,6 +3433,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/identity/verification_sessions/{session}/cancel": {
         parameters: {
@@ -3311,6 +3456,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/identity/verification_sessions/{session}/redact": {
         parameters: {
@@ -3349,6 +3495,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoice_rendering_templates": {
         parameters: {
@@ -3369,6 +3516,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoice_rendering_templates/{template}": {
         parameters: {
@@ -3389,6 +3537,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoice_rendering_templates/{template}/archive": {
         parameters: {
@@ -3409,6 +3558,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoice_rendering_templates/{template}/unarchive": {
         parameters: {
@@ -3429,6 +3579,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoiceitems": {
         parameters: {
@@ -3453,6 +3604,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoiceitems/{invoiceitem}": {
         parameters: {
@@ -3481,6 +3633,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoices": {
         parameters: {
@@ -3505,6 +3658,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoices/create_preview": {
         parameters: {
@@ -3531,6 +3685,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoices/search": {
         parameters: {
@@ -3554,6 +3709,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoices/upcoming": {
         parameters: {
@@ -3580,6 +3736,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoices/upcoming/lines": {
         parameters: {
@@ -3600,6 +3757,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoices/{invoice}": {
         parameters: {
@@ -3633,6 +3791,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoices/{invoice}/add_lines": {
         parameters: {
@@ -3653,6 +3812,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoices/{invoice}/finalize": {
         parameters: {
@@ -3673,6 +3833,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoices/{invoice}/lines": {
         parameters: {
@@ -3693,6 +3854,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoices/{invoice}/lines/{line_item_id}": {
         parameters: {
@@ -3716,6 +3878,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoices/{invoice}/mark_uncollectible": {
         parameters: {
@@ -3736,6 +3899,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoices/{invoice}/pay": {
         parameters: {
@@ -3756,6 +3920,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoices/{invoice}/remove_lines": {
         parameters: {
@@ -3776,6 +3941,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoices/{invoice}/send": {
         parameters: {
@@ -3798,6 +3964,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoices/{invoice}/update_lines": {
         parameters: {
@@ -3818,6 +3985,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/invoices/{invoice}/void": {
         parameters: {
@@ -3840,6 +4008,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/authorizations": {
         parameters: {
@@ -3860,6 +4029,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/authorizations/{authorization}": {
         parameters: {
@@ -3884,6 +4054,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/authorizations/{authorization}/approve": {
         parameters: {
@@ -3906,6 +4077,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/authorizations/{authorization}/decline": {
         parameters: {
@@ -3928,6 +4100,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/cardholders": {
         parameters: {
@@ -3952,6 +4125,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/cardholders/{cardholder}": {
         parameters: {
@@ -3976,6 +4150,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/cards": {
         parameters: {
@@ -4000,6 +4175,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/cards/{card}": {
         parameters: {
@@ -4024,6 +4200,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/disputes": {
         parameters: {
@@ -4048,6 +4225,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/disputes/{dispute}": {
         parameters: {
@@ -4072,6 +4250,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/disputes/{dispute}/submit": {
         parameters: {
@@ -4092,6 +4271,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/personalization_designs": {
         parameters: {
@@ -4116,6 +4296,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/personalization_designs/{personalization_design}": {
         parameters: {
@@ -4140,6 +4321,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/physical_bundles": {
         parameters: {
@@ -4160,6 +4342,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/physical_bundles/{physical_bundle}": {
         parameters: {
@@ -4180,6 +4363,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/settlements/{settlement}": {
         parameters: {
@@ -4204,6 +4388,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/tokens": {
         parameters: {
@@ -4224,6 +4409,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/tokens/{token}": {
         parameters: {
@@ -4248,6 +4434,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/transactions": {
         parameters: {
@@ -4268,6 +4455,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/issuing/transactions/{transaction}": {
         parameters: {
@@ -4292,6 +4480,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/link_account_sessions": {
         parameters: {
@@ -4312,6 +4501,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/link_account_sessions/{session}": {
         parameters: {
@@ -4332,6 +4522,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/linked_accounts": {
         parameters: {
@@ -4352,6 +4543,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/linked_accounts/{account}": {
         parameters: {
@@ -4372,6 +4564,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/linked_accounts/{account}/disconnect": {
         parameters: {
@@ -4392,6 +4585,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/linked_accounts/{account}/owners": {
         parameters: {
@@ -4412,6 +4606,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/linked_accounts/{account}/refresh": {
         parameters: {
@@ -4432,6 +4627,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/mandates/{mandate}": {
         parameters: {
@@ -4452,6 +4648,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_intents": {
         parameters: {
@@ -4485,6 +4682,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_intents/search": {
         parameters: {
@@ -4508,6 +4706,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_intents/{intent}": {
         parameters: {
@@ -4542,6 +4741,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_intents/{intent}/apply_customer_balance": {
         parameters: {
@@ -4562,6 +4762,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_intents/{intent}/cancel": {
         parameters: {
@@ -4586,6 +4787,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_intents/{intent}/capture": {
         parameters: {
@@ -4610,6 +4812,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_intents/{intent}/confirm": {
         parameters: {
@@ -4654,6 +4857,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_intents/{intent}/increment_authorization": {
         parameters: {
@@ -4697,6 +4901,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_intents/{intent}/verify_microdeposits": {
         parameters: {
@@ -4717,6 +4922,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_links": {
         parameters: {
@@ -4741,6 +4947,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_links/{payment_link}": {
         parameters: {
@@ -4765,6 +4972,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_links/{payment_link}/line_items": {
         parameters: {
@@ -4785,6 +4993,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_method_configurations": {
         parameters: {
@@ -4809,6 +5018,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_method_configurations/{configuration}": {
         parameters: {
@@ -4833,6 +5043,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_method_domains": {
         parameters: {
@@ -4857,6 +5068,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_method_domains/{payment_method_domain}": {
         parameters: {
@@ -4881,6 +5093,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_method_domains/{payment_method_domain}/validate": {
         parameters: {
@@ -4906,6 +5119,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_methods": {
         parameters: {
@@ -4932,6 +5146,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_methods/{payment_method}": {
         parameters: {
@@ -4956,6 +5171,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_methods/{payment_method}/attach": {
         parameters: {
@@ -4988,6 +5204,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payment_methods/{payment_method}/detach": {
         parameters: {
@@ -5008,6 +5225,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payouts": {
         parameters: {
@@ -5036,6 +5254,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payouts/{payout}": {
         parameters: {
@@ -5060,6 +5279,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payouts/{payout}/cancel": {
         parameters: {
@@ -5080,6 +5300,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/payouts/{payout}/reverse": {
         parameters: {
@@ -5102,6 +5323,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/plans": {
         parameters: {
@@ -5126,6 +5348,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/plans/{plan}": {
         parameters: {
@@ -5154,6 +5377,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/prices": {
         parameters: {
@@ -5178,6 +5402,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/prices/search": {
         parameters: {
@@ -5201,6 +5426,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/prices/{price}": {
         parameters: {
@@ -5225,6 +5451,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/products": {
         parameters: {
@@ -5249,6 +5476,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/products/search": {
         parameters: {
@@ -5272,6 +5500,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/products/{id}": {
         parameters: {
@@ -5300,6 +5529,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/products/{product}/features": {
         parameters: {
@@ -5324,6 +5554,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/products/{product}/features/{id}": {
         parameters: {
@@ -5348,6 +5579,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/promotion_codes": {
         parameters: {
@@ -5372,6 +5604,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/promotion_codes/{promotion_code}": {
         parameters: {
@@ -5396,6 +5629,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/quotes": {
         parameters: {
@@ -5420,6 +5654,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/quotes/{quote}": {
         parameters: {
@@ -5444,6 +5679,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/quotes/{quote}/accept": {
         parameters: {
@@ -5464,6 +5700,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/quotes/{quote}/cancel": {
         parameters: {
@@ -5484,6 +5721,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/quotes/{quote}/computed_upfront_line_items": {
         parameters: {
@@ -5504,6 +5742,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/quotes/{quote}/finalize": {
         parameters: {
@@ -5524,6 +5763,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/quotes/{quote}/line_items": {
         parameters: {
@@ -5544,6 +5784,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/quotes/{quote}/pdf": {
         parameters: {
@@ -5564,6 +5805,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/radar/early_fraud_warnings": {
         parameters: {
@@ -5584,6 +5826,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/radar/early_fraud_warnings/{early_fraud_warning}": {
         parameters: {
@@ -5606,6 +5849,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/radar/value_list_items": {
         parameters: {
@@ -5630,6 +5874,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/radar/value_list_items/{item}": {
         parameters: {
@@ -5654,6 +5899,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/radar/value_lists": {
         parameters: {
@@ -5678,6 +5924,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/radar/value_lists/{value_list}": {
         parameters: {
@@ -5706,6 +5953,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/refunds": {
         parameters: {
@@ -5740,6 +5988,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/refunds/{refund}": {
         parameters: {
@@ -5766,6 +6015,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/refunds/{refund}/cancel": {
         parameters: {
@@ -5788,6 +6038,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/reporting/report_runs": {
         parameters: {
@@ -5812,6 +6063,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/reporting/report_runs/{report_run}": {
         parameters: {
@@ -5832,6 +6084,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/reporting/report_types": {
         parameters: {
@@ -5852,6 +6105,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/reporting/report_types/{report_type}": {
         parameters: {
@@ -5872,6 +6126,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/reviews": {
         parameters: {
@@ -5892,6 +6147,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/reviews/{review}": {
         parameters: {
@@ -5912,6 +6168,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/reviews/{review}/approve": {
         parameters: {
@@ -5932,6 +6189,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/setup_attempts": {
         parameters: {
@@ -5952,6 +6210,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/setup_intents": {
         parameters: {
@@ -5979,6 +6238,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/setup_intents/{intent}": {
         parameters: {
@@ -6007,6 +6267,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/setup_intents/{intent}/cancel": {
         parameters: {
@@ -6029,6 +6290,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/setup_intents/{intent}/confirm": {
         parameters: {
@@ -6062,6 +6324,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/setup_intents/{intent}/verify_microdeposits": {
         parameters: {
@@ -6082,6 +6345,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/shipping_rates": {
         parameters: {
@@ -6106,6 +6370,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/shipping_rates/{shipping_rate_token}": {
         parameters: {
@@ -6130,6 +6395,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/sigma/scheduled_query_runs": {
         parameters: {
@@ -6150,6 +6416,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/sigma/scheduled_query_runs/{scheduled_query_run}": {
         parameters: {
@@ -6170,6 +6437,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/sources": {
         parameters: {
@@ -6190,6 +6458,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/sources/{source}": {
         parameters: {
@@ -6216,6 +6485,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/sources/{source}/mandate_notifications/{mandate_notification}": {
         parameters: {
@@ -6236,6 +6506,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/sources/{source}/source_transactions": {
         parameters: {
@@ -6253,6 +6524,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/sources/{source}/source_transactions/{source_transaction}": {
         parameters: {
@@ -6273,6 +6545,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/sources/{source}/verify": {
         parameters: {
@@ -6290,6 +6563,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/subscription_items": {
         parameters: {
@@ -6314,6 +6588,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/subscription_items/{item}": {
         parameters: {
@@ -6342,6 +6617,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/subscription_items/{subscription_item}/usage_record_summaries": {
         parameters: {
@@ -6364,6 +6640,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/subscription_items/{subscription_item}/usage_records": {
         parameters: {
@@ -6390,6 +6667,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/subscription_schedules": {
         parameters: {
@@ -6414,6 +6692,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/subscription_schedules/{schedule}": {
         parameters: {
@@ -6438,6 +6717,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/subscription_schedules/{schedule}/cancel": {
         parameters: {
@@ -6458,6 +6738,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/subscription_schedules/{schedule}/release": {
         parameters: {
@@ -6478,6 +6759,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/subscriptions": {
         parameters: {
@@ -6508,6 +6790,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/subscriptions/search": {
         parameters: {
@@ -6531,6 +6814,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/subscriptions/{subscription_exposed_id}": {
         parameters: {
@@ -6583,6 +6867,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/subscriptions/{subscription_exposed_id}/discount": {
         parameters: {
@@ -6603,6 +6888,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/subscriptions/{subscription}/resume": {
         parameters: {
@@ -6623,6 +6909,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/tax/calculations": {
         parameters: {
@@ -6643,6 +6930,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/tax/calculations/{calculation}": {
         parameters: {
@@ -6663,6 +6951,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/tax/calculations/{calculation}/line_items": {
         parameters: {
@@ -6683,6 +6972,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/tax/registrations": {
         parameters: {
@@ -6707,6 +6997,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/tax/registrations/{id}": {
         parameters: {
@@ -6733,6 +7024,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/tax/settings": {
         parameters: {
@@ -6757,6 +7049,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/tax/transactions/create_from_calculation": {
         parameters: {
@@ -6777,6 +7070,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/tax/transactions/create_reversal": {
         parameters: {
@@ -6797,6 +7091,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/tax/transactions/{transaction}": {
         parameters: {
@@ -6817,6 +7112,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/tax/transactions/{transaction}/line_items": {
         parameters: {
@@ -6837,6 +7133,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/tax_codes": {
         parameters: {
@@ -6857,6 +7154,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/tax_codes/{id}": {
         parameters: {
@@ -6877,6 +7175,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/tax_ids": {
         parameters: {
@@ -6901,6 +7200,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/tax_ids/{id}": {
         parameters: {
@@ -6925,6 +7225,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/tax_rates": {
         parameters: {
@@ -6949,6 +7250,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/tax_rates/{tax_rate}": {
         parameters: {
@@ -6973,6 +7275,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/terminal/configurations": {
         parameters: {
@@ -6997,6 +7300,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/terminal/configurations/{configuration}": {
         parameters: {
@@ -7025,6 +7329,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/terminal/connection_tokens": {
         parameters: {
@@ -7045,6 +7350,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/terminal/locations": {
         parameters: {
@@ -7070,6 +7376,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/terminal/locations/{location}": {
         parameters: {
@@ -7098,6 +7405,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/terminal/readers": {
         parameters: {
@@ -7122,6 +7430,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/terminal/readers/{reader}": {
         parameters: {
@@ -7150,6 +7459,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/terminal/readers/{reader}/cancel_action": {
         parameters: {
@@ -7170,6 +7480,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/terminal/readers/{reader}/process_payment_intent": {
         parameters: {
@@ -7190,6 +7501,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/terminal/readers/{reader}/process_setup_intent": {
         parameters: {
@@ -7210,6 +7522,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/terminal/readers/{reader}/refund_payment": {
         parameters: {
@@ -7230,6 +7543,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/terminal/readers/{reader}/set_reader_display": {
         parameters: {
@@ -7250,6 +7564,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/confirmation_tokens": {
         parameters: {
@@ -7270,6 +7585,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/customers/{customer}/fund_cash_balance": {
         parameters: {
@@ -7290,6 +7606,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/issuing/authorizations": {
         parameters: {
@@ -7310,6 +7627,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/issuing/authorizations/{authorization}/capture": {
         parameters: {
@@ -7330,6 +7648,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/issuing/authorizations/{authorization}/expire": {
         parameters: {
@@ -7350,6 +7669,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/issuing/authorizations/{authorization}/finalize_amount": {
         parameters: {
@@ -7370,6 +7690,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/issuing/authorizations/{authorization}/fraud_challenges/respond": {
         parameters: {
@@ -7390,6 +7711,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/issuing/authorizations/{authorization}/increment": {
         parameters: {
@@ -7410,6 +7732,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/issuing/authorizations/{authorization}/reverse": {
         parameters: {
@@ -7430,6 +7753,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/issuing/cards/{card}/shipping/deliver": {
         parameters: {
@@ -7450,6 +7774,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/issuing/cards/{card}/shipping/fail": {
         parameters: {
@@ -7470,6 +7795,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/issuing/cards/{card}/shipping/return": {
         parameters: {
@@ -7490,6 +7816,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/issuing/cards/{card}/shipping/ship": {
         parameters: {
@@ -7510,6 +7837,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/issuing/cards/{card}/shipping/submit": {
         parameters: {
@@ -7530,6 +7858,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate": {
         parameters: {
@@ -7550,6 +7879,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate": {
         parameters: {
@@ -7570,6 +7900,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject": {
         parameters: {
@@ -7590,6 +7921,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/issuing/settlements": {
         parameters: {
@@ -7610,6 +7942,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/issuing/transactions/create_force_capture": {
         parameters: {
@@ -7630,6 +7963,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/issuing/transactions/create_unlinked_refund": {
         parameters: {
@@ -7650,6 +7984,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/issuing/transactions/{transaction}/refund": {
         parameters: {
@@ -7670,6 +8005,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/refunds/{refund}/expire": {
         parameters: {
@@ -7690,6 +8026,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/terminal/readers/{reader}/present_payment_method": {
         parameters: {
@@ -7710,6 +8047,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/test_clocks": {
         parameters: {
@@ -7734,6 +8072,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/test_clocks/{test_clock}": {
         parameters: {
@@ -7758,6 +8097,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/test_clocks/{test_clock}/advance": {
         parameters: {
@@ -7778,6 +8118,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/treasury/inbound_transfers/{id}/fail": {
         parameters: {
@@ -7798,6 +8139,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/treasury/inbound_transfers/{id}/return": {
         parameters: {
@@ -7818,6 +8160,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed": {
         parameters: {
@@ -7838,6 +8181,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/treasury/outbound_payments/{id}": {
         parameters: {
@@ -7858,6 +8202,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/treasury/outbound_payments/{id}/fail": {
         parameters: {
@@ -7878,6 +8223,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/treasury/outbound_payments/{id}/post": {
         parameters: {
@@ -7898,6 +8244,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/treasury/outbound_payments/{id}/return": {
         parameters: {
@@ -7918,6 +8265,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}": {
         parameters: {
@@ -7938,6 +8286,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail": {
         parameters: {
@@ -7958,6 +8307,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post": {
         parameters: {
@@ -7978,6 +8328,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return": {
         parameters: {
@@ -7998,6 +8349,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/treasury/received_credits": {
         parameters: {
@@ -8018,6 +8370,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/test_helpers/treasury/received_debits": {
         parameters: {
@@ -8038,6 +8391,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/tokens": {
         parameters: {
@@ -8059,6 +8413,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/tokens/{token}": {
         parameters: {
@@ -8079,6 +8434,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/topups": {
         parameters: {
@@ -8103,6 +8459,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/topups/{topup}": {
         parameters: {
@@ -8127,6 +8484,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/topups/{topup}/cancel": {
         parameters: {
@@ -8147,6 +8505,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/transfers": {
         parameters: {
@@ -8171,6 +8530,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/transfers/{id}/reversals": {
         parameters: {
@@ -8199,6 +8559,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/transfers/{transfer}": {
         parameters: {
@@ -8225,6 +8586,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/transfers/{transfer}/reversals/{id}": {
         parameters: {
@@ -8251,6 +8613,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/credit_reversals": {
         parameters: {
@@ -8275,6 +8638,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/credit_reversals/{credit_reversal}": {
         parameters: {
@@ -8295,6 +8659,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/debit_reversals": {
         parameters: {
@@ -8319,6 +8684,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/debit_reversals/{debit_reversal}": {
         parameters: {
@@ -8339,6 +8705,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/financial_accounts": {
         parameters: {
@@ -8363,6 +8730,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/financial_accounts/{financial_account}": {
         parameters: {
@@ -8387,6 +8755,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/financial_accounts/{financial_account}/close": {
         parameters: {
@@ -8407,6 +8776,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/financial_accounts/{financial_account}/features": {
         parameters: {
@@ -8431,6 +8801,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/inbound_transfers": {
         parameters: {
@@ -8455,6 +8826,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/inbound_transfers/{id}": {
         parameters: {
@@ -8475,6 +8847,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel": {
         parameters: {
@@ -8495,6 +8868,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/outbound_payments": {
         parameters: {
@@ -8519,6 +8893,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/outbound_payments/{id}": {
         parameters: {
@@ -8539,6 +8914,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/outbound_payments/{id}/cancel": {
         parameters: {
@@ -8559,6 +8935,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/outbound_transfers": {
         parameters: {
@@ -8583,6 +8960,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/outbound_transfers/{outbound_transfer}": {
         parameters: {
@@ -8603,6 +8981,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel": {
         parameters: {
@@ -8623,6 +9002,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/received_credits": {
         parameters: {
@@ -8643,6 +9023,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/received_credits/{id}": {
         parameters: {
@@ -8663,6 +9044,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/received_debits": {
         parameters: {
@@ -8683,6 +9065,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/received_debits/{id}": {
         parameters: {
@@ -8703,6 +9086,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/transaction_entries": {
         parameters: {
@@ -8723,6 +9107,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/transaction_entries/{id}": {
         parameters: {
@@ -8743,6 +9128,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/transactions": {
         parameters: {
@@ -8763,6 +9149,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/treasury/transactions/{id}": {
         parameters: {
@@ -8783,6 +9170,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/webhook_endpoints": {
         parameters: {
@@ -8807,6 +9195,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v1/webhook_endpoints/{webhook_endpoint}": {
         parameters: {
@@ -8835,6 +9224,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;

@@ -6,6 +6,7 @@ export const singleFile = {
   "octokit-ghes-3.6-diff-to-api":
     "https://raw.githubusercontent.com/octokit/octokit-next.js/main/cache/types-openapi/ghes-3.6-diff-to-api.github.com.json",
   "stripe-api": "https://raw.githubusercontent.com/stripe/openapi/master/openapi/spec3.yaml",
+  "simple-example": "./examples/simple-example.yaml",
 };
 export const multiFile = {
   "digital-ocean-api": {
