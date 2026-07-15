@@ -373,6 +373,9 @@ class PathCallForwarder {
   TRACE = (init) => {
     return this.client.TRACE(this.url, init);
   };
+  QUERY = (init) => {
+    return this.client.QUERY(this.url, init);
+  };
 }
 
 class PathClientProxyHandler {
