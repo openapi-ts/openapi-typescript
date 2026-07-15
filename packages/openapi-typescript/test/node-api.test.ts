@@ -260,6 +260,7 @@ export type operations = Record<string, never>;`,
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;
@@ -331,6 +332,7 @@ export type operations = Record<string, never>;`,
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;
@@ -844,6 +846,7 @@ export type operations = Record<string, never>;`,
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;
@@ -973,6 +976,7 @@ export type operations = Record<string, never>;`,
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;
@@ -1171,6 +1175,7 @@ export type operations = Record<string, never>;`,
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;
@@ -1306,6 +1311,7 @@ export const pathsAnalyticsDataGetResponses400ContentApplicationJsonAnyOf2Messag
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;
@@ -1444,6 +1450,7 @@ export type operations = Record<string, never>;`,
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;

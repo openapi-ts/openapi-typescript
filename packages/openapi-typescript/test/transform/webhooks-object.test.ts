@@ -88,6 +88,7 @@ describe("transformWebhooksObject", () => {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }`,
       },
@@ -135,6 +136,7 @@ describe("transformWebhooksObject", () => {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }`,
         options: {

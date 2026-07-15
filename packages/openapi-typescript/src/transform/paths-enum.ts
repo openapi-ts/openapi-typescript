@@ -9,7 +9,7 @@ export default function makeApiPathsEnum(pathsObject: PathsObject): ts.EnumDecla
 
   for (const [url, pathItemObject] of getEntries(pathsObject)) {
     for (const [method, operation] of Object.entries(pathItemObject)) {
-      if (!["get", "put", "post", "delete", "options", "head", "patch", "trace"].includes(method)) {
+      if (!["get", "put", "post", "delete", "options", "head", "patch", "trace", "query"].includes(method)) {
         continue;
       }
 

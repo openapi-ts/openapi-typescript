@@ -171,6 +171,7 @@ export type operations = Record<string, never>;`,
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/endpoint2": {
         parameters: {
@@ -190,6 +191,7 @@ export type operations = Record<string, never>;`,
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;
@@ -252,6 +254,7 @@ export type operations = Record<string, never>;`,
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;
@@ -309,6 +312,7 @@ export type operations = Record<string, never>;`,
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;
@@ -402,6 +406,7 @@ export type operations = Record<string, never>;`,
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;
@@ -541,6 +546,7 @@ export type operations = Record<string, never>;`,
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;
@@ -752,6 +758,7 @@ export type operations = Record<string, never>;`,
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;
@@ -821,6 +828,7 @@ export enum ApiPaths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/{id}/get-item-undefined-nested-path-param/{secondId}": {
         parameters: {
@@ -862,6 +870,7 @@ export enum ApiPaths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/{id}/get-item-defined-path-param": {
         parameters: {
@@ -901,6 +910,7 @@ export enum ApiPaths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;
@@ -1080,6 +1090,7 @@ export type operations = Record<string, never>;`,
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;

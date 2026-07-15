@@ -11,7 +11,7 @@ import type {
 import transformOperationObject, { injectOperationObject } from "./operation-object.js";
 import { transformParametersArray } from "./parameters-array.js";
 
-export type Method = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
+export type Method = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace" | "query";
 
 /**
  * Transform PathItem nodes (4.8.9)
@@ -29,7 +29,7 @@ export default function transformPathItemObject(pathItem: PathItemObject, option
   );
 
   // methods
-  for (const method of ["get", "put", "post", "delete", "options", "head", "patch", "trace"] as Method[]) {
+  for (const method of ["get", "put", "post", "delete", "options", "head", "patch", "trace", "query"] as Method[]) {
     const operationObject = pathItem[method];
     if (
       !operationObject ||
