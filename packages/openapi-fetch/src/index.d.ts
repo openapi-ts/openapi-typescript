@@ -245,6 +245,8 @@ export interface Client<Paths extends {}, Media extends MediaType = MediaType> {
   PATCH: ClientMethod<Paths, "patch", Media>;
   /** Call a TRACE endpoint */
   TRACE: ClientMethod<Paths, "trace", Media>;
+  /** Call a QUERY endpoint */
+  QUERY: ClientMethod<Paths, "query", Media>;
   /** Register middleware */
   use(...middleware: Middleware[]): void;
   /** Unregister middleware */

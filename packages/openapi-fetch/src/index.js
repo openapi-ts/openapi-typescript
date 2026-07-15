@@ -315,6 +315,10 @@ export default function createClient(clientOptions) {
     TRACE(url, init) {
       return coreFetch(url, { ...init, method: "TRACE" });
     },
+    /** Call a QUERY endpoint */
+    QUERY(url, init) {
+      return coreFetch(url, { ...init, method: "QUERY" });
+    },
     /** Register middleware */
     use(...middleware) {
       for (const m of middleware) {

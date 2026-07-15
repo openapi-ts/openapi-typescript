@@ -114,7 +114,7 @@ function extractPathParams(pathItemObject: PathItemObject, ctx: GlobalContext) {
       params[resolved.name] = resolved;
     }
   }
-  for (const method of ["get", "put", "post", "delete", "options", "head", "patch", "trace"] as Method[]) {
+  for (const method of ["get", "put", "post", "delete", "options", "head", "patch", "trace", "query"] as Method[]) {
     if (!(method in pathItemObject)) {
       continue;
     }
