@@ -19,6 +19,7 @@ export interface ValidateAndBundleOptions {
   redoc: RedoclyConfig;
   silent: boolean;
   cwd?: URL;
+  lint?: boolean;
 }
 
 interface ParseSchemaOptions {
@@ -142,12 +143,14 @@ export async function validateAndBundle(
 
   // 2. lint
   const redocLintT = performance.now();
-  const problems = await lintDocument({
-    document,
-    config: options.redoc.styleguide,
-    externalRefResolver: resolver,
-  });
-  _processProblems(problems, options);
+  if (options.lint !== false) {
+    const problems = await lintDocument({
+      document,
+      config: options.redoc.styleguide,
+      externalRefResolver: resolver,
+    });
+    _processProblems(problems, options);
+  }
   debug("Linted schema", "lint", performance.now() - redocLintT);
 
   // 3. bundle
