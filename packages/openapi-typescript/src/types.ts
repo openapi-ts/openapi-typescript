@@ -623,6 +623,8 @@ export type SecurityRequirementObject = {
 };
 
 export interface OpenAPITSOptions {
+  /** Run Redocly styleguide linting (default: true) */
+  lint?: boolean;
   /** Treat all objects as if they have `additionalProperties: true` by default (default: false) */
   additionalProperties?: boolean;
   /** Alphabetize all keys? (default: false) */

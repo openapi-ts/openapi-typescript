@@ -127,6 +127,7 @@ The following flags are supported in the CLI:
 | `--make-paths-enum`                |       | `false`  | Generate ApiPaths enum for all paths                                                                                |
 | `--generate-path-params`           |       | `false`  | Generate path parameters for all paths where they are undefined by schema                                           |
 | `--read-write-markers`             |       | `false`  | Generate `$Read<T>`/`$Write<T>` markers for readOnly/writeOnly properties                                           |
+| `--no-lint`                        |       |  `false` | Skip Redocly styleguide linting                                                                                       |
 
 ### pathParamsAsTypes
 

@@ -38,6 +38,7 @@ Options
   --root-types-keep-casing   Keep casing of root types (should only be used with --root-types)
   --make-paths-enum          Generate ApiPaths enum for all paths
   --read-write-markers       Generate $Read/$Write markers for readOnly/writeOnly properties
+  --no-lint       Generate the types without linting
 `;
 
 const OUTPUT_FILE = "FILE";
@@ -96,6 +97,7 @@ const BOOLEAN_FLAGS = [
   "rootTypes",
   "rootTypesKeepCasing",
   "rootTypesNoSchemaPrefix",
+  "lint",
 ];
 
 const flags = parser(args, {
