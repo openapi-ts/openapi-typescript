@@ -230,9 +230,20 @@ export function transformSchemaObjectWithComposition(
   }
 
   /** Collect allOf with Omit<> for discriminators */
-  function collectAllOfCompositions(items: (SchemaObject | ReferenceObject)[], required?: string[]): ts.TypeNode[] {
+  function collectAllOfCompositions(
+    items: (SchemaObject | ReferenceObject)[],
+    required?: string[],
+    translatedRequiredConstraintItems?: Set<SchemaObject | ReferenceObject>,
+    discoverRequiredKeys = false,
+    constraintRequiredKeys?: Set<string>,
+  ): ts.TypeNode[] {
     const output: ts.TypeNode[] = [];
     for (const item of items) {
+      if (translatedRequiredConstraintItems?.has(item)) {
+        // Its required assertion is represented through the normal parent-required flow below.
+        continue;
+      }
+
       let itemType: ts.TypeNode;
       // if this is a $ref, use WithRequired<X, Y> if parent specifies required properties
       // (but only for valid keys)
@@ -240,17 +251,22 @@ export function transformSchemaObjectWithComposition(
         itemType = transformSchemaObject(item, options);
 
         const resolved = options.ctx.resolve<SchemaObject>(item.$ref);
+        const discriminator = options.ctx.discriminators.objects[item.$ref];
+        const refHandled = options.ctx.discriminators.refsHandled.includes(item.$ref);
 
         // make keys required, if necessary
-        if (
-          resolved &&
-          typeof resolved === "object" &&
-          "properties" in resolved &&
-          // we have already handled this item (discriminator property was already added as required)
-          !options.ctx.discriminators.refsHandled.includes(item.$ref)
-        ) {
+        if (resolved && typeof resolved === "object") {
+          // refsHandled means the discriminator key was already patched as required. Preserve that
+          // behavior, but still apply newly translated, non-discriminator requirements before Omit<>.
+          const candidateRequired = refHandled
+            ? (required ?? []).filter((key) => constraintRequiredKeys?.has(key) && key !== discriminator?.propertyName)
+            : (required ?? []);
           // add WithRequired<X, Y> if necessary
-          const validRequired = (required ?? []).filter((key) => !!resolved.properties?.[key]);
+          const validRequired = discoverRequiredKeys
+            ? candidateRequired.filter((key) => collectSchemaObjectPropertyNames(resolved).has(key))
+            : "properties" in resolved
+              ? candidateRequired.filter((key) => !!resolved.properties?.[key])
+              : [];
           if (validRequired.length) {
             itemType = tsWithRequired(itemType, validRequired, options.ctx.injectFooter);
           }
@@ -278,10 +294,55 @@ export function transformSchemaObjectWithComposition(
 
   // compile final type
   let finalType: ts.TypeNode | undefined;
+  const translatedRequiredConstraintItems = new Set<SchemaObject | ReferenceObject>();
+  const constraintRequiredKeys: string[] = [];
+  // Hooks and filtering can replace, rename, or remove generated keys. Compositions and early-return
+  // schemas can produce unions/literals instead of objects. In either case raw-key inference is unsafe,
+  // so retain the original allOf member and its existing transformation semantics.
+  const canTranslateRequiredConstraints =
+    !options.ctx.transform &&
+    !options.ctx.postTransform &&
+    !options.ctx.transformProperty &&
+    !options.ctx.excludeDeprecated &&
+    !hasUnsafeRequiredComposition(schemaObject);
+  if (canTranslateRequiredConstraints) {
+    const requiredConstraintItems = (schemaObject.allOf ?? []).flatMap((item) => {
+      const required = getRequiredConstraintKeys(item);
+      return required ? [{ item, required }] : [];
+    });
+    const requiredConstraintSchemas = new Set(requiredConstraintItems.map(({ item }) => item));
+    const knownKeys = collectSchemaObjectPropertyNames(schemaObject);
+    const hasRetainedObjectAssertion = (schemaObject.allOf ?? []).some(
+      (item) => !requiredConstraintSchemas.has(item) && hasExplicitNonNullableObjectType(item),
+    );
+    for (const { item, required } of requiredConstraintItems) {
+      // Removing the member is safe only when every assertion can be represented. A typed constraint
+      // also needs another retained object assertion; otherwise removing type: object widens the schema.
+      if (!required.every((key) => knownKeys.has(key)) || ("type" in item && !hasRetainedObjectAssertion)) {
+        continue;
+      }
+      translatedRequiredConstraintItems.add(item);
+      constraintRequiredKeys.push(...required);
+    }
+  }
+  const combinedRequired = constraintRequiredKeys.length
+    ? [...new Set([...(schemaObject.required ?? []), ...constraintRequiredKeys])]
+    : schemaObject.required;
 
+  // Feed translated keys through existing core/inline/ref required handling. Wrapping the completed
+  // aggregate could pass keys not shared by a union or keys removed by later transformations to WithRequired.
   // core + allOf: intersect
-  const coreObjectType = transformSchemaObjectCore(schemaObject, options);
-  const allOfType = collectAllOfCompositions(schemaObject.allOf ?? [], schemaObject.required);
+  const coreObjectType = transformSchemaObjectCore(
+    constraintRequiredKeys.length ? { ...schemaObject, required: combinedRequired } : schemaObject,
+    options,
+  );
+  const allOfType = collectAllOfCompositions(
+    schemaObject.allOf ?? [],
+    combinedRequired,
+    translatedRequiredConstraintItems,
+    constraintRequiredKeys.length > 0,
+    new Set(constraintRequiredKeys),
+  );
   if (coreObjectType || allOfType.length) {
     const allOf: ts.TypeNode | undefined = allOfType.length ? tsIntersection(allOfType) : undefined;
     finalType = tsIntersection([...(coreObjectType ? [coreObjectType] : []), ...(allOf ? [allOf] : [])]);
@@ -324,6 +385,109 @@ export function transformSchemaObjectWithComposition(
   }
 
   return finalType;
+
+  function collectSchemaObjectPropertyNames(
+    schema: SchemaObject | ReferenceObject,
+    propertyNames = new Set<string>(),
+    refsSeen = new Set<string>(),
+  ): Set<string> {
+    // Required properties may be declared behind nested allOf refs, so follow them recursively while
+    // guarding cycles. Explicit primitives ignore properties during transformation and cannot supply keys.
+    if (!schema || typeof schema !== "object" || Array.isArray(schema)) {
+      return propertyNames;
+    }
+    if ("$ref" in schema) {
+      if (refsSeen.has(schema.$ref)) {
+        return propertyNames;
+      }
+      refsSeen.add(schema.$ref);
+      const resolved = options.ctx.resolve<SchemaObject | ReferenceObject>(schema.$ref);
+      if (resolved) {
+        collectSchemaObjectPropertyNames(resolved, propertyNames, refsSeen);
+      }
+      return propertyNames;
+    }
+    if ("properties" in schema && schema.properties && (!("type" in schema) || schema.type === "object")) {
+      for (const key of Object.keys(schema.properties)) {
+        propertyNames.add(key);
+      }
+    }
+    for (const item of schema.allOf ?? []) {
+      collectSchemaObjectPropertyNames(item, propertyNames, refsSeen);
+    }
+    return propertyNames;
+  }
+
+  function hasExplicitNonNullableObjectType(
+    schema: SchemaObject | ReferenceObject,
+    refsSeen = new Set<string>(),
+  ): boolean {
+    if (!schema || typeof schema !== "object" || Array.isArray(schema)) {
+      return false;
+    }
+    if ("$ref" in schema) {
+      if (refsSeen.has(schema.$ref)) {
+        return false;
+      }
+      refsSeen.add(schema.$ref);
+      const resolved = options.ctx.resolve<SchemaObject | ReferenceObject>(schema.$ref);
+      return resolved ? hasExplicitNonNullableObjectType(resolved, refsSeen) : false;
+    }
+    if (schema.nullable || (Array.isArray(schema.type) && schema.type.includes("null"))) {
+      return false;
+    }
+    if (schema.type === "object") {
+      return true;
+    }
+    return (schema.allOf ?? []).some((item) => hasExplicitNonNullableObjectType(item, refsSeen));
+  }
+
+  function hasUnsafeRequiredComposition(schema: SchemaObject | ReferenceObject, refsSeen = new Set<string>()): boolean {
+    if (!schema || typeof schema !== "object" || Array.isArray(schema)) {
+      return false;
+    }
+    if ("$ref" in schema) {
+      if (refsSeen.has(schema.$ref)) {
+        return false;
+      }
+      refsSeen.add(schema.$ref);
+      const resolved = options.ctx.resolve<SchemaObject | ReferenceObject>(schema.$ref);
+      return resolved ? hasUnsafeRequiredComposition(resolved, refsSeen) : false;
+    }
+    // These paths return literals/unions or apply nullable/composition semantics before object properties
+    // can be trusted. Raw property names therefore cannot safely parameterize WithRequired<T, K>.
+    if (
+      (schema.const !== null && schema.const !== undefined) ||
+      (Array.isArray(schema.enum) && (!("type" in schema) || schema.type !== "object") && !("properties" in schema)) ||
+      schema.nullable ||
+      Array.isArray(schema.type) ||
+      schema.anyOf ||
+      schema.oneOf ||
+      (schema.type === "object" && schema.enum)
+    ) {
+      return true;
+    }
+    return (schema.allOf ?? []).some((item) => hasUnsafeRequiredComposition(item, refsSeen));
+  }
+}
+
+function getRequiredConstraintKeys(schema: SchemaObject | ReferenceObject): string[] | undefined {
+  // Translate only exact { required } or { type: "object", required } members. Any other keyword may
+  // carry validation or annotation semantics that cannot be preserved after removing the allOf member.
+  if (
+    !schema ||
+    typeof schema !== "object" ||
+    Array.isArray(schema) ||
+    "$ref" in schema ||
+    ("type" in schema && schema.type !== "object") ||
+    !Array.isArray(schema.required) ||
+    schema.required.length === 0 ||
+    !schema.required.every((key) => typeof key === "string") ||
+    Object.keys(schema).some((key) => key !== "type" && key !== "required")
+  ) {
+    return undefined;
+  }
+  return schema.required;
 }
 
 /**
