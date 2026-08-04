@@ -13,6 +13,7 @@ import {
   tsLiteral,
   tsPropertyIndex,
   tsUnion,
+  tsWithRequired,
 } from "../../src/lib/ts.js";
 
 describe("addJSDocComment", () => {
@@ -470,3 +471,88 @@ describe("tsUnion", () => {
 } | null`);
   });
 });
+
+describe("tsWithRequired", () => {
+  test("injects the legacy helper once and keeps binary references", () => {
+    const footer: ts.Node[] = [];
+    const source = ts.factory.createTypeReferenceNode("Source");
+
+    expect(astToString(tsWithRequired(source, ["value"], footer)).trim()).toBe('WithRequired<Source, "value">');
+    expect(astToString(tsWithRequired(source, ["other"], footer)).trim()).toBe('WithRequired<Source, "other">');
+    expect(footer).toHaveLength(1);
+  });
+
+  test("keeps the existing fixed-name caller convention", () => {
+    const existing = ts.factory.createTypeAliasDeclaration(
+      undefined,
+      "WithRequired",
+      undefined,
+      ts.factory.createKeywordTypeNode(ts.SyntaxKind.UnknownKeyword),
+    );
+    const footer: ts.Node[] = [existing];
+
+    expect(astToString(tsWithRequired(ts.factory.createTypeReferenceNode("Source"), ["value"], footer)).trim()).toBe(
+      'WithRequired<Source, "value">',
+    );
+    expect(footer).toEqual([existing]);
+  });
+
+  test("preserves the legacy helper and valid low-level array inputs", () => {
+    const footer: ts.Node[] = [];
+    tsWithRequired(ts.factory.createTypeReferenceNode("Source"), ["value"], footer);
+    const helper = astToString(footer).trim();
+
+    expect(helper).toBe(`type WithRequired<T, K extends keyof T> = T & {
+    [P in K]-?: T[P];
+};`);
+    expectTypeScriptToCompile(`
+      ${helper}
+
+      type Optional = WithRequired<{ value?: string }, "value">;
+      const optional: Optional = { value: "value" };
+      // @ts-expect-error implicit optional undefined is removed
+      const optionalUndefined: Optional = { value: undefined };
+
+      type ExplicitUndefined = WithRequired<{ value?: string | undefined }, "value">;
+      const explicitUndefined: ExplicitUndefined = { value: undefined };
+
+      type ReadonlyValue = WithRequired<{ readonly value?: string }, "value">;
+      const readonlyValue: ReadonlyValue = { value: "value" };
+      // @ts-expect-error readonly is preserved
+      readonlyValue.value = "other";
+
+      type Intersection = WithRequired<{ value?: string } & { other: number }, "value">;
+      const intersection: Intersection = { other: 1, value: "value" };
+
+      type StringIndex = WithRequired<{ [key: string]: number | undefined }, "value">;
+      const stringIndex: StringIndex = { value: 1 };
+
+      type ArrayValue = WithRequired<string[], "length">;
+      const arrayValue: ArrayValue = [];
+    `);
+  });
+});
+
+function expectTypeScriptToCompile(source: string) {
+  const fileName = "/with-required.test.ts";
+  const compilerOptions: ts.CompilerOptions = {
+    exactOptionalPropertyTypes: true,
+    module: ts.ModuleKind.ESNext,
+    noEmit: true,
+    skipLibCheck: true,
+    strict: true,
+    target: ts.ScriptTarget.ESNext,
+  };
+  const host = ts.createCompilerHost(compilerOptions);
+  const sourceFile = ts.createSourceFile(fileName, source, ts.ScriptTarget.ESNext, true);
+  const getSourceFile = host.getSourceFile.bind(host);
+  host.getSourceFile = (name, languageVersion, onError, shouldCreateNewSourceFile) =>
+    name === fileName ? sourceFile : getSourceFile(name, languageVersion, onError, shouldCreateNewSourceFile);
+  const fileExists = host.fileExists.bind(host);
+  host.fileExists = (name) => name === fileName || fileExists(name);
+  const readFile = host.readFile.bind(host);
+  host.readFile = (name) => (name === fileName ? source : readFile(name));
+
+  const diagnostics = ts.getPreEmitDiagnostics(ts.createProgram([fileName], compilerOptions, host));
+  expect(diagnostics.map((diagnostic) => ts.flattenDiagnosticMessageText(diagnostic.messageText, "\n"))).toEqual([]);
+}
