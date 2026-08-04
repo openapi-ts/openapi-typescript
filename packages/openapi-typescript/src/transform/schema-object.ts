@@ -3,6 +3,7 @@ import ts from "typescript";
 import {
   addJSDocComment,
   BOOLEAN,
+  isWithRequiredObjectHelper,
   NEVER,
   NULL,
   NUMBER,
@@ -22,6 +23,7 @@ import {
   tsRecord,
   tsUnion,
   tsWithRequired,
+  tsWithRequiredObject,
   UNDEFINED,
   UNKNOWN,
 } from "../lib/ts.js";
@@ -30,12 +32,8 @@ import type { ReferenceObject, SchemaObject, TransformNodeOptions } from "../typ
 
 /** Record hook replacements without probing or replaying user callbacks. */
 interface TransformObserver {
-  postTransformReplaced: boolean;
-  transformReplaced: boolean;
+  replaced: boolean;
 }
-
-const WITH_REQUIRED_OBJECT = "WithRequiredObject";
-const generatedWithRequiredObjectHelpers = new WeakSet<ts.Node>();
 
 /**
  * Transform SchemaObject nodes (4.8.24)
@@ -68,7 +66,7 @@ function transformSchemaObjectObserved(
     if (postTransformResult) {
       // Returning the observed node is informational; only a distinct node replaces this occurrence.
       if (observer && postTransformResult !== type) {
-        observer.postTransformReplaced = true;
+        observer.replaced = true;
       }
       return postTransformResult;
     }
@@ -329,7 +327,7 @@ function transformSchemaObjectWithCompositionObserved(
     }[] = [];
 
     for (const [index, item] of items.entries()) {
-      const itemObserver: TransformObserver = { postTransformReplaced: false, transformReplaced: false };
+      const itemObserver: TransformObserver = { replaced: false };
       const transformedItem =
         "$ref" in item
           ? item
@@ -337,14 +335,13 @@ function transformSchemaObjectWithCompositionObserved(
               ...item,
               required: [...(required ?? []), ...(item.required ?? [])],
             };
+      const type = transformSchemaObjectObserved(transformedItem, options, false, itemObserver);
       occurrences.push({
         index,
         item,
-        replaced: false,
-        type: transformSchemaObjectObserved(transformedItem, options, false, itemObserver),
+        replaced: itemObserver.replaced,
+        type,
       });
-      occurrences[occurrences.length - 1].replaced =
-        itemObserver.transformReplaced || itemObserver.postTransformReplaced;
     }
 
     // A replacement is authoritative for that occurrence. Only untouched constraint members may be lowered into
@@ -489,7 +486,8 @@ function transformSchemaObjectWithCompositionObserved(
       finalType = tsWithRequiredObject(
         finalType,
         [...new Set([...callbackParentRequiredKeys, ...callbackAllOf.removedConstraintKeys])],
-        options,
+        options.ctx.injectFooter,
+        shouldInlineWithRequiredObject(options),
       );
     }
   }
@@ -636,200 +634,51 @@ function getRequiredConstraintKeys(schema: SchemaObject | ReferenceObject): stri
   return schema.required;
 }
 
-/**
- * Apply an exact typed-object required constraint after callback transformations. Use a named helper for readable
- * output, or the equivalent anonymous AST when that helper name could collide with generated or injected code.
- */
-function tsWithRequiredObject(type: ts.TypeNode, keys: string[], options: TransformNodeOptions): ts.TypeNode {
-  if (shouldInlineWithRequiredObject(options)) {
-    return tsRequiredObjectConstraint(type, keys);
-  }
-
-  let helper = options.ctx.injectFooter.find((node) => generatedWithRequiredObjectHelpers.has(node));
-  if (!helper) {
-    // Structural call/construct signatures are excluded without naming a shadowable global Function;
-    // nominal Function therefore remains the documented residual limitation in both representations.
-    helper = stringToAST(`type ${WITH_REQUIRED_OBJECT}<T, K extends string | number | symbol> = T extends infer U
-  ? unknown extends U
-    ? { [P in K]-?: unknown }
-    : U extends readonly unknown[]
-      ? never
-      : U extends (...args: never[]) => unknown
-        ? never
-        : U extends abstract new (...args: never[]) => unknown
-          ? never
-          : U extends object
-            ? U & {
-                [P in K]-?: P extends keyof U
-                  ? { [Q in keyof U]-?: U[Q] }[P]
-                  : unknown
-              }
-            : never
-  : never;`)[0] as ts.TypeAliasDeclaration;
-    generatedWithRequiredObjectHelpers.add(helper);
-    options.ctx.injectFooter.push(helper);
-  }
-
-  return ts.factory.createTypeReferenceNode(WITH_REQUIRED_OBJECT, [type, tsUnion(keys.map((key) => tsLiteral(key)))]);
-}
+const WITH_REQUIRED_OBJECT = "WithRequiredObject";
 
 function shouldInlineWithRequiredObject(options: TransformNodeOptions): boolean {
-  // Enum and unprefixed root declarations are emitted later and may claim the helper name. Avoid predicting their
-  // final names; the anonymous representation has identical semantics and cannot collide.
+  // Enums and unprefixed root types are emitted later and may claim the helper name. Existing injected bindings
+  // are known now; in either case inline the same canonical helper body rather than predict or rename declarations.
   if (options.ctx.enum || options.ctx.rootTypesNoSchemaPrefix) {
     return true;
   }
   if (
     options.ctx.inject &&
-    (stringToAST(options.ctx.inject) as ts.Node[]).some((node) => nodeBindsName(node, WITH_REQUIRED_OBJECT))
+    (stringToAST(options.ctx.inject) as ts.Node[]).some((node) => nodeBindsTypeName(node, WITH_REQUIRED_OBJECT))
   ) {
     return true;
   }
-  // Footer helper names have historically been fixed. Reuse only the node created here; any caller-owned
-  // declaration with the same name takes the collision-free anonymous path.
   return options.ctx.injectFooter.some(
-    (node) => !generatedWithRequiredObjectHelpers.has(node) && nodeBindsName(node, WITH_REQUIRED_OBJECT),
+    (node) => !isWithRequiredObjectHelper(node) && nodeBindsTypeName(node, WITH_REQUIRED_OBJECT),
   );
 }
 
-/** Check the TypeScript type/value namespaces conservatively before introducing a generated helper. */
-function nodeBindsName(node: ts.Node, name: string): boolean {
+/** Conservatively check declarations and imports that bind a name in TypeScript's type namespace. */
+function nodeBindsTypeName(node: ts.Node, name: string): boolean {
   if (
     (ts.isTypeAliasDeclaration(node) ||
       ts.isInterfaceDeclaration(node) ||
       ts.isClassDeclaration(node) ||
       ts.isEnumDeclaration(node) ||
-      ts.isFunctionDeclaration(node) ||
       ts.isModuleDeclaration(node) ||
       ts.isImportEqualsDeclaration(node)) &&
     node.name?.text === name
   ) {
     return true;
   }
-  if (ts.isImportDeclaration(node)) {
-    const importClause = node.importClause;
-    if (importClause?.name?.text === name) {
-      return true;
-    }
-    if (importClause?.namedBindings) {
-      if (ts.isNamespaceImport(importClause.namedBindings)) {
-        return importClause.namedBindings.name.text === name;
-      }
-      return importClause.namedBindings.elements.some((element) => element.name.text === name);
-    }
+  if (!ts.isImportDeclaration(node)) {
+    return false;
   }
-  if (ts.isVariableStatement(node)) {
-    return node.declarationList.declarations.some((declaration) => bindingNameContains(declaration.name, name));
+  const clause = node.importClause;
+  if (clause?.name?.text === name) {
+    return true;
   }
-  return false;
-}
-
-function bindingNameContains(bindingName: ts.BindingName, name: string): boolean {
-  if (ts.isIdentifier(bindingName)) {
-    return bindingName.text === name;
-  }
-  return bindingName.elements.some(
-    (element) => !ts.isOmittedExpression(element) && bindingNameContains(element.name, name),
-  );
-}
-
-/** Build the anonymous collision fallback; this must remain semantically equivalent to WithRequiredObject. */
-function tsRequiredObjectConstraint(type: ts.TypeNode, keys: string[]): ts.TypeNode {
-  const u = ts.factory.createTypeReferenceNode("U");
-  const keyUnion = tsUnion(keys.map((key) => tsLiteral(key)));
-  const requiredProjection = ts.factory.createMappedTypeNode(
-    undefined,
-    ts.factory.createTypeParameterDeclaration(
-      undefined,
-      "Q",
-      ts.factory.createTypeOperatorNode(ts.SyntaxKind.KeyOfKeyword, u),
-    ),
-    undefined,
-    ts.factory.createToken(ts.SyntaxKind.MinusToken),
-    ts.factory.createIndexedAccessTypeNode(u, ts.factory.createTypeReferenceNode("Q")),
-    undefined,
-  );
-  const requiredKeys = ts.factory.createMappedTypeNode(
-    undefined,
-    ts.factory.createTypeParameterDeclaration(undefined, "P", keyUnion),
-    undefined,
-    ts.factory.createToken(ts.SyntaxKind.MinusToken),
-    ts.factory.createConditionalTypeNode(
-      ts.factory.createTypeReferenceNode("P"),
-      ts.factory.createTypeOperatorNode(ts.SyntaxKind.KeyOfKeyword, u),
-      ts.factory.createIndexedAccessTypeNode(requiredProjection, ts.factory.createTypeReferenceNode("P")),
-      UNKNOWN,
-    ),
-    undefined,
-  );
-  const unknownBranch = ts.factory.createMappedTypeNode(
-    undefined,
-    ts.factory.createTypeParameterDeclaration(undefined, "P", keyUnion),
-    undefined,
-    ts.factory.createToken(ts.SyntaxKind.MinusToken),
-    UNKNOWN,
-    undefined,
-  );
-  const arrayType = ts.factory.createTypeOperatorNode(
-    ts.SyntaxKind.ReadonlyKeyword,
-    ts.factory.createArrayTypeNode(UNKNOWN),
-  );
-  const callableType = ts.factory.createFunctionTypeNode(
-    undefined,
-    [
-      ts.factory.createParameterDeclaration(
-        undefined,
-        ts.factory.createToken(ts.SyntaxKind.DotDotDotToken),
-        "args",
-        undefined,
-        ts.factory.createArrayTypeNode(NEVER),
-      ),
-    ],
-    UNKNOWN,
-  );
-  const constructableType = ts.factory.createConstructorTypeNode(
-    [ts.factory.createModifier(ts.SyntaxKind.AbstractKeyword)],
-    undefined,
-    [
-      ts.factory.createParameterDeclaration(
-        undefined,
-        ts.factory.createToken(ts.SyntaxKind.DotDotDotToken),
-        "args",
-        undefined,
-        ts.factory.createArrayTypeNode(NEVER),
-      ),
-    ],
-    UNKNOWN,
-  );
-  const objectBranch = ts.factory.createConditionalTypeNode(
-    u,
-    ts.factory.createKeywordTypeNode(ts.SyntaxKind.ObjectKeyword),
-    tsIntersection([u, requiredKeys]),
-    NEVER,
-  );
-  const distributive = ts.factory.createConditionalTypeNode(
-    UNKNOWN,
-    u,
-    unknownBranch,
-    ts.factory.createConditionalTypeNode(
-      u,
-      arrayType,
-      NEVER,
-      ts.factory.createConditionalTypeNode(
-        u,
-        callableType,
-        NEVER,
-        // Structural call/construct signatures are non-JSON objects. Nominal Function remains a known residual.
-        ts.factory.createConditionalTypeNode(u, constructableType, NEVER, objectBranch),
-      ),
-    ),
-  );
-  return ts.factory.createConditionalTypeNode(
-    type,
-    ts.factory.createInferTypeNode(ts.factory.createTypeParameterDeclaration(undefined, "U")),
-    distributive,
-    NEVER,
-  );
+  const bindings = clause?.namedBindings;
+  return bindings
+    ? ts.isNamespaceImport(bindings)
+      ? bindings.name.text === name
+      : bindings.elements.some((element) => element.name.text === name)
+    : false;
 }
 
 /**
@@ -874,7 +723,7 @@ function transformSchemaObjectCore(
       const result = options.ctx.transform(schemaObject, options);
       if (result && typeof result === "object") {
         if (observer) {
-          observer.transformReplaced = true;
+          observer.replaced = true;
         }
         if ("schema" in result) {
           if (result.questionToken) {

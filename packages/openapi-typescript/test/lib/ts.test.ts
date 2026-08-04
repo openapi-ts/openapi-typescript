@@ -7,6 +7,7 @@ import {
   NUMBER,
   oapiRef,
   STRING,
+  stringToAST,
   tsArrayLiteralExpression,
   tsEnum,
   tsIsPrimitive,
@@ -14,7 +15,9 @@ import {
   tsPropertyIndex,
   tsUnion,
   tsWithRequired,
+  tsWithRequiredObject,
 } from "../../src/lib/ts.js";
+import { expectTypeScriptToCompile } from "../test-helpers.js";
 
 describe("addJSDocComment", () => {
   test("single-line comment", () => {
@@ -473,33 +476,12 @@ describe("tsUnion", () => {
 });
 
 describe("tsWithRequired", () => {
-  test("injects the legacy helper once and keeps binary references", () => {
+  test("injects the legacy helper once and preserves valid low-level inputs", () => {
     const footer: ts.Node[] = [];
     const source = ts.factory.createTypeReferenceNode("Source");
-
     expect(astToString(tsWithRequired(source, ["value"], footer)).trim()).toBe('WithRequired<Source, "value">');
     expect(astToString(tsWithRequired(source, ["other"], footer)).trim()).toBe('WithRequired<Source, "other">');
     expect(footer).toHaveLength(1);
-  });
-
-  test("keeps the existing fixed-name caller convention", () => {
-    const existing = ts.factory.createTypeAliasDeclaration(
-      undefined,
-      "WithRequired",
-      undefined,
-      ts.factory.createKeywordTypeNode(ts.SyntaxKind.UnknownKeyword),
-    );
-    const footer: ts.Node[] = [existing];
-
-    expect(astToString(tsWithRequired(ts.factory.createTypeReferenceNode("Source"), ["value"], footer)).trim()).toBe(
-      'WithRequired<Source, "value">',
-    );
-    expect(footer).toEqual([existing]);
-  });
-
-  test("preserves the legacy helper and valid low-level array inputs", () => {
-    const footer: ts.Node[] = [];
-    tsWithRequired(ts.factory.createTypeReferenceNode("Source"), ["value"], footer);
     const helper = astToString(footer).trim();
 
     expect(helper).toBe(`type WithRequired<T, K extends keyof T> = T & {
@@ -533,26 +515,110 @@ describe("tsWithRequired", () => {
   });
 });
 
-function expectTypeScriptToCompile(source: string) {
-  const fileName = "/with-required.test.ts";
-  const compilerOptions: ts.CompilerOptions = {
-    exactOptionalPropertyTypes: true,
-    module: ts.ModuleKind.ESNext,
-    noEmit: true,
-    skipLibCheck: true,
-    strict: true,
-    target: ts.ScriptTarget.ESNext,
-  };
-  const host = ts.createCompilerHost(compilerOptions);
-  const sourceFile = ts.createSourceFile(fileName, source, ts.ScriptTarget.ESNext, true);
-  const getSourceFile = host.getSourceFile.bind(host);
-  host.getSourceFile = (name, languageVersion, onError, shouldCreateNewSourceFile) =>
-    name === fileName ? sourceFile : getSourceFile(name, languageVersion, onError, shouldCreateNewSourceFile);
-  const fileExists = host.fileExists.bind(host);
-  host.fileExists = (name) => name === fileName || fileExists(name);
-  const readFile = host.readFile.bind(host);
-  host.readFile = (name) => (name === fileName ? source : readFile(name));
+describe("tsWithRequiredObject", () => {
+  test("injects the object helper once and keeps named references", () => {
+    const footer: ts.Node[] = [];
+    const source = ts.factory.createTypeReferenceNode("Source");
 
-  const diagnostics = ts.getPreEmitDiagnostics(ts.createProgram([fileName], compilerOptions, host));
-  expect(diagnostics.map((diagnostic) => ts.flattenDiagnosticMessageText(diagnostic.messageText, "\n"))).toEqual([]);
-}
+    expect(astToString(tsWithRequiredObject(source, ["value"], footer)).trim()).toBe(
+      'WithRequiredObject<Source, "value">',
+    );
+    expect(astToString(tsWithRequiredObject(source, ["other"], footer)).trim()).toBe(
+      'WithRequiredObject<Source, "other">',
+    );
+    expect(footer).toHaveLength(1);
+  });
+
+  test("preserves object semantics", () => {
+    const footer: ts.Node[] = [];
+    tsWithRequiredObject(ts.factory.createTypeReferenceNode("Source"), ["value"], footer);
+
+    expectTypeScriptToCompile(`
+      ${astToString(footer)}
+      type Optional = WithRequiredObject<{ value?: string }, "value">;
+      type ExplicitUndefined = WithRequiredObject<{ value?: string | undefined }, "value">;
+      type Missing = WithRequiredObject<{ other: number }, "value">;
+      type Union = WithRequiredObject<{ value?: string } | { other: number }, "value">;
+      type Index = WithRequiredObject<{ [key: string]: number | undefined }, "value">;
+      type ReadonlyValue = WithRequiredObject<{ readonly value?: string }, "value">;
+      type NumberIndex = WithRequiredObject<{ [key: number]: string | undefined }, 1>;
+      declare const symbolKey: unique symbol;
+      type SymbolIndex = WithRequiredObject<{ [key: symbol]: boolean | undefined }, typeof symbolKey>;
+      type Primitive = WithRequiredObject<string, "value">;
+      type ArrayValue = WithRequiredObject<string[], "value">;
+      type Callable = WithRequiredObject<() => string, "value">;
+      type Constructor = WithRequiredObject<abstract new () => object, "value">;
+      type Nothing = WithRequiredObject<never, "value">;
+      type UnknownValue = WithRequiredObject<unknown, "value">;
+      type AnyValue = WithRequiredObject<any, "value">;
+
+      const optional: Optional = { value: "value" };
+      // @ts-expect-error implicit optional undefined is removed
+      const optionalUndefined: Optional = { value: undefined };
+      const explicitUndefined: ExplicitUndefined = { value: undefined };
+      const missing: Missing = { other: 1, value: true };
+      // @ts-expect-error missing keys remain required
+      const missingInvalid: Missing = { other: 1 };
+      const union: Union = { other: 1, value: true };
+      // @ts-expect-error every union branch requires value
+      const unionInvalid: Union = { other: 1 };
+      const index: Index = { value: 1 };
+      const readonlyValue: ReadonlyValue = { value: "value" };
+      // @ts-expect-error readonly is preserved
+      readonlyValue.value = "other";
+      const numberIndex: NumberIndex = { 1: "value" };
+      const symbolIndex: SymbolIndex = { [symbolKey]: true };
+      const unknownValue: UnknownValue = { value: true };
+      const anyValue: AnyValue = { value: true };
+      // @ts-expect-error unknown still requires value
+      const unknownInvalid: UnknownValue = {};
+      // @ts-expect-error any does not erase required presence
+      const anyInvalid: AnyValue = {};
+      // @ts-expect-error non-object values are rejected
+      const primitive: Primitive = "value";
+      // @ts-expect-error arrays are not JSON objects
+      const arrayValue: ArrayValue = Object.assign([], { value: true });
+      // @ts-expect-error callables are not JSON objects
+      const callable: Callable = Object.assign(() => "value", { value: true });
+      // @ts-expect-error constructors are not JSON objects
+      const constructorValue: Constructor = Object.assign(class {}, { value: true });
+      // @ts-expect-error never remains never
+      const nothing: Nothing = { value: true };
+    `);
+  });
+
+  test("keeps named and inline helper semantics equivalent", () => {
+    const footer: ts.Node[] = [];
+    const cases = [
+      ["ObjectUnion", "{ value?: string } | { other: number }"],
+      ["Mixed", "{ value?: string } | string | string[] | (() => void) | (abstract new () => object)"],
+      ["UnknownValue", "unknown"],
+      ["AnyValue", "any"],
+      ["Nothing", "never"],
+      ["Optional", "{ value?: string }"],
+    ] as const;
+    const aliases = cases
+      .map(([name, source]) => {
+        const input = (stringToAST(`type Input = ${source}`)[0] as ts.TypeAliasDeclaration).type;
+        const named = astToString(tsWithRequiredObject(input, ["value"], footer, false)).trim();
+        const inline = astToString(tsWithRequiredObject(input, ["value"], [], true)).trim();
+        return `type Named${name} = ${named}; type Inline${name} = ${inline}; type Check${name} = Assert<Equal<Named${name}, Inline${name}>>;`;
+      })
+      .join("\n");
+    const generic = "{ value?: T; key?: K; outerU?: U; outerP?: P; outerQ?: Q }";
+    const genericInput = (stringToAST(`type Input = ${generic}`)[0] as ts.TypeAliasDeclaration).type;
+    const namedGeneric = astToString(tsWithRequiredObject(genericInput, ["value"], footer, false)).trim();
+    const inlineGeneric = astToString(tsWithRequiredObject(genericInput, ["value"], [], true)).trim();
+
+    expectTypeScriptToCompile(`${astToString(footer)}
+      type Equal<A, B> = (<X>() => X extends A ? 1 : 2) extends (<X>() => X extends B ? 1 : 2)
+        ? (<X>() => X extends B ? 1 : 2) extends (<X>() => X extends A ? 1 : 2) ? true : false
+        : false;
+      type Assert<T extends true> = T;
+      ${aliases}
+      type NamedGeneric<T, K, U, P, Q> = ${namedGeneric};
+      type InlineGeneric<T, K, U, P, Q> = ${inlineGeneric};
+      type CheckGeneric<T, K, U, P, Q> = Assert<Equal<NamedGeneric<T, K, U, P, Q>, InlineGeneric<T, K, U, P, Q>>>;
+    `);
+  });
+});

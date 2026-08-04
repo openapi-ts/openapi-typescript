@@ -1,8 +1,8 @@
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
-import openapiTS, { astToString, COMMENT_HEADER } from "../src/index.js";
+import openapiTS, { astToString, COMMENT_HEADER, stringToAST } from "../src/index.js";
 import type { OpenAPITSOptions } from "../src/types.js";
-import type { TestCase } from "./test-helpers.js";
+import { expectTypeScriptToCompile, type TestCase } from "./test-helpers.js";
 
 const EXAMPLES_DIR = new URL("../examples/", import.meta.url);
 
@@ -1819,371 +1819,134 @@ export type operations = Record<string, never>;`,
       ci?.timeout || 5000,
     );
   }
-
-  test("required-only allOf remains concise with an unrelated binary transform", async () => {
-    let sawOuterHelper = false;
-    const result = astToString(
-      await openapiTS(requiredOnlyAllOfCallbackSchema() as any, {
-        dedupeEnums: true,
-        enumValues: true,
-        rootTypes: true,
-        transform(schemaObject) {
-          if (schemaObject.format === "binary") {
-            return BLOB;
-          }
+  test("required-only allOf public output compiles across callback modes", async () => {
+    const componentPath = "#/components/schemas/CompanyResource";
+    const objectReplacement = typeNode(`{
+      organization?: number;
+      addresses?: string[];
+      processingTypes?: string[];
+    }`);
+    const missingReplacement = typeNode("{ other: string }");
+    const unionReplacement = typeNode("{ organization?: number } | { other: string }");
+    const standardAssertions = `
+      const valid: Generated = { organization: "org", addresses: [], processingTypes: [] };
+      // @ts-expect-error all required-only keys are required
+      const missing: Generated = { organization: "org" };
+    `;
+    const cases: { name: string; options: OpenAPITSOptions; assertions: string }[] = [
+      { name: "no callback", options: {}, assertions: standardAssertions },
+      { name: "unrelated transform", options: { transform: binaryTransform }, assertions: standardAssertions },
+      { name: "identity postTransform", options: { postTransform: (type) => type }, assertions: standardAssertions },
+      {
+        name: "component transform replacement",
+        options: { transform: (_schema, options) => (options.path === componentPath ? objectReplacement : undefined) },
+        assertions: `
+          const valid: Generated = { organization: 1, addresses: [], processingTypes: [] };
+          // @ts-expect-error callback-produced property types are retained
+          const wrong: Generated = { organization: "org", addresses: [], processingTypes: [] };
+        `,
+      },
+      {
+        name: "component postTransform replacement",
+        options: {
+          postTransform: (_type, options) => (options.path === componentPath ? objectReplacement : undefined),
         },
-        postTransform(type, options) {
-          if (
-            options.path?.includes("/paths/~1companies/get/responses/200") &&
-            ts.isTypeReferenceNode(type) &&
-            ts.isIdentifier(type.typeName) &&
-            type.typeName.text === "WithRequiredObject"
-          ) {
-            sawOuterHelper = true;
-          }
-          return type;
+        assertions: `
+          const valid: Generated = { organization: 1, addresses: [], processingTypes: [] };
+          // @ts-expect-error postTransform-produced property types are retained
+          const wrong: Generated = { organization: "org", addresses: [], processingTypes: [] };
+        `,
+      },
+      {
+        name: "callback-removed keys",
+        options: { transform: (_schema, options) => (options.path === componentPath ? missingReplacement : undefined) },
+        assertions: `
+          const valid: Generated = { other: "value", organization: 1, addresses: null, processingTypes: true };
+          // @ts-expect-error removed keys remain required as unknown
+          const missing: Generated = { other: "value" };
+        `,
+      },
+      {
+        name: "primitive replacement",
+        options: {
+          transform: (_schema, options) =>
+            options.path === componentPath ? ts.factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword) : undefined,
         },
-      }),
-    );
-    const exact =
-      'WithRequiredObject<components["schemas"]["CompanyResource"], "organization" | "addresses" | "processingTypes">';
-
-    expect(result.split(exact)).toHaveLength(4);
-    expect(result.match(/type WithRequiredObject</g)).toHaveLength(1);
-    expect(result.match(/extends infer U \?/g)).toHaveLength(1);
-    expect(result).not.toContain('components["schemas"]["CompanyResource"] & Record<string, never>');
-    expect(sawOuterHelper).toBe(true);
-    expectTypeScriptSourceToCompile(result);
-  });
-
-  test.each([
-    "transform",
-    "postTransform",
-  ] as const)("required-only allOf uses final component property types from %s", async (callback) => {
-    const replacement = ts.factory.createTypeLiteralNode([
-      ts.factory.createPropertySignature(
-        undefined,
-        "organization",
-        ts.factory.createToken(ts.SyntaxKind.QuestionToken),
-        ts.factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword),
-      ),
-      ts.factory.createPropertySignature(
-        undefined,
-        "addresses",
-        ts.factory.createToken(ts.SyntaxKind.QuestionToken),
-        ts.factory.createArrayTypeNode(ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)),
-      ),
-      ts.factory.createPropertySignature(
-        undefined,
-        "processingTypes",
-        ts.factory.createToken(ts.SyntaxKind.QuestionToken),
-        ts.factory.createArrayTypeNode(ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)),
-      ),
-    ]);
-    const result = astToString(
-      await openapiTS(requiredOnlyAllOfCallbackSchema() as any, {
-        [callback]: (_value: any, options: any) =>
-          options.path === "#/components/schemas/CompanyResource" ? replacement : undefined,
-      }),
-    );
-
-    expectTypeScriptSourceToCompile(`${result}
-        type Generated = paths["/companies"]["get"]["responses"][200]["content"]["application/json"];
-        const valid: Generated = { organization: 1, addresses: [], processingTypes: [] };
-        // @ts-expect-error WithRequiredObject reads the final callback-produced property type
-        const wrong: Generated = { organization: "value", addresses: [], processingTypes: [] };
-      `);
-  });
-
-  test("required-only allOf makes callback-removed component keys required unknown", async () => {
-    const replacement = ts.factory.createTypeLiteralNode([
-      ts.factory.createPropertySignature(
-        undefined,
-        "other",
-        undefined,
-        ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
-      ),
-    ]);
-    const result = astToString(
-      await openapiTS(requiredOnlyAllOfCallbackSchema() as any, {
-        transform: (_schema, options) =>
-          options.path === "#/components/schemas/CompanyResource" ? replacement : undefined,
-      }),
-    );
-
-    expectTypeScriptSourceToCompile(`${result}
-      type Generated = paths["/companies"]["get"]["responses"][200]["content"]["application/json"];
-      const valid: Generated = {
-        other: "value",
-        organization: 1,
-        addresses: "callback-defined",
-        processingTypes: null,
-      };
-      // @ts-expect-error removed keys remain required
-      const missing: Generated = { other: "value" };
-    `);
-  });
-
-  test.each([
-    ["primitive", ts.factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword), "1"],
-    ["null", ts.factory.createLiteralTypeNode(ts.factory.createNull()), "null"],
-    [
-      "array",
-      ts.factory.createArrayTypeNode(ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)),
-      '["value"]',
-    ],
-    [
-      "callable",
-      ts.factory.createFunctionTypeNode(undefined, [], ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)),
-      '() => "value"',
-    ],
-    [
-      "constructor",
-      ts.factory.createConstructorTypeNode(undefined, undefined, [], ts.factory.createTypeLiteralNode([])),
-      "class {}",
-    ],
-  ])("required-only allOf rejects a transformed %s component", async (_label, replacement, value) => {
-    const result = astToString(
-      await openapiTS(requiredOnlyAllOfCallbackSchema() as any, {
-        transform: (_schema, options) =>
-          options.path === "#/components/schemas/CompanyResource" ? replacement : undefined,
-      }),
-    );
-
-    expectTypeScriptSourceToCompile(`${result}
-      type Generated = paths["/companies"]["get"]["responses"][200]["content"]["application/json"];
-      // @ts-expect-error typed required constraint rejects non-object callback output
-      const invalid: Generated = ${value};
-    `);
-  });
-
-  test("required-only allOf distributes over a transformed object union", async () => {
-    const replacement = ts.factory.createUnionTypeNode([
-      ts.factory.createTypeLiteralNode([
-        ts.factory.createPropertySignature(
-          undefined,
-          "organization",
-          ts.factory.createToken(ts.SyntaxKind.QuestionToken),
-          ts.factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword),
-        ),
-      ]),
-      ts.factory.createTypeLiteralNode([
-        ts.factory.createPropertySignature(
-          undefined,
-          "other",
-          undefined,
-          ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
-        ),
-      ]),
-    ]);
-    const result = astToString(
-      await openapiTS(requiredOnlyAllOfCallbackSchema() as any, {
-        transform: (_schema, options) =>
-          options.path === "#/components/schemas/CompanyResource" ? replacement : undefined,
-      }),
-    );
-
-    expectTypeScriptSourceToCompile(`${result}
-      type Generated = paths["/companies"]["get"]["responses"][200]["content"]["application/json"];
-      const first: Generated = { organization: 1, addresses: [], processingTypes: [] };
-      const second: Generated = {
-        other: "value",
-        organization: "unknown",
-        addresses: "unknown",
-        processingTypes: "unknown",
-      };
-      // @ts-expect-error every distributed object branch requires every key
-      const missing: Generated = { other: "value" };
-    `);
-  });
-
-  test("required-only allOf constrains a postTransform replacement of the ref occurrence", async () => {
-    const result = astToString(
-      await openapiTS(requiredOnlyAllOfCallbackSchema() as any, {
-        postTransform: (type, options) =>
-          options.path?.includes("/paths/~1companies/get/responses/200") && ts.isIndexedAccessTypeNode(type)
-            ? ts.factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword)
-            : undefined,
-      }),
-    );
-
-    expectTypeScriptSourceToCompile(`${result}
-      type Generated = paths["/companies"]["get"]["responses"][200]["content"]["application/json"];
-      // @ts-expect-error the typed member still rejects a primitive ref-occurrence replacement
-      const invalid: Generated = 1;
-    `);
-  });
-
-  test("required-only allOf keeps every parent required key after component callbacks", async () => {
-    const schema = requiredOnlyAllOfCallbackSchema() as any;
-    const constrained = schema.paths["/companies"].get.responses[200].content["application/json"].schema;
-    constrained.required = ["callbackOnly", "missing"];
-    constrained.allOf[1].required = ["organization"];
-    const replacement = ts.factory.createTypeLiteralNode([
-      ts.factory.createPropertySignature(
-        undefined,
-        "organization",
-        ts.factory.createToken(ts.SyntaxKind.QuestionToken),
-        ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
-      ),
-      ts.factory.createPropertySignature(
-        undefined,
-        "callbackOnly",
-        ts.factory.createToken(ts.SyntaxKind.QuestionToken),
-        ts.factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword),
-      ),
-    ]);
-    const result = astToString(
-      await openapiTS(schema, {
-        transform: (_schema, options) =>
-          options.path === "#/components/schemas/CompanyResource" ? replacement : undefined,
-      }),
-    );
-
-    expect(result).toContain(
-      'WithRequiredObject<components["schemas"]["CompanyResource"], "callbackOnly" | "missing" | "organization">',
-    );
-    expectTypeScriptSourceToCompile(`${result}
-      type Generated = paths["/companies"]["get"]["responses"][200]["content"]["application/json"];
-      const valid: Generated = { organization: "value", callbackOnly: 1, missing: null };
-      // @ts-expect-error callbackOnly uses the callback-produced number type
-      const wrongCallbackType: Generated = { organization: "value", callbackOnly: "wrong", missing: null };
-      // @ts-expect-error a parent required key absent from both raw and callback properties is required unknown
-      const missingUnknownKey: Generated = { organization: "value", callbackOnly: 1 };
-    `);
-  });
-
-  test.each([
-    [
-      "array",
-      ts.factory.createArrayTypeNode(ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)),
-      '["value"]',
-    ],
-    ["primitive", ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword), '"value"'],
-  ])("plain parent required over callback-produced %s keeps legacy WithRequired", async (_label, replacement, value) => {
-    const schema = requiredOnlyAllOfCallbackSchema() as any;
-    const constrained = schema.paths["/companies"].get.responses[200].content["application/json"].schema;
-    constrained.required = ["length"];
-    constrained.allOf = [constrained.allOf[0]];
-    schema.components.schemas.CompanyResource = {
-      type: "object",
-      properties: { length: { type: "number" } },
-    };
-    const result = astToString(
-      await openapiTS(schema, {
-        transform: (_schema, options) =>
-          options.path === "#/components/schemas/CompanyResource" ? replacement : undefined,
-      }),
-    );
-
-    expect(result).toContain('WithRequired<components["schemas"]["CompanyResource"], "length">');
-    expect(result).not.toContain("WithRequiredObject");
-    expect(result).toContain("type WithRequired<T, K extends keyof T>");
-    expectTypeScriptSourceToCompile(`${result}
-      type Generated = paths["/companies"]["get"]["responses"][200]["content"]["application/json"];
-      const valid: Generated = ${value};
-    `);
-  });
-
-  test("required-only allOf helper preserves callback readonly, undefined, and index signatures", async () => {
-    const schema = requiredOnlyAllOfCallbackSchema() as any;
-    const constrained = schema.paths["/companies"].get.responses[200].content["application/json"].schema;
-    constrained.allOf[1].required = ["organization", "addresses"];
-    const stringOrUndefined = ts.factory.createUnionTypeNode([
-      ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
-      ts.factory.createKeywordTypeNode(ts.SyntaxKind.UndefinedKeyword),
-    ]);
-    const replacement = ts.factory.createTypeLiteralNode([
-      ts.factory.createPropertySignature(
-        [ts.factory.createModifier(ts.SyntaxKind.ReadonlyKeyword)],
-        "organization",
-        ts.factory.createToken(ts.SyntaxKind.QuestionToken),
-        ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
-      ),
-      ts.factory.createPropertySignature(
-        undefined,
-        "addresses",
-        ts.factory.createToken(ts.SyntaxKind.QuestionToken),
-        stringOrUndefined,
-      ),
-      ts.factory.createIndexSignature(
-        undefined,
-        [
-          ts.factory.createParameterDeclaration(
-            undefined,
-            undefined,
-            "key",
-            undefined,
-            ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
-          ),
-        ],
-        stringOrUndefined,
-      ),
-    ]);
-    const result = astToString(
-      await openapiTS(schema, {
-        transform: (_schema, options) =>
-          options.path === "#/components/schemas/CompanyResource" ? replacement : undefined,
-      }),
-    );
-
-    expectTypeScriptSourceToCompile(`${result}
-      type Generated = paths["/companies"]["get"]["responses"][200]["content"]["application/json"];
-      const valid: Generated = { organization: "value", addresses: undefined };
-      // @ts-expect-error implicit optional undefined is removed when made required
-      const implicitUndefined: Generated = { organization: undefined, addresses: undefined };
-      // @ts-expect-error readonly survives the required projection
-      valid.organization = "other";
-      // @ts-expect-error the callback-produced string index signature remains effective
-      const wrongIndex: Generated = { organization: "value", addresses: undefined, other: 1 };
-    `);
-  });
-
-  test.each([
-    ["alias", "type WithRequiredObject = unknown;"],
-    ["interface", "interface WithRequiredObject { caller: true }"],
-    ["class", "declare class WithRequiredObject {}"],
-    ["enum", "enum WithRequiredObject { Caller }"],
-    ["import", 'import type { paths as WithRequiredObject } from "./required-callback.test";'],
-  ])("required-only allOf uses anonymous fallback for public inject %s conflicts", async (_label, inject) => {
-    let sawOuterConditional = false;
-    const result = astToString(
-      await openapiTS(requiredOnlyAllOfCallbackSchema() as any, {
-        inject,
-        transform: () => undefined,
-        postTransform(type, options) {
-          if (options.path?.includes("/paths/~1companies/get/responses/200") && ts.isConditionalTypeNode(type)) {
-            sawOuterConditional = true;
-          }
-          return type;
+        assertions: `
+          // @ts-expect-error typed object constraint rejects primitives
+          const invalid: Generated = 1;
+        `,
+      },
+      {
+        name: "array replacement",
+        options: {
+          transform: (_schema, options) => (options.path === componentPath ? typeNode("string[]") : undefined),
         },
-      }),
-    );
+        assertions: `
+          // @ts-expect-error typed object constraint rejects arrays
+          const invalid: Generated = Object.assign([], {
+            organization: "org", addresses: [], processingTypes: [],
+          });
+        `,
+      },
+      {
+        name: "object union replacement",
+        options: { transform: (_schema, options) => (options.path === componentPath ? unionReplacement : undefined) },
+        assertions: `
+          const first: Generated = { organization: 1, addresses: [], processingTypes: [] };
+          const second: Generated = { other: "value", organization: null, addresses: true, processingTypes: 1 };
+          // @ts-expect-error every object branch requires every key
+          const missing: Generated = { other: "value" };
+        `,
+      },
+    ];
 
-    expect(result).not.toContain('WithRequiredObject<components["schemas"]["CompanyResource"]');
-    expect(result.match(/extends infer U \?/g)).toHaveLength(3);
-    expect(sawOuterConditional).toBe(true);
-    expectTypeScriptSourceToCompile(result);
+    for (const { name, options, assertions } of cases) {
+      const result = astToString(await openapiTS(requiredOnlyAllOfSchema() as any, options));
+      expectTypeScriptToCompile(
+        result,
+        `
+          type Generated = paths["/companies"]["get"]["responses"][200]["content"]["application/json"];
+          ${assertions}
+        `,
+      );
+      expect(result, name).not.toContain('components["schemas"]["CompanyResource"] & Record<string, never>');
+      if (name === "unrelated transform") {
+        const reference =
+          'WithRequiredObject<components["schemas"]["CompanyResource"], "organization" | "addresses" | "processingTypes">';
+        expect(result.split(reference)).toHaveLength(4);
+        expect(result.match(/type WithRequiredObject</g)).toHaveLength(1);
+      }
+    }
   });
 
   test.each([
+    ["public inject alias", { inject: "type WithRequiredObject = unknown;" }],
+    [
+      "public inject import",
+      {
+        inject: 'import type { components as WithRequiredObject } from "./generated.test.js";',
+      },
+    ],
     ["enum output", { enum: true }],
-    ["unprefixed root types", { rootTypes: true, rootTypesNoSchemaPrefix: true }],
-  ] as const)("required-only allOf uses anonymous fallback with %s", async (_label, fallbackOptions) => {
+    ["unprefixed root type", { rootTypes: true, rootTypesNoSchemaPrefix: true }],
+  ] satisfies [
+    string,
+    OpenAPITSOptions,
+  ][])("required-only allOf inlines for %s collisions", async (_name, collisionOptions) => {
     const result = astToString(
-      await openapiTS(requiredOnlyAllOfCallbackSchema() as any, {
-        ...fallbackOptions,
-        transform: () => undefined,
+      await openapiTS(requiredOnlyAllOfSchema() as any, {
+        ...collisionOptions,
+        transform: binaryTransform,
       }),
     );
-
-    expect(result).not.toContain("WithRequiredObject");
-    expect(result.match(/extends infer U \?/g)).toHaveLength(3);
-    expectTypeScriptSourceToCompile(result);
+    expect(result).not.toContain('WithRequiredObject<components["schemas"]["CompanyResource"]');
+    expect(result).not.toContain("type WithRequiredObject<T");
+    expectTypeScriptToCompile(result);
   });
 });
 
-function requiredOnlyAllOfCallbackSchema() {
+function requiredOnlyAllOfSchema() {
   const requiredResource = {
     allOf: [
       { $ref: "#/components/schemas/CompanyResource" },
@@ -2236,32 +1999,16 @@ function requiredOnlyAllOfCallbackSchema() {
           },
         },
         BinaryPayload: { type: "string", format: "binary" },
+        WithRequiredObject: { type: "string", enum: ["collision"] },
       },
     },
   } as const;
 }
 
-function expectTypeScriptSourceToCompile(source: string) {
-  const fileName = "/required-callback.test.ts";
-  const compilerOptions: ts.CompilerOptions = {
-    exactOptionalPropertyTypes: true,
-    module: ts.ModuleKind.ESNext,
-    moduleResolution: ts.ModuleResolutionKind.Bundler,
-    noEmit: true,
-    skipLibCheck: true,
-    strict: true,
-    target: ts.ScriptTarget.ESNext,
-  };
-  const host = ts.createCompilerHost(compilerOptions);
-  const sourceFile = ts.createSourceFile(fileName, source, ts.ScriptTarget.ESNext, true);
-  const getSourceFile = host.getSourceFile.bind(host);
-  host.getSourceFile = (name, languageVersion, onError, shouldCreateNewSourceFile) =>
-    name === fileName ? sourceFile : getSourceFile(name, languageVersion, onError, shouldCreateNewSourceFile);
-  const fileExists = host.fileExists.bind(host);
-  host.fileExists = (name) => name === fileName || fileExists(name);
-  const readFile = host.readFile.bind(host);
-  host.readFile = (name) => (name === fileName ? source : readFile(name));
+function binaryTransform(schemaObject: any) {
+  return schemaObject.format === "binary" ? BLOB : undefined;
+}
 
-  const diagnostics = ts.getPreEmitDiagnostics(ts.createProgram([fileName], compilerOptions, host));
-  expect(diagnostics.map((diagnostic) => ts.flattenDiagnosticMessageText(diagnostic.messageText, "\n"))).toEqual([]);
+function typeNode(source: string): ts.TypeNode {
+  return (stringToAST(`type Generated = ${source}`)[0] as ts.TypeAliasDeclaration).type;
 }

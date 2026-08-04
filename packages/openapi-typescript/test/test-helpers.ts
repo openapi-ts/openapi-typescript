@@ -1,4 +1,5 @@
 import { createConfig } from "@redocly/openapi-core";
+import ts from "typescript";
 import { resolveRef } from "../src/lib/utils.js";
 import type { GlobalContext, TransformNodeOptions } from "../src/types.js";
 
@@ -63,3 +64,30 @@ export type TestCase<T = any, O = TransformNodeOptions> = [
     ci?: { timeout?: number; skipIf?: boolean };
   },
 ];
+
+/** Compile generated TypeScript with the package's strict semantic expectations. */
+export function expectTypeScriptToCompile(source: string, extraSource = "") {
+  const fileName = "/generated.test.ts";
+  const contents = `${source}\n${extraSource}`;
+  const compilerOptions: ts.CompilerOptions = {
+    exactOptionalPropertyTypes: true,
+    module: ts.ModuleKind.ESNext,
+    moduleResolution: ts.ModuleResolutionKind.Bundler,
+    noEmit: true,
+    skipLibCheck: true,
+    strict: true,
+    target: ts.ScriptTarget.ESNext,
+  };
+  const host = ts.createCompilerHost(compilerOptions);
+  const sourceFile = ts.createSourceFile(fileName, contents, ts.ScriptTarget.ESNext, true);
+  const getSourceFile = host.getSourceFile.bind(host);
+  host.getSourceFile = (name, languageVersion, onError, shouldCreateNewSourceFile) =>
+    name === fileName ? sourceFile : getSourceFile(name, languageVersion, onError, shouldCreateNewSourceFile);
+  const fileExists = host.fileExists.bind(host);
+  host.fileExists = (name) => name === fileName || fileExists(name);
+  const readFile = host.readFile.bind(host);
+  host.readFile = (name) => (name === fileName ? contents : readFile(name));
+
+  const diagnostics = ts.getPreEmitDiagnostics(ts.createProgram([fileName], compilerOptions, host));
+  expect(diagnostics.map((diagnostic) => ts.flattenDiagnosticMessageText(diagnostic.messageText, "\n"))).toEqual([]);
+}
