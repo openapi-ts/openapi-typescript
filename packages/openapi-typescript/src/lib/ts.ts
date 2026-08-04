@@ -597,6 +597,76 @@ export function tsWithRequired(
   ]);
 }
 
+// Keep one canonical AST so named output and the collision-safe inline fallback cannot drift semantically.
+const WITH_REQUIRED_OBJECT =
+  stringToAST(`type WithRequiredObject<T, K extends string | number | symbol> = T extends infer U
+  ? unknown extends U
+    ? { [P in K]-?: unknown }
+    : U extends readonly unknown[]
+      ? never
+      : U extends (...args: never[]) => unknown
+        ? never
+        : U extends abstract new (...args: never[]) => unknown
+          ? never
+          : U extends object
+            ? U & {
+                [P in K]-?: P extends keyof U
+                  ? { [Q in keyof U]-?: U[Q] }[P]
+                  : unknown
+              }
+            : never
+  : never;`)[0] as ts.TypeAliasDeclaration;
+
+export function isWithRequiredObjectHelper(node: ts.Node): boolean {
+  return node === WITH_REQUIRED_OBJECT;
+}
+
+/**
+ * Create a WithRequiredObject<X, Y> type for exact object constraints.
+ * Structural callables and constructors are rejected; nominal Function remains object-like.
+ */
+export function tsWithRequiredObject(
+  type: ts.TypeNode,
+  keys: string[],
+  injectFooter: ts.Node[],
+  inline = false,
+): ts.TypeNode {
+  if (keys.length === 0) {
+    return type;
+  }
+
+  const keyType = tsUnion(keys.map((key) => tsLiteral(key)));
+  if (inline) {
+    // Substitute only the helper's free T/K parameters; U/P/Q remain local binders in the conditional type.
+    const result = ts.transform(WITH_REQUIRED_OBJECT.type, [
+      (context) => (rootNode) => {
+        const visit = (node: ts.Node): ts.VisitResult<ts.Node> => {
+          if (ts.isTypeReferenceNode(node) && ts.isIdentifier(node.typeName)) {
+            if (node.typeName.text === "T") {
+              return type;
+            }
+            if (node.typeName.text === "K") {
+              return keyType;
+            }
+          }
+          return ts.visitEachChild(node, visit, context);
+        };
+        return ts.visitNode(rootNode, visit) as ts.TypeNode;
+      },
+    ]);
+    const transformed = result.transformed[0];
+    result.dispose();
+    return transformed;
+  }
+
+  // Helper names follow the existing fixed-name injection convention.
+  if (!injectFooter.some((node) => ts.isTypeAliasDeclaration(node) && node.name.escapedText === "WithRequiredObject")) {
+    injectFooter.push(WITH_REQUIRED_OBJECT);
+  }
+
+  return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("WithRequiredObject"), [type, keyType]);
+}
+
 /**
  * Enhanced ReadonlyArray.
  * eg: type Foo = ReadonlyArray<T>; type Bar = ReadonlyArray<T[]>

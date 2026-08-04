@@ -1,8 +1,8 @@
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
-import openapiTS, { astToString, COMMENT_HEADER } from "../src/index.js";
+import openapiTS, { astToString, COMMENT_HEADER, stringToAST } from "../src/index.js";
 import type { OpenAPITSOptions } from "../src/types.js";
-import type { TestCase } from "./test-helpers.js";
+import { expectTypeScriptToCompile, type TestCase } from "./test-helpers.js";
 
 const EXAMPLES_DIR = new URL("../examples/", import.meta.url);
 
@@ -1819,4 +1819,196 @@ export type operations = Record<string, never>;`,
       ci?.timeout || 5000,
     );
   }
+  test("required-only allOf public output compiles across callback modes", async () => {
+    const componentPath = "#/components/schemas/CompanyResource";
+    const objectReplacement = typeNode(`{
+      organization?: number;
+      addresses?: string[];
+      processingTypes?: string[];
+    }`);
+    const missingReplacement = typeNode("{ other: string }");
+    const unionReplacement = typeNode("{ organization?: number } | { other: string }");
+    const standardAssertions = `
+      const valid: Generated = { organization: "org", addresses: [], processingTypes: [] };
+      // @ts-expect-error all required-only keys are required
+      const missing: Generated = { organization: "org" };
+    `;
+    const cases: { name: string; options: OpenAPITSOptions; assertions: string }[] = [
+      { name: "no callback", options: {}, assertions: standardAssertions },
+      { name: "unrelated transform", options: { transform: binaryTransform }, assertions: standardAssertions },
+      { name: "identity postTransform", options: { postTransform: (type) => type }, assertions: standardAssertions },
+      {
+        name: "component transform replacement",
+        options: { transform: (_schema, options) => (options.path === componentPath ? objectReplacement : undefined) },
+        assertions: `
+          const valid: Generated = { organization: 1, addresses: [], processingTypes: [] };
+          // @ts-expect-error callback-produced property types are retained
+          const wrong: Generated = { organization: "org", addresses: [], processingTypes: [] };
+        `,
+      },
+      {
+        name: "component postTransform replacement",
+        options: {
+          postTransform: (_type, options) => (options.path === componentPath ? objectReplacement : undefined),
+        },
+        assertions: `
+          const valid: Generated = { organization: 1, addresses: [], processingTypes: [] };
+          // @ts-expect-error postTransform-produced property types are retained
+          const wrong: Generated = { organization: "org", addresses: [], processingTypes: [] };
+        `,
+      },
+      {
+        name: "callback-removed keys",
+        options: { transform: (_schema, options) => (options.path === componentPath ? missingReplacement : undefined) },
+        assertions: `
+          const valid: Generated = { other: "value", organization: 1, addresses: null, processingTypes: true };
+          // @ts-expect-error removed keys remain required as unknown
+          const missing: Generated = { other: "value" };
+        `,
+      },
+      {
+        name: "primitive replacement",
+        options: {
+          transform: (_schema, options) =>
+            options.path === componentPath ? ts.factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword) : undefined,
+        },
+        assertions: `
+          // @ts-expect-error typed object constraint rejects primitives
+          const invalid: Generated = 1;
+        `,
+      },
+      {
+        name: "array replacement",
+        options: {
+          transform: (_schema, options) => (options.path === componentPath ? typeNode("string[]") : undefined),
+        },
+        assertions: `
+          // @ts-expect-error typed object constraint rejects arrays
+          const invalid: Generated = Object.assign([], {
+            organization: "org", addresses: [], processingTypes: [],
+          });
+        `,
+      },
+      {
+        name: "object union replacement",
+        options: { transform: (_schema, options) => (options.path === componentPath ? unionReplacement : undefined) },
+        assertions: `
+          const first: Generated = { organization: 1, addresses: [], processingTypes: [] };
+          const second: Generated = { other: "value", organization: null, addresses: true, processingTypes: 1 };
+          // @ts-expect-error every object branch requires every key
+          const missing: Generated = { other: "value" };
+        `,
+      },
+    ];
+
+    for (const { name, options, assertions } of cases) {
+      const result = astToString(await openapiTS(requiredOnlyAllOfSchema() as any, options));
+      expectTypeScriptToCompile(
+        result,
+        `
+          type Generated = paths["/companies"]["get"]["responses"][200]["content"]["application/json"];
+          ${assertions}
+        `,
+      );
+      expect(result, name).not.toContain('components["schemas"]["CompanyResource"] & Record<string, never>');
+      if (name === "unrelated transform") {
+        const reference =
+          'WithRequiredObject<components["schemas"]["CompanyResource"], "organization" | "addresses" | "processingTypes">';
+        expect(result.split(reference)).toHaveLength(4);
+        expect(result.match(/type WithRequiredObject</g)).toHaveLength(1);
+      }
+    }
+  });
+
+  test.each([
+    ["public inject alias", { inject: "type WithRequiredObject = unknown;" }],
+    [
+      "public inject import",
+      {
+        inject: 'import type { components as WithRequiredObject } from "./generated.test.js";',
+      },
+    ],
+    ["enum output", { enum: true }],
+    ["unprefixed root type", { rootTypes: true, rootTypesNoSchemaPrefix: true }],
+  ] satisfies [
+    string,
+    OpenAPITSOptions,
+  ][])("required-only allOf inlines for %s collisions", async (_name, collisionOptions) => {
+    const result = astToString(
+      await openapiTS(requiredOnlyAllOfSchema() as any, {
+        ...collisionOptions,
+        transform: binaryTransform,
+      }),
+    );
+    expect(result).not.toContain('WithRequiredObject<components["schemas"]["CompanyResource"]');
+    expect(result).not.toContain("type WithRequiredObject<T");
+    expectTypeScriptToCompile(result);
+  });
 });
+
+function requiredOnlyAllOfSchema() {
+  const requiredResource = {
+    allOf: [
+      { $ref: "#/components/schemas/CompanyResource" },
+      { type: "object", required: ["organization", "addresses", "processingTypes"] },
+    ],
+  };
+  return {
+    openapi: "3.1.0",
+    info: { title: "Required callback", version: "1.0.0" },
+    paths: {
+      "/companies": {
+        get: {
+          responses: {
+            200: {
+              description: "Company",
+              content: { "application/json": { schema: requiredResource } },
+            },
+          },
+        },
+      },
+      "/companies/{company}": {
+        get: {
+          responses: {
+            200: {
+              description: "Company",
+              content: { "application/json": { schema: requiredResource } },
+            },
+          },
+        },
+      },
+      "/companies/{company}/claim": {
+        post: {
+          responses: {
+            200: {
+              description: "Company",
+              content: { "application/json": { schema: requiredResource } },
+            },
+          },
+        },
+      },
+    },
+    components: {
+      schemas: {
+        CompanyResource: {
+          type: "object",
+          properties: {
+            organization: { type: "string" },
+            addresses: { type: "array", items: { type: "string" } },
+            processingTypes: { type: "array", items: { type: "string" } },
+          },
+        },
+        BinaryPayload: { type: "string", format: "binary" },
+        WithRequiredObject: { type: "string", enum: ["collision"] },
+      },
+    },
+  } as const;
+}
+
+function binaryTransform(schemaObject: any) {
+  return schemaObject.format === "binary" ? BLOB : undefined;
+}
+
+function typeNode(source: string): ts.TypeNode {
+  return (stringToAST(`type Generated = ${source}`)[0] as ts.TypeAliasDeclaration).type;
+}
