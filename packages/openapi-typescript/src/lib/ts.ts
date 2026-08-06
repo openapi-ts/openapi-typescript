@@ -406,8 +406,10 @@ function sanitizeMemberName(name: string) {
 
 /** Sanitize TS enum member expression */
 export function tsEnumMember(value: string | number, metadata: { name?: string; description?: string | null } = {}) {
-  let name = metadata.name ?? String(value);
-  if (!JS_PROPERTY_INDEX_RE.test(name)) {
+  let name: string | ts.StringLiteral = metadata.name ?? String(value);
+  if (name === "") {
+    name = ts.factory.createStringLiteral(name);
+  } else if (!JS_PROPERTY_INDEX_RE.test(name)) {
     if (Number(name[0]) >= 0) {
       name = `Value${name}`.replace(".", "_"); // don't forged decimals;
     } else if (name[0] === "-") {
