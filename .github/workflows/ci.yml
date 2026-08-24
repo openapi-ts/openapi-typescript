@@ -39,6 +39,9 @@ jobs:
       - run: pnpm test
   test-e2e:
     runs-on: ubuntu-latest
+    # Browser installation has hung indefinitely before (microsoft/playwright#40724).
+    # Without a timeout, a hung job burns the full 6h runner limit before being killed.
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
