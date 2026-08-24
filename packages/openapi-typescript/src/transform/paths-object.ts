@@ -10,7 +10,7 @@ import type {
   PathsObject,
   ReferenceObject,
 } from "../types.js";
-import transformPathItemObject, { type Method } from "./path-item-object.js";
+import transformPathItemObject, { METHODS } from "./path-item-object.js";
 
 const PATH_PARAM_RE = /\{[^}]+\}/g;
 
@@ -114,7 +114,7 @@ function extractPathParams(pathItemObject: PathItemObject, ctx: GlobalContext) {
       params[resolved.name] = resolved;
     }
   }
-  for (const method of ["get", "put", "post", "delete", "options", "head", "patch", "trace"] as Method[]) {
+  for (const method of METHODS) {
     if (!(method in pathItemObject)) {
       continue;
     }

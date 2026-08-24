@@ -43,6 +43,46 @@ client.GET("/my-url", options);
 | `middleware`      | `Middleware[]`                                                    | [See docs](/openapi-fetch/middleware-auth)                                                                                                                                                                                        |
 | (Fetch options)   |                                                                   | Any valid fetch option (`headers`, `mode`, `cache`, `signal`, …) ([docs](https://developer.mozilla.org/en-US/docs/Web/API/fetch#options))                                                                                         |
 
+## Request methods
+
+A client exposes one method per HTTP verb: `.GET()`, `.PUT()`, `.POST()`, `.DELETE()`, `.OPTIONS()`, `.HEAD()`, `.PATCH()`, `.TRACE()`, and `.QUERY()`. Each one is typed against the operations your schema declares for that verb, so only the paths that actually support a verb are accepted.
+
+### QUERY
+
+[QUERY](https://www.rfc-editor.org/rfc/rfc10008) is a safe, idempotent method that carries a request body — it fills the gap between `GET` (no body) and `POST` (neither safe nor idempotent), and is useful for searches whose parameters are too large or too structured for a URL.
+
+`query` is recognised as a path item verb in [OpenAPI 3.2](https://spec.openapis.org/oas/v3.2.0.html#path-item-object):
+
+```yaml
+paths:
+  /resources:
+    query:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ids:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        200:
+          description: OK
+```
+
+```ts
+const { data, error } = await client.QUERY("/resources", {
+  body: { ids: [1, 2, 3] },
+});
+```
+
+Because QUERY is safe and idempotent, sending the same request twice must be equivalent to sending it once. openapi-fetch keeps that guarantee: it adds no per-request state of its own, and it does not read or mutate the `body` and `params` you pass in, so the same options object can be reused across retries.
+
+Note that support is only as good as the runtime and the server. `QUERY` requests are constructed with the standard `Request` API, so any environment that rejects the verb (or any intermediary that doesn't forward it) will fail the request.
+
 ## wrapAsPathBasedClient
 
 **wrapAsPathBasedClient** wraps the result of `createClient()` to return a [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)-based client that allows path-indexed calls:

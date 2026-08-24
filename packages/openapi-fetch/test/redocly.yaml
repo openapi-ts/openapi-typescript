@@ -37,6 +37,10 @@ apis:
     root: ./http-methods/schemas/trace.yaml
     x-openapi-ts:
       output: ./http-methods/schemas/trace.d.ts
+  http-query:
+    root: ./http-methods/schemas/query.yaml
+    x-openapi-ts:
+      output: ./http-methods/schemas/query.d.ts
   middleware:
     root: ./middleware/schemas/middleware.yaml
     x-openapi-ts:

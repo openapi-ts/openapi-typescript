@@ -11,7 +11,19 @@ import type {
 import transformOperationObject, { injectOperationObject } from "./operation-object.js";
 import { transformParametersArray } from "./parameters-array.js";
 
-export type Method = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
+export type Method = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace" | "query";
+
+/**
+ * Methods emitted on every Path Item Object (absent ones are emitted as `never`).
+ *
+ * `query` (RFC 10008) is deliberately left out: it was only introduced in OpenAPI 3.2,
+ * so it’s emitted for the Path Items that declare it rather than added to every Path
+ * Item of every document.
+ */
+const ALWAYS_EMITTED_METHODS = ["get", "put", "post", "delete", "options", "head", "patch", "trace"] as const;
+
+/** Every method a Path Item Object may declare */
+export const METHODS = [...ALWAYS_EMITTED_METHODS, "query"] as const satisfies readonly Method[];
 
 /**
  * Transform PathItem nodes (4.8.9)
@@ -29,7 +41,9 @@ export default function transformPathItemObject(pathItem: PathItemObject, option
   );
 
   // methods
-  for (const method of ["get", "put", "post", "delete", "options", "head", "patch", "trace"] as Method[]) {
+  const methods: readonly Method[] = "query" in pathItem ? METHODS : ALWAYS_EMITTED_METHODS;
+
+  for (const method of methods) {
     const operationObject = pathItem[method];
     if (
       !operationObject ||

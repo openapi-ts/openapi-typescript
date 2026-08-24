@@ -2,6 +2,7 @@ import type ts from "typescript";
 import { tsEnum } from "../lib/ts.js";
 import { getEntries } from "../lib/utils.js";
 import type { PathsObject } from "../types.js";
+import { METHODS } from "./path-item-object.js";
 
 export default function makeApiPathsEnum(pathsObject: PathsObject): ts.EnumDeclaration {
   const enumKeys = [];
@@ -9,7 +10,7 @@ export default function makeApiPathsEnum(pathsObject: PathsObject): ts.EnumDecla
 
   for (const [url, pathItemObject] of getEntries(pathsObject)) {
     for (const [method, operation] of Object.entries(pathItemObject)) {
-      if (!["get", "put", "post", "delete", "options", "head", "patch", "trace"].includes(method)) {
+      if (!(METHODS as readonly string[]).includes(method)) {
         continue;
       }
 

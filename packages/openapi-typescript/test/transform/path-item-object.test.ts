@@ -419,8 +419,58 @@ describe("transformPathItemObject", () => {
 }`,
       },
     ],
+    [
+      "query > RFC 10008",
+      {
+        given: {
+          query: {
+            description: "Basic QUERY",
+            requestBody: {
+              content: {
+                "application/json": { $ref: "#/components/schemas/User" },
+              },
+            },
+            responses: {
+              200: { $ref: "#/components/responses/AllGood" },
+            },
+          },
+        },
+        want: `{
+    parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+    /** @description Basic QUERY */
+    query: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: {
+            content: {
+                "application/json": components["schemas"]["User"];
+            };
+        };
+        responses: {
+            200: components["responses"]["AllGood"];
+        };
+    };
+}`,
+      },
+    ],
   ];
-
   for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
     test.skipIf(ci?.skipIf)(
       testName,

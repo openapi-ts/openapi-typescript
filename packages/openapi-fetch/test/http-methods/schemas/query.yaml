@@ -1,0 +1,77 @@
+openapi: 3.1.0
+info:
+  title: openapi-fetch
+  version: "1.0"
+paths:
+  /resources/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    query:
+      requestBody:
+        $ref: "#/components/requestBodies/QueryPayload"
+      responses:
+        200:
+          $ref: "#/components/responses/QueryResult"
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /resources-optional:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    query:
+      requestBody:
+        $ref: "#/components/requestBodies/QueryPayloadOptional"
+      responses:
+        200:
+          $ref: "#/components/responses/QueryResult"
+components:
+  requestBodies:
+    QueryPayload:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/QueryPayload"
+    QueryPayloadOptional:
+      required: false
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/QueryPayload"
+  responses:
+    QueryResult:
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+              data:
+                type: array
+                items:
+                  type: object
+  schemas:
+    QueryPayload:
+      type: object
+      required: [ids]
+      properties:
+        ids:
+          type: array
+          items:
+            type: integer
