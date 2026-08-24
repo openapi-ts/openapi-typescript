@@ -231,6 +231,14 @@ export interface Client<Paths extends {}, Media extends MediaType = MediaType> {
   request: ClientRequestMethod<Paths, Media>;
   /** Call a GET endpoint */
   GET: ClientMethod<Paths, "get", Media>;
+  /**
+   * Call a QUERY endpoint
+   *
+   * QUERY is safe and idempotent (RFC 10008): unlike POST it may be retried or
+   * cached, and unlike GET it carries a request body.
+   * @see https://www.rfc-editor.org/rfc/rfc10008
+   */
+  QUERY: ClientMethod<Paths, "query", Media>;
   /** Call a PUT endpoint */
   PUT: ClientMethod<Paths, "put", Media>;
   /** Call a POST endpoint */

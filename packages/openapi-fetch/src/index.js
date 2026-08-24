@@ -287,6 +287,13 @@ export default function createClient(clientOptions) {
     GET(url, init) {
       return coreFetch(url, { ...init, method: "GET" });
     },
+    /**
+     * Call a QUERY endpoint
+     * @see https://www.rfc-editor.org/rfc/rfc10008 (safe & idempotent; carries a request body)
+     */
+    QUERY(url, init) {
+      return coreFetch(url, { ...init, method: "QUERY" });
+    },
     /** Call a PUT endpoint */
     PUT(url, init) {
       return coreFetch(url, { ...init, method: "PUT" });
@@ -347,6 +354,9 @@ class PathCallForwarder {
 
   GET = (init) => {
     return this.client.GET(this.url, init);
+  };
+  QUERY = (init) => {
+    return this.client.QUERY(this.url, init);
   };
   PUT = (init) => {
     return this.client.PUT(this.url, init);
