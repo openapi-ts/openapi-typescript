@@ -54,6 +54,50 @@ describe("composition", () => {
       },
     ],
     [
+      "polymorphic > anyOf + nullable",
+      {
+        given: {
+          type: ["string", "null"],
+          anyOf: [{ type: "string", format: "ipv4" }, { type: "string", format: "ipv6" }, { type: "null" }],
+        },
+        want: "(string | null) | string | null",
+        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "polymorphic > allOf + nullable",
+      {
+        given: {
+          type: ["string", "null"],
+          allOf: [{ type: "string" }],
+        },
+        want: "(string | null) & string",
+        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "polymorphic > anyOf + nullable object",
+      {
+        given: {
+          type: ["null", "object"],
+          anyOf: [
+            { type: "object", properties: { a: { type: "string" } } },
+            { type: "object", properties: { b: { type: "string" } } },
+          ],
+        },
+        want: `(null | ({
+    a?: string;
+} | {
+    b?: string;
+})) | {
+    a?: string;
+} | {
+    b?: string;
+}`,
+        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
       "oneOf > primitives",
       {
         given: { oneOf: [{ type: "string" }, { type: "number" }] },

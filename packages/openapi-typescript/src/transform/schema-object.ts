@@ -489,7 +489,18 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
           if (t === "null" || t === null) {
             uniqueTypes.push(NULL);
           } else {
-            uniqueTypes.push(transformSchemaObject({ ...schemaObject, type: t } as SchemaObject, options));
+            // 'type' alone fully describes a primitive member, so re-running anyOf/allOf
+            // here only stacks the composition the caller already applies. object/array
+            // members keep it: there, composition is what carries the shape.
+            const stackable = t === "object" || t === "array";
+            uniqueTypes.push(
+              transformSchemaObject(
+                (stackable
+                  ? { ...schemaObject, type: t }
+                  : { ...schemaObject, type: t, anyOf: undefined, allOf: undefined }) as SchemaObject,
+                options,
+              ),
+            );
           }
         }
       }
