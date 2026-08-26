@@ -73,7 +73,7 @@
   "devDependencies": {
     "@types/degit": "2.8.6",
     "@types/js-yaml": "4.0.9",
-    "degit": "2.8.4",
+    "degit": "2.8.6",
     "execa": "catalog:",
     "strip-ansi": "7.2.0",
     "typescript": "catalog:",
