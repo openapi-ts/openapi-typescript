@@ -76,6 +76,40 @@ describe("composition", () => {
       },
     ],
     [
+      "polymorphic > allOf + nullable, multiple members",
+      {
+        given: {
+          type: ["string", "null"],
+          allOf: [{ type: "string" }, { type: "string", format: "uuid" }],
+        },
+        want: "(string | null) & (string)",
+        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "polymorphic > anyOf + nullable array",
+      {
+        given: {
+          type: ["array", "null"],
+          anyOf: [{ type: "array", items: { type: "string" } }],
+        },
+        want: "((unknown[] | string[]) | null) | string[]",
+        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
+      "polymorphic > oneOf + allOf + nullable",
+      {
+        given: {
+          type: ["string", "null"],
+          oneOf: [{ type: "number" }],
+          allOf: [{ type: "string" }],
+        },
+        want: "((string | null) & string) | number",
+        // options: DEFAULT_OPTIONS,
+      },
+    ],
+    [
       "polymorphic > anyOf + nullable object",
       {
         given: {
