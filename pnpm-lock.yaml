@@ -269,8 +269,8 @@ importers:
         specifier: 4.0.9
         version: 4.0.9
       degit:
-        specifier: 2.8.4
-        version: 2.8.4
+        specifier: 2.8.6
+        version: 2.8.6
       execa:
         specifier: 'catalog:'
         version: 9.6.1
@@ -540,9 +540,11 @@ packages:
 
   '@blgc/types@0.0.22':
     resolution: {integrity: sha512-BCW/N9/Z0KpakL9iT2hi49U//lAQGWU5GcK724BZ1NdmjQsXsJQfimCOOcrvjEuSY+mBUexpzx3ngXBmMJOnUg==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@blgc/utils@0.0.62':
     resolution: {integrity: sha512-5hLMykKIrZs2FoGW/vE50A5btgM5szJF/nWmPbA6io0wKAHYusvksAB+hh4YkudjX+VBlC7k/Ii3SgXw+RjjLQ==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@braidai/lang@1.1.2':
     resolution: {integrity: sha512-qBcknbBufNHlui137Hft8xauQMTZDKdophmLFv05r2eNmdIv/MlPuP4TdUknHG68UdWLgVZwgxVe735HzJNIwA==}
@@ -2029,6 +2031,7 @@ packages:
 
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
+    deprecated: Potential CWE-502 - Update to 1.3.1 or higher
 
   '@vitejs/plugin-react@5.2.0':
     resolution: {integrity: sha512-YmKkfhOAi3wsB1PhJq5Scj3GXMn3WvtQ/JC0xoopuHoXSdmtdStOpFrYaT1kie2YgFBcIe64ROzMYRjCrYOdYw==}
@@ -2593,8 +2596,8 @@ packages:
   defu@6.1.4:
     resolution: {integrity: sha512-mEQCMmwJu317oSz8CwdIOdwf3xMif1ttiM8LTufzc3g6kR+9Pe236twL8j3IYT1F7GfRgGcW6MWxzZjLIkuHIg==}
 
-  degit@2.8.4:
-    resolution: {integrity: sha512-vqYuzmSA5I50J882jd+AbAhQtgK6bdKUJIex1JNfEUPENCgYsxugzKVZlFyMwV4i06MmnV47/Iqi5Io86zf3Ng==}
+  degit@2.8.6:
+    resolution: {integrity: sha512-UzjEf67itNZtQF4ZFSNYT+JY78VKtkRJPnksn1tVDAX74Ar0zMqnB5UvsiAjIOBiIHv3BbAPCEJDn/zasbV5rw==}
     engines: {node: '>=8.0.0'}
     hasBin: true
 
@@ -6675,7 +6678,7 @@ snapshots:
 
   defu@6.1.4: {}
 
-  degit@2.8.4: {}
+  degit@2.8.6: {}
 
   delayed-stream@1.0.0: {}
 
