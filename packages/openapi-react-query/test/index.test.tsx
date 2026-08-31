@@ -430,6 +430,24 @@ describe("client", () => {
       expect(data).toBeNull();
     });
 
+    it("should propagate undefined errors from empty non-OK responses", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/string-array",
+        status: 500,
+        headers: {
+          "Content-Length": "0",
+        },
+        body: undefined,
+      });
+
+      await expect(queryClient.fetchQuery(client.queryOptions("get", "/string-array"))).rejects.toBeUndefined();
+    });
+
     it("should infer correct data and error type", async () => {
       const fetchClient = createFetchClient<paths>({ baseUrl, fetch: fetchInfinite });
       const client = createClient(fetchClient);
@@ -847,10 +865,10 @@ describe("client", () => {
           () =>
             client.useMutation("put", "/comment", {
               onMutate: () => onMutateReturnValue,
-              onError: (err, _, onMutateResult, context) => {
+              onError: (_err, _, onMutateResult, _context) => {
                 assertType<expectedOnMutateResultType>(onMutateResult);
               },
-              onSettled: (_data, _error, _variables, onMutateResult, context) => {
+              onSettled: (_data, _error, _variables, onMutateResult, _context) => {
                 assertType<expectedOnMutateResultType>(onMutateResult);
               },
             }),
@@ -900,6 +918,28 @@ describe("client", () => {
         });
 
         await expect(result.current.mutateAsync({ body: { message: "Hello", replied_at: 0 } })).rejects.toThrow();
+      });
+
+      it("should propagate undefined errors from empty non-OK responses", async () => {
+        const fetchClient = createFetchClient<paths>({ baseUrl });
+        const client = createClient(fetchClient);
+
+        useMockRequestHandler({
+          baseUrl,
+          method: "put",
+          path: "/comment",
+          status: 500,
+          headers: {
+            "Content-Length": "0",
+          },
+          body: undefined,
+        });
+
+        const { result } = renderHook(() => client.useMutation("put", "/comment"), {
+          wrapper,
+        });
+
+        await expect(result.current.mutateAsync({ body: { message: "Hello", replied_at: 0 } })).rejects.toBeUndefined();
       });
 
       it("should use provided custom queryClient", async () => {
@@ -1082,7 +1122,7 @@ describe("client", () => {
       expect(firstRequestUrl?.searchParams.get("cursor")).toBe("0");
 
       // Set up mock for second page before triggering next page fetch
-      const secondRequestHandler = useMockRequestHandler({
+      const _secondRequestHandler = useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/paginated-data",
@@ -1209,7 +1249,7 @@ describe("client", () => {
       const client = createClient(fetchClient);
 
       // First page request handler
-      const firstRequestHandler = useMockRequestHandler({
+      const _firstRequestHandler = useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/paginated-data",
@@ -1245,7 +1285,7 @@ describe("client", () => {
       expect(result.current.data).toEqual([1, 2, 3]);
 
       // Set up mock for second page before triggering next page fetch
-      const secondRequestHandler = useMockRequestHandler({
+      const _secondRequestHandler = useMockRequestHandler({
         baseUrl,
         method: "get",
         path: "/paginated-data",
@@ -1267,6 +1307,47 @@ describe("client", () => {
       });
 
       expect(result.current.data).toEqual([1, 2, 3, 4, 5, 6]);
+    });
+
+    it("should propagate undefined errors from empty non-OK responses", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/paginated-data",
+        status: 500,
+        headers: {
+          "Content-Length": "0",
+        },
+        body: undefined,
+      });
+
+      const { result } = renderHook(
+        () =>
+          client.useInfiniteQuery(
+            "get",
+            "/paginated-data",
+            {
+              params: {
+                query: {
+                  limit: 3,
+                },
+              },
+            },
+            {
+              getNextPageParam: (lastPage) => lastPage.nextPage,
+              initialPageParam: 0,
+            },
+          ),
+        { wrapper },
+      );
+
+      await waitFor(() => expect(result.current.isError).toBe(true));
+
+      expect(result.current.error).toBeUndefined();
+      expect(result.current.data).toBeUndefined();
     });
   });
 });
