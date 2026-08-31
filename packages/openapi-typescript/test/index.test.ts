@@ -590,18 +590,18 @@ export interface components {
             rootDef?: $defs["StringType"];
             nestedDef?: components["schemas"]["OtherObject"]["$defs"]["nestedDef"];
             remoteDef?: components["schemas"]["remoteDef"];
-            $defs: {
+            $defs?: {
                 hasDefs: boolean;
             };
         };
         ArrayOfDefs: $defs["StringType"][];
         OtherObject: {
-            $defs: {
+            $defs?: {
                 nestedDef: boolean;
             };
         };
         RemoteDefs: {
-            $defs: {
+            $defs?: {
                 remoteDef: components["schemas"]["remoteDef"];
             };
         };
