@@ -30,6 +30,9 @@ import type { HttpMethod, MediaType, PathsWithMethod, RequiredKeysOf } from "ope
 type InferSelectReturnType<TData, TSelect> = TSelect extends (data: TData) => infer R ? R : TData;
 
 type InitWithUnknowns<Init> = Init & { [key: string]: unknown };
+// Keep arbitrary fetch init fields while reserving options for React Query itself.
+type QueryInit<Init> = InitWithUnknowns<Init> & { [Key in keyof UseQueryOptions]?: never };
+type InfiniteQueryInit<Init> = InitWithUnknowns<Init> & { [Key in keyof UseInfiniteQueryOptions]?: never };
 
 export type QueryKey<
   Paths extends Record<string, Record<HttpMethod, {}>>,
@@ -55,9 +58,7 @@ export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod,
 >(
   method: Method,
   path: Path,
-  ...[init, options]: RequiredKeysOf<Init> extends never
-    ? [InitWithUnknowns<Init>?, Options?]
-    : [InitWithUnknowns<Init>, Options?]
+  ...[init, options]: RequiredKeysOf<Init> extends never ? [QueryInit<Init>?, Options?] : [QueryInit<Init>, Options?]
 ) => NoInfer<
   Omit<
     UseQueryOptions<
@@ -99,8 +100,8 @@ export type UseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>,
   method: Method,
   url: Path,
   ...[init, options, queryClient]: RequiredKeysOf<Init> extends never
-    ? [InitWithUnknowns<Init>?, Options?, QueryClient?]
-    : [InitWithUnknowns<Init>, Options?, QueryClient?]
+    ? [QueryInit<Init>?, Options?, QueryClient?]
+    : [QueryInit<Init>, Options?, QueryClient?]
 ) => UseQueryResult<InferSelectReturnType<Response["data"], Options["select"]>, Response["error"]>;
 
 export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
@@ -123,7 +124,7 @@ export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMetho
 >(
   method: Method,
   url: Path,
-  init: InitWithUnknowns<Init>,
+  init: InfiniteQueryInit<Init>,
   options: Options,
   queryClient?: QueryClient,
 ) => UseInfiniteQueryResult<
@@ -149,8 +150,8 @@ export type UseSuspenseQueryMethod<Paths extends Record<string, Record<HttpMetho
   method: Method,
   url: Path,
   ...[init, options, queryClient]: RequiredKeysOf<Init> extends never
-    ? [InitWithUnknowns<Init>?, Options?, QueryClient?]
-    : [InitWithUnknowns<Init>, Options?, QueryClient?]
+    ? [QueryInit<Init>?, Options?, QueryClient?]
+    : [QueryInit<Init>, Options?, QueryClient?]
 ) => UseSuspenseQueryResult<InferSelectReturnType<Response["data"], Options["select"]>, Response["error"]>;
 
 export type UseMutationMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
