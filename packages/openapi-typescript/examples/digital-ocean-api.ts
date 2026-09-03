@@ -7065,7 +7065,7 @@ export interface components {
             total?: number;
         };
         meta: {
-            meta: components["schemas"]["meta_properties"] & unknown;
+            meta: WithRequired<components["schemas"]["meta_properties"], "total">;
         };
         region: {
             /**
@@ -7775,8 +7775,8 @@ export interface components {
              */
             grace_period_seconds?: number;
         };
-        app_service_spec: components["schemas"]["app_component_base"] & components["schemas"]["app_component_instance_base"] & {
-            cors?: components["schemas"]["apps_cors_policy"] & unknown & unknown;
+        app_service_spec: WithRequired<components["schemas"]["app_component_base"], "name"> & components["schemas"]["app_component_instance_base"] & {
+            cors?: components["schemas"]["apps_cors_policy"];
             health_check?: components["schemas"]["app_service_spec_health_check"];
             /**
              * @description The protocol which the service uses to serve traffic on the http_port.
@@ -7832,7 +7832,7 @@ export interface components {
              * @example dist/
              */
             output_dir?: string;
-            cors?: components["schemas"]["apps_cors_policy"] & unknown & unknown;
+            cors?: components["schemas"]["apps_cors_policy"];
             /**
              * @deprecated
              * @description (Deprecated - Use Ingress Rules instead). A list of HTTP routes that should be routed to this component.
@@ -7847,7 +7847,7 @@ export interface components {
              */
             grace_period_seconds?: number;
         };
-        app_job_spec: components["schemas"]["app_component_base"] & components["schemas"]["app_component_instance_base"] & {
+        app_job_spec: WithRequired<components["schemas"]["app_component_base"], "name"> & components["schemas"]["app_component_instance_base"] & {
             /**
              * @description - UNSPECIFIED: Default job type, will auto-complete to POST_DEPLOY kind.
              *     - PRE_DEPLOY: Indicates a job that runs before an app deployment.
@@ -7906,7 +7906,7 @@ export interface components {
             window?: components["schemas"]["app_alert_spec_window"];
         };
         app_functions_spec: {
-            cors?: components["schemas"]["apps_cors_policy"] & unknown & unknown;
+            cors?: components["schemas"]["apps_cors_policy"];
             /**
              * @deprecated
              * @description (Deprecated - Use Ingress Rules instead). A list of HTTP routes that should be routed to this component.
@@ -8346,7 +8346,7 @@ export interface components {
              * @example 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
              */
             readonly owner_uuid?: string;
-            pending_deployment?: unknown & components["schemas"]["apps_deployment"];
+            pending_deployment?: components["schemas"]["apps_deployment"];
             /**
              * The ID of the project the app is assigned to. This will be empty if there is a lookup failure.
              * @example 88b72d1a-b78a-4d9f-9090-b53c4399073f
@@ -8365,7 +8365,7 @@ export interface components {
              * @example 2020-12-01T00:42:16Z
              */
             readonly updated_at?: string;
-            pinned_deployment?: unknown & components["schemas"]["apps_deployment"];
+            pinned_deployment?: components["schemas"]["apps_deployment"];
             /** The dedicated egress IP addresses associated with the app. */
             readonly dedicated_ips?: components["schemas"]["apps_dedicated_egress_ip"][];
         };
@@ -9314,7 +9314,7 @@ export interface components {
              * @example Sammy Shark
              */
             user_name?: string;
-            user_billing_address?: unknown & components["schemas"]["billing_address"];
+            user_billing_address?: components["schemas"]["billing_address"];
             /**
              * @description Company of the DigitalOcean customer being invoiced, if set.
              * @example DigitalOcean
@@ -9325,10 +9325,10 @@ export interface components {
              * @example sammy@digitalocean.com
              */
             user_email?: string;
-            product_charges?: unknown & components["schemas"]["product_usage_charges"];
-            overages?: unknown & components["schemas"]["simple_charge"];
-            taxes?: unknown & components["schemas"]["simple_charge"];
-            credits_and_adjustments?: unknown & components["schemas"]["simple_charge"];
+            product_charges?: components["schemas"]["product_usage_charges"];
+            overages?: components["schemas"]["simple_charge"];
+            taxes?: components["schemas"]["simple_charge"];
+            credits_and_adjustments?: components["schemas"]["simple_charge"];
         };
         database_region_options: {
             /**
@@ -9753,13 +9753,13 @@ export interface components {
              */
             readonly db_names?: string[] | null;
             /** @description The connection details for OpenSearch dashboard. */
-            ui_connection?: components["schemas"]["opensearch_connection"] & unknown;
-            connection?: components["schemas"]["database_connection"] & unknown;
-            private_connection?: components["schemas"]["database_connection"] & unknown;
-            standby_connection?: components["schemas"]["database_connection"] & unknown;
-            standby_private_connection?: components["schemas"]["database_connection"] & unknown;
+            ui_connection?: components["schemas"]["opensearch_connection"];
+            connection?: components["schemas"]["database_connection"];
+            private_connection?: components["schemas"]["database_connection"];
+            standby_connection?: components["schemas"]["database_connection"];
+            standby_private_connection?: components["schemas"]["database_connection"];
             readonly users?: components["schemas"]["database_user"][] | null;
-            maintenance_window?: components["schemas"]["database_maintenance_window"] & unknown;
+            maintenance_window?: components["schemas"]["database_maintenance_window"];
             /**
              * Format: uuid
              * @description The ID of the project that the database cluster is assigned to. If excluded when creating a new database cluster, it will be assigned to your default project.
@@ -10997,8 +10997,8 @@ export interface components {
              * @example 9423cbad-9211-442f-820b-ef6915e99b5f
              */
             private_network_uuid?: string;
-            connection?: unknown & components["schemas"]["database_connection"];
-            private_connection?: unknown & components["schemas"]["database_connection"];
+            connection?: components["schemas"]["database_connection"];
+            private_connection?: components["schemas"]["database_connection"];
             /**
              * @description Additional storage added to the cluster, in MiB. If null, no additional storage is added to the cluster, beyond what is provided as a base amount from the 'size' and any previously added additional storage.
              * @example 61440
@@ -11062,10 +11062,10 @@ export interface components {
              * @example doadmin
              */
             user?: string;
-            connection?: components["schemas"]["database_connection"] & unknown;
-            private_connection?: components["schemas"]["database_connection"] & unknown;
-            standby_connection?: components["schemas"]["database_connection"] & unknown;
-            standby_private_connection?: components["schemas"]["database_connection"] & unknown;
+            connection?: components["schemas"]["database_connection"];
+            private_connection?: components["schemas"]["database_connection"];
+            standby_connection?: components["schemas"]["database_connection"];
+            standby_private_connection?: components["schemas"]["database_connection"];
         };
         connection_pools: {
             /** @description An array of connection pool objects. */
@@ -11632,15 +11632,15 @@ export interface components {
              */
             tag?: string | null;
         };
-        domain_record_a: components["schemas"]["domain_record"] & unknown;
-        domain_record_aaaa: components["schemas"]["domain_record"] & unknown;
-        domain_record_caa: components["schemas"]["domain_record"] & unknown;
-        domain_record_cname: components["schemas"]["domain_record"] & unknown;
-        domain_record_mx: components["schemas"]["domain_record"] & unknown;
-        domain_record_ns: components["schemas"]["domain_record"] & unknown;
-        domain_record_soa: components["schemas"]["domain_record"] & unknown;
-        domain_record_srv: components["schemas"]["domain_record"] & unknown;
-        domain_record_txt: components["schemas"]["domain_record"] & unknown;
+        domain_record_a: WithRequired<components["schemas"]["domain_record"], "type" | "name" | "data">;
+        domain_record_aaaa: WithRequired<components["schemas"]["domain_record"], "type" | "name" | "data">;
+        domain_record_caa: WithRequired<components["schemas"]["domain_record"], "type" | "name" | "data" | "flags" | "tag">;
+        domain_record_cname: WithRequired<components["schemas"]["domain_record"], "type" | "name" | "data">;
+        domain_record_mx: WithRequired<components["schemas"]["domain_record"], "type" | "data" | "priority">;
+        domain_record_ns: WithRequired<components["schemas"]["domain_record"], "type" | "name" | "data" | "flags" | "tag">;
+        domain_record_soa: WithRequired<components["schemas"]["domain_record"], "type" | "ttl">;
+        domain_record_srv: WithRequired<components["schemas"]["domain_record"], "type" | "name" | "data" | "priority" | "port" | "flags" | "tag">;
+        domain_record_txt: WithRequired<components["schemas"]["domain_record"], "type" | "name" | "data" | "flags" | "tag">;
         disk_info: {
             /**
              * @description The type of disk. All Droplets contain a `local` disk. Additionally, GPU Droplets can also have a `scratch` disk for non-persistent data.
@@ -12012,7 +12012,7 @@ export interface components {
              *     ]
              */
             backup_ids: number[];
-            next_backup_window: components["schemas"]["droplet_next_backup_window"] & unknown;
+            next_backup_window: components["schemas"]["droplet_next_backup_window"];
             /**
              * @description An array of snapshot IDs of any snapshots created from the Droplet instance.
              * @example [
@@ -12116,7 +12116,7 @@ export interface components {
              * @example true
              */
             backups: boolean;
-            backup_policy?: components["schemas"]["droplet_backup_policy"] & unknown;
+            backup_policy?: components["schemas"]["droplet_backup_policy"];
             /**
              * @description A boolean indicating whether to enable IPv6 on the Droplet.
              * @default false
@@ -12266,8 +12266,8 @@ export interface components {
              * @example true
              */
             backup_enabled?: boolean;
-            backup_policy?: components["schemas"]["droplet_backup_policy"] & unknown;
-            next_backup_window?: components["schemas"]["droplet_next_backup_window"] & unknown;
+            backup_policy?: components["schemas"]["droplet_backup_policy"];
+            next_backup_window?: components["schemas"]["droplet_next_backup_window"];
         };
         supported_droplet_backup_policy: {
             /**
@@ -12330,7 +12330,7 @@ export interface components {
          *     }
          */
         droplet_action_enable_backups: components["schemas"]["droplet_action"] & {
-            backup_policy?: components["schemas"]["droplet_backup_policy"] & unknown;
+            backup_policy?: components["schemas"]["droplet_backup_policy"];
         };
         /**
          * @example {
@@ -12343,7 +12343,7 @@ export interface components {
          *     }
          */
         droplet_action_change_backup_policy: components["schemas"]["droplet_action"] & {
-            backup_policy: components["schemas"]["droplet_backup_policy"] & unknown;
+            backup_policy: components["schemas"]["droplet_backup_policy"];
         };
         droplet_action_restore: components["schemas"]["droplet_action"] & {
             /**
@@ -12449,14 +12449,14 @@ export interface components {
              *     ]
              */
             kubernetes_ids?: string[];
-            tags?: components["schemas"]["existing_tags_array"] & unknown;
+            tags?: components["schemas"]["existing_tags_array"];
         };
         firewall_rules: {
             inbound_rules?: (components["schemas"]["firewall_rule_base"] & {
-                sources: components["schemas"]["firewall_rule_target"] & unknown;
+                sources: components["schemas"]["firewall_rule_target"];
             })[] | null;
             outbound_rules?: (components["schemas"]["firewall_rule_base"] & {
-                destinations: components["schemas"]["firewall_rule_target"] & unknown;
+                destinations: components["schemas"]["firewall_rule_target"];
             })[] | null;
         };
         firewall: {
@@ -12507,7 +12507,7 @@ export interface components {
              *     ]
              */
             droplet_ids?: number[] | null;
-            tags?: components["schemas"]["existing_tags_array"] & unknown;
+            tags?: components["schemas"]["existing_tags_array"];
         } & components["schemas"]["firewall_rules"];
         /** @description An objects containing information about a resource associated with a Droplet. */
         associated_resource: {
@@ -13120,7 +13120,7 @@ export interface components {
              */
             type: "convert" | "transfer";
         };
-        image_action_transfer: components["schemas"]["image_action_base"] & {
+        image_action_transfer: WithRequired<components["schemas"]["image_action_base"], "type"> & {
             region: components["schemas"]["region_slug"];
         };
         kubernetes_node_pool_size: {
@@ -14022,7 +14022,7 @@ export interface components {
             target_load_balancer_ids?: string[];
         };
         load_balancer: components["schemas"]["load_balancer_base"] & {
-            region?: unknown & components["schemas"]["region"];
+            region?: components["schemas"]["region"];
         } & {
             /**
              * @description An array containing the IDs of the Droplets assigned to the load balancer.
@@ -14581,7 +14581,7 @@ export interface components {
              * @example 2020-11-04T21:39:49.530562231Z
              */
             readonly storage_usage_bytes_updated_at?: string;
-            subscription?: unknown & components["schemas"]["subscription"];
+            subscription?: components["schemas"]["subscription"];
         };
         registry_create: {
             /**
@@ -15108,7 +15108,7 @@ export interface components {
              *       "available": true
              *     }
              */
-            readonly region?: unknown & components["schemas"]["region"];
+            readonly region?: components["schemas"]["region"];
             /**
              * @description The type of filesystem currently in-use on the volume.
              * @example ext4
@@ -15139,13 +15139,13 @@ export interface components {
          * @example example
          */
         volume_write_file_system_label: string;
-        volumes_ext4: components["schemas"]["volume_base"] & components["schemas"]["volume_snapshot_id"] & components["schemas"]["volume_write_file_system_type"] & {
+        volumes_ext4: WithRequired<components["schemas"]["volume_base"], "name" | "size_gigabytes"> & components["schemas"]["volume_snapshot_id"] & components["schemas"]["volume_write_file_system_type"] & {
             region: components["schemas"]["region_slug"];
-            filesystem_label?: components["schemas"]["volume_write_file_system_label"] & unknown;
+            filesystem_label?: components["schemas"]["volume_write_file_system_label"];
         };
-        volumes_xfs: components["schemas"]["volume_base"] & components["schemas"]["volume_snapshot_id"] & components["schemas"]["volume_write_file_system_type"] & {
+        volumes_xfs: WithRequired<components["schemas"]["volume_base"], "name" | "size_gigabytes"> & components["schemas"]["volume_snapshot_id"] & components["schemas"]["volume_write_file_system_type"] & {
             region: components["schemas"]["region_slug"];
-            filesystem_label?: components["schemas"]["volume_write_file_system_label"] & unknown;
+            filesystem_label?: components["schemas"]["volume_write_file_system_label"];
         };
         volume_action_post_base: {
             /**
@@ -17466,7 +17466,7 @@ export interface components {
                 "application/json": {
                     /** @description Indicates whether the app can be rolled back to the specified deployment. */
                     valid?: boolean;
-                    error?: unknown & components["schemas"]["app_rollback_validation_condition"];
+                    error?: components["schemas"]["app_rollback_validation_condition"];
                     /** @description Contains a list of warnings that may cause the rollback to run under unideal circumstances. */
                     warnings?: components["schemas"]["app_rollback_validation_condition"][];
                 };
@@ -27255,7 +27255,7 @@ export interface operations {
                  *       ]
                  *     }
                  */
-                "application/json": components["schemas"]["firewall"] & unknown & (unknown | unknown);
+                "application/json": components["schemas"]["firewall"] & (unknown | unknown);
             };
         };
         responses: {
@@ -27496,7 +27496,7 @@ export interface operations {
                  *     }
                  */
                 "application/json": {
-                    tags: components["schemas"]["existing_tags_array"] & unknown;
+                    tags: components["schemas"]["existing_tags_array"];
                 };
             };
         };
@@ -27533,7 +27533,7 @@ export interface operations {
                  *     }
                  */
                 "application/json": {
-                    tags: components["schemas"]["existing_tags_array"] & unknown;
+                    tags: components["schemas"]["existing_tags_array"];
                 };
             };
         };
