@@ -33,8 +33,18 @@ _Note: OpenAPI 2.x is supported with versions `5.x` and previous_
 This library requires the latest version of [Node.js](https://nodejs.org) installed (20.x or higher recommended). With that present, run the following in your project:
 
 ```bash
-npm i -D openapi-typescript typescript
+npm i -D openapi-typescript typescript@5
 ```
+
+::: warning TypeScript 7 applications
+
+The generator needs the JavaScript compiler API provided by its TypeScript 5 peer dependency.
+TypeScript 7.0 does not expose that API through `typescript`. Keep your application's TypeScript 7
+compiler and run generation in a separate tooling package with `openapi-typescript` and
+`typescript@5`. Your application can still type-check the generated types with TypeScript 7.
+See [Node.js setup](./node.md#setup) for the compiler boundary when using custom transforms.
+
+:::
 
 And in your `tsconfig.json`, to load the types properly:
 

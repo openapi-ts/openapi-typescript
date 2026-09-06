@@ -10,8 +10,15 @@ The Node API may be useful if dealing with dynamically-created schemas, or youâ€
 ## Setup
 
 ```bash
-npm i --save-dev openapi-typescript typescript
+npm i --save-dev openapi-typescript typescript@5
 ```
+
+For applications using TypeScript 7, run the generator script in a separate tooling package with
+these dependencies; leave the application's compiler unchanged. Import `typescript` from that
+tooling package in custom transforms too: callbacks and returned AST nodes must use the same
+JavaScript compiler API as the generator. Pass the generated source file, not compiler AST objects,
+to the TypeScript 7 application. This is side-by-side tooling, not native TypeScript 7 API support.
+See [TypeScript's side-by-side guidance](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-6.0).
 
 ::: tip Recommended
 
