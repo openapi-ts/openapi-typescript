@@ -10,8 +10,12 @@ The Node API may be useful if dealing with dynamically-created schemas, or youâ€
 ## Setup
 
 ```bash
-npm i --save-dev openapi-typescript typescript
+npm i --save-dev openapi-typescript
 ```
+
+The generator installs its own JavaScript TypeScript compiler. Your application can use TypeScript 7 independently. For AST factories, type guards, printers, and AST types, import `ts` from `openapi-typescript` so your code uses the same compiler as the generator.
+
+**Migration:** replace `import ts from "typescript"` with `import { ts } from "openapi-typescript"` in code that creates or manipulates the generator's AST. This includes `transform`, `postTransform`, and `transformProperty` callbacks and `ts.Node`/`ts.TypeNode` annotations. Do not mix AST nodes from a different compiler version: their `SyntaxKind` values may differ. This change does not require changing the compiler used to typecheck your application.
 
 ::: tip Recommended
 
@@ -115,8 +119,7 @@ By default, openapiTS will generate `updated_at?: string;` because itâ€™s not su
 ::: code-group
 
 ```ts [src/my-project.ts]
-import openapiTS from "openapi-typescript";
-import ts from "typescript";
+import openapiTS, { ts } from "openapi-typescript";
 
 const DATE = ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Date")); // `Date`
 const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull()); // `null`
@@ -167,8 +170,7 @@ Use the same pattern to transform the types:
 ::: code-group
 
 ```ts [src/my-project.ts]
-import openapiTS from "openapi-typescript";
-import ts from "typescript";
+import openapiTS, { ts } from "openapi-typescript";
 
 const BLOB = ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Blob")); // `Blob`
 const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull()); // `null`
@@ -220,8 +222,7 @@ Here we return an object with a schema property, which is the same as the above 
 ::: code-group
 
 ```ts [src/my-project.ts]
-import openapiTS from "openapi-typescript";
-import ts from "typescript";
+import openapiTS, { ts } from "openapi-typescript";
 
 const BLOB = ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Blob")); // `Blob`
 const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull()); // `null`
@@ -297,8 +298,7 @@ components:
 
 ```ts [src/my-project.ts]
 import fs from "node:fs";
-import ts from "typescript";
-import openapiTS, { astToString } from "openapi-typescript";
+import openapiTS, { astToString, ts } from "openapi-typescript";
 
 const ast = await openapiTS(mySchema, {
   transformProperty(property, schemaObject, options) {
