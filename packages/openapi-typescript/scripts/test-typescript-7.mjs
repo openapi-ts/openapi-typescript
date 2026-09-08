@@ -51,7 +51,8 @@ try {
         },
       }),
     );
-    run(install);
+    // pnpm defaults to frozen installs in CI, but this fixture intentionally changes compiler versions.
+    run([...install, ...(values.bun ? [] : ["--no-frozen-lockfile"])]);
     run([...install, "--frozen-lockfile"]);
     const version = execFileSync(process.execPath, ["node_modules/typescript/bin/tsc", "--version"], { cwd });
     assert.equal(version.toString().trim(), `Version ${typescript}`);
