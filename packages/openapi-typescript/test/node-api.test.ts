@@ -1,6 +1,5 @@
 import { fileURLToPath } from "node:url";
-import ts from "typescript";
-import openapiTS, { astToString, COMMENT_HEADER } from "../src/index.js";
+import openapiTS, { astToString, COMMENT_HEADER, ts } from "../src/index.js";
 import type { OpenAPITSOptions } from "../src/types.js";
 import type { TestCase } from "./test-helpers.js";
 

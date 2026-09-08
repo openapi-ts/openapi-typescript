@@ -7,6 +7,7 @@ import { debug, resolveRef, scanDiscriminators } from "./lib/utils.js";
 import transformSchema from "./transform/index.js";
 import type { GlobalContext, OpenAPI3, OpenAPITSOptions } from "./types.js";
 
+export { default as ts } from "typescript";
 export * from "./lib/ts.js";
 export * from "./lib/utils.js";
 export { default as transformComponentsObject } from "./transform/components-object.js";

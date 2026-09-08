@@ -1,0 +1,16 @@
+{
+  "openapi": "3.1.0",
+  "info": { "title": "Compiler compatibility", "version": "1.0.0" },
+  "components": {
+    "schemas": {
+      "Person": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  }
+}
