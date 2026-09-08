@@ -15,6 +15,8 @@ npm i --save-dev openapi-typescript
 
 The generator installs its own JavaScript TypeScript compiler. Your application can use TypeScript 7 independently. For AST factories, type guards, printers, and AST types, import `ts` from `openapi-typescript` so your code uses the same compiler as the generator.
 
+The JavaScript compiler remains an install-time dependency (about 23.6 MB unpacked for TypeScript 5.9.3). Package managers can share it with a compatible application compiler; TypeScript 7 applications need both versions installed. It is not included in the generated types.
+
 **Migration:** replace `import ts from "typescript"` with `import { ts } from "openapi-typescript"` in code that creates or manipulates the generator's AST. This includes `transform`, `postTransform`, and `transformProperty` callbacks and `ts.Node`/`ts.TypeNode` annotations. Do not mix AST nodes from a different compiler version: their `SyntaxKind` values may differ. This change does not require changing the compiler used to typecheck your application.
 
 ::: tip Recommended

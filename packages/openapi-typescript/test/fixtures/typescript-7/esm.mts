@@ -1,6 +1,13 @@
 import assert from "node:assert/strict";
+import { createRequire } from "node:module";
 import openapiTS, { astToString, ts, type OpenAPITSOptions } from "openapi-typescript";
 import type { components } from "./schema.js";
+
+const require = createRequire(import.meta.url);
+const generatorRequire = createRequire(require.resolve("openapi-typescript"));
+assert.strictEqual(ts, generatorRequire("typescript"));
+assert.strictEqual(ts, require("openapi-typescript").ts);
+assert.match(ts.version, /^5\./);
 
 const person: components["schemas"]["Person"] = { name: "Ada" };
 assert.equal(person.name, "Ada");
