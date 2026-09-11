@@ -1,9 +1,8 @@
 import { escapePointer, parseRef } from "@redocly/openapi-core/lib/ref-utils.js";
 import c from "ansi-colors";
 import supportsColor from "supports-color";
-import ts from "typescript";
 import type { DiscriminatorObject, OpenAPI3, OpenAPITSOptions, ReferenceObject, SchemaObject } from "../types.js";
-import { tsLiteral, tsModifiers, tsPropertyIndex } from "./ts.js";
+import { propertySignature, type TSNode, tsLiteral, tsPropertyIndex } from "./ts.js";
 
 if (!supportsColor.stdout || supportsColor.stdout.hasBasic === false) {
   c.enabled = false;
@@ -21,8 +20,8 @@ export { c };
 /** Given a discriminator object, get the property name */
 export function createDiscriminatorProperty(
   discriminator: DiscriminatorObject,
-  { path, readonly = false }: { path: string; readonly?: boolean },
-): ts.TypeElement {
+  { path, readonly = false, indent = "" }: { path: string; readonly?: boolean; indent?: string },
+): TSNode {
   // get the inferred propertyName value from the last section of the path (as the spec suggests to do)
   let value = parseRef(path).pointer.pop();
   // if mapping, and there’s a match, use this rather than the inferred name
@@ -35,14 +34,12 @@ export function createDiscriminatorProperty(
       value = matchedValue[0]; // why was this designed backwards!?
     }
   }
-  return ts.factory.createPropertySignature(
-    /* modifiers     */ tsModifiers({
-      readonly,
-    }),
-    /* name          */ tsPropertyIndex(discriminator.propertyName),
-    /* questionToken */ undefined,
-    /* type          */ tsLiteral(value),
-  );
+  return propertySignature({
+    /* name          */ name: tsPropertyIndex(discriminator.propertyName),
+    /* type          */ type: tsLiteral(value),
+    /* modifiers     */ readonly,
+    indent,
+  });
 }
 
 /** Create a $ref pointer (even from other $refs) */
