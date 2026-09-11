@@ -1,5 +1,13 @@
-import ts from "typescript";
-import { addJSDocComment, NEVER, oapiRef, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
+import {
+  addJSDocComment,
+  INDENT,
+  NEVER,
+  oapiRef,
+  propertySignature,
+  type TSNode,
+  tsPropertyIndex,
+  typeLiteral,
+} from "../lib/ts.js";
 import { createRef, getEntries } from "../lib/utils.js";
 import type { ResponsesObject, TransformNodeOptions } from "../types.js";
 import transformResponseObject from "./response-object.js";
@@ -11,26 +19,33 @@ import transformResponseObject from "./response-object.js";
 export default function transformResponsesObject(
   responsesObject: ResponsesObject,
   options: TransformNodeOptions,
-): ts.TypeNode {
-  const type: ts.TypeElement[] = [];
+  indent = "",
+): TSNode {
+  const memberIndent = `${indent}${INDENT}`;
+  const type: TSNode[] = [];
 
   for (const [responseCode, responseObject] of getEntries(responsesObject, options.ctx)) {
     const responseType =
       "$ref" in responseObject
-        ? oapiRef(responseObject.$ref)
-        : transformResponseObject(responseObject, {
-            ...options,
-            path: createRef([options.path, "responses", responseCode]),
-          });
-    const property = ts.factory.createPropertySignature(
-      /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
-      /* name          */ tsPropertyIndex(responseCode),
-      /* questionToken */ undefined,
-      /* type          */ responseType,
+        ? oapiRef(responseObject.$ref, undefined, { indent: memberIndent })
+        : transformResponseObject(
+            responseObject,
+            {
+              ...options,
+              path: createRef([options.path, "responses", responseCode]),
+            },
+            memberIndent,
+          );
+    type.push(
+      propertySignature({
+        /* name          */ name: tsPropertyIndex(responseCode),
+        /* type          */ type: responseType,
+        /* modifiers     */ readonly: options.ctx.immutable,
+        comment: addJSDocComment(responseObject, memberIndent),
+        indent: memberIndent,
+      }),
     );
-    addJSDocComment(responseObject, property);
-    type.push(property);
   }
 
-  return type.length ? ts.factory.createTypeLiteralNode(type) : NEVER;
+  return type.length ? typeLiteral(type, indent) : NEVER;
 }
