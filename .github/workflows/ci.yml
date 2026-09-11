@@ -61,6 +61,11 @@ jobs:
         with:
           run_install: true
       - run: pnpm run test-e2e
+        env:
+          # Firefox refuses to start as root unless $HOME is owned by root, and
+          # GitHub sets HOME=/github/home, which is owned by pwuser. Chromium and
+          # WebKit start fine, so without this only the firefox project fails.
+          HOME: /root
   test-macos:
     runs-on: macos-latest
     steps:
