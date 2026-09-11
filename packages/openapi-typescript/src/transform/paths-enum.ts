@@ -1,9 +1,8 @@
-import type ts from "typescript";
-import { tsEnum } from "../lib/ts.js";
+import { type TSNode, tsEnum } from "../lib/ts.js";
 import { getEntries } from "../lib/utils.js";
 import type { PathsObject } from "../types.js";
 
-export default function makeApiPathsEnum(pathsObject: PathsObject): ts.EnumDeclaration {
+export default function makeApiPathsEnum(pathsObject: PathsObject): TSNode {
   const enumKeys = [];
   const enumMetaData = [];
 
@@ -39,5 +38,5 @@ export default function makeApiPathsEnum(pathsObject: PathsObject): ts.EnumDecla
 
   return tsEnum("ApiPaths", enumKeys, enumMetaData, {
     export: true,
-  });
+  }).declaration;
 }
