@@ -39,15 +39,27 @@ jobs:
       - run: pnpm test
   test-e2e:
     runs-on: ubuntu-latest
+    # Use the official Playwright image, which ships Chromium, Firefox, WebKit and
+    # every system dependency they need. That removes the
+    # `playwright install --with-deps` step, which has been hanging until
+    # GitHub's 6-hour job limit on every run since 2026-08-24.
+    #
+    # Keep the tag in sync with the `@playwright/test` version in
+    # packages/openapi-fetch (currently 1.59.1).
+    container:
+      image: mcr.microsoft.com/playwright:v1.59.1-noble
+      # recommended by Playwright when running Chromium in a container
+      options: --ipc=host
+    # fail fast instead of occupying a runner for 6 hours if anything hangs
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
-          node-version: latest
+          node-version: 22
       - uses: pnpm/action-setup@v5
         with:
           run_install: true
-      - run: pnpm exec playwright install --with-deps
       - run: pnpm run test-e2e
   test-macos:
     runs-on: macos-latest
