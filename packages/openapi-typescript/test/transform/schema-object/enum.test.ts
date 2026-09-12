@@ -240,12 +240,12 @@ export type operations = Record<string, never>;`,
 ];
 
 describe("transformComponentsObject", () => {
-  describe.each(tests)("Case: %s", (name, { given, want, options, ci }) => {
+  describe.each(tests)("Case: %s", (_name, { given, want, options, ci }) => {
     test.skipIf(ci?.skipIf)(
       "it matches the snapshot",
       async () => {
         assert(typeof want === "string");
-        const result = astToString(transformSchema(given, options?.ctx ?? DEFAULT_CTX), { fileName: name });
+        const result = astToString(transformSchema(given, options?.ctx ?? DEFAULT_CTX));
         expect(result.trim()).toBe(want.trim());
       },
       ci?.timeout,

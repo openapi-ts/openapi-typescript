@@ -25,7 +25,7 @@ _Note: OpenAPI 2.x is supported with versions `5.x` and previous_
 This library requires the latest version of [Node.js](https://nodejs.org) installed (20.x or higher recommended). With that present, run the following in your project:
 
 ```bash
-npm i -D openapi-typescript typescript
+npm i -D openapi-typescript
 ```
 
 And in your `tsconfig.json`, to load the types properly:

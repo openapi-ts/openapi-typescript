@@ -10,7 +10,7 @@ The Node API may be useful if dealing with dynamically-created schemas, or you�
 ## Setup
 
 ```bash
-npm i --save-dev openapi-typescript typescript
+npm i --save-dev openapi-typescript
 ```
 
 ::: tip Recommended
@@ -31,24 +31,35 @@ The Node.js API accepts either a `URL`, `string`, or JSON object as input:
 
 It also accepts `Readable` streams and `Buffer` types that are resolved and treated as strings (validation, bundling, and type generation can’t really happen without the whole document).
 
-The Node API returns a `Promise` with a TypeScript AST. You can then traverse / manipulate / modify the AST as you see fit.
+The Node API returns a `Promise` that resolves to the generated TypeScript source, ready to write to a file.
 
-To convert the TypeScript AST into a string, you can use `astToString()` helper which is a thin wrapper around [TypeScript’s printer](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API#re-printing-sections-of-a-typescript-file):
+::: tip
+
+Generation works in TypeScript 5, 6, and 7 projects and doesn’t require `typescript` to be installed. The generator no longer uses the TypeScript compiler API. The `astToString()` helper is still exported to join source fragments and ensure a trailing newline; it no longer accepts AST nodes or printer options.
+
+:::
 
 ::: code-group
 
 ```ts [src/my-project.ts]
 import fs from "node:fs";
-import openapiTS, { astToString } from "openapi-typescript";
+import openapiTS from "openapi-typescript";
 
-const ast = await openapiTS(new URL("./my-schema.yaml", import.meta.url));
-const contents = astToString(ast);
+const contents = await openapiTS(new URL("./my-schema.yaml", import.meta.url));
 
 // (optional) write to file
 fs.writeFileSync("./my-schema.ts", contents);
 ```
 
 :::
+
+### Migrating from the AST API
+
+`openapiTS()` now returns source text. Write it directly, and replace AST-producing callbacks with callbacks that return type strings. For example, `ts.factory.createTypeReferenceNode("Date")` becomes `"Date"`. Code that traverses or rewrites AST nodes must be migrated explicitly.
+
+`astToString()` accepts only a string or an array of strings. Its old `fileName`, `sourceText`, and `formatOptions` argument has been removed and passing an options object throws an error. Apply any custom formatting or comment removal as a separate step. The `inject` option is emitted as source text instead of being parsed and printed by TypeScript.
+
+When `postTransform` is configured, nonempty object-shaped `$defs` roots use type aliases, including when the hook leaves the root unchanged. This allows mapped types in custom root definitions without converting them into invalid interfaces.
 
 ### Redoc config
 
@@ -74,7 +85,7 @@ const redocly = await createConfig(
 // option 2: load from redocly.yaml file
 const redocly = await loadConfig({ configPath: "redocly.yaml" });
 
-const ast = await openapiTS(mySchema, { redocly });
+const types = await openapiTS(mySchema, { redocly });
 ```
 
 :::
@@ -97,7 +108,7 @@ The Node API supports all the [CLI flags](/cli#flags) in `camelCase` format, plu
 Use the `transform()` and `postTransform()` options to override the default Schema Object transformer with your own. This is useful for providing nonstandard modifications for specific parts of your schema.
 
 - `transform()` runs **before** the conversion to TypeScript (you’re working with the original OpenAPI nodes)
-- `postTransform()` runs **after** the conversion to TypeScript (you’re working with TypeScript AST)
+- `postTransform()` runs **after** the conversion to TypeScript (you’re working with the generated type text)
 
 #### Example: `Date` types
 
@@ -116,17 +127,14 @@ By default, openapiTS will generate `updated_at?: string;` because it’s not su
 
 ```ts [src/my-project.ts]
 import openapiTS from "openapi-typescript";
-import ts from "typescript";
 
-const DATE = ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Date")); // `Date`
-const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull()); // `null`
+const DATE = "Date"; // `Date`
+const NULL = "null"; // `null`
 
-const ast = await openapiTS(mySchema, {
+const types = await openapiTS(mySchema, {
   transform(schemaObject, metadata) {
     if (schemaObject.format === "date-time") {
-      return schemaObject.nullable
-        ? ts.factory.createUnionTypeNode([DATE, NULL])
-        : DATE;
+      return schemaObject.nullable ? `${DATE} | ${NULL}` : DATE;
     }
   },
 });
@@ -168,17 +176,14 @@ Use the same pattern to transform the types:
 
 ```ts [src/my-project.ts]
 import openapiTS from "openapi-typescript";
-import ts from "typescript";
 
-const BLOB = ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Blob")); // `Blob`
-const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull()); // `null`
+const BLOB = "Blob"; // `Blob`
+const NULL = "null"; // `null`
 
-const ast = await openapiTS(mySchema, {
+const types = await openapiTS(mySchema, {
   transform(schemaObject, metadata) {
     if (schemaObject.format === "binary") {
-      return schemaObject.nullable
-        ? ts.factory.createUnionTypeNode([BLOB, NULL])
-        : BLOB;
+      return schemaObject.nullable ? `${BLOB} | ${NULL}` : BLOB;
     }
   },
 });
@@ -221,18 +226,15 @@ Here we return an object with a schema property, which is the same as the above 
 
 ```ts [src/my-project.ts]
 import openapiTS from "openapi-typescript";
-import ts from "typescript";
 
-const BLOB = ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Blob")); // `Blob`
-const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull()); // `null`
+const BLOB = "Blob"; // `Blob`
+const NULL = "null"; // `null`
 
-const ast = await openapiTS(mySchema, {
+const types = await openapiTS(mySchema, {
   transform(schemaObject, metadata) {
     if (schemaObject.format === "binary") {
       return {
-        schema: schemaObject.nullable
-          ? ts.factory.createUnionTypeNode([BLOB, NULL])
-          : BLOB,
+        schema: schemaObject.nullable ? `${BLOB} | ${NULL}` : BLOB,
         questionToken: true,
       };
     }
@@ -263,7 +265,8 @@ Use the `transformProperty()` option to modify individual property signatures wi
 
 - `transformProperty()` runs **after** type conversion but **before** JSDoc comments are added
 - It receives the property signature, the original schema object, and transformation options
-- It should return a modified `PropertySignature` or `undefined` to leave the property unchanged
+- It should return a modified `{ name, optional, readonly, type, comment?, indent }` object, or `undefined` to leave the property unchanged
+- `readonly` initially reflects `immutable` and the schema’s read/write settings; the hook can override it for an individual property
 
 #### Example: JSDoc validation annotations
 
@@ -297,10 +300,9 @@ components:
 
 ```ts [src/my-project.ts]
 import fs from "node:fs";
-import ts from "typescript";
-import openapiTS, { astToString } from "openapi-typescript";
+import openapiTS, { tsComment } from "openapi-typescript";
 
-const ast = await openapiTS(mySchema, {
+const contents = await openapiTS(mySchema, {
   transformProperty(property, schemaObject, options) {
     const validationTags: string[] = [];
     
@@ -326,33 +328,13 @@ const ast = await openapiTS(mySchema, {
     
     // If we have validation tags, add them as JSDoc comments
     if (validationTags.length > 0) {
-      // Create a new property signature
-      const newProperty = ts.factory.updatePropertySignature(
-        property,
-        property.modifiers,
-        property.name,
-        property.questionToken,
-        property.type,
-      );
-      
-      // Add JSDoc comment
-      const jsDocText = `*\n * ${validationTags.join('\n * ')}\n `;
-      
-      ts.addSyntheticLeadingComment(
-        newProperty,
-        ts.SyntaxKind.MultiLineCommentTrivia,
-        jsDocText,
-        true,
-      );
-      
-      return newProperty;
+      return { ...property, comment: tsComment(validationTags, property.indent) };
     }
-    
+
     return property;
   },
 });
 
-const contents = astToString(ast);
 fs.writeFileSync("./my-schema.ts", contents);
 ```
 
@@ -388,6 +370,7 @@ export interface components {
 :::
 
 The `transformProperty` function provides access to:
-- `property`: The TypeScript PropertySignature AST node
+
+- `property`: The generated property signature as a plain object — `{ name, optional, readonly, type, comment?, indent }`. Return the same shape to replace it, or `undefined` to keep it unchanged. Use `tsComment()` to attach JSDoc.
 - `schemaObject`: The original OpenAPI Schema Object for this property
 - `options`: Transformation context including path information and other utilities

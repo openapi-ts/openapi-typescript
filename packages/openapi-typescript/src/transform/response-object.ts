@@ -1,12 +1,13 @@
-import ts from "typescript";
 import {
   addJSDocComment,
+  INDENT,
+  indexSignature,
   NEVER,
   oapiRef,
-  QUESTION_TOKEN,
-  STRING,
-  tsModifiers,
+  propertySignature,
+  type TSNode,
   tsPropertyIndex,
+  typeLiteral,
   UNKNOWN,
 } from "../lib/ts.js";
 import { createRef, getEntries } from "../lib/utils.js";
@@ -21,92 +22,98 @@ import transformMediaTypeObject from "./media-type-object.js";
 export default function transformResponseObject(
   responseObject: ResponseObject,
   options: TransformNodeOptions,
-): ts.TypeNode {
-  const type: ts.TypeElement[] = [];
+  indent = "",
+): TSNode {
+  const memberIndent = `${indent}${INDENT}`;
+  const type: TSNode[] = [];
 
   // headers
-  const headersObject: ts.TypeElement[] = [];
+  const headerIndent = `${memberIndent}${INDENT}`;
+  const headersObject: TSNode[] = [];
   if (responseObject.headers) {
     for (const [name, headerObject] of getEntries(responseObject.headers, options.ctx)) {
-      const optional = "$ref" in headerObject || headerObject.required ? undefined : QUESTION_TOKEN;
+      const optional = !("$ref" in headerObject) && !headerObject.required;
       const subType =
         "$ref" in headerObject
-          ? oapiRef(headerObject.$ref)
-          : transformHeaderObject(headerObject, {
-              ...options,
-              path: createRef([options.path, "headers", name]),
-            });
-      const property = ts.factory.createPropertySignature(
-        /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
-        /* name          */ tsPropertyIndex(name),
-        /* questionToken */ optional,
-        /* type          */ subType,
+          ? oapiRef(headerObject.$ref, undefined, { indent: headerIndent })
+          : transformHeaderObject(
+              headerObject,
+              {
+                ...options,
+                path: createRef([options.path, "headers", name]),
+              },
+              headerIndent,
+            );
+      headersObject.push(
+        propertySignature({
+          /* name          */ name: tsPropertyIndex(name),
+          /* type          */ type: subType,
+          /* questionToken */ optional,
+          /* modifiers     */ readonly: options.ctx.immutable,
+          comment: addJSDocComment(headerObject, headerIndent),
+          indent: headerIndent,
+        }),
       );
-      addJSDocComment(headerObject, property);
-      headersObject.push(property);
     }
   }
   // allow additional unknown headers
   headersObject.push(
-    ts.factory.createIndexSignature(
-      /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
-      /* parameters */ [
-        ts.factory.createParameterDeclaration(
-          /* modifiers      */ undefined,
-          /* dotDotDotToken */ undefined,
-          /* name           */ ts.factory.createIdentifier("name"),
-          /* questionToken  */ undefined,
-          /* type           */ STRING,
-        ),
-      ],
-      /* type          */ UNKNOWN,
-    ),
+    indexSignature({
+      /* parameters */ keyName: "name",
+      /* type       */ valueType: UNKNOWN,
+      /* modifiers  */ readonly: options.ctx.immutable,
+      indent: headerIndent,
+    }),
   );
   type.push(
-    ts.factory.createPropertySignature(
-      /* modifiers     */ undefined,
-      /* name          */ tsPropertyIndex("headers"),
-      /* questionToken */ undefined,
-      /* type          */ ts.factory.createTypeLiteralNode(headersObject),
-    ),
+    propertySignature({
+      /* name          */ name: tsPropertyIndex("headers"),
+      /* type          */ type: typeLiteral(headersObject, memberIndent),
+      indent: memberIndent,
+    }),
   );
 
   // content
-  const contentObject: ts.TypeElement[] = [];
+  const contentIndent = `${memberIndent}${INDENT}`;
+  const contentObject: TSNode[] = [];
   if (responseObject.content) {
     for (const [contentType, mediaTypeObject] of getEntries(responseObject.content ?? {}, options.ctx)) {
-      const property = ts.factory.createPropertySignature(
-        /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
-        /* name          */ tsPropertyIndex(contentType),
-        /* questionToken */ undefined,
-        /* type          */ transformMediaTypeObject(mediaTypeObject, {
-          ...options,
-          path: createRef([options.path, "content", contentType]),
+      contentObject.push(
+        propertySignature({
+          /* name          */ name: tsPropertyIndex(contentType),
+          /* type          */ type: transformMediaTypeObject(
+            mediaTypeObject,
+            {
+              ...options,
+              path: createRef([options.path, "content", contentType]),
+            },
+            contentIndent,
+          ),
+          /* modifiers     */ readonly: options.ctx.immutable,
+          comment: addJSDocComment(mediaTypeObject, contentIndent),
+          indent: contentIndent,
         }),
       );
-      addJSDocComment(mediaTypeObject, property);
-      contentObject.push(property);
     }
   }
   if (contentObject.length) {
     type.push(
-      ts.factory.createPropertySignature(
-        /* modifiers     */ undefined,
-        /* name          */ tsPropertyIndex("content"),
-        /* questionToken */ undefined,
-        /* type          */ ts.factory.createTypeLiteralNode(contentObject),
-      ),
+      propertySignature({
+        /* name          */ name: tsPropertyIndex("content"),
+        /* type          */ type: typeLiteral(contentObject, memberIndent),
+        indent: memberIndent,
+      }),
     );
   } else {
     type.push(
-      ts.factory.createPropertySignature(
-        /* modifiers     */ undefined,
-        /* name          */ tsPropertyIndex("content"),
-        /* questionToken */ QUESTION_TOKEN,
-        /* type          */ NEVER,
-      ),
+      propertySignature({
+        /* name          */ name: tsPropertyIndex("content"),
+        /* questionToken */ optional: true,
+        /* type          */ type: NEVER,
+        indent: memberIndent,
+      }),
     );
   }
 
-  return ts.factory.createTypeLiteralNode(type);
+  return typeLiteral(type, indent);
 }

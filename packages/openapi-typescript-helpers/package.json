@@ -28,12 +28,14 @@
   },
   "scripts": {
     "build": "unbuild",
-    "format": "biome format src --write",
+    "format": "biome format src test --write",
     "lint": "pnpm run lint:js && pnpm run lint:ts",
-    "lint:js": "biome check src",
-    "lint:ts": "tsc --noEmit"
+    "lint:js": "biome check src test",
+    "lint:ts": "pnpm run test:types",
+    "test": "pnpm run test:types",
+    "test:types": "tsc --noEmit"
   },
   "devDependencies": {
-    "typescript": "5.9.3"
+    "typescript": "catalog:"
   }
 }

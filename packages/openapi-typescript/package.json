@@ -52,19 +52,19 @@
     "prepack": "pnpm run build",
     "test": "pnpm run test:js && pnpm run test:examples && pnpm run test:exports",
     "test:js": "vitest run",
+    "test:consumer": "node ./scripts/test-consumer.mjs",
     "test:exports": "pnpm run build && attw --pack .",
     "test:examples": "tsc -p tsconfig.examples.json --noEmit",
     "update:examples": "pnpm run build && pnpm run download:schemas && vite-node ./scripts/update-examples.ts",
     "prepublish": "pnpm run build",
     "version": "pnpm run build"
   },
-  "peerDependencies": {
-    "typescript": "^5.x"
-  },
   "dependencies": {
     "@redocly/openapi-core": "^1.34.6",
+    "@types/js-yaml": "4.0.9",
     "ansi-colors": "^4.1.3",
     "change-case": "^5.4.4",
+    "json-schema-to-ts": "3.1.1",
     "parse-json": "^8.3.0",
     "scule": "^1.3.0",
     "supports-color": "^10.2.2",
@@ -72,7 +72,6 @@
   },
   "devDependencies": {
     "@types/degit": "2.8.6",
-    "@types/js-yaml": "4.0.9",
     "degit": "2.8.4",
     "execa": "catalog:",
     "strip-ansi": "7.2.0",

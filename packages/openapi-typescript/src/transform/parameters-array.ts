@@ -1,5 +1,13 @@
-import ts from "typescript";
-import { addJSDocComment, NEVER, oapiRef, QUESTION_TOKEN, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
+import {
+  addJSDocComment,
+  INDENT,
+  NEVER,
+  oapiRef,
+  propertySignature,
+  type TSNode,
+  tsPropertyIndex,
+  typeLiteral,
+} from "../lib/ts.js";
 import { createRef } from "../lib/utils.js";
 import type { ParameterObject, ReferenceObject, TransformNodeOptions } from "../types.js";
 import transformParameterObject from "./parameter-object.js";
@@ -36,12 +44,17 @@ function extractPathParamsFromUrl(path: string): ParameterObject[] {
 
 /**
  * Synthetic type. Array of (ParameterObject | ReferenceObject)s found in OperationObject and PathItemObject.
+ *
+ * `indent` is the indentation of the produced property lines.
  */
 export function transformParametersArray(
   parametersArray: (ParameterObject | ReferenceObject)[],
   options: TransformNodeOptions,
-): ts.TypeElement[] {
-  const type: ts.TypeElement[] = [];
+  indent = "",
+): TSNode[] {
+  const paramInIndent = `${indent}${INDENT}`;
+  const paramIndent = `${paramInIndent}${INDENT}`;
+  const type: TSNode[] = [];
 
   // Create a working copy of parameters array
   const workingParameters = [...parametersArray];
@@ -65,9 +78,10 @@ export function transformParametersArray(
   }
 
   // parameters
-  const paramType: ts.TypeElement[] = [];
+  const paramType: TSNode[] = [];
   for (const paramIn of ["query", "header", "path", "cookie"] as ParameterObject["in"][]) {
-    const paramLocType: ts.TypeElement[] = [];
+    const paramLocType: TSNode[] = [];
+    const optionals: boolean[] = [];
     let operationParameters = workingParameters.map((param) => ({
       original: param,
       resolved: "$ref" in param ? options.ctx.resolve<ParameterObject>(param.$ref) : param,
@@ -86,43 +100,49 @@ export function transformParametersArray(
       if (resolved?.in !== paramIn) {
         continue;
       }
-      let optional: ts.QuestionToken | undefined;
-      if (paramIn !== "path" && !(resolved as ParameterObject).required) {
-        optional = QUESTION_TOKEN;
-      }
+      const optional = paramIn !== "path" && !(resolved as ParameterObject).required;
       const subType =
         "$ref" in original
-          ? oapiRef(original.$ref, resolved)
-          : transformParameterObject(resolved as ParameterObject, {
-              ...options,
-              path: createRef([options.path, "parameters", resolved.in, resolved.name]),
-            });
-      const property = ts.factory.createPropertySignature(
-        /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
-        /* name          */ tsPropertyIndex(resolved?.name),
-        /* questionToken */ optional,
-        /* type          */ subType,
+          ? oapiRef(original.$ref, resolved, { indent: paramIndent })
+          : transformParameterObject(
+              resolved as ParameterObject,
+              {
+                ...options,
+                path: createRef([options.path, "parameters", resolved.in, resolved.name]),
+              },
+              paramIndent,
+            );
+      optionals.push(optional);
+      paramLocType.push(
+        propertySignature({
+          /* name          */ name: tsPropertyIndex(resolved?.name),
+          /* type          */ type: subType,
+          /* questionToken */ optional,
+          /* modifiers     */ readonly: options.ctx.immutable,
+          comment: addJSDocComment(resolved, paramIndent),
+          indent: paramIndent,
+        }),
       );
-      addJSDocComment(resolved, property);
-      paramLocType.push(property);
     }
-    const allOptional = paramLocType.every((node) => !!node.questionToken);
+    const allOptional = optionals.every(Boolean);
     paramType.push(
-      ts.factory.createPropertySignature(
-        /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
-        /* name          */ tsPropertyIndex(paramIn),
-        /* questionToken */ allOptional || !paramLocType.length ? QUESTION_TOKEN : undefined,
-        /* type          */ paramLocType.length ? ts.factory.createTypeLiteralNode(paramLocType) : NEVER,
-      ),
+      propertySignature({
+        /* name          */ name: tsPropertyIndex(paramIn),
+        /* type          */ type: paramLocType.length ? typeLiteral(paramLocType, paramInIndent) : NEVER,
+        /* questionToken */ optional: allOptional || !paramLocType.length,
+        /* modifiers     */ readonly: options.ctx.immutable,
+        indent: paramInIndent,
+      }),
     );
   }
   type.push(
-    ts.factory.createPropertySignature(
-      /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
-      /* name          */ tsPropertyIndex("parameters"),
-      /* questionToken */ !paramType.length ? QUESTION_TOKEN : undefined,
-      /* type          */ paramType.length ? ts.factory.createTypeLiteralNode(paramType) : NEVER,
-    ),
+    propertySignature({
+      /* name          */ name: tsPropertyIndex("parameters"),
+      /* type          */ type: paramType.length ? typeLiteral(paramType, indent) : NEVER,
+      /* questionToken */ optional: !paramType.length,
+      /* modifiers     */ readonly: options.ctx.immutable,
+      indent,
+    }),
   );
 
   return type;

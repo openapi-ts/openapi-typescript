@@ -1,6 +1,14 @@
 import { performance } from "node:perf_hooks";
-import ts from "typescript";
-import { addJSDocComment, oapiRef, stringToAST, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
+import {
+  addJSDocComment,
+  INDENT,
+  indexSignature,
+  oapiRef,
+  propertySignature,
+  type TSNode,
+  tsPropertyIndex,
+  typeLiteral,
+} from "../lib/ts.js";
 import { createRef, debug, getEntries } from "../lib/utils.js";
 import type {
   GlobalContext,
@@ -15,11 +23,23 @@ import transformPathItemObject, { type Method } from "./path-item-object.js";
 const PATH_PARAM_RE = /\{[^}]+\}/g;
 
 /**
+ * Escape a URL for use inside a template literal type (`` `…` ``).
+ *
+ * A backtick would terminate the literal, and a backslash would either introduce
+ * an escape sequence or (when trailing) escape the closing backtick or the `$`
+ * of a `${…}` substitution, silently turning the type into a plain string.
+ */
+function escapeTemplateLiteral(text: string): string {
+  return text.replace(/[`\\]/g, (match) => `\\${match}`);
+}
+
+/**
  * Transform the PathsObject node (4.8.8)
  * @see https://spec.openapis.org/oas/v3.1.0#operation-object
  */
-export default function transformPathsObject(pathsObject: PathsObject, ctx: GlobalContext): ts.TypeNode {
-  const type: ts.TypeElement[] = [];
+export default function transformPathsObject(pathsObject: PathsObject, ctx: GlobalContext, indent = ""): TSNode {
+  const memberIndent = `${indent}${INDENT}`;
+  const type: TSNode[] = [];
   for (const [url, pathItemObject] of getEntries(pathsObject, ctx)) {
     if (!pathItemObject || typeof pathItemObject !== "object") {
       continue;
@@ -29,81 +49,81 @@ export default function transformPathsObject(pathsObject: PathsObject, ctx: Glob
 
     // handle $ref
     if ("$ref" in pathItemObject) {
-      const property = ts.factory.createPropertySignature(
-        /* modifiers     */ tsModifiers({ readonly: ctx.immutable }),
-        /* name          */ tsPropertyIndex(url),
-        /* questionToken */ undefined,
-        /* type          */ oapiRef(pathItemObject.$ref),
+      type.push(
+        propertySignature({
+          /* modifiers     */ readonly: ctx.immutable,
+          /* name          */ name: tsPropertyIndex(url),
+          /* type          */ type: oapiRef(pathItemObject.$ref, undefined, { indent: memberIndent }),
+          comment: addJSDocComment(pathItemObject, memberIndent),
+          indent: memberIndent,
+        }),
       );
-      addJSDocComment(pathItemObject, property);
-      type.push(property);
     } else {
-      const pathItemType = transformPathItemObject(pathItemObject, {
-        path: createRef(["paths", url]),
-        ctx,
-      });
+      const pathItemType = transformPathItemObject(
+        pathItemObject,
+        {
+          path: createRef(["paths", url]),
+          ctx,
+        },
+        memberIndent,
+      );
 
       // pathParamsAsTypes
       if (ctx.pathParamsAsTypes && url.includes("{")) {
         const pathParams = extractPathParams(pathItemObject, ctx);
         const matches = url.match(PATH_PARAM_RE);
-        let rawPath = `\`${url}\``;
+        // the URL becomes the body of a template literal type, so anything that
+        // could break out of it (a backtick, a backslash, or a `${`) is escaped
+        let rawPath = `\`${escapeTemplateLiteral(url)}\``;
         if (matches) {
           for (const match of matches) {
             const paramName = match.slice(1, -1);
             const param = pathParams[paramName];
+            // rawPath is already escaped, including characters inside the
+            // placeholder name. Match that representation when replacing it.
+            const escapedMatch = escapeTemplateLiteral(match);
             switch (param?.schema?.type) {
               case "number":
               case "integer":
-                rawPath = rawPath.replace(match, "${number}");
+                rawPath = rawPath.replace(escapedMatch, `\${number}`);
                 break;
               case "boolean":
-                rawPath = rawPath.replace(match, "${boolean}");
+                rawPath = rawPath.replace(escapedMatch, `\${boolean}`);
                 break;
               default:
-                rawPath = rawPath.replace(match, "${string}");
+                rawPath = rawPath.replace(escapedMatch, `\${string}`);
                 break;
             }
           }
-          // note: creating a string template literal’s AST manually is hard!
-          // just pass an arbitrary string to TS
-          const pathType = (stringToAST(rawPath)[0] as any)?.expression;
-          if (pathType) {
-            type.push(
-              ts.factory.createIndexSignature(
-                /* modifiers     */ tsModifiers({ readonly: ctx.immutable }),
-                /* parameters    */ [
-                  ts.factory.createParameterDeclaration(
-                    /* modifiers      */ undefined,
-                    /* dotDotDotToken */ undefined,
-                    /* name           */ "path",
-                    /* questionToken  */ undefined,
-                    /* type           */ pathType,
-                    /* initializer    */ undefined,
-                  ),
-                ],
-                /* type          */ pathItemType,
-              ),
-            );
-            continue;
-          }
+          // note: the template literal type is emitted verbatim — it used to be
+          // round-tripped through the TypeScript parser for exactly this reason
+          type.push(
+            indexSignature({
+              /* modifiers     */ readonly: ctx.immutable,
+              /* parameters    */ keyName: "path",
+              /* type          */ keyType: rawPath,
+              /* type          */ valueType: pathItemType,
+              indent: memberIndent,
+            }),
+          );
+          continue;
         }
       }
 
       type.push(
-        ts.factory.createPropertySignature(
-          /* modifiers     */ tsModifiers({ readonly: ctx.immutable }),
-          /* name          */ tsPropertyIndex(url),
-          /* questionToken */ undefined,
-          /* type          */ pathItemType,
-        ),
+        propertySignature({
+          /* modifiers     */ readonly: ctx.immutable,
+          /* name          */ name: tsPropertyIndex(url),
+          /* type          */ type: pathItemType,
+          indent: memberIndent,
+        }),
       );
 
       debug(`Transformed path "${url}"`, "ts", performance.now() - pathT);
     }
   }
 
-  return ts.factory.createTypeLiteralNode(type);
+  return typeLiteral(type, indent);
 }
 
 function extractPathParams(pathItemObject: PathItemObject, ctx: GlobalContext) {

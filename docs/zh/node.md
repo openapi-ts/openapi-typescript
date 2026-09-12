@@ -10,7 +10,7 @@ Node.js API 对于处理动态创建的模式或在较大应用程序上下文�
 ## 安装
 
 ```bash
-npm i --save-dev openapi-typescript typescript
+npm i --save-dev openapi-typescript
 ```
 
 ::: tip 推荐
@@ -31,18 +31,17 @@ Node.js API 接受 `URL`、`string` 或 JSON 对象作为输入：
 
 它还接受 `Readable` 流和 `Buffer` 类型，这些类型将被解析并视为字符串（无法在没有整个文档的情况下进行验证、捆绑和类型生成）。
 
-Node API 返回一个带有 TypeScript AST 的 `Promise`。然后，您可以按需遍历/操作/修改 AST。
+Node API 返回一个包含生成的 TypeScript 源码字符串的 `Promise`，可以直接写入文件。生成类型不需要安装 `typescript` 包。
 
-要将 TypeScript AST 转换为字符串，可以使用 `astToString()` 辅助函数，它是对 [TypeScript’s printer](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API#re-printing-sections-of-a-typescript-file) 的简单封装：
+`astToString()` 仍然可用，但现在只接受源码字符串并确保末尾有换行。它不再处理 TypeScript AST 或打印器选项。
 
 ::: code-group
 
 ```ts [src/my-project.ts]
 import fs from "node:fs";
-import openapiTS, { astToString } from "openapi-typescript";
+import openapiTS from "openapi-typescript";
 
-const ast = await openapiTS(new URL("./my-schema.yaml", import.meta.url));
-const contents = astToString(ast);
+const contents = await openapiTS(new URL("./my-schema.yaml", import.meta.url));
 
 // （可选）写入文件
 fs.writeFileSync("./my-schema.ts", contents);
@@ -61,7 +60,7 @@ import { createConfig, loadConfig } from "@redocly/openapi-core";
 import openapiTS from "openapi-typescript";
 
 // 选项 1：在内存中创建配置
-const redoc = await createConfig(
+const redocly = await createConfig(
   {
     apis: {
       "core@v2": { … },
@@ -72,9 +71,9 @@ const redoc = await createConfig(
 );
 
 // 选项 2：从 redocly.yaml 文件加载
-const redoc = await loadConfig({ configPath: "redocly.yaml" });
+const redocly = await loadConfig({ configPath: "redocly.yaml" });
 
-const ast = await openapiTS(mySchema, { redoc });
+const types = await openapiTS(mySchema, { redocly });
 ```
 
 :::
@@ -96,7 +95,7 @@ Node API 支持所有 [CLI 参数](/zh/cli#命令行参数)（采用 `camelCase`
 使用 `transform()` 和 `postTransform()` 选项覆盖默认的 Schema Object 转换器。这对于为模式的特定部分提供非标准修改很有用。
 
 - `transform()` 在转换为 TypeScript 之前运行（您正在使用原始 OpenAPI 节点）
-- `postTransform()` 在转换为 TypeScript 之后运行（您正在使用 TypeScript AST）
+- `postTransform()` 在转换为 TypeScript 之后运行（您正在使用生成的类型字符串）
 
 #### 示例：`Date` 类型
 
@@ -119,17 +118,14 @@ properties:
 
 ```ts [src/my-project.ts]
 import openapiTS from "openapi-typescript";
-import ts from "typescript";
 
-const DATE = ts.factory.createIdentifier("Date"); // `Date`
-const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull()); // `null`
+const DATE = "Date"; // `Date`
+const NULL = "null"; // `null`
 
-const ast = await openapiTS(mySchema, {
+const types = await openapiTS(mySchema, {
   transform(schemaObject, metadata) {
     if (schemaObject.format === "date-time") {
-      return schemaObject.nullable
-        ? ts.factory.createUnionTypeNode([DATE, NULL])
-        : DATE;
+      return schemaObject.nullable ? `${DATE} | ${NULL}` : DATE;
     }
   },
 });
@@ -171,17 +167,14 @@ Body_file_upload:
 
 ```ts [src/my-project.ts]
 import openapiTS from "openapi-typescript";
-import ts from "typescript";
 
-const BLOB = ts.factory.createIdentifier("Blob"); // `Blob`
-const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull()); // `null`
+const BLOB = "Blob"; // `Blob`
+const NULL = "null"; // `null`
 
-const ast = await openapiTS(mySchema, {
+const types = await openapiTS(mySchema, {
   transform(schemaObject, metadata) {
     if (schemaObject.format === "binary") {
-      return schemaObject.nullable
-        ? ts.factory.createUnionTypeNode([BLOB, NULL])
-        : BLOB;
+      return schemaObject.nullable ? `${BLOB} | ${NULL}` : BLOB;
     }
   },
 });
@@ -224,18 +217,15 @@ Body_file_upload:
 
 ```ts [src/my-project.ts]
 import openapiTS from "openapi-typescript";
-import ts from "typescript";
 
-const BLOB = ts.factory.createIdentifier("Blob"); // `Blob`
-const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull()); // `null`
+const BLOB = "Blob"; // `Blob`
+const NULL = "null"; // `null`
 
-const ast = await openapiTS(mySchema, {
+const types = await openapiTS(mySchema, {
   transform(schemaObject, metadata) {
     if (schemaObject.format === "binary") {
       return {
-        schema: schemaObject.nullable
-          ? ts.factory.createUnionTypeNode([BLOB, NULL])
-          : BLOB,
+        schema: schemaObject.nullable ? `${BLOB} | ${NULL}` : BLOB,
         questionToken: true,
       };
     }
@@ -259,3 +249,26 @@ file?: Blob | null; // [!code ++]
 您的模式中的任何 [Schema Object](https://spec.openapis.org/oas/latest.html#schema-object) 都将通过此格式化程序（甚至是远程的！）。还请务必检查 `metadata` 参数，以获取可能有用的其他上下文。
 
 除了检查 `format` 之外，还有许多其他用途。由于此必须返回一个 **字符串**，因此您可以生成任何您想要的任意 TypeScript 代码（甚至是您自己的自定义类型）。
+
+
+### transformProperty
+
+`transformProperty()` 在属性类型转换后运行，接收 `{ name, optional, readonly, type, comment?, indent }` 对象。返回修改后的对象，或返回 `undefined` 保留原属性。`name` 是已经按需加引号的属性名，`type` 是类型字符串。修改 `readonly` 可以覆盖模式或 `immutable` 选项设置的默认值。
+
+```ts
+import openapiTS, { tsComment } from "openapi-typescript";
+
+const types = await openapiTS(mySchema, {
+  transformProperty(property, schemaObject) {
+    if (schemaObject.format === "date-time") {
+      return {
+        ...property,
+        readonly: true,
+        comment: tsComment(["@custom timestamp"], property.indent),
+      };
+    }
+  },
+});
+```
+
+模式自身的 JSDoc 会附加在 `tsComment()` 生成的注释之后。此钩子适用于 Schema Object 的属性和 `$defs`。

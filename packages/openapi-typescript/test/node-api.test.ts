@@ -1,13 +1,12 @@
 import { fileURLToPath } from "node:url";
-import ts from "typescript";
-import openapiTS, { astToString, COMMENT_HEADER } from "../src/index.js";
+import openapiTS, { astToString, COMMENT_HEADER, tsComment, tsLiteral, tsUnion } from "../src/index.js";
 import type { OpenAPITSOptions } from "../src/types.js";
 import type { TestCase } from "./test-helpers.js";
 
 const EXAMPLES_DIR = new URL("../examples/", import.meta.url);
 
-const DATE = ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Date"));
-const BLOB = ts.factory.createTypeReferenceNode("Blob");
+const DATE = "Date";
+const BLOB = "Blob";
 
 describe("Node.js API", () => {
   const tests: TestCase<any, OpenAPITSOptions>[] = [
@@ -377,11 +376,7 @@ export type operations = Record<string, never>;`,
         options: {
           transform(schemaObject) {
             if ("format" in schemaObject && schemaObject.format === "date-time") {
-              /**
-               * Tip: use astexplorer.net to first type out the desired TypeScript,
-               * then use the `typescript` parser and it will tell you the desired
-               * AST
-               */
+              // Hooks return the desired TypeScript source directly.
               return DATE;
             }
           },
@@ -568,12 +563,8 @@ export type operations = Record<string, never>;`,
         options: {
           postTransform(_type, options) {
             if (options.path?.includes("Date")) {
-              /**
-               * Tip: use astexplorer.net to first type out the desired TypeScript,
-               * then use the `typescript` parser and it will tell you the desired
-               * AST
-               */
-              return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("DateOrTime"));
+              // Hooks return the desired TypeScript source directly.
+              return "DateOrTime";
             }
 
             // Previously, in order to access the schema in postTransform,
@@ -593,13 +584,7 @@ export type operations = Record<string, never>;`,
                 return typeof enumMember === "string";
               })
             ) {
-              return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Set"), [
-                ts.factory.createUnionTypeNode(
-                  schema.enum.map((value) => {
-                    return ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(value));
-                  }),
-                ),
-              ]);
+              return `Set<${tsUnion(schema.enum.map((value) => tsLiteral(value)))}>`;
             }
           },
         },
@@ -691,21 +676,8 @@ export type operations = Record<string, never>;`,
             }
 
             if (validationTags.length > 0) {
-              // Create a new property signature
-              const newProperty = ts.factory.updatePropertySignature(
-                property,
-                property.modifiers,
-                property.name,
-                property.questionToken,
-                property.type,
-              );
-
-              // Add JSDoc comment using the same format as addJSDocComment
-              const jsDocText = `*\n * ${validationTags.join("\n * ")}\n `;
-
-              ts.addSyntheticLeadingComment(newProperty, ts.SyntaxKind.MultiLineCommentTrivia, jsDocText, true);
-
-              return newProperty;
+              // Add a JSDoc block using the same format as addJSDocComment
+              return { ...property, comment: tsComment(validationTags, property.indent) };
             }
 
             return property;

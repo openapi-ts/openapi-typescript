@@ -1,8 +1,8 @@
 import { performance } from "node:perf_hooks";
 import type { Readable } from "node:stream";
 import { createConfig } from "@redocly/openapi-core";
-import type ts from "typescript";
 import { validateAndBundle } from "./lib/redoc.js";
+import type { TSNode } from "./lib/ts.js";
 import { debug, resolveRef, scanDiscriminators } from "./lib/utils.js";
 import transformSchema from "./transform/index.js";
 import type { GlobalContext, OpenAPI3, OpenAPITSOptions } from "./types.js";
@@ -34,7 +34,7 @@ export const COMMENT_HEADER = `/**
 `;
 
 /**
- * Convert an OpenAPI schema to TypesScript AST
+ * Convert an OpenAPI schema to TypeScript type declarations
  * @param {string|URL|object|Readable} source OpenAPI schema source:
  *   - YAML: string
  *   - JSON: parsed object
@@ -44,7 +44,7 @@ export const COMMENT_HEADER = `/**
 export default async function openapiTS(
   source: string | URL | OpenAPI3 | Buffer | Readable,
   options: OpenAPITSOptions = {} as Partial<OpenAPITSOptions>,
-): Promise<ts.Node[]> {
+): Promise<TSNode> {
   if (!source) {
     throw new Error("Empty schema. Please specify a URL, file path, or Redocly Config");
   }
@@ -101,8 +101,8 @@ export default async function openapiTS(
   };
 
   const transformT = performance.now();
-  const result = transformSchema(schema, ctx);
-  debug("Completed AST transformation for entire document", "ts", performance.now() - transformT);
+  const result = `${transformSchema(schema, ctx).join("\n")}\n`;
+  debug("Completed transformation for entire document", "ts", performance.now() - transformT);
 
   return result;
 }
