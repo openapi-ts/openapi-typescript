@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@tanstack/react-query": "5.100.9",
-    "@testing-library/react": "16.3.2",
+    "@testing-library/react": "16.3.3",
     "@types/react": "18.3.21",
     "@vitejs/plugin-react": "5.2.0",
     "execa": "catalog:",
