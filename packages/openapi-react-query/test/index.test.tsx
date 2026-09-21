@@ -89,6 +89,21 @@ describe("client", () => {
       client.queryOptions("get", "/string-arrayX");
       // @ts-expect-error: Missing 'post_id' param.
       client.queryOptions("get", "/blogposts/{post_id}", {});
+      // @ts-expect-error: Undeclared query param.
+      client.queryOptions("get", "/query-params", { params: { query: { string: "a", undeclared: 1 } } });
+      // @ts-expect-error: Undeclared path param.
+      client.queryOptions("get", "/blogposts/{post_id}", { params: { path: { post_id: "1", undeclared: "2" } } });
+    });
+
+    it("infers the response type from parseAs", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      const blob = client.queryOptions("get", "/string-array", { parseAs: "blob" });
+      expectTypeOf<Awaited<ReturnType<typeof blob.queryFn>>>().toEqualTypeOf<Blob>();
+
+      const json = client.queryOptions("get", "/string-array");
+      expectTypeOf<Awaited<ReturnType<typeof json.queryFn>>>().toEqualTypeOf<string[]>();
     });
 
     it("correctly infers return type from query key", async () => {
