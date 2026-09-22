@@ -7065,7 +7065,7 @@ export interface components {
             total?: number;
         };
         meta: {
-            meta: components["schemas"]["meta_properties"] & unknown;
+            meta: WithRequired<components["schemas"]["meta_properties"], "total">;
         };
         region: {
             /**
@@ -11632,15 +11632,15 @@ export interface components {
              */
             tag?: string | null;
         };
-        domain_record_a: components["schemas"]["domain_record"] & unknown;
-        domain_record_aaaa: components["schemas"]["domain_record"] & unknown;
-        domain_record_caa: components["schemas"]["domain_record"] & unknown;
-        domain_record_cname: components["schemas"]["domain_record"] & unknown;
-        domain_record_mx: components["schemas"]["domain_record"] & unknown;
-        domain_record_ns: components["schemas"]["domain_record"] & unknown;
-        domain_record_soa: components["schemas"]["domain_record"] & unknown;
-        domain_record_srv: components["schemas"]["domain_record"] & unknown;
-        domain_record_txt: components["schemas"]["domain_record"] & unknown;
+        domain_record_a: WithRequired<components["schemas"]["domain_record"], "type" | "name" | "data">;
+        domain_record_aaaa: WithRequired<components["schemas"]["domain_record"], "type" | "name" | "data">;
+        domain_record_caa: WithRequired<components["schemas"]["domain_record"], "type" | "name" | "data" | "flags" | "tag">;
+        domain_record_cname: WithRequired<components["schemas"]["domain_record"], "type" | "name" | "data">;
+        domain_record_mx: WithRequired<components["schemas"]["domain_record"], "type" | "data" | "priority">;
+        domain_record_ns: WithRequired<components["schemas"]["domain_record"], "type" | "name" | "data" | "flags" | "tag">;
+        domain_record_soa: WithRequired<components["schemas"]["domain_record"], "type" | "ttl">;
+        domain_record_srv: WithRequired<components["schemas"]["domain_record"], "type" | "name" | "data" | "priority" | "port" | "flags" | "tag">;
+        domain_record_txt: WithRequired<components["schemas"]["domain_record"], "type" | "name" | "data" | "flags" | "tag">;
         disk_info: {
             /**
              * @description The type of disk. All Droplets contain a `local` disk. Additionally, GPU Droplets can also have a `scratch` disk for non-persistent data.
@@ -12929,7 +12929,7 @@ export interface components {
              */
             type: "assign";
         };
-        floating_ip_action_unassign: Omit<components["schemas"]["floatingIPsAction"], "type"> & Record<string, never> & {
+        floating_ip_action_unassign: Omit<WithRequired<components["schemas"]["floatingIPsAction"], "type">, "type"> & {
             /**
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
@@ -14897,7 +14897,7 @@ export interface components {
              */
             type: "assign";
         };
-        reserved_ip_action_unassign: Omit<components["schemas"]["reserved_ip_action_type"], "type"> & Record<string, never> & {
+        reserved_ip_action_unassign: Omit<WithRequired<components["schemas"]["reserved_ip_action_type"], "type">, "type"> & {
             /**
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
