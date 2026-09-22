@@ -10,7 +10,7 @@ Node APIは、動的に生成されたスキーマを扱う場合や、より大
 ## セットアップ
 
 ```bash
-npm i --save-dev openapi-typescript typescript
+npm i --save-dev openapi-typescript
 ```
 
 ::: tip 推奨
@@ -31,18 +31,17 @@ Node.js APIは、`URL`、`string`、またはJSONオブジェクトを入力と�
 
 また、 `Readable` ストリームや`Buffer` 型も受け付け、これらは文字列として解決されます（ドキュメント全体がないと検証、バンドル、型生成ができません）。
 
-Node APIはTypeScript の AST を含む `Promise` を返します。その後、必要に応じてASTをトラバース、操作、または修正できます。
+Node APIは、生成されたTypeScriptソースの文字列を含む `Promise` を返します。そのままファイルに書き込めます。型の生成に `typescript` パッケージは必要ありません。
 
-TypeScript ASTを文字列に変換するには、[TypeScriptのprinterのラッパー](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API#re-printing-sections-of-a-typescript-file)である `astToString()` ヘルパーを使用できます:
+`astToString()` は引き続き利用できますが、現在はソース文字列を受け取り、末尾に改行を追加するヘルパーです。TypeScript ASTやプリンターのオプションは使用できません。
 
 ::: code-group
 
 ```ts [src/my-project.ts]
 import fs from "node:fs";
-import openapiTS, { astToString } from "openapi-typescript";
+import openapiTS from "openapi-typescript";
 
-const ast = await openapiTS(new URL("./my-schema.yaml", import.meta.url));
-const contents = astToString(ast);
+const contents = await openapiTS(new URL("./my-schema.yaml", import.meta.url));
 
 // （任意）ファイルに書き込み
 fs.writeFileSync("./my-schema.ts", contents);
@@ -74,7 +73,7 @@ const redocly = await createConfig(
 // オプション2： redocly.yamlファイルから読み込み
 const redocly = await loadConfig({ configPath: "redocly.yaml" });
 
-const ast = await openapiTS(mySchema, { redocly });
+const types = await openapiTS(mySchema, { redocly });
 ```
 
 :::
@@ -96,7 +95,7 @@ Node APIは、 `camelCase` 形式で[CLI フラグ](./cli#%E3%83%95%E3%83%A9%E3%
 `transform()` と `postTransform()` オプションを使用して、デフォルトのスキーマオブジェクト変換を独自のものに上書きできます。これは、スキーマの特定の部分に対して非標準的な変更を提供する場合に役立ちます。
 
 - `transform()` はTypeScriptへの **変換前** に実行されます（OpenAPIノードを扱います）
-- `postTransform()` はTypeScriptへの **変換後** に実行されます（TypeScript ASTを扱います）
+- `postTransform()` はTypeScriptへの **変換後** に実行されます（生成された型の文字列を扱います）
 
 #### 例: `Date` 型
 
@@ -115,19 +114,14 @@ properties:
 
 ```ts [src/my-project.ts]
 import openapiTS from "openapi-typescript";
-import ts from "typescript";
 
-const DATE = ts.factory.createTypeReferenceNode(
-  ts.factory.createIdentifier("Date")
-); // `Date`
-const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull()); // `null`
+const DATE = "Date"; // `Date`
+const NULL = "null"; // `null`
 
-const ast = await openapiTS(mySchema, {
+const types = await openapiTS(mySchema, {
   transform(schemaObject, metadata) {
     if (schemaObject.format === "date-time") {
-      return schemaObject.nullable
-        ? ts.factory.createUnionTypeNode([DATE, NULL])
-        : DATE;
+      return schemaObject.nullable ? `${DATE} | ${NULL}` : DATE;
     }
   },
 });
@@ -169,19 +163,14 @@ Body_file_upload:
 
 ```ts [src/my-project.ts]
 import openapiTS from "openapi-typescript";
-import ts from "typescript";
 
-const BLOB = ts.factory.createTypeReferenceNode(
-  ts.factory.createIdentifier("Blob")
-); // `Blob`
-const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull()); // `null`
+const BLOB = "Blob"; // `Blob`
+const NULL = "null"; // `null`
 
-const ast = await openapiTS(mySchema, {
+const types = await openapiTS(mySchema, {
   transform(schemaObject, metadata) {
     if (schemaObject.format === "binary") {
-      return schemaObject.nullable
-        ? ts.factory.createUnionTypeNode([BLOB, NULL])
-        : BLOB;
+      return schemaObject.nullable ? `${BLOB} | ${NULL}` : BLOB;
     }
   },
 });
@@ -224,20 +213,15 @@ Body_file_upload:
 
 ```ts [src/my-project.ts]
 import openapiTS from "openapi-typescript";
-import ts from "typescript";
 
-const BLOB = ts.factory.createTypeReferenceNode(
-  ts.factory.createIdentifier("Blob")
-); // `Blob`
-const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull()); // `null`
+const BLOB = "Blob"; // `Blob`
+const NULL = "null"; // `null`
 
-const ast = await openapiTS(mySchema, {
+const types = await openapiTS(mySchema, {
   transform(schemaObject, metadata) {
     if (schemaObject.format === "binary") {
       return {
-        schema: schemaObject.nullable
-          ? ts.factory.createUnionTypeNode([BLOB, NULL])
-          : BLOB,
+        schema: schemaObject.nullable ? `${BLOB} | ${NULL}` : BLOB,
         questionToken: true,
       };
     }
@@ -261,3 +245,26 @@ file?: Blob | null; // [!code ++]
 スキーマ内の任意の[Schema Object](https://spec.openapis.org/oas/latest.html#schema-object)は、このフォーマッタを通じて処理されます（リモートのものも含まれます!）。また、追加のコンテキストが役立つ場合があるので、`metadata` パラメータも必ず確認してください。
 
 `format`のチェック以外にも、これを利用する方法は多数あります。この関数は **string** を返す必要があるため、任意のTypeScriptコード（独自のカスタム型も含む）を生成することができます。
+
+
+### transformProperty
+
+`transformProperty()` はプロパティの型変換後に実行され、`{ name, optional, readonly, type, comment?, indent }` オブジェクトを受け取ります。変更したオブジェクトを返すか、変更しない場合は `undefined` を返してください。`name` は必要に応じて引用符が付いた名前、`type` は型の文字列です。`readonly` を変更すると、スキーマや `immutable` オプションによるデフォルトを上書きできます。
+
+```ts
+import openapiTS, { tsComment } from "openapi-typescript";
+
+const types = await openapiTS(mySchema, {
+  transformProperty(property, schemaObject) {
+    if (schemaObject.format === "date-time") {
+      return {
+        ...property,
+        readonly: true,
+        comment: tsComment(["@custom timestamp"], property.indent),
+      };
+    }
+  },
+});
+```
+
+`tsComment()` で作成したコメントの後に、スキーマ由来のJSDocが追加されます。このフックは Schema Object のプロパティと `$defs` に適用されます。

@@ -38,15 +38,11 @@ pnpm run dev
 
 This will compile the code as you change automatically.
 
-#### Tip: use ASTExplorer.net!
+#### Generating TypeScript
 
-Working with the TypeScript AST can be daunting. Luckily, there’s [astexplorer.net](https://astexplorer.net) which makes it much more accessible. Rather than trying to build an AST from scratch (which is near impossible), instead:
+The generator emits TypeScript source strings. Use the builders in `src/lib/ts.ts` for declarations, properties, arrays, unions, and comments. They handle quoting, indentation, and operator precedence consistently.
 
-1. Switch to the **typescript** parser in the top menu
-2. Type out code in the left-hand panel
-3. Inspect the right-hand panel to see what the desired AST is.
-
-From there, you can refer to existing examples in the codebase. There may even be helper utilities in `src/lib/ts.ts` to make life easier.
+Keep TypeScript a development dependency only. For changes to generated types, add compiler assertions as well as output snapshots: syntactically valid output can still accept or reject the wrong values. `pnpm run test:consumer -- 7.0.2` checks the built package in an isolated consumer; use `5.9.3`, `6.0.3`, or `none` for the other environments.
 
 #### Tip: Use Test-driven Development!
 

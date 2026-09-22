@@ -1,31 +1,36 @@
 import { parseRef } from "@redocly/openapi-core/lib/ref-utils.js";
-import ts from "typescript";
 import {
   addJSDocComment,
   BOOLEAN,
+  INDENT,
+  indexSignature,
   NEVER,
   NULL,
   NUMBER,
   oapiRef,
-  QUESTION_TOKEN,
+  propertySignature,
   STRING,
+  type TSNode,
+  tsArray,
   tsArrayLiteralExpression,
   tsEnum,
   tsIntersection,
   tsIsPrimitive,
   tsLiteral,
-  tsModifiers,
   tsNullable,
   tsOmit,
+  tsParenthesize,
   tsPropertyIndex,
   tsRecord,
   tsUnion,
   tsWithRequired,
+  tupleType,
+  typeLiteral,
   UNDEFINED,
   UNKNOWN,
 } from "../lib/ts.js";
 import { createDiscriminatorProperty, createRef, getEntries } from "../lib/utils.js";
-import type { ReferenceObject, SchemaObject, TransformNodeOptions } from "../types.js";
+import type { PropertySignatureLike, ReferenceObject, SchemaObject, TransformNodeOptions } from "../types.js";
 
 /**
  * Transform SchemaObject nodes (4.8.24)
@@ -35,8 +40,9 @@ export default function transformSchemaObject(
   schemaObject: SchemaObject | ReferenceObject,
   options: TransformNodeOptions,
   fromAdditionalProperties = false,
-): ts.TypeNode {
-  const type = transformSchemaObjectWithComposition(schemaObject, options, fromAdditionalProperties);
+  indent = "",
+): TSNode {
+  const type = transformSchemaObjectWithComposition(schemaObject, options, fromAdditionalProperties, indent);
   if (typeof options.ctx.postTransform === "function") {
     const postTransformResult = options.ctx.postTransform(type, options);
     if (postTransformResult) {
@@ -53,7 +59,8 @@ export function transformSchemaObjectWithComposition(
   schemaObject: SchemaObject | ReferenceObject,
   options: TransformNodeOptions,
   fromAdditionalProperties = false,
-): ts.TypeNode {
+  indent = "",
+): TSNode {
   /**
    * Unexpected types & edge cases
    */
@@ -77,14 +84,14 @@ export function transformSchemaObjectWithComposition(
    * ReferenceObject
    */
   if ("$ref" in schemaObject) {
-    return oapiRef(schemaObject.$ref);
+    return oapiRef(schemaObject.$ref, undefined, { indent });
   }
 
   /**
    * const (valid for any type)
    */
   if (schemaObject.const !== null && schemaObject.const !== undefined) {
-    return tsLiteral(schemaObject.const);
+    return tsLiteral(schemaObject.const, indent);
   }
 
   /**
@@ -124,17 +131,17 @@ export function transformSchemaObjectWithComposition(
           export: true,
           // readonly: TS enum do not support the readonly modifier
         });
-        if (!options.ctx.injectFooter.includes(enumType)) {
-          options.ctx.injectFooter.push(enumType);
+        if (!options.ctx.injectFooter.includes(enumType.declaration)) {
+          options.ctx.injectFooter.push(enumType.declaration);
         }
-        const ref = ts.factory.createTypeReferenceNode(enumType.name);
+        const ref = enumType.name;
 
-        const finalType: ts.TypeNode = hasNull ? tsUnion([ref, NULL]) : ref;
+        const finalType: TSNode = hasNull ? tsUnion([ref, NULL]) : ref;
 
         return applyAdditionalPropertiesToEnum(hasAdditionalProperties, finalType, schemaObject);
       }
 
-      const enumType = schemaObject.enum.map(tsLiteral);
+      const enumType = schemaObject.enum.map((v) => tsLiteral(v, indent));
       if ((Array.isArray(schemaObject.type) && schemaObject.type.includes("null")) || schemaObject.nullable) {
         enumType.push(NULL);
       }
@@ -189,10 +196,7 @@ export function transformSchemaObjectWithComposition(
           enumValuesVariableName,
           // If fromAdditionalProperties is true we are dealing with a record type and we should append [string] to the generated type
           fromAdditionalProperties
-            ? ts.factory.createIndexedAccessTypeNode(
-                oapiRef(cleanedRefPath, undefined, { deep: true, extractProperties }),
-                ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("string")),
-              )
+            ? `${oapiRef(cleanedRefPath, undefined, { deep: true, extractProperties })}[string]`
             : oapiRef(cleanedRefPath, undefined, { deep: true, extractProperties }),
           schemaObject.enum as (string | number)[],
           {
@@ -215,14 +219,19 @@ export function transformSchemaObjectWithComposition(
 
   /** Collect oneOf/anyOf */
   function collectUnionCompositions(items: (SchemaObject | ReferenceObject)[], unionKey: "anyOf" | "oneOf") {
-    const output: ts.TypeNode[] = [];
+    const output: TSNode[] = [];
     for (const [index, item] of items.entries()) {
       output.push(
-        transformSchemaObject(item, {
-          ...options,
-          // include index in path so generated names from nested enums/enumValues are unique
-          path: createRef([options.path, unionKey, String(index)]),
-        }),
+        transformSchemaObject(
+          item,
+          {
+            ...options,
+            // include index in path so generated names from nested enums/enumValues are unique
+            path: createRef([options.path, unionKey, String(index)]),
+          },
+          false,
+          indent,
+        ),
       );
     }
 
@@ -230,14 +239,14 @@ export function transformSchemaObjectWithComposition(
   }
 
   /** Collect allOf with Omit<> for discriminators */
-  function collectAllOfCompositions(items: (SchemaObject | ReferenceObject)[], required?: string[]): ts.TypeNode[] {
-    const output: ts.TypeNode[] = [];
+  function collectAllOfCompositions(items: (SchemaObject | ReferenceObject)[], required?: string[]): TSNode[] {
+    const output: TSNode[] = [];
     for (const item of items) {
-      let itemType: ts.TypeNode;
+      let itemType: TSNode;
       // if this is a $ref, use WithRequired<X, Y> if parent specifies required properties
       // (but only for valid keys)
       if ("$ref" in item) {
-        itemType = transformSchemaObject(item, options);
+        itemType = transformSchemaObject(item, options, false, indent);
 
         const resolved = options.ctx.resolve<SchemaObject>(item.$ref);
 
@@ -262,7 +271,7 @@ export function transformSchemaObjectWithComposition(
         if (typeof item === "object" && Array.isArray(item.required)) {
           itemRequired.push(...item.required);
         }
-        itemType = transformSchemaObject({ ...item, required: itemRequired }, options);
+        itemType = transformSchemaObject({ ...item, required: itemRequired }, options, false, indent);
       }
 
       const discriminator =
@@ -277,13 +286,13 @@ export function transformSchemaObjectWithComposition(
   }
 
   // compile final type
-  let finalType: ts.TypeNode | undefined;
+  let finalType: TSNode | undefined;
 
   // core + allOf: intersect
-  const coreObjectType = transformSchemaObjectCore(schemaObject, options);
+  const coreObjectType = transformSchemaObjectCore(schemaObject, options, indent);
   const allOfType = collectAllOfCompositions(schemaObject.allOf ?? [], schemaObject.required);
   if (coreObjectType || allOfType.length) {
-    const allOf: ts.TypeNode | undefined = allOfType.length ? tsIntersection(allOfType) : undefined;
+    const allOf: TSNode | undefined = allOfType.length ? tsIntersection(allOfType) : undefined;
     finalType = tsIntersection([...(coreObjectType ? [coreObjectType] : []), ...(allOf ? [allOf] : [])]);
   }
   // anyOf: union
@@ -358,20 +367,22 @@ function shouldTransformToTsEnum(options: TransformNodeOptions, schemaObject: Sc
 /**
  * Handle SchemaObject minus composition (anyOf/allOf/oneOf)
  */
-function transformSchemaObjectCore(schemaObject: SchemaObject, options: TransformNodeOptions): ts.TypeNode | undefined {
+function transformSchemaObjectCore(
+  schemaObject: SchemaObject,
+  options: TransformNodeOptions,
+  indent = "",
+): TSNode | undefined {
   if ("type" in schemaObject && schemaObject.type) {
     if (typeof options.ctx.transform === "function") {
       const result = options.ctx.transform(schemaObject, options);
-      if (result && typeof result === "object") {
-        if ("schema" in result) {
+      if (result) {
+        if (typeof result === "object" && "schema" in result) {
           if (result.questionToken) {
-            return ts.factory.createUnionTypeNode([result.schema, UNDEFINED]);
-          } else {
-            return result.schema;
+            return tsUnion([result.schema, UNDEFINED]);
           }
-        } else {
-          return result;
+          return result.schema;
         }
+        return result as TSNode;
       }
     }
 
@@ -395,22 +406,24 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
 
     // type: array (with support for tuples)
     if (schemaObject.type === "array") {
-      // default to `unknown[]`
-      let itemType: ts.TypeNode = UNKNOWN;
-      // tuple type
-      if (schemaObject.prefixItems || Array.isArray(schemaObject.items)) {
-        const prefixItems = schemaObject.prefixItems ?? (schemaObject.items as (SchemaObject | ReferenceObject)[]);
-        itemType = ts.factory.createTupleTypeNode(prefixItems.map((item) => transformSchemaObject(item, options)));
-      }
-      // standard array type
-      else if (schemaObject.items) {
-        if (hasKey(schemaObject.items, "type") && schemaObject.items.type === "array") {
-          itemType = ts.factory.createArrayTypeNode(transformSchemaObject(schemaObject.items, options));
-        } else {
-          itemType = transformSchemaObject(schemaObject.items, options);
+      /** Build the array element type at `elementIndent` */
+      const buildItemType = (elementIndent: string): TSNode => {
+        // tuple type
+        if (schemaObject.prefixItems || Array.isArray(schemaObject.items)) {
+          const prefixItems = schemaObject.prefixItems ?? (schemaObject.items as (SchemaObject | ReferenceObject)[]);
+          return tupleType(
+            prefixItems.map((item) => transformSchemaObject(item, options, false, `${elementIndent}${INDENT}`)),
+            elementIndent,
+          );
         }
-      }
+        // standard array type
+        if (schemaObject.items) {
+          return transformSchemaObject(schemaObject.items, options, false, elementIndent);
+        }
+        return UNKNOWN;
+      };
 
+      const isTupleShape = Boolean(schemaObject.prefixItems || Array.isArray(schemaObject.items));
       const min: number =
         typeof schemaObject.minItems === "number" && schemaObject.minItems >= 0 ? schemaObject.minItems : 0;
       const max: number | undefined =
@@ -423,50 +436,51 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
         (min !== 0 || max !== undefined) &&
         estimateCodeSize < 30 // "30" is an arbitrary number but roughly around when TS starts to struggle with tuple inference in practice
       ) {
+        // tuple elements live one level deeper than the tuple itself
+        const elementIndent = `${indent}${INDENT}`;
+        const itemType = buildItemType(elementIndent);
         if (min === max) {
-          const elements: ts.TypeNode[] = [];
+          const elements: TSNode[] = [];
           for (let i = 0; i < min; i++) {
             elements.push(itemType);
           }
-          return tsUnion([ts.factory.createTupleTypeNode(elements)]);
-        } else if ((schemaObject.maxItems as number) > 0) {
+          return tsUnion([tupleType(elements, indent)]);
+        }
+        if ((schemaObject.maxItems as number) > 0) {
           // if maxItems is set, then return a union of all permutations of possible tuple types
-          const members: ts.TypeNode[] = [];
+          const members: TSNode[] = [];
           // populate 1 short of min …
           for (let i = 0; i <= (max ?? 0) - min; i++) {
-            const elements: ts.TypeNode[] = [];
+            const elements: TSNode[] = [];
             for (let j = min; j < i + min; j++) {
               elements.push(itemType);
             }
-            members.push(ts.factory.createTupleTypeNode(elements));
+            members.push(tupleType(elements, indent));
           }
           return tsUnion(members);
         }
         // if maxItems not set, then return a simple tuple type the length of `min`
-        else {
-          const elements: ts.TypeNode[] = [];
-          for (let i = 0; i < min; i++) {
-            elements.push(itemType);
-          }
-          elements.push(ts.factory.createRestTypeNode(ts.factory.createArrayTypeNode(itemType)));
-          return ts.factory.createTupleTypeNode(elements);
+        const elements: TSNode[] = [];
+        for (let i = 0; i < min; i++) {
+          elements.push(itemType);
         }
+        elements.push(`...${tsArray(itemType)}`);
+        return tupleType(elements, indent);
       }
 
-      const finalType =
-        ts.isTupleTypeNode(itemType) || ts.isArrayTypeNode(itemType)
-          ? itemType
-          : ts.factory.createArrayTypeNode(itemType); // wrap itemType in array type, but only if not a tuple or array already
+      const itemType = buildItemType(indent);
+      // Only prefixItems/legacy tuple items describe the whole array. A schema
+      // in `items` always describes one element, even when it emits an array,
+      // tuple, or union. Do not infer that distinction from the rendered text.
+      const finalType = isTupleShape ? itemType : tsArray(itemType);
 
-      return options.ctx.immutable
-        ? ts.factory.createTypeOperatorNode(ts.SyntaxKind.ReadonlyKeyword, finalType)
-        : finalType;
+      return options.ctx.immutable ? `readonly ${tsParenthesize(finalType)}` : finalType;
     }
 
     // polymorphic, or 3.1 nullable
     if (Array.isArray(schemaObject.type) && !Array.isArray(schemaObject)) {
       // skip any primitive types that appear in oneOf as well
-      const uniqueTypes: ts.TypeNode[] = [];
+      const uniqueTypes: TSNode[] = [];
       if (Array.isArray(schemaObject.oneOf)) {
         for (const t of schemaObject.type) {
           if (
@@ -481,6 +495,8 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
               : transformSchemaObject(
                   { ...schemaObject, type: t, oneOf: undefined } as SchemaObject, // don’t stack oneOf transforms
                   options,
+                  false,
+                  indent,
                 ),
           );
         }
@@ -489,7 +505,9 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
           if (t === "null" || t === null) {
             uniqueTypes.push(NULL);
           } else {
-            uniqueTypes.push(transformSchemaObject({ ...schemaObject, type: t } as SchemaObject, options));
+            uniqueTypes.push(
+              transformSchemaObject({ ...schemaObject, type: t } as SchemaObject, options, false, indent),
+            );
           }
         }
       }
@@ -498,7 +516,8 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
   }
 
   // type: object
-  const coreObjectType: ts.TypeElement[] = [];
+  const memberIndent = `${indent}${INDENT}`;
+  const coreObjectType: TSNode[] = [];
 
   // discriminators: explicit mapping on schema object
   for (const k of ["allOf", "anyOf"] as const) {
@@ -519,6 +538,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
         createDiscriminatorProperty(discriminator, {
           path: options.path ?? "",
           readonly: options.ctx.immutable,
+          indent: memberIndent,
         }),
       );
       break;
@@ -559,105 +579,127 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
             continue;
           }
         }
-        let optional =
-          schemaObject.required?.includes(k) ||
-          (schemaObject.required === undefined && options.ctx.propertiesRequiredByDefault) ||
-          (hasDefault &&
-            options.ctx.defaultNonNullable &&
-            !options.path?.includes("parameters") &&
-            !options.path?.includes("requestBody") &&
-            !options.path?.includes("requestBodies")) // can’t be required, even with defaults
-            ? undefined
-            : QUESTION_TOKEN;
+        let optional = !(
+          (
+            schemaObject.required?.includes(k) ||
+            (schemaObject.required === undefined && options.ctx.propertiesRequiredByDefault) ||
+            (hasDefault &&
+              options.ctx.defaultNonNullable &&
+              !options.path?.includes("parameters") &&
+              !options.path?.includes("requestBody") &&
+              !options.path?.includes("requestBodies"))
+          ) // can’t be required, even with defaults
+        );
         let type = $ref
-          ? oapiRef($ref)
-          : transformSchemaObject(v, {
-              ...options,
-              path: createRef([options.path, k]),
-            });
+          ? oapiRef($ref, undefined, { indent: memberIndent })
+          : transformSchemaObject(
+              v,
+              {
+                ...options,
+                path: createRef([options.path, k]),
+              },
+              false,
+              memberIndent,
+            );
 
         if (typeof options.ctx.transform === "function") {
           const result = options.ctx.transform(v as SchemaObject, options);
-          if (result && typeof result === "object") {
-            if ("schema" in result) {
+          if (result) {
+            if (typeof result === "object" && "schema" in result) {
               type = result.schema;
-              optional = result.questionToken ? QUESTION_TOKEN : optional;
+              optional = result.questionToken ? true : optional;
             } else {
-              type = result;
+              type = result as TSNode;
             }
           }
         }
 
         type = wrapWithReadWriteMarker(type, !!readOnly, !!writeOnly, options.ctx);
 
-        let property = ts.factory.createPropertySignature(
-          /* modifiers     */ tsModifiers({
-            readonly: options.ctx.immutable || (!options.ctx.readWriteMarkers && readOnly),
-          }),
-          /* name          */ tsPropertyIndex(k),
-          /* questionToken */ optional,
-          /* type          */ type,
-        );
+        const propertyLike: PropertySignatureLike = {
+          name: tsPropertyIndex(k),
+          optional,
+          type,
+          readonly: options.ctx.immutable || (!options.ctx.readWriteMarkers && !!readOnly),
+          indent: memberIndent,
+        };
 
         // Apply transformProperty hook if available
+        let finalProperty = propertyLike;
         if (typeof options.ctx.transformProperty === "function") {
-          const result = options.ctx.transformProperty(property, v as SchemaObject, {
+          const result = options.ctx.transformProperty(propertyLike, v as SchemaObject, {
             ...options,
             path: createRef([options.path, k]),
           });
           if (result) {
-            property = result;
+            finalProperty = result;
           }
         }
 
-        addJSDocComment(v, property);
-        coreObjectType.push(property);
+        coreObjectType.push(
+          propertySignature({
+            name: finalProperty.name,
+            type: finalProperty.type,
+            optional: finalProperty.optional,
+            /* modifiers     */ readonly: finalProperty.readonly,
+            comment: `${finalProperty.comment ?? ""}${addJSDocComment(v, memberIndent)}`,
+            indent: memberIndent,
+          }),
+        );
       }
     }
 
     // $defs
     if ("$defs" in schemaObject && typeof schemaObject.$defs === "object" && Object.keys(schemaObject.$defs).length) {
-      const defKeys: ts.TypeElement[] = [];
+      const defsIndent = `${memberIndent}${INDENT}`;
+      const defKeys: TSNode[] = [];
       for (const [k, v] of Object.entries(schemaObject.$defs)) {
         const defReadOnly = "readOnly" in v && !!v.readOnly;
         const defWriteOnly = "writeOnly" in v && !!v.writeOnly;
         const defType = wrapWithReadWriteMarker(
-          transformSchemaObject(v, { ...options, path: createRef([options.path, "$defs", k]) }),
+          transformSchemaObject(v, { ...options, path: createRef([options.path, "$defs", k]) }, false, defsIndent),
           defReadOnly,
           defWriteOnly,
           options.ctx,
         );
 
-        let property = ts.factory.createPropertySignature(
-          /* modifiers    */ tsModifiers({
-            readonly: options.ctx.immutable || (!options.ctx.readWriteMarkers && defReadOnly),
-          }),
-          /* name          */ tsPropertyIndex(k),
-          /* questionToken */ undefined,
-          /* type          */ defType,
-        );
+        const propertyLike: PropertySignatureLike = {
+          name: tsPropertyIndex(k),
+          optional: false,
+          type: defType,
+          readonly: options.ctx.immutable || (!options.ctx.readWriteMarkers && defReadOnly),
+          indent: defsIndent,
+        };
 
         // Apply transformProperty hook if available
+        let finalProperty = propertyLike;
         if (typeof options.ctx.transformProperty === "function") {
-          const result = options.ctx.transformProperty(property, v as SchemaObject, {
+          const result = options.ctx.transformProperty(propertyLike, v as SchemaObject, {
             ...options,
             path: createRef([options.path, "$defs", k]),
           });
           if (result) {
-            property = result;
+            finalProperty = result;
           }
         }
 
-        addJSDocComment(v, property);
-        defKeys.push(property);
+        defKeys.push(
+          propertySignature({
+            name: finalProperty.name,
+            type: finalProperty.type,
+            optional: finalProperty.optional,
+            /* modifiers    */ readonly: finalProperty.readonly,
+            comment: `${finalProperty.comment ?? ""}${addJSDocComment(v, defsIndent)}`,
+            indent: defsIndent,
+          }),
+        );
       }
       coreObjectType.push(
-        ts.factory.createPropertySignature(
-          /* modifiers     */ undefined,
-          /* name          */ tsPropertyIndex("$defs"),
-          /* questionToken */ undefined,
-          /* type          */ ts.factory.createTypeLiteralNode(defKeys),
-        ),
+        propertySignature({
+          /* name          */ name: tsPropertyIndex("$defs"),
+          /* type          */ type: typeLiteral(defKeys, memberIndent),
+          indent: memberIndent,
+        }),
       );
     }
 
@@ -673,7 +715,9 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
       typeof patternProperties === "object" && patternProperties !== null && Object.keys(patternProperties).length > 0;
     const stringIndexTypes = [];
     if (hasExplicitAdditionalProperties) {
-      stringIndexTypes.push(transformSchemaObject(schemaObject.additionalProperties as SchemaObject, options, true));
+      stringIndexTypes.push(
+        transformSchemaObject(schemaObject.additionalProperties as SchemaObject, options, true, memberIndent),
+      );
     }
     if (hasImplicitAdditionalProperties || (!schemaObject.additionalProperties && options.ctx.additionalProperties)) {
       stringIndexTypes.push(UNKNOWN);
@@ -683,39 +727,33 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
         patternProperties as Record<string, SchemaObject | ReferenceObject>,
         options.ctx,
       )) {
-        stringIndexTypes.push(transformSchemaObject(v, options));
+        stringIndexTypes.push(transformSchemaObject(v, options, false, memberIndent));
       }
     }
 
     if (stringIndexTypes.length === 0) {
-      return coreObjectType.length ? ts.factory.createTypeLiteralNode(coreObjectType) : undefined;
+      return coreObjectType.length ? typeLiteral(coreObjectType, indent) : undefined;
     }
 
     const stringIndexType = tsUnion(stringIndexTypes);
 
     return tsIntersection([
-      ...(coreObjectType.length ? [ts.factory.createTypeLiteralNode(coreObjectType)] : []),
-      ts.factory.createTypeLiteralNode([
-        ts.factory.createIndexSignature(
-          /* modifiers  */ tsModifiers({
-            readonly: options.ctx.immutable,
+      ...(coreObjectType.length ? [typeLiteral(coreObjectType, indent)] : []),
+      typeLiteral(
+        [
+          indexSignature({
+            /* modifiers  */ readonly: options.ctx.immutable,
+            /* parameters */ keyName: "key",
+            /* type       */ valueType: stringIndexType,
+            indent: memberIndent,
           }),
-          /* parameters */ [
-            ts.factory.createParameterDeclaration(
-              /* modifiers      */ undefined,
-              /* dotDotDotToken */ undefined,
-              /* name           */ ts.factory.createIdentifier("key"),
-              /* questionToken  */ undefined,
-              /* type           */ STRING,
-            ),
-          ],
-          /* type       */ stringIndexType,
-        ),
-      ]),
+        ],
+        indent,
+      ),
     ]);
   }
 
-  return coreObjectType.length ? ts.factory.createTypeLiteralNode(coreObjectType) : undefined;
+  return coreObjectType.length ? typeLiteral(coreObjectType, indent) : undefined;
 }
 
 /**
@@ -730,12 +768,12 @@ function hasKey<K extends string>(possibleObject: unknown, key: K): possibleObje
 
 function applyAdditionalPropertiesToEnum(
   hasAdditionalProperties: boolean,
-  unionType: ts.TypeNode,
+  unionType: TSNode,
   schemaObject: SchemaObject,
-) {
+): TSNode {
   // If additionalProperties is true, add (string & {}) to the union
   if (hasAdditionalProperties && schemaObject.type === "string") {
-    const stringAndEmptyObject = tsIntersection([STRING, ts.factory.createTypeLiteralNode([])]);
+    const stringAndEmptyObject = tsIntersection([STRING, "{}"]);
     return tsUnion([unionType, stringAndEmptyObject]);
   }
   return unionType;
@@ -743,19 +781,19 @@ function applyAdditionalPropertiesToEnum(
 
 /** Wrap type with $Read or $Write marker when readWriteMarkers flag is enabled */
 function wrapWithReadWriteMarker(
-  type: ts.TypeNode,
+  type: TSNode,
   readOnly: boolean,
   writeOnly: boolean,
   ctx: { readWriteMarkers: boolean },
-): ts.TypeNode {
+): TSNode {
   if (!ctx.readWriteMarkers || (readOnly && writeOnly)) {
     return type;
   }
   if (readOnly) {
-    return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("$Read"), [type]);
+    return `$Read<${type}>`;
   }
   if (writeOnly) {
-    return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("$Write"), [type]);
+    return `$Write<${type}>`;
   }
   return type;
 }

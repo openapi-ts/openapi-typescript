@@ -22,9 +22,43 @@ jobs:
       - uses: pnpm/action-setup@v5
         with:
           run_install: true
-      - run: pnpm run lint
+      - run: pnpm --recursive run --if-present lint:js
   test-node-versions:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22, 24]
+        typescript-version: [5, 6]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+      - uses: pnpm/action-setup@v5
+      - name: Install locked dependencies (TypeScript 6)
+        if: matrix.typescript-version == 6
+        run: pnpm install --frozen-lockfile
+      - name: Install TypeScript 5 across the workspace
+        if: matrix.typescript-version == 5
+        run: |
+          sed -i 's/^  typescript: .*/  typescript: ^5.9.3/' pnpm-workspace.yaml
+          pnpm install --no-frozen-lockfile
+      - run: pnpm exec tsc --version
+      - run: pnpm run build
+      - name: Typecheck packages
+        run: |
+          # The helpers package runs its type assertions through pnpm test below.
+          pnpm --recursive --filter '!openapi-typescript-helpers' run --if-present lint:ts
+          pnpm --recursive run --if-present lint:ts-no-strict
+      - run: pnpm test
+      - name: Typecheck framework examples
+        run: |
+          pnpm --filter '@example/openapi-fetch-vue-3' type-check
+          pnpm --filter '@example/openapi-fetch-sveltekit' check
+          pnpm --filter '@example/openapi-fetch-nextjs' exec tsc --noEmit
+  test-consumers:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     strategy:
       matrix:
         node-version: [22, 24]
@@ -36,7 +70,12 @@ jobs:
       - uses: pnpm/action-setup@v5
         with:
           run_install: true
-      - run: pnpm test
+      - run: pnpm --filter openapi-typescript --filter openapi-typescript-helpers build
+      - name: Test TypeScript 5, 6, 7 and compiler-free consumers
+        run: |
+          for version in 5.9.3 6.0.3 7.0.2 none; do
+            pnpm --filter openapi-typescript test:consumer -- "$version"
+          done
   test-e2e:
     runs-on: ubuntu-latest
     steps:

@@ -4,7 +4,7 @@ packages:
 
 catalog:
   execa: ^9.6.1
-  typescript: ^5.9.3
+  typescript: ^6.0.3
   vite: ^7.3.1
 
 ignoredBuiltDependencies:
@@ -16,3 +16,10 @@ ignoredBuiltDependencies:
 
 onlyBuiltDependencies:
   - '@biomejs/biome'
+
+peerDependencyRules:
+  # These versions pass the TypeScript 6 build and example checks.
+  allowedVersions:
+    '@sveltejs/kit@2.52.2>typescript': 6.0.3
+    'unbuild@3.6.1>typescript': 6.0.3
+    'rollup-plugin-dts@6.3.0>typescript': 6.0.3

@@ -24,18 +24,16 @@ export function createObservedClient<T extends {}, M extends MediaType = MediaTy
 }
 
 /**
- * Convert a Headers object to a plain object for easier comparison
+ * Convert a Headers object to a plain object for easier comparison.
+ * Headers.forEach is available without DOM.Iterable in both TypeScript 5 and 6.
  */
 export function headersToObj(headers: Headers | Record<string, string>): Record<string, string> {
-  const iter =
-    headers instanceof Headers
-      ? headers
-          // @ts-expect-error FIXME: this is a missing "lib" in tsconfig.json but dunno what
-          .entries()
-      : Object.entries(headers);
-  const result: Record<string, string> = {};
-  for (const [k, v] of iter) {
-    result[k] = v;
+  if (!(headers instanceof Headers)) {
+    return { ...headers };
   }
+  const result: Record<string, string> = {};
+  headers.forEach((value, key) => {
+    result[key] = value;
+  });
   return result;
 }

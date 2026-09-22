@@ -9,10 +9,18 @@ export type $Read<T> = {
 export type $Write<T> = {
     readonly $write: T;
 };
-export type Readable<T> = T extends $Write<any> ? never : T extends $Read<infer U> ? Readable<U> : T extends (infer E)[] ? Readable<E>[] : T extends object ? {
+export type Readable<T> = 0 extends 1 & T ? any : T extends $Write<any> ? never : T extends $Read<infer U> ? Readable<U> : T extends (infer E)[] ? Readable<E>[] : T extends readonly (infer E)[] ? Readable<{
+    [K in keyof T as K extends number ? number extends K ? never : K : K extends keyof readonly unknown[] ? never : K]: T[K];
+}> & {
+    readonly length: T["length"];
+} & readonly Readable<E>[] : T extends (...args: never[]) => unknown ? T : T extends object ? {
     [K in keyof T as NonNullable<T[K]> extends $Write<any> ? never : K]: Readable<T[K]>;
 } : T;
-export type Writable<T> = T extends $Read<any> ? never : T extends $Write<infer U> ? Writable<U> : T extends (infer E)[] ? Writable<E>[] : T extends object ? {
+export type Writable<T> = 0 extends 1 & T ? any : T extends $Read<any> ? never : T extends $Write<infer U> ? Writable<U> : T extends (infer E)[] ? Writable<E>[] : T extends readonly (infer E)[] ? Writable<{
+    [K in keyof T as K extends number ? number extends K ? never : K : K extends keyof readonly unknown[] ? never : K]: T[K];
+}> & {
+    readonly length: T["length"];
+} & readonly Writable<E>[] : T extends (...args: never[]) => unknown ? T : T extends object ? {
     [K in keyof T as NonNullable<T[K]> extends $Read<any> ? never : K]: Writable<T[K]>;
 } & {
     [K in keyof T as NonNullable<T[K]> extends $Read<any> ? K : never]?: never;

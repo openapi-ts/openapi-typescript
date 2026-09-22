@@ -2,11 +2,33 @@ import { fileURLToPath } from "node:url";
 import { astToString } from "../../src/lib/ts.js";
 import transformPathsObject from "../../src/transform/paths-object.js";
 import type { GlobalContext } from "../../src/types.js";
-import { DEFAULT_CTX, type TestCase } from "../test-helpers.js";
+import { DEFAULT_CTX, expectTypeScriptToCompile, type TestCase } from "../test-helpers.js";
 
 const DEFAULT_OPTIONS = DEFAULT_CTX;
 
 describe("transformPathsObject", () => {
+  test.each([
+    ["my`id", "/path"],
+    ["my\\id", "/path"],
+    ["id", "/a\\b`c"],
+  ])("preserves escaped path template names and literals: %s, %s", (name, prefix) => {
+    const result = transformPathsObject(
+      {
+        [`${prefix}/{${name}}`]: {
+          parameters: [{ name, in: "path", required: true, schema: { type: "number" } }],
+          get: { responses: { 200: { description: "OK" } } },
+        },
+      },
+      { ...DEFAULT_OPTIONS, pathParamsAsTypes: true, injectFooter: [] },
+    );
+    expectTypeScriptToCompile(`
+      type Paths = ${result};
+      type ValidPath = Paths[${JSON.stringify(`${prefix}/42`)}];
+      // @ts-expect-error the placeholder remains numeric after escaping
+      type InvalidPath = Paths[${JSON.stringify(`${prefix}/text`)}];
+    `);
+  });
+
   const tests: TestCase<any, GlobalContext>[] = [
     [
       "basic",
@@ -361,6 +383,66 @@ describe("transformPathsObject", () => {
                     };
                 };
                 404: components["responses"]["NotFound"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}`,
+        options: { ...DEFAULT_OPTIONS, pathParamsAsTypes: true },
+      },
+    ],
+    [
+      "options > pathParamsAsTypes escapes characters that would break the template literal",
+      {
+        given: {
+          "/a`b/{id}": {
+            parameters: [
+              {
+                name: "id",
+                in: "path",
+                schema: { type: "string" },
+              },
+            ],
+            get: {
+              parameters: [],
+              responses: { 200: { description: "OK" } },
+            },
+          },
+        },
+        want: `{
+    [path: \`/a\\\`b/\${string}\`]: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
             };
         };
         put?: never;

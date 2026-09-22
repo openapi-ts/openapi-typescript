@@ -210,38 +210,68 @@ export type $Read<T> = { readonly $read: T };
 /** Marker type for writeOnly properties (excluded from response bodies) */
 export type $Write<T> = { readonly $write: T };
 
+// Keep own data (including numeric literal keys), excluding the broad index and standard array members.
+type ReadonlyArrayData<T extends readonly unknown[]> = {
+  [K in keyof T as K extends number
+    ? number extends K
+      ? never
+      : K
+    : K extends keyof (readonly unknown[])
+      ? never
+      : K]: T[K];
+};
+
+// Fast path for `any` in generic clients.
+// Rebuild readonly array methods from resolved elements, keeping their own properties and length.
+
 /**
  * Resolve type for reading (responses): strips $Write properties, unwraps $Read
  * - $Read<T> → T (readable), continues recursion
  * - $Write<T> → never (excluded from response)
+ * - mutable arrays/tuples → resolve elements into an array (the existing tuple projection)
+ * - readonly arrays/tuples → preserve readonly data properties and length, resolving method elements
+ * - callable → unchanged, including arguments, return types, and attached properties
  * - object → recursively resolve
  */
-export type Readable<T> =
-  T extends $Write<any>
+export type Readable<T> = 0 extends 1 & T
+  ? any
+  : T extends $Write<any>
     ? never
     : T extends $Read<infer U>
       ? Readable<U>
       : T extends (infer E)[]
         ? Readable<E>[]
-        : T extends object
-          ? { [K in keyof T as NonNullable<T[K]> extends $Write<any> ? never : K]: Readable<T[K]> }
-          : T;
+        : T extends readonly (infer E)[]
+          ? Readable<ReadonlyArrayData<T>> & { readonly length: T["length"] } & readonly Readable<E>[]
+          : T extends (...args: never[]) => unknown
+            ? T
+            : T extends object
+              ? { [K in keyof T as NonNullable<T[K]> extends $Write<any> ? never : K]: Readable<T[K]> }
+              : T;
 
 /**
  * Resolve type for writing (requests): strips $Read properties, unwraps $Write
  * - $Write<T> → T (writable), continues recursion
  * - $Read<T> → never (excluded from request)
+ * - mutable arrays/tuples → resolve elements into an array (the existing tuple projection)
+ * - readonly arrays/tuples → preserve readonly data properties and length, resolving method elements
+ * - callable → unchanged, including arguments, return types, and attached properties
  * - object → recursively resolve
  */
-export type Writable<T> =
-  T extends $Read<any>
+export type Writable<T> = 0 extends 1 & T
+  ? any
+  : T extends $Read<any>
     ? never
     : T extends $Write<infer U>
       ? Writable<U>
       : T extends (infer E)[]
         ? Writable<E>[]
-        : T extends object
-          ? { [K in keyof T as NonNullable<T[K]> extends $Read<any> ? never : K]: Writable<T[K]> } & {
-              [K in keyof T as NonNullable<T[K]> extends $Read<any> ? K : never]?: never;
-            }
-          : T;
+        : T extends readonly (infer E)[]
+          ? Writable<ReadonlyArrayData<T>> & { readonly length: T["length"] } & readonly Writable<E>[]
+          : T extends (...args: never[]) => unknown
+            ? T
+            : T extends object
+              ? { [K in keyof T as NonNullable<T[K]> extends $Read<any> ? never : K]: Writable<T[K]> } & {
+                  [K in keyof T as NonNullable<T[K]> extends $Read<any> ? K : never]?: never;
+                }
+              : T;

@@ -1,5 +1,13 @@
-import ts from "typescript";
-import { addJSDocComment, NEVER, oapiRef, QUESTION_TOKEN, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
+import {
+  addJSDocComment,
+  INDENT,
+  NEVER,
+  oapiRef,
+  propertySignature,
+  type TSNode,
+  tsPropertyIndex,
+  typeLiteral,
+} from "../lib/ts.js";
 import { createRef } from "../lib/utils.js";
 import type {
   OperationObject,
@@ -17,15 +25,24 @@ export type Method = "get" | "put" | "post" | "delete" | "options" | "head" | "p
  * Transform PathItem nodes (4.8.9)
  * @see https://spec.openapis.org/oas/v3.1.0#path-item-object
  */
-export default function transformPathItemObject(pathItem: PathItemObject, options: TransformNodeOptions): ts.TypeNode {
-  const type: ts.TypeElement[] = [];
+export default function transformPathItemObject(
+  pathItem: PathItemObject,
+  options: TransformNodeOptions,
+  indent = "",
+): TSNode {
+  const memberIndent = `${indent}${INDENT}`;
+  const type: TSNode[] = [];
 
   // parameters
   type.push(
-    ...transformParametersArray(pathItem.parameters ?? [], {
-      ...options,
-      path: createRef([options.path, "parameters"]),
-    }),
+    ...transformParametersArray(
+      pathItem.parameters ?? [],
+      {
+        ...options,
+        path: createRef([options.path, "parameters"]),
+      },
+      memberIndent,
+    ),
   );
 
   // methods
@@ -38,12 +55,13 @@ export default function transformPathItemObject(pathItem: PathItemObject, option
           ?.deprecated)
     ) {
       type.push(
-        ts.factory.createPropertySignature(
-          /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
-          /* name          */ tsPropertyIndex(method),
-          /* questionToken */ QUESTION_TOKEN,
-          /* type          */ NEVER,
-        ),
+        propertySignature({
+          /* modifiers     */ readonly: options.ctx.immutable,
+          /* name          */ name: tsPropertyIndex(method),
+          /* questionToken */ optional: true,
+          /* type          */ type: NEVER,
+          indent: memberIndent,
+        }),
       );
       continue;
     }
@@ -64,39 +82,42 @@ export default function transformPathItemObject(pathItem: PathItemObject, option
       }
     }
 
-    let operationType: ts.TypeNode;
+    let operationType: TSNode;
     if ("$ref" in operationObject) {
-      operationType = oapiRef(operationObject.$ref);
+      operationType = oapiRef(operationObject.$ref, undefined, { indent: memberIndent });
     }
     // if operationId exists, move into an `operations` export and pass the reference in here
     else if (operationObject.operationId) {
       // workaround for issue caused by redocly ref parsing: https://github.com/openapi-ts/openapi-typescript/issues/1542
       const operationId = operationObject.operationId.replace(HASH_RE, "/");
-      operationType = oapiRef(createRef(["operations", operationId]));
+      operationType = oapiRef(createRef(["operations", operationId]), undefined, { indent: memberIndent });
       injectOperationObject(
         operationId,
         { ...operationObject, parameters: Object.values(keyedParameters) },
         { ...options, path: createRef([options.path, method]) },
       );
     } else {
-      operationType = ts.factory.createTypeLiteralNode(
+      operationType = typeLiteral(
         transformOperationObject(
           { ...operationObject, parameters: Object.values(keyedParameters) },
           { ...options, path: createRef([options.path, method]) },
+          `${memberIndent}${INDENT}`,
         ),
+        memberIndent,
       );
     }
-    const property = ts.factory.createPropertySignature(
-      /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
-      /* name          */ tsPropertyIndex(method),
-      /* questionToken */ undefined,
-      /* type          */ operationType,
+    type.push(
+      propertySignature({
+        /* modifiers     */ readonly: options.ctx.immutable,
+        /* name          */ name: tsPropertyIndex(method),
+        /* type          */ type: operationType,
+        comment: addJSDocComment(operationObject, memberIndent),
+        indent: memberIndent,
+      }),
     );
-    addJSDocComment(operationObject, property);
-    type.push(property);
   }
 
-  return ts.factory.createTypeLiteralNode(type);
+  return typeLiteral(type, indent);
 }
 
 const HASH_RE = /#/g;

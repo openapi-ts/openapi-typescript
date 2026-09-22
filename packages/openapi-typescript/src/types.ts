@@ -1,6 +1,6 @@
 import type { PathLike } from "node:fs";
 import type { Config as RedoclyConfig } from "@redocly/openapi-core";
-import type ts from "typescript";
+import type { FooterDeclaration, TSNode } from "./lib/ts.js";
 
 // Many types allow for true “any” for inheritance to work
 
@@ -458,8 +458,30 @@ export type SchemaObject = {
 );
 
 export interface TransformObject {
-  schema: ts.TypeNode;
+  schema: TSNode;
   questionToken: boolean;
+}
+
+/**
+ * Structured view of a generated property signature, handed to the
+ * `transformProperty` hook so callers can patch it without dealing with
+ * indentation or quoting.
+ */
+export interface PropertySignatureLike {
+  /** Rendered property name (already quoted/sanitized when necessary) */
+  name: string;
+  optional: boolean;
+  /** Whether this property is readonly; hooks may override the generated default. */
+  readonly: boolean;
+  type: TSNode;
+  /**
+   * JSDoc block prepended to the property. It must carry its own indentation and
+   * trailing newline — build it with `tsComment()` from `openapi-typescript`.
+   * An existing comment supplied by the schema itself is appended after it.
+   */
+  comment?: string;
+  /** Indentation of the generated property line (useful for rendering comments) */
+  indent: string;
 }
 
 export interface StringSubtype {
@@ -638,15 +660,15 @@ export interface OpenAPITSOptions {
   /** Exclude deprecated fields from types? (default: false) */
   excludeDeprecated?: boolean;
   /** Manually transform certain Schema Objects with a custom TypeScript type */
-  transform?: (schemaObject: SchemaObject, options: TransformNodeOptions) => ts.TypeNode | TransformObject | undefined;
+  transform?: (schemaObject: SchemaObject, options: TransformNodeOptions) => TSNode | TransformObject | undefined;
   /** Modify TypeScript types built from Schema Objects */
-  postTransform?: (type: ts.TypeNode, options: TransformNodeOptions) => ts.TypeNode | undefined;
+  postTransform?: (type: TSNode, options: TransformNodeOptions) => TSNode | undefined;
   /** Modify property signatures for Schema Object properties */
   transformProperty?: (
-    property: ts.PropertySignature,
+    property: PropertySignatureLike,
     schemaObject: SchemaObject,
     options: TransformNodeOptions,
-  ) => ts.PropertySignature | undefined;
+  ) => PropertySignatureLike | undefined;
   /** Add readonly properties and readonly arrays? (default: false) */
   immutable?: boolean;
   /** (optional) Should logging be suppressed? (necessary for STDOUT) */
@@ -707,7 +729,7 @@ export interface GlobalContext {
   excludeDeprecated: boolean;
   exportType: boolean;
   immutable: boolean;
-  injectFooter: ts.Node[];
+  injectFooter: FooterDeclaration[];
   pathParamsAsTypes: boolean;
   postTransform: OpenAPITSOptions["postTransform"];
   propertiesRequiredByDefault: boolean;
