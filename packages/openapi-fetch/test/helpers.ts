@@ -27,15 +27,15 @@ export function createObservedClient<T extends {}, M extends MediaType = MediaTy
  * Convert a Headers object to a plain object for easier comparison
  */
 export function headersToObj(headers: Headers | Record<string, string>): Record<string, string> {
-  const iter =
-    headers instanceof Headers
-      ? headers
-          // @ts-expect-error FIXME: this is a missing "lib" in tsconfig.json but dunno what
-          .entries()
-      : Object.entries(headers);
   const result: Record<string, string> = {};
-  for (const [k, v] of iter) {
-    result[k] = v;
+  if (headers instanceof Headers) {
+    headers.forEach((value, key) => {
+      result[key] = value;
+    });
+  } else {
+    for (const [key, value] of Object.entries(headers)) {
+      result[key] = value;
+    }
   }
   return result;
 }
