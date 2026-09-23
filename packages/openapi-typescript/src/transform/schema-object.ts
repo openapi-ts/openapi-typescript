@@ -230,16 +230,35 @@ export function transformSchemaObjectWithComposition(
   }
 
   /** Collect allOf with Omit<> for discriminators */
-  function collectAllOfCompositions(items: (SchemaObject | ReferenceObject)[], required?: string[]): ts.TypeNode[] {
+  function collectAllOfCompositions(items: (SchemaObject | ReferenceObject)[], required: string[] = []): ts.TypeNode[] {
+    // Collect required properties, that should be used in composition of allOf
+    const resolvedItems = items.map((item) => {
+      const resolved = "$ref" in item ? options.ctx.resolve<SchemaObject>(item.$ref) : item;
+      const discriminator = "$ref" in item ? options.ctx.discriminators.objects[item.$ref] : resolved?.discriminator;
+
+      if (resolved && Array.isArray(resolved.required)) {
+        for (const property of resolved.required) {
+          // Skip duplicates and discrimiators, that will be omited anyways
+          if (required.includes(property) || discriminator?.propertyName === property) {
+            continue;
+          }
+          // Only include the required that are not properties in the same object schema
+          if (!("properties" in resolved) || !resolved.properties?.[property]) {
+            required.push(property);
+          }
+        }
+      }
+
+      return [item, resolved, discriminator] as const;
+    });
+
     const output: ts.TypeNode[] = [];
-    for (const item of items) {
+    for (const [item, resolved, discriminator] of resolvedItems) {
       let itemType: ts.TypeNode;
       // if this is a $ref, use WithRequired<X, Y> if parent specifies required properties
       // (but only for valid keys)
       if ("$ref" in item) {
         itemType = transformSchemaObject(item, options);
-
-        const resolved = options.ctx.resolve<SchemaObject>(item.$ref);
 
         // make keys required, if necessary
         if (
@@ -250,7 +269,9 @@ export function transformSchemaObjectWithComposition(
           !options.ctx.discriminators.refsHandled.includes(item.$ref)
         ) {
           // add WithRequired<X, Y> if necessary
-          const validRequired = (required ?? []).filter((key) => !!resolved.properties?.[key]);
+          const validRequired = (required ?? []).filter(
+            (key) => key !== discriminator?.propertyName && !!resolved.properties?.[key],
+          );
           if (validRequired.length) {
             itemType = tsWithRequired(itemType, validRequired, options.ctx.injectFooter);
           }
@@ -265,11 +286,9 @@ export function transformSchemaObjectWithComposition(
         itemType = transformSchemaObject({ ...item, required: itemRequired }, options);
       }
 
-      const discriminator =
-        ("$ref" in item && options.ctx.discriminators.objects[item.$ref]) || (item as any).discriminator;
       if (discriminator) {
         output.push(tsOmit(itemType, [discriminator.propertyName]));
-      } else {
+      } else if (resolved && transformSchemaObject(resolved, options).kind !== ts.SyntaxKind.UnknownKeyword) {
         output.push(itemType);
       }
     }
