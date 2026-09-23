@@ -62,11 +62,28 @@ describe("DELETE", () => {
     // assert data is undefined for error response
     expect(data).toBeUndefined();
 
-    // assert error is undefined for empty body (consistent with 204 and Content-Length: 0 handling)
-    expect(error).toBeUndefined();
+    // assert error is truthy for error response with empty body
+    expect(error).toBe("500");
 
     // assert response status is preserved
     expect(response.status).toBe(500);
+    expect(response.ok).toBe(false);
+  });
+
+  test("error response with Content-Length: 0 returns truthy error", async () => {
+    const client = createObservedClient<paths>(
+      {},
+      async () => new Response(null, { status: 404, statusText: "Not Found", headers: { "Content-Length": "0" } }),
+    );
+    const { data, error, response } = await client.DELETE("/tags/{name}", {
+      params: {
+        path: { name: "Tag" },
+      },
+    });
+
+    expect(data).toBeUndefined();
+    expect(error).toBe("Not Found");
+    expect(response.status).toBe(404);
     expect(response.ok).toBe(false);
   });
 

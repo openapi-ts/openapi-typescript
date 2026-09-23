@@ -4,7 +4,7 @@ const PATH_PARAM_RE = /\{[^{}]+\}/g;
 const supportsRequestInitExt = () => {
   return (
     typeof process === "object" &&
-    Number.parseInt(process?.versions?.node?.substring(0, 2)) >= 18 &&
+    Number.parseInt(process?.versions?.node?.substring(0, 2), 10) >= 18 &&
     process.versions.undici
   );
 };
@@ -242,7 +242,7 @@ export default function createClient(clientOptions) {
       request.method === "HEAD" ||
       (contentLength === "0" && !response.headers.get("Transfer-Encoding")?.includes("chunked"))
     ) {
-      return response.ok ? { data: undefined, response } : { error: undefined, response };
+      return response.ok ? { data: undefined, response } : { error: response.statusText || String(response.status), response };
     }
 
     // parse response (falling back to .text() when necessary)
@@ -267,8 +267,7 @@ export default function createClient(clientOptions) {
     // handle errors (use text() when no content-length to safely handle empty bodies from proxies)
     const raw = await response.text();
     if (!raw) {
-      // empty error body - return undefined to be consistent with status 204 handling
-      return { error: undefined, response };
+      return { error: response.statusText || String(response.status), response };
     }
     let error = raw;
     try {
@@ -623,6 +622,9 @@ export function defaultPathSerializer(pathname, pathParams) {
  */
 export function defaultBodySerializer(body, headers) {
   if (body instanceof FormData) {
+    return body;
+  }
+  if (typeof body === "string") {
     return body;
   }
   if (headers) {
