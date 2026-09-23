@@ -155,6 +155,59 @@ describe("transformRequestBodyObject", () => {
         },
       },
     ],
+    [
+      "itemSchema in request body (streaming upload)",
+      {
+        given: {
+          content: {
+            "application/x-ndjson": {
+              schema: { type: "string" },
+              itemSchema: {
+                type: "object",
+                properties: {
+                  action: { type: "string" },
+                  payload: { type: "object" },
+                },
+                required: ["action"],
+              },
+            },
+          },
+        },
+        want: `{
+    content: {
+        "application/x-ndjson": {
+            action: string;
+            payload?: Record<string, never>;
+        };
+    };
+}`,
+      },
+    ],
+    [
+      "itemSchema only in request body",
+      {
+        given: {
+          content: {
+            "text/event-stream": {
+              itemSchema: {
+                type: "object",
+                properties: {
+                  message: { type: "string" },
+                },
+                required: ["message"],
+              },
+            },
+          },
+        },
+        want: `{
+    content: {
+        "text/event-stream": {
+            message: string;
+        };
+    };
+}`,
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
