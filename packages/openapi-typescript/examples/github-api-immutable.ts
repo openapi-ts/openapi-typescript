@@ -23,6 +23,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/advisories": {
         readonly parameters: {
@@ -45,6 +46,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/advisories/{ghsa_id}": {
         readonly parameters: {
@@ -65,6 +67,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/app": {
         readonly parameters: {
@@ -87,6 +90,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/app-manifests/{code}/conversions": {
         readonly parameters: {
@@ -107,6 +111,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/app/hook/config": {
         readonly parameters: {
@@ -135,6 +140,7 @@ export interface paths {
          */
         readonly patch: operations["apps/update-webhook-config-for-app"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/app/hook/deliveries": {
         readonly parameters: {
@@ -157,6 +163,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/app/hook/deliveries/{delivery_id}": {
         readonly parameters: {
@@ -179,6 +186,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/app/hook/deliveries/{delivery_id}/attempts": {
         readonly parameters: {
@@ -201,6 +209,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/app/installation-requests": {
         readonly parameters: {
@@ -221,6 +230,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/app/installations": {
         readonly parameters: {
@@ -243,6 +253,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/app/installations/{installation_id}": {
         readonly parameters: {
@@ -271,6 +282,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/app/installations/{installation_id}/access_tokens": {
         readonly parameters: {
@@ -297,6 +309,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/app/installations/{installation_id}/suspended": {
         readonly parameters: {
@@ -325,6 +338,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/applications/{client_id}/grant": {
         readonly parameters: {
@@ -346,6 +360,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/applications/{client_id}/token": {
         readonly parameters: {
@@ -374,6 +389,7 @@ export interface paths {
          */
         readonly patch: operations["apps/reset-token"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/applications/{client_id}/token/scoped": {
         readonly parameters: {
@@ -398,6 +414,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/apps/{app_slug}": {
         readonly parameters: {
@@ -419,6 +436,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/assignments/{assignment_id}": {
         readonly parameters: {
@@ -439,6 +457,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/assignments/{assignment_id}/accepted_assignments": {
         readonly parameters: {
@@ -459,6 +478,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/assignments/{assignment_id}/grades": {
         readonly parameters: {
@@ -479,6 +499,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/classrooms": {
         readonly parameters: {
@@ -499,6 +520,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/classrooms/{classroom_id}": {
         readonly parameters: {
@@ -519,6 +541,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/classrooms/{classroom_id}/assignments": {
         readonly parameters: {
@@ -539,6 +562,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/codes_of_conduct": {
         readonly parameters: {
@@ -559,6 +583,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/codes_of_conduct/{key}": {
         readonly parameters: {
@@ -579,6 +604,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/emojis": {
         readonly parameters: {
@@ -599,6 +625,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/enterprises/{enterprise}/code-security/configurations": {
         readonly parameters: {
@@ -631,6 +658,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/enterprises/{enterprise}/code-security/configurations/defaults": {
         readonly parameters: {
@@ -655,6 +683,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/enterprises/{enterprise}/code-security/configurations/{configuration_id}": {
         readonly parameters: {
@@ -697,6 +726,7 @@ export interface paths {
          */
         readonly patch: operations["code-security/update-enterprise-configuration"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/enterprises/{enterprise}/code-security/configurations/{configuration_id}/attach": {
         readonly parameters: {
@@ -723,6 +753,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/enterprises/{enterprise}/code-security/configurations/{configuration_id}/defaults": {
         readonly parameters: {
@@ -749,6 +780,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/enterprises/{enterprise}/code-security/configurations/{configuration_id}/repositories": {
         readonly parameters: {
@@ -773,6 +805,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/enterprises/{enterprise}/dependabot/alerts": {
         readonly parameters: {
@@ -799,6 +832,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/enterprises/{enterprise}/secret-scanning/alerts": {
         readonly parameters: {
@@ -825,6 +859,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/events": {
         readonly parameters: {
@@ -846,6 +881,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/feeds": {
         readonly parameters: {
@@ -879,6 +915,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/gists": {
         readonly parameters: {
@@ -906,6 +943,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/gists/public": {
         readonly parameters: {
@@ -928,6 +966,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/gists/starred": {
         readonly parameters: {
@@ -948,6 +987,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/gists/{gist_id}": {
         readonly parameters: {
@@ -987,6 +1027,7 @@ export interface paths {
          */
         readonly patch: operations["gists/update"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/gists/{gist_id}/comments": {
         readonly parameters: {
@@ -1021,6 +1062,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/gists/{gist_id}/comments/{comment_id}": {
         readonly parameters: {
@@ -1056,6 +1098,7 @@ export interface paths {
          */
         readonly patch: operations["gists/update-comment"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/gists/{gist_id}/commits": {
         readonly parameters: {
@@ -1073,6 +1116,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/gists/{gist_id}/forks": {
         readonly parameters: {
@@ -1091,6 +1135,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/gists/{gist_id}/star": {
         readonly parameters: {
@@ -1113,6 +1158,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/gists/{gist_id}/{sha}": {
         readonly parameters: {
@@ -1138,6 +1184,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/gitignore/templates": {
         readonly parameters: {
@@ -1158,6 +1205,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/gitignore/templates/{name}": {
         readonly parameters: {
@@ -1182,6 +1230,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/installation/repositories": {
         readonly parameters: {
@@ -1202,6 +1251,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/installation/token": {
         readonly parameters: {
@@ -1224,6 +1274,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/issues": {
         readonly parameters: {
@@ -1256,6 +1307,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/licenses": {
         readonly parameters: {
@@ -1276,6 +1328,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/licenses/{license}": {
         readonly parameters: {
@@ -1296,6 +1349,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/markdown": {
         readonly parameters: {
@@ -1313,6 +1367,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/markdown/raw": {
         readonly parameters: {
@@ -1333,6 +1388,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/marketplace_listing/accounts/{account_id}": {
         readonly parameters: {
@@ -1355,6 +1411,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/marketplace_listing/plans": {
         readonly parameters: {
@@ -1377,6 +1434,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/marketplace_listing/plans/{plan_id}/accounts": {
         readonly parameters: {
@@ -1399,6 +1457,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/marketplace_listing/stubbed/accounts/{account_id}": {
         readonly parameters: {
@@ -1421,6 +1480,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/marketplace_listing/stubbed/plans": {
         readonly parameters: {
@@ -1443,6 +1503,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/marketplace_listing/stubbed/plans/{plan_id}/accounts": {
         readonly parameters: {
@@ -1465,6 +1526,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/meta": {
         readonly parameters: {
@@ -1492,6 +1554,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/networks/{owner}/{repo}/events": {
         readonly parameters: {
@@ -1513,6 +1576,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/notifications": {
         readonly parameters: {
@@ -1537,6 +1601,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/notifications/threads/{thread_id}": {
         readonly parameters: {
@@ -1565,6 +1630,7 @@ export interface paths {
          */
         readonly patch: operations["activity/mark-thread-as-read"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/notifications/threads/{thread_id}/subscription": {
         readonly parameters: {
@@ -1599,6 +1665,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/octocat": {
         readonly parameters: {
@@ -1619,6 +1686,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/organizations": {
         readonly parameters: {
@@ -1642,6 +1710,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/organizations/{org}/settings/billing/usage": {
         readonly parameters: {
@@ -1664,6 +1733,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}": {
         readonly parameters: {
@@ -1716,6 +1786,7 @@ export interface paths {
          */
         readonly patch: operations["orgs/update"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/cache/usage": {
         readonly parameters: {
@@ -1739,6 +1810,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/cache/usage-by-repository": {
         readonly parameters: {
@@ -1762,6 +1834,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/hosted-runners": {
         readonly parameters: {
@@ -1789,6 +1862,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/hosted-runners/images/github-owned": {
         readonly parameters: {
@@ -1809,6 +1883,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/hosted-runners/images/partner": {
         readonly parameters: {
@@ -1829,6 +1904,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/hosted-runners/limits": {
         readonly parameters: {
@@ -1849,6 +1925,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/hosted-runners/machine-sizes": {
         readonly parameters: {
@@ -1869,6 +1946,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/hosted-runners/platforms": {
         readonly parameters: {
@@ -1889,6 +1967,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/hosted-runners/{hosted_runner_id}": {
         readonly parameters: {
@@ -1920,6 +1999,7 @@ export interface paths {
          */
         readonly patch: operations["actions/update-hosted-runner-for-org"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/oidc/customization/sub": {
         readonly parameters: {
@@ -1948,6 +2028,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/permissions": {
         readonly parameters: {
@@ -1976,6 +2057,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/permissions/repositories": {
         readonly parameters: {
@@ -2005,6 +2087,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/permissions/repositories/{repository_id}": {
         readonly parameters: {
@@ -2033,6 +2116,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/permissions/selected-actions": {
         readonly parameters: {
@@ -2061,6 +2145,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/permissions/workflow": {
         readonly parameters: {
@@ -2093,6 +2178,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/runner-groups": {
         readonly parameters: {
@@ -2121,6 +2207,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/runner-groups/{runner_group_id}": {
         readonly parameters: {
@@ -2155,6 +2242,7 @@ export interface paths {
          */
         readonly patch: operations["actions/update-self-hosted-runner-group-for-org"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/runner-groups/{runner_group_id}/hosted-runners": {
         readonly parameters: {
@@ -2177,6 +2265,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories": {
         readonly parameters: {
@@ -2205,6 +2294,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}": {
         readonly parameters: {
@@ -2233,6 +2323,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/runner-groups/{runner_group_id}/runners": {
         readonly parameters: {
@@ -2261,6 +2352,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}": {
         readonly parameters: {
@@ -2289,6 +2381,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/runners": {
         readonly parameters: {
@@ -2313,6 +2406,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/runners/downloads": {
         readonly parameters: {
@@ -2337,6 +2431,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/runners/generate-jitconfig": {
         readonly parameters: {
@@ -2361,6 +2456,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/runners/registration-token": {
         readonly parameters: {
@@ -2391,6 +2487,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/runners/remove-token": {
         readonly parameters: {
@@ -2421,6 +2518,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/runners/{runner_id}": {
         readonly parameters: {
@@ -2453,6 +2551,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/runners/{runner_id}/labels": {
         readonly parameters: {
@@ -2503,6 +2602,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/runners/{runner_id}/labels/{name}": {
         readonly parameters: {
@@ -2531,6 +2631,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/secrets": {
         readonly parameters: {
@@ -2556,6 +2657,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/secrets/public-key": {
         readonly parameters: {
@@ -2581,6 +2683,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/secrets/{secret_name}": {
         readonly parameters: {
@@ -2622,6 +2725,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/secrets/{secret_name}/repositories": {
         readonly parameters: {
@@ -2657,6 +2761,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}": {
         readonly parameters: {
@@ -2693,6 +2798,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/variables": {
         readonly parameters: {
@@ -2725,6 +2831,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/variables/{name}": {
         readonly parameters: {
@@ -2765,6 +2872,7 @@ export interface paths {
          */
         readonly patch: operations["actions/update-org-variable"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/variables/{name}/repositories": {
         readonly parameters: {
@@ -2800,6 +2908,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/actions/variables/{name}/repositories/{repository_id}": {
         readonly parameters: {
@@ -2835,6 +2944,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/attestations/{subject_digest}": {
         readonly parameters: {
@@ -2859,6 +2969,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/blocks": {
         readonly parameters: {
@@ -2879,6 +2990,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/blocks/{username}": {
         readonly parameters: {
@@ -2907,6 +3019,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/code-scanning/alerts": {
         readonly parameters: {
@@ -2931,6 +3044,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/code-security/configurations": {
         readonly parameters: {
@@ -2963,6 +3077,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/code-security/configurations/defaults": {
         readonly parameters: {
@@ -2987,6 +3102,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/code-security/configurations/detach": {
         readonly parameters: {
@@ -3012,6 +3128,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/code-security/configurations/{configuration_id}": {
         readonly parameters: {
@@ -3054,6 +3171,7 @@ export interface paths {
          */
         readonly patch: operations["code-security/update-configuration"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/code-security/configurations/{configuration_id}/attach": {
         readonly parameters: {
@@ -3080,6 +3198,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/code-security/configurations/{configuration_id}/defaults": {
         readonly parameters: {
@@ -3106,6 +3225,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/code-security/configurations/{configuration_id}/repositories": {
         readonly parameters: {
@@ -3130,6 +3250,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/codespaces": {
         readonly parameters: {
@@ -3152,6 +3273,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/codespaces/access": {
         readonly parameters: {
@@ -3174,6 +3296,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/codespaces/access/selected_users": {
         readonly parameters: {
@@ -3210,6 +3333,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/codespaces/secrets": {
         readonly parameters: {
@@ -3233,6 +3357,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/codespaces/secrets/public-key": {
         readonly parameters: {
@@ -3254,6 +3379,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/codespaces/secrets/{secret_name}": {
         readonly parameters: {
@@ -3289,6 +3415,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/codespaces/secrets/{secret_name}/repositories": {
         readonly parameters: {
@@ -3320,6 +3447,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/codespaces/secrets/{secret_name}/repositories/{repository_id}": {
         readonly parameters: {
@@ -3349,6 +3477,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/copilot/billing": {
         readonly parameters: {
@@ -3378,6 +3507,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/copilot/billing/seats": {
         readonly parameters: {
@@ -3407,6 +3537,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/copilot/billing/selected_teams": {
         readonly parameters: {
@@ -3454,6 +3585,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/copilot/billing/selected_users": {
         readonly parameters: {
@@ -3501,6 +3633,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/copilot/metrics": {
         readonly parameters: {
@@ -3533,6 +3666,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/copilot/usage": {
         readonly parameters: {
@@ -3566,6 +3700,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/dependabot/alerts": {
         readonly parameters: {
@@ -3590,6 +3725,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/dependabot/secrets": {
         readonly parameters: {
@@ -3613,6 +3749,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/dependabot/secrets/public-key": {
         readonly parameters: {
@@ -3636,6 +3773,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/dependabot/secrets/{secret_name}": {
         readonly parameters: {
@@ -3671,6 +3809,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/dependabot/secrets/{secret_name}/repositories": {
         readonly parameters: {
@@ -3702,6 +3841,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/dependabot/secrets/{secret_name}/repositories/{repository_id}": {
         readonly parameters: {
@@ -3734,6 +3874,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/docker/conflicts": {
         readonly parameters: {
@@ -3756,6 +3897,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/events": {
         readonly parameters: {
@@ -3777,6 +3919,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/failed_invitations": {
         readonly parameters: {
@@ -3797,6 +3940,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/hooks": {
         readonly parameters: {
@@ -3831,6 +3975,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/hooks/{hook_id}": {
         readonly parameters: {
@@ -3879,6 +4024,7 @@ export interface paths {
          */
         readonly patch: operations["orgs/update-webhook"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/hooks/{hook_id}/config": {
         readonly parameters: {
@@ -3913,6 +4059,7 @@ export interface paths {
          */
         readonly patch: operations["orgs/update-webhook-config-for-org"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/hooks/{hook_id}/deliveries": {
         readonly parameters: {
@@ -3938,6 +4085,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}": {
         readonly parameters: {
@@ -3963,6 +4111,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}/attempts": {
         readonly parameters: {
@@ -3988,6 +4137,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/hooks/{hook_id}/pings": {
         readonly parameters: {
@@ -4014,6 +4164,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/insights/api/route-stats/{actor_type}/{actor_id}": {
         readonly parameters: {
@@ -4034,6 +4185,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/insights/api/subject-stats": {
         readonly parameters: {
@@ -4054,6 +4206,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/insights/api/summary-stats": {
         readonly parameters: {
@@ -4074,6 +4227,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/insights/api/summary-stats/users/{user_id}": {
         readonly parameters: {
@@ -4094,6 +4248,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/insights/api/summary-stats/{actor_type}/{actor_id}": {
         readonly parameters: {
@@ -4114,6 +4269,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/insights/api/time-stats": {
         readonly parameters: {
@@ -4134,6 +4290,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/insights/api/time-stats/users/{user_id}": {
         readonly parameters: {
@@ -4154,6 +4311,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/insights/api/time-stats/{actor_type}/{actor_id}": {
         readonly parameters: {
@@ -4174,6 +4332,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/insights/api/user-stats/{user_id}": {
         readonly parameters: {
@@ -4194,6 +4353,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/installation": {
         readonly parameters: {
@@ -4216,6 +4376,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/installations": {
         readonly parameters: {
@@ -4241,6 +4402,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/interaction-limits": {
         readonly parameters: {
@@ -4269,6 +4431,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/invitations": {
         readonly parameters: {
@@ -4299,6 +4462,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/invitations/{invitation_id}": {
         readonly parameters: {
@@ -4321,6 +4485,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/invitations/{invitation_id}/teams": {
         readonly parameters: {
@@ -4341,6 +4506,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/issues": {
         readonly parameters: {
@@ -4371,6 +4537,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/members": {
         readonly parameters: {
@@ -4391,6 +4558,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/members/{username}": {
         readonly parameters: {
@@ -4415,6 +4583,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/members/{username}/codespaces": {
         readonly parameters: {
@@ -4437,6 +4606,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/members/{username}/codespaces/{codespace_name}": {
         readonly parameters: {
@@ -4459,6 +4629,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/members/{username}/codespaces/{codespace_name}/stop": {
         readonly parameters: {
@@ -4481,6 +4652,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/members/{username}/copilot": {
         readonly parameters: {
@@ -4511,6 +4683,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/memberships/{username}": {
         readonly parameters: {
@@ -4549,6 +4722,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/migrations": {
         readonly parameters: {
@@ -4575,6 +4749,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/migrations/{migration_id}": {
         readonly parameters: {
@@ -4602,6 +4777,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/migrations/{migration_id}/archive": {
         readonly parameters: {
@@ -4626,6 +4802,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/migrations/{migration_id}/repos/{repo_name}/lock": {
         readonly parameters: {
@@ -4646,6 +4823,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/migrations/{migration_id}/repositories": {
         readonly parameters: {
@@ -4666,6 +4844,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/organization-roles": {
         readonly parameters: {
@@ -4693,6 +4872,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/organization-roles/teams/{team_slug}": {
         readonly parameters: {
@@ -4717,6 +4897,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/organization-roles/teams/{team_slug}/{role_id}": {
         readonly parameters: {
@@ -4749,6 +4930,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/organization-roles/users/{username}": {
         readonly parameters: {
@@ -4773,6 +4955,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/organization-roles/users/{username}/{role_id}": {
         readonly parameters: {
@@ -4805,6 +4988,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/organization-roles/{role_id}": {
         readonly parameters: {
@@ -4832,6 +5016,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/organization-roles/{role_id}/teams": {
         readonly parameters: {
@@ -4856,6 +5041,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/organization-roles/{role_id}/users": {
         readonly parameters: {
@@ -4880,6 +5066,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/outside_collaborators": {
         readonly parameters: {
@@ -4900,6 +5087,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/outside_collaborators/{username}": {
         readonly parameters: {
@@ -4924,6 +5112,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/packages": {
         readonly parameters: {
@@ -4946,6 +5135,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/packages/{package_type}/{package_name}": {
         readonly parameters: {
@@ -4976,6 +5166,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/packages/{package_type}/{package_name}/restore": {
         readonly parameters: {
@@ -5004,6 +5195,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/packages/{package_type}/{package_name}/versions": {
         readonly parameters: {
@@ -5026,6 +5218,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}": {
         readonly parameters: {
@@ -5056,6 +5249,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore": {
         readonly parameters: {
@@ -5084,6 +5278,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/personal-access-token-requests": {
         readonly parameters: {
@@ -5112,6 +5307,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/personal-access-token-requests/{pat_request_id}": {
         readonly parameters: {
@@ -5134,6 +5330,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/personal-access-token-requests/{pat_request_id}/repositories": {
         readonly parameters: {
@@ -5156,6 +5353,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/personal-access-tokens": {
         readonly parameters: {
@@ -5184,6 +5382,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/personal-access-tokens/{pat_id}": {
         readonly parameters: {
@@ -5206,6 +5405,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/personal-access-tokens/{pat_id}/repositories": {
         readonly parameters: {
@@ -5228,6 +5428,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/private-registries": {
         readonly parameters: {
@@ -5263,6 +5464,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/private-registries/public-key": {
         readonly parameters: {
@@ -5288,6 +5490,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/private-registries/{secret_name}": {
         readonly parameters: {
@@ -5331,6 +5534,7 @@ export interface paths {
          */
         readonly patch: operations["private-registries/update-org-private-registry"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/projects": {
         readonly parameters: {
@@ -5355,6 +5559,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/properties/schema": {
         readonly parameters: {
@@ -5384,6 +5589,7 @@ export interface paths {
          */
         readonly patch: operations["orgs/create-or-update-custom-properties"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/properties/schema/{custom_property_name}": {
         readonly parameters: {
@@ -5421,6 +5627,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/properties/values": {
         readonly parameters: {
@@ -5455,6 +5662,7 @@ export interface paths {
          */
         readonly patch: operations["orgs/create-or-update-custom-properties-values-for-repos"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/public_members": {
         readonly parameters: {
@@ -5475,6 +5683,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/public_members/{username}": {
         readonly parameters: {
@@ -5505,6 +5714,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/repos": {
         readonly parameters: {
@@ -5534,6 +5744,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/rulesets": {
         readonly parameters: {
@@ -5558,6 +5769,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/rulesets/rule-suites": {
         readonly parameters: {
@@ -5579,6 +5791,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/rulesets/rule-suites/{rule_suite_id}": {
         readonly parameters: {
@@ -5600,6 +5813,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/rulesets/{ruleset_id}": {
         readonly parameters: {
@@ -5631,6 +5845,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/secret-scanning/alerts": {
         readonly parameters: {
@@ -5655,6 +5870,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/security-advisories": {
         readonly parameters: {
@@ -5679,6 +5895,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/security-managers": {
         readonly parameters: {
@@ -5701,6 +5918,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/security-managers/teams/{team_slug}": {
         readonly parameters: {
@@ -5729,6 +5947,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/settings/billing/actions": {
         readonly parameters: {
@@ -5753,6 +5972,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/settings/billing/packages": {
         readonly parameters: {
@@ -5777,6 +5997,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/settings/billing/shared-storage": {
         readonly parameters: {
@@ -5801,6 +6022,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/settings/network-configurations": {
         readonly parameters: {
@@ -5829,6 +6051,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/settings/network-configurations/{network_configuration_id}": {
         readonly parameters: {
@@ -5863,6 +6086,7 @@ export interface paths {
          */
         readonly patch: operations["hosted-compute/update-network-configuration-for-org"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/settings/network-settings/{network_settings_id}": {
         readonly parameters: {
@@ -5885,6 +6109,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/team/{team_slug}/copilot/metrics": {
         readonly parameters: {
@@ -5917,6 +6142,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/team/{team_slug}/copilot/usage": {
         readonly parameters: {
@@ -5953,6 +6179,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/teams": {
         readonly parameters: {
@@ -5979,6 +6206,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/teams/{team_slug}": {
         readonly parameters: {
@@ -6018,6 +6246,7 @@ export interface paths {
          */
         readonly patch: operations["teams/update-in-org"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/teams/{team_slug}/discussions": {
         readonly parameters: {
@@ -6054,6 +6283,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}": {
         readonly parameters: {
@@ -6097,6 +6327,7 @@ export interface paths {
          */
         readonly patch: operations["teams/update-discussion-in-org"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments": {
         readonly parameters: {
@@ -6133,6 +6364,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}": {
         readonly parameters: {
@@ -6176,6 +6408,7 @@ export interface paths {
          */
         readonly patch: operations["teams/update-discussion-comment-in-org"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions": {
         readonly parameters: {
@@ -6212,6 +6445,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}": {
         readonly parameters: {
@@ -6237,6 +6471,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions": {
         readonly parameters: {
@@ -6273,6 +6508,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}": {
         readonly parameters: {
@@ -6298,6 +6534,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/teams/{team_slug}/invitations": {
         readonly parameters: {
@@ -6321,6 +6558,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/teams/{team_slug}/members": {
         readonly parameters: {
@@ -6343,6 +6581,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/teams/{team_slug}/memberships/{username}": {
         readonly parameters: {
@@ -6401,6 +6640,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/teams/{team_slug}/projects": {
         readonly parameters: {
@@ -6424,6 +6664,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/teams/{team_slug}/projects/{project_id}": {
         readonly parameters: {
@@ -6461,6 +6702,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/teams/{team_slug}/repos": {
         readonly parameters: {
@@ -6484,6 +6726,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}": {
         readonly parameters: {
@@ -6529,6 +6772,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/teams/{team_slug}/teams": {
         readonly parameters: {
@@ -6552,6 +6796,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/orgs/{org}/{security_product}/{enablement}": {
         readonly parameters: {
@@ -6580,6 +6825,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/projects/columns/cards/{card_id}": {
         readonly parameters: {
@@ -6605,6 +6851,7 @@ export interface paths {
         /** Update an existing project card */
         readonly patch: operations["projects/update-card"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/projects/columns/cards/{card_id}/moves": {
         readonly parameters: {
@@ -6622,6 +6869,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/projects/columns/{column_id}": {
         readonly parameters: {
@@ -6647,6 +6895,7 @@ export interface paths {
         /** Update an existing project column */
         readonly patch: operations["projects/update-column"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/projects/columns/{column_id}/cards": {
         readonly parameters: {
@@ -6668,6 +6917,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/projects/columns/{column_id}/moves": {
         readonly parameters: {
@@ -6685,6 +6935,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/projects/{project_id}": {
         readonly parameters: {
@@ -6713,6 +6964,7 @@ export interface paths {
          */
         readonly patch: operations["projects/update"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/projects/{project_id}/collaborators": {
         readonly parameters: {
@@ -6733,6 +6985,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/projects/{project_id}/collaborators/{username}": {
         readonly parameters: {
@@ -6757,6 +7010,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/projects/{project_id}/collaborators/{username}/permission": {
         readonly parameters: {
@@ -6777,6 +7031,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/projects/{project_id}/columns": {
         readonly parameters: {
@@ -6801,6 +7056,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/rate_limit": {
         readonly parameters: {
@@ -6836,6 +7092,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}": {
         readonly parameters: {
@@ -6872,6 +7129,7 @@ export interface paths {
          */
         readonly patch: operations["repos/update"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/artifacts": {
         readonly parameters: {
@@ -6896,6 +7154,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/artifacts/{artifact_id}": {
         readonly parameters: {
@@ -6925,6 +7184,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/artifacts/{artifact_id}/{archive_format}": {
         readonly parameters: {
@@ -6948,6 +7208,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/cache/usage": {
         readonly parameters: {
@@ -6973,6 +7234,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/caches": {
         readonly parameters: {
@@ -7001,6 +7263,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/caches/{cache_id}": {
         readonly parameters: {
@@ -7023,6 +7286,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/jobs/{job_id}": {
         readonly parameters: {
@@ -7047,6 +7311,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/jobs/{job_id}/logs": {
         readonly parameters: {
@@ -7072,6 +7337,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/jobs/{job_id}/rerun": {
         readonly parameters: {
@@ -7094,6 +7360,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/oidc/customization/sub": {
         readonly parameters: {
@@ -7122,6 +7389,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/organization-secrets": {
         readonly parameters: {
@@ -7147,6 +7415,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/organization-variables": {
         readonly parameters: {
@@ -7171,6 +7440,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/permissions": {
         readonly parameters: {
@@ -7199,6 +7469,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/permissions/access": {
         readonly parameters: {
@@ -7231,6 +7502,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/permissions/selected-actions": {
         readonly parameters: {
@@ -7259,6 +7531,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/permissions/workflow": {
         readonly parameters: {
@@ -7291,6 +7564,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runners": {
         readonly parameters: {
@@ -7315,6 +7589,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runners/downloads": {
         readonly parameters: {
@@ -7339,6 +7614,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runners/generate-jitconfig": {
         readonly parameters: {
@@ -7363,6 +7639,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runners/registration-token": {
         readonly parameters: {
@@ -7393,6 +7670,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runners/remove-token": {
         readonly parameters: {
@@ -7423,6 +7701,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runners/{runner_id}": {
         readonly parameters: {
@@ -7455,6 +7734,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runners/{runner_id}/labels": {
         readonly parameters: {
@@ -7505,6 +7785,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runners/{runner_id}/labels/{name}": {
         readonly parameters: {
@@ -7533,6 +7814,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runs": {
         readonly parameters: {
@@ -7559,6 +7841,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runs/{run_id}": {
         readonly parameters: {
@@ -7591,6 +7874,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runs/{run_id}/approvals": {
         readonly parameters: {
@@ -7613,6 +7897,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runs/{run_id}/approve": {
         readonly parameters: {
@@ -7635,6 +7920,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts": {
         readonly parameters: {
@@ -7659,6 +7945,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}": {
         readonly parameters: {
@@ -7683,6 +7970,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/jobs": {
         readonly parameters: {
@@ -7708,6 +7996,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/logs": {
         readonly parameters: {
@@ -7733,6 +8022,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runs/{run_id}/cancel": {
         readonly parameters: {
@@ -7755,6 +8045,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runs/{run_id}/deployment_protection_rule": {
         readonly parameters: {
@@ -7780,6 +8071,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runs/{run_id}/force-cancel": {
         readonly parameters: {
@@ -7803,6 +8095,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runs/{run_id}/jobs": {
         readonly parameters: {
@@ -7828,6 +8121,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runs/{run_id}/logs": {
         readonly parameters: {
@@ -7859,6 +8153,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments": {
         readonly parameters: {
@@ -7891,6 +8186,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runs/{run_id}/rerun": {
         readonly parameters: {
@@ -7913,6 +8209,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runs/{run_id}/rerun-failed-jobs": {
         readonly parameters: {
@@ -7935,6 +8232,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/runs/{run_id}/timing": {
         readonly parameters: {
@@ -7959,6 +8257,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/secrets": {
         readonly parameters: {
@@ -7984,6 +8283,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/secrets/public-key": {
         readonly parameters: {
@@ -8009,6 +8309,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/secrets/{secret_name}": {
         readonly parameters: {
@@ -8050,6 +8351,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/variables": {
         readonly parameters: {
@@ -8082,6 +8384,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/variables/{name}": {
         readonly parameters: {
@@ -8122,6 +8425,7 @@ export interface paths {
          */
         readonly patch: operations["actions/update-repo-variable"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/workflows": {
         readonly parameters: {
@@ -8146,6 +8450,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/workflows/{workflow_id}": {
         readonly parameters: {
@@ -8171,6 +8476,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/workflows/{workflow_id}/disable": {
         readonly parameters: {
@@ -8193,6 +8499,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches": {
         readonly parameters: {
@@ -8217,6 +8524,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/workflows/{workflow_id}/enable": {
         readonly parameters: {
@@ -8239,6 +8547,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs": {
         readonly parameters: {
@@ -8265,6 +8574,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/actions/workflows/{workflow_id}/timing": {
         readonly parameters: {
@@ -8291,6 +8601,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/activity": {
         readonly parameters: {
@@ -8314,6 +8625,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/assignees": {
         readonly parameters: {
@@ -8334,6 +8646,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/assignees/{assignee}": {
         readonly parameters: {
@@ -8358,6 +8671,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/attestations": {
         readonly parameters: {
@@ -8382,6 +8696,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/attestations/{subject_digest}": {
         readonly parameters: {
@@ -8406,6 +8721,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/autolinks": {
         readonly parameters: {
@@ -8432,6 +8748,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/autolinks/{autolink_id}": {
         readonly parameters: {
@@ -8460,6 +8777,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/automated-security-fixes": {
         readonly parameters: {
@@ -8488,6 +8806,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/branches": {
         readonly parameters: {
@@ -8505,6 +8824,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/branches/{branch}": {
         readonly parameters: {
@@ -8522,6 +8842,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/branches/{branch}/protection": {
         readonly parameters: {
@@ -8558,6 +8879,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins": {
         readonly parameters: {
@@ -8590,6 +8912,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews": {
         readonly parameters: {
@@ -8623,6 +8946,7 @@ export interface paths {
          */
         readonly patch: operations["repos/update-pull-request-review-protection"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures": {
         readonly parameters: {
@@ -8660,6 +8984,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks": {
         readonly parameters: {
@@ -8690,6 +9015,7 @@ export interface paths {
          */
         readonly patch: operations["repos/update-status-check-protection"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts": {
         readonly parameters: {
@@ -8722,6 +9048,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions": {
         readonly parameters: {
@@ -8753,6 +9080,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps": {
         readonly parameters: {
@@ -8793,6 +9121,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams": {
         readonly parameters: {
@@ -8833,6 +9162,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users": {
         readonly parameters: {
@@ -8885,6 +9215,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/branches/{branch}/rename": {
         readonly parameters: {
@@ -8912,6 +9243,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/check-runs": {
         readonly parameters: {
@@ -8939,6 +9271,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/check-runs/{check_run_id}": {
         readonly parameters: {
@@ -8973,6 +9306,7 @@ export interface paths {
          */
         readonly patch: operations["checks/update"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/check-runs/{check_run_id}/annotations": {
         readonly parameters: {
@@ -8995,6 +9329,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/check-runs/{check_run_id}/rerequest": {
         readonly parameters: {
@@ -9019,6 +9354,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/check-suites": {
         readonly parameters: {
@@ -9044,6 +9380,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/check-suites/preferences": {
         readonly parameters: {
@@ -9065,6 +9402,7 @@ export interface paths {
          */
         readonly patch: operations["checks/set-suites-preferences"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/check-suites/{check_suite_id}": {
         readonly parameters: {
@@ -9090,6 +9428,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs": {
         readonly parameters: {
@@ -9115,6 +9454,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest": {
         readonly parameters: {
@@ -9137,6 +9477,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/code-scanning/alerts": {
         readonly parameters: {
@@ -9163,6 +9504,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}": {
         readonly parameters: {
@@ -9190,6 +9532,7 @@ export interface paths {
          */
         readonly patch: operations["code-scanning/update-alert"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/autofix": {
         readonly parameters: {
@@ -9222,6 +9565,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/autofix/commits": {
         readonly parameters: {
@@ -9246,6 +9590,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances": {
         readonly parameters: {
@@ -9268,6 +9613,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/code-scanning/analyses": {
         readonly parameters: {
@@ -9302,6 +9648,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}": {
         readonly parameters: {
@@ -9405,6 +9752,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/code-scanning/codeql/databases": {
         readonly parameters: {
@@ -9427,6 +9775,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/code-scanning/codeql/databases/{language}": {
         readonly parameters: {
@@ -9461,6 +9810,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/code-scanning/codeql/variant-analyses": {
         readonly parameters: {
@@ -9488,6 +9838,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/code-scanning/codeql/variant-analyses/{codeql_variant_analysis_id}": {
         readonly parameters: {
@@ -9510,6 +9861,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/code-scanning/codeql/variant-analyses/{codeql_variant_analysis_id}/repos/{repo_owner}/{repo_name}": {
         readonly parameters: {
@@ -9532,6 +9884,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/code-scanning/default-setup": {
         readonly parameters: {
@@ -9560,6 +9913,7 @@ export interface paths {
          */
         readonly patch: operations["code-scanning/update-default-setup"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/code-scanning/sarifs": {
         readonly parameters: {
@@ -9613,6 +9967,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}": {
         readonly parameters: {
@@ -9634,6 +9989,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/code-security-configuration": {
         readonly parameters: {
@@ -9658,6 +10014,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/codeowners/errors": {
         readonly parameters: {
@@ -9682,6 +10039,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/codespaces": {
         readonly parameters: {
@@ -9710,6 +10068,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/codespaces/devcontainers": {
         readonly parameters: {
@@ -9733,6 +10092,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/codespaces/machines": {
         readonly parameters: {
@@ -9755,6 +10115,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/codespaces/new": {
         readonly parameters: {
@@ -9777,6 +10138,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/codespaces/permissions_check": {
         readonly parameters: {
@@ -9799,6 +10161,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/codespaces/secrets": {
         readonly parameters: {
@@ -9822,6 +10185,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/codespaces/secrets/public-key": {
         readonly parameters: {
@@ -9845,6 +10209,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/codespaces/secrets/{secret_name}": {
         readonly parameters: {
@@ -9880,6 +10245,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/collaborators": {
         readonly parameters: {
@@ -9907,6 +10273,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/collaborators/{username}": {
         readonly parameters: {
@@ -9982,6 +10349,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/collaborators/{username}/permission": {
         readonly parameters: {
@@ -10008,6 +10376,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/comments": {
         readonly parameters: {
@@ -10035,6 +10404,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/comments/{comment_id}": {
         readonly parameters: {
@@ -10074,6 +10444,7 @@ export interface paths {
          */
         readonly patch: operations["repos/update-commit-comment"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/comments/{comment_id}/reactions": {
         readonly parameters: {
@@ -10098,6 +10469,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}": {
         readonly parameters: {
@@ -10121,6 +10493,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/commits": {
         readonly parameters: {
@@ -10169,6 +10542,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head": {
         readonly parameters: {
@@ -10191,6 +10565,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/commits/{commit_sha}/comments": {
         readonly parameters: {
@@ -10231,6 +10606,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/commits/{commit_sha}/pulls": {
         readonly parameters: {
@@ -10253,6 +10629,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/commits/{ref}": {
         readonly parameters: {
@@ -10312,6 +10689,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/commits/{ref}/check-runs": {
         readonly parameters: {
@@ -10339,6 +10717,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/commits/{ref}/check-suites": {
         readonly parameters: {
@@ -10364,6 +10743,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/commits/{ref}/status": {
         readonly parameters: {
@@ -10391,6 +10771,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/commits/{ref}/statuses": {
         readonly parameters: {
@@ -10413,6 +10794,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/community/profile": {
         readonly parameters: {
@@ -10443,6 +10825,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/compare/{basehead}": {
         readonly parameters: {
@@ -10513,6 +10896,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/contents/{path}": {
         readonly parameters: {
@@ -10579,6 +10963,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/contributors": {
         readonly parameters: {
@@ -10601,6 +10986,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/dependabot/alerts": {
         readonly parameters: {
@@ -10621,6 +11007,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/dependabot/alerts/{alert_number}": {
         readonly parameters: {
@@ -10647,6 +11034,7 @@ export interface paths {
          */
         readonly patch: operations["dependabot/update-alert"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/dependabot/secrets": {
         readonly parameters: {
@@ -10670,6 +11058,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/dependabot/secrets/public-key": {
         readonly parameters: {
@@ -10694,6 +11083,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/dependabot/secrets/{secret_name}": {
         readonly parameters: {
@@ -10729,6 +11119,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/dependency-graph/compare/{basehead}": {
         readonly parameters: {
@@ -10749,6 +11140,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/dependency-graph/sbom": {
         readonly parameters: {
@@ -10769,6 +11161,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/dependency-graph/snapshots": {
         readonly parameters: {
@@ -10793,6 +11186,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/deployments": {
         readonly parameters: {
@@ -10864,6 +11258,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/deployments/{deployment_id}": {
         readonly parameters: {
@@ -10894,6 +11289,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/deployments/{deployment_id}/statuses": {
         readonly parameters: {
@@ -10920,6 +11316,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}": {
         readonly parameters: {
@@ -10940,6 +11337,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/dispatches": {
         readonly parameters: {
@@ -10966,6 +11364,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/environments": {
         readonly parameters: {
@@ -10990,6 +11389,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/environments/{environment_name}": {
         readonly parameters: {
@@ -11031,6 +11431,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/environments/{environment_name}/deployment-branch-policies": {
         readonly parameters: {
@@ -11061,6 +11462,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/environments/{environment_name}/deployment-branch-policies/{branch_policy_id}": {
         readonly parameters: {
@@ -11097,6 +11499,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/environments/{environment_name}/deployment_protection_rules": {
         readonly parameters: {
@@ -11131,6 +11534,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/environments/{environment_name}/deployment_protection_rules/apps": {
         readonly parameters: {
@@ -11159,6 +11563,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/environments/{environment_name}/deployment_protection_rules/{protection_rule_id}": {
         readonly parameters: {
@@ -11191,6 +11596,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/environments/{environment_name}/secrets": {
         readonly parameters: {
@@ -11216,6 +11622,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/environments/{environment_name}/secrets/public-key": {
         readonly parameters: {
@@ -11241,6 +11648,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/environments/{environment_name}/secrets/{secret_name}": {
         readonly parameters: {
@@ -11282,6 +11690,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/environments/{environment_name}/variables": {
         readonly parameters: {
@@ -11314,6 +11723,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/environments/{environment_name}/variables/{name}": {
         readonly parameters: {
@@ -11354,6 +11764,7 @@ export interface paths {
          */
         readonly patch: operations["actions/update-environment-variable"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/events": {
         readonly parameters: {
@@ -11375,6 +11786,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/forks": {
         readonly parameters: {
@@ -11402,6 +11814,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/git/blobs": {
         readonly parameters: {
@@ -11419,6 +11832,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/git/blobs/{file_sha}": {
         readonly parameters: {
@@ -11446,6 +11860,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/git/commits": {
         readonly parameters: {
@@ -11496,6 +11911,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/git/commits/{commit_sha}": {
         readonly parameters: {
@@ -11548,6 +11964,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/git/matching-refs/{ref}": {
         readonly parameters: {
@@ -11575,6 +11992,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/git/ref/{ref}": {
         readonly parameters: {
@@ -11598,6 +12016,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/git/refs": {
         readonly parameters: {
@@ -11618,6 +12037,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/git/refs/{ref}": {
         readonly parameters: {
@@ -11642,6 +12062,7 @@ export interface paths {
          */
         readonly patch: operations["git/update-ref"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/git/tags": {
         readonly parameters: {
@@ -11692,6 +12113,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/git/tags/{tag_sha}": {
         readonly parameters: {
@@ -11740,6 +12162,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/git/trees": {
         readonly parameters: {
@@ -11764,6 +12187,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/git/trees/{tree_sha}": {
         readonly parameters: {
@@ -11789,6 +12213,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/hooks": {
         readonly parameters: {
@@ -11814,6 +12239,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/hooks/{hook_id}": {
         readonly parameters: {
@@ -11844,6 +12270,7 @@ export interface paths {
          */
         readonly patch: operations["repos/update-webhook"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/hooks/{hook_id}/config": {
         readonly parameters: {
@@ -11872,6 +12299,7 @@ export interface paths {
          */
         readonly patch: operations["repos/update-webhook-config-for-repo"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/hooks/{hook_id}/deliveries": {
         readonly parameters: {
@@ -11892,6 +12320,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}": {
         readonly parameters: {
@@ -11912,6 +12341,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}/attempts": {
         readonly parameters: {
@@ -11932,6 +12362,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/hooks/{hook_id}/pings": {
         readonly parameters: {
@@ -11952,6 +12383,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/hooks/{hook_id}/tests": {
         readonly parameters: {
@@ -11975,6 +12407,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/import": {
         readonly parameters: {
@@ -12063,6 +12496,7 @@ export interface paths {
          */
         readonly patch: operations["migrations/update-import"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/import/authors": {
         readonly parameters: {
@@ -12089,6 +12523,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/import/authors/{author_id}": {
         readonly parameters: {
@@ -12114,6 +12549,7 @@ export interface paths {
          */
         readonly patch: operations["migrations/map-commit-author"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/import/large_files": {
         readonly parameters: {
@@ -12138,6 +12574,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/import/lfs": {
         readonly parameters: {
@@ -12166,6 +12603,7 @@ export interface paths {
          */
         readonly patch: operations["migrations/set-lfs-preference"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/installation": {
         readonly parameters: {
@@ -12188,6 +12626,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/interaction-limits": {
         readonly parameters: {
@@ -12216,6 +12655,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/invitations": {
         readonly parameters: {
@@ -12236,6 +12676,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/invitations/{invitation_id}": {
         readonly parameters: {
@@ -12254,6 +12695,7 @@ export interface paths {
         /** Update a repository invitation */
         readonly patch: operations["repos/update-invitation"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues": {
         readonly parameters: {
@@ -12298,6 +12740,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/comments": {
         readonly parameters: {
@@ -12327,6 +12770,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/comments/{comment_id}": {
         readonly parameters: {
@@ -12369,6 +12813,7 @@ export interface paths {
          */
         readonly patch: operations["issues/update-comment"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions": {
         readonly parameters: {
@@ -12393,6 +12838,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}": {
         readonly parameters: {
@@ -12416,6 +12862,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/events": {
         readonly parameters: {
@@ -12436,6 +12883,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/events/{event_id}": {
         readonly parameters: {
@@ -12456,6 +12904,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/{issue_number}": {
         readonly parameters: {
@@ -12502,6 +12951,7 @@ export interface paths {
          */
         readonly patch: operations["issues/update"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/{issue_number}/assignees": {
         readonly parameters: {
@@ -12526,6 +12976,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/{issue_number}/assignees/{assignee}": {
         readonly parameters: {
@@ -12550,6 +13001,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/{issue_number}/comments": {
         readonly parameters: {
@@ -12595,6 +13047,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/{issue_number}/events": {
         readonly parameters: {
@@ -12615,6 +13068,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/{issue_number}/labels": {
         readonly parameters: {
@@ -12647,6 +13101,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}": {
         readonly parameters: {
@@ -12667,6 +13122,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/{issue_number}/lock": {
         readonly parameters: {
@@ -12693,6 +13149,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/{issue_number}/reactions": {
         readonly parameters: {
@@ -12717,6 +13174,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}": {
         readonly parameters: {
@@ -12740,6 +13198,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/{issue_number}/sub_issue": {
         readonly parameters: {
@@ -12768,6 +13227,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/{issue_number}/sub_issues": {
         readonly parameters: {
@@ -12810,6 +13270,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/{issue_number}/sub_issues/priority": {
         readonly parameters: {
@@ -12830,6 +13291,7 @@ export interface paths {
          */
         readonly patch: operations["issues/reprioritize-sub-issue"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/issues/{issue_number}/timeline": {
         readonly parameters: {
@@ -12850,6 +13312,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/keys": {
         readonly parameters: {
@@ -12871,6 +13334,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/keys/{key_id}": {
         readonly parameters: {
@@ -12892,6 +13356,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/labels": {
         readonly parameters: {
@@ -12916,6 +13381,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/labels/{name}": {
         readonly parameters: {
@@ -12944,6 +13410,7 @@ export interface paths {
          */
         readonly patch: operations["issues/update-label"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/languages": {
         readonly parameters: {
@@ -12964,6 +13431,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/license": {
         readonly parameters: {
@@ -12989,6 +13457,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/merge-upstream": {
         readonly parameters: {
@@ -13009,6 +13478,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/merges": {
         readonly parameters: {
@@ -13026,6 +13496,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/milestones": {
         readonly parameters: {
@@ -13050,6 +13521,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/milestones/{milestone_number}": {
         readonly parameters: {
@@ -13075,6 +13547,7 @@ export interface paths {
         /** Update a milestone */
         readonly patch: operations["issues/update-milestone"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/milestones/{milestone_number}/labels": {
         readonly parameters: {
@@ -13095,6 +13568,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/notifications": {
         readonly parameters: {
@@ -13119,6 +13593,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pages": {
         readonly parameters: {
@@ -13165,6 +13640,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pages/builds": {
         readonly parameters: {
@@ -13193,6 +13669,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pages/builds/latest": {
         readonly parameters: {
@@ -13215,6 +13692,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pages/builds/{build_id}": {
         readonly parameters: {
@@ -13237,6 +13715,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pages/deployments": {
         readonly parameters: {
@@ -13259,6 +13738,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pages/deployments/{pages_deployment_id}": {
         readonly parameters: {
@@ -13281,6 +13761,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pages/deployments/{pages_deployment_id}/cancel": {
         readonly parameters: {
@@ -13303,6 +13784,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pages/health": {
         readonly parameters: {
@@ -13329,6 +13811,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/private-vulnerability-reporting": {
         readonly parameters: {
@@ -13357,6 +13840,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/projects": {
         readonly parameters: {
@@ -13381,6 +13865,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/properties/values": {
         readonly parameters: {
@@ -13409,6 +13894,7 @@ export interface paths {
          */
         readonly patch: operations["repos/create-or-update-custom-properties-values"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pulls": {
         readonly parameters: {
@@ -13457,6 +13943,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pulls/comments": {
         readonly parameters: {
@@ -13485,6 +13972,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pulls/comments/{comment_id}": {
         readonly parameters: {
@@ -13527,6 +14015,7 @@ export interface paths {
          */
         readonly patch: operations["pulls/update-review-comment"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions": {
         readonly parameters: {
@@ -13551,6 +14040,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}": {
         readonly parameters: {
@@ -13574,6 +14064,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pulls/{pull_number}": {
         readonly parameters: {
@@ -13629,6 +14120,7 @@ export interface paths {
          */
         readonly patch: operations["pulls/update"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pulls/{pull_number}/codespaces": {
         readonly parameters: {
@@ -13651,6 +14143,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pulls/{pull_number}/comments": {
         readonly parameters: {
@@ -13697,6 +14190,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies": {
         readonly parameters: {
@@ -13727,6 +14221,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pulls/{pull_number}/commits": {
         readonly parameters: {
@@ -13756,6 +14251,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pulls/{pull_number}/files": {
         readonly parameters: {
@@ -13786,6 +14282,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pulls/{pull_number}/merge": {
         readonly parameters: {
@@ -13811,6 +14308,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers": {
         readonly parameters: {
@@ -13840,6 +14338,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pulls/{pull_number}/reviews": {
         readonly parameters: {
@@ -13887,6 +14386,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}": {
         readonly parameters: {
@@ -13936,6 +14436,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments": {
         readonly parameters: {
@@ -13963,6 +14464,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals": {
         readonly parameters: {
@@ -13993,6 +14495,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events": {
         readonly parameters: {
@@ -14020,6 +14523,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/pulls/{pull_number}/update-branch": {
         readonly parameters: {
@@ -14041,6 +14545,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/readme": {
         readonly parameters: {
@@ -14066,6 +14571,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/readme/{dir}": {
         readonly parameters: {
@@ -14091,6 +14597,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/releases": {
         readonly parameters: {
@@ -14119,6 +14626,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/releases/assets/{asset_id}": {
         readonly parameters: {
@@ -14150,6 +14658,7 @@ export interface paths {
          */
         readonly patch: operations["repos/update-release-asset"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/releases/generate-notes": {
         readonly parameters: {
@@ -14170,6 +14679,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/releases/latest": {
         readonly parameters: {
@@ -14192,6 +14702,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/releases/tags/{tag}": {
         readonly parameters: {
@@ -14212,6 +14723,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/releases/{release_id}": {
         readonly parameters: {
@@ -14243,6 +14755,7 @@ export interface paths {
          */
         readonly patch: operations["repos/update-release"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/releases/{release_id}/assets": {
         readonly parameters: {
@@ -14282,6 +14795,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/releases/{release_id}/reactions": {
         readonly parameters: {
@@ -14306,6 +14820,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/releases/{release_id}/reactions/{reaction_id}": {
         readonly parameters: {
@@ -14329,6 +14844,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/rules/branches/{branch}": {
         readonly parameters: {
@@ -14352,6 +14868,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/rulesets": {
         readonly parameters: {
@@ -14376,6 +14893,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/rulesets/rule-suites": {
         readonly parameters: {
@@ -14397,6 +14915,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/rulesets/rule-suites/{rule_suite_id}": {
         readonly parameters: {
@@ -14418,6 +14937,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/rulesets/{ruleset_id}": {
         readonly parameters: {
@@ -14449,6 +14969,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/secret-scanning/alerts": {
         readonly parameters: {
@@ -14473,6 +14994,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}": {
         readonly parameters: {
@@ -14505,6 +15027,7 @@ export interface paths {
          */
         readonly patch: operations["secret-scanning/update-alert"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}/locations": {
         readonly parameters: {
@@ -14529,6 +15052,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/secret-scanning/push-protection-bypasses": {
         readonly parameters: {
@@ -14553,6 +15077,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/secret-scanning/scan-history": {
         readonly parameters: {
@@ -14575,6 +15100,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/security-advisories": {
         readonly parameters: {
@@ -14607,6 +15133,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/security-advisories/reports": {
         readonly parameters: {
@@ -14628,6 +15155,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/security-advisories/{ghsa_id}": {
         readonly parameters: {
@@ -14664,6 +15192,7 @@ export interface paths {
          */
         readonly patch: operations["security-advisories/update-repository-advisory"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/cve": {
         readonly parameters: {
@@ -14690,6 +15219,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/forks": {
         readonly parameters: {
@@ -14713,6 +15243,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/stargazers": {
         readonly parameters: {
@@ -14737,6 +15268,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/stats/code_frequency": {
         readonly parameters: {
@@ -14760,6 +15292,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/stats/commit_activity": {
         readonly parameters: {
@@ -14780,6 +15313,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/stats/contributors": {
         readonly parameters: {
@@ -14808,6 +15342,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/stats/participation": {
         readonly parameters: {
@@ -14832,6 +15367,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/stats/punch_card": {
         readonly parameters: {
@@ -14858,6 +15394,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/statuses/{sha}": {
         readonly parameters: {
@@ -14880,6 +15417,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/subscribers": {
         readonly parameters: {
@@ -14900,6 +15438,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/subscription": {
         readonly parameters: {
@@ -14928,6 +15467,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/tags": {
         readonly parameters: {
@@ -14945,6 +15485,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/tags/protection": {
         readonly parameters: {
@@ -14980,6 +15521,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/tags/protection/{tag_protection_id}": {
         readonly parameters: {
@@ -15005,6 +15547,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/tarball/{ref}": {
         readonly parameters: {
@@ -15030,6 +15573,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/teams": {
         readonly parameters: {
@@ -15054,6 +15598,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/topics": {
         readonly parameters: {
@@ -15072,6 +15617,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/traffic/clones": {
         readonly parameters: {
@@ -15092,6 +15638,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/traffic/popular/paths": {
         readonly parameters: {
@@ -15112,6 +15659,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/traffic/popular/referrers": {
         readonly parameters: {
@@ -15132,6 +15680,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/traffic/views": {
         readonly parameters: {
@@ -15152,6 +15701,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/transfer": {
         readonly parameters: {
@@ -15172,6 +15722,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/vulnerability-alerts": {
         readonly parameters: {
@@ -15202,6 +15753,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{owner}/{repo}/zipball/{ref}": {
         readonly parameters: {
@@ -15227,6 +15779,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repos/{template_owner}/{template_repo}/generate": {
         readonly parameters: {
@@ -15249,6 +15802,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/repositories": {
         readonly parameters: {
@@ -15273,6 +15827,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/search/code": {
         readonly parameters: {
@@ -15312,6 +15867,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/search/commits": {
         readonly parameters: {
@@ -15339,6 +15895,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/search/issues": {
         readonly parameters: {
@@ -15371,6 +15928,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/search/labels": {
         readonly parameters: {
@@ -15399,6 +15957,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/search/repositories": {
         readonly parameters: {
@@ -15427,6 +15986,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/search/topics": {
         readonly parameters: {
@@ -15455,6 +16015,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/search/users": {
         readonly parameters: {
@@ -15485,6 +16046,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/teams/{team_id}": {
         readonly parameters: {
@@ -15528,6 +16090,7 @@ export interface paths {
          */
         readonly patch: operations["teams/update-legacy"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/teams/{team_id}/discussions": {
         readonly parameters: {
@@ -15566,6 +16129,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/teams/{team_id}/discussions/{discussion_number}": {
         readonly parameters: {
@@ -15612,6 +16176,7 @@ export interface paths {
          */
         readonly patch: operations["teams/update-discussion-legacy"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/teams/{team_id}/discussions/{discussion_number}/comments": {
         readonly parameters: {
@@ -15650,6 +16215,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}": {
         readonly parameters: {
@@ -15696,6 +16262,7 @@ export interface paths {
          */
         readonly patch: operations["teams/update-discussion-comment-legacy"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions": {
         readonly parameters: {
@@ -15734,6 +16301,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/teams/{team_id}/discussions/{discussion_number}/reactions": {
         readonly parameters: {
@@ -15772,6 +16340,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/teams/{team_id}/invitations": {
         readonly parameters: {
@@ -15796,6 +16365,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/teams/{team_id}/members": {
         readonly parameters: {
@@ -15820,6 +16390,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/teams/{team_id}/members/{username}": {
         readonly parameters: {
@@ -15875,6 +16446,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/teams/{team_id}/memberships/{username}": {
         readonly parameters: {
@@ -15936,6 +16508,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/teams/{team_id}/projects": {
         readonly parameters: {
@@ -15960,6 +16533,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/teams/{team_id}/projects/{project_id}": {
         readonly parameters: {
@@ -16000,6 +16574,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/teams/{team_id}/repos": {
         readonly parameters: {
@@ -16022,6 +16597,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/teams/{team_id}/repos/{owner}/{repo}": {
         readonly parameters: {
@@ -16067,6 +16643,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/teams/{team_id}/teams": {
         readonly parameters: {
@@ -16089,6 +16666,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user": {
         readonly parameters: {
@@ -16113,6 +16691,7 @@ export interface paths {
          */
         readonly patch: operations["users/update-authenticated"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/blocks": {
         readonly parameters: {
@@ -16133,6 +16712,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/blocks/{username}": {
         readonly parameters: {
@@ -16161,6 +16741,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/codespaces": {
         readonly parameters: {
@@ -16191,6 +16772,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/codespaces/secrets": {
         readonly parameters: {
@@ -16216,6 +16798,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/codespaces/secrets/public-key": {
         readonly parameters: {
@@ -16240,6 +16823,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/codespaces/secrets/{secret_name}": {
         readonly parameters: {
@@ -16281,6 +16865,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/codespaces/secrets/{secret_name}/repositories": {
         readonly parameters: {
@@ -16313,6 +16898,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/codespaces/secrets/{secret_name}/repositories/{repository_id}": {
         readonly parameters: {
@@ -16345,6 +16931,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/codespaces/{codespace_name}": {
         readonly parameters: {
@@ -16381,6 +16968,7 @@ export interface paths {
          */
         readonly patch: operations["codespaces/update-for-authenticated-user"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/codespaces/{codespace_name}/exports": {
         readonly parameters: {
@@ -16405,6 +16993,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/codespaces/{codespace_name}/exports/{export_id}": {
         readonly parameters: {
@@ -16427,6 +17016,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/codespaces/{codespace_name}/machines": {
         readonly parameters: {
@@ -16449,6 +17039,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/codespaces/{codespace_name}/publish": {
         readonly parameters: {
@@ -16475,6 +17066,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/codespaces/{codespace_name}/start": {
         readonly parameters: {
@@ -16497,6 +17089,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/codespaces/{codespace_name}/stop": {
         readonly parameters: {
@@ -16519,6 +17112,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/docker/conflicts": {
         readonly parameters: {
@@ -16541,6 +17135,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/email/visibility": {
         readonly parameters: {
@@ -16561,6 +17156,7 @@ export interface paths {
          */
         readonly patch: operations["users/set-primary-email-visibility-for-authenticated-user"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/emails": {
         readonly parameters: {
@@ -16592,6 +17188,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/followers": {
         readonly parameters: {
@@ -16612,6 +17209,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/following": {
         readonly parameters: {
@@ -16632,6 +17230,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/following/{username}": {
         readonly parameters: {
@@ -16659,6 +17258,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/gpg_keys": {
         readonly parameters: {
@@ -16687,6 +17287,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/gpg_keys/{gpg_key_id}": {
         readonly parameters: {
@@ -16715,6 +17316,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/installations": {
         readonly parameters: {
@@ -16739,6 +17341,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/installations/{installation_id}/repositories": {
         readonly parameters: {
@@ -16763,6 +17366,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/installations/{installation_id}/repositories/{repository_id}": {
         readonly parameters: {
@@ -16791,6 +17395,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/interaction-limits": {
         readonly parameters: {
@@ -16819,6 +17424,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/issues": {
         readonly parameters: {
@@ -16849,6 +17455,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/keys": {
         readonly parameters: {
@@ -16877,6 +17484,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/keys/{key_id}": {
         readonly parameters: {
@@ -16905,6 +17513,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/marketplace_purchases": {
         readonly parameters: {
@@ -16925,6 +17534,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/marketplace_purchases/stubbed": {
         readonly parameters: {
@@ -16945,6 +17555,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/memberships/orgs": {
         readonly parameters: {
@@ -16965,6 +17576,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/memberships/orgs/{org}": {
         readonly parameters: {
@@ -16989,6 +17601,7 @@ export interface paths {
          */
         readonly patch: operations["orgs/update-membership-for-authenticated-user"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/migrations": {
         readonly parameters: {
@@ -17013,6 +17626,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/migrations/{migration_id}": {
         readonly parameters: {
@@ -17040,6 +17654,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/migrations/{migration_id}/archive": {
         readonly parameters: {
@@ -17084,6 +17699,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/migrations/{migration_id}/repos/{repo_name}/lock": {
         readonly parameters: {
@@ -17104,6 +17720,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/migrations/{migration_id}/repositories": {
         readonly parameters: {
@@ -17124,6 +17741,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/orgs": {
         readonly parameters: {
@@ -17149,6 +17767,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/packages": {
         readonly parameters: {
@@ -17171,6 +17790,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/packages/{package_type}/{package_name}": {
         readonly parameters: {
@@ -17199,6 +17819,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/packages/{package_type}/{package_name}/restore": {
         readonly parameters: {
@@ -17225,6 +17846,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/packages/{package_type}/{package_name}/versions": {
         readonly parameters: {
@@ -17247,6 +17869,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/packages/{package_type}/{package_name}/versions/{package_version_id}": {
         readonly parameters: {
@@ -17277,6 +17900,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/packages/{package_type}/{package_name}/versions/{package_version_id}/restore": {
         readonly parameters: {
@@ -17303,6 +17927,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/projects": {
         readonly parameters: {
@@ -17323,6 +17948,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/public_emails": {
         readonly parameters: {
@@ -17347,6 +17973,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/repos": {
         readonly parameters: {
@@ -17375,6 +18002,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/repository_invitations": {
         readonly parameters: {
@@ -17395,6 +18023,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/repository_invitations/{invitation_id}": {
         readonly parameters: {
@@ -17413,6 +18042,7 @@ export interface paths {
         /** Accept a repository invitation */
         readonly patch: operations["repos/accept-invitation-for-authenticated-user"];
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/social_accounts": {
         readonly parameters: {
@@ -17445,6 +18075,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/ssh_signing_keys": {
         readonly parameters: {
@@ -17473,6 +18104,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/ssh_signing_keys/{ssh_signing_key_id}": {
         readonly parameters: {
@@ -17501,6 +18133,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/starred": {
         readonly parameters: {
@@ -17525,6 +18158,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/starred/{owner}/{repo}": {
         readonly parameters: {
@@ -17553,6 +18187,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/subscriptions": {
         readonly parameters: {
@@ -17573,6 +18208,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/teams": {
         readonly parameters: {
@@ -17598,6 +18234,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/user/{account_id}": {
         readonly parameters: {
@@ -17624,6 +18261,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users": {
         readonly parameters: {
@@ -17646,6 +18284,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}": {
         readonly parameters: {
@@ -17672,6 +18311,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/attestations/{subject_digest}": {
         readonly parameters: {
@@ -17696,6 +18336,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/docker/conflicts": {
         readonly parameters: {
@@ -17718,6 +18359,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/events": {
         readonly parameters: {
@@ -17741,6 +18383,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/events/orgs/{org}": {
         readonly parameters: {
@@ -17764,6 +18407,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/events/public": {
         readonly parameters: {
@@ -17785,6 +18429,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/followers": {
         readonly parameters: {
@@ -17805,6 +18450,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/following": {
         readonly parameters: {
@@ -17825,6 +18471,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/following/{target_user}": {
         readonly parameters: {
@@ -17842,6 +18489,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/gists": {
         readonly parameters: {
@@ -17862,6 +18510,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/gpg_keys": {
         readonly parameters: {
@@ -17882,6 +18531,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/hovercard": {
         readonly parameters: {
@@ -17906,6 +18556,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/installation": {
         readonly parameters: {
@@ -17928,6 +18579,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/keys": {
         readonly parameters: {
@@ -17948,6 +18600,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/orgs": {
         readonly parameters: {
@@ -17970,6 +18623,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/packages": {
         readonly parameters: {
@@ -17992,6 +18646,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/packages/{package_type}/{package_name}": {
         readonly parameters: {
@@ -18022,6 +18677,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/packages/{package_type}/{package_name}/restore": {
         readonly parameters: {
@@ -18050,6 +18706,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/packages/{package_type}/{package_name}/versions": {
         readonly parameters: {
@@ -18072,6 +18729,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}": {
         readonly parameters: {
@@ -18102,6 +18760,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore": {
         readonly parameters: {
@@ -18130,6 +18789,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/projects": {
         readonly parameters: {
@@ -18150,6 +18810,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/received_events": {
         readonly parameters: {
@@ -18174,6 +18835,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/received_events/public": {
         readonly parameters: {
@@ -18195,6 +18857,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/repos": {
         readonly parameters: {
@@ -18215,6 +18878,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/settings/billing/actions": {
         readonly parameters: {
@@ -18239,6 +18903,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/settings/billing/packages": {
         readonly parameters: {
@@ -18263,6 +18928,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/settings/billing/shared-storage": {
         readonly parameters: {
@@ -18287,6 +18953,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/social_accounts": {
         readonly parameters: {
@@ -18307,6 +18974,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/ssh_signing_keys": {
         readonly parameters: {
@@ -18327,6 +18995,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/starred": {
         readonly parameters: {
@@ -18351,6 +19020,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/users/{username}/subscriptions": {
         readonly parameters: {
@@ -18371,6 +19041,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/versions": {
         readonly parameters: {
@@ -18391,6 +19062,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
     readonly "/zen": {
         readonly parameters: {
@@ -18411,6 +19083,7 @@ export interface paths {
         readonly head?: never;
         readonly patch?: never;
         readonly trace?: never;
+        readonly query?: never;
     };
 }
 export type webhooks = Record<string, never>;

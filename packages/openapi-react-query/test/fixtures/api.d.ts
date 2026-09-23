@@ -56,6 +56,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/comment": {
         parameters: {
@@ -84,6 +85,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/blogposts": {
         parameters: {
@@ -138,6 +140,7 @@ export interface paths {
             };
         };
         trace?: never;
+        query?: never;
     };
     "/blogposts/{post_id}": {
         parameters: {
@@ -203,6 +206,7 @@ export interface paths {
             };
         };
         trace?: never;
+        query?: never;
     };
     "/blogposts-optional": {
         parameters: {
@@ -231,6 +235,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/blogposts-optional-inline": {
         parameters: {
@@ -263,6 +268,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/header-params": {
         parameters: {
@@ -279,6 +285,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/media": {
         parameters: {
@@ -324,6 +331,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/mismatched-data": {
         parameters: {
@@ -353,6 +361,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/mismatched-errors": {
         parameters: {
@@ -382,6 +391,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/self": {
         parameters: {
@@ -411,6 +421,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/string-array": {
         parameters: {
@@ -439,6 +450,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/tag/{name}": {
         parameters: {
@@ -505,6 +517,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/query-params": {
         parameters: {
@@ -560,6 +573,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/path-params/{simple_primitive}/{simple_obj_flat}/{simple_arr_flat}/{simple_obj_explode*}/{simple_arr_explode*}/{.label_primitive}/{.label_obj_flat}/{.label_arr_flat}/{.label_obj_explode*}/{.label_arr_explode*}/{;matrix_primitive}/{;matrix_obj_flat}/{;matrix_arr_flat}/{;matrix_obj_explode*}/{;matrix_arr_explode*}": {
         parameters: {
@@ -665,6 +679,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/default-as-error": {
         parameters: {
@@ -692,6 +707,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/anyMethod": {
         parameters: {
@@ -812,6 +828,7 @@ export interface paths {
                 500: components["responses"]["Error"];
             };
         };
+        query?: never;
     };
     "/contact": {
         parameters: {
@@ -839,6 +856,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/multiple-response-content": {
         parameters: {
@@ -866,6 +884,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;

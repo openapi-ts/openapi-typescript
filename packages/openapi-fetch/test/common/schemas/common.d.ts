@@ -47,6 +47,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/resources/{id}": {
         parameters: {
@@ -101,6 +102,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/error-404": {
         parameters: {
@@ -145,6 +147,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/error-500": {
         parameters: {
@@ -189,6 +192,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/error-default": {
         parameters: {
@@ -233,6 +237,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/media-json": {
         parameters: {
@@ -268,6 +273,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/media-vnd-json": {
         parameters: {
@@ -303,6 +309,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/media-text": {
         parameters: {
@@ -338,6 +345,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/media-multiple": {
         parameters: {
@@ -382,6 +390,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/mismatched-response": {
         parameters: {
@@ -435,6 +444,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/mismatched-errors": {
         parameters: {
@@ -486,6 +496,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/path-params/{string}": {
         parameters: {
@@ -536,6 +547,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/path-params/{simple_primitive}/{simple_obj_flat}/{simple_arr_flat}/{simple_obj_explode*}/{simple_arr_explode*}/{.label_primitive}/{.label_obj_flat}/{.label_arr_flat}/{.label_obj_explode*}/{.label_arr_explode*}/{;matrix_primitive}/{;matrix_obj_flat}/{;matrix_arr_flat}/{;matrix_obj_explode*}/{;matrix_arr_explode*}": {
         parameters: {
@@ -648,6 +660,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/header-params": {
         parameters: {
@@ -664,6 +677,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/query-params": {
         parameters: {
@@ -726,6 +740,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/empty-json": {
         parameters: {
@@ -742,6 +757,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;

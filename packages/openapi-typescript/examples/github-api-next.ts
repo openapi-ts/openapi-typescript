@@ -23,6 +23,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/advisories": {
         parameters: {
@@ -45,6 +46,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/advisories/{ghsa_id}": {
         parameters: {
@@ -65,6 +67,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/app": {
         parameters: {
@@ -87,6 +90,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/app-manifests/{code}/conversions": {
         parameters: {
@@ -107,6 +111,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/app/hook/config": {
         parameters: {
@@ -135,6 +140,7 @@ export interface paths {
          */
         patch: operations["apps/update-webhook-config-for-app"];
         trace?: never;
+        query?: never;
     };
     "/app/hook/deliveries": {
         parameters: {
@@ -157,6 +163,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/app/hook/deliveries/{delivery_id}": {
         parameters: {
@@ -179,6 +186,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/app/hook/deliveries/{delivery_id}/attempts": {
         parameters: {
@@ -201,6 +209,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/app/installation-requests": {
         parameters: {
@@ -221,6 +230,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/app/installations": {
         parameters: {
@@ -243,6 +253,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/app/installations/{installation_id}": {
         parameters: {
@@ -271,6 +282,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/app/installations/{installation_id}/access_tokens": {
         parameters: {
@@ -297,6 +309,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/app/installations/{installation_id}/suspended": {
         parameters: {
@@ -325,6 +338,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/applications/{client_id}/grant": {
         parameters: {
@@ -346,6 +360,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/applications/{client_id}/token": {
         parameters: {
@@ -374,6 +389,7 @@ export interface paths {
          */
         patch: operations["apps/reset-token"];
         trace?: never;
+        query?: never;
     };
     "/applications/{client_id}/token/scoped": {
         parameters: {
@@ -398,6 +414,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/apps/{app_slug}": {
         parameters: {
@@ -419,6 +436,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/assignments/{assignment_id}": {
         parameters: {
@@ -439,6 +457,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/assignments/{assignment_id}/accepted_assignments": {
         parameters: {
@@ -459,6 +478,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/assignments/{assignment_id}/grades": {
         parameters: {
@@ -479,6 +499,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/classrooms": {
         parameters: {
@@ -499,6 +520,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/classrooms/{classroom_id}": {
         parameters: {
@@ -519,6 +541,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/classrooms/{classroom_id}/assignments": {
         parameters: {
@@ -539,6 +562,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/codes_of_conduct": {
         parameters: {
@@ -559,6 +583,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/codes_of_conduct/{key}": {
         parameters: {
@@ -579,6 +604,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/emojis": {
         parameters: {
@@ -599,6 +625,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprises/{enterprise}/code-security/configurations": {
         parameters: {
@@ -631,6 +658,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprises/{enterprise}/code-security/configurations/defaults": {
         parameters: {
@@ -655,6 +683,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprises/{enterprise}/code-security/configurations/{configuration_id}": {
         parameters: {
@@ -697,6 +726,7 @@ export interface paths {
          */
         patch: operations["code-security/update-enterprise-configuration"];
         trace?: never;
+        query?: never;
     };
     "/enterprises/{enterprise}/code-security/configurations/{configuration_id}/attach": {
         parameters: {
@@ -723,6 +753,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprises/{enterprise}/code-security/configurations/{configuration_id}/defaults": {
         parameters: {
@@ -749,6 +780,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprises/{enterprise}/code-security/configurations/{configuration_id}/repositories": {
         parameters: {
@@ -773,6 +805,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprises/{enterprise}/dependabot/alerts": {
         parameters: {
@@ -799,6 +832,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprises/{enterprise}/secret-scanning/alerts": {
         parameters: {
@@ -825,6 +859,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/events": {
         parameters: {
@@ -846,6 +881,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/feeds": {
         parameters: {
@@ -879,6 +915,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/gists": {
         parameters: {
@@ -906,6 +943,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/gists/public": {
         parameters: {
@@ -928,6 +966,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/gists/starred": {
         parameters: {
@@ -948,6 +987,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/gists/{gist_id}": {
         parameters: {
@@ -987,6 +1027,7 @@ export interface paths {
          */
         patch: operations["gists/update"];
         trace?: never;
+        query?: never;
     };
     "/gists/{gist_id}/comments": {
         parameters: {
@@ -1021,6 +1062,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/gists/{gist_id}/comments/{comment_id}": {
         parameters: {
@@ -1056,6 +1098,7 @@ export interface paths {
          */
         patch: operations["gists/update-comment"];
         trace?: never;
+        query?: never;
     };
     "/gists/{gist_id}/commits": {
         parameters: {
@@ -1073,6 +1116,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/gists/{gist_id}/forks": {
         parameters: {
@@ -1091,6 +1135,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/gists/{gist_id}/star": {
         parameters: {
@@ -1113,6 +1158,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/gists/{gist_id}/{sha}": {
         parameters: {
@@ -1138,6 +1184,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/gitignore/templates": {
         parameters: {
@@ -1158,6 +1205,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/gitignore/templates/{name}": {
         parameters: {
@@ -1182,6 +1230,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/installation/repositories": {
         parameters: {
@@ -1202,6 +1251,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/installation/token": {
         parameters: {
@@ -1224,6 +1274,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/issues": {
         parameters: {
@@ -1256,6 +1307,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/licenses": {
         parameters: {
@@ -1276,6 +1328,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/licenses/{license}": {
         parameters: {
@@ -1296,6 +1349,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/markdown": {
         parameters: {
@@ -1313,6 +1367,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/markdown/raw": {
         parameters: {
@@ -1333,6 +1388,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/marketplace_listing/accounts/{account_id}": {
         parameters: {
@@ -1355,6 +1411,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/marketplace_listing/plans": {
         parameters: {
@@ -1377,6 +1434,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/marketplace_listing/plans/{plan_id}/accounts": {
         parameters: {
@@ -1399,6 +1457,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/marketplace_listing/stubbed/accounts/{account_id}": {
         parameters: {
@@ -1421,6 +1480,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/marketplace_listing/stubbed/plans": {
         parameters: {
@@ -1443,6 +1503,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/marketplace_listing/stubbed/plans/{plan_id}/accounts": {
         parameters: {
@@ -1465,6 +1526,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/meta": {
         parameters: {
@@ -1492,6 +1554,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/networks/{owner}/{repo}/events": {
         parameters: {
@@ -1513,6 +1576,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/notifications": {
         parameters: {
@@ -1537,6 +1601,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/notifications/threads/{thread_id}": {
         parameters: {
@@ -1565,6 +1630,7 @@ export interface paths {
          */
         patch: operations["activity/mark-thread-as-read"];
         trace?: never;
+        query?: never;
     };
     "/notifications/threads/{thread_id}/subscription": {
         parameters: {
@@ -1599,6 +1665,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/octocat": {
         parameters: {
@@ -1619,6 +1686,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/organizations": {
         parameters: {
@@ -1642,6 +1710,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/organizations/{org}/settings/billing/usage": {
         parameters: {
@@ -1664,6 +1733,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}": {
         parameters: {
@@ -1716,6 +1786,7 @@ export interface paths {
          */
         patch: operations["orgs/update"];
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/cache/usage": {
         parameters: {
@@ -1739,6 +1810,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/cache/usage-by-repository": {
         parameters: {
@@ -1762,6 +1834,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/hosted-runners": {
         parameters: {
@@ -1789,6 +1862,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/hosted-runners/images/github-owned": {
         parameters: {
@@ -1809,6 +1883,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/hosted-runners/images/partner": {
         parameters: {
@@ -1829,6 +1904,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/hosted-runners/limits": {
         parameters: {
@@ -1849,6 +1925,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/hosted-runners/machine-sizes": {
         parameters: {
@@ -1869,6 +1946,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/hosted-runners/platforms": {
         parameters: {
@@ -1889,6 +1967,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/hosted-runners/{hosted_runner_id}": {
         parameters: {
@@ -1920,6 +1999,7 @@ export interface paths {
          */
         patch: operations["actions/update-hosted-runner-for-org"];
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/oidc/customization/sub": {
         parameters: {
@@ -1948,6 +2028,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/permissions": {
         parameters: {
@@ -1976,6 +2057,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/permissions/repositories": {
         parameters: {
@@ -2005,6 +2087,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/permissions/repositories/{repository_id}": {
         parameters: {
@@ -2033,6 +2116,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/permissions/selected-actions": {
         parameters: {
@@ -2061,6 +2145,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/permissions/workflow": {
         parameters: {
@@ -2093,6 +2178,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/runner-groups": {
         parameters: {
@@ -2121,6 +2207,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/runner-groups/{runner_group_id}": {
         parameters: {
@@ -2155,6 +2242,7 @@ export interface paths {
          */
         patch: operations["actions/update-self-hosted-runner-group-for-org"];
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/runner-groups/{runner_group_id}/hosted-runners": {
         parameters: {
@@ -2177,6 +2265,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories": {
         parameters: {
@@ -2205,6 +2294,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/runner-groups/{runner_group_id}/repositories/{repository_id}": {
         parameters: {
@@ -2233,6 +2323,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/runner-groups/{runner_group_id}/runners": {
         parameters: {
@@ -2261,6 +2352,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/runner-groups/{runner_group_id}/runners/{runner_id}": {
         parameters: {
@@ -2289,6 +2381,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/runners": {
         parameters: {
@@ -2313,6 +2406,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/runners/downloads": {
         parameters: {
@@ -2337,6 +2431,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/runners/generate-jitconfig": {
         parameters: {
@@ -2361,6 +2456,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/runners/registration-token": {
         parameters: {
@@ -2391,6 +2487,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/runners/remove-token": {
         parameters: {
@@ -2421,6 +2518,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/runners/{runner_id}": {
         parameters: {
@@ -2453,6 +2551,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/runners/{runner_id}/labels": {
         parameters: {
@@ -2503,6 +2602,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/runners/{runner_id}/labels/{name}": {
         parameters: {
@@ -2531,6 +2631,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/secrets": {
         parameters: {
@@ -2556,6 +2657,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/secrets/public-key": {
         parameters: {
@@ -2581,6 +2683,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/secrets/{secret_name}": {
         parameters: {
@@ -2622,6 +2725,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/secrets/{secret_name}/repositories": {
         parameters: {
@@ -2657,6 +2761,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}": {
         parameters: {
@@ -2693,6 +2798,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/variables": {
         parameters: {
@@ -2725,6 +2831,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/variables/{name}": {
         parameters: {
@@ -2765,6 +2872,7 @@ export interface paths {
          */
         patch: operations["actions/update-org-variable"];
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/variables/{name}/repositories": {
         parameters: {
@@ -2800,6 +2908,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/variables/{name}/repositories/{repository_id}": {
         parameters: {
@@ -2835,6 +2944,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/attestations/{subject_digest}": {
         parameters: {
@@ -2859,6 +2969,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/blocks": {
         parameters: {
@@ -2879,6 +2990,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/blocks/{username}": {
         parameters: {
@@ -2907,6 +3019,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/code-scanning/alerts": {
         parameters: {
@@ -2931,6 +3044,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/code-security/configurations": {
         parameters: {
@@ -2963,6 +3077,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/code-security/configurations/defaults": {
         parameters: {
@@ -2987,6 +3102,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/code-security/configurations/detach": {
         parameters: {
@@ -3012,6 +3128,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/code-security/configurations/{configuration_id}": {
         parameters: {
@@ -3054,6 +3171,7 @@ export interface paths {
          */
         patch: operations["code-security/update-configuration"];
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/code-security/configurations/{configuration_id}/attach": {
         parameters: {
@@ -3080,6 +3198,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/code-security/configurations/{configuration_id}/defaults": {
         parameters: {
@@ -3106,6 +3225,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/code-security/configurations/{configuration_id}/repositories": {
         parameters: {
@@ -3130,6 +3250,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/codespaces": {
         parameters: {
@@ -3152,6 +3273,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/codespaces/access": {
         parameters: {
@@ -3174,6 +3296,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/codespaces/access/selected_users": {
         parameters: {
@@ -3210,6 +3333,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/codespaces/secrets": {
         parameters: {
@@ -3233,6 +3357,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/codespaces/secrets/public-key": {
         parameters: {
@@ -3254,6 +3379,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/codespaces/secrets/{secret_name}": {
         parameters: {
@@ -3289,6 +3415,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/codespaces/secrets/{secret_name}/repositories": {
         parameters: {
@@ -3320,6 +3447,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/codespaces/secrets/{secret_name}/repositories/{repository_id}": {
         parameters: {
@@ -3349,6 +3477,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/copilot/billing": {
         parameters: {
@@ -3378,6 +3507,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/copilot/billing/seats": {
         parameters: {
@@ -3407,6 +3537,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/copilot/billing/selected_teams": {
         parameters: {
@@ -3454,6 +3585,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/copilot/billing/selected_users": {
         parameters: {
@@ -3501,6 +3633,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/copilot/metrics": {
         parameters: {
@@ -3533,6 +3666,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/copilot/usage": {
         parameters: {
@@ -3566,6 +3700,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/dependabot/alerts": {
         parameters: {
@@ -3590,6 +3725,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/dependabot/secrets": {
         parameters: {
@@ -3613,6 +3749,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/dependabot/secrets/public-key": {
         parameters: {
@@ -3636,6 +3773,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/dependabot/secrets/{secret_name}": {
         parameters: {
@@ -3671,6 +3809,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/dependabot/secrets/{secret_name}/repositories": {
         parameters: {
@@ -3702,6 +3841,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/dependabot/secrets/{secret_name}/repositories/{repository_id}": {
         parameters: {
@@ -3734,6 +3874,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/docker/conflicts": {
         parameters: {
@@ -3756,6 +3897,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/events": {
         parameters: {
@@ -3777,6 +3919,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/failed_invitations": {
         parameters: {
@@ -3797,6 +3940,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/hooks": {
         parameters: {
@@ -3831,6 +3975,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/hooks/{hook_id}": {
         parameters: {
@@ -3879,6 +4024,7 @@ export interface paths {
          */
         patch: operations["orgs/update-webhook"];
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/hooks/{hook_id}/config": {
         parameters: {
@@ -3913,6 +4059,7 @@ export interface paths {
          */
         patch: operations["orgs/update-webhook-config-for-org"];
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/hooks/{hook_id}/deliveries": {
         parameters: {
@@ -3938,6 +4085,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}": {
         parameters: {
@@ -3963,6 +4111,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}/attempts": {
         parameters: {
@@ -3988,6 +4137,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/hooks/{hook_id}/pings": {
         parameters: {
@@ -4014,6 +4164,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/insights/api/route-stats/{actor_type}/{actor_id}": {
         parameters: {
@@ -4034,6 +4185,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/insights/api/subject-stats": {
         parameters: {
@@ -4054,6 +4206,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/insights/api/summary-stats": {
         parameters: {
@@ -4074,6 +4227,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/insights/api/summary-stats/users/{user_id}": {
         parameters: {
@@ -4094,6 +4248,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/insights/api/summary-stats/{actor_type}/{actor_id}": {
         parameters: {
@@ -4114,6 +4269,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/insights/api/time-stats": {
         parameters: {
@@ -4134,6 +4290,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/insights/api/time-stats/users/{user_id}": {
         parameters: {
@@ -4154,6 +4311,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/insights/api/time-stats/{actor_type}/{actor_id}": {
         parameters: {
@@ -4174,6 +4332,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/insights/api/user-stats/{user_id}": {
         parameters: {
@@ -4194,6 +4353,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/installation": {
         parameters: {
@@ -4216,6 +4376,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/installations": {
         parameters: {
@@ -4241,6 +4402,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/interaction-limits": {
         parameters: {
@@ -4269,6 +4431,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/invitations": {
         parameters: {
@@ -4299,6 +4462,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/invitations/{invitation_id}": {
         parameters: {
@@ -4321,6 +4485,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/invitations/{invitation_id}/teams": {
         parameters: {
@@ -4341,6 +4506,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/issues": {
         parameters: {
@@ -4371,6 +4537,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/members": {
         parameters: {
@@ -4391,6 +4558,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/members/{username}": {
         parameters: {
@@ -4415,6 +4583,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/members/{username}/codespaces": {
         parameters: {
@@ -4437,6 +4606,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/members/{username}/codespaces/{codespace_name}": {
         parameters: {
@@ -4459,6 +4629,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/members/{username}/codespaces/{codespace_name}/stop": {
         parameters: {
@@ -4481,6 +4652,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/members/{username}/copilot": {
         parameters: {
@@ -4511,6 +4683,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/memberships/{username}": {
         parameters: {
@@ -4549,6 +4722,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/migrations": {
         parameters: {
@@ -4575,6 +4749,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/migrations/{migration_id}": {
         parameters: {
@@ -4602,6 +4777,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/migrations/{migration_id}/archive": {
         parameters: {
@@ -4626,6 +4802,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/migrations/{migration_id}/repos/{repo_name}/lock": {
         parameters: {
@@ -4646,6 +4823,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/migrations/{migration_id}/repositories": {
         parameters: {
@@ -4666,6 +4844,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/organization-roles": {
         parameters: {
@@ -4693,6 +4872,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/organization-roles/teams/{team_slug}": {
         parameters: {
@@ -4717,6 +4897,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/organization-roles/teams/{team_slug}/{role_id}": {
         parameters: {
@@ -4749,6 +4930,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/organization-roles/users/{username}": {
         parameters: {
@@ -4773,6 +4955,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/organization-roles/users/{username}/{role_id}": {
         parameters: {
@@ -4805,6 +4988,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/organization-roles/{role_id}": {
         parameters: {
@@ -4832,6 +5016,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/organization-roles/{role_id}/teams": {
         parameters: {
@@ -4856,6 +5041,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/organization-roles/{role_id}/users": {
         parameters: {
@@ -4880,6 +5066,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/outside_collaborators": {
         parameters: {
@@ -4900,6 +5087,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/outside_collaborators/{username}": {
         parameters: {
@@ -4924,6 +5112,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/packages": {
         parameters: {
@@ -4946,6 +5135,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/packages/{package_type}/{package_name}": {
         parameters: {
@@ -4976,6 +5166,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/packages/{package_type}/{package_name}/restore": {
         parameters: {
@@ -5004,6 +5195,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/packages/{package_type}/{package_name}/versions": {
         parameters: {
@@ -5026,6 +5218,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}": {
         parameters: {
@@ -5056,6 +5249,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore": {
         parameters: {
@@ -5084,6 +5278,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/personal-access-token-requests": {
         parameters: {
@@ -5112,6 +5307,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/personal-access-token-requests/{pat_request_id}": {
         parameters: {
@@ -5134,6 +5330,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/personal-access-token-requests/{pat_request_id}/repositories": {
         parameters: {
@@ -5156,6 +5353,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/personal-access-tokens": {
         parameters: {
@@ -5184,6 +5382,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/personal-access-tokens/{pat_id}": {
         parameters: {
@@ -5206,6 +5405,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/personal-access-tokens/{pat_id}/repositories": {
         parameters: {
@@ -5228,6 +5428,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/private-registries": {
         parameters: {
@@ -5263,6 +5464,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/private-registries/public-key": {
         parameters: {
@@ -5288,6 +5490,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/private-registries/{secret_name}": {
         parameters: {
@@ -5331,6 +5534,7 @@ export interface paths {
          */
         patch: operations["private-registries/update-org-private-registry"];
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/projects": {
         parameters: {
@@ -5355,6 +5559,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/properties/schema": {
         parameters: {
@@ -5384,6 +5589,7 @@ export interface paths {
          */
         patch: operations["orgs/create-or-update-custom-properties"];
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/properties/schema/{custom_property_name}": {
         parameters: {
@@ -5421,6 +5627,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/properties/values": {
         parameters: {
@@ -5455,6 +5662,7 @@ export interface paths {
          */
         patch: operations["orgs/create-or-update-custom-properties-values-for-repos"];
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/public_members": {
         parameters: {
@@ -5475,6 +5683,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/public_members/{username}": {
         parameters: {
@@ -5505,6 +5714,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/repos": {
         parameters: {
@@ -5534,6 +5744,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/rulesets": {
         parameters: {
@@ -5558,6 +5769,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/rulesets/rule-suites": {
         parameters: {
@@ -5579,6 +5791,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/rulesets/rule-suites/{rule_suite_id}": {
         parameters: {
@@ -5600,6 +5813,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/rulesets/{ruleset_id}": {
         parameters: {
@@ -5631,6 +5845,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/secret-scanning/alerts": {
         parameters: {
@@ -5655,6 +5870,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/security-advisories": {
         parameters: {
@@ -5679,6 +5895,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/security-managers": {
         parameters: {
@@ -5701,6 +5918,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/security-managers/teams/{team_slug}": {
         parameters: {
@@ -5729,6 +5947,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/settings/billing/actions": {
         parameters: {
@@ -5753,6 +5972,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/settings/billing/packages": {
         parameters: {
@@ -5777,6 +5997,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/settings/billing/shared-storage": {
         parameters: {
@@ -5801,6 +6022,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/settings/network-configurations": {
         parameters: {
@@ -5829,6 +6051,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/settings/network-configurations/{network_configuration_id}": {
         parameters: {
@@ -5863,6 +6086,7 @@ export interface paths {
          */
         patch: operations["hosted-compute/update-network-configuration-for-org"];
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/settings/network-settings/{network_settings_id}": {
         parameters: {
@@ -5885,6 +6109,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/team/{team_slug}/copilot/metrics": {
         parameters: {
@@ -5917,6 +6142,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/team/{team_slug}/copilot/usage": {
         parameters: {
@@ -5953,6 +6179,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams": {
         parameters: {
@@ -5979,6 +6206,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams/{team_slug}": {
         parameters: {
@@ -6018,6 +6246,7 @@ export interface paths {
          */
         patch: operations["teams/update-in-org"];
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams/{team_slug}/discussions": {
         parameters: {
@@ -6054,6 +6283,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}": {
         parameters: {
@@ -6097,6 +6327,7 @@ export interface paths {
          */
         patch: operations["teams/update-discussion-in-org"];
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments": {
         parameters: {
@@ -6133,6 +6364,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}": {
         parameters: {
@@ -6176,6 +6408,7 @@ export interface paths {
          */
         patch: operations["teams/update-discussion-comment-in-org"];
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions": {
         parameters: {
@@ -6212,6 +6445,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions/{reaction_id}": {
         parameters: {
@@ -6237,6 +6471,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions": {
         parameters: {
@@ -6273,6 +6508,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions/{reaction_id}": {
         parameters: {
@@ -6298,6 +6534,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams/{team_slug}/invitations": {
         parameters: {
@@ -6321,6 +6558,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams/{team_slug}/members": {
         parameters: {
@@ -6343,6 +6581,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams/{team_slug}/memberships/{username}": {
         parameters: {
@@ -6401,6 +6640,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams/{team_slug}/projects": {
         parameters: {
@@ -6424,6 +6664,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams/{team_slug}/projects/{project_id}": {
         parameters: {
@@ -6461,6 +6702,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams/{team_slug}/repos": {
         parameters: {
@@ -6484,6 +6726,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams/{team_slug}/repos/{owner}/{repo}": {
         parameters: {
@@ -6529,6 +6772,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams/{team_slug}/teams": {
         parameters: {
@@ -6552,6 +6796,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/{security_product}/{enablement}": {
         parameters: {
@@ -6580,6 +6825,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/projects/columns/cards/{card_id}": {
         parameters: {
@@ -6605,6 +6851,7 @@ export interface paths {
         /** Update an existing project card */
         patch: operations["projects/update-card"];
         trace?: never;
+        query?: never;
     };
     "/projects/columns/cards/{card_id}/moves": {
         parameters: {
@@ -6622,6 +6869,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/projects/columns/{column_id}": {
         parameters: {
@@ -6647,6 +6895,7 @@ export interface paths {
         /** Update an existing project column */
         patch: operations["projects/update-column"];
         trace?: never;
+        query?: never;
     };
     "/projects/columns/{column_id}/cards": {
         parameters: {
@@ -6668,6 +6917,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/projects/columns/{column_id}/moves": {
         parameters: {
@@ -6685,6 +6935,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/projects/{project_id}": {
         parameters: {
@@ -6713,6 +6964,7 @@ export interface paths {
          */
         patch: operations["projects/update"];
         trace?: never;
+        query?: never;
     };
     "/projects/{project_id}/collaborators": {
         parameters: {
@@ -6733,6 +6985,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/projects/{project_id}/collaborators/{username}": {
         parameters: {
@@ -6757,6 +7010,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/projects/{project_id}/collaborators/{username}/permission": {
         parameters: {
@@ -6777,6 +7031,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/projects/{project_id}/columns": {
         parameters: {
@@ -6801,6 +7056,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/rate_limit": {
         parameters: {
@@ -6836,6 +7092,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}": {
         parameters: {
@@ -6872,6 +7129,7 @@ export interface paths {
          */
         patch: operations["repos/update"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/artifacts": {
         parameters: {
@@ -6896,6 +7154,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/artifacts/{artifact_id}": {
         parameters: {
@@ -6925,6 +7184,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/artifacts/{artifact_id}/{archive_format}": {
         parameters: {
@@ -6948,6 +7208,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/cache/usage": {
         parameters: {
@@ -6973,6 +7234,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/caches": {
         parameters: {
@@ -7001,6 +7263,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/caches/{cache_id}": {
         parameters: {
@@ -7023,6 +7286,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/jobs/{job_id}": {
         parameters: {
@@ -7047,6 +7311,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/jobs/{job_id}/logs": {
         parameters: {
@@ -7072,6 +7337,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/jobs/{job_id}/rerun": {
         parameters: {
@@ -7094,6 +7360,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/oidc/customization/sub": {
         parameters: {
@@ -7122,6 +7389,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/organization-secrets": {
         parameters: {
@@ -7147,6 +7415,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/organization-variables": {
         parameters: {
@@ -7171,6 +7440,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/permissions": {
         parameters: {
@@ -7199,6 +7469,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/permissions/access": {
         parameters: {
@@ -7231,6 +7502,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/permissions/selected-actions": {
         parameters: {
@@ -7259,6 +7531,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/permissions/workflow": {
         parameters: {
@@ -7291,6 +7564,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runners": {
         parameters: {
@@ -7315,6 +7589,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runners/downloads": {
         parameters: {
@@ -7339,6 +7614,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runners/generate-jitconfig": {
         parameters: {
@@ -7363,6 +7639,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runners/registration-token": {
         parameters: {
@@ -7393,6 +7670,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runners/remove-token": {
         parameters: {
@@ -7423,6 +7701,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runners/{runner_id}": {
         parameters: {
@@ -7455,6 +7734,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runners/{runner_id}/labels": {
         parameters: {
@@ -7505,6 +7785,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runners/{runner_id}/labels/{name}": {
         parameters: {
@@ -7533,6 +7814,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs": {
         parameters: {
@@ -7559,6 +7841,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}": {
         parameters: {
@@ -7591,6 +7874,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}/approvals": {
         parameters: {
@@ -7613,6 +7897,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}/approve": {
         parameters: {
@@ -7635,6 +7920,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts": {
         parameters: {
@@ -7659,6 +7945,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}": {
         parameters: {
@@ -7683,6 +7970,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/jobs": {
         parameters: {
@@ -7708,6 +7996,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}/logs": {
         parameters: {
@@ -7733,6 +8022,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}/cancel": {
         parameters: {
@@ -7755,6 +8045,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}/deployment_protection_rule": {
         parameters: {
@@ -7780,6 +8071,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}/force-cancel": {
         parameters: {
@@ -7803,6 +8095,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}/jobs": {
         parameters: {
@@ -7828,6 +8121,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}/logs": {
         parameters: {
@@ -7859,6 +8153,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments": {
         parameters: {
@@ -7891,6 +8186,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}/rerun": {
         parameters: {
@@ -7913,6 +8209,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}/rerun-failed-jobs": {
         parameters: {
@@ -7935,6 +8232,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}/timing": {
         parameters: {
@@ -7959,6 +8257,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/secrets": {
         parameters: {
@@ -7984,6 +8283,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/secrets/public-key": {
         parameters: {
@@ -8009,6 +8309,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/secrets/{secret_name}": {
         parameters: {
@@ -8050,6 +8351,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/variables": {
         parameters: {
@@ -8082,6 +8384,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/variables/{name}": {
         parameters: {
@@ -8122,6 +8425,7 @@ export interface paths {
          */
         patch: operations["actions/update-repo-variable"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/workflows": {
         parameters: {
@@ -8146,6 +8450,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/workflows/{workflow_id}": {
         parameters: {
@@ -8171,6 +8476,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/workflows/{workflow_id}/disable": {
         parameters: {
@@ -8193,6 +8499,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches": {
         parameters: {
@@ -8217,6 +8524,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/workflows/{workflow_id}/enable": {
         parameters: {
@@ -8239,6 +8547,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs": {
         parameters: {
@@ -8265,6 +8574,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/workflows/{workflow_id}/timing": {
         parameters: {
@@ -8291,6 +8601,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/activity": {
         parameters: {
@@ -8314,6 +8625,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/assignees": {
         parameters: {
@@ -8334,6 +8646,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/assignees/{assignee}": {
         parameters: {
@@ -8358,6 +8671,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/attestations": {
         parameters: {
@@ -8382,6 +8696,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/attestations/{subject_digest}": {
         parameters: {
@@ -8406,6 +8721,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/autolinks": {
         parameters: {
@@ -8432,6 +8748,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/autolinks/{autolink_id}": {
         parameters: {
@@ -8460,6 +8777,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/automated-security-fixes": {
         parameters: {
@@ -8488,6 +8806,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/branches": {
         parameters: {
@@ -8505,6 +8824,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/branches/{branch}": {
         parameters: {
@@ -8522,6 +8842,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/branches/{branch}/protection": {
         parameters: {
@@ -8558,6 +8879,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins": {
         parameters: {
@@ -8590,6 +8912,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews": {
         parameters: {
@@ -8623,6 +8946,7 @@ export interface paths {
          */
         patch: operations["repos/update-pull-request-review-protection"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/branches/{branch}/protection/required_signatures": {
         parameters: {
@@ -8660,6 +8984,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks": {
         parameters: {
@@ -8690,6 +9015,7 @@ export interface paths {
          */
         patch: operations["repos/update-status-check-protection"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts": {
         parameters: {
@@ -8722,6 +9048,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions": {
         parameters: {
@@ -8753,6 +9080,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps": {
         parameters: {
@@ -8793,6 +9121,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/teams": {
         parameters: {
@@ -8833,6 +9162,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/branches/{branch}/protection/restrictions/users": {
         parameters: {
@@ -8885,6 +9215,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/branches/{branch}/rename": {
         parameters: {
@@ -8912,6 +9243,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/check-runs": {
         parameters: {
@@ -8939,6 +9271,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/check-runs/{check_run_id}": {
         parameters: {
@@ -8973,6 +9306,7 @@ export interface paths {
          */
         patch: operations["checks/update"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/check-runs/{check_run_id}/annotations": {
         parameters: {
@@ -8995,6 +9329,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/check-runs/{check_run_id}/rerequest": {
         parameters: {
@@ -9019,6 +9354,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/check-suites": {
         parameters: {
@@ -9044,6 +9380,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/check-suites/preferences": {
         parameters: {
@@ -9065,6 +9402,7 @@ export interface paths {
          */
         patch: operations["checks/set-suites-preferences"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/check-suites/{check_suite_id}": {
         parameters: {
@@ -9090,6 +9428,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs": {
         parameters: {
@@ -9115,6 +9454,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest": {
         parameters: {
@@ -9137,6 +9477,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/code-scanning/alerts": {
         parameters: {
@@ -9163,6 +9504,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}": {
         parameters: {
@@ -9190,6 +9532,7 @@ export interface paths {
          */
         patch: operations["code-scanning/update-alert"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/autofix": {
         parameters: {
@@ -9222,6 +9565,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/autofix/commits": {
         parameters: {
@@ -9246,6 +9590,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances": {
         parameters: {
@@ -9268,6 +9613,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/code-scanning/analyses": {
         parameters: {
@@ -9302,6 +9648,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}": {
         parameters: {
@@ -9405,6 +9752,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/code-scanning/codeql/databases": {
         parameters: {
@@ -9427,6 +9775,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/code-scanning/codeql/databases/{language}": {
         parameters: {
@@ -9461,6 +9810,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/code-scanning/codeql/variant-analyses": {
         parameters: {
@@ -9488,6 +9838,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/code-scanning/codeql/variant-analyses/{codeql_variant_analysis_id}": {
         parameters: {
@@ -9510,6 +9861,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/code-scanning/codeql/variant-analyses/{codeql_variant_analysis_id}/repos/{repo_owner}/{repo_name}": {
         parameters: {
@@ -9532,6 +9884,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/code-scanning/default-setup": {
         parameters: {
@@ -9560,6 +9913,7 @@ export interface paths {
          */
         patch: operations["code-scanning/update-default-setup"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/code-scanning/sarifs": {
         parameters: {
@@ -9613,6 +9967,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}": {
         parameters: {
@@ -9634,6 +9989,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/code-security-configuration": {
         parameters: {
@@ -9658,6 +10014,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/codeowners/errors": {
         parameters: {
@@ -9682,6 +10039,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/codespaces": {
         parameters: {
@@ -9710,6 +10068,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/codespaces/devcontainers": {
         parameters: {
@@ -9733,6 +10092,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/codespaces/machines": {
         parameters: {
@@ -9755,6 +10115,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/codespaces/new": {
         parameters: {
@@ -9777,6 +10138,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/codespaces/permissions_check": {
         parameters: {
@@ -9799,6 +10161,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/codespaces/secrets": {
         parameters: {
@@ -9822,6 +10185,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/codespaces/secrets/public-key": {
         parameters: {
@@ -9845,6 +10209,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/codespaces/secrets/{secret_name}": {
         parameters: {
@@ -9880,6 +10245,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/collaborators": {
         parameters: {
@@ -9907,6 +10273,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/collaborators/{username}": {
         parameters: {
@@ -9982,6 +10349,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/collaborators/{username}/permission": {
         parameters: {
@@ -10008,6 +10376,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/comments": {
         parameters: {
@@ -10035,6 +10404,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/comments/{comment_id}": {
         parameters: {
@@ -10074,6 +10444,7 @@ export interface paths {
          */
         patch: operations["repos/update-commit-comment"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/comments/{comment_id}/reactions": {
         parameters: {
@@ -10098,6 +10469,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/comments/{comment_id}/reactions/{reaction_id}": {
         parameters: {
@@ -10121,6 +10493,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/commits": {
         parameters: {
@@ -10169,6 +10542,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head": {
         parameters: {
@@ -10191,6 +10565,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/commits/{commit_sha}/comments": {
         parameters: {
@@ -10231,6 +10606,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/commits/{commit_sha}/pulls": {
         parameters: {
@@ -10253,6 +10629,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/commits/{ref}": {
         parameters: {
@@ -10312,6 +10689,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/commits/{ref}/check-runs": {
         parameters: {
@@ -10339,6 +10717,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/commits/{ref}/check-suites": {
         parameters: {
@@ -10364,6 +10743,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/commits/{ref}/status": {
         parameters: {
@@ -10391,6 +10771,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/commits/{ref}/statuses": {
         parameters: {
@@ -10413,6 +10794,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/community/profile": {
         parameters: {
@@ -10443,6 +10825,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/compare/{basehead}": {
         parameters: {
@@ -10513,6 +10896,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/contents/{path}": {
         parameters: {
@@ -10579,6 +10963,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/contributors": {
         parameters: {
@@ -10601,6 +10986,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/dependabot/alerts": {
         parameters: {
@@ -10621,6 +11007,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/dependabot/alerts/{alert_number}": {
         parameters: {
@@ -10647,6 +11034,7 @@ export interface paths {
          */
         patch: operations["dependabot/update-alert"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/dependabot/secrets": {
         parameters: {
@@ -10670,6 +11058,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/dependabot/secrets/public-key": {
         parameters: {
@@ -10694,6 +11083,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/dependabot/secrets/{secret_name}": {
         parameters: {
@@ -10729,6 +11119,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/dependency-graph/compare/{basehead}": {
         parameters: {
@@ -10749,6 +11140,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/dependency-graph/sbom": {
         parameters: {
@@ -10769,6 +11161,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/dependency-graph/snapshots": {
         parameters: {
@@ -10793,6 +11186,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/deployments": {
         parameters: {
@@ -10864,6 +11258,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/deployments/{deployment_id}": {
         parameters: {
@@ -10894,6 +11289,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/deployments/{deployment_id}/statuses": {
         parameters: {
@@ -10920,6 +11316,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}": {
         parameters: {
@@ -10940,6 +11337,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/dispatches": {
         parameters: {
@@ -10966,6 +11364,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/environments": {
         parameters: {
@@ -10990,6 +11389,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/environments/{environment_name}": {
         parameters: {
@@ -11031,6 +11431,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/environments/{environment_name}/deployment-branch-policies": {
         parameters: {
@@ -11061,6 +11462,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/environments/{environment_name}/deployment-branch-policies/{branch_policy_id}": {
         parameters: {
@@ -11097,6 +11499,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/environments/{environment_name}/deployment_protection_rules": {
         parameters: {
@@ -11131,6 +11534,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/environments/{environment_name}/deployment_protection_rules/apps": {
         parameters: {
@@ -11159,6 +11563,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/environments/{environment_name}/deployment_protection_rules/{protection_rule_id}": {
         parameters: {
@@ -11191,6 +11596,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/environments/{environment_name}/secrets": {
         parameters: {
@@ -11216,6 +11622,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/environments/{environment_name}/secrets/public-key": {
         parameters: {
@@ -11241,6 +11648,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/environments/{environment_name}/secrets/{secret_name}": {
         parameters: {
@@ -11282,6 +11690,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/environments/{environment_name}/variables": {
         parameters: {
@@ -11314,6 +11723,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/environments/{environment_name}/variables/{name}": {
         parameters: {
@@ -11354,6 +11764,7 @@ export interface paths {
          */
         patch: operations["actions/update-environment-variable"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/events": {
         parameters: {
@@ -11375,6 +11786,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/forks": {
         parameters: {
@@ -11402,6 +11814,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/git/blobs": {
         parameters: {
@@ -11419,6 +11832,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/git/blobs/{file_sha}": {
         parameters: {
@@ -11446,6 +11860,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/git/commits": {
         parameters: {
@@ -11496,6 +11911,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/git/commits/{commit_sha}": {
         parameters: {
@@ -11548,6 +11964,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/git/matching-refs/{ref}": {
         parameters: {
@@ -11575,6 +11992,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/git/ref/{ref}": {
         parameters: {
@@ -11598,6 +12016,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/git/refs": {
         parameters: {
@@ -11618,6 +12037,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/git/refs/{ref}": {
         parameters: {
@@ -11642,6 +12062,7 @@ export interface paths {
          */
         patch: operations["git/update-ref"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/git/tags": {
         parameters: {
@@ -11692,6 +12113,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/git/tags/{tag_sha}": {
         parameters: {
@@ -11740,6 +12162,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/git/trees": {
         parameters: {
@@ -11764,6 +12187,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/git/trees/{tree_sha}": {
         parameters: {
@@ -11789,6 +12213,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/hooks": {
         parameters: {
@@ -11814,6 +12239,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/hooks/{hook_id}": {
         parameters: {
@@ -11844,6 +12270,7 @@ export interface paths {
          */
         patch: operations["repos/update-webhook"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/hooks/{hook_id}/config": {
         parameters: {
@@ -11872,6 +12299,7 @@ export interface paths {
          */
         patch: operations["repos/update-webhook-config-for-repo"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/hooks/{hook_id}/deliveries": {
         parameters: {
@@ -11892,6 +12320,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}": {
         parameters: {
@@ -11912,6 +12341,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}/attempts": {
         parameters: {
@@ -11932,6 +12362,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/hooks/{hook_id}/pings": {
         parameters: {
@@ -11952,6 +12383,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/hooks/{hook_id}/tests": {
         parameters: {
@@ -11975,6 +12407,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/import": {
         parameters: {
@@ -12063,6 +12496,7 @@ export interface paths {
          */
         patch: operations["migrations/update-import"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/import/authors": {
         parameters: {
@@ -12089,6 +12523,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/import/authors/{author_id}": {
         parameters: {
@@ -12114,6 +12549,7 @@ export interface paths {
          */
         patch: operations["migrations/map-commit-author"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/import/large_files": {
         parameters: {
@@ -12138,6 +12574,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/import/lfs": {
         parameters: {
@@ -12166,6 +12603,7 @@ export interface paths {
          */
         patch: operations["migrations/set-lfs-preference"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/installation": {
         parameters: {
@@ -12188,6 +12626,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/interaction-limits": {
         parameters: {
@@ -12216,6 +12655,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/invitations": {
         parameters: {
@@ -12236,6 +12676,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/invitations/{invitation_id}": {
         parameters: {
@@ -12254,6 +12695,7 @@ export interface paths {
         /** Update a repository invitation */
         patch: operations["repos/update-invitation"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues": {
         parameters: {
@@ -12298,6 +12740,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/comments": {
         parameters: {
@@ -12327,6 +12770,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/comments/{comment_id}": {
         parameters: {
@@ -12369,6 +12813,7 @@ export interface paths {
          */
         patch: operations["issues/update-comment"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions": {
         parameters: {
@@ -12393,6 +12838,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/comments/{comment_id}/reactions/{reaction_id}": {
         parameters: {
@@ -12416,6 +12862,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/events": {
         parameters: {
@@ -12436,6 +12883,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/events/{event_id}": {
         parameters: {
@@ -12456,6 +12904,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/{issue_number}": {
         parameters: {
@@ -12502,6 +12951,7 @@ export interface paths {
          */
         patch: operations["issues/update"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/{issue_number}/assignees": {
         parameters: {
@@ -12526,6 +12976,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/{issue_number}/assignees/{assignee}": {
         parameters: {
@@ -12550,6 +13001,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/{issue_number}/comments": {
         parameters: {
@@ -12595,6 +13047,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/{issue_number}/events": {
         parameters: {
@@ -12615,6 +13068,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/{issue_number}/labels": {
         parameters: {
@@ -12647,6 +13101,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/{issue_number}/labels/{name}": {
         parameters: {
@@ -12667,6 +13122,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/{issue_number}/lock": {
         parameters: {
@@ -12693,6 +13149,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/{issue_number}/reactions": {
         parameters: {
@@ -12717,6 +13174,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/{issue_number}/reactions/{reaction_id}": {
         parameters: {
@@ -12740,6 +13198,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/{issue_number}/sub_issue": {
         parameters: {
@@ -12768,6 +13227,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/{issue_number}/sub_issues": {
         parameters: {
@@ -12810,6 +13270,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/{issue_number}/sub_issues/priority": {
         parameters: {
@@ -12830,6 +13291,7 @@ export interface paths {
          */
         patch: operations["issues/reprioritize-sub-issue"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/issues/{issue_number}/timeline": {
         parameters: {
@@ -12850,6 +13312,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/keys": {
         parameters: {
@@ -12871,6 +13334,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/keys/{key_id}": {
         parameters: {
@@ -12892,6 +13356,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/labels": {
         parameters: {
@@ -12916,6 +13381,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/labels/{name}": {
         parameters: {
@@ -12944,6 +13410,7 @@ export interface paths {
          */
         patch: operations["issues/update-label"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/languages": {
         parameters: {
@@ -12964,6 +13431,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/license": {
         parameters: {
@@ -12989,6 +13457,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/merge-upstream": {
         parameters: {
@@ -13009,6 +13478,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/merges": {
         parameters: {
@@ -13026,6 +13496,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/milestones": {
         parameters: {
@@ -13050,6 +13521,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/milestones/{milestone_number}": {
         parameters: {
@@ -13075,6 +13547,7 @@ export interface paths {
         /** Update a milestone */
         patch: operations["issues/update-milestone"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/milestones/{milestone_number}/labels": {
         parameters: {
@@ -13095,6 +13568,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/notifications": {
         parameters: {
@@ -13119,6 +13593,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pages": {
         parameters: {
@@ -13165,6 +13640,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pages/builds": {
         parameters: {
@@ -13193,6 +13669,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pages/builds/latest": {
         parameters: {
@@ -13215,6 +13692,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pages/builds/{build_id}": {
         parameters: {
@@ -13237,6 +13715,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pages/deployments": {
         parameters: {
@@ -13259,6 +13738,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pages/deployments/{pages_deployment_id}": {
         parameters: {
@@ -13281,6 +13761,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pages/deployments/{pages_deployment_id}/cancel": {
         parameters: {
@@ -13303,6 +13784,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pages/health": {
         parameters: {
@@ -13329,6 +13811,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/private-vulnerability-reporting": {
         parameters: {
@@ -13357,6 +13840,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/projects": {
         parameters: {
@@ -13381,6 +13865,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/properties/values": {
         parameters: {
@@ -13409,6 +13894,7 @@ export interface paths {
          */
         patch: operations["repos/create-or-update-custom-properties-values"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pulls": {
         parameters: {
@@ -13457,6 +13943,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pulls/comments": {
         parameters: {
@@ -13485,6 +13972,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pulls/comments/{comment_id}": {
         parameters: {
@@ -13527,6 +14015,7 @@ export interface paths {
          */
         patch: operations["pulls/update-review-comment"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions": {
         parameters: {
@@ -13551,6 +14040,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions/{reaction_id}": {
         parameters: {
@@ -13574,6 +14064,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pulls/{pull_number}": {
         parameters: {
@@ -13629,6 +14120,7 @@ export interface paths {
          */
         patch: operations["pulls/update"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pulls/{pull_number}/codespaces": {
         parameters: {
@@ -13651,6 +14143,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pulls/{pull_number}/comments": {
         parameters: {
@@ -13697,6 +14190,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pulls/{pull_number}/comments/{comment_id}/replies": {
         parameters: {
@@ -13727,6 +14221,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pulls/{pull_number}/commits": {
         parameters: {
@@ -13756,6 +14251,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pulls/{pull_number}/files": {
         parameters: {
@@ -13786,6 +14282,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pulls/{pull_number}/merge": {
         parameters: {
@@ -13811,6 +14308,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers": {
         parameters: {
@@ -13840,6 +14338,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pulls/{pull_number}/reviews": {
         parameters: {
@@ -13887,6 +14386,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}": {
         parameters: {
@@ -13936,6 +14436,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments": {
         parameters: {
@@ -13963,6 +14464,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/dismissals": {
         parameters: {
@@ -13993,6 +14495,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/events": {
         parameters: {
@@ -14020,6 +14523,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pulls/{pull_number}/update-branch": {
         parameters: {
@@ -14041,6 +14545,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/readme": {
         parameters: {
@@ -14066,6 +14571,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/readme/{dir}": {
         parameters: {
@@ -14091,6 +14597,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/releases": {
         parameters: {
@@ -14119,6 +14626,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/releases/assets/{asset_id}": {
         parameters: {
@@ -14150,6 +14658,7 @@ export interface paths {
          */
         patch: operations["repos/update-release-asset"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/releases/generate-notes": {
         parameters: {
@@ -14170,6 +14679,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/releases/latest": {
         parameters: {
@@ -14192,6 +14702,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/releases/tags/{tag}": {
         parameters: {
@@ -14212,6 +14723,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/releases/{release_id}": {
         parameters: {
@@ -14243,6 +14755,7 @@ export interface paths {
          */
         patch: operations["repos/update-release"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/releases/{release_id}/assets": {
         parameters: {
@@ -14282,6 +14795,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/releases/{release_id}/reactions": {
         parameters: {
@@ -14306,6 +14820,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/releases/{release_id}/reactions/{reaction_id}": {
         parameters: {
@@ -14329,6 +14844,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/rules/branches/{branch}": {
         parameters: {
@@ -14352,6 +14868,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/rulesets": {
         parameters: {
@@ -14376,6 +14893,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/rulesets/rule-suites": {
         parameters: {
@@ -14397,6 +14915,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/rulesets/rule-suites/{rule_suite_id}": {
         parameters: {
@@ -14418,6 +14937,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/rulesets/{ruleset_id}": {
         parameters: {
@@ -14449,6 +14969,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/secret-scanning/alerts": {
         parameters: {
@@ -14473,6 +14994,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}": {
         parameters: {
@@ -14505,6 +15027,7 @@ export interface paths {
          */
         patch: operations["secret-scanning/update-alert"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}/locations": {
         parameters: {
@@ -14529,6 +15052,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/secret-scanning/push-protection-bypasses": {
         parameters: {
@@ -14553,6 +15077,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/secret-scanning/scan-history": {
         parameters: {
@@ -14575,6 +15100,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/security-advisories": {
         parameters: {
@@ -14607,6 +15133,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/security-advisories/reports": {
         parameters: {
@@ -14628,6 +15155,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/security-advisories/{ghsa_id}": {
         parameters: {
@@ -14664,6 +15192,7 @@ export interface paths {
          */
         patch: operations["security-advisories/update-repository-advisory"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/cve": {
         parameters: {
@@ -14690,6 +15219,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/forks": {
         parameters: {
@@ -14713,6 +15243,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/stargazers": {
         parameters: {
@@ -14737,6 +15268,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/stats/code_frequency": {
         parameters: {
@@ -14760,6 +15292,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/stats/commit_activity": {
         parameters: {
@@ -14780,6 +15313,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/stats/contributors": {
         parameters: {
@@ -14808,6 +15342,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/stats/participation": {
         parameters: {
@@ -14832,6 +15367,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/stats/punch_card": {
         parameters: {
@@ -14858,6 +15394,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/statuses/{sha}": {
         parameters: {
@@ -14880,6 +15417,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/subscribers": {
         parameters: {
@@ -14900,6 +15438,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/subscription": {
         parameters: {
@@ -14928,6 +15467,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/tags": {
         parameters: {
@@ -14945,6 +15485,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/tags/protection": {
         parameters: {
@@ -14980,6 +15521,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/tags/protection/{tag_protection_id}": {
         parameters: {
@@ -15005,6 +15547,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/tarball/{ref}": {
         parameters: {
@@ -15030,6 +15573,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/teams": {
         parameters: {
@@ -15054,6 +15598,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/topics": {
         parameters: {
@@ -15072,6 +15617,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/traffic/clones": {
         parameters: {
@@ -15092,6 +15638,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/traffic/popular/paths": {
         parameters: {
@@ -15112,6 +15659,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/traffic/popular/referrers": {
         parameters: {
@@ -15132,6 +15680,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/traffic/views": {
         parameters: {
@@ -15152,6 +15701,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/transfer": {
         parameters: {
@@ -15172,6 +15722,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/vulnerability-alerts": {
         parameters: {
@@ -15202,6 +15753,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/zipball/{ref}": {
         parameters: {
@@ -15227,6 +15779,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{template_owner}/{template_repo}/generate": {
         parameters: {
@@ -15249,6 +15802,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repositories": {
         parameters: {
@@ -15273,6 +15827,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/search/code": {
         parameters: {
@@ -15312,6 +15867,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/search/commits": {
         parameters: {
@@ -15339,6 +15895,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/search/issues": {
         parameters: {
@@ -15371,6 +15928,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/search/labels": {
         parameters: {
@@ -15399,6 +15957,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/search/repositories": {
         parameters: {
@@ -15427,6 +15986,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/search/topics": {
         parameters: {
@@ -15455,6 +16015,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/search/users": {
         parameters: {
@@ -15485,6 +16046,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/teams/{team_id}": {
         parameters: {
@@ -15528,6 +16090,7 @@ export interface paths {
          */
         patch: operations["teams/update-legacy"];
         trace?: never;
+        query?: never;
     };
     "/teams/{team_id}/discussions": {
         parameters: {
@@ -15566,6 +16129,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/teams/{team_id}/discussions/{discussion_number}": {
         parameters: {
@@ -15612,6 +16176,7 @@ export interface paths {
          */
         patch: operations["teams/update-discussion-legacy"];
         trace?: never;
+        query?: never;
     };
     "/teams/{team_id}/discussions/{discussion_number}/comments": {
         parameters: {
@@ -15650,6 +16215,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}": {
         parameters: {
@@ -15696,6 +16262,7 @@ export interface paths {
          */
         patch: operations["teams/update-discussion-comment-legacy"];
         trace?: never;
+        query?: never;
     };
     "/teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions": {
         parameters: {
@@ -15734,6 +16301,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/teams/{team_id}/discussions/{discussion_number}/reactions": {
         parameters: {
@@ -15772,6 +16340,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/teams/{team_id}/invitations": {
         parameters: {
@@ -15796,6 +16365,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/teams/{team_id}/members": {
         parameters: {
@@ -15820,6 +16390,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/teams/{team_id}/members/{username}": {
         parameters: {
@@ -15875,6 +16446,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/teams/{team_id}/memberships/{username}": {
         parameters: {
@@ -15936,6 +16508,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/teams/{team_id}/projects": {
         parameters: {
@@ -15960,6 +16533,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/teams/{team_id}/projects/{project_id}": {
         parameters: {
@@ -16000,6 +16574,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/teams/{team_id}/repos": {
         parameters: {
@@ -16022,6 +16597,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/teams/{team_id}/repos/{owner}/{repo}": {
         parameters: {
@@ -16067,6 +16643,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/teams/{team_id}/teams": {
         parameters: {
@@ -16089,6 +16666,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user": {
         parameters: {
@@ -16113,6 +16691,7 @@ export interface paths {
          */
         patch: operations["users/update-authenticated"];
         trace?: never;
+        query?: never;
     };
     "/user/blocks": {
         parameters: {
@@ -16133,6 +16712,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/blocks/{username}": {
         parameters: {
@@ -16161,6 +16741,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/codespaces": {
         parameters: {
@@ -16191,6 +16772,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/codespaces/secrets": {
         parameters: {
@@ -16216,6 +16798,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/codespaces/secrets/public-key": {
         parameters: {
@@ -16240,6 +16823,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/codespaces/secrets/{secret_name}": {
         parameters: {
@@ -16281,6 +16865,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/codespaces/secrets/{secret_name}/repositories": {
         parameters: {
@@ -16313,6 +16898,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/codespaces/secrets/{secret_name}/repositories/{repository_id}": {
         parameters: {
@@ -16345,6 +16931,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/codespaces/{codespace_name}": {
         parameters: {
@@ -16381,6 +16968,7 @@ export interface paths {
          */
         patch: operations["codespaces/update-for-authenticated-user"];
         trace?: never;
+        query?: never;
     };
     "/user/codespaces/{codespace_name}/exports": {
         parameters: {
@@ -16405,6 +16993,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/codespaces/{codespace_name}/exports/{export_id}": {
         parameters: {
@@ -16427,6 +17016,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/codespaces/{codespace_name}/machines": {
         parameters: {
@@ -16449,6 +17039,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/codespaces/{codespace_name}/publish": {
         parameters: {
@@ -16475,6 +17066,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/codespaces/{codespace_name}/start": {
         parameters: {
@@ -16497,6 +17089,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/codespaces/{codespace_name}/stop": {
         parameters: {
@@ -16519,6 +17112,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/docker/conflicts": {
         parameters: {
@@ -16541,6 +17135,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/email/visibility": {
         parameters: {
@@ -16561,6 +17156,7 @@ export interface paths {
          */
         patch: operations["users/set-primary-email-visibility-for-authenticated-user"];
         trace?: never;
+        query?: never;
     };
     "/user/emails": {
         parameters: {
@@ -16592,6 +17188,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/followers": {
         parameters: {
@@ -16612,6 +17209,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/following": {
         parameters: {
@@ -16632,6 +17230,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/following/{username}": {
         parameters: {
@@ -16659,6 +17258,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/gpg_keys": {
         parameters: {
@@ -16687,6 +17287,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/gpg_keys/{gpg_key_id}": {
         parameters: {
@@ -16715,6 +17316,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/installations": {
         parameters: {
@@ -16739,6 +17341,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/installations/{installation_id}/repositories": {
         parameters: {
@@ -16763,6 +17366,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/installations/{installation_id}/repositories/{repository_id}": {
         parameters: {
@@ -16791,6 +17395,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/interaction-limits": {
         parameters: {
@@ -16819,6 +17424,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/issues": {
         parameters: {
@@ -16849,6 +17455,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/keys": {
         parameters: {
@@ -16877,6 +17484,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/keys/{key_id}": {
         parameters: {
@@ -16905,6 +17513,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/marketplace_purchases": {
         parameters: {
@@ -16925,6 +17534,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/marketplace_purchases/stubbed": {
         parameters: {
@@ -16945,6 +17555,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/memberships/orgs": {
         parameters: {
@@ -16965,6 +17576,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/memberships/orgs/{org}": {
         parameters: {
@@ -16989,6 +17601,7 @@ export interface paths {
          */
         patch: operations["orgs/update-membership-for-authenticated-user"];
         trace?: never;
+        query?: never;
     };
     "/user/migrations": {
         parameters: {
@@ -17013,6 +17626,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/migrations/{migration_id}": {
         parameters: {
@@ -17040,6 +17654,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/migrations/{migration_id}/archive": {
         parameters: {
@@ -17084,6 +17699,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/migrations/{migration_id}/repos/{repo_name}/lock": {
         parameters: {
@@ -17104,6 +17720,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/migrations/{migration_id}/repositories": {
         parameters: {
@@ -17124,6 +17741,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/orgs": {
         parameters: {
@@ -17149,6 +17767,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/packages": {
         parameters: {
@@ -17171,6 +17790,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/packages/{package_type}/{package_name}": {
         parameters: {
@@ -17199,6 +17819,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/packages/{package_type}/{package_name}/restore": {
         parameters: {
@@ -17225,6 +17846,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/packages/{package_type}/{package_name}/versions": {
         parameters: {
@@ -17247,6 +17869,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/packages/{package_type}/{package_name}/versions/{package_version_id}": {
         parameters: {
@@ -17277,6 +17900,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/packages/{package_type}/{package_name}/versions/{package_version_id}/restore": {
         parameters: {
@@ -17303,6 +17927,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/projects": {
         parameters: {
@@ -17323,6 +17948,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/public_emails": {
         parameters: {
@@ -17347,6 +17973,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/repos": {
         parameters: {
@@ -17375,6 +18002,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/repository_invitations": {
         parameters: {
@@ -17395,6 +18023,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/repository_invitations/{invitation_id}": {
         parameters: {
@@ -17413,6 +18042,7 @@ export interface paths {
         /** Accept a repository invitation */
         patch: operations["repos/accept-invitation-for-authenticated-user"];
         trace?: never;
+        query?: never;
     };
     "/user/social_accounts": {
         parameters: {
@@ -17445,6 +18075,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/ssh_signing_keys": {
         parameters: {
@@ -17473,6 +18104,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/ssh_signing_keys/{ssh_signing_key_id}": {
         parameters: {
@@ -17501,6 +18133,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/starred": {
         parameters: {
@@ -17525,6 +18158,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/starred/{owner}/{repo}": {
         parameters: {
@@ -17553,6 +18187,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/subscriptions": {
         parameters: {
@@ -17573,6 +18208,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/teams": {
         parameters: {
@@ -17598,6 +18234,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/{account_id}": {
         parameters: {
@@ -17624,6 +18261,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users": {
         parameters: {
@@ -17646,6 +18284,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}": {
         parameters: {
@@ -17672,6 +18311,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/attestations/{subject_digest}": {
         parameters: {
@@ -17696,6 +18336,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/docker/conflicts": {
         parameters: {
@@ -17718,6 +18359,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/events": {
         parameters: {
@@ -17741,6 +18383,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/events/orgs/{org}": {
         parameters: {
@@ -17764,6 +18407,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/events/public": {
         parameters: {
@@ -17785,6 +18429,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/followers": {
         parameters: {
@@ -17805,6 +18450,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/following": {
         parameters: {
@@ -17825,6 +18471,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/following/{target_user}": {
         parameters: {
@@ -17842,6 +18489,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/gists": {
         parameters: {
@@ -17862,6 +18510,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/gpg_keys": {
         parameters: {
@@ -17882,6 +18531,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/hovercard": {
         parameters: {
@@ -17906,6 +18556,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/installation": {
         parameters: {
@@ -17928,6 +18579,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/keys": {
         parameters: {
@@ -17948,6 +18600,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/orgs": {
         parameters: {
@@ -17970,6 +18623,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/packages": {
         parameters: {
@@ -17992,6 +18646,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/packages/{package_type}/{package_name}": {
         parameters: {
@@ -18022,6 +18677,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/packages/{package_type}/{package_name}/restore": {
         parameters: {
@@ -18050,6 +18706,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/packages/{package_type}/{package_name}/versions": {
         parameters: {
@@ -18072,6 +18729,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}": {
         parameters: {
@@ -18102,6 +18760,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore": {
         parameters: {
@@ -18130,6 +18789,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/projects": {
         parameters: {
@@ -18150,6 +18810,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/received_events": {
         parameters: {
@@ -18174,6 +18835,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/received_events/public": {
         parameters: {
@@ -18195,6 +18857,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/repos": {
         parameters: {
@@ -18215,6 +18878,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/settings/billing/actions": {
         parameters: {
@@ -18239,6 +18903,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/settings/billing/packages": {
         parameters: {
@@ -18263,6 +18928,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/settings/billing/shared-storage": {
         parameters: {
@@ -18287,6 +18953,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/social_accounts": {
         parameters: {
@@ -18307,6 +18974,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/ssh_signing_keys": {
         parameters: {
@@ -18327,6 +18995,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/starred": {
         parameters: {
@@ -18351,6 +19020,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/subscriptions": {
         parameters: {
@@ -18371,6 +19041,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/versions": {
         parameters: {
@@ -18391,6 +19062,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/zen": {
         parameters: {
@@ -18411,6 +19083,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export interface webhooks {
@@ -18437,6 +19110,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "branch-protection-configuration-enabled": {
         parameters: {
@@ -18461,6 +19135,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "branch-protection-rule-created": {
         parameters: {
@@ -18483,6 +19158,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "branch-protection-rule-deleted": {
         parameters: {
@@ -18505,6 +19181,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "branch-protection-rule-edited": {
         parameters: {
@@ -18527,6 +19204,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "check-run-completed": {
         parameters: {
@@ -18556,6 +19234,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "check-run-created": {
         parameters: {
@@ -18585,6 +19264,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "check-run-requested-action": {
         parameters: {
@@ -18614,6 +19294,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "check-run-rerequested": {
         parameters: {
@@ -18643,6 +19324,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "check-suite-completed": {
         parameters: {
@@ -18672,6 +19354,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "check-suite-requested": {
         parameters: {
@@ -18701,6 +19384,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "check-suite-rerequested": {
         parameters: {
@@ -18730,6 +19414,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "code-scanning-alert-appeared-in-branch": {
         parameters: {
@@ -18752,6 +19437,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "code-scanning-alert-closed-by-user": {
         parameters: {
@@ -18774,6 +19460,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "code-scanning-alert-created": {
         parameters: {
@@ -18796,6 +19483,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "code-scanning-alert-fixed": {
         parameters: {
@@ -18818,6 +19506,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "code-scanning-alert-reopened": {
         parameters: {
@@ -18840,6 +19529,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "code-scanning-alert-reopened-by-user": {
         parameters: {
@@ -18862,6 +19552,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "commit-comment-created": {
         parameters: {
@@ -18886,6 +19577,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     create: {
         parameters: {
@@ -18911,6 +19603,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "custom-property-created": {
         parameters: {
@@ -18935,6 +19628,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "custom-property-deleted": {
         parameters: {
@@ -18959,6 +19653,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "custom-property-updated": {
         parameters: {
@@ -18983,6 +19678,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "custom-property-values-updated": {
         parameters: {
@@ -19007,6 +19703,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     delete: {
         parameters: {
@@ -19032,6 +19729,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "dependabot-alert-auto-dismissed": {
         parameters: {
@@ -19059,6 +19757,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "dependabot-alert-auto-reopened": {
         parameters: {
@@ -19086,6 +19785,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "dependabot-alert-created": {
         parameters: {
@@ -19113,6 +19813,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "dependabot-alert-dismissed": {
         parameters: {
@@ -19140,6 +19841,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "dependabot-alert-fixed": {
         parameters: {
@@ -19167,6 +19869,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "dependabot-alert-reintroduced": {
         parameters: {
@@ -19194,6 +19897,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "dependabot-alert-reopened": {
         parameters: {
@@ -19221,6 +19925,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "deploy-key-created": {
         parameters: {
@@ -19243,6 +19948,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "deploy-key-deleted": {
         parameters: {
@@ -19265,6 +19971,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "deployment-created": {
         parameters: {
@@ -19289,6 +19996,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "deployment-protection-rule-requested": {
         parameters: {
@@ -19311,6 +20019,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "deployment-review-approved": {
         parameters: {
@@ -19335,6 +20044,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "deployment-review-rejected": {
         parameters: {
@@ -19359,6 +20069,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "deployment-review-requested": {
         parameters: {
@@ -19383,6 +20094,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "deployment-status-created": {
         parameters: {
@@ -19410,6 +20122,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "discussion-answered": {
         parameters: {
@@ -19437,6 +20150,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "discussion-category-changed": {
         parameters: {
@@ -19464,6 +20178,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "discussion-closed": {
         parameters: {
@@ -19491,6 +20206,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "discussion-comment-created": {
         parameters: {
@@ -19518,6 +20234,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "discussion-comment-deleted": {
         parameters: {
@@ -19545,6 +20262,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "discussion-comment-edited": {
         parameters: {
@@ -19572,6 +20290,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "discussion-created": {
         parameters: {
@@ -19599,6 +20318,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "discussion-deleted": {
         parameters: {
@@ -19626,6 +20346,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "discussion-edited": {
         parameters: {
@@ -19653,6 +20374,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "discussion-labeled": {
         parameters: {
@@ -19680,6 +20402,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "discussion-locked": {
         parameters: {
@@ -19707,6 +20430,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "discussion-pinned": {
         parameters: {
@@ -19734,6 +20458,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "discussion-reopened": {
         parameters: {
@@ -19761,6 +20486,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "discussion-transferred": {
         parameters: {
@@ -19788,6 +20514,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "discussion-unanswered": {
         parameters: {
@@ -19815,6 +20542,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "discussion-unlabeled": {
         parameters: {
@@ -19842,6 +20570,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "discussion-unlocked": {
         parameters: {
@@ -19869,6 +20598,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "discussion-unpinned": {
         parameters: {
@@ -19896,6 +20626,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     fork: {
         parameters: {
@@ -19917,6 +20648,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "github-app-authorization-revoked": {
         parameters: {
@@ -19941,6 +20673,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     gollum: {
         parameters: {
@@ -19962,6 +20695,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "installation-created": {
         parameters: {
@@ -19984,6 +20718,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "installation-deleted": {
         parameters: {
@@ -20006,6 +20741,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "installation-new-permissions-accepted": {
         parameters: {
@@ -20028,6 +20764,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "installation-repositories-added": {
         parameters: {
@@ -20050,6 +20787,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "installation-repositories-removed": {
         parameters: {
@@ -20072,6 +20810,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "installation-suspend": {
         parameters: {
@@ -20094,6 +20833,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "installation-target-renamed": {
         parameters: {
@@ -20114,6 +20854,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "installation-unsuspend": {
         parameters: {
@@ -20136,6 +20877,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "issue-comment-created": {
         parameters: {
@@ -20160,6 +20902,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "issue-comment-deleted": {
         parameters: {
@@ -20184,6 +20927,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "issue-comment-edited": {
         parameters: {
@@ -20208,6 +20952,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "issues-assigned": {
         parameters: {
@@ -20232,6 +20977,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "issues-closed": {
         parameters: {
@@ -20256,6 +21002,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "issues-deleted": {
         parameters: {
@@ -20280,6 +21027,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "issues-demilestoned": {
         parameters: {
@@ -20304,6 +21052,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "issues-edited": {
         parameters: {
@@ -20328,6 +21077,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "issues-labeled": {
         parameters: {
@@ -20352,6 +21102,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "issues-locked": {
         parameters: {
@@ -20376,6 +21127,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "issues-milestoned": {
         parameters: {
@@ -20400,6 +21152,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "issues-opened": {
         parameters: {
@@ -20424,6 +21177,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "issues-pinned": {
         parameters: {
@@ -20448,6 +21202,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "issues-reopened": {
         parameters: {
@@ -20472,6 +21227,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "issues-transferred": {
         parameters: {
@@ -20496,6 +21252,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "issues-unassigned": {
         parameters: {
@@ -20520,6 +21277,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "issues-unlabeled": {
         parameters: {
@@ -20544,6 +21302,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "issues-unlocked": {
         parameters: {
@@ -20568,6 +21327,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "issues-unpinned": {
         parameters: {
@@ -20592,6 +21352,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "label-created": {
         parameters: {
@@ -20616,6 +21377,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "label-deleted": {
         parameters: {
@@ -20640,6 +21402,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "label-edited": {
         parameters: {
@@ -20664,6 +21427,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "marketplace-purchase-cancelled": {
         parameters: {
@@ -20684,6 +21448,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "marketplace-purchase-changed": {
         parameters: {
@@ -20704,6 +21469,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "marketplace-purchase-pending-change": {
         parameters: {
@@ -20724,6 +21490,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "marketplace-purchase-pending-change-cancelled": {
         parameters: {
@@ -20744,6 +21511,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "marketplace-purchase-purchased": {
         parameters: {
@@ -20764,6 +21532,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "member-added": {
         parameters: {
@@ -20786,6 +21555,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "member-edited": {
         parameters: {
@@ -20808,6 +21578,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "member-removed": {
         parameters: {
@@ -20830,6 +21601,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "membership-added": {
         parameters: {
@@ -20852,6 +21624,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "membership-removed": {
         parameters: {
@@ -20874,6 +21647,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "merge-group-checks-requested": {
         parameters: {
@@ -20898,6 +21672,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "merge-group-destroyed": {
         parameters: {
@@ -20922,6 +21697,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "meta-deleted": {
         parameters: {
@@ -20944,6 +21720,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "milestone-closed": {
         parameters: {
@@ -20968,6 +21745,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "milestone-created": {
         parameters: {
@@ -20992,6 +21770,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "milestone-deleted": {
         parameters: {
@@ -21016,6 +21795,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "milestone-edited": {
         parameters: {
@@ -21040,6 +21820,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "milestone-opened": {
         parameters: {
@@ -21064,6 +21845,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "org-block-blocked": {
         parameters: {
@@ -21088,6 +21870,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "org-block-unblocked": {
         parameters: {
@@ -21112,6 +21895,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "organization-deleted": {
         parameters: {
@@ -21136,6 +21920,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "organization-member-added": {
         parameters: {
@@ -21160,6 +21945,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "organization-member-invited": {
         parameters: {
@@ -21184,6 +21970,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "organization-member-removed": {
         parameters: {
@@ -21208,6 +21995,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "organization-renamed": {
         parameters: {
@@ -21232,6 +22020,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "package-published": {
         parameters: {
@@ -21254,6 +22043,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "package-updated": {
         parameters: {
@@ -21276,6 +22066,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "page-build": {
         parameters: {
@@ -21297,6 +22088,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "personal-access-token-request-approved": {
         parameters: {
@@ -21322,6 +22114,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "personal-access-token-request-cancelled": {
         parameters: {
@@ -21347,6 +22140,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "personal-access-token-request-created": {
         parameters: {
@@ -21372,6 +22166,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "personal-access-token-request-denied": {
         parameters: {
@@ -21397,6 +22192,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     ping: {
         parameters: {
@@ -21414,6 +22210,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "project-card-converted": {
         parameters: {
@@ -21440,6 +22237,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "project-card-created": {
         parameters: {
@@ -21466,6 +22264,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "project-card-deleted": {
         parameters: {
@@ -21492,6 +22291,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "project-card-edited": {
         parameters: {
@@ -21518,6 +22318,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "project-card-moved": {
         parameters: {
@@ -21544,6 +22345,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "project-closed": {
         parameters: {
@@ -21570,6 +22372,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "project-column-created": {
         parameters: {
@@ -21596,6 +22399,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "project-column-deleted": {
         parameters: {
@@ -21622,6 +22426,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "project-column-edited": {
         parameters: {
@@ -21648,6 +22453,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "project-column-moved": {
         parameters: {
@@ -21674,6 +22480,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "project-created": {
         parameters: {
@@ -21700,6 +22507,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "project-deleted": {
         parameters: {
@@ -21726,6 +22534,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "project-edited": {
         parameters: {
@@ -21752,6 +22561,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "project-reopened": {
         parameters: {
@@ -21778,6 +22588,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "projects-v2-closed": {
         parameters: {
@@ -21805,6 +22616,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "projects-v2-created": {
         parameters: {
@@ -21832,6 +22644,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "projects-v2-deleted": {
         parameters: {
@@ -21859,6 +22672,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "projects-v2-edited": {
         parameters: {
@@ -21886,6 +22700,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "projects-v2-item-archived": {
         parameters: {
@@ -21913,6 +22728,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "projects-v2-item-converted": {
         parameters: {
@@ -21940,6 +22756,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "projects-v2-item-created": {
         parameters: {
@@ -21967,6 +22784,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "projects-v2-item-deleted": {
         parameters: {
@@ -21994,6 +22812,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "projects-v2-item-edited": {
         parameters: {
@@ -22021,6 +22840,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "projects-v2-item-reordered": {
         parameters: {
@@ -22048,6 +22868,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "projects-v2-item-restored": {
         parameters: {
@@ -22075,6 +22896,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "projects-v2-reopened": {
         parameters: {
@@ -22102,6 +22924,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "projects-v2-status-update-created": {
         parameters: {
@@ -22129,6 +22952,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "projects-v2-status-update-deleted": {
         parameters: {
@@ -22156,6 +22980,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "projects-v2-status-update-edited": {
         parameters: {
@@ -22183,6 +23008,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     public: {
         parameters: {
@@ -22204,6 +23030,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-assigned": {
         parameters: {
@@ -22228,6 +23055,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-auto-merge-disabled": {
         parameters: {
@@ -22252,6 +23080,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-auto-merge-enabled": {
         parameters: {
@@ -22276,6 +23105,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-closed": {
         parameters: {
@@ -22300,6 +23130,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-converted-to-draft": {
         parameters: {
@@ -22324,6 +23155,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-demilestoned": {
         parameters: {
@@ -22348,6 +23180,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-dequeued": {
         parameters: {
@@ -22372,6 +23205,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-edited": {
         parameters: {
@@ -22396,6 +23230,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-enqueued": {
         parameters: {
@@ -22420,6 +23255,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-labeled": {
         parameters: {
@@ -22444,6 +23280,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-locked": {
         parameters: {
@@ -22468,6 +23305,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-milestoned": {
         parameters: {
@@ -22492,6 +23330,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-opened": {
         parameters: {
@@ -22516,6 +23355,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-ready-for-review": {
         parameters: {
@@ -22540,6 +23380,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-reopened": {
         parameters: {
@@ -22564,6 +23405,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-review-comment-created": {
         parameters: {
@@ -22588,6 +23430,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-review-comment-deleted": {
         parameters: {
@@ -22612,6 +23455,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-review-comment-edited": {
         parameters: {
@@ -22636,6 +23480,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-review-dismissed": {
         parameters: {
@@ -22660,6 +23505,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-review-edited": {
         parameters: {
@@ -22684,6 +23530,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-review-request-removed": {
         parameters: {
@@ -22708,6 +23555,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-review-requested": {
         parameters: {
@@ -22732,6 +23580,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-review-submitted": {
         parameters: {
@@ -22756,6 +23605,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-review-thread-resolved": {
         parameters: {
@@ -22780,6 +23630,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-review-thread-unresolved": {
         parameters: {
@@ -22804,6 +23655,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-synchronize": {
         parameters: {
@@ -22828,6 +23680,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-unassigned": {
         parameters: {
@@ -22852,6 +23705,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-unlabeled": {
         parameters: {
@@ -22876,6 +23730,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "pull-request-unlocked": {
         parameters: {
@@ -22900,6 +23755,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     push: {
         parameters: {
@@ -22926,6 +23782,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "registry-package-published": {
         parameters: {
@@ -22951,6 +23808,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "registry-package-updated": {
         parameters: {
@@ -22976,6 +23834,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "release-created": {
         parameters: {
@@ -22998,6 +23857,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "release-deleted": {
         parameters: {
@@ -23020,6 +23880,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "release-edited": {
         parameters: {
@@ -23042,6 +23903,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "release-prereleased": {
         parameters: {
@@ -23064,6 +23926,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "release-published": {
         parameters: {
@@ -23086,6 +23949,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "release-released": {
         parameters: {
@@ -23108,6 +23972,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "release-unpublished": {
         parameters: {
@@ -23130,6 +23995,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-advisory-published": {
         parameters: {
@@ -23152,6 +24018,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-advisory-reported": {
         parameters: {
@@ -23174,6 +24041,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-archived": {
         parameters: {
@@ -23196,6 +24064,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-created": {
         parameters: {
@@ -23218,6 +24087,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-deleted": {
         parameters: {
@@ -23240,6 +24110,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-dispatch-sample.collected": {
         parameters: {
@@ -23261,6 +24132,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-edited": {
         parameters: {
@@ -23283,6 +24155,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-import": {
         parameters: {
@@ -23300,6 +24173,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-privatized": {
         parameters: {
@@ -23322,6 +24196,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-publicized": {
         parameters: {
@@ -23344,6 +24219,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-renamed": {
         parameters: {
@@ -23366,6 +24242,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-ruleset-created": {
         parameters: {
@@ -23390,6 +24267,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-ruleset-deleted": {
         parameters: {
@@ -23414,6 +24292,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-ruleset-edited": {
         parameters: {
@@ -23438,6 +24317,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-transferred": {
         parameters: {
@@ -23460,6 +24340,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-unarchived": {
         parameters: {
@@ -23482,6 +24363,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-vulnerability-alert-create": {
         parameters: {
@@ -23505,6 +24387,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-vulnerability-alert-dismiss": {
         parameters: {
@@ -23528,6 +24411,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-vulnerability-alert-reopen": {
         parameters: {
@@ -23551,6 +24435,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "repository-vulnerability-alert-resolve": {
         parameters: {
@@ -23574,6 +24459,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "secret-scanning-alert-created": {
         parameters: {
@@ -23598,6 +24484,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "secret-scanning-alert-location-created": {
         parameters: {
@@ -23624,6 +24511,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "secret-scanning-alert-publicly-leaked": {
         parameters: {
@@ -23648,6 +24536,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "secret-scanning-alert-reopened": {
         parameters: {
@@ -23672,6 +24561,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "secret-scanning-alert-resolved": {
         parameters: {
@@ -23696,6 +24586,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "secret-scanning-alert-validated": {
         parameters: {
@@ -23720,6 +24611,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "secret-scanning-scan-completed": {
         parameters: {
@@ -23745,6 +24637,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "security-advisory-published": {
         parameters: {
@@ -23767,6 +24660,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "security-advisory-updated": {
         parameters: {
@@ -23789,6 +24683,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "security-advisory-withdrawn": {
         parameters: {
@@ -23811,6 +24706,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "security-and-analysis": {
         parameters: {
@@ -23832,6 +24728,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "sponsorship-cancelled": {
         parameters: {
@@ -23856,6 +24753,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "sponsorship-created": {
         parameters: {
@@ -23878,6 +24776,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "sponsorship-edited": {
         parameters: {
@@ -23900,6 +24799,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "sponsorship-pending-cancellation": {
         parameters: {
@@ -23924,6 +24824,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "sponsorship-pending-tier-change": {
         parameters: {
@@ -23946,6 +24847,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "sponsorship-tier-changed": {
         parameters: {
@@ -23968,6 +24870,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "star-created": {
         parameters: {
@@ -23990,6 +24893,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "star-deleted": {
         parameters: {
@@ -24012,6 +24916,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     status: {
         parameters: {
@@ -24033,6 +24938,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "sub-issues-parent-issue-added": {
         parameters: {
@@ -24057,6 +24963,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "sub-issues-parent-issue-removed": {
         parameters: {
@@ -24081,6 +24988,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "sub-issues-sub-issue-added": {
         parameters: {
@@ -24105,6 +25013,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "sub-issues-sub-issue-removed": {
         parameters: {
@@ -24129,6 +25038,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "team-add": {
         parameters: {
@@ -24153,6 +25063,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "team-added-to-repository": {
         parameters: {
@@ -24176,6 +25087,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "team-created": {
         parameters: {
@@ -24199,6 +25111,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "team-deleted": {
         parameters: {
@@ -24222,6 +25135,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "team-edited": {
         parameters: {
@@ -24245,6 +25159,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "team-removed-from-repository": {
         parameters: {
@@ -24268,6 +25183,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "watch-started": {
         parameters: {
@@ -24290,6 +25206,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "workflow-dispatch": {
         parameters: {
@@ -24313,6 +25230,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "workflow-job-completed": {
         parameters: {
@@ -24337,6 +25255,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "workflow-job-in-progress": {
         parameters: {
@@ -24361,6 +25280,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "workflow-job-queued": {
         parameters: {
@@ -24385,6 +25305,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "workflow-job-waiting": {
         parameters: {
@@ -24409,6 +25330,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "workflow-run-completed": {
         parameters: {
@@ -24433,6 +25355,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "workflow-run-in-progress": {
         parameters: {
@@ -24457,6 +25380,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "workflow-run-requested": {
         parameters: {
@@ -24481,6 +25405,7 @@ export interface webhooks {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export interface components {

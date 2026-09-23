@@ -31,6 +31,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/posts-optional": {
         parameters: {
@@ -59,6 +60,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/posts-optional-inline": {
         parameters: {
@@ -91,6 +93,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/multipart-form-data-file-upload": {
         parameters: {
@@ -131,6 +134,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;

@@ -1,6 +1,6 @@
 // HTTP types
 
-export type HttpMethod = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
+export type HttpMethod = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace" | "query";
 /** 2XX statuses */
 export type OkStatus = 200 | 201 | 202 | 203 | 204 | 206 | 207 | "2XX";
 /** 4XX and 5XX statuses */
