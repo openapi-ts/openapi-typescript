@@ -991,7 +991,7 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 type FlattenedDeepRequired<T> = {
-    [K in keyof T]-?: FlattenedDeepRequired<T[K] extends unknown[] | undefined | null ? Extract<T[K], unknown[]>[number] : T[K]>;
+    [K in keyof T]-?: FlattenedDeepRequired<NonNullable<T[K]> extends unknown[] ? Extract<NonNullable<T[K]>, unknown[]>[number] : NonNullable<T[K]>>;
 };
 type ReadonlyArray<T> = [
     Exclude<T, undefined>
@@ -1046,7 +1046,7 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 type FlattenedDeepRequired<T> = {
-    [K in keyof T]-?: FlattenedDeepRequired<T[K] extends unknown[] | undefined | null ? Extract<T[K], unknown[]>[number] : T[K]>;
+    [K in keyof T]-?: FlattenedDeepRequired<NonNullable<T[K]> extends unknown[] ? Extract<NonNullable<T[K]>, unknown[]>[number] : NonNullable<T[K]>>;
 };
 type ReadonlyArray<T> = [
     Exclude<T, undefined>
@@ -1225,7 +1225,7 @@ export interface operations {
     };
 }
 type FlattenedDeepRequired<T> = {
-    [K in keyof T]-?: FlattenedDeepRequired<T[K] extends unknown[] | undefined | null ? Extract<T[K], unknown[]>[number] : T[K]>;
+    [K in keyof T]-?: FlattenedDeepRequired<NonNullable<T[K]> extends unknown[] ? Extract<NonNullable<T[K]>, unknown[]>[number] : NonNullable<T[K]>>;
 };
 type ReadonlyArray<T> = [
     Exclude<T, undefined>
@@ -1457,7 +1457,7 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 type FlattenedDeepRequired<T> = {
-    [K in keyof T]-?: FlattenedDeepRequired<T[K] extends unknown[] | undefined | null ? Extract<T[K], unknown[]>[number] : T[K]>;
+    [K in keyof T]-?: FlattenedDeepRequired<NonNullable<T[K]> extends unknown[] ? Extract<NonNullable<T[K]>, unknown[]>[number] : NonNullable<T[K]>>;
 };
 type ReadonlyArray<T> = [
     Exclude<T, undefined>
@@ -1552,7 +1552,7 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 type FlattenedDeepRequired<T> = {
-    [K in keyof T]-?: FlattenedDeepRequired<T[K] extends unknown[] | undefined | null ? Extract<T[K], unknown[]>[number] : T[K]>;
+    [K in keyof T]-?: FlattenedDeepRequired<NonNullable<T[K]> extends unknown[] ? Extract<NonNullable<T[K]>, unknown[]>[number] : NonNullable<T[K]>>;
 };
 type ReadonlyArray<T> = [
     Exclude<T, undefined>
@@ -1653,7 +1653,7 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 type FlattenedDeepRequired<T> = {
-    [K in keyof T]-?: FlattenedDeepRequired<T[K] extends unknown[] | undefined | null ? Extract<T[K], unknown[]>[number] : T[K]>;
+    [K in keyof T]-?: FlattenedDeepRequired<NonNullable<T[K]> extends unknown[] ? Extract<NonNullable<T[K]>, unknown[]>[number] : NonNullable<T[K]>>;
 };
 type ReadonlyArray<T> = [
     Exclude<T, undefined>
@@ -1769,7 +1769,7 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 type FlattenedDeepRequired<T> = {
-    [K in keyof T]-?: FlattenedDeepRequired<T[K] extends unknown[] | undefined | null ? Extract<T[K], unknown[]>[number] : T[K]>;
+    [K in keyof T]-?: FlattenedDeepRequired<NonNullable<T[K]> extends unknown[] ? Extract<NonNullable<T[K]>, unknown[]>[number] : NonNullable<T[K]>>;
 };
 type ReadonlyArray<T> = [
     Exclude<T, undefined>
@@ -1799,6 +1799,62 @@ export const resourceOuterOneOf0InnerOneOf1DeepCodeValues: ReadonlyArray<Extract
 export const resourceOuterOneOf1KindValues: ReadonlyArray<Extract<FlattenedDeepRequired<components>["schemas"]["Resource"]["outer"], {
     kind: unknown;
 }>["kind"]> = ["typeB"];
+export type operations = Record<string, never>;`,
+        options: { enumValues: true },
+      },
+    ],
+    [
+      "options > enumValues with nullable intermediate object",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
+          components: {
+            schemas: {
+              Submission: {
+                type: "object",
+                properties: {
+                  details: {
+                    type: ["object", "null"],
+                    properties: {
+                      status: {
+                        type: "string",
+                        enum: ["draft", "submitted"],
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        Submission: {
+            details?: {
+                /** @enum {string} */
+                status?: "draft" | "submitted";
+            } | null;
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+type FlattenedDeepRequired<T> = {
+    [K in keyof T]-?: FlattenedDeepRequired<NonNullable<T[K]> extends unknown[] ? Extract<NonNullable<T[K]>, unknown[]>[number] : NonNullable<T[K]>>;
+};
+type ReadonlyArray<T> = [
+    Exclude<T, undefined>
+] extends [
+    unknown[]
+] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
+export const submissionDetailsStatusValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["Submission"]["details"]["status"]> = ["draft", "submitted"];
 export type operations = Record<string, never>;`,
         options: { enumValues: true },
       },
