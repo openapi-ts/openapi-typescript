@@ -29,6 +29,8 @@ npx openapi-typescript ./path/to/api/v1.yaml -o ./src/lib/api/v1.d.ts
 
 Once your types have been generated from your schema, you can create a [fetch client](../openapi-fetch), a react-query client and start querying your API.
 
+Note that the returned `OpenapiQueryClient` is not a react-query client, you still need to construct a `QueryClient` and pass it to `<QueryClientProvider queryClient={...}>`. The returned `OpenapiQueryClient` only provides type-inferred wrappers over the actual `useQuery` / `useMutation` / etc. hooks.
+
 ```tsx
 import createFetchClient from "openapi-fetch";
 import createClient from "openapi-react-query";
