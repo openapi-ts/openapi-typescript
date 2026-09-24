@@ -105595,7 +105595,7 @@ export interface operations {
                         /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
                         identifier: string;
                     }[];
-                } | ({
+                } & (({
                     /** @enum {unknown} */
                     status?: "completed";
                 } & {
@@ -105605,7 +105605,7 @@ export interface operations {
                     status?: "queued" | "in_progress";
                 } & {
                     [key: string]: unknown;
-                });
+                }));
             };
         };
         responses: {
@@ -113373,7 +113373,7 @@ export interface operations {
                          */
                         path: "/" | "/docs";
                     };
-                } | unknown | unknown | unknown | unknown | unknown;
+                } & (unknown | unknown | unknown | unknown | unknown);
             };
         };
         responses: {
@@ -113420,7 +113420,7 @@ export interface operations {
                          */
                         path?: "/" | "/docs";
                     };
-                } | unknown | unknown) | null;
+                } & (unknown | unknown)) | null;
             };
         };
         responses: {
@@ -114769,7 +114769,7 @@ export interface operations {
                     reviewers?: string[];
                     /** @description An array of team `slug`s that will be requested. */
                     team_reviewers?: string[];
-                } | unknown | unknown;
+                } & (unknown | unknown);
             };
         };
         responses: {
