@@ -7600,7 +7600,7 @@ export interface components {
              * @default 1
              * @example 2
              */
-            instance_count: number;
+            instance_count: bigint;
             /**
              * @description The instance size to use for this component. Default: `apps-s-1vcpu-0.5gb`
              * @example apps-s-1vcpu-0.5gb
@@ -7717,7 +7717,7 @@ export interface components {
              * @description The port on which the health check will be performed. If not set, the health check will be performed on the component's http_port.
              * @example 80
              */
-            port?: number;
+            port?: bigint;
             /**
              * @description The route path used for the HTTP health check ping. If not set, the HTTP health check will be disabled and a TCP health check used instead.
              * @example /health
@@ -7793,7 +7793,7 @@ export interface components {
              *     If there is not an environment variable with the name `PORT`, one will be automatically added with its value set to the value of this field.
              * @example 3000
              */
-            http_port?: number;
+            http_port?: bigint;
             /**
              * @description The ports on which this service will listen for internal traffic.
              * @example [
@@ -7801,7 +7801,7 @@ export interface components {
              *       443
              *     ]
              */
-            internal_ports?: number[];
+            internal_ports?: bigint[];
             /**
              * @deprecated
              * @description (Deprecated - Use Ingress Rules instead). A list of HTTP routes that should be routed to this component.
@@ -8023,7 +8023,7 @@ export interface components {
              * @description The port to redirect to.
              * @example 443
              */
-            port?: number;
+            port?: bigint;
             /**
              * @description The scheme to redirect to. Supported values are `http` or `https`. Default: `https`.
              * @example https
@@ -8034,7 +8034,7 @@ export interface components {
              * @description The redirect code to use. Defaults to `302`. Supported values are 300, 301, 302, 303, 304, 307, 308.
              * @example 302
              */
-            redirect_code?: number;
+            redirect_code?: bigint;
         };
         app_ingress_spec_rule: {
             match?: components["schemas"]["app_ingress_spec_rule_match"];
@@ -15515,19 +15515,19 @@ export interface components {
              * @description Major version number
              * @example 123
              */
-            major?: number;
+            major?: bigint;
             /**
              * Format: int64
              * @description Minor version number
              * @example 123
              */
-            minor?: number;
+            minor?: bigint;
             /**
              * Format: int64
              * @description Patch version number
              * @example 123
              */
-            patch?: number;
+            patch?: bigint;
         };
         /** @description Description of a Model */
         apiModel: {
@@ -15602,7 +15602,7 @@ export interface components {
              * @description Number of datasources indexed completed
              * @example 123
              */
-            completed_datasources?: number;
+            completed_datasources?: bigint;
             /**
              * Format: date-time
              * @description Creation date / time
@@ -15636,13 +15636,13 @@ export interface components {
              * @description Number of tokens
              * @example 123
              */
-            tokens?: number;
+            tokens?: bigint;
             /**
              * Format: int64
              * @description Number of datasources being indexed
              * @example 123
              */
-            total_datasources?: number;
+            total_datasources?: bigint;
             /**
              * Format: date-time
              * @description Last modified
@@ -15739,7 +15739,7 @@ export interface components {
              * @description The 'k' value for the agent template
              * @example 123
              */
-            k?: number;
+            k?: bigint;
             /** @description List of knowledge bases associated with the agent template */
             knowledge_bases?: components["schemas"]["apiKnowledgeBase"][];
             /**
@@ -15747,7 +15747,7 @@ export interface components {
              * @description The max_tokens setting for the agent template
              * @example 123
              */
-            max_tokens?: number;
+            max_tokens?: bigint;
             model?: components["schemas"]["apiModel"];
             /**
              * @description Name of the agent template
@@ -15810,13 +15810,13 @@ export interface components {
              * @description How many results should be considered from an attached knowledge base
              * @example 5
              */
-            k?: number;
+            k?: bigint;
             /**
              * Format: int64
              * @description Specifies the maximum number of tokens the model can process in a single input or output, set as a number between 1 and 512. This determines the length of each response.
              * @example 100
              */
-            max_tokens?: number;
+            max_tokens?: bigint;
             model?: components["schemas"]["apiModel"];
             /**
              * @description Agent name
@@ -15932,19 +15932,19 @@ export interface components {
              * @description The current page
              * @example 123
              */
-            page?: number;
+            page?: bigint;
             /**
              * Format: int64
              * @description Total number of pages
              * @example 123
              */
-            pages?: number;
+            pages?: bigint;
             /**
              * Format: int64
              * @description Total amount of items over all pages
              * @example 123
              */
-            total?: number;
+            total?: bigint;
         };
         /** @description List of Agents */
         apiListAgentsOutputPublic: {
@@ -16116,14 +16116,14 @@ export interface components {
              * Format: int64
              * @example 123
              */
-            k?: number;
+            k?: bigint;
             /** @description Knowledge bases */
             knowledge_bases?: components["schemas"]["apiKnowledgeBase"][];
             /**
              * Format: int64
              * @example 123
              */
-            max_tokens?: number;
+            max_tokens?: bigint;
             model?: components["schemas"]["apiModel"];
             /**
              * @description Agent name
@@ -16539,13 +16539,13 @@ export interface components {
              * @description How many results should be considered from an attached knowledge base
              * @example 5
              */
-            k?: number;
+            k?: bigint;
             /**
              * Format: int64
              * @description Specifies the maximum number of tokens the model can process in a single input or output, set as a number between 1 and 512. This determines the length of each response.
              * @example 100
              */
-            max_tokens?: number;
+            max_tokens?: bigint;
             /**
              * @description Identifier for the foundation model.
              * @example "12345678-1234-1234-1234-123456789012"

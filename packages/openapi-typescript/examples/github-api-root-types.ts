@@ -18539,7 +18539,7 @@ export interface components {
              * Format: int64
              * @example 1
              */
-            id: number;
+            id: bigint;
             /** @example MDQ6VXNlcjE= */
             node_id: string;
             /**
@@ -19348,7 +19348,7 @@ export interface components {
              * Format: int64
              * @example 1
              */
-            id: number;
+            id: bigint;
             /** @example MDQ6VXNlcjE= */
             node_id: string;
             /**
@@ -19502,7 +19502,7 @@ export interface components {
              * @description Unique identifier of the repository
              * @example 42
              */
-            id: number;
+            id: bigint;
             /** @example MDEwOlJlcG9zaXRvcnkxMjk2MjY5 */
             node_id: string;
             /**
@@ -19904,7 +19904,7 @@ export interface components {
          */
         authorization: {
             /** Format: int64 */
-            id: number;
+            id: bigint;
             /** Format: uri */
             url: string;
             /** @description A list of scopes that this authorization is in. */
@@ -20525,7 +20525,7 @@ export interface components {
              * @description A unique identifier of the repository.
              * @example 1296269
              */
-            id: number;
+            id: bigint;
             /**
              * @description The GraphQL identifier of the repository.
              * @example MDEwOlJlcG9zaXRvcnkxMjk2MjY5
@@ -21204,7 +21204,7 @@ export interface components {
          */
         issue: {
             /** Format: int64 */
-            id: number;
+            id: bigint;
             node_id: string;
             /**
              * Format: uri
@@ -21257,7 +21257,7 @@ export interface components {
              */
             labels: (string | {
                 /** Format: int64 */
-                id?: number;
+                id?: bigint;
                 node_id?: string;
                 /** Format: uri */
                 url?: string;
@@ -21312,7 +21312,7 @@ export interface components {
              * @description Unique identifier of the issue comment
              * @example 42
              */
-            id: number;
+            id: bigint;
             node_id: string;
             /**
              * Format: uri
@@ -21490,7 +21490,7 @@ export interface components {
         "public-user": {
             login: string;
             /** Format: int64 */
-            id: number;
+            id: bigint;
             /**
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
@@ -22082,7 +22082,7 @@ export interface components {
              * Format: int64
              * @example 1296269
              */
-            id: number;
+            id: bigint;
             /** @example MDEwOlJlcG9zaXRvcnkxMjk2MjY5 */
             node_id: string;
             /** @example Hello-World */
@@ -23265,7 +23265,7 @@ export interface components {
              * Format: int64
              * @example 1
              */
-            id: number;
+            id: bigint;
             /**
              * @description Automatically generated name of this codespace.
              * @example monalisa-octocat-hello-world-g4wpq6h95q
@@ -23666,7 +23666,7 @@ export interface components {
          */
         "enterprise-team": {
             /** Format: int64 */
-            id: number;
+            id: bigint;
             name: string;
             slug: string;
             /** Format: uri */
@@ -23968,7 +23968,7 @@ export interface components {
              * Format: int64
              * @example 1296269
              */
-            id: number;
+            id: bigint;
             /** @example MDEwOlJlcG9zaXRvcnkxMjk2MjY5 */
             node_id: string;
             /** @example Hello-World */
@@ -24220,7 +24220,7 @@ export interface components {
          */
         "organization-invitation": {
             /** Format: int64 */
-            id: number;
+            id: bigint;
             login: string | null;
             email: string | null;
             role: string;
@@ -24304,12 +24304,12 @@ export interface components {
              * Format: int64
              * @description The total number of requests within the queried time period
              */
-            total_request_count?: number;
+            total_request_count?: bigint;
             /**
              * Format: int64
              * @description The total number of requests that were rate limited within the queried time period
              */
-            rate_limited_request_count?: number;
+            rate_limited_request_count?: bigint;
             last_rate_limited_timestamp?: string | null;
             last_request_timestamp?: string;
         }[];
@@ -24321,7 +24321,7 @@ export interface components {
             subject_type?: string;
             subject_name?: string;
             /** Format: int64 */
-            subject_id?: number;
+            subject_id?: bigint;
             total_request_count?: number;
             rate_limited_request_count?: number;
             last_rate_limited_timestamp?: string | null;
@@ -24336,12 +24336,12 @@ export interface components {
              * Format: int64
              * @description The total number of requests within the queried time period
              */
-            total_request_count?: number;
+            total_request_count?: bigint;
             /**
              * Format: int64
              * @description The total number of requests that were rate limited within the queried time period
              */
-            rate_limited_request_count?: number;
+            rate_limited_request_count?: bigint;
         };
         /**
          * Time Stats
@@ -24350,9 +24350,9 @@ export interface components {
         "api-insights-time-stats": {
             timestamp?: string;
             /** Format: int64 */
-            total_request_count?: number;
+            total_request_count?: bigint;
             /** Format: int64 */
-            rate_limited_request_count?: number;
+            rate_limited_request_count?: bigint;
         }[];
         /**
          * User Stats
@@ -24362,11 +24362,11 @@ export interface components {
             actor_type?: string;
             actor_name?: string;
             /** Format: int64 */
-            actor_id?: number;
+            actor_id?: bigint;
             /** Format: int64 */
-            integration_id?: number | null;
+            integration_id?: bigint | null;
             /** Format: int64 */
-            oauth_application_id?: number | null;
+            oauth_application_id?: bigint | null;
             total_request_count?: number;
             rate_limited_request_count?: number;
             last_rate_limited_timestamp?: string | null;
@@ -24448,7 +24448,7 @@ export interface components {
              * Format: int64
              * @example 79
              */
-            id: number;
+            id: bigint;
             owner: components["schemas"]["nullable-simple-user"];
             /** @example 0b989ba4-242f-11e5-81e1-c7b6966d2516 */
             guid: string;
@@ -24494,7 +24494,7 @@ export interface components {
              * Format: int64
              * @description The unique identifier of the role.
              */
-            id: number;
+            id: bigint;
             /** @description The name of the role. */
             name: string;
             /** @description A short description about who this role is for or what permissions it grants. */
@@ -25067,7 +25067,7 @@ export interface components {
              * @description Unique identifier of the repository
              * @example 42
              */
-            id: number;
+            id: bigint;
             /** @example MDEwOlJlcG9zaXRvcnkxMjk2MjY5 */
             node_id: string;
             /**
@@ -25443,7 +25443,7 @@ export interface components {
              * Format: int64
              * @example 1296269
              */
-            id: number;
+            id: bigint;
             /** @example MDEwOlJlcG9zaXRvcnkxMjk2MjY5 */
             node_id: string;
             /** @example Hello-World */
@@ -27324,7 +27324,7 @@ export interface components {
              * @description The project card's ID
              * @example 42
              */
-            id: number;
+            id: bigint;
             /** @example MDExOlByb2plY3RDYXJkMTQ3OA== */
             node_id: string;
             /** @example Add payload for delete Project column */
@@ -27741,7 +27741,7 @@ export interface components {
         /** Pull Request Minimal */
         "pull-request-minimal": {
             /** Format: int64 */
-            id: number;
+            id: bigint;
             number: number;
             url: string;
             head: {
@@ -27749,7 +27749,7 @@ export interface components {
                 sha: string;
                 repo: {
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     url: string;
                     name: string;
                 };
@@ -27759,7 +27759,7 @@ export interface components {
                 sha: string;
                 repo: {
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     url: string;
                     name: string;
                 };
@@ -28032,7 +28032,7 @@ export interface components {
                  * @description The id of the environment.
                  * @example 56780428
                  */
-                id?: number;
+                id?: bigint;
                 /** @example MDExOkVudmlyb25tZW50NTY3ODA0Mjg= */
                 node_id?: string;
                 /**
@@ -28082,7 +28082,7 @@ export interface components {
              * @description Unique identifier of the deployment
              * @example 42
              */
-            id: number;
+            id: bigint;
             /** @example MDEwOkRlcGxveW1lbnQx */
             node_id: string;
             /** @example a84d88e7554fc1fa21bcbc4efae3c782a70d2b9d */
@@ -28399,7 +28399,7 @@ export interface components {
             users: {
                 login?: string;
                 /** Format: int64 */
-                id?: number;
+                id?: bigint;
                 node_id?: string;
                 avatar_url?: string;
                 gravatar_id?: string;
@@ -28887,7 +28887,7 @@ export interface components {
              * @description The id of the check.
              * @example 21
              */
-            id: number;
+            id: bigint;
             /**
              * @description The SHA of the commit that is being checked.
              * @example 009b8a3a9ccbb128af87f9b1c0f4c62e8a304f6d
@@ -29031,7 +29031,7 @@ export interface components {
              * Format: int64
              * @example 5
              */
-            id: number;
+            id: bigint;
             /** @example MDEwOkNoZWNrU3VpdGU1 */
             node_id: string;
             /** @example master */
@@ -29635,7 +29635,7 @@ export interface components {
              * Format: int64
              * @example 1
              */
-            id: number;
+            id: bigint;
             email?: string | null;
             name?: string | null;
             /** @example MDQ6VXNlcjE= */
@@ -29715,7 +29715,7 @@ export interface components {
              * @description Unique identifier of the repository invitation.
              * @example 42
              */
-            id: number;
+            id: bigint;
             repository: components["schemas"]["minimal-repository"];
             invitee: components["schemas"]["nullable-simple-user"];
             inviter: components["schemas"]["nullable-simple-user"];
@@ -29752,7 +29752,7 @@ export interface components {
              * Format: int64
              * @example 1
              */
-            id: number;
+            id: bigint;
             email?: string | null;
             name?: string | null;
             /** @example MDQ6VXNlcjE= */
@@ -29905,7 +29905,7 @@ export interface components {
              * Format: int64
              * @example 1
              */
-            id: number;
+            id: bigint;
             /** @example MDExOlB1bGxSZXF1ZXN0MQ== */
             node_id: string;
             /**
@@ -29963,7 +29963,7 @@ export interface components {
             body: string | null;
             labels: {
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 node_id: string;
                 url: string;
                 name: string;
@@ -30817,7 +30817,7 @@ export interface components {
              * Format: int64
              * @example 1
              */
-            id: number;
+            id: bigint;
             /** @example MDE2OkRlcGxveW1lbnRTdGF0dXMx */
             node_id: string;
             /**
@@ -30904,7 +30904,7 @@ export interface components {
              * @description The id of the environment.
              * @example 56780428
              */
-            id: number;
+            id: bigint;
             /** @example MDExOkVudmlyb25tZW50NTY3ODA0Mjg= */
             node_id: string;
             /**
@@ -31438,7 +31438,7 @@ export interface components {
          */
         "nullable-issue": {
             /** Format: int64 */
-            id: number;
+            id: bigint;
             node_id: string;
             /**
              * Format: uri
@@ -31491,7 +31491,7 @@ export interface components {
              */
             labels: (string | {
                 /** Format: int64 */
-                id?: number;
+                id?: bigint;
                 node_id?: string;
                 /** Format: uri */
                 url?: string;
@@ -31589,7 +31589,7 @@ export interface components {
              * Format: int64
              * @example 1
              */
-            id: number;
+            id: bigint;
             /** @example MDEwOklzc3VlRXZlbnQx */
             node_id: string;
             /**
@@ -31940,7 +31940,7 @@ export interface components {
              * @description Unique identifier for the label.
              * @example 208045946
              */
-            id: number;
+            id: bigint;
             /** @example MDU6TGFiZWwyMDgwNDU5NDY= */
             node_id: string;
             /**
@@ -32183,13 +32183,13 @@ export interface components {
              * @description The ID of the pull request review to which the comment belongs.
              * @example 42
              */
-            pull_request_review_id: number | null;
+            pull_request_review_id: bigint | null;
             /**
              * Format: int64
              * @description The ID of the pull request review comment.
              * @example 1
              */
-            id: number;
+            id: bigint;
             /**
              * @description The node ID of the pull request review comment.
              * @example MDI0OlB1bGxSZXF1ZXN0UmV2aWV3Q29tbWVudDEw
@@ -32764,7 +32764,7 @@ export interface components {
              * Format: int64
              * @example 1
              */
-            id: number;
+            id: bigint;
             /** @example MDExOlB1bGxSZXF1ZXN0MQ== */
             node_id: string;
             /**
@@ -32832,7 +32832,7 @@ export interface components {
             body: string | null;
             labels: {
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 node_id: string;
                 url: string;
                 name: string;
@@ -32953,7 +32953,7 @@ export interface components {
              * @description Unique identifier of the review
              * @example 42
              */
-            id: number;
+            id: bigint;
             /** @example MDE3OlB1bGxSZXF1ZXN0UmV2aWV3ODA= */
             node_id: string;
             user: components["schemas"]["nullable-simple-user"];
@@ -33007,12 +33007,12 @@ export interface components {
              * Format: int64
              * @example 42
              */
-            pull_request_review_id: number | null;
+            pull_request_review_id: bigint | null;
             /**
              * Format: int64
              * @example 10
              */
-            id: number;
+            id: bigint;
             /** @example MDI0OlB1bGxSZXF1ZXN0UmV2aWV3Q29tbWVudDEw */
             node_id: string;
             /** @example @@ -16,33 +16,40 @@ public class Connection : IConnection... */
@@ -33913,7 +33913,7 @@ export interface components {
             /** Format: uri */
             html_url: string;
             /** Format: int64 */
-            id: number;
+            id: bigint;
             node_id: string;
             number: number;
             title: string;
@@ -33923,7 +33923,7 @@ export interface components {
             user: components["schemas"]["nullable-simple-user"];
             labels: {
                 /** Format: int64 */
-                id?: number;
+                id?: bigint;
                 node_id?: string;
                 url?: string;
                 name?: string;
@@ -34160,7 +34160,7 @@ export interface components {
         "user-search-result-item": {
             login: string;
             /** Format: int64 */
-            id: number;
+            id: bigint;
             node_id: string;
             /** Format: uri */
             avatar_url: string;
@@ -34218,7 +34218,7 @@ export interface components {
              * Format: int64
              * @example 1
              */
-            id: number;
+            id: bigint;
             /**
              * @description discriminator enum property added by openapi-typescript
              * @enum {string}
@@ -34440,7 +34440,7 @@ export interface components {
              * Format: int64
              * @example 1
              */
-            id: number;
+            id: bigint;
             /**
              * @description Automatically generated name of this codespace.
              * @example monalisa-octocat-hello-world-g4wpq6h95q
@@ -34609,7 +34609,7 @@ export interface components {
              * Format: int64
              * @example 3
              */
-            id: number;
+            id: bigint;
             /** @example Octocat's GPG Key */
             name?: string | null;
             primary_key_id: number | null;
@@ -34649,7 +34649,7 @@ export interface components {
              */
             subkeys: {
                 /** Format: int64 */
-                id?: number;
+                id?: bigint;
                 primary_key_id?: number;
                 key_id?: string;
                 public_key?: string;
@@ -34691,7 +34691,7 @@ export interface components {
         key: {
             key: string;
             /** Format: int64 */
-            id: number;
+            id: bigint;
             url: string;
             title: string;
             /** Format: date-time */
@@ -34945,7 +34945,7 @@ export interface components {
              * @description Unique identifier of the repository
              * @example 42
              */
-            id: number;
+            id: bigint;
             /** @example MDEwOlJlcG9zaXRvcnkxMjk2MjY5 */
             node_id: string;
             /**
@@ -35724,7 +35724,7 @@ export interface components {
             /** Format: uri */
             html_url?: string;
             /** Format: int64 */
-            id: number;
+            id: bigint;
             login: string;
             name?: string;
             node_id?: string;
@@ -35796,7 +35796,7 @@ export interface components {
                 /** Format: uri */
                 html_url?: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 login: string;
                 name?: string;
                 node_id?: string;
@@ -35942,7 +35942,7 @@ export interface components {
                 /** Format: uri */
                 html_url?: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 login: string;
                 name?: string;
                 node_id?: string;
@@ -36014,7 +36014,7 @@ export interface components {
                 /** Format: uri */
                 html_url?: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 login: string;
                 name?: string;
                 node_id?: string;
@@ -36100,7 +36100,7 @@ export interface components {
              * Format: int64
              * @description Unique identifier of the issue comment
              */
-            id: number;
+            id: bigint;
             /** Format: uri */
             issue_url: string;
             node_id: string;
@@ -36144,7 +36144,7 @@ export interface components {
                 /** Format: uri */
                 html_url?: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 login: string;
                 name?: string;
                 node_id?: string;
@@ -36276,7 +36276,7 @@ export interface components {
             /** Format: uri */
             html_url: string;
             /** Format: int64 */
-            id: number;
+            id: bigint;
             labels?: {
                 /** @description 6-character hex code, without the leading #, identifying the color */
                 color: string;
@@ -36573,7 +36573,7 @@ export interface components {
                 /** Format: uri */
                 html_url?: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 login: string;
                 name?: string;
                 node_id?: string;
@@ -36770,7 +36770,7 @@ export interface components {
             /** Format: uri */
             html_url: string;
             /** Format: int64 */
-            id: number;
+            id: bigint;
             labels?: {
                 /** @description 6-character hex code, without the leading #, identifying the color */
                 color: string;
@@ -37067,7 +37067,7 @@ export interface components {
                 /** Format: uri */
                 html_url?: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 login: string;
                 name?: string;
                 node_id?: string;
@@ -37269,7 +37269,7 @@ export interface components {
              * @description Unique identifier of the repository
              * @example 42
              */
-            id: number;
+            id: bigint;
             /** @example MDEwOlJlcG9zaXRvcnkxMjk2MjY5 */
             node_id: string;
             /**
@@ -37867,7 +37867,7 @@ export interface components {
                 /** Format: uri */
                 html_url?: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 login: string;
                 name?: string;
                 node_id?: string;
@@ -38598,7 +38598,7 @@ export interface components {
                      * Format: int64
                      * @description Unique identifier of the repository
                      */
-                    id: number;
+                    id: bigint;
                     is_template?: boolean;
                     /** Format: uri-template */
                     issue_comment_url: string;
@@ -38781,7 +38781,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -38944,7 +38944,7 @@ export interface components {
                      * Format: int64
                      * @description Unique identifier of the repository
                      */
-                    id: number;
+                    id: bigint;
                     is_template?: boolean;
                     /** Format: uri-template */
                     issue_comment_url: string;
@@ -39127,7 +39127,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -39467,7 +39467,7 @@ export interface components {
                 /** Format: uri */
                 html_url?: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 login: string;
                 name?: string;
                 node_id?: string;
@@ -39614,7 +39614,7 @@ export interface components {
                 /** Format: uri */
                 html_url?: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 login: string;
                 name?: string;
                 node_id?: string;
@@ -39688,7 +39688,7 @@ export interface components {
                 /** Format: uri */
                 html_url?: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 login: string;
                 name?: string;
                 node_id?: string;
@@ -42024,7 +42024,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -44781,7 +44781,7 @@ export interface components {
                  * Format: int64
                  * @description Unique identifier of the repository
                  */
-                id: number;
+                id: bigint;
                 is_template?: boolean;
                 /** Format: uri-template */
                 issue_comment_url: string;
@@ -45234,7 +45234,7 @@ export interface components {
                  * Format: int64
                  * @description Unique identifier of the issue comment
                  */
-                id: number;
+                id: bigint;
                 /** Format: uri */
                 issue_url: string;
                 node_id: string;
@@ -45278,7 +45278,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -45402,7 +45402,7 @@ export interface components {
                 /** Format: uri */
                 html_url: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 labels?: {
                     /** @description 6-character hex code, without the leading #, identifying the color */
                     color: string;
@@ -45699,7 +45699,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -45822,7 +45822,7 @@ export interface components {
                     gravatar_id?: string;
                     html_url?: string;
                     /** Format: int64 */
-                    id?: number;
+                    id?: bigint;
                     login?: string;
                     node_id?: string;
                     organizations_url?: string;
@@ -45946,7 +45946,7 @@ export interface components {
                 /** Format: uri */
                 html_url: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 labels?: {
                     /** @description 6-character hex code, without the leading #, identifying the color */
                     color: string;
@@ -46243,7 +46243,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -46366,7 +46366,7 @@ export interface components {
                     gravatar_id?: string;
                     html_url?: string;
                     /** Format: int64 */
-                    id?: number;
+                    id?: bigint;
                     login?: string;
                     node_id?: string;
                     organizations_url?: string;
@@ -46492,7 +46492,7 @@ export interface components {
                 /** Format: uri */
                 html_url: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 labels?: {
                     /** @description 6-character hex code, without the leading #, identifying the color */
                     color: string;
@@ -46789,7 +46789,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -46912,7 +46912,7 @@ export interface components {
                     gravatar_id?: string;
                     html_url?: string;
                     /** Format: int64 */
-                    id?: number;
+                    id?: bigint;
                     login?: string;
                     node_id?: string;
                     organizations_url?: string;
@@ -47053,7 +47053,7 @@ export interface components {
                 /** Format: uri */
                 html_url: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 labels?: {
                     /** @description 6-character hex code, without the leading #, identifying the color */
                     color: string;
@@ -47350,7 +47350,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -47419,7 +47419,7 @@ export interface components {
                     gravatar_id?: string;
                     html_url?: string;
                     /** Format: int64 */
-                    id?: number;
+                    id?: bigint;
                     login?: string;
                     node_id?: string;
                     organizations_url?: string;
@@ -47545,7 +47545,7 @@ export interface components {
                 /** Format: uri */
                 html_url: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 labels?: {
                     /** @description 6-character hex code, without the leading #, identifying the color */
                     color: string;
@@ -47842,7 +47842,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -47975,7 +47975,7 @@ export interface components {
                 /** Format: uri */
                 html_url: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 labels?: ({
                     /** @description 6-character hex code, without the leading #, identifying the color */
                     color: string;
@@ -48272,7 +48272,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -48418,7 +48418,7 @@ export interface components {
                 /** Format: uri */
                 html_url: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 labels?: {
                     /** @description 6-character hex code, without the leading #, identifying the color */
                     color: string;
@@ -48715,7 +48715,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -48850,7 +48850,7 @@ export interface components {
                 /** Format: uri */
                 html_url: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 labels?: {
                     /** @description 6-character hex code, without the leading #, identifying the color */
                     color: string;
@@ -49147,7 +49147,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -49283,7 +49283,7 @@ export interface components {
                 /** Format: uri */
                 html_url: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 labels?: ({
                     /** @description 6-character hex code, without the leading #, identifying the color */
                     color: string;
@@ -49581,7 +49581,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -49714,7 +49714,7 @@ export interface components {
                 /** Format: uri */
                 html_url: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 labels?: ({
                     /** @description 6-character hex code, without the leading #, identifying the color */
                     color: string;
@@ -50011,7 +50011,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -50146,7 +50146,7 @@ export interface components {
                     /** Format: uri */
                     html_url: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     labels?: {
                         /** @description 6-character hex code, without the leading #, identifying the color */
                         color: string;
@@ -50443,7 +50443,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -50587,7 +50587,7 @@ export interface components {
                      * Format: int64
                      * @description Unique identifier of the repository
                      */
-                    id: number;
+                    id: bigint;
                     is_template?: boolean;
                     /** Format: uri-template */
                     issue_comment_url: string;
@@ -50818,7 +50818,7 @@ export interface components {
                 /** Format: uri */
                 html_url: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 labels?: {
                     /** @description 6-character hex code, without the leading #, identifying the color */
                     color: string;
@@ -51115,7 +51115,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -51259,7 +51259,7 @@ export interface components {
                 /** Format: uri */
                 html_url: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 labels?: ({
                     /** @description 6-character hex code, without the leading #, identifying the color */
                     color: string;
@@ -51556,7 +51556,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -51690,7 +51690,7 @@ export interface components {
                     /** Format: uri */
                     html_url: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     labels?: {
                         /** @description 6-character hex code, without the leading #, identifying the color */
                         color: string;
@@ -51987,7 +51987,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -52134,7 +52134,7 @@ export interface components {
                      * Format: int64
                      * @description Unique identifier of the repository
                      */
-                    id: number;
+                    id: bigint;
                     is_template?: boolean;
                     /** Format: uri-template */
                     issue_comment_url: string;
@@ -52403,7 +52403,7 @@ export interface components {
                 /** Format: uri */
                 html_url: string;
                 /** Format: int64 */
-                id: number;
+                id: bigint;
                 labels?: ({
                     /** @description 6-character hex code, without the leading #, identifying the color */
                     color: string;
@@ -52701,7 +52701,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -54861,7 +54861,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -55044,7 +55044,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -55207,7 +55207,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -55390,7 +55390,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -55731,7 +55731,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -56068,7 +56068,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -56251,7 +56251,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -56414,7 +56414,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -56597,7 +56597,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -56938,7 +56938,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -57276,7 +57276,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -57459,7 +57459,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -57802,7 +57802,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -58143,7 +58143,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -58517,7 +58517,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -58700,7 +58700,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -58863,7 +58863,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -59046,7 +59046,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -59387,7 +59387,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -59757,7 +59757,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -59940,7 +59940,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -60103,7 +60103,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -60286,7 +60286,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -60627,7 +60627,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -60965,7 +60965,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -61148,7 +61148,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -61311,7 +61311,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -61494,7 +61494,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -61835,7 +61835,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -62172,7 +62172,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -62355,7 +62355,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -62518,7 +62518,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -62701,7 +62701,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -63042,7 +63042,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -63244,7 +63244,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -63571,7 +63571,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -63754,7 +63754,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -63910,7 +63910,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -64093,7 +64093,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -64382,7 +64382,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -64717,7 +64717,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -64900,7 +64900,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -65056,7 +65056,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -65239,7 +65239,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -65528,7 +65528,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -65865,7 +65865,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -66048,7 +66048,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -66204,7 +66204,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -66387,7 +66387,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -66676,7 +66676,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -67011,7 +67011,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -67194,7 +67194,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -67350,7 +67350,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -67533,7 +67533,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -67822,7 +67822,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -67898,7 +67898,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -68233,7 +68233,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -68375,7 +68375,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -68526,7 +68526,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -68668,7 +68668,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -68957,7 +68957,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -69297,7 +69297,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -69473,7 +69473,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -69636,7 +69636,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -69819,7 +69819,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -70160,7 +70160,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -70535,7 +70535,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -70718,7 +70718,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -70881,7 +70881,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -71064,7 +71064,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -71405,7 +71405,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -71799,7 +71799,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -71982,7 +71982,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -72145,7 +72145,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -72328,7 +72328,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -72669,7 +72669,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -73044,7 +73044,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -73227,7 +73227,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -73390,7 +73390,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -73573,7 +73573,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -73914,7 +73914,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -74304,7 +74304,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -74487,7 +74487,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -74643,7 +74643,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -74826,7 +74826,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -75115,7 +75115,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -75451,7 +75451,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -75595,7 +75595,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -75751,7 +75751,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -75895,7 +75895,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -76184,7 +76184,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -76330,7 +76330,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -76665,7 +76665,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -76809,7 +76809,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -76965,7 +76965,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -77109,7 +77109,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -77398,7 +77398,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -77544,7 +77544,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -77883,7 +77883,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -78066,7 +78066,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -78229,7 +78229,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -78405,7 +78405,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -78746,7 +78746,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -79084,7 +79084,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -79267,7 +79267,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -79430,7 +79430,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -79613,7 +79613,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -79954,7 +79954,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -80292,7 +80292,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -80475,7 +80475,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -80638,7 +80638,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -80814,7 +80814,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -81155,7 +81155,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -81492,7 +81492,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -81675,7 +81675,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -81838,7 +81838,7 @@ export interface components {
                          * Format: int64
                          * @description Unique identifier of the repository
                          */
-                        id: number;
+                        id: bigint;
                         is_template?: boolean;
                         /** Format: uri-template */
                         issue_comment_url: string;
@@ -82021,7 +82021,7 @@ export interface components {
                         /** Format: uri */
                         html_url?: string;
                         /** Format: int64 */
-                        id: number;
+                        id: bigint;
                         login: string;
                         name?: string;
                         node_id?: string;
@@ -82362,7 +82362,7 @@ export interface components {
                     /** Format: uri */
                     html_url?: string;
                     /** Format: int64 */
-                    id: number;
+                    id: bigint;
                     login: string;
                     name?: string;
                     node_id?: string;
@@ -82647,7 +82647,7 @@ export interface components {
                  * Format: int64
                  * @description Unique identifier of the repository
                  */
-                id: number;
+                id: bigint;
                 is_template?: boolean;
                 /** Format: uri-template */
                 issue_comment_url: string;
@@ -83618,7 +83618,7 @@ export interface components {
                             /** Format: uri */
                             html_url?: string;
                             /** Format: int64 */
-                            id: number;
+                            id: bigint;
                             login: string;
                             name?: string;
                             node_id?: string;
@@ -84492,7 +84492,7 @@ export interface components {
                  * Format: int64
                  * @description Unique identifier of the repository
                  */
-                id: number;
+                id: bigint;
                 is_template?: boolean;
                 /** Format: uri-template */
                 issue_comment_url: string;
@@ -84745,7 +84745,7 @@ export interface components {
                  * Format: int64
                  * @description Unique identifier of the repository
                  */
-                id: number;
+                id: bigint;
                 is_template?: boolean;
                 /** Format: uri-template */
                 issue_comment_url: string;
@@ -84998,7 +84998,7 @@ export interface components {
                  * Format: int64
                  * @description Unique identifier of the repository
                  */
-                id: number;
+                id: bigint;
                 is_template?: boolean;
                 /** Format: uri-template */
                 issue_comment_url: string;
@@ -85282,7 +85282,7 @@ export interface components {
                  * Format: int64
                  * @description Unique identifier of the repository
                  */
-                id: number;
+                id: bigint;
                 is_template?: boolean;
                 /** Format: uri-template */
                 issue_comment_url: string;
@@ -85535,7 +85535,7 @@ export interface components {
                  * Format: int64
                  * @description Unique identifier of the repository
                  */
-                id: number;
+                id: bigint;
                 is_template?: boolean;
                 /** Format: uri-template */
                 issue_comment_url: string;
@@ -87733,7 +87733,7 @@ export interface components {
         /** @description The unique identifier of the gist. */
         "gist-id": string;
         /** @description The unique identifier of the comment. */
-        "comment-id": number;
+        "comment-id": bigint;
         /** @description A list of comma separated label names. Example: `bug,ui,@high` */
         labels: string;
         /** @description account_id parameter */
@@ -115026,7 +115026,7 @@ export interface operations {
                      * @description An issue in the repository to convert to a pull request. The issue title, body, and comments will become the title, body, and comments on the new pull request. Required unless `title` is specified.
                      * @example 1
                      */
-                    issue?: number;
+                    issue?: bigint;
                 };
             };
         };

@@ -35,6 +35,55 @@ describe("transformSchemaObject > number", () => {
       },
     ],
     [
+      "integer > int32",
+      {
+        given: { type: "integer", format: "int32" },
+        want: "number",
+      },
+    ],
+    [
+      "integer > int64",
+      {
+        given: { type: "integer", format: "int64" },
+        want: "bigint",
+      },
+    ],
+    [
+      "number > int64",
+      {
+        given: { type: "number", format: "int64" },
+        want: "bigint",
+      },
+    ],
+    [
+      "number > float",
+      {
+        given: { type: "number", format: "float" },
+        want: "number",
+      },
+    ],
+    [
+      "number > double",
+      {
+        given: { type: "number", format: "double" },
+        want: "number",
+      },
+    ],
+    [
+      "integer > int64 > nullable",
+      {
+        given: { type: ["integer", "null"], format: "int64" },
+        want: "bigint | null",
+      },
+    ],
+    [
+      "integer > int64 > nullable (deprecated syntax)",
+      {
+        given: { type: "integer", format: "int64", nullable: true },
+        want: "bigint | null",
+      },
+    ],
+    [
       "nullable",
       {
         given: { type: ["number", "null"] },

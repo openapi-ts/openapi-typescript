@@ -328,7 +328,7 @@ describe("transformPathsObject", () => {
             };
             header?: never;
             path: {
-                user_id: number;
+                user_id: bigint;
             };
             cookie?: never;
         };
@@ -340,7 +340,7 @@ describe("transformPathsObject", () => {
                 };
                 header?: never;
                 path: {
-                    user_id: number;
+                    user_id: bigint;
                 };
                 cookie?: never;
             };

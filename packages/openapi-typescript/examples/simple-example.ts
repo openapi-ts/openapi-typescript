@@ -178,7 +178,7 @@ export interface components {
         };
         Pet: {
             /** Format: int64 */
-            id: number;
+            id: bigint;
             name: string;
             none?: null;
             /** @example 123 */
