@@ -963,13 +963,22 @@ export type operations = Record<string, never>;`,
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        /** Nullable object */
+        /**
+         * Nullable object
+         * @nullable
+         */
         obj1: {
             id?: string;
         } | null;
-        /** Nullable empty object */
+        /**
+         * Nullable empty object
+         * @nullable
+         */
         obj2: Record<string, never> | null;
-        /** Nullable string */
+        /**
+         * Nullable string
+         * @nullable
+         */
         str: string | null;
     };
     responses: never;

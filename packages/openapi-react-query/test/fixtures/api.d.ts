@@ -298,7 +298,7 @@ export interface paths {
             requestBody: {
                 content: {
                     "application/json": {
-                        /** Format: blob */
+                        /** @format blob */
                         media: string;
                         name: string;
                     };
@@ -881,9 +881,9 @@ export interface components {
             email: string;
             age?: number;
             avatar?: string;
-            /** Format: date */
+            /** @format date */
             created_at: number;
-            /** Format: date */
+            /** @format date */
             updated_at: number;
         };
     };

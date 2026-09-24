@@ -418,6 +418,7 @@ describe("transformSchemaObject > object", () => {
           },
         },
         want: `{
+    /** @nullable */
     readonly array?: readonly {
         readonly [key: string]: unknown;
     }[] | null;
