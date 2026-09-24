@@ -1,5 +1,11 @@
 # openapi-fetch
 
+## 0.17.1
+
+### Patch Changes
+
+- [#2605](https://github.com/openapi-ts/openapi-typescript/pull/2605) [`b775891`](https://github.com/openapi-ts/openapi-typescript/commit/b775891e2ac748aeab4cb3106c1df44a0b7ddf30) Thanks [@kaigritun](https://github.com/kaigritun)! - fix(openapi-fetch): handle empty error responses when Content-Length header is stripped
+
 ## 0.17.0
 
 ### Minor Changes
