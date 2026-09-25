@@ -26,7 +26,7 @@
     "@playwright/test": "1.59.1",
     "@size-limit/preset-small-lib": "12.1.0",
     "@types/node": "25.9.8",
-    "prettier": "3.8.3",
+    "prettier": "3.9.9",
     "size-limit": "12.1.0",
     "turbo": "2.9.9",
     "typescript": "catalog:",
