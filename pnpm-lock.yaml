@@ -94,8 +94,8 @@ importers:
         specifier: workspace:^
         version: link:../openapi-typescript
       openapi-typescript-codegen:
-        specifier: 0.30.0
-        version: 0.30.0(@types/json-schema@7.0.15)
+        specifier: 0.31.0
+        version: 0.31.0(@types/json-schema@7.0.15)
       openapi-typescript-fetch:
         specifier: 2.2.1
         version: 2.2.1
@@ -2890,8 +2890,8 @@ packages:
     resolution: {integrity: sha512-Rx/WycZ60HOaqLKAi6cHRKKI7zxWbJ31MhntmtwMoaTeF7XFH9hhBp8vITaMidfljRQ6eYWCKkaTK+ykVJHP2A==}
     engines: {node: '>= 0.8'}
 
-  fs-extra@11.3.3:
-    resolution: {integrity: sha512-VWSRii4t0AFm6ixFFmLLx1t7wS1gh+ckoa84aOeapGum0h+EZd1EhEumSB+ZdDLnEPuucsVB9oB7cxJHap6Afg==}
+  fs-extra@11.4.1:
+    resolution: {integrity: sha512-KYAb4c9BJQI6QqGKthV68OHe0badztdXJWKo0WtBA9IuCFPTKvE5ZdUBglP833aMjhaSPNO4A5j/EkzZtGlKjA==}
     engines: {node: '>=14.14'}
 
   fs-extra@7.0.1:
@@ -2954,8 +2954,8 @@ packages:
     resolution: {integrity: sha512-5bJ+nf/UCpAjHM8i06fl7eLyVC9iuNAjm9qzkiu2ZGhM0VscSvS6WDPfAwkdkBuoXGM9FJSbKl6wylMwP9Ktig==}
     engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
 
-  handlebars@4.7.8:
-    resolution: {integrity: sha512-vafaFqs8MZkRrSX7sFVUdo3ap/eNiLnb4IakshzvP56X5Nr1iGKAIqdX6tMlm6HcNRIkr6AxO5jFEoJzzpT8aQ==}
+  handlebars@4.7.9:
+    resolution: {integrity: sha512-4E71E0rpOaQuJR2A3xDZ+GM1HyWYv1clR58tC8emQNeQe3RH7MAzSbat+V0wG78LQBo6m6bzSG/L4pBuCsgnUQ==}
     engines: {node: '>=0.4.7'}
     hasBin: true
 
@@ -3456,8 +3456,8 @@ packages:
   oniguruma-to-es@3.1.1:
     resolution: {integrity: sha512-bUH8SDvPkH3ho3dvwJwfonjlQ4R80vjyvrU8YpxuROddv55vAEJrTuCuCVUhhsHbtlD9tGGbaNApGQckXhS8iQ==}
 
-  openapi-typescript-codegen@0.30.0:
-    resolution: {integrity: sha512-NO24vrOYEEREkuEwtLemXiV0/3wUj1HvS+0UuAinVNWKJOyNlXTj5hehdW9Dyob4u5YGrRG9dc9TBZW7/UszGw==}
+  openapi-typescript-codegen@0.31.0:
+    resolution: {integrity: sha512-ph3njJ7veDXy6QKLKHqNiyIqWMMu+rcdtU87XuwBo+QfBOpE1PvqzIWY3KMZBnLaoACxhtrEPf5re7Y/Ty9Bnw==}
     hasBin: true
 
   openapi-typescript-fetch@2.2.1:
@@ -7091,7 +7091,7 @@ snapshots:
 
   fresh@2.0.0: {}
 
-  fs-extra@11.3.3:
+  fs-extra@11.4.1:
     dependencies:
       graceful-fs: 4.2.11
       jsonfile: 6.2.0
@@ -7163,7 +7163,7 @@ snapshots:
 
   graphql@16.13.2: {}
 
-  handlebars@4.7.8:
+  handlebars@4.7.9:
     dependencies:
       minimist: 1.2.8
       neo-async: 2.6.2
@@ -7663,13 +7663,13 @@ snapshots:
       regex: 6.1.0
       regex-recursion: 6.0.2
 
-  openapi-typescript-codegen@0.30.0(@types/json-schema@7.0.15):
+  openapi-typescript-codegen@0.31.0(@types/json-schema@7.0.15):
     dependencies:
       '@apidevtools/json-schema-ref-parser': 14.2.1(@types/json-schema@7.0.15)
       camelcase: 6.3.0
       commander: 14.0.3
-      fs-extra: 11.3.3
-      handlebars: 4.7.8
+      fs-extra: 11.4.1
+      handlebars: 4.7.9
     transitivePeerDependencies:
       - '@types/json-schema'
 
