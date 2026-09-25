@@ -38,6 +38,8 @@ export type QueryKey<
   Init = MaybeOptionalInit<Paths[Path], Method>,
 > = Init extends undefined ? readonly [Method, Path] : readonly [Method, Path, Init];
 
+export type MutationKey<Method extends HttpMethod, Path> = readonly [Method, Path];
+
 export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
@@ -78,6 +80,22 @@ export type QueryOptionsFunction<Paths extends Record<string, Record<HttpMethod,
       >["queryFn"],
       SkipToken | undefined
     >;
+  }
+>;
+
+export type MutationOptionsFunction<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
+  Method extends HttpMethod,
+  Path extends PathsWithMethod<Paths, Method>,
+  Init extends MaybeOptionalInit<Paths[Path], Method>,
+  Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>,
+  Options extends Omit<UseMutationOptions<Response["data"], Response["error"], Init>, "mutationKey" | "mutationFn">,
+>(
+  method: Method,
+  path: Path,
+  options?: Options,
+) => NoInfer<
+  Omit<UseMutationOptions<Response["data"], Response["error"], Init>, "mutationFn"> & {
+    mutationFn: Exclude<UseMutationOptions<Response["data"], Response["error"], Init>["mutationFn"], undefined>;
   }
 >;
 
@@ -171,6 +189,7 @@ export type UseMutationMethod<Paths extends Record<string, Record<HttpMethod, {}
 
 export interface OpenapiQueryClient<Paths extends {}, Media extends MediaType = MediaType> {
   queryOptions: QueryOptionsFunction<Paths, Media>;
+  mutationOptions: MutationOptionsFunction<Paths, Media>;
   useQuery: UseQueryMethod<Paths, Media>;
   useSuspenseQuery: UseSuspenseQueryMethod<Paths, Media>;
   useInfiniteQuery: UseInfiniteQueryMethod<Paths, Media>;
@@ -210,6 +229,22 @@ export default function createClient<Paths extends {}, Media extends MediaType =
     return data;
   };
 
+  const createMutationFn = <Method extends HttpMethod, Path extends PathsWithMethod<Paths, Method>>(
+    method: Method,
+    path: Path,
+  ) => {
+    return async (init: any) => {
+      const mth = method.toUpperCase() as Uppercase<typeof method>;
+      const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
+      const { data, error } = await fn(path, init as any);
+      if (error) {
+        throw error;
+      }
+
+      return data as Exclude<typeof data, undefined>;
+    };
+  };
+
   const queryOptions: QueryOptionsFunction<Paths, Media> = (method, path, ...[init, options]) => ({
     queryKey: (init === undefined ? ([method, path] as const) : ([method, path, init] as const)) as DataTag<
       QueryKey<Paths, typeof method, typeof path>,
@@ -220,8 +255,15 @@ export default function createClient<Paths extends {}, Media extends MediaType =
     ...options,
   });
 
+  const mutationOptions: MutationOptionsFunction<Paths, Media> = (method, path, options) => ({
+    mutationKey: [method, path] as MutationKey<typeof method, typeof path>,
+    mutationFn: createMutationFn(method, path),
+    ...options,
+  });
+
   return {
     queryOptions,
+    mutationOptions,
     useQuery: (method, path, ...[init, options, queryClient]) =>
       useQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
     useSuspenseQuery: (method, path, ...[init, options, queryClient]) =>
@@ -262,16 +304,7 @@ export default function createClient<Paths extends {}, Media extends MediaType =
       useMutation(
         {
           mutationKey: [method, path],
-          mutationFn: async (init) => {
-            const mth = method.toUpperCase() as Uppercase<typeof method>;
-            const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
-            const { data, error } = await fn(path, init as InitWithUnknowns<typeof init>);
-            if (error) {
-              throw error;
-            }
-
-            return data as Exclude<typeof data, undefined>;
-          },
+          mutationFn: createMutationFn(method, path),
           ...options,
         },
         queryClient,
