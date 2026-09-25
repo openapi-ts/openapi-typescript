@@ -467,6 +467,22 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
     if (Array.isArray(schemaObject.type) && !Array.isArray(schemaObject)) {
       // skip any primitive types that appear in oneOf as well
       const uniqueTypes: ts.TypeNode[] = [];
+      // The caller transforms the sibling composition keywords itself, so drop them here
+      // or each type member re-applies them. 'type' alone fully describes a primitive
+      // member; object/array members keep anyOf/allOf, because there the composition is
+      // what carries the shape and stripping it leaves Record<string, never> / unknown[].
+      const transformTypeMember = (t: string) => {
+        const stackable = t === "object" || t === "array";
+        return transformSchemaObject(
+          {
+            ...schemaObject,
+            type: t,
+            oneOf: undefined,
+            ...(stackable ? {} : { anyOf: undefined, allOf: undefined }),
+          } as SchemaObject,
+          options,
+        );
+      };
       if (Array.isArray(schemaObject.oneOf)) {
         for (const t of schemaObject.type) {
           if (
@@ -475,22 +491,11 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
           ) {
             continue;
           }
-          uniqueTypes.push(
-            t === "null" || t === null
-              ? NULL
-              : transformSchemaObject(
-                  { ...schemaObject, type: t, oneOf: undefined } as SchemaObject, // don’t stack oneOf transforms
-                  options,
-                ),
-          );
+          uniqueTypes.push(t === "null" || t === null ? NULL : transformTypeMember(t));
         }
       } else {
         for (const t of schemaObject.type) {
-          if (t === "null" || t === null) {
-            uniqueTypes.push(NULL);
-          } else {
-            uniqueTypes.push(transformSchemaObject({ ...schemaObject, type: t } as SchemaObject, options));
-          }
+          uniqueTypes.push(t === "null" || t === null ? NULL : transformTypeMember(t));
         }
       }
       return tsUnion(uniqueTypes);

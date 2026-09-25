@@ -35615,7 +35615,7 @@ export interface components {
          * @description User-defined metadata to store domain-specific information limited to 8 keys with scalar values.
          */
         metadata: {
-            [key: string]: (null | (string | number | boolean) | (number | string | boolean) | (boolean | string | number)) | string | number | boolean;
+            [key: string]: (null | string | number | boolean) | string | number | boolean;
         };
         dependency: {
             /**
