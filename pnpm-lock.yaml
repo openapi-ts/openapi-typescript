@@ -258,6 +258,9 @@ importers:
       supports-color:
         specifier: ^10.2.2
         version: 10.2.2
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
       yargs-parser:
         specifier: ^21.1.1
         version: 21.1.1
@@ -277,9 +280,6 @@ importers:
       strip-ansi:
         specifier: 7.2.0
         version: 7.2.0
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
       vite-node:
         specifier: 5.3.0
         version: 5.3.0(@types/node@25.9.8)(jiti@2.6.1)(yaml@2.8.2)

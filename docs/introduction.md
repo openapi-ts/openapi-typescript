@@ -36,6 +36,8 @@ This library requires the latest version of [Node.js](https://nodejs.org) instal
 npm i -D openapi-typescript typescript
 ```
 
+Your application can use TypeScript 7. The generator installs its own JavaScript TypeScript compiler dependency, independently of your application's `tsc`. No package aliases or custom loaders are needed. Generated types remain runtime-free.
+
 And in your `tsconfig.json`, to load the types properly:
 
 ::: code-group

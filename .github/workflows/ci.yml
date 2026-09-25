@@ -36,6 +36,12 @@ jobs:
       - uses: pnpm/action-setup@v5
         with:
           run_install: true
+      - run: pnpm --filter openapi-typescript test:typescript-7
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.4.0"
+      - run: pnpm --filter openapi-typescript test:typescript-7 --bun
+      - run: pnpm --filter openapi-typescript test:typescript-7 --bun --linker isolated
       - run: pnpm test
   test-e2e:
     runs-on: ubuntu-latest
