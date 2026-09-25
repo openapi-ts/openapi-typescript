@@ -1,5 +1,5 @@
 import type { MediaType } from "openapi-typescript-helpers";
-import createClient from "../src/index.js";
+import createClient, { type ClientOptions } from "../src/index.js";
 
 /**
  * Create a client instance where all requests use a custom fetch implementation.
@@ -12,11 +12,11 @@ import createClient from "../src/index.js";
  * If you have too much going on in one handler, just make another instance. These are cheap.
  */
 // Note: this isn’t called “createMockedClient” because ✨ nothing is mocked 🌈! It’s only calling the handler you pass in.
-export function createObservedClient<T extends {}, M extends MediaType = MediaType>(
-  options?: Parameters<typeof createClient<T>>[0],
+export function createObservedClient<T extends {}, M extends MediaType = MediaType, Markers extends boolean = false>(
+  options?: ClientOptions,
   onRequest: (input: Request) => Promise<Response> = async () => Response.json({ status: 200, message: "OK" }),
 ) {
-  return createClient<T, M>({
+  return createClient<T, M, Markers>({
     ...options,
     baseUrl: options?.baseUrl || "https://fake-api.example", // Node.js requires a domain for Request(). This restriction doesn’t exist in browsers, but we are using `e2e.test.ts` for that..
     fetch: (input) => onRequest(input),

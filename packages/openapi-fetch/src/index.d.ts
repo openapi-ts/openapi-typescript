@@ -3,14 +3,14 @@ import type {
   FilterKeys,
   HttpMethod,
   IsOperationRequestBodyOptional,
+  MaybeReadable,
+  MaybeWritable,
   MediaType,
   OperationRequestBodyContent,
   PathsWithMethod,
-  Readable,
   RequiredKeysOf,
   ResponseObjectMap,
   SuccessResponse,
-  Writable,
 } from "openapi-typescript-helpers";
 
 /** Options for each client instance */
@@ -98,31 +98,37 @@ export type ParamsOption<T> = T extends {
     : { params: T["parameters"] }
   : DefaultParamsOption;
 
-// Writable<T> strips $Read markers (readOnly properties excluded from request body)
-export type RequestBodyOption<T> =
-  Writable<OperationRequestBodyContent<T>> extends never
+// MaybeWritable<T> strips $Read markers when Markers is true (readOnly properties excluded from request body)
+export type RequestBodyOption<T, Markers extends boolean = false> =
+  MaybeWritable<OperationRequestBodyContent<T>, Markers> extends never
     ? { body?: never }
     : IsOperationRequestBodyOptional<T> extends true
-      ? { body?: Writable<OperationRequestBodyContent<T>> }
-      : { body: Writable<OperationRequestBodyContent<T>> };
+      ? { body?: MaybeWritable<OperationRequestBodyContent<T>, Markers> }
+      : { body: MaybeWritable<OperationRequestBodyContent<T>, Markers> };
 
-export type FetchOptions<T> = RequestOptions<T> & Omit<RequestInit, "body" | "headers">;
+export type FetchOptions<T, Markers extends boolean = false> = RequestOptions<T, Markers> &
+  Omit<RequestInit, "body" | "headers">;
 
-// Readable<T> strips $Write markers (writeOnly properties excluded from response)
-export type FetchResponse<T extends Record<string | number, any>, Options, Media extends MediaType> =
+// MaybeReadable<T> strips $Write markers when Markers is true (writeOnly properties excluded from response)
+export type FetchResponse<
+  T extends Record<string | number, any>,
+  Options,
+  Media extends MediaType,
+  Markers extends boolean = false,
+> =
   | {
-      data: ParseAsResponse<Readable<SuccessResponse<ResponseObjectMap<T>, Media>>, Options>;
+      data: ParseAsResponse<MaybeReadable<SuccessResponse<ResponseObjectMap<T>, Media>, Markers>, Options>;
       error?: never;
       response: Response;
     }
   | {
       data?: never;
-      error: Readable<ErrorResponse<ResponseObjectMap<T>, Media>>;
+      error: MaybeReadable<ErrorResponse<ResponseObjectMap<T>, Media>, Markers>;
       response: Response;
     };
 
-export type RequestOptions<T> = ParamsOption<T> &
-  RequestBodyOption<T> & {
+export type RequestOptions<T, Markers extends boolean = false> = ParamsOption<T> &
+  RequestBodyOption<T, Markers> & {
     baseUrl?: string;
     querySerializer?: QuerySerializer<T> | QuerySerializerOptions;
     bodySerializer?: BodySerializer<T>;
@@ -190,10 +196,10 @@ export type Middleware =
     };
 
 /** This type helper makes the 2nd function param required if params/requestBody are required; otherwise, optional */
-export type MaybeOptionalInit<Params, Location extends keyof Params> =
-  RequiredKeysOf<FetchOptions<FilterKeys<Params, Location>>> extends never
-    ? FetchOptions<FilterKeys<Params, Location>> | undefined
-    : FetchOptions<FilterKeys<Params, Location>>;
+export type MaybeOptionalInit<Params, Location extends keyof Params, Markers extends boolean = false> =
+  RequiredKeysOf<FetchOptions<FilterKeys<Params, Location>, Markers>> extends never
+    ? FetchOptions<FilterKeys<Params, Location>, Markers> | undefined
+    : FetchOptions<FilterKeys<Params, Location>, Markers>;
 
 // The final init param to accept.
 // - Determines if the param is optional or not.
@@ -206,79 +212,102 @@ export type ClientMethod<
   Paths extends Record<string, Record<HttpMethod, {}>>,
   Method extends HttpMethod,
   Media extends MediaType,
-> = <Path extends PathsWithMethod<Paths, Method>, Init extends MaybeOptionalInit<Paths[Path], Method>>(
+  Markers extends boolean = false,
+> = <Path extends PathsWithMethod<Paths, Method>, Init extends MaybeOptionalInit<Paths[Path], Method, Markers>>(
   url: Path,
   ...init: InitParam<Init>
-) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
+) => Promise<FetchResponse<Paths[Path][Method], Init, Media, Markers>>;
 
-export type ClientRequestMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
+export type ClientRequestMethod<
+  Paths extends Record<string, Record<HttpMethod, {}>>,
+  Media extends MediaType,
+  Markers extends boolean = false,
+> = <
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
-  Init extends MaybeOptionalInit<Paths[Path], Method>,
+  Init extends MaybeOptionalInit<Paths[Path], Method, Markers>,
 >(
   method: Method,
   url: Path,
   ...init: InitParam<Init>
-) => Promise<FetchResponse<Paths[Path][Method], Init, Media>>;
+) => Promise<FetchResponse<Paths[Path][Method], Init, Media, Markers>>;
 
-export type ClientForPath<PathInfo extends Record<string | number, any>, Media extends MediaType> = {
-  [Method in keyof PathInfo as Uppercase<string & Method>]: <Init extends MaybeOptionalInit<PathInfo, Method>>(
+export type ClientForPath<
+  PathInfo extends Record<string | number, any>,
+  Media extends MediaType,
+  Markers extends boolean = false,
+> = {
+  [Method in keyof PathInfo as Uppercase<string & Method>]: <Init extends MaybeOptionalInit<PathInfo, Method, Markers>>(
     ...init: InitParam<Init>
-  ) => Promise<FetchResponse<PathInfo[Method], Init, Media>>;
+  ) => Promise<FetchResponse<PathInfo[Method], Init, Media, Markers>>;
 };
 
-export interface Client<Paths extends {}, Media extends MediaType = MediaType> {
-  request: ClientRequestMethod<Paths, Media>;
+export interface Client<Paths extends {}, Media extends MediaType = MediaType, Markers extends boolean = false> {
+  request: ClientRequestMethod<Paths, Media, Markers>;
   /** Call a GET endpoint */
-  GET: ClientMethod<Paths, "get", Media>;
+  GET: ClientMethod<Paths, "get", Media, Markers>;
   /** Call a PUT endpoint */
-  PUT: ClientMethod<Paths, "put", Media>;
+  PUT: ClientMethod<Paths, "put", Media, Markers>;
   /** Call a POST endpoint */
-  POST: ClientMethod<Paths, "post", Media>;
+  POST: ClientMethod<Paths, "post", Media, Markers>;
   /** Call a DELETE endpoint */
-  DELETE: ClientMethod<Paths, "delete", Media>;
+  DELETE: ClientMethod<Paths, "delete", Media, Markers>;
   /** Call a OPTIONS endpoint */
-  OPTIONS: ClientMethod<Paths, "options", Media>;
+  OPTIONS: ClientMethod<Paths, "options", Media, Markers>;
   /** Call a HEAD endpoint */
-  HEAD: ClientMethod<Paths, "head", Media>;
+  HEAD: ClientMethod<Paths, "head", Media, Markers>;
   /** Call a PATCH endpoint */
-  PATCH: ClientMethod<Paths, "patch", Media>;
+  PATCH: ClientMethod<Paths, "patch", Media, Markers>;
   /** Call a TRACE endpoint */
-  TRACE: ClientMethod<Paths, "trace", Media>;
+  TRACE: ClientMethod<Paths, "trace", Media, Markers>;
   /** Register middleware */
   use(...middleware: Middleware[]): void;
   /** Unregister middleware */
   eject(...middleware: Middleware[]): void;
 }
 
-export type ClientPathsWithMethod<CreatedClient extends Client<any, any>, Method extends HttpMethod> =
-  CreatedClient extends Client<infer Paths, infer _Media> ? PathsWithMethod<Paths, Method> : never;
+export type ClientPathsWithMethod<CreatedClient extends Client<any, any, any>, Method extends HttpMethod> =
+  CreatedClient extends Client<infer Paths, infer _Media, infer _Markers> ? PathsWithMethod<Paths, Method> : never;
 
 export type MethodResponse<
-  CreatedClient extends Client<any, any>,
+  CreatedClient extends Client<any, any, any>,
   Method extends HttpMethod,
   Path extends ClientPathsWithMethod<CreatedClient, Method>,
   Options = {},
 > =
-  CreatedClient extends Client<infer Paths extends { [key: string]: any }, infer Media extends MediaType>
-    ? NonNullable<FetchResponse<Paths[Path][Method], Options, Media>["data"]>
+  CreatedClient extends Client<
+    infer Paths extends { [key: string]: any },
+    infer Media extends MediaType,
+    infer Markers extends boolean
+  >
+    ? NonNullable<FetchResponse<Paths[Path][Method], Options, Media, Markers>["data"]>
     : never;
 
-export default function createClient<Paths extends {}, Media extends MediaType = MediaType>(
-  clientOptions?: ClientOptions,
-): Client<Paths, Media>;
+export default function createClient<
+  Paths extends {},
+  Media extends MediaType = MediaType,
+  Markers extends boolean = false,
+>(clientOptions?: ClientOptions): Client<Paths, Media, Markers>;
 
-export type PathBasedClient<Paths extends Record<string | number, any>, Media extends MediaType = MediaType> = {
-  [Path in keyof Paths]: ClientForPath<Paths[Path], Media>;
+export type PathBasedClient<
+  Paths extends Record<string | number, any>,
+  Media extends MediaType = MediaType,
+  Markers extends boolean = false,
+> = {
+  [Path in keyof Paths]: ClientForPath<Paths[Path], Media, Markers>;
 };
 
-export declare function wrapAsPathBasedClient<Paths extends {}, Media extends MediaType = MediaType>(
-  client: Client<Paths, Media>,
-): PathBasedClient<Paths, Media>;
+export declare function wrapAsPathBasedClient<
+  Paths extends {},
+  Media extends MediaType = MediaType,
+  Markers extends boolean = false,
+>(client: Client<Paths, Media, Markers>): PathBasedClient<Paths, Media, Markers>;
 
-export declare function createPathBasedClient<Paths extends {}, Media extends MediaType = MediaType>(
-  clientOptions?: ClientOptions,
-): PathBasedClient<Paths, Media>;
+export declare function createPathBasedClient<
+  Paths extends {},
+  Media extends MediaType = MediaType,
+  Markers extends boolean = false,
+>(clientOptions?: ClientOptions): PathBasedClient<Paths, Media, Markers>;
 
 /** Serialize primitive params to string */
 export declare function serializePrimitiveParam(

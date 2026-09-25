@@ -214,6 +214,7 @@ export type $Write<T> = { readonly $write: T };
  * Resolve type for reading (responses): strips $Write properties, unwraps $Read
  * - $Read<T> → T (readable), continues recursion
  * - $Write<T> → never (excluded from response)
+ * - readonly T[] / T[] → recursively resolve elements
  * - object → recursively resolve
  */
 export type Readable<T> =
@@ -223,14 +224,17 @@ export type Readable<T> =
       ? Readable<U>
       : T extends (infer E)[]
         ? Readable<E>[]
-        : T extends object
-          ? { [K in keyof T as NonNullable<T[K]> extends $Write<any> ? never : K]: Readable<T[K]> }
-          : T;
+        : T extends readonly (infer E)[]
+          ? readonly Readable<E>[]
+          : T extends object
+            ? { [K in keyof T as NonNullable<T[K]> extends $Write<any> ? never : K]: Readable<T[K]> }
+            : T;
 
 /**
  * Resolve type for writing (requests): strips $Read properties, unwraps $Write
  * - $Write<T> → T (writable), continues recursion
  * - $Read<T> → never (excluded from request)
+ * - readonly T[] / T[] → recursively resolve elements
  * - object → recursively resolve
  */
 export type Writable<T> =
@@ -240,8 +244,16 @@ export type Writable<T> =
       ? Writable<U>
       : T extends (infer E)[]
         ? Writable<E>[]
-        : T extends object
-          ? { [K in keyof T as NonNullable<T[K]> extends $Read<any> ? never : K]: Writable<T[K]> } & {
-              [K in keyof T as NonNullable<T[K]> extends $Read<any> ? K : never]?: never;
-            }
-          : T;
+        : T extends readonly (infer E)[]
+          ? readonly Writable<E>[]
+          : T extends object
+            ? { [K in keyof T as NonNullable<T[K]> extends $Read<any> ? never : K]: Writable<T[K]> } & {
+                [K in keyof T as NonNullable<T[K]> extends $Read<any> ? K : never]?: never;
+              }
+            : T;
+
+/** Apply Readable only when read/write markers are enabled */
+export type MaybeReadable<T, Markers extends boolean> = Markers extends true ? Readable<T> : T;
+
+/** Apply Writable only when read/write markers are enabled */
+export type MaybeWritable<T, Markers extends boolean> = Markers extends true ? Writable<T> : T;
