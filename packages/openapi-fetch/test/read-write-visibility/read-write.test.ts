@@ -1,6 +1,6 @@
 import { describe, expect, expectTypeOf, test } from "vitest";
 import { createObservedClient } from "../helpers.js";
-import type { paths } from "./schemas/read-write.js";
+import type { paths, Readable, Writable } from "./schemas/read-write.js";
 
 describe("readOnly/writeOnly", () => {
   describe("deeply nested $Read unwrapping through $Read<Object>", () => {
@@ -108,6 +108,39 @@ describe("readOnly/writeOnly", () => {
       // No error - name (normal) is available everywhere
       const name: string | undefined = data?.name;
       expect(name).toBe("Alice");
+    });
+  });
+
+  describe("branded primitive types", () => {
+    test("Readable preserves branded string in object property", () => {
+      type BrandedString = string & { __brand: "BrandedString" };
+      type Schema = { id: BrandedString; name: string };
+      // Without fix: Readable maps branded primitives through the object branch,
+      // expanding ALL string prototype methods and producing a type that is NOT
+      // assignable back to BrandedString. The assignment below would be a type error.
+      const result = {} as Readable<Schema>;
+      const _id: BrandedString = result.id;
+    });
+
+    test("Writable preserves branded string in object property", () => {
+      type BrandedString = string & { __brand: "BrandedString" };
+      type Schema = { id: BrandedString; name: string };
+      const result = {} as Writable<Schema>;
+      const _id: BrandedString = result.id;
+    });
+
+    test("Readable preserves branded number in object property", () => {
+      type UserId = number & { __brand: "UserId" };
+      type Schema = { id: UserId; name: string };
+      const result = {} as Readable<Schema>;
+      const _id: UserId = result.id;
+    });
+
+    test("Writable preserves branded number in object property", () => {
+      type UserId = number & { __brand: "UserId" };
+      type Schema = { id: UserId; name: string };
+      const result = {} as Writable<Schema>;
+      const _id: UserId = result.id;
     });
   });
 });
