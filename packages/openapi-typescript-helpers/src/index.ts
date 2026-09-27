@@ -210,6 +210,9 @@ export type $Read<T> = { readonly $read: T };
 /** Marker type for writeOnly properties (excluded from response bodies) */
 export type $Write<T> = { readonly $write: T };
 
+type HasReadMarker<T> = [NonNullable<T>] extends [never] ? false : NonNullable<T> extends $Read<any> ? true : false;
+type HasWriteMarker<T> = [NonNullable<T>] extends [never] ? false : NonNullable<T> extends $Write<any> ? true : false;
+
 /**
  * Resolve type for reading (responses): strips $Write properties, unwraps $Read
  * - $Read<T> → T (readable), continues recursion
@@ -224,7 +227,7 @@ export type Readable<T> =
       : T extends (infer E)[]
         ? Readable<E>[]
         : T extends object
-          ? { [K in keyof T as NonNullable<T[K]> extends $Write<any> ? never : K]: Readable<T[K]> }
+          ? { [K in keyof T as HasWriteMarker<T[K]> extends true ? never : K]: Readable<T[K]> }
           : T;
 
 /**
@@ -241,7 +244,7 @@ export type Writable<T> =
       : T extends (infer E)[]
         ? Writable<E>[]
         : T extends object
-          ? { [K in keyof T as NonNullable<T[K]> extends $Read<any> ? never : K]: Writable<T[K]> } & {
-              [K in keyof T as NonNullable<T[K]> extends $Read<any> ? K : never]?: never;
+          ? { [K in keyof T as HasReadMarker<T[K]> extends true ? never : K]: Writable<T[K]> } & {
+              [K in keyof T as HasReadMarker<T[K]> extends true ? K : never]?: never;
             }
           : T;
