@@ -456,10 +456,14 @@ describe("client", () => {
             "/string-array",
             {},
             {
-              select: (data) => ({
-                originalData: data,
-                customData: 1,
-              }),
+              select: (data) => {
+                expectTypeOf(data).toEqualTypeOf<string[]>();
+
+                return {
+                  originalData: data,
+                  customData: 1,
+                };
+              },
             },
           ),
         {

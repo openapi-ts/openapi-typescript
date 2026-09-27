@@ -86,22 +86,28 @@ export type UseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>,
   Path extends PathsWithMethod<Paths, Method>,
   Init extends MaybeOptionalInit<Paths[Path], Method>,
   Response extends Required<FetchResponse<Paths[Path][Method], Init, Media>>, // note: Required is used to avoid repeating NonNullable in UseQuery types
-  Options extends Omit<
-    UseQueryOptions<
-      Response["data"],
-      Response["error"],
-      InferSelectReturnType<Response["data"], Options["select"]>,
-      QueryKey<Paths, Method, Path>
-    >,
-    "queryKey" | "queryFn"
-  >,
+  SelectData = Response["data"],
 >(
   method: Method,
   url: Path,
   ...[init, options, queryClient]: RequiredKeysOf<Init> extends never
-    ? [InitWithUnknowns<Init>?, Options?, QueryClient?]
-    : [InitWithUnknowns<Init>, Options?, QueryClient?]
-) => UseQueryResult<InferSelectReturnType<Response["data"], Options["select"]>, Response["error"]>;
+    ? [
+        InitWithUnknowns<Init>?,
+        Omit<
+          UseQueryOptions<Response["data"], Response["error"], SelectData, QueryKey<Paths, Method, Path>>,
+          "queryKey" | "queryFn"
+        >?,
+        QueryClient?,
+      ]
+    : [
+        InitWithUnknowns<Init>,
+        Omit<
+          UseQueryOptions<Response["data"], Response["error"], SelectData, QueryKey<Paths, Method, Path>>,
+          "queryKey" | "queryFn"
+        >?,
+        QueryClient?,
+      ]
+) => UseQueryResult<SelectData, Response["error"]>;
 
 export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
