@@ -478,6 +478,18 @@ describe("client", () => {
       >();
     });
 
+    it("should reject query options passed as request init", () => {
+      const fetchClient = createFetchClient<minimalGetPaths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      // @ts-expect-error Query options belong in the fourth argument.
+      const invalidQuery = () => client.useQuery("get", "/foo", { retry: false });
+      const customInit = () => client.useQuery("get", "/foo", { customRequestOption: true });
+      expectTypeOf(customInit).toBeFunction();
+
+      expectTypeOf(invalidQuery).toBeFunction();
+    });
+
     it("passes abort signal to fetch", async () => {
       let signalPassedToFetch: AbortSignal | undefined;
 
