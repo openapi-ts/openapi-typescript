@@ -996,7 +996,7 @@ type FlattenedDeepRequired<T> = {
 type ReadonlyArray<T> = [
     Exclude<T, undefined>
 ] extends [
-    unknown[]
+    readonly unknown[]
 ] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
 export const pathsUrlGetParametersQueryStatusValues: ReadonlyArray<FlattenedDeepRequired<paths>["/url"]["get"]["parameters"]["query"]["status"]> = ["active", "inactive"];
 export const statusValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["Status"]> = ["active", "inactive"];
@@ -1051,7 +1051,7 @@ type FlattenedDeepRequired<T> = {
 type ReadonlyArray<T> = [
     Exclude<T, undefined>
 ] extends [
-    unknown[]
+    readonly unknown[]
 ] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
 export const complexEditKeyDtoStatesValues: ReadonlyArray<FlattenedDeepRequired<components>["schemas"]["ComplexEditKeyDto"]["states"][string]> = ["TRANSLATED", "REVIEWED"];
 export type operations = Record<string, never>;`,
@@ -1230,7 +1230,7 @@ type FlattenedDeepRequired<T> = {
 type ReadonlyArray<T> = [
     Exclude<T, undefined>
 ] extends [
-    unknown[]
+    readonly unknown[]
 ] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
 export const pathsAnalyticsDataGetResponses400ContentApplicationJsonAnyOf0MessageValues: ReadonlyArray<Extract<FlattenedDeepRequired<paths>["/analytics/data"]["get"]["responses"]["400"]["content"]["application/json"], {
     message: unknown;
@@ -1462,7 +1462,7 @@ type FlattenedDeepRequired<T> = {
 type ReadonlyArray<T> = [
     Exclude<T, undefined>
 ] extends [
-    unknown[]
+    readonly unknown[]
 ] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
 export const pathsTestGetRequestBodyContentApplicationJsonStatusValues: ReadonlyArray<FlattenedDeepRequired<paths>["/test"]["get"]["requestBody"]["content"]["application/json"]["status"]> = ["active", "inactive"];
 export type operations = Record<string, never>;`,
@@ -1557,7 +1557,7 @@ type FlattenedDeepRequired<T> = {
 type ReadonlyArray<T> = [
     Exclude<T, undefined>
 ] extends [
-    unknown[]
+    readonly unknown[]
 ] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
 export const resourceItemsOneOf0TypeValues: ReadonlyArray<Extract<FlattenedDeepRequired<components>["schemas"]["Resource"]["items"], {
     type: unknown;
@@ -1658,7 +1658,7 @@ type FlattenedDeepRequired<T> = {
 type ReadonlyArray<T> = [
     Exclude<T, undefined>
 ] extends [
-    unknown[]
+    readonly unknown[]
 ] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
 export const resourceItemsOneOf0NestedTypeValues: ReadonlyArray<Extract<Extract<FlattenedDeepRequired<components>["schemas"]["Resource"]["items"], {
     nested: unknown;
@@ -1774,7 +1774,7 @@ type FlattenedDeepRequired<T> = {
 type ReadonlyArray<T> = [
     Exclude<T, undefined>
 ] extends [
-    unknown[]
+    readonly unknown[]
 ] ? Readonly<Exclude<T, undefined>> : Readonly<Exclude<T, undefined>[]>;
 export const resourceOuterOneOf0KindValues: ReadonlyArray<Extract<FlattenedDeepRequired<components>["schemas"]["Resource"]["outer"], {
     kind: unknown;
