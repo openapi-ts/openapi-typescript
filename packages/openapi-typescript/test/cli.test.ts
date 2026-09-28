@@ -136,6 +136,16 @@ describe("CLI", () => {
   });
 
   describe("Redocly config", () => {
+    test("--no-lint skips styleguide errors", async () => {
+      const fixtureDir = new URL("./fixtures/redocly-lint-error/", import.meta.url);
+      const outputFile = new URL("./output/openapi.ts", fixtureDir);
+      fs.rmSync(outputFile, { force: true });
+      await execa(cmd, ["--redocly", "test/fixtures/redocly-lint-error/redocly.yaml", "--no-lint"], {
+        cwd,
+      });
+      expect(fs.existsSync(outputFile)).toBe(true);
+      expect(fs.readFileSync(outputFile, "utf8")).toContain("export interface paths");
+    });
     test.skipIf(os.platform() === "win32")("automatic config", async () => {
       const cwd = new URL("./fixtures/redocly/", import.meta.url);
 
