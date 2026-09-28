@@ -28,6 +28,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/1-clicks/kubernetes": {
         parameters: {
@@ -51,6 +52,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/account": {
         parameters: {
@@ -71,6 +73,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/account/keys": {
         parameters: {
@@ -95,6 +98,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/account/keys/{ssh_key_identifier}": {
         parameters: {
@@ -125,6 +129,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/actions": {
         parameters: {
@@ -145,6 +150,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/actions/{action_id}": {
         parameters: {
@@ -165,6 +171,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps": {
         parameters: {
@@ -189,6 +196,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/{id}": {
         parameters: {
@@ -217,6 +225,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/{app_id}/restart": {
         parameters: {
@@ -237,6 +246,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/{app_id}/components/{component_name}/logs": {
         parameters: {
@@ -257,6 +267,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/{app_id}/components/{component_name}/exec": {
         parameters: {
@@ -277,6 +288,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/{app_id}/deployments": {
         parameters: {
@@ -301,6 +313,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/{app_id}/deployments/{deployment_id}": {
         parameters: {
@@ -321,6 +334,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/{app_id}/deployments/{deployment_id}/cancel": {
         parameters: {
@@ -341,6 +355,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/{app_id}/deployments/{deployment_id}/components/{component_name}/logs": {
         parameters: {
@@ -361,6 +376,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/{app_id}/deployments/{deployment_id}/logs": {
         parameters: {
@@ -381,6 +397,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/{app_id}/deployments/{deployment_id}/components/{component_name}/exec": {
         parameters: {
@@ -401,6 +418,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/{app_id}/logs": {
         parameters: {
@@ -421,6 +439,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/tiers/instance_sizes": {
         parameters: {
@@ -441,6 +460,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/tiers/instance_sizes/{slug}": {
         parameters: {
@@ -461,6 +481,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/regions": {
         parameters: {
@@ -481,6 +502,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/propose": {
         parameters: {
@@ -501,6 +523,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/{app_id}/alerts": {
         parameters: {
@@ -521,6 +544,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/{app_id}/alerts/{alert_id}/destinations": {
         parameters: {
@@ -541,6 +565,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/{app_id}/rollback": {
         parameters: {
@@ -567,6 +592,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/{app_id}/rollback/validate": {
         parameters: {
@@ -590,6 +616,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/{app_id}/rollback/commit": {
         parameters: {
@@ -610,6 +637,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/{app_id}/rollback/revert": {
         parameters: {
@@ -631,6 +659,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/{app_id}/metrics/bandwidth_daily": {
         parameters: {
@@ -651,6 +680,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/apps/metrics/bandwidth_daily": {
         parameters: {
@@ -671,6 +701,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/cdn/endpoints": {
         parameters: {
@@ -701,6 +732,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/cdn/endpoints/{cdn_id}": {
         parameters: {
@@ -735,6 +767,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/cdn/endpoints/{cdn_id}/cache": {
         parameters: {
@@ -763,6 +796,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/certificates": {
         parameters: {
@@ -795,6 +829,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/certificates/{certificate_id}": {
         parameters: {
@@ -820,6 +855,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/customers/my/balance": {
         parameters: {
@@ -840,6 +876,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/customers/my/billing_history": {
         parameters: {
@@ -860,6 +897,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/customers/my/invoices": {
         parameters: {
@@ -880,6 +918,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/customers/my/invoices/{invoice_uuid}": {
         parameters: {
@@ -900,6 +939,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/customers/my/invoices/{invoice_uuid}/csv": {
         parameters: {
@@ -920,6 +960,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/customers/my/invoices/{invoice_uuid}/pdf": {
         parameters: {
@@ -940,6 +981,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/customers/my/invoices/{invoice_uuid}/summary": {
         parameters: {
@@ -960,6 +1002,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/options": {
         parameters: {
@@ -981,6 +1024,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases": {
         parameters: {
@@ -1017,6 +1061,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}": {
         parameters: {
@@ -1048,6 +1093,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/config": {
         parameters: {
@@ -1076,6 +1122,7 @@ export interface paths {
          */
         patch: operations["databases_patch_config"];
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/ca": {
         parameters: {
@@ -1100,6 +1147,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/online-migration": {
         parameters: {
@@ -1124,6 +1172,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/online-migration/{migration_id}": {
         parameters: {
@@ -1146,6 +1195,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/migrate": {
         parameters: {
@@ -1173,6 +1223,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/resize": {
         parameters: {
@@ -1194,6 +1245,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/firewall": {
         parameters: {
@@ -1220,6 +1272,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/maintenance": {
         parameters: {
@@ -1241,6 +1294,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/install_update": {
         parameters: {
@@ -1262,6 +1316,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/backups": {
         parameters: {
@@ -1284,6 +1339,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/replicas": {
         parameters: {
@@ -1316,6 +1372,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/events": {
         parameters: {
@@ -1339,6 +1396,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/replicas/{replica_name}": {
         parameters: {
@@ -1371,6 +1429,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/replicas/{replica_name}/promote": {
         parameters: {
@@ -1395,6 +1454,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/users": {
         parameters: {
@@ -1440,6 +1500,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/users/{username}": {
         parameters: {
@@ -1493,6 +1554,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/users/{username}/reset_auth": {
         parameters: {
@@ -1521,6 +1583,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/dbs": {
         parameters: {
@@ -1557,6 +1620,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/dbs/{database_name}": {
         parameters: {
@@ -1593,6 +1657,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/pools": {
         parameters: {
@@ -1627,6 +1692,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/pools/{pool_name}": {
         parameters: {
@@ -1660,6 +1726,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/eviction_policy": {
         parameters: {
@@ -1685,6 +1752,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/sql_mode": {
         parameters: {
@@ -1711,6 +1779,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/upgrade": {
         parameters: {
@@ -1732,6 +1801,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/topics": {
         parameters: {
@@ -1762,6 +1832,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/topics/{topic_name}": {
         parameters: {
@@ -1800,6 +1871,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/logsink": {
         parameters: {
@@ -1826,6 +1898,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/logsink/{logsink_id}": {
         parameters: {
@@ -1857,6 +1930,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/metrics/credentials": {
         parameters: {
@@ -1881,6 +1955,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/indexes": {
         parameters: {
@@ -1904,6 +1979,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/databases/{database_cluster_uuid}/indexes/{index_name}": {
         parameters: {
@@ -1928,6 +2004,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/domains": {
         parameters: {
@@ -1955,6 +2032,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/domains/{domain_name}": {
         parameters: {
@@ -1979,6 +2057,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/domains/{domain_name}/records": {
         parameters: {
@@ -2011,6 +2090,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/domains/{domain_name}/records/{domain_record_id}": {
         parameters: {
@@ -2057,6 +2137,7 @@ export interface paths {
          */
         patch: operations["domains_patch_record"];
         trace?: never;
+        query?: never;
     };
     "/v2/droplets": {
         parameters: {
@@ -2130,6 +2211,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/{droplet_id}": {
         parameters: {
@@ -2158,6 +2240,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/{droplet_id}/backups": {
         parameters: {
@@ -2183,6 +2266,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/{droplet_id}/backups/policy": {
         parameters: {
@@ -2204,6 +2288,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/backups/policies": {
         parameters: {
@@ -2225,6 +2310,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/backups/supported_policies": {
         parameters: {
@@ -2246,6 +2332,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/{droplet_id}/snapshots": {
         parameters: {
@@ -2271,6 +2358,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/{droplet_id}/actions": {
         parameters: {
@@ -2321,6 +2409,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/actions": {
         parameters: {
@@ -2354,6 +2443,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/{droplet_id}/actions/{action_id}": {
         parameters: {
@@ -2378,6 +2468,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/{droplet_id}/kernels": {
         parameters: {
@@ -2403,6 +2494,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/{droplet_id}/firewalls": {
         parameters: {
@@ -2428,6 +2520,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/{droplet_id}/neighbors": {
         parameters: {
@@ -2455,6 +2548,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/{droplet_id}/destroy_with_associated_resources": {
         parameters: {
@@ -2481,6 +2575,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/{droplet_id}/destroy_with_associated_resources/selective": {
         parameters: {
@@ -2511,6 +2606,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/{droplet_id}/destroy_with_associated_resources/dangerous": {
         parameters: {
@@ -2540,6 +2636,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/{droplet_id}/destroy_with_associated_resources/status": {
         parameters: {
@@ -2562,6 +2659,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/{droplet_id}/destroy_with_associated_resources/retry": {
         parameters: {
@@ -2589,6 +2687,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/autoscale": {
         parameters: {
@@ -2617,6 +2716,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/autoscale/{autoscale_pool_id}": {
         parameters: {
@@ -2650,6 +2750,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/autoscale/{autoscale_pool_id}/dangerous": {
         parameters: {
@@ -2671,6 +2772,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/autoscale/{autoscale_pool_id}/members": {
         parameters: {
@@ -2694,6 +2796,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/droplets/autoscale/{autoscale_pool_id}/history": {
         parameters: {
@@ -2717,6 +2820,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/firewalls": {
         parameters: {
@@ -2742,6 +2846,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/firewalls/{firewall_id}": {
         parameters: {
@@ -2777,6 +2882,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/firewalls/{firewall_id}/droplets": {
         parameters: {
@@ -2813,6 +2919,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/firewalls/{firewall_id}/tags": {
         parameters: {
@@ -2849,6 +2956,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/firewalls/{firewall_id}/rules": {
         parameters: {
@@ -2887,6 +2995,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/floating_ips": {
         parameters: {
@@ -2918,6 +3027,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/floating_ips/{floating_ip}": {
         parameters: {
@@ -2946,6 +3056,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/floating_ips/{floating_ip}/actions": {
         parameters: {
@@ -2977,6 +3088,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/floating_ips/{floating_ip}/actions/{action_id}": {
         parameters: {
@@ -2997,6 +3109,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/functions/namespaces": {
         parameters: {
@@ -3021,6 +3134,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/functions/namespaces/{namespace_id}": {
         parameters: {
@@ -3047,6 +3161,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/functions/namespaces/{namespace_id}/triggers": {
         parameters: {
@@ -3071,6 +3186,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/functions/namespaces/{namespace_id}/triggers/{trigger_name}": {
         parameters: {
@@ -3101,6 +3217,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/images": {
         parameters: {
@@ -3153,6 +3270,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/images/{image_id}": {
         parameters: {
@@ -3184,6 +3302,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/images/{image_id}/actions": {
         parameters: {
@@ -3220,6 +3339,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/images/{image_id}/actions/{action_id}": {
         parameters: {
@@ -3240,6 +3360,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/kubernetes/clusters": {
         parameters: {
@@ -3273,6 +3394,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}": {
         parameters: {
@@ -3308,6 +3430,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/destroy_with_associated_resources": {
         parameters: {
@@ -3328,6 +3451,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/destroy_with_associated_resources/selective": {
         parameters: {
@@ -3357,6 +3481,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/destroy_with_associated_resources/dangerous": {
         parameters: {
@@ -3379,6 +3504,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/kubeconfig": {
         parameters: {
@@ -3415,6 +3541,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/credentials": {
         parameters: {
@@ -3450,6 +3577,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/upgrades": {
         parameters: {
@@ -3472,6 +3600,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/upgrade": {
         parameters: {
@@ -3497,6 +3626,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/node_pools": {
         parameters: {
@@ -3524,6 +3654,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/node_pools/{node_pool_id}": {
         parameters: {
@@ -3560,6 +3691,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/node_pools/{node_pool_id}/nodes/{node_id}": {
         parameters: {
@@ -3589,6 +3721,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/node_pools/{node_pool_id}/recycle": {
         parameters: {
@@ -3612,6 +3745,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/user": {
         parameters: {
@@ -3633,6 +3767,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/kubernetes/options": {
         parameters: {
@@ -3653,6 +3788,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/kubernetes/clusters/{cluster_id}/clusterlint": {
         parameters: {
@@ -3693,6 +3829,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/kubernetes/registry": {
         parameters: {
@@ -3717,6 +3854,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/load_balancers": {
         parameters: {
@@ -3753,6 +3891,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/load_balancers/{lb_id}": {
         parameters: {
@@ -3792,6 +3931,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/load_balancers/{lb_id}/cache": {
         parameters: {
@@ -3816,6 +3956,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/load_balancers/{lb_id}/droplets": {
         parameters: {
@@ -3855,6 +3996,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/load_balancers/{lb_id}/forwarding_rules": {
         parameters: {
@@ -3893,6 +4035,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/alerts": {
         parameters: {
@@ -3917,6 +4060,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/alerts/{alert_uuid}": {
         parameters: {
@@ -3945,6 +4089,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/droplet/bandwidth": {
         parameters: {
@@ -3966,6 +4111,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/droplet/cpu": {
         parameters: {
@@ -3986,6 +4132,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/droplet/filesystem_free": {
         parameters: {
@@ -4006,6 +4153,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/droplet/filesystem_size": {
         parameters: {
@@ -4026,6 +4174,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/droplet/load_1": {
         parameters: {
@@ -4046,6 +4195,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/droplet/load_5": {
         parameters: {
@@ -4066,6 +4216,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/droplet/load_15": {
         parameters: {
@@ -4086,6 +4237,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/droplet/memory_cached": {
         parameters: {
@@ -4106,6 +4258,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/droplet/memory_free": {
         parameters: {
@@ -4126,6 +4279,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/droplet/memory_total": {
         parameters: {
@@ -4146,6 +4300,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/droplet/memory_available": {
         parameters: {
@@ -4166,6 +4321,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/apps/memory_percentage": {
         parameters: {
@@ -4186,6 +4342,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/apps/cpu_percentage": {
         parameters: {
@@ -4206,6 +4363,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/apps/restart_count": {
         parameters: {
@@ -4226,6 +4384,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/frontend_connections_current": {
         parameters: {
@@ -4246,6 +4405,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/frontend_connections_limit": {
         parameters: {
@@ -4266,6 +4426,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/frontend_cpu_utilization": {
         parameters: {
@@ -4286,6 +4447,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/frontend_firewall_dropped_bytes": {
         parameters: {
@@ -4306,6 +4468,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/frontend_firewall_dropped_packets": {
         parameters: {
@@ -4326,6 +4489,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/frontend_http_responses": {
         parameters: {
@@ -4346,6 +4510,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/frontend_http_requests_per_second": {
         parameters: {
@@ -4366,6 +4531,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/frontend_network_throughput_http": {
         parameters: {
@@ -4386,6 +4552,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/frontend_network_throughput_udp": {
         parameters: {
@@ -4406,6 +4573,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/frontend_network_throughput_tcp": {
         parameters: {
@@ -4426,6 +4594,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/frontend_nlb_tcp_network_throughput": {
         parameters: {
@@ -4446,6 +4615,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/frontend_nlb_udp_network_throughput": {
         parameters: {
@@ -4466,6 +4636,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/frontend_tls_connections_current": {
         parameters: {
@@ -4486,6 +4657,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/frontend_tls_connections_limit": {
         parameters: {
@@ -4506,6 +4678,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/frontend_tls_connections_exceeding_rate_limit": {
         parameters: {
@@ -4526,6 +4699,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/droplets_http_session_duration_avg": {
         parameters: {
@@ -4546,6 +4720,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/droplets_http_session_duration_50p": {
         parameters: {
@@ -4566,6 +4741,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/droplets_http_session_duration_95p": {
         parameters: {
@@ -4586,6 +4762,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/droplets_http_response_time_avg": {
         parameters: {
@@ -4606,6 +4783,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/droplets_http_response_time_50p": {
         parameters: {
@@ -4626,6 +4804,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/droplets_http_response_time_95p": {
         parameters: {
@@ -4646,6 +4825,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/droplets_http_response_time_99p": {
         parameters: {
@@ -4666,6 +4846,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/droplets_queue_size": {
         parameters: {
@@ -4686,6 +4867,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/droplets_http_responses": {
         parameters: {
@@ -4706,6 +4888,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/droplets_connections": {
         parameters: {
@@ -4726,6 +4909,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/droplets_health_checks": {
         parameters: {
@@ -4746,6 +4930,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/load_balancer/droplets_downtime": {
         parameters: {
@@ -4766,6 +4951,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/droplet_autoscale/current_instances": {
         parameters: {
@@ -4786,6 +4972,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/droplet_autoscale/target_instances": {
         parameters: {
@@ -4806,6 +4993,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/droplet_autoscale/current_cpu_utilization": {
         parameters: {
@@ -4826,6 +5014,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/droplet_autoscale/target_cpu_utilization": {
         parameters: {
@@ -4846,6 +5035,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/droplet_autoscale/current_memory_utilization": {
         parameters: {
@@ -4866,6 +5056,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/metrics/droplet_autoscale/target_memory_utilization": {
         parameters: {
@@ -4886,6 +5077,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/sinks/destinations": {
         parameters: {
@@ -4910,6 +5102,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/sinks/destinations/{destination_uuid}": {
         parameters: {
@@ -4938,6 +5131,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/sinks": {
         parameters: {
@@ -4963,6 +5157,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/monitoring/sinks/{sink_uuid}": {
         parameters: {
@@ -4987,6 +5182,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/projects": {
         parameters: {
@@ -5011,6 +5207,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/projects/default": {
         parameters: {
@@ -5039,6 +5236,7 @@ export interface paths {
          */
         patch: operations["projects_patch_default"];
         trace?: never;
+        query?: never;
     };
     "/v2/projects/{project_id}": {
         parameters: {
@@ -5076,6 +5274,7 @@ export interface paths {
          */
         patch: operations["projects_patch"];
         trace?: never;
+        query?: never;
     };
     "/v2/projects/{project_id}/resources": {
         parameters: {
@@ -5100,6 +5299,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/projects/default/resources": {
         parameters: {
@@ -5124,6 +5324,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/regions": {
         parameters: {
@@ -5145,6 +5346,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/registry": {
         parameters: {
@@ -5177,6 +5379,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/registry/subscription": {
         parameters: {
@@ -5201,6 +5404,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/registry/docker-credentials": {
         parameters: {
@@ -5242,6 +5446,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/registry/validate-name": {
         parameters: {
@@ -5267,6 +5472,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/registry/{registry_name}/repositories": {
         parameters: {
@@ -5291,6 +5497,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/registry/{registry_name}/repositoriesV2": {
         parameters: {
@@ -5311,6 +5518,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/registry/{registry_name}/repositories/{repository_name}/tags": {
         parameters: {
@@ -5337,6 +5545,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/registry/{registry_name}/repositories/{repository_name}/tags/{repository_tag}": {
         parameters: {
@@ -5366,6 +5575,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/registry/{registry_name}/repositories/{repository_name}/digests": {
         parameters: {
@@ -5392,6 +5602,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/registry/{registry_name}/repositories/{repository_name}/digests/{manifest_digest}": {
         parameters: {
@@ -5421,6 +5632,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/registry/{registry_name}/garbage-collection": {
         parameters: {
@@ -5465,6 +5677,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/registry/{registry_name}/garbage-collections": {
         parameters: {
@@ -5485,6 +5698,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/registry/{registry_name}/garbage-collection/{garbage_collection_uuid}": {
         parameters: {
@@ -5505,6 +5719,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/registry/options": {
         parameters: {
@@ -5528,6 +5743,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/reports/droplet_neighbors_ids": {
         parameters: {
@@ -5555,6 +5771,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/reserved_ips": {
         parameters: {
@@ -5586,6 +5803,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/reserved_ips/{reserved_ip}": {
         parameters: {
@@ -5614,6 +5832,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/reserved_ips/{reserved_ip}/actions": {
         parameters: {
@@ -5645,6 +5864,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/reserved_ips/{reserved_ip}/actions/{action_id}": {
         parameters: {
@@ -5665,6 +5885,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/sizes": {
         parameters: {
@@ -5686,6 +5907,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/snapshots": {
         parameters: {
@@ -5725,6 +5947,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/snapshots/{snapshot_id}": {
         parameters: {
@@ -5758,6 +5981,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/tags": {
         parameters: {
@@ -5782,6 +6006,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/tags/{tag_id}": {
         parameters: {
@@ -5806,6 +6031,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/tags/{tag_id}/resources": {
         parameters: {
@@ -5832,6 +6058,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/volumes": {
         parameters: {
@@ -5869,6 +6096,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/volumes/actions": {
         parameters: {
@@ -5916,6 +6144,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/volumes/snapshots/{snapshot_id}": {
         parameters: {
@@ -5944,6 +6173,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/volumes/{volume_id}": {
         parameters: {
@@ -5969,6 +6199,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/volumes/{volume_id}/actions": {
         parameters: {
@@ -6028,6 +6259,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/volumes/{volume_id}/actions/{action_id}": {
         parameters: {
@@ -6048,6 +6280,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/volumes/{volume_id}/snapshots": {
         parameters: {
@@ -6072,6 +6305,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/vpcs": {
         parameters: {
@@ -6101,6 +6335,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/vpcs/{vpc_id}": {
         parameters: {
@@ -6140,6 +6375,7 @@ export interface paths {
          */
         patch: operations["vpcs_patch"];
         trace?: never;
+        query?: never;
     };
     "/v2/vpcs/{vpc_id}/members": {
         parameters: {
@@ -6165,6 +6401,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/vpcs/{vpc_id}/peerings": {
         parameters: {
@@ -6191,6 +6428,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/vpcs/{vpc_id}/peerings/{vpc_peering_id}": {
         parameters: {
@@ -6213,6 +6451,7 @@ export interface paths {
          */
         patch: operations["vpcs_patch_peerings"];
         trace?: never;
+        query?: never;
     };
     "/v2/vpc_peerings": {
         parameters: {
@@ -6240,6 +6479,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/vpc_peerings/{vpc_peering_id}": {
         parameters: {
@@ -6268,6 +6508,7 @@ export interface paths {
          */
         patch: operations["vpcPeerings_patch"];
         trace?: never;
+        query?: never;
     };
     "/v2/uptime/checks": {
         parameters: {
@@ -6293,6 +6534,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/uptime/checks/{check_id}": {
         parameters: {
@@ -6325,6 +6567,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/uptime/checks/{check_id}/state": {
         parameters: {
@@ -6345,6 +6588,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/uptime/checks/{check_id}/alerts": {
         parameters: {
@@ -6370,6 +6614,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/uptime/checks/{check_id}/alerts/{alert_id}": {
         parameters: {
@@ -6399,6 +6644,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/agents": {
         parameters: {
@@ -6423,6 +6669,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/agents/{agent_uuid}/api_keys": {
         parameters: {
@@ -6447,6 +6694,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/agents/{agent_uuid}/api_keys/{api_key_uuid}": {
         parameters: {
@@ -6471,6 +6719,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/agents/{agent_uuid}/api_keys/{api_key_uuid}/regenerate": {
         parameters: {
@@ -6491,6 +6740,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/agents/{agent_uuid}/functions": {
         parameters: {
@@ -6511,6 +6761,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/agents/{agent_uuid}/functions/{function_uuid}": {
         parameters: {
@@ -6535,6 +6786,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/agents/{agent_uuid}/knowledge_bases/{knowledge_base_uuid}": {
         parameters: {
@@ -6559,6 +6811,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/agents/{parent_agent_uuid}/child_agents/{child_agent_uuid}": {
         parameters: {
@@ -6587,6 +6840,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/agents/{uuid}": {
         parameters: {
@@ -6615,6 +6869,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/agents/{uuid}/child_agents": {
         parameters: {
@@ -6635,6 +6890,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/agents/{uuid}/deployment_visibility": {
         parameters: {
@@ -6655,6 +6911,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/indexing_jobs": {
         parameters: {
@@ -6679,6 +6936,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/indexing_jobs/{indexing_job_uuid}/data_sources": {
         parameters: {
@@ -6699,6 +6957,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/indexing_jobs/{uuid}": {
         parameters: {
@@ -6719,6 +6978,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/indexing_jobs/{uuid}/cancel": {
         parameters: {
@@ -6739,6 +6999,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/knowledge_bases": {
         parameters: {
@@ -6763,6 +7024,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/knowledge_bases/{knowledge_base_uuid}/data_sources": {
         parameters: {
@@ -6787,6 +7049,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/knowledge_bases/{knowledge_base_uuid}/data_sources/{data_source_uuid}": {
         parameters: {
@@ -6807,6 +7070,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/knowledge_bases/{uuid}": {
         parameters: {
@@ -6835,6 +7099,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/models": {
         parameters: {
@@ -6855,6 +7120,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/v2/gen-ai/regions": {
         parameters: {
@@ -6875,6 +7141,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;

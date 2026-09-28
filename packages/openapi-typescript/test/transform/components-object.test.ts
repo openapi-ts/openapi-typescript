@@ -155,6 +155,7 @@ describe("transformComponentsObject", () => {
             head?: never;
             patch?: never;
             trace?: never;
+            query?: never;
         };
     };
 }`,
@@ -406,6 +407,7 @@ describe("transformComponentsObject", () => {
             readonly head?: never;
             readonly patch?: never;
             readonly trace?: never;
+            readonly query?: never;
         };
     };
 }`,
@@ -679,6 +681,7 @@ describe("transformComponentsObject", () => {
             head?: never;
             patch?: never;
             trace?: never;
+            query?: never;
         };
     };
 }

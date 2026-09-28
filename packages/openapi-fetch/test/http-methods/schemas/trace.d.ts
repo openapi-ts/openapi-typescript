@@ -51,6 +51,7 @@ export interface paths {
                 };
             };
         };
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;

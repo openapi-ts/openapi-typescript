@@ -21,6 +21,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/admin/hooks/{hook_id}": {
         parameters: {
@@ -43,6 +44,7 @@ export interface paths {
          */
         patch: operations["enterprise-admin/update-global-webhook"];
         trace?: never;
+        query?: never;
     };
     "/admin/hooks/{hook_id}/pings": {
         parameters: {
@@ -63,6 +65,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/admin/keys": {
         parameters: {
@@ -80,6 +83,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/admin/keys/{key_ids}": {
         parameters: {
@@ -97,6 +101,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/admin/ldap/teams/{team_id}/mapping": {
         parameters: {
@@ -117,6 +122,7 @@ export interface paths {
          */
         patch: operations["enterprise-admin/update-ldap-mapping-for-team"];
         trace?: never;
+        query?: never;
     };
     "/admin/ldap/teams/{team_id}/sync": {
         parameters: {
@@ -137,6 +143,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/admin/ldap/users/{username}/mapping": {
         parameters: {
@@ -154,6 +161,7 @@ export interface paths {
         /** Update LDAP mapping for a user */
         patch: operations["enterprise-admin/update-ldap-mapping-for-user"];
         trace?: never;
+        query?: never;
     };
     "/admin/ldap/users/{username}/sync": {
         parameters: {
@@ -174,6 +182,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/admin/organizations": {
         parameters: {
@@ -191,6 +200,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/admin/organizations/{org}": {
         parameters: {
@@ -208,6 +218,7 @@ export interface paths {
         /** Update an organization name */
         patch: operations["enterprise-admin/update-org-name"];
         trace?: never;
+        query?: never;
     };
     "/admin/pre-receive-environments": {
         parameters: {
@@ -226,6 +237,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/admin/pre-receive-environments/{pre_receive_environment_id}": {
         parameters: {
@@ -257,6 +269,7 @@ export interface paths {
          */
         patch: operations["enterprise-admin/update-pre-receive-environment"];
         trace?: never;
+        query?: never;
     };
     "/admin/pre-receive-environments/{pre_receive_environment_id}/downloads": {
         parameters: {
@@ -284,6 +297,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/admin/pre-receive-environments/{pre_receive_environment_id}/downloads/latest": {
         parameters: {
@@ -304,6 +318,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/admin/pre-receive-hooks": {
         parameters: {
@@ -322,6 +337,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/admin/pre-receive-hooks/{pre_receive_hook_id}": {
         parameters: {
@@ -341,6 +357,7 @@ export interface paths {
         /** Update a pre-receive hook */
         patch: operations["enterprise-admin/update-pre-receive-hook"];
         trace?: never;
+        query?: never;
     };
     "/admin/tokens": {
         parameters: {
@@ -361,6 +378,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/admin/tokens/{token_id}": {
         parameters: {
@@ -381,6 +399,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/admin/users": {
         parameters: {
@@ -405,6 +424,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/admin/users/{username}": {
         parameters: {
@@ -428,6 +448,7 @@ export interface paths {
         /** Update the username for a user */
         patch: operations["enterprise-admin/update-username-for-user"];
         trace?: never;
+        query?: never;
     };
     "/admin/users/{username}/authorizations": {
         parameters: {
@@ -446,6 +467,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/app/installations": {
         parameters: {
@@ -468,6 +490,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/app/installations/{installation_id}": {
         parameters: {
@@ -490,6 +513,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/app/installations/{installation_id}/access_tokens": {
         parameters: {
@@ -512,6 +536,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/applications/grants": {
         parameters: {
@@ -535,6 +560,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/applications/grants/{grant_id}": {
         parameters: {
@@ -563,6 +589,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/applications/{client_id}/token": {
         parameters: {
@@ -587,6 +614,7 @@ export interface paths {
          */
         patch: operations["apps/reset-token"];
         trace?: never;
+        query?: never;
     };
     "/applications/{client_id}/token/scoped": {
         parameters: {
@@ -607,6 +635,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/authorizations": {
         parameters: {
@@ -643,6 +672,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/authorizations/clients/{client_id}": {
         parameters: {
@@ -672,6 +702,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/authorizations/clients/{client_id}/{fingerprint}": {
         parameters: {
@@ -699,6 +730,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/authorizations/{authorization_id}": {
         parameters: {
@@ -734,6 +766,7 @@ export interface paths {
          */
         patch: operations["oauth-authorizations/update-authorization"];
         trace?: never;
+        query?: never;
     };
     "/enterprise/announcement": {
         parameters: {
@@ -762,6 +795,7 @@ export interface paths {
          */
         patch: operations["enterprise-admin/set-announcement"];
         trace?: never;
+        query?: never;
     };
     "/enterprise/settings/license": {
         parameters: {
@@ -779,6 +813,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprise/stats/all": {
         parameters: {
@@ -796,6 +831,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprise/stats/comments": {
         parameters: {
@@ -813,6 +849,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprise/stats/gists": {
         parameters: {
@@ -830,6 +867,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprise/stats/hooks": {
         parameters: {
@@ -847,6 +885,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprise/stats/issues": {
         parameters: {
@@ -864,6 +903,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprise/stats/milestones": {
         parameters: {
@@ -881,6 +921,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprise/stats/orgs": {
         parameters: {
@@ -898,6 +939,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprise/stats/pages": {
         parameters: {
@@ -915,6 +957,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprise/stats/pulls": {
         parameters: {
@@ -932,6 +975,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprise/stats/repos": {
         parameters: {
@@ -949,6 +993,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprise/stats/users": {
         parameters: {
@@ -966,6 +1011,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprises/{enterprise}/actions/cache/usage-policy": {
         parameters: {
@@ -994,6 +1040,7 @@ export interface paths {
          */
         patch: operations["actions/set-actions-cache-usage-policy-for-enterprise"];
         trace?: never;
+        query?: never;
     };
     "/enterprises/{enterprise}/actions/permissions/selected-actions": {
         parameters: {
@@ -1022,6 +1069,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprises/{enterprise}/audit-log": {
         parameters: {
@@ -1042,6 +1090,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/enterprises/{enterprise}/secret-scanning/alerts": {
         parameters: {
@@ -1063,6 +1112,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/meta": {
         parameters: {
@@ -1080,6 +1130,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/organizations/{organization_id}/custom_roles": {
         parameters: {
@@ -1106,6 +1157,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}": {
         parameters: {
@@ -1134,6 +1186,7 @@ export interface paths {
          */
         patch: operations["orgs/update"];
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/actions/permissions/selected-actions": {
         parameters: {
@@ -1166,6 +1219,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/audit-log": {
         parameters: {
@@ -1192,6 +1246,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/external-group/{group_id}": {
         parameters: {
@@ -1214,6 +1269,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/external-groups": {
         parameters: {
@@ -1236,6 +1292,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/installation": {
         parameters: {
@@ -1258,6 +1315,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/installations": {
         parameters: {
@@ -1278,6 +1336,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/pre-receive-hooks": {
         parameters: {
@@ -1298,6 +1357,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/pre-receive-hooks/{pre_receive_hook_id}": {
         parameters: {
@@ -1323,6 +1383,7 @@ export interface paths {
          */
         patch: operations["enterprise-admin/update-pre-receive-hook-enforcement-for-org"];
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/secret-scanning/alerts": {
         parameters: {
@@ -1347,6 +1408,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams": {
         parameters: {
@@ -1369,6 +1431,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/orgs/{org}/teams/{team_slug}/external-groups": {
         parameters: {
@@ -1403,6 +1466,7 @@ export interface paths {
          */
         patch: operations["teams/link-external-idp-group-to-team-for-org"];
         trace?: never;
+        query?: never;
     };
     "/rate_limit": {
         parameters: {
@@ -1425,6 +1489,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/cache/usage-policy": {
         parameters: {
@@ -1453,6 +1518,7 @@ export interface paths {
          */
         patch: operations["actions/set-actions-cache-usage-policy"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/permissions/selected-actions": {
         parameters: {
@@ -1485,6 +1551,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs": {
         parameters: {
@@ -1507,6 +1574,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}": {
         parameters: {
@@ -1527,6 +1595,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/runs/{run_id}/attempts/{attempt_number}": {
         parameters: {
@@ -1550,6 +1619,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs": {
         parameters: {
@@ -1572,6 +1642,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/autolinks": {
         parameters: {
@@ -1598,6 +1669,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/autolinks/{autolink_id}": {
         parameters: {
@@ -1620,6 +1692,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/code-scanning/analyses": {
         parameters: {
@@ -1656,6 +1729,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/collaborators": {
         parameters: {
@@ -1683,6 +1757,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/collaborators/{username}/permission": {
         parameters: {
@@ -1703,6 +1778,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/dependency-graph/compare/{basehead}": {
         parameters: {
@@ -1723,6 +1799,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/forks": {
         parameters: {
@@ -1745,6 +1822,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/installation": {
         parameters: {
@@ -1767,6 +1845,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/keys": {
         parameters: {
@@ -1788,6 +1867,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/keys/{key_id}": {
         parameters: {
@@ -1805,6 +1885,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pre-receive-hooks": {
         parameters: {
@@ -1825,6 +1906,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/pre-receive-hooks/{pre_receive_hook_id}": {
         parameters: {
@@ -1852,6 +1934,7 @@ export interface paths {
          */
         patch: operations["enterprise-admin/update-pre-receive-hook-enforcement-for-repo"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/releases": {
         parameters: {
@@ -1880,6 +1963,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/releases/latest": {
         parameters: {
@@ -1902,6 +1986,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/releases/tags/{tag}": {
         parameters: {
@@ -1922,6 +2007,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/releases/{release_id}": {
         parameters: {
@@ -1946,6 +2032,7 @@ export interface paths {
          */
         patch: operations["repos/update-release"];
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/replicas/caches": {
         parameters: {
@@ -1966,6 +2053,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/secret-scanning/alerts": {
         parameters: {
@@ -1990,6 +2078,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}": {
         parameters: {
@@ -2022,6 +2111,7 @@ export interface paths {
          */
         patch: operations["secret-scanning/update-alert"];
         trace?: never;
+        query?: never;
     };
     "/repositories": {
         parameters: {
@@ -2046,6 +2136,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/scim/v2/enterprises/{enterprise}/Groups": {
         parameters: {
@@ -2072,6 +2163,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/scim/v2/enterprises/{enterprise}/Groups/{scim_group_id}": {
         parameters: {
@@ -2108,6 +2200,7 @@ export interface paths {
          */
         patch: operations["enterprise-admin/update-attribute-for-enterprise-group"];
         trace?: never;
+        query?: never;
     };
     "/scim/v2/enterprises/{enterprise}/Users": {
         parameters: {
@@ -2153,6 +2246,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/scim/v2/enterprises/{enterprise}/Users/{scim_user_id}": {
         parameters: {
@@ -2208,6 +2302,7 @@ export interface paths {
          */
         patch: operations["enterprise-admin/update-attribute-for-enterprise-user"];
         trace?: never;
+        query?: never;
     };
     "/setup/api/configcheck": {
         parameters: {
@@ -2239,6 +2334,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/setup/api/configure": {
         parameters: {
@@ -2259,6 +2355,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/setup/api/maintenance": {
         parameters: {
@@ -2283,6 +2380,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/setup/api/settings": {
         parameters: {
@@ -2314,6 +2412,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/setup/api/settings/authorized-keys": {
         parameters: {
@@ -2339,6 +2438,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/setup/api/start": {
         parameters: {
@@ -2368,6 +2468,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/setup/api/upgrade": {
         parameters: {
@@ -2390,6 +2491,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/user/installations": {
         parameters: {
@@ -2416,6 +2518,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/installation": {
         parameters: {
@@ -2438,6 +2541,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/site_admin": {
         parameters: {
@@ -2462,6 +2566,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
     "/users/{username}/suspended": {
         parameters: {
@@ -2490,6 +2595,7 @@ export interface paths {
         head?: never;
         patch?: never;
         trace?: never;
+        query?: never;
     };
 }
 export type webhooks = Record<string, never>;
