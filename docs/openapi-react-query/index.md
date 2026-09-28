@@ -38,7 +38,7 @@ const MyComponent = () => {
 
   if (isLoading || !data) return "Loading...";
 
-  if (error) return `An error occured: ${error.message}`;
+  if (error) return `An error occurred: ${error.message}`;
 
   return <div>{data.title}</div>;
 };
@@ -96,7 +96,7 @@ const MyComponent = () => {
 
   if (isLoading || !data) return "Loading...";
 
-  if (error) return `An error occured: ${error.message}`;
+  if (error) return `An error occurred: ${error.message}`;
 
   return <div>{data.title}</div>;
 };
@@ -107,4 +107,3 @@ const MyComponent = () => {
 ::: tip
 You can find more information about `createFetchClient` on the [openapi-fetch documentation](../openapi-fetch/index.md).
 :::
-

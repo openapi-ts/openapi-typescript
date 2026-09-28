@@ -29,7 +29,7 @@ export const App = () => {
   });
 
   if (!data || isLoading) return "Loading...";
-  if (error) return `An error occured: ${error.message}`;
+  if (error) return `An error occurred: ${error.message}`;
 
   return <div>{data.firstname}</div>;
 };
