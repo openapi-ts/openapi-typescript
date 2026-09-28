@@ -567,9 +567,395 @@ describe("composition", () => {
                     properties: {
                       id: { type: "string" },
                       name: { type: "string" },
-                      required: ["id"],
+                    },
+                    required: ["id"],
+                  };
+                }
+                default: {
+                  return undefined as any;
+                }
+              }
+            },
+          },
+        },
+      },
+    ],
+    [
+      "allOf > inline sibling requires $ref property",
+      {
+        given: {
+          allOf: [
+            { $ref: "#/components/schemas/Pet" },
+            {
+              type: "object",
+              properties: { tag: { type: "string" } },
+              required: ["tag", "name"],
+            },
+          ],
+        },
+        want: `WithRequired<components["schemas"]["Pet"], "name"> & {
+    tag: string;
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: {
+            ...DEFAULT_OPTIONS.ctx,
+            resolve($ref) {
+              if ($ref === "#/components/schemas/Pet") {
+                return {
+                  type: "object",
+                  properties: {
+                    id: { type: "string" },
+                    name: { type: "string" },
+                    species: { type: "string" },
+                  },
+                };
+              }
+              return undefined as any;
+            },
+          },
+        },
+      },
+    ],
+    [
+      "allOf > inline sibling requires multiple $ref properties",
+      {
+        given: {
+          allOf: [
+            { $ref: "#/components/schemas/Pet" },
+            {
+              type: "object",
+              properties: { tag: { type: "string" } },
+              required: ["tag", "name", "species"],
+            },
+          ],
+        },
+        want: `WithRequired<components["schemas"]["Pet"], "name" | "species"> & {
+    tag: string;
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: {
+            ...DEFAULT_OPTIONS.ctx,
+            resolve($ref) {
+              if ($ref === "#/components/schemas/Pet") {
+                return {
+                  type: "object",
+                  properties: {
+                    id: { type: "string" },
+                    name: { type: "string" },
+                    species: { type: "string" },
+                  },
+                };
+              }
+              return undefined as any;
+            },
+          },
+        },
+      },
+    ],
+    [
+      "allOf > inline sibling with only required (no properties)",
+      {
+        given: {
+          allOf: [{ $ref: "#/components/schemas/Pet" }, { required: ["name"] }],
+        },
+        want: `WithRequired<components["schemas"]["Pet"], "name">`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: {
+            ...DEFAULT_OPTIONS.ctx,
+            resolve($ref) {
+              if ($ref === "#/components/schemas/Pet") {
+                return {
+                  type: "object",
+                  properties: {
+                    id: { type: "string" },
+                    name: { type: "string" },
+                  },
+                };
+              }
+              return undefined as any;
+            },
+          },
+        },
+      },
+    ],
+    [
+      "allOf > inline sibling required key not in $ref properties",
+      {
+        given: {
+          allOf: [
+            { $ref: "#/components/schemas/Pet" },
+            {
+              type: "object",
+              properties: { tag: { type: "string" } },
+              required: ["tag", "nonExistent"],
+            },
+          ],
+        },
+        want: `components["schemas"]["Pet"] & {
+    tag: string;
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: {
+            ...DEFAULT_OPTIONS.ctx,
+            resolve($ref) {
+              if ($ref === "#/components/schemas/Pet") {
+                return {
+                  type: "object",
+                  properties: {
+                    id: { type: "string" },
+                    name: { type: "string" },
+                  },
+                };
+              }
+              return undefined as any;
+            },
+          },
+        },
+      },
+    ],
+    [
+      "allOf > inline sibling requires discriminator property",
+      {
+        given: {
+          allOf: [{ $ref: "#/components/schemas/Pet" }, { required: ["type"] }],
+        },
+        want: `Omit<components["schemas"]["Pet"], "type">`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: {
+            ...DEFAULT_OPTIONS.ctx,
+            discriminators: {
+              objects: {
+                "#/components/schemas/Pet": {
+                  propertyName: "type",
+                },
+              },
+              refsHandled: [],
+            },
+            resolve($ref) {
+              if ($ref === "#/components/schemas/Pet") {
+                return {
+                  type: "object",
+                  properties: {
+                    type: { type: "string" },
+                  },
+                };
+              }
+              return undefined as any;
+            },
+          },
+        },
+      },
+    ],
+    [
+      "allOf > inline sibling required key also present in inline properties",
+      {
+        given: {
+          allOf: [
+            { $ref: "#/components/schemas/Pet" },
+            {
+              type: "object",
+              properties: { name: { type: "string" }, tag: { type: "string" } },
+              required: ["name", "tag"],
+            },
+          ],
+        },
+        want: `components["schemas"]["Pet"] & {
+    name: string;
+    tag: string;
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: {
+            ...DEFAULT_OPTIONS.ctx,
+            resolve($ref) {
+              if ($ref === "#/components/schemas/Pet") {
+                return {
+                  type: "object",
+                  properties: {
+                    id: { type: "string" },
+                    name: { type: "string" },
+                    species: { type: "string" },
+                  },
+                };
+              }
+              return undefined as any;
+            },
+          },
+        },
+      },
+    ],
+    [
+      "allOf > multiple refs with inline sibling required",
+      {
+        given: {
+          allOf: [
+            { $ref: "#/components/schemas/Pet" },
+            { $ref: "#/components/schemas/Owner" },
+            {
+              type: "object",
+              properties: { tag: { type: "string" } },
+              required: ["tag", "name", "address"],
+            },
+          ],
+        },
+        want: `WithRequired<components["schemas"]["Pet"], "name"> & WithRequired<components["schemas"]["Owner"], "address"> & {
+    tag: string;
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: {
+            ...DEFAULT_OPTIONS.ctx,
+            resolve($ref) {
+              switch ($ref) {
+                case "#/components/schemas/Pet": {
+                  return {
+                    type: "object",
+                    properties: {
+                      id: { type: "string" },
+                      name: { type: "string" },
+                    },
+                    required: ["id"],
+                  };
+                }
+                case "#/components/schemas/Owner": {
+                  return {
+                    type: "object",
+                    properties: {
+                      address: { type: "string" },
+                      phone: { type: "string" },
                     },
                   };
+                }
+                default: {
+                  return undefined as any;
+                }
+              }
+            },
+          },
+        },
+      },
+    ],
+    [
+      "allOf > $ref with its own required, plus inline sibling",
+      {
+        given: {
+          allOf: [
+            { $ref: "#/components/schemas/Pet" },
+            {
+              type: "object",
+              properties: { tag: { type: "string" } },
+              required: ["tag"],
+            },
+          ],
+        },
+        want: `components["schemas"]["Pet"] & {
+    tag: string;
+}`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: {
+            ...DEFAULT_OPTIONS.ctx,
+            resolve($ref) {
+              if ($ref === "#/components/schemas/Pet") {
+                return {
+                  type: "object",
+                  properties: {
+                    id: { type: "string" },
+                    name: { type: "string" },
+                  },
+                  required: ["id"],
+                };
+              }
+              return undefined as any;
+            },
+          },
+        },
+      },
+    ],
+    [
+      "allOf > parent required elevates $ref property",
+      {
+        given: {
+          allOf: [{ $ref: "#/components/schemas/Pet" }],
+          required: ["name"],
+        },
+        want: `WithRequired<components["schemas"]["Pet"], "name">`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: {
+            ...DEFAULT_OPTIONS.ctx,
+            resolve($ref) {
+              if ($ref === "#/components/schemas/Pet") {
+                return {
+                  type: "object",
+                  properties: {
+                    id: { type: "string" },
+                    name: { type: "string" },
+                  },
+                };
+              }
+              return undefined as any;
+            },
+          },
+        },
+      },
+    ],
+    [
+      "allOf > inline sibling with required and description only",
+      {
+        given: {
+          allOf: [{ $ref: "#/components/schemas/Pet" }, { required: ["name"], description: "A named pet" }],
+        },
+        want: `WithRequired<components["schemas"]["Pet"], "name">`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: {
+            ...DEFAULT_OPTIONS.ctx,
+            resolve($ref) {
+              if ($ref === "#/components/schemas/Pet") {
+                return {
+                  type: "object",
+                  properties: {
+                    id: { type: "string" },
+                    name: { type: "string" },
+                  },
+                };
+              }
+              return undefined as any;
+            },
+          },
+        },
+      },
+    ],
+    [
+      "allOf > $ref sibling only carries required",
+      {
+        given: {
+          allOf: [{ $ref: "#/components/schemas/Pet" }, { $ref: "#/components/schemas/RequiredPetInput" }],
+        },
+        want: `WithRequired<components["schemas"]["Pet"], "name">`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: {
+            ...DEFAULT_OPTIONS.ctx,
+            resolve($ref) {
+              switch ($ref) {
+                case "#/components/schemas/Pet": {
+                  return {
+                    type: "object",
+                    properties: {
+                      id: { type: "string" },
+                      name: { type: "string" },
+                    },
+                  };
+                }
+                case "#/components/schemas/RequiredPetInput": {
+                  return { required: ["name"] };
                 }
                 default: {
                   return undefined as any;
