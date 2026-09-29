@@ -1,5 +1,4 @@
-import type ts from "typescript";
-import { STRING } from "../lib/ts.js";
+import { STRING, type TSNode } from "../lib/ts.js";
 import type { ParameterObject, TransformNodeOptions } from "../types.js";
 import transformSchemaObject from "./schema-object.js";
 
@@ -10,6 +9,7 @@ import transformSchemaObject from "./schema-object.js";
 export default function transformParameterObject(
   parameterObject: ParameterObject,
   options: TransformNodeOptions,
-): ts.TypeNode {
-  return parameterObject.schema ? transformSchemaObject(parameterObject.schema, options) : STRING; // assume a parameter is a string by default rather than "unknown"
+  indent = "",
+): TSNode {
+  return parameterObject.schema ? transformSchemaObject(parameterObject.schema, options, false, indent) : STRING; // assume a parameter is a string by default rather than "unknown"
 }

@@ -1,5 +1,12 @@
-import ts from "typescript";
-import { addJSDocComment, NEVER, QUESTION_TOKEN, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
+import {
+  addJSDocComment,
+  INDENT,
+  NEVER,
+  propertySignature,
+  type TSNode,
+  tsPropertyIndex,
+  typeLiteral,
+} from "../lib/ts.js";
 import { createRef, getEntries } from "../lib/utils.js";
 import type { RequestBodyObject, TransformNodeOptions } from "../types.js";
 import transformMediaTypeObject from "./media-type-object.js";
@@ -12,48 +19,64 @@ import transformSchemaObject from "./schema-object.js";
 export default function transformRequestBodyObject(
   requestBodyObject: RequestBodyObject,
   options: TransformNodeOptions,
-): ts.TypeNode {
-  const type: ts.TypeElement[] = [];
+  indent = "",
+): TSNode {
+  const memberIndent = `${indent}${INDENT}`;
+  const contentIndent = `${memberIndent}${INDENT}`;
+  const type: TSNode[] = [];
   for (const [contentType, mediaTypeObject] of getEntries(requestBodyObject.content ?? {}, options.ctx)) {
     const nextPath = createRef([options.path, "content", contentType]);
     const mediaType =
       "$ref" in mediaTypeObject
-        ? transformSchemaObject(mediaTypeObject, {
-            ...options,
-            path: nextPath,
-          })
-        : transformMediaTypeObject(mediaTypeObject, {
-            ...options,
-            path: nextPath,
-          });
-    const property = ts.factory.createPropertySignature(
-      /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
-      /* name          */ tsPropertyIndex(contentType),
-      /* questionToken */ undefined,
-      /* type          */ mediaType,
+        ? transformSchemaObject(
+            mediaTypeObject,
+            {
+              ...options,
+              path: nextPath,
+            },
+            false,
+            contentIndent,
+          )
+        : transformMediaTypeObject(
+            mediaTypeObject,
+            {
+              ...options,
+              path: nextPath,
+            },
+            contentIndent,
+          );
+    type.push(
+      propertySignature({
+        /* name          */ name: tsPropertyIndex(contentType),
+        /* type          */ type: mediaType,
+        /* modifiers     */ readonly: options.ctx.immutable,
+        comment: addJSDocComment(mediaTypeObject, contentIndent),
+        indent: contentIndent,
+      }),
     );
-    addJSDocComment(mediaTypeObject, property);
-    type.push(property);
   }
 
-  return ts.factory.createTypeLiteralNode([
-    ts.factory.createPropertySignature(
-      /* modifiers     */ tsModifiers({ readonly: options.ctx.immutable }),
-      /* name          */ tsPropertyIndex("content"),
-      /* questionToken */ undefined,
-      /* type          */ ts.factory.createTypeLiteralNode(
-        type.length
-          ? type
-          : // add `"*/*": never` if no media types are defined
-            [
-              ts.factory.createPropertySignature(
-                /* modifiers     */ undefined,
-                /* name          */ tsPropertyIndex("*/*"),
-                /* questionToken */ QUESTION_TOKEN,
-                /* type          */ NEVER,
-              ),
-            ],
-      ),
-    ),
-  ]);
+  const contentMembers = type.length
+    ? type
+    : [
+        // add `"*/*": never` if no media types are defined
+        propertySignature({
+          /* name          */ name: tsPropertyIndex("*/*"),
+          /* questionToken */ optional: true,
+          /* type          */ type: NEVER,
+          indent: contentIndent,
+        }),
+      ];
+
+  return typeLiteral(
+    [
+      propertySignature({
+        /* name          */ name: tsPropertyIndex("content"),
+        /* type          */ type: typeLiteral(contentMembers, memberIndent),
+        /* modifiers     */ readonly: options.ctx.immutable,
+        indent: memberIndent,
+      }),
+    ],
+    indent,
+  );
 }

@@ -1,27 +1,33 @@
-import ts from "typescript";
-import { tsModifiers, tsPropertyIndex } from "../lib/ts.js";
+import { INDENT, propertySignature, type TSNode, tsPropertyIndex, typeLiteral } from "../lib/ts.js";
 import { createRef, getEntries } from "../lib/utils.js";
 import type { GlobalContext, WebhooksObject } from "../types.js";
 import transformPathItemObject from "./path-item-object.js";
 
-export default function transformWebhooksObject(webhooksObject: WebhooksObject, options: GlobalContext): ts.TypeNode {
-  const type: ts.TypeElement[] = [];
+export default function transformWebhooksObject(
+  webhooksObject: WebhooksObject,
+  options: GlobalContext,
+  indent = "",
+): TSNode {
+  const memberIndent = `${indent}${INDENT}`;
+  const type: TSNode[] = [];
 
   for (const [name, pathItemObject] of getEntries(webhooksObject, options)) {
     type.push(
-      ts.factory.createPropertySignature(
-        /* modifiers     */ tsModifiers({
-          readonly: options.immutable,
-        }),
-        /* name          */ tsPropertyIndex(name),
-        /* questionToken */ undefined,
-        /* type          */ transformPathItemObject(pathItemObject, {
-          path: createRef(["webhooks", name]),
-          ctx: options,
-        }),
-      ),
+      propertySignature({
+        /* name          */ name: tsPropertyIndex(name),
+        /* type          */ type: transformPathItemObject(
+          pathItemObject,
+          {
+            path: createRef(["webhooks", name]),
+            ctx: options,
+          },
+          memberIndent,
+        ),
+        /* modifiers     */ readonly: options.immutable,
+        indent: memberIndent,
+      }),
     );
   }
 
-  return ts.factory.createTypeLiteralNode(type);
+  return typeLiteral(type, indent);
 }

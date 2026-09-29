@@ -375,6 +375,66 @@ describe("transformPathsObject", () => {
         options: { ...DEFAULT_OPTIONS, pathParamsAsTypes: true },
       },
     ],
+    [
+      "options > pathParamsAsTypes escapes characters that would break the template literal",
+      {
+        given: {
+          "/a`b/{id}": {
+            parameters: [
+              {
+                name: "id",
+                in: "path",
+                schema: { type: "string" },
+              },
+            ],
+            get: {
+              parameters: [],
+              responses: { 200: { description: "OK" } },
+            },
+          },
+        },
+        want: `{
+    [path: \`/a\\\`b/\${string}\`]: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}`,
+        options: { ...DEFAULT_OPTIONS, pathParamsAsTypes: true },
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {

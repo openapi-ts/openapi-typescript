@@ -58,9 +58,6 @@
     "prepublish": "pnpm run build",
     "version": "pnpm run build"
   },
-  "peerDependencies": {
-    "typescript": "^5.x"
-  },
   "dependencies": {
     "@redocly/openapi-core": "^1.34.6",
     "ansi-colors": "^4.1.3",
