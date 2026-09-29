@@ -286,6 +286,8 @@ export interface RequestBodyObject extends Extensable {
 export interface MediaTypeObject extends Extensable {
   /** The schema defining the content of the request, response, or parameter. */
   schema?: SchemaObject | ReferenceObject;
+  /** OAS 3.2: The schema defining the content of individual items in a streaming response (e.g. text/event-stream). When present, takes precedence over schema for type generation. */
+  itemSchema?: SchemaObject | ReferenceObject;
   /** Example of the media type. The example object SHOULD be in the correct format as specified by the media type. The example field is mutually exclusive of the examples field. Furthermore, if referencing a schema which contains an example, the example value SHALL override the example provided by the schema. */
   example?: any;
   /** Examples of the media type. Each example object SHOULD match the media type and specified schema if present. The examples field is mutually exclusive of the example field. Furthermore, if referencing a schema which contains an example, the examples value SHALL override the example provided by the schema. */
