@@ -363,7 +363,7 @@ export type operations = Record<string, never>;`,
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        /** Format: date-time */
+        /** @format date-time */
         Date: Date;
     };
     responses: never;
@@ -404,7 +404,7 @@ export type operations = Record<string, never>;`,
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        /** Format: date-time */
+        /** @format date-time */
         Date?: Date;
     };
     responses: never;
@@ -508,7 +508,7 @@ export interface components {
         Blob: {
             content: {
                 "application/json": {
-                    /** Format: binary */
+                    /** @format binary */
                     blob?: Blob;
                 };
             };
@@ -552,7 +552,7 @@ export type operations = Record<string, never>;`,
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        /** Format: date-time */
+        /** @format date-time */
         Date: DateOrTime;
         /** @enum {string} */
         Set: Set<"low" | "medium" | "high">;
@@ -645,11 +645,12 @@ export interface components {
              * @minLength 1
              * @pattern ^[a-zA-Z0-9]+$
              */
+            /** @pattern ^[a-zA-Z0-9]+$ */
             name: string;
             /**
              * @format email
              */
-            /** Format: email */
+            /** @format email */
             email: string;
             /**
              * @minimum 0
@@ -738,7 +739,7 @@ export interface components {
     schemas: {
         User: {
             name: string;
-            /** Format: email */
+            /** @format email */
             email?: string;
         };
     };

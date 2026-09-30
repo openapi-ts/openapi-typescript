@@ -818,7 +818,7 @@ export type ItemDTO = components['schemas']['ItemDTO'];
         want: `{
     schemas: {
         Alpha: {
-            /** Format: date-time */
+            /** @format date-time */
             z?: Date | null;
         };
     };

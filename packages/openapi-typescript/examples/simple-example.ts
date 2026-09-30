@@ -163,8 +163,8 @@ export interface components {
          */
         Problem: {
             /**
-             * Format: uri
              * @description A URI reference [RFC3986] that identifies the problem type.
+             * @format uri
              */
             type: string;
             /** @description A short, human-readable summary of the problem type. */
@@ -177,7 +177,7 @@ export interface components {
             detail: string;
         };
         Pet: {
-            /** Format: int64 */
+            /** @format int64 */
             id: number;
             name: string;
             none?: null;

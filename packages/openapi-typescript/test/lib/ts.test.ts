@@ -144,6 +144,63 @@ describe("addJSDocComment", () => {
     comment: boolean;
 }`);
   });
+
+  test("@format tag", () => {
+    const property = ts.factory.createPropertySignature(undefined, "comment", undefined, STRING);
+    addJSDocComment({ format: "date-time" }, property);
+    expect(astToString(ts.factory.createTypeLiteralNode([property])).trim()).toBe(`{
+    /** @format date-time */
+    comment: string;
+}`);
+  });
+
+  test("@pattern tag", () => {
+    const property = ts.factory.createPropertySignature(undefined, "comment", undefined, STRING);
+    addJSDocComment({ pattern: "^[a-z]+$" }, property);
+    expect(astToString(ts.factory.createTypeLiteralNode([property])).trim()).toBe(`{
+    /** @pattern ^[a-z]+$ */
+    comment: string;
+}`);
+  });
+
+  test("@nullable tag", () => {
+    const property = ts.factory.createPropertySignature(undefined, "comment", undefined, STRING);
+    addJSDocComment({ nullable: true }, property);
+    expect(astToString(ts.factory.createTypeLiteralNode([property])).trim()).toBe(`{
+    /** @nullable */
+    comment: string;
+}`);
+  });
+
+  test("nullable false produces no output", () => {
+    const property = ts.factory.createPropertySignature(undefined, "comment", undefined, STRING);
+    addJSDocComment({ nullable: false }, property);
+    expect(astToString(ts.factory.createTypeLiteralNode([property])).trim()).toBe(`{
+    comment: string;
+}`);
+  });
+
+  test("combined format, pattern, nullable with description", () => {
+    const property = ts.factory.createPropertySignature(undefined, "comment", undefined, STRING);
+    addJSDocComment(
+      {
+        description: "User email",
+        format: "email",
+        pattern: "^[a-z]+@[a-z]+\\.[a-z]+$",
+        nullable: true,
+      },
+      property,
+    );
+    expect(astToString(ts.factory.createTypeLiteralNode([property])).trim()).toBe(`{
+    /**
+     * @nullable
+     * @description User email
+     * @format email
+     * @pattern ^[a-z]+@[a-z]+\\.[a-z]+$
+     */
+    comment: string;
+}`);
+  });
 });
 
 describe("oapiRef", () => {
