@@ -9,12 +9,17 @@ const supportsRequestInitExt = () => {
   );
 };
 
+/** Counter for deterministic request ID generation */
+let _idCounter = 0;
+
 /**
- * Returns a cheap, non-cryptographically-secure random ID
- * Courtesy of @imranbarbhuiya (https://github.com/imranbarbhuiya)
+ * Returns a cheap, non-cryptographically-secure unique ID.
+ * Uses a monotonic counter instead of Math.random() so IDs are
+ * deterministic within a process, which is compatible with
+ * frameworks that cache or deduplicate fetch calls (e.g. Next.js).
  */
 export function randomID() {
-  return Math.random().toString(36).slice(2, 11);
+  return (++_idCounter).toString(36);
 }
 
 /**
