@@ -103,6 +103,9 @@ export type UseQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>,
     : [InitWithUnknowns<Init>, Options?, QueryClient?]
 ) => UseQueryResult<InferSelectReturnType<Response["data"], Options["select"]>, Response["error"]>;
 
+// Helper type to infer TPageParam type
+type InferPageParamType<T> = T extends { initialPageParam: infer P } ? P : unknown;
+
 export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMethod, {}>>, Media extends MediaType> = <
   Method extends HttpMethod,
   Path extends PathsWithMethod<Paths, Method>,
@@ -114,11 +117,12 @@ export type UseInfiniteQueryMethod<Paths extends Record<string, Record<HttpMetho
       Response["error"],
       InferSelectReturnType<InfiniteData<Response["data"]>, Options["select"]>,
       QueryKey<Paths, Method, Path>,
-      unknown
+      InferPageParamType<Options>
     >,
     "queryKey" | "queryFn"
   > & {
     pageParamName?: string;
+    initialPageParam: InferPageParamType<Options>;
   },
 >(
   method: Method,
@@ -199,7 +203,10 @@ export default function createClient<Paths extends {}, Media extends MediaType =
   }: QueryFunctionContext<QueryKey<Paths, Method, Path>>) => {
     const mth = method.toUpperCase() as Uppercase<typeof method>;
     const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
-    const { data, error, response } = await fn(path, { signal, ...(init as any) }); // TODO: find a way to avoid as any
+    const { data, error, response } = await fn(path, {
+      signal,
+      ...(init as any),
+    }); // TODO: find a way to avoid as any
     if (error) {
       throw error;
     }
@@ -227,12 +234,14 @@ export default function createClient<Paths extends {}, Media extends MediaType =
     useSuspenseQuery: (method, path, ...[init, options, queryClient]) =>
       useSuspenseQuery(queryOptions(method, path, init as InitWithUnknowns<typeof init>, options), queryClient),
     useInfiniteQuery: (method, path, init, options, queryClient) => {
-      const { pageParamName = "cursor", ...restOptions } = options;
+      const { pageParamName = "cursor", initialPageParam, ...restOptions } = options;
       const { queryKey } = queryOptions(method, path, init);
+
       return useInfiniteQuery(
         {
           queryKey,
-          queryFn: async ({ queryKey: [method, path, init], pageParam = 0, signal }) => {
+          initialPageParam,
+          queryFn: async ({ queryKey: [method, path, init], pageParam, signal }) => {
             const mth = method.toUpperCase() as Uppercase<typeof method>;
             const fn = client[mth] as ClientMethod<Paths, typeof method, Media>;
             const mergedInit = {
