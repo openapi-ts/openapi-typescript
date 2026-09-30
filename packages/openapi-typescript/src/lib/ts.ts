@@ -408,20 +408,24 @@ function sanitizeMemberName(name: string) {
 export function tsEnumMember(value: string | number, metadata: { name?: string; description?: string | null } = {}) {
   let name = metadata.name ?? String(value);
   if (!JS_PROPERTY_INDEX_RE.test(name)) {
-    if (Number(name[0]) >= 0) {
-      name = `Value${name}`.replace(".", "_"); // don't forged decimals;
-    } else if (name[0] === "-") {
-      name = `ValueMinus${name.slice(1)}`;
-    }
+    if (name === "") {
+      name = `"${name}"`;
+    } else {
+      if (Number(name[0]) >= 0) {
+        name = `Value${name}`.replace(".", "_"); // don't forged decimals;
+      } else if (name[0] === "-") {
+        name = `ValueMinus${name.slice(1)}`;
+      }
 
-    const invalidCharMatch = name.match(JS_PROPERTY_INDEX_INVALID_CHARS_RE);
-    if (invalidCharMatch) {
-      if (invalidCharMatch[0] === name) {
-        name = `"${name}"`;
-      } else {
-        name = name.replace(JS_PROPERTY_INDEX_INVALID_CHARS_RE, (s) => {
-          return s in SPECIAL_CHARACTER_MAP ? SPECIAL_CHARACTER_MAP[s] : "_";
-        });
+      const invalidCharMatch = name.match(JS_PROPERTY_INDEX_INVALID_CHARS_RE);
+      if (invalidCharMatch) {
+        if (invalidCharMatch[0] === name) {
+          name = `"${name}"`;
+        } else {
+          name = name.replace(JS_PROPERTY_INDEX_INVALID_CHARS_RE, (s) => {
+            return s in SPECIAL_CHARACTER_MAP ? SPECIAL_CHARACTER_MAP[s] : "_";
+          });
+        }
       }
     }
   }
