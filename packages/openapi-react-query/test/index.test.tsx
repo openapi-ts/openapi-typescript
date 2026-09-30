@@ -1036,6 +1036,66 @@ describe("client", () => {
       const allItems = result.current.data?.pages.flatMap((page) => page.items);
       expect(allItems).toEqual([1, 2, 3, 4, 5, 6]);
     });
+    it("should omit cursor from the initial request when initialPageParam is undefined", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      const firstRequestHandler = useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/paginated-data",
+        status: 200,
+        body: { items: [1, 2, 3], nextPage: 1 },
+      });
+
+      const { result, rerender } = renderHook(
+        () =>
+          client.useInfiniteQuery(
+            "get",
+            "/paginated-data",
+            {
+              params: {
+                query: {
+                  limit: 3,
+                },
+              },
+            },
+            {
+              getNextPageParam: (lastPage) => lastPage.nextPage,
+              initialPageParam: undefined,
+            },
+          ),
+        { wrapper },
+      );
+
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+      const firstRequestUrl = firstRequestHandler.getRequestUrl();
+      expect(firstRequestUrl?.searchParams.get("limit")).toBe("3");
+      expect(firstRequestUrl?.searchParams.get("cursor")).toBeNull();
+
+      const secondRequestHandler = useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/paginated-data",
+        status: 200,
+        body: { items: [4, 5, 6], nextPage: 2 },
+      });
+
+      await act(async () => {
+        await result.current.fetchNextPage();
+        rerender();
+      });
+
+      await waitFor(() => {
+        expect(result.current.isFetching).toBe(false);
+        expect(result.current.data?.pages).toHaveLength(2);
+      });
+
+      const secondRequestUrl = secondRequestHandler.getRequestUrl();
+      expect(secondRequestUrl?.searchParams.get("limit")).toBe("3");
+      expect(secondRequestUrl?.searchParams.get("cursor")).toBe("1");
+    });
     it("should reverse pages and pageParams when using the select option", async () => {
       const fetchClient = createFetchClient<paths>({ baseUrl });
       const client = createClient(fetchClient);
