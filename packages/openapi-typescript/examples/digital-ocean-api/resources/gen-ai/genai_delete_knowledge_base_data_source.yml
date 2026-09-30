@@ -45,6 +45,6 @@ security:
   - genai:delete
 summary: Delete a Data Source from a Knowledge Base
 tags:
-- GenAI Platform (Public Preview)
+- GradientAI Platform
 x-codeSamples:
 - $ref: examples/curl/genai_delete_knowledge_base_data_source.yml

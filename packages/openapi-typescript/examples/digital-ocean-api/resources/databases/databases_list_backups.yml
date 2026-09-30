@@ -6,7 +6,7 @@ description: >-
   To list all of the available backups of a PostgreSQL or MySQL database
   cluster, send a GET request to `/v2/databases/$DATABASE_ID/backups`.
 
-  **Note**: Backups are not supported for Redis clusters.
+  **Note**: Backups are not supported for Caching or Valkey clusters.
 
   The result will be a JSON object with a `backups key`. This will be set to
   an array of backup objects, each of which will contain the size of the

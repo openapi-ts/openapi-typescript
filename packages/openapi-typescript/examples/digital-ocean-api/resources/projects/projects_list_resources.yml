@@ -2,8 +2,10 @@ operationId: projects_list_resources
 
 summary: List Project Resources
 
-description: To list all your resources in a project, send a GET request to
-  `/v2/projects/$PROJECT_ID/resources`.
+description: |
+  To list all your resources in a project, send a GET request to `/v2/projects/$PROJECT_ID/resources`.
+
+  This endpoint will only return resources that you are authorized to see. For example, to see Droplets in a project, include the `droplet:read` scope.
 
 tags:
   - Project Resources

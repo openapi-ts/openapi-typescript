@@ -3,6 +3,7 @@ kubernetes_options:
   type: object
   properties:
     options:
+      type: object
       properties:
         regions:
           type: array

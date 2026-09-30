@@ -1,0 +1,17 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      reservedIP, _, err := client.ReservedIPV6s.Get(ctx, "2409:40d0:f7:1017:74b4:3a96:105e:4c6e")
+  }

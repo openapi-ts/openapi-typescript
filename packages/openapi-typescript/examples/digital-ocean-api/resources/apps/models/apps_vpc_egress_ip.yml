@@ -1,0 +1,5 @@
+type: object
+properties:
+  ip:
+    type: string
+    example: 10.0.0.1

@@ -48,6 +48,6 @@ security:
   - genai:read
 summary: List Agents
 tags:
-- GenAI Platform (Public Preview)
+- GradientAI Platform
 x-codeSamples:
 - $ref: examples/curl/genai_list_agents.yml

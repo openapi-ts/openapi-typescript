@@ -64,3 +64,4 @@ x-codeSamples:
 security:
   - bearer_auth:
       - 'uptime:create'
+      - 'uptime:update'

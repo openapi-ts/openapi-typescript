@@ -1,0 +1,14 @@
+lang: Python
+source: |-
+  import os
+
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  batch = client.batches.retrieve(os.environ["BATCH_ID"])
+
+  print("batch_id:      ", batch.get("batch_id"))
+  print("status:        ", batch.get("status"))
+  print("request_counts:", batch.get("request_counts"))
+  print("output_file_id:", batch.get("output_file_id"))

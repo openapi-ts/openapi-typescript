@@ -1,0 +1,8 @@
+type: object
+nullable: true
+description: An object specifying whether the AMD GPU Device Plugin should be enabled in the Kubernetes cluster. It's enabled by default for clusters with an AMD GPU node pool.
+properties:
+  enabled:
+    type: boolean
+    description: Indicates whether the AMD GPU Device Plugin is enabled.
+    example: true

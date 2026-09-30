@@ -1,0 +1,32 @@
+lang: JavaScript
+source: |-
+  // Two-step upload flow:
+  //   1. Reserve a file_id + presigned upload_url via client.files.create.
+  //   2. PUT the raw JSONL bytes to upload_url.
+  //
+  // The presigned URL is short-lived (~15 minutes) and signature-sensitive —
+  // use it verbatim and prefer Content-Type application/octet-stream (or
+  // omit the header entirely). A custom value such as application/jsonl
+  // can break signature matching.
+  import { readFile } from "node:fs/promises";
+  import { InferenceClient } from "@digitalocean/dots";
+
+  const client = new InferenceClient({
+      apiKey: process.env.DIGITALOCEAN_TOKEN,
+  });
+
+  // Step 1: reserve the upload slot.
+  const intent = await client.files.create({ file_name: "batch_requests.jsonl" });
+
+  // Step 2: PUT the JSONL bytes to the presigned URL.
+  const body = await readFile("batch_requests.jsonl");
+  const res = await fetch(intent.upload_url, {
+      method: "PUT",
+      headers: { "Content-Type": "application/octet-stream" },
+      body,
+  });
+  if (!res.ok) {
+      throw new Error(`Upload failed: HTTP ${res.status} ${res.statusText}`);
+  }
+
+  console.log("uploaded file_id:", intent.file_id);

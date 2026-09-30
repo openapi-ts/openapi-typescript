@@ -7,7 +7,7 @@ enum:
   - volatile_random
   - volatile_ttl
 description: |2-
-  A string specifying the desired eviction policy for the Redis cluster.
+  A string specifying the desired eviction policy for a Caching or Valkey cluster.
 
   - `noeviction`: Don't evict any data, returns error when memory limit is reached.
   - `allkeys_lru:` Evict any key, least recently used (LRU) first.

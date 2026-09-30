@@ -29,7 +29,22 @@ properties:
           - $ref: "./database_region_options.yml"
           - $ref: "./database_version_options.yml"
           - $ref: "./database_layout_options.yml"
+      valkey:
+        allOf:
+          - $ref: "./database_region_options.yml"
+          - $ref: "./database_version_options.yml"
+          - $ref: "./database_layout_options.yml"
       opensearch:
+        allOf:
+          - $ref: "./database_region_options.yml"
+          - $ref: "./database_version_options.yml"
+          - $ref: "./database_layout_options.yml"
+      advanced_pg:
+        allOf:
+          - $ref: "./database_region_options.yml"
+          - $ref: "./database_version_options.yml"
+          - $ref: "./database_layout_options.yml"
+      advanced_mysql:
         allOf:
           - $ref: "./database_region_options.yml"
           - $ref: "./database_version_options.yml"
@@ -45,7 +60,13 @@ properties:
         $ref: "./database_version_availabilities.yml"
       redis:
         $ref: "./database_version_availabilities.yml"
+      valkey:
+        $ref: "./database_version_availabilities.yml"
       mongodb:
         $ref: "./database_version_availabilities.yml"
       opensearch:
+        $ref: "./database_version_availabilities.yml"
+      advanced_pg:
+        $ref: "./database_version_availabilities.yml"
+      advanced_mysql:
         $ref: "./database_version_availabilities.yml"

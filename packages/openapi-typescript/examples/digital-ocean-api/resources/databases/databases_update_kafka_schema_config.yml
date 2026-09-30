@@ -1,0 +1,59 @@
+operationId: databases_update_kafka_schema_config
+
+summary: Update Schema Registry Configuration for a kafka Cluster
+
+description: |
+  To update the Schema Registry configuration for a Kafka cluster, send a PUT request to
+  `/v2/databases/$DATABASE_ID/schema-registry/config`.
+  The response is a JSON object with a `compatibility_level` key, which is set to an object
+  containing any database configuration parameters.
+tags:
+  - Databases
+
+parameters:
+  - $ref: "parameters.yml#/database_cluster_uuid"
+
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          compatibility_level:
+            type: string
+            enum:
+              - NONE
+              - BACKWARD
+              - BACKWARD_TRANSITIVE
+              - FORWARD
+              - FORWARD_TRANSITIVE
+              - FULL
+              - FULL_TRANSITIVE
+            description: The compatibility level of the schema registry.
+        required:
+          - compatibility_level
+      example:
+        compatibility_level: BACKWARD
+
+responses:
+  "200":
+    $ref: "responses/database_schema_registry_config.yml"
+
+  "401":
+    $ref: "../../shared/responses/unauthorized.yml"
+
+  "404":
+    $ref: "../../shared/responses/not_found.yml"
+
+  "429":
+    $ref: "../../shared/responses/too_many_requests.yml"
+
+  "500":
+    $ref: "../../shared/responses/server_error.yml"
+
+  default:
+    $ref: "../../shared/responses/unexpected_error.yml"
+
+security:
+  - bearer_auth:
+      - "database:write"

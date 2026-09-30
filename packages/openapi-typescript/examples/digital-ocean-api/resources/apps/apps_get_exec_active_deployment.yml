@@ -12,6 +12,7 @@ tags:
 parameters:
   - $ref: parameters.yml#/app_id
   - $ref: parameters.yml#/component
+  - $ref: parameters.yml#/instance_name
 
 responses:
   "200":
@@ -38,4 +39,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-      - "app:update"
+      - "app:access_console"

@@ -97,12 +97,38 @@ kubernetes_clusters_all:
       updated_at: '2018-11-15T16:00:11Z'
       surge_upgrade: false
       registry_enabled: false
+      registries:
+        - registry-a
+        - registry-b
       ha: false
       control_plane_firewall:
         enabled: true
         allowed_addresses:
           - "1.2.3.4/32"
           - "1.1.0.0/16"
+      cluster_autoscaler_configuration:
+        scale_down_utilization_threshold: 0.65
+        scale_down_unneeded_time: "1m"
+        expanders:
+        - priority
+        - random
+      sso:
+        enabled: true
+        required: false
+        issuer_url: https://sso.example.com
+        client_id: doks-cluster-client
+      routing_agent:
+        enabled: false
+      amd_gpu_device_plugin:
+        enabled: false
+      amd_gpu_device_metrics_exporter_plugin:
+        enabled: false
+      nvidia_gpu_device_plugin:
+        enabled: false
+      rdma_shared_dev_plugin:
+        enabled: false
+      coredns_autoscaler:
+        enabled: false
     meta:
       total: 1
 
@@ -116,6 +142,7 @@ kubernetes_single:
       cluster_subnet: 10.244.0.0/16
       service_subnet: 10.245.0.0/16
       vpc_uuid: c33931f2-a26a-4e61-b85c-4e95a2ec431b
+      worker_subnet_uuid: cbd79771-23eb-49be-b5ea-59cc56222622
       ipv4: 68.183.121.157
       endpoint: https://bd5f5959-5e1e-4205-a714-a914373942af.k8s.ondigitalocean.com
       tags:
@@ -204,12 +231,38 @@ kubernetes_single:
       updated_at: '2018-11-15T16:00:11Z'
       surge_upgrade: false
       registry_enabled: false
+      registries:
+        - registry-a
+        - registry-b
       ha: false
       control_plane_firewall:
         enabled: true
         allowed_addresses:
           - "1.2.3.4/32"
           - "1.1.0.0/16"
+      cluster_autoscaler_configuration:
+        scale_down_utilization_threshold: 0.65
+        scale_down_unneeded_time: "1m"
+        expanders:
+        - priority
+        - random
+      sso:
+        enabled: true
+        required: false
+        issuer_url: https://sso.example.com
+        client_id: doks-cluster-client
+      routing_agent:
+        enabled: false
+      amd_gpu_device_plugin:
+        enabled: false
+      amd_gpu_device_metrics_exporter_plugin:
+        enabled: false
+      nvidia_gpu_device_plugin:
+        enabled: false
+      rdma_shared_dev_plugin:
+        enabled: false
+      coredns_autoscaler:
+        enabled: false
 
 kubernetes_updated:
   value:
@@ -309,12 +362,38 @@ kubernetes_updated:
       updated_at: '2018-11-15T16:00:11Z'
       surge_upgrade: true
       registry_enabled: false
+      registries:
+        - registry-a
+        - registry-b
       ha: false
       control_plane_firewall:
         enabled: true
         allowed_addresses:
           - "1.2.3.4/32"
           - "1.1.0.0/16"
+      cluster_autoscaler_configuration:
+        scale_down_utilization_threshold: 0.65
+        scale_down_unneeded_time: "1m"
+        expanders:
+        - priority
+        - random
+      sso:
+        enabled: true
+        required: false
+        issuer_url: https://sso.example.com
+        client_id: doks-cluster-client
+      routing_agent:
+        enabled: false
+      amd_gpu_device_plugin:
+        enabled: false
+      amd_gpu_device_metrics_exporter_plugin:
+        enabled: false
+      nvidia_gpu_device_plugin:
+        enabled: false
+      rdma_shared_dev_plugin:
+        enabled: false
+      coredns_autoscaler:
+        enabled: false
 
 kubernetes_clusters_create_basic_response:
   value:
@@ -379,12 +458,38 @@ kubernetes_clusters_create_basic_response:
       updated_at: '2018-11-15T16:00:11Z'
       surge_upgrade: false
       registry_enabled: false
+      registries:
+        - registry-a
+        - registry-b
       ha: false
       control_plane_firewall:
         enabled: true
         allowed_addresses:
           - "1.2.3.4/32"
           - "1.1.0.0/16"
+      cluster_autoscaler_configuration:
+        scale_down_utilization_threshold: 0.65
+        scale_down_unneeded_time: "1m"
+        expanders:
+        - priority
+        - random
+      sso:
+        enabled: true
+        required: false
+        issuer_url: https://sso.example.com
+        client_id: doks-cluster-client
+      routing_agent:
+        enabled: false
+      amd_gpu_device_plugin:
+        enabled: false
+      amd_gpu_device_metrics_exporter_plugin:
+        enabled: false
+      nvidia_gpu_device_plugin:
+        enabled: false
+      rdma_shared_dev_plugin:
+        enabled: false
+      coredns_autoscaler:
+        enabled: false
 
 kubernetes_clusters_multi_pool_response:
   value:
@@ -396,6 +501,7 @@ kubernetes_clusters_multi_pool_response:
       cluster_subnet: 10.244.0.0/16
       service_subnet: 10.245.0.0/16
       vpc_uuid: c33931f2-a26a-4e61-b85c-4e95a2ec431b
+      worker_subnet_uuid: cbd79771-23eb-49be-b5ea-59cc56222622
       ipv4: ''
       endpoint: ''
       tags:
@@ -486,12 +592,21 @@ kubernetes_clusters_multi_pool_response:
       updated_at: '2018-11-15T16:00:11Z'
       surge_upgrade: false
       registry_enabled: false
+      registries:
+        - registry-a
+        - registry-b
       ha: false
       control_plane_firewall:
         enabled: true
         allowed_addresses:
           - "1.2.3.4/32"
           - "1.1.0.0/16"
+      cluster_autoscaler_configuration:
+        scale_down_utilization_threshold: 0.65
+        scale_down_unneeded_time: "1m"
+        expanders:
+        - priority
+        - random
 
 kubernetes_options:
   value:

@@ -1,10 +1,10 @@
 vpc:
   type: object
   allOf:
-  - $ref: '#/vpc_updatable'
-  - $ref: '#/vpc_create'
-  - $ref: '#/vpc_default'
-  - $ref: '#/vpc_base'
+    - $ref: "#/vpc_updatable"
+    - $ref: "#/vpc_create"
+    - $ref: "#/vpc_default"
+    - $ref: "#/vpc_base"
 
 vpc_base:
   type: object
@@ -17,7 +17,7 @@ vpc_base:
       description: A unique ID that can be used to identify and reference the VPC.
 
     urn:
-      $ref: '../../../shared/attributes/urn.yml'
+      $ref: "../attributes/urn.yml"
 
     created_at:
       type: string
@@ -70,7 +70,7 @@ vpc_create:
       example: 10.10.10.0/24
       description: The range of IP addresses in the VPC in CIDR notation.
         Network ranges cannot overlap with other networks in the same account
-          and must be in range of private addresses as defined in RFC1918. It
-          may not be smaller than `/28` nor larger than `/16`. If no IP range
-          is specified, a `/20` network range is generated that won't conflict
-          with other VPC networks in your account.
+        and must be in range of private addresses as defined in RFC1918. It
+        may not be smaller than `/28` nor larger than `/16`. If no IP range
+        is specified, a `/20` network range is generated that won't conflict
+        with other VPC networks in your account.

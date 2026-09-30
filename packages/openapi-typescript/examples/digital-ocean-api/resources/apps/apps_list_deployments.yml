@@ -11,6 +11,33 @@ parameters:
   - $ref: parameters.yml#/app_id
   - $ref: ../../shared/parameters.yml#/page
   - $ref: ../../shared/parameters.yml#/per_page
+  - name: deployment_types
+    description: |-
+      Optional. Filter deployments by deployment_type
+        - MANUAL: manual deployment
+        - DEPLOY_ON_PUSH: deployment triggered by a push to the app's repository
+        - MAINTENANCE: deployment for maintenance purposes
+        - MANUAL_ROLLBACK: manual revert to a previous deployment
+        - AUTO_ROLLBACK: automatic revert to a previous deployment
+        - UPDATE_DATABASE_TRUSTED_SOURCES: update database trusted sources
+        - AUTOSCALED: deployment that has been autoscaled
+    in: query
+    required: false
+    schema:
+      type: array
+      items:
+        type: string
+        enum:
+          - MANUAL
+          - DEPLOY_ON_PUSH
+          - MAINTENANCE
+          - MANUAL_ROLLBACK
+          - AUTO_ROLLBACK
+          - UPDATE_DATABASE_TRUSTED_SOURCES
+          - AUTOSCALED
+    example:
+      - MANUAL
+      - AUTOSCALED
 
 responses:
   "200":

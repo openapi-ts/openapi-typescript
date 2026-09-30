@@ -1,0 +1,18 @@
+lang: cURL
+source: |-
+  curl -X PUT \
+    -H "Content-Type: application/json"  \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/evaluation_test_cases/e51dba65-cf7a-11ef-bf8f-4e013e2ddde4" \
+    -d '{
+      "test_case_uuid": "e51dba65-cf7a-11ef-bf8f-4e013e2ddde4",
+      "name": "Updated Test Case",
+      "description": "Updated description of the test case",
+      "dataset_uuid": "1b418231-b7d6-11ef-bf8f-4e013e2ddde4",
+      "metrics": ["1b418231-b7d6-11ef-bf8f-4e013e2ddde4", "2b418231-b7d6-11ef-bf8f-4e013e2ddde4"],
+      "star_metric": {
+        "metric_uuid": "1b418231-b7d6-11ef-bf8f-4e013e2ddde4",
+        "name": "Retrieved chunk usage",
+        "success_threshold_pct": 80
+      }
+    }'

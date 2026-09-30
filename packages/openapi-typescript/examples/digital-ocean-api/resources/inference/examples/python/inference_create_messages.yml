@@ -1,0 +1,16 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  resp = client.messages.create(
+      model="claude-opus-4-6",
+      max_tokens=1024,
+      messages=[
+          {"role": "user", "content": "What is the capital of Portugal?"},
+      ],
+  )
+
+  print(resp.content[0].text)

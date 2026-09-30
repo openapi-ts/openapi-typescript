@@ -1,0 +1,8 @@
+type: object
+description: Action response of an NFS share.
+
+properties:
+  action:
+    $ref: "nfs_action.yml"
+required:
+  - action

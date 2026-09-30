@@ -1,0 +1,17 @@
+description: A JSON with key `job_invocation`
+
+content:
+  application/json:
+    schema:
+      $ref: ../models/app_job_invocation.yml
+    examples:
+      job_invocation:
+        $ref: examples.yml#/job_invocation
+
+headers:
+  ratelimit-limit:
+    $ref: ../../../shared/headers.yml#/ratelimit-limit
+  ratelimit-remaining:
+    $ref: ../../../shared/headers.yml#/ratelimit-remaining
+  ratelimit-reset:
+    $ref: ../../../shared/headers.yml#/ratelimit-reset

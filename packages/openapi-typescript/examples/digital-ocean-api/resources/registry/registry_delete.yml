@@ -1,9 +1,15 @@
 operationId: registry_delete
 
-summary: Delete Container Registry
+deprecated: true
 
-description: To delete your container registry, destroying all container image
+summary: 'Delete Container Registry'
+description: |
+  **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+
+  To delete your container registry, destroying all container image
   data stored in it, send a DELETE request to `/v2/registry`.
+  
+  This operation is not compatible with multiple registries in a DO account. You should use `/v2/registries/{registry_name}` instead.
 
 tags:
   - Container Registry
@@ -14,6 +20,9 @@ responses:
 
   '401':
     $ref: '../../shared/responses/unauthorized.yml'
+  
+  '412':
+    $ref: './responses/registries_precondition_fail.yml'
 
   '404':
     $ref: '../../shared/responses/not_found.yml'

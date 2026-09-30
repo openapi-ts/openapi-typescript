@@ -1,0 +1,16 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  resp = client.images.generate(
+      model="openai-gpt-image-1",
+      prompt="A cute baby sea otter floating on its back in calm blue water",
+      size="auto",
+      quality="auto",
+      n=1,
+  )
+
+  print(resp.data[0].b64_json)

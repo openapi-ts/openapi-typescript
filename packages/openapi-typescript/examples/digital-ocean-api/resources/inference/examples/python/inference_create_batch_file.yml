@@ -1,0 +1,44 @@
+lang: Python
+source: |-
+  import json
+  import os
+  from pathlib import Path
+
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  input_path = Path("batch_requests.jsonl")
+  requests = [
+      {
+          "custom_id": "q-1",
+          "method": "POST",
+          "url": "/v1/chat/completions",
+          "body": {
+              "model": "llama3.3-70b-instruct",
+              "messages": [
+                  {"role": "user", "content": "One fun fact about octopuses."}
+              ],
+              "max_tokens": 128,
+          },
+      },
+      {
+          "custom_id": "q-2",
+          "method": "POST",
+          "url": "/v1/chat/completions",
+          "body": {
+              "model": "llama3.3-70b-instruct",
+              "messages": [
+                  {"role": "user", "content": "One fun fact about sharks."}
+              ],
+              "max_tokens": 128,
+          },
+      },
+  ]
+  input_path.write_text("\n".join(json.dumps(r) for r in requests) + "\n")
+
+  uploaded = client.files.create(file=input_path, purpose="batch")
+
+  print("file_id: ", uploaded.file_id)
+  print("filename:", uploaded.filename)
+  print("bytes:   ", uploaded.bytes)

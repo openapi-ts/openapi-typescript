@@ -1,0 +1,18 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/agents/1c8be326-00fe-11f1-b542-ca68c578b05c/guardrails" \
+    -d '{
+      "guardrails": [
+        {
+          "guardrail_uuid": "69bcc61c-2bb2-49fd-b6ed-7c1bd73d6442",
+          "priority": 1
+        },
+        {
+          "guardrail_uuid": "dc72b12b-bd45-46c9-bca1-00a6624aac3a",
+          "priority": 2
+        }
+      ]
+    }'

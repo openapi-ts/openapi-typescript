@@ -1,0 +1,14 @@
+type: object
+description: Token usage for the embeddings request.
+required:
+  - prompt_tokens
+  - total_tokens
+properties:
+  prompt_tokens:
+    type: integer
+    description: Number of input tokens used for the embedding.
+    example: 6
+  total_tokens:
+    type: integer
+    description: Total billable tokens for the request.
+    example: 6

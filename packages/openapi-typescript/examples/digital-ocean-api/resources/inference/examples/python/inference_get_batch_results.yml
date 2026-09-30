@@ -1,0 +1,27 @@
+lang: Python
+source: |-
+  import os
+  from pathlib import Path
+
+  import requests
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  batch_id = os.environ["BATCH_ID"]
+
+  links = client.batches.results.retrieve(batch_id)
+
+  if not links.get("result_available"):
+      print("results not ready yet; poll batch status and retry")
+      raise SystemExit(0)
+
+  resp = requests.get(links["output_file_url"], timeout=60)
+  resp.raise_for_status()
+
+  out = Path("batch_output.jsonl")
+  out.write_bytes(resp.content)
+
+  print("wrote:", out)
+  print("----- preview -----")
+  print(resp.text[:500])

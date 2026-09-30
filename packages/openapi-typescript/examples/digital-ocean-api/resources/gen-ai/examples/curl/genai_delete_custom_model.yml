@@ -1,0 +1,5 @@
+lang: cURL
+source: |-
+  curl -X DELETE \
+    --header "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/custom_models/11f13e07-1e4f-1325-b542-ca68c578b04b"

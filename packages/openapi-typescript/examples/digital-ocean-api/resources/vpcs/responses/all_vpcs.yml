@@ -1,7 +1,7 @@
 description: >-
   The response will be a JSON object with a key called `vpcs`. This will be set to
   an array of objects, each of which will contain the standard attributes
-  associated with a VPC
+  associated with a VPC.
 
 headers:
   ratelimit-limit:

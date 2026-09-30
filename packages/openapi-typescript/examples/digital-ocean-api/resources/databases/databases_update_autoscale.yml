@@ -1,0 +1,59 @@
+operationId: databases_update_autoscale
+
+summary: Configure Autoscale Settings for a Database Cluster
+
+description: >-
+  To configure autoscale settings for an existing database cluster, send a PUT
+  request to `/v2/databases/$DATABASE_ID/autoscale`, specifying the autoscale
+  configuration.
+
+  A successful request will receive a 204 No Content status code with no body
+  in response.
+
+tags:
+  - Databases
+
+parameters:
+  - $ref: 'parameters.yml#/database_cluster_uuid'
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: 'models/database_autoscale_params.yml'
+      example:
+        storage:
+          enabled: true
+          threshold_percent: 80
+          increment_gib: 10
+
+responses:
+  '204':
+    $ref: '../../shared/responses/no_content.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '422':
+    $ref: '../../shared/responses/unprocessable_entity.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/databases_update_autoscale.yml'
+  - $ref: 'examples/python/databases_update_autoscale.yml'
+
+security:
+  - bearer_auth:
+    - 'database:update'

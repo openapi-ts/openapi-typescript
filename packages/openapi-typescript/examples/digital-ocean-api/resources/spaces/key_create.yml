@@ -1,0 +1,75 @@
+operationId: spacesKey_create
+
+summary: "Create a New Spaces Access Key"
+
+description: |
+  To create a new Spaces Access Key, send a POST request to `/v2/spaces/keys`.
+  At the moment, you cannot mix a fullaccess permission with scoped permissions.
+  A fullaccess permission will be prioritized if fullaccess and scoped permissions are both added.
+
+tags:
+  - Spaces Keys
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        $ref: "models/key.yml"
+
+      examples:
+        Read Only Key:
+          value:
+            name: "read-only-key"
+            grants: [{ "bucket": "my-bucket", "permission": "read" }]
+
+        Read Write Key:
+          value:
+            name: "read-write-key"
+            grants: [{ "bucket": "my-bucket", "permission": "readwrite" }]
+
+        Full Access Key:
+          value:
+            name: "full-access-key"
+            grants: [{ "bucket": "", "permission": "fullaccess" }]
+
+        Mixed Permissions Key:
+          value:
+            name: "mixed-permissions-key"
+            grants:
+              [
+                { "bucket": "my-bucket", "permission": "read" },
+                { "bucket": "my-bucket2", "permission": "readwrite" },
+              ]
+
+        No Grant Key:
+          value:
+            name: "no-grant-key"
+            grants: []
+
+responses:
+  "201":
+    $ref: "responses/key_create.yml"
+
+  "400":
+    $ref: "responses/bad_request.yml"
+
+  "401":
+    $ref: "../../shared/responses/unauthorized.yml"
+
+  "429":
+    $ref: "../../shared/responses/too_many_requests.yml"
+
+  "500":
+    $ref: "../../shared/responses/server_error.yml"
+
+  default:
+    $ref: "../../shared/responses/unexpected_error.yml"
+
+x-codeSamples:
+  - $ref: "examples/curl/spaces_key_create.yml"
+
+security:
+  - bearer_auth:
+      - "spaces_key:create_credentials"

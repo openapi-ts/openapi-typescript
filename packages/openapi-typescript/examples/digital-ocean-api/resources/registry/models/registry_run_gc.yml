@@ -1,0 +1,11 @@
+type: object
+
+properties:
+  type:
+    type: string
+    enum:
+      - untagged manifests only
+      - unreferenced blobs only
+      - untagged manifests and unreferenced blobs
+    example: unreferenced blobs only
+    description: Type of the garbage collection to run against this registry 

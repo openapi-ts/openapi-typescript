@@ -1,0 +1,9 @@
+title: Reserve to Region
+type: object
+properties:
+  region_slug:
+    type: string
+    example: nyc3
+    description: The slug identifier for the region the reserved IPv6 will be reserved to.
+required:
+- region_slug

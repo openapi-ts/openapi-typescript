@@ -2,9 +2,12 @@ operationId: tags_get
 
 summary: Retrieve a Tag
 
-description: >-
+description: |
   To retrieve an individual tag, you can send a `GET` request to
   `/v2/tags/$TAG_NAME`.
+
+  This endpoint will only return tagged resources that you are authorized to see.
+  For example, to see tagged Droplets, include the `droplet:read` scope.
 
 tags:
   - Tags

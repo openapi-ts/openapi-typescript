@@ -1,0 +1,60 @@
+operationId: agentInference_create_chat_completion
+summary: Create a model response for the given chat conversation
+description: |-
+  Creates a model response for the given chat conversation via a customer-provisioned
+  agent endpoint.
+tags:
+  - Agent Inference
+servers:
+  - url: "https://{agent_url}"
+    description: production
+    variables:
+      agent_url:
+        default: "{your-agent-url}"
+        description: The agent URL assigned to your provisioned agent (e.g. fuauiziwb5xm6xka4c7aer5k.agents.do-ai.run).
+parameters:
+  - name: agent
+    in: query
+    required: true
+    schema:
+      type: boolean
+      default: true
+    description: Must be set to true for agent-based completion behavior.
+    example: true
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "models/chat_completion_request.yml"
+responses:
+  "200":
+    description: Successful chat completion. When stream is true, response is sent as Server-Sent Events (text/event-stream); otherwise a single JSON object (application/json) is returned.
+    headers:
+      ratelimit-limit:
+        $ref: '../../shared/headers.yml#/ratelimit-limit'
+      ratelimit-remaining:
+        $ref: '../../shared/headers.yml#/ratelimit-remaining'
+      ratelimit-reset:
+        $ref: '../../shared/headers.yml#/ratelimit-reset'
+    content:
+      application/json:
+        schema:
+          $ref: "models/chat_completion_response.yml"
+      text/event-stream:
+        schema:
+          $ref: "models/chat_completion_chunk.yml"
+  "401":
+    $ref: '../../shared/responses/unauthorized.yml'
+  "429":
+    $ref: '../../shared/responses/too_many_requests.yml'
+  "500":
+    $ref: '../../shared/responses/server_error.yml'
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+x-codeSamples:
+  - $ref: 'examples/curl/agentInference_create_chat_completion.yml'
+  - $ref: 'examples/python/agentInference_create_chat_completion.yml'
+  - $ref: 'examples/dots/agentInference_create_chat_completion.yml'
+security:
+  - inference_bearer_auth: []

@@ -1,0 +1,19 @@
+byoip_prefix_create:
+  type: object
+  properties:
+    prefix:
+      type: string
+      description: The IP prefix in CIDR notation to bring
+      example: '203.11.13.0/24'
+    region:
+      type: string
+      description: The region where the prefix will be created
+      example: 'nyc3'
+    signature:
+      type: string
+      description: The signature hash for the prefix creation request
+      example: '<sample-signature>'
+  required:
+    - prefix
+    - region
+    - signature

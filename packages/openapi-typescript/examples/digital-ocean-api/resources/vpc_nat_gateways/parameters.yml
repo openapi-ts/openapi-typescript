@@ -1,0 +1,65 @@
+vpc_nat_gateway_id:
+  in: path
+  name: id
+  description: The unique identifier of the VPC NAT gateway.
+  required: true
+  schema:
+    type: string
+  example: 70e1b58d-cdec-4e95-b3ee-2d4d95feff51
+
+vpc_nat_gateway_state:
+  in: query
+  name: state
+  description: The current state of the VPC NAT gateway.
+  schema:
+    type: string
+    enum:
+      - new
+      - provisioning
+      - active
+      - deleting
+      - error
+      - invalid
+  example: active
+
+vpc_nat_gateway_region:
+  in: query
+  name: region
+  description: The region where the VPC NAT gateway is located.
+  schema:
+    type: string
+    enum:
+      - nyc1
+      - nyc2
+      - nyc3
+      - ams2
+      - ams3
+      - sfo1
+      - sfo2
+      - sfo3
+      - sgp1
+      - lon1
+      - fra1
+      - tor1
+      - blr1
+      - syd1
+      - atl1
+  example: tor1
+
+vpc_nat_gateway_type:
+  in: query
+  name: type
+  description: The type of the VPC NAT gateway.
+  schema:
+    type: string
+    enum:
+      - public
+  example: public
+
+vpc_nat_gateway_name:
+  in: query
+  name: name
+  description: The name of the VPC NAT gateway.
+  schema:
+    type: string
+  example: my-vpc-nat-gateway

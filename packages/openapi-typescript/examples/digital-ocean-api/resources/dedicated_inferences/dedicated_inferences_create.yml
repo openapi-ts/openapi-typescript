@@ -1,0 +1,40 @@
+operationId: dedicatedInferences_create
+
+summary: Create a Dedicated Inference
+
+description: |
+  Create a new Dedicated Inference for your team. Send a POST request to
+  `/v2/dedicated-inferences` with a `spec` object (version, name, region, vpc,
+  enable_public_endpoint, model_deployments) and optional `access_tokens` (e.g.
+  hugging_face_token for gated models). The response code 202 Accepted indicates
+  the request was accepted for processing; it does not indicate success or failure.
+  The token value is returned only on create; store it securely.
+
+tags:
+  - Dedicated Inference
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: 'models/dedicated_inference.yml#/dedicated_inference_create_request'
+
+responses:
+  '202':
+    $ref: 'responses/dedicated_inference_provisioning.yml'
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/dedicated_inferences_create.yml'
+
+security:
+  - bearer_auth:
+    - 'dedicated_inference:create'

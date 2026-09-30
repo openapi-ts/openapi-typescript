@@ -1,0 +1,57 @@
+description: |-
+  The response will be a JSON object with a `partner_attachments` key
+  that contains an array of all partner attachments
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            partner_attachments:
+              type: array
+              items:
+                $ref: '../models/partner_attachment.yml#/partner_attachment'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+      example:
+        partner_attachments:
+          - name: env.prod-partner-network-connect
+            id: 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+            urn: do:partner_attachment:5a4981aa-9653-4bd1-bef5-d6bff52042e4
+            state: active
+            created_at: '2020-03-13T19:20:47.442049222Z'
+            connection_bandwidth_in_mbps: 10000
+            region: nyc
+            naas_provider: MEGAPORT
+            vpc_ids: ["796c6fe3-2a1d-4da2-9f3e-38239827dc91"]
+            bgp:
+              local_asn: 65432
+              local_router_ip: "169.254.0.1/29"
+              peer_asn: 133937
+              peer_router_ip: "169.254.0.6/29"
+          - id: e0fe0f4d-596a-465e-a902-571ce57b79fa
+            urn: do:partner_attachment:e0fe0f4d-596a-465e-a902-571ce57b79fa
+            state: active
+            name: env.test-partner-network-connect
+            created_at: '2020-03-13T19:29:20Z'
+            connection_bandwidth_in_mbps: 10000
+            region: nyc
+            naas_provider: MEGAPORT
+            vpc_ids: ["e9eef79d-eb6f-4de1-a5b2-38d7468c75c0", "ac1a3d83-349f-4f67-8214-c2803cec0cff"]
+            bgp:
+              local_asn: 65432
+              local_router_ip: "169.254.0.9/29"
+              peer_asn: 133937
+              peer_router_ip: "169.254.0.14/29"
+        links: {}
+        meta:
+          total: 2

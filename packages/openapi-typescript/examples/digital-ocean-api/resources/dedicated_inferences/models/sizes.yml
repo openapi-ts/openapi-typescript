@@ -1,0 +1,30 @@
+dedicated_inference_sizes_response:
+  type: object
+  description: Available Dedicated Inference sizes and pricing.
+  properties:
+    enabled_regions:
+      type: array
+      items:
+        type: string
+      example: [nyc2, atl1]
+      description: Regions where Dedicated Inference is available.
+    sizes:
+      type: array
+      items:
+        $ref: '#/dedicated_inference_size'
+
+dedicated_inference_size:
+  type: object
+  properties:
+    gpu_slug:
+      type: string
+      example: gpu-mi300x1-192gb
+    price_per_hour:
+      type: string
+      example: "2"
+    region:
+      type: string
+      example: nyc2
+    currency:
+      type: string
+      example: USD

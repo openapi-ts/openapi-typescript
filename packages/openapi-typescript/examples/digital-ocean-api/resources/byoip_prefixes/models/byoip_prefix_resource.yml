@@ -1,0 +1,25 @@
+byoip_prefix_resource:
+  type: object
+  properties:
+    id:
+      type: integer
+      format: int64
+      description: Unique identifier for the allocation
+      example: 10001
+    byoip:
+      type: string
+      description: The BYOIP prefix UUID
+      example: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+    region:
+      type: string
+      description: Region where the allocation is made
+      example: "nyc3"
+    resource:
+      type: string
+      description: The resource associated with the allocation
+      example: "do:droplet:fa3c10b-58cc-4372-a567-0e02b2c3d479"
+    assigned_at:
+      type: string
+      format: date-time
+      description: Time when the allocation was assigned
+      example: 2025-06-25T12:00:00Z

@@ -1,0 +1,41 @@
+operationId: spacesKey_list
+
+summary: "List Spaces Access Keys"
+
+description: |
+  To list Spaces Access Key, send a GET request to `/v2/spaces/keys`. Sort parameter must be used with Sort Direction.
+
+tags:
+  - Spaces Keys
+
+parameters:
+  - $ref: "../../shared/parameters.yml#/per_page"
+  - $ref: "../../shared/parameters.yml#/page"
+  - $ref: "parameters.yml#/sort"
+  - $ref: "parameters.yml#/sort_direction"
+  - $ref: "parameters.yml#/name"
+  - $ref: "parameters.yml#/bucket"
+  - $ref: "parameters.yml#/permission"
+
+responses:
+  "200":
+    $ref: "responses/key_list.yml"
+
+  "401":
+    $ref: "../../shared/responses/unauthorized.yml"
+
+  "429":
+    $ref: "../../shared/responses/too_many_requests.yml"
+
+  "500":
+    $ref: "../../shared/responses/server_error.yml"
+
+  default:
+    $ref: "../../shared/responses/unexpected_error.yml"
+
+x-codeSamples:
+  - $ref: "examples/curl/spaces_key_list.yml"
+
+security:
+  - bearer_auth:
+      - "spaces_key:read"

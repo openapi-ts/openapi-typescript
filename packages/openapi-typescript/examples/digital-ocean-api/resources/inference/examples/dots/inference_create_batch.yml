@@ -1,0 +1,19 @@
+lang: JavaScript
+source: |-
+  import { randomUUID } from "node:crypto";
+  import { InferenceClient } from "@digitalocean/dots";
+
+  const client = new InferenceClient({
+      apiKey: process.env.DIGITALOCEAN_TOKEN,
+  });
+
+  const batch = await client.batches.create({
+      file_id: process.env.BATCH_INPUT_FILE_ID,
+      provider: "openai",
+      endpoint: "/v1/chat/completions",
+      completion_window: "24h",
+      request_id: randomUUID(),
+  });
+
+  console.log("batch_id:", batch.batch_id);
+  console.log("status:  ", batch.status);

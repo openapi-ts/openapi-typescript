@@ -1,0 +1,57 @@
+byoip_prefix:
+  type: object
+  properties:
+    uuid:
+      type: string
+      description: Unique identifier for the BYOIP prefix
+      example: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+    name:
+      type: string
+      description: Name of the BYOIP prefix
+      example: ""
+    prefix:
+      type: string
+      description: The IP prefix in CIDR notation
+      example: "203.0.113.0/24"
+    status:
+      type: string
+      description: Status of the BYOIP prefix
+      example: "active"
+    region:
+      type: string
+      description: Region where the BYOIP prefix is located
+      example: "nyc3"
+    validations:
+      type: array
+      description: List of validation statuses for the BYOIP prefix
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: Name of the validation
+            example: "SIGNATURE HASH"
+          status:
+            type: string
+            description: Status of the validation
+            example: "FAILED"
+          note:
+            type: string
+            description: Additional notes or details about the validation
+            example: ""
+    failure_reason:
+      type: string
+      description: Reason for failure, if applicable
+      example: ""
+    locked:
+      type: boolean
+      description: Whether the BYOIP prefix is locked
+      example: false
+    advertised:
+      type: boolean
+      description: Whether the BYOIP prefix is being advertised
+      example: true
+    project_id:
+      type: string
+      description: The ID of the project associated with the BYOIP prefix
+      example: "12345678-1234-1234-1234-123456789012"

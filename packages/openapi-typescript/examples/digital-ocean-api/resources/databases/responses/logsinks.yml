@@ -15,13 +15,7 @@ content:
         sinks:
           type: array
           items:
-            allOf:
-              - $ref: "../models/logsink_verbose.yml"
-            required:
-              - sink_id
-              - sink_name
-              - sink_type
-              - config
+            $ref: "logsink_schema.yml"
     example:
       sinks:
         - sink_id: 799990b6-d551-454b-9ffe-b8618e9d6272

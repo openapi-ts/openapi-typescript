@@ -1,0 +1,43 @@
+dedicated_inference_access_token:
+  type: object
+  description: Access token for authenticating to Dedicated Inference endpoints.
+  properties:
+    id:
+      type: string
+      format: uuid
+      readOnly: true
+      example: 01333f14-a903-4b8e-92b3-363a767aa052
+      description: Unique ID of the token.
+    name:
+      type: string
+      readOnly: true
+      example: first-token
+      description: Name of the token.
+    value:
+      type: string
+      readOnly: true
+      example: "di_xxxxxxxxxxxxxxxxxxxxxxxx"
+      description: Token value; only returned once on create. Store securely.
+    created_at:
+      type: string
+      format: date-time
+      readOnly: true
+      example: "2024-01-09T20:44:32Z"
+    is_managed:
+      type: boolean
+      readOnly: true
+      example: false
+      description: >-
+        When true, the token is managed by DigitalOcean (for example, system-provisioned).
+        When false, the token was created by the user.
+
+dedicated_inference_token_create_request:
+  type: object
+  required: [name]
+  properties:
+    name:
+      type: string
+      maxLength: 255
+      pattern: '^[a-zA-Z0-9_-]+$'
+      example: new-inference-token
+      description: Name for the new token.

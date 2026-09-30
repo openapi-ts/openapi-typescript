@@ -1,0 +1,53 @@
+type: object
+description: >
+  Non-streaming assistant message from `POST /v1/messages`. `type` is always `message` and
+  `role` is always `assistant`.
+required:
+  - id
+  - type
+  - role
+  - content
+  - model
+  - stop_reason
+  - usage
+properties:
+  id:
+    type: string
+    description: Unique identifier for this message object.
+    example: msg_01AbCdEfGhIjKlMnOpQrStUv
+  type:
+    type: string
+    description: Object type discriminator.
+    enum:
+      - message
+    example: message
+  role:
+    type: string
+    description: Always `assistant` for this response.
+    enum:
+      - assistant
+    example: assistant
+  content:
+    type: array
+    description: Assistant output blocks (`text` and/or `tool_use`).
+    items:
+      $ref: messages_response_content_block.yml
+  model:
+    type: string
+    description: Model that produced the message.
+    example: claude-opus-4-6
+  stop_reason:
+    type: string
+    nullable: true
+    description: Why generation stopped.
+    enum:
+      - end_turn
+      - max_tokens
+      - stop_sequence
+      - tool_use
+  stop_sequence:
+    type: string
+    nullable: true
+    description: When `stop_reason` is `stop_sequence`, the sequence that matched.
+  usage:
+    $ref: messages_usage.yml

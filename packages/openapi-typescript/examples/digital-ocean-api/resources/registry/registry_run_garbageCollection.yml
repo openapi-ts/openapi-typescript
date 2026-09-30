@@ -1,8 +1,11 @@
 operationId: registry_run_garbageCollection
 
-summary: Start Garbage Collection
+deprecated: true
 
+summary: 'Start Garbage Collection'
 description: |
+  **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+
   Garbage collection enables users to clear out unreferenced blobs (layer &
   manifest data) after deleting one or more manifests from a repository. If
   there are no unreferenced blobs resulting from the deletion of one or more
@@ -27,6 +30,14 @@ description: |
 
 tags:
   - Container Registry
+
+requestBody:
+  required: false
+
+  content:
+    application/json:
+      schema:
+        $ref: 'models/registry_run_gc.yml'
 
 parameters:
   - $ref: 'parameters.yml#/registry_name'
@@ -56,4 +67,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'registry:create'
+    - 'registry:update'

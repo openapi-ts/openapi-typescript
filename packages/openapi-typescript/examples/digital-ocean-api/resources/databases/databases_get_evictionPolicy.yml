@@ -1,9 +1,9 @@
 operationId: databases_get_evictionPolicy
 
-summary: Retrieve the Eviction Policy for a Redis Cluster
+summary: Retrieve the Eviction Policy for a Caching or Valkey Cluster
 
 description: >-
-  To retrieve the configured eviction policy for an existing Redis cluster,
+  To retrieve the configured eviction policy for an existing Caching or Valkey cluster,
   send a GET request to `/v2/databases/$DATABASE_ID/eviction_policy`.
 
   The response will be a JSON object with an `eviction_policy` key. This will

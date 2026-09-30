@@ -1,0 +1,16 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  resp = client.embeddings.create(
+      model="qwen3-embedding-0.6b",
+      input=["hello world", "goodbye world"],
+      encoding_format="float",
+      user="user-1234",
+  )
+
+  for item in resp.data:
+      print(item.index, item.embedding[:8])

@@ -18,13 +18,18 @@ properties:
       - pg
       - mysql
       - redis
+      - valkey
       - mongodb
       - kafka
       - opensearch
+      - advanced_pg
+      - advanced_mysql
     description: >-
       A slug representing the database engine used for the cluster. The possible values
-      are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Redis, "mongodb" for MongoDB,
-      "kafka" for Kafka, and "opensearch" for OpenSearch.
+      are: "pg" for PostgreSQL, "mysql" for MySQL, "redis" for Caching, "mongodb" for MongoDB,
+      "kafka" for Kafka, "opensearch" for OpenSearch, "valkey" for Valkey, "advanced_pg" for
+      PostgreSQL Advanced Edition, and "advanced_mysql" for MySQL Advanced Edition. Advanced
+      Edition engines are currently in public preview.
   version:
     type: string
     example: '8'
@@ -73,6 +78,7 @@ properties:
       A string specifying the UUID of the VPC to which the database cluster will be
       assigned. If excluded, the cluster when creating a new database cluster, it will
       be assigned to your account's default VPC for the region.
+      <br><br>Requires `vpc:read` scope.
   tags:
     type: array
     items:
@@ -81,7 +87,8 @@ properties:
      - production
     nullable: true
     description: >-
-      An array of tags that have been applied to the database cluster.
+      An array of tags (as strings) to apply to the database cluster.
+      <br><br>Requires `tag:create` scope.
   db_names:
     type: array
     items:
@@ -99,6 +106,12 @@ properties:
     - readOnly: true
     description: >-
      The connection details for OpenSearch dashboard. 
+  schema_registry_connection:
+    allOf:
+    - $ref: './schema_registry_connection.yml'
+    - readOnly: true
+    description: >-
+     The connection details for Schema Registry.
   connection:
     allOf:
     - $ref: './database_connection.yml'
@@ -129,7 +142,7 @@ properties:
     type: string
     format: uuid
     example: 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30
-    description: The ID of the project that the database cluster is assigned to. If excluded when creating a new database cluster, it will be assigned to your default project.
+    description: The ID of the project that the database cluster is assigned to. If excluded when creating a new database cluster, it will be assigned to your default project.<br><br>Requires `project:update` scope.
   rules:
     type: array
     items:
@@ -162,6 +175,17 @@ properties:
       Public hostname and port of the cluster's metrics endpoint(s). Includes one record for the cluster's primary node and
       a second entry for the cluster's standby node(s).
     readOnly: true
+  autoscale:
+    allOf:
+    - $ref: './database_autoscale_params.yml'
+    description: >-
+      Autoscaling configuration for the database cluster. Currently only supports storage autoscaling. If null, autoscaling is
+      not configured for the cluster.
+  do_settings:
+    allOf:
+    - $ref: './do_settings.yml'
+    - description: >-
+        DigitalOcean-specific settings for the database cluster, including custom service CNAMEs.
 
 
 

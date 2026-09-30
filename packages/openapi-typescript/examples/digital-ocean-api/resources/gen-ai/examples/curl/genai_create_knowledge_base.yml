@@ -2,7 +2,7 @@ lang: cURL
 source: |-
   curl -X POST \
     -H "Content-Type: application/json"  \
-    -H "Authorization: Bearer $PREVIEW_API_TOKEN" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
     "https://api.digitalocean.com/v2/gen-ai/knowledge_bases" \
     -d '{
       "name": "kb-api-create",
@@ -14,11 +14,45 @@ source: |-
       "database_id": "abf1055a-745d-4c24-a1db-1959ea819264",
       "datasources": [
         {
-          "bucket_name": "test-public-gen-ai",
-          "bucket_region": "tor1"
-        }
+            "spaces_data_source": {
+                "bucket_name": "test-public-gen-ai",
+                "region": "tor1"
+              },
+              "chunking_algorithm": "CHUNKING_ALGORITHM_HIERARCHICAL",
+              "chunking_options": {
+                "parent_chunk_size": 1000,
+                "child_chunk_size": 350
+              }
+        },
+        {
+          "web_crawler_data_source": {
+            "base_url": "https://example.com",
+            "crawling_option": "SCOPED",
+            "embed_media": false,
+            "exclude_tags": ["nav","footer","header","aside","script","style","form","iframe", "noscript"]
+          },
+          "chunking_algorithm": "CHUNKING_ALGORITHM_SEMANTIC",
+          "chunking_options": {
+            "max_chunk_size": 500,
+            "semantic_threshold": 0.6
+          }
+        },
+        {
+          "spaces_data_source": {
+              "bucket_name": "test-public-gen-ai-2",
+              "region": "tor1"
+            },
+            "chunking_algorithm": "CHUNKING_ALGORITHM_FIXED_LENGTH",
+            "chunking_options": {
+              "max_chunk_size": 400
+            }
+        },
       ],
       "region": "tor1",
-      "vpc_uuid": "f7176e0b-8c5e-4e32-948e-79327e56225a"
+      "vpc_uuid": "f7176e0b-8c5e-4e32-948e-79327e56225a",
+      "reranking_config": {
+        "enabled": true,
+        "model": "bge-reranker-v2-m3"
+      }
     }'
 

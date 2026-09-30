@@ -1,0 +1,22 @@
+lang: JavaScript
+source: |-
+  import { InferenceClient } from "@digitalocean/dots";
+
+  const client = new InferenceClient({
+      apiKey: process.env.DIGITALOCEAN_TOKEN,
+  });
+
+  const batchId = process.env.BATCH_ID;
+
+  // client.files.content resolves the result envelope and follows the
+  // presigned URL for you, returning the raw fetch Response.
+  const resp = await client.files.content(batchId);
+  if (!resp.ok) {
+      throw new Error(`results not ready: HTTP ${resp.status}`);
+  }
+
+  const body = await resp.text();
+  const lines = body.split("\n").filter(Boolean);
+
+  console.log(`got ${lines.length} line(s); first entry:`);
+  console.log(lines[0]);

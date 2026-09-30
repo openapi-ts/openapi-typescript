@@ -12,4 +12,13 @@ properties:
       - rsyslog
       - elasticsearch
       - opensearch
+      - datadog
+    description: |
+      Type of logsink integration.
+
+      - Use `datadog` for Datadog integration **only with MongoDB clusters**.
+      - For non-MongoDB clusters, use `rsyslog` for general syslog forwarding.
+      - Other supported types include `elasticsearch` and `opensearch`.
+
+      More details about the configuration can be found in the `config` property.
     example: rsyslog

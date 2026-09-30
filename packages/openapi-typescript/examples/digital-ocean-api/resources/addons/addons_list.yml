@@ -1,0 +1,32 @@
+operationId: addons_list
+
+summary: List all Add-On Resources
+
+description: | 
+  To fetch all Add-On Resources under your team, send a GET request to `/v2/add-ons/saas`.
+
+tags:
+  - Add-Ons
+
+responses:
+  '200':
+    $ref: 'responses/addons_list.yml'
+  
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/addons_list.yml'
+
+security:
+  - bearer_auth:
+    - 'addon:read'

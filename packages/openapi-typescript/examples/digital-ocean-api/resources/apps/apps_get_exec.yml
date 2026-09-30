@@ -4,7 +4,7 @@ summary: Retrieve Exec URL for Deployment
 
 description:
   Returns a websocket URL that allows sending/receiving console input and output
-  to a component of the specified deployment if one exists.
+  to a component of the specified deployment if one exists. Optionally, the instance_name parameter can be provided to retrieve the exec URL for a specific instance. Note that instances are ephemeral; therefore, we recommended to avoid making persistent changes or such scripting around them.
 
 tags:
   - Apps
@@ -13,6 +13,7 @@ parameters:
   - $ref: parameters.yml#/app_id
   - $ref: parameters.yml#/deployment_id
   - $ref: parameters.yml#/component
+  - $ref: parameters.yml#/instance_name
 
 responses:
   "200":
@@ -39,4 +40,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-      - "app:update"
+      - "app:access_console"

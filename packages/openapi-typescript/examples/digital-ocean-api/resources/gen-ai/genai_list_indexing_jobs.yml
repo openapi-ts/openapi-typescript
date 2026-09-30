@@ -43,6 +43,6 @@ security:
   - genai:read
 summary: List Indexing Jobs for a Knowledge Base
 tags:
-- GenAI Platform (Public Preview)
+- GradientAI Platform
 x-codeSamples:
 - $ref: examples/curl/genai_list_indexing_jobs.yml

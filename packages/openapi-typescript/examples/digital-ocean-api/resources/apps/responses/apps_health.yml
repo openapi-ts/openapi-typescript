@@ -1,0 +1,17 @@
+description: A JSON with key `app_health` 
+
+content:
+  application/json:
+    schema:
+      $ref: ../models/app_health_response.yml
+    examples:
+      app_health:
+        $ref: examples.yml#/app_health
+
+headers:
+  ratelimit-limit:
+    $ref: ../../../shared/headers.yml#/ratelimit-limit
+  ratelimit-remaining:
+    $ref: ../../../shared/headers.yml#/ratelimit-remaining
+  ratelimit-reset:
+    $ref: ../../../shared/headers.yml#/ratelimit-reset

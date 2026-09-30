@@ -68,3 +68,31 @@ properties:
     description: >-
       ACLs (Access Control Lists) specifying permissions on topics within a
       Kafka cluster.
+  mongo_user_settings:
+    type: object
+    properties:
+      databases:
+        type: array
+        items:
+          type: string
+          example: my-db
+        example: [my-db, my-db-2]
+        description: >-
+          A list of databases to which the user should have access. When the database is set to `admin`,
+          the user will have access to all databases based on the user's role i.e. a user with the role `readOnly`
+          assigned to the `admin` database will have read access to all databases.
+      role:
+        type: string
+        enum:
+          - readOnly
+          - readWrite
+          - dbAdmin
+        example: readOnly
+        description: >-
+          The role to assign to the user with each role mapping to a MongoDB built-in role. 
+          `readOnly` maps to a [read](https://www.mongodb.com/docs/manual/reference/built-in-roles/#mongodb-authrole-read) role.
+          `readWrite` maps to a [readWrite](https://www.mongodb.com/docs/manual/reference/built-in-roles/#mongodb-authrole-readWrite) role.
+          `dbAdmin` maps to a [dbAdmin](https://www.mongodb.com/docs/manual/reference/built-in-roles/#mongodb-authrole-dbAdmin) role.
+    description: >-
+      MongoDB-specific settings for the user. This option is not currently
+      supported for other database engines.

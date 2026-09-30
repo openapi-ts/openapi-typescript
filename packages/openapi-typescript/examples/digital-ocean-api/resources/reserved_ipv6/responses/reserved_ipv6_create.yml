@@ -1,0 +1,40 @@
+description: The response will be a JSON object with key `reserved_ipv6`. The value of this will be an object that contains the standard attributes
+  associated with a reserved IPv6.
+
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:      
+        properties:
+          reserved_ipv6:
+            type: object
+            properties:
+              ip:
+                type: string
+                format: ipv6
+                example: 2409:40d0:f7:1017:74b4:3a96:105e:4c6e
+                description: The public IP address of the reserved IPv6. It also serves as its
+                  identifier.
+
+              region_slug:
+                type: string
+                description: The region that the reserved IPv6 is reserved to. When you
+                      query a reserved IPv6,the region_slug will be returned.
+                example: nyc3
+              
+              reserved_at:
+                type: string
+                format: date-time
+                example: "2024-11-20T11:08:30Z"
+                
+    examples:
+      reserved_ipv6_reserved:
+        $ref: 'examples.yml#/reserved_ipv6_reserved'

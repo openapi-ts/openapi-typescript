@@ -1,0 +1,21 @@
+allOf:
+  - title: Transfer ID
+    type: object
+    properties:
+      transfer_id:
+        type: integer
+        description: >-
+          A unique number that used to identify and reference an image account transfer.
+        example: 3164444
+    required:
+      - transfer_id
+
+  - title: Recipient Team UUID
+    type: object
+    properties:
+      recipient_uuid:
+        type: string
+        description: The UUID of the team that the image will be transferred to.
+        example: 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
+    required:
+      - recipient_uuid

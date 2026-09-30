@@ -1,0 +1,16 @@
+type: object
+description: A text content block in a request message.
+required:
+  - type
+  - text
+properties:
+  type:
+    type: string
+    enum:
+      - text
+    description: Block type identifier.
+    example: text
+  text:
+    type: string
+    description: Plain text for this block.
+    example: Hello, Claude

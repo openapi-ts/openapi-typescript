@@ -1,0 +1,14 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  byoip_prefix_uuid = "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+  
+  req = {
+      "advertise": True,
+  }
+
+  resp = client.byoip_prefixes.update(byoip_prefix_uuid=byoip_prefix_uuid, body=req)

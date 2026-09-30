@@ -1,0 +1,52 @@
+type: object
+description: Usage statistics for the completion request.
+required:
+  - prompt_tokens
+  - completion_tokens
+  - total_tokens
+  - cache_created_input_tokens
+  - cache_read_input_tokens
+  - cache_creation
+properties:
+  completion_tokens:
+    type: integer
+    default: 0
+    description: Number of tokens in the generated completion.
+    example: 20
+  prompt_tokens:
+    type: integer
+    default: 0
+    description: Number of tokens in the prompt.
+    example: 10
+  cache_created_input_tokens:
+    type: integer
+    default: 0
+    description: Number of prompt tokens written to cache.
+    example: 0
+  cache_creation:
+    type: object
+    description: Breakdown of prompt tokens written to cache.
+    required:
+      - ephemeral_5m_input_tokens
+      - ephemeral_1h_input_tokens
+    properties:
+      ephemeral_5m_input_tokens:
+        type: integer
+        default: 0
+        description: Number of prompt tokens written to 5m cache.
+        example: 0
+      ephemeral_1h_input_tokens:
+        type: integer
+        default: 0
+        description: Number of prompt tokens written to 1h cache.
+        example: 0
+  cache_read_input_tokens:
+    type: integer
+    default: 0
+    description: Number of prompt tokens read from cache.
+    example: 0
+  total_tokens:
+    type: integer
+    default: 0
+    description: Total number of tokens used in the request (prompt + completion).
+    example: 30

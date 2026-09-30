@@ -1,0 +1,64 @@
+type: object
+description: Emitted when a partial image is available during image generation streaming.
+required:
+  - type
+  - b64_json
+  - created_at
+  - size
+  - quality
+  - background
+  - output_format
+  - partial_image_index
+properties:
+  type:
+    type: string
+    description: The type of the event. Always `image_generation.partial_image`.
+    enum:
+      - image_generation.partial_image
+    example: image_generation.partial_image
+  b64_json:
+    type: string
+    description: Base64-encoded partial image data, suitable for rendering as an image.
+    example: "iVBORw0KGgoAAAANSUhEUgAAAQ..."
+  created_at:
+    type: integer
+    description: The Unix timestamp when the event was created.
+    example: 1677649456
+  size:
+    type: string
+    description: The size of the requested image.
+    enum:
+      - 1024x1024
+      - 1024x1536
+      - 1536x1024
+      - auto
+    example: "1024x1024"
+  quality:
+    type: string
+    description: The quality setting for the requested image.
+    enum:
+      - low
+      - medium
+      - high
+      - auto
+    example: "auto"
+  background:
+    type: string
+    description: The background setting for the requested image.
+    enum:
+      - transparent
+      - opaque
+      - auto
+    example: "auto"
+  output_format:
+    type: string
+    description: The output format for the requested image.
+    enum:
+      - png
+      - webp
+      - jpeg
+    example: "png"
+  partial_image_index:
+    type: integer
+    description: 0-based index for the partial image (streaming).
+    example: 0

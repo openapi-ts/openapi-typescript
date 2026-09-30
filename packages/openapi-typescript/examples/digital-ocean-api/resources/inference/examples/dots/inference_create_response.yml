@@ -1,0 +1,16 @@
+lang: JavaScript
+source: |-
+  import { InferenceClient } from "@digitalocean/dots";
+
+  const client = new InferenceClient({
+      apiKey: process.env.DIGITALOCEAN_TOKEN,
+  });
+
+  const resp = await client.responses.create({
+      model: "openai-gpt-oss-20b",
+      input: "What is the capital of France?",
+      max_output_tokens: 50,
+      temperature: 0.7,
+  });
+
+  console.log(resp.output_text);

@@ -1,0 +1,74 @@
+type: object
+
+properties:
+  id:
+    title: id
+    type: integer
+    example: 1
+    description: Unique identifier for the app feature.
+
+  name:
+    title: name
+    type: string
+    example: "Support"
+    description: Name of the feature.
+
+  type:
+    title: type
+    type: string
+    enum:
+    - unknown
+    - string
+    - boolean
+    - allowance
+    example: "string"
+    description: Feature type, indicating the kind of data it holds.
+
+  unit:
+    title: unit
+    type: string
+    enum:
+    - unit_unknown
+    - GB
+    - GIB
+    - count
+    - byte
+    - byte_second
+    example: "GB"
+    description: Unit of measurement for the feature, if applicable. Units apply to allowance features.
+
+  value:
+    example: "Unlimited"
+    oneOf:
+      - title: string_value
+        type: string
+        example: "Unlimited"
+      - title: boolean_value
+        type: boolean
+        example: true
+      - title: allowance_value
+        type: string
+        example: "1000"
+    description: Value of the feature, which can vary based on the type.
+
+  created_at:
+    title: created_at
+    type: string
+    format: date-time
+    example: "2023-10-01T12:00:00Z"
+    description: Timestamp when the feature was created. 
+
+  updated_at:
+    title: updated_at
+    type: string
+    format: date-time
+    example: "2023-10-01T12:00:00Z"
+    description: Timestamp when the feature was last updated.
+
+required:
+  - id
+  - name
+  - type
+  - value
+  - created_at
+  - updated_at

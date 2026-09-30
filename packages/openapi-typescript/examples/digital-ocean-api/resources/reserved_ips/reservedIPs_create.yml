@@ -12,9 +12,6 @@ description: >-
   * To create a new reserved IP reserved to a region, send a POST request to
     `/v2/reserved_ips` with the `region` attribute.
 
-  **Note**:  In addition to the standard rate limiting, only 12 reserved IPs may
-  be created per 60 seconds.
-
 tags:
   - Reserved IPs
 

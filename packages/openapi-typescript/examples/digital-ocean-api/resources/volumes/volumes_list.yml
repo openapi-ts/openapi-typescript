@@ -63,4 +63,6 @@ x-codeSamples:
 
 security:
   - bearer_auth:
+      - "api:read"
+      - "api:write"
       - "block_storage:read"

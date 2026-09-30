@@ -44,3 +44,5 @@ x-codeSamples:
 security:
   - bearer_auth:
     - 'domain:delete'
+  - bearer_auth:
+    - 'domain:update'

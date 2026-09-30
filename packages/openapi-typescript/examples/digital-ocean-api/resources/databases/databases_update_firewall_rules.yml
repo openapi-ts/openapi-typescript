@@ -41,6 +41,7 @@ requestBody:
           value: '163973392'
         - type: tag
           value: backend
+          description: 'a backend tag'
 
 parameters:
   - $ref: 'parameters.yml#/database_cluster_uuid'

@@ -1,0 +1,13 @@
+type: object
+description: Image content block in a request message.
+required:
+  - type
+  - source
+properties:
+  type:
+    type: string
+    enum:
+      - image
+    example: image
+  source:
+    $ref: messages_image_source_param.yml

@@ -1,0 +1,32 @@
+type: object
+
+properties:
+  id: 
+    title: id
+    type: integer
+    example: 123
+    description: Unique identifier for the addon.
+
+  low_volume:
+    title: low_volume
+    type: integer
+    example: 1
+    description: The minimum volume for the volume pricing tier.
+
+  max_volume:
+    title: max_volume
+    type: integer
+    example: 100
+    description: The maximum volume for the volume pricing tier. 
+
+  price_per_unit:
+    title: price_per_unit
+    type: string
+    example: "0.10"
+    description: The price per unit for the volume tier in US dollars.
+
+required:
+  - id 
+  - low_volume
+  - max_volume
+  - price_per_unit

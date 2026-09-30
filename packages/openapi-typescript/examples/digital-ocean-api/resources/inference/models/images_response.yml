@@ -1,0 +1,42 @@
+type: object
+description: The response from the image generation endpoint.
+required:
+  - created
+  - data
+properties:
+  created:
+    type: integer
+    description: The Unix timestamp (in seconds) of when the images were created.
+    example: 1677649456
+  data:
+    type: array
+    description: The list of generated images.
+    minItems: 1
+    maxItems: 10
+    items:
+      $ref: "generated_image.yml"
+  background:
+    type: string
+    description: The background setting used for the image generation.
+    example: "opaque"
+    nullable: true
+  output_format:
+    type: string
+    description: The output format of the generated image.
+    example: "png"
+    nullable: true
+  quality:
+    type: string
+    description: The quality setting used for the image generation.
+    example: "high"
+    nullable: true
+  size:
+    type: string
+    description: The size of the generated image.
+    example: "1024x1024"
+    nullable: true
+  usage:
+    nullable: true
+    description: Usage statistics for the image generation request.
+    allOf:
+      - $ref: "images_usage.yml"

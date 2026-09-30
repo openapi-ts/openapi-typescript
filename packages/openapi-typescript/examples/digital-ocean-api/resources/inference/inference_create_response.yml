@@ -1,0 +1,47 @@
+operationId: inference_create_response
+summary: Send Prompt to a Model Using the Responses API
+description: >
+  Generate text responses from text prompts. This endpoint supports both
+  streaming and non-streaming responses for supported text models.
+tags:
+  - Serverless Inference
+servers:
+  - url: "https://inference.do-ai.run"
+    description: production
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "models/create_response_request.yml"
+responses:
+  "200":
+    description: Successful response. When stream is true, response is sent as Server-Sent Events (text/event-stream); otherwise a single JSON object (application/json) is returned.
+    headers:
+      ratelimit-limit:
+        $ref: '../../shared/headers.yml#/ratelimit-limit'
+      ratelimit-remaining:
+        $ref: '../../shared/headers.yml#/ratelimit-remaining'
+      ratelimit-reset:
+        $ref: '../../shared/headers.yml#/ratelimit-reset'
+    content:
+      application/json:
+        schema:
+          $ref: "models/create_response_response.yml"
+      text/event-stream:
+        schema:
+          $ref: "models/create_response_stream_response.yml"
+  "401":
+    $ref: '../../shared/responses/unauthorized.yml'
+  "429":
+    $ref: '../../shared/responses/too_many_requests.yml'
+  "500":
+    $ref: '../../shared/responses/server_error.yml'
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+x-codeSamples:
+  - $ref: 'examples/curl/inference_create_response.yml'
+  - $ref: 'examples/python/inference_create_response.yml'
+  - $ref: 'examples/dots/inference_create_response.yml'
+security:
+  - inference_bearer_auth: []

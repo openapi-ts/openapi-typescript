@@ -1,0 +1,20 @@
+partner_attachment_service_key:
+  type: object
+  properties:
+    value:
+      type: string
+      readOnly: true
+      example: 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+      x-order: 1
+    created_at:
+      type: string
+      format: date-time
+      readOnly: true
+      example: '2020-03-13T19:20:47.442049222Z'
+      description: A time value given in the ISO 8601 combined date and time format.
+      x-order: 2
+    state:
+      type: string
+      readOnly: true
+      example: "CREATED"
+      x-order: 3

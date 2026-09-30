@@ -7,7 +7,7 @@ description: >-
   `/v2/databases/$DATABASE_ID/replicas/$REPLICA_NAME`.
 
 
-  **Note**: Read-only replicas are not supported for Redis clusters.
+  **Note**: Read-only replicas are not supported for Caching or Valkey clusters.
 
 
   A status of 204 will be given. This indicates that the request was processed

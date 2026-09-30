@@ -1,0 +1,9 @@
+description: >
+  Structured message content. Block `type` is one of `text`, `image`, `tool_use`, or
+  `tool_result`. Some tool definitions may be rejected by server policy even when valid
+  here.
+oneOf:
+  - $ref: messages_request_text_block_param.yml
+  - $ref: messages_image_block_param.yml
+  - $ref: messages_tool_use_block_param.yml
+  - $ref: messages_tool_result_block_param.yml

@@ -1,0 +1,20 @@
+description: A JSON object.
+
+headers:
+  ratelimit-limit:
+    $ref: "../../../shared/headers.yml#/ratelimit-limit"
+  ratelimit-remaining:
+    $ref: "../../../shared/headers.yml#/ratelimit-remaining"
+  ratelimit-reset:
+    $ref: "../../../shared/headers.yml#/ratelimit-reset"
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: "../models/kafka_schema_verbose.yml"
+      required:
+        - schema_id
+        - subject_name
+        - schema_type
+        - schema

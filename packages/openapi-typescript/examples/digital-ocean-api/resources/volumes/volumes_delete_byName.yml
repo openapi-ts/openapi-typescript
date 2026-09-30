@@ -44,3 +44,4 @@ x-codeSamples:
 security:
   - bearer_auth:
     - 'block_storage:delete'
+    - 'api:write'

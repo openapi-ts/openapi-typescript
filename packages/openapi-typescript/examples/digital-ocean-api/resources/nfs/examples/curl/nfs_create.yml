@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name": "sammy-share-drive", "size_gib": 1024, "region": "atl1", "vpc_ids": ["796c6fe3-2a1d-4da2-9f3e-38239827dc91"]}' \
+    "https://api.digitalocean.com/v2/nfs"

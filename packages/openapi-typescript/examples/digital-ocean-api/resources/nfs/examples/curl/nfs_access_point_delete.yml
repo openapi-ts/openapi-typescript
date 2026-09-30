@@ -1,0 +1,6 @@
+lang: cURL
+source: |-
+  curl -X DELETE \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/nfs/access_points/7659ce91-354d-4f61-9cda-ae2c7feb61d9"

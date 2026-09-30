@@ -2,7 +2,11 @@ operationId: tags_list
 
 summary: List All Tags
 
-description: To list all of your tags, you can send a GET request to `/v2/tags`.
+description: |
+  To list all of your tags, you can send a GET request to `/v2/tags`.
+
+  This endpoint will only return tagged resources that you are authorized to see
+  (e.g. Droplets will only be returned if you have `droplet:read`).
 
 tags:
   - Tags

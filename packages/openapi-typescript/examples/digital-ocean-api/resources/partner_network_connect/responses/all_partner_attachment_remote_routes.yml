@@ -1,0 +1,31 @@
+description:  |-
+  The response will be a JSON object with a `remote_routes` array containing 
+  information on all the remote routes associated with the partner attachment
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      allOf:
+        - type: object
+          properties:
+            remote_routes:
+              type: array
+              items:
+                $ref: '../models/remote_route.yml#/partner_attachment_remote_route'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'
+      example:
+        remote_routes:
+          - cidr: 10.10.10.0/24
+          - cidr: 10.10.10.10/24
+        links: {}
+        meta:
+          total: 2

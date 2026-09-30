@@ -1,0 +1,18 @@
+lang: JavaScript
+source: |-
+  import { InferenceClient } from "@digitalocean/dots";
+
+  const client = new InferenceClient({
+      apiKey: process.env.DIGITALOCEAN_TOKEN,
+  });
+
+  const resp = await client.embeddings.create({
+      model: "qwen3-embedding-0.6b",
+      input: ["hello world", "goodbye world"],
+      encoding_format: "float",
+      user: "user-1234",
+  });
+
+  for (const item of resp.data) {
+      console.log(item.index, item.embedding.slice(0, 8));
+  }

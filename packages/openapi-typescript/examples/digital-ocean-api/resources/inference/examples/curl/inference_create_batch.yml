@@ -1,0 +1,24 @@
+lang: cURL
+source: |-
+  # OpenAI provider — endpoint required (/v1/responses or /v1/chat/completions)
+  curl -sS -X POST "https://inference.do-ai.run/v1/batches" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "file_id": "a1b2c3d4-e5f6-4789-90ab-cdef12345678",
+      "provider": "openai",
+      "endpoint": "/v1/chat/completions",
+      "completion_window": "24h",
+      "request_id": "c7e3ad1e-20c3-4e47-9bf2-6f2a4d6a2f11"
+    }'
+
+  # Anthropic provider — DO NOT send endpoint
+  curl -sS -X POST "https://inference.do-ai.run/v1/batches" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "file_id": "a1b2c3d4-e5f6-4789-90ab-cdef12345678",
+      "provider": "anthropic",
+      "completion_window": "24h",
+      "request_id": "2f1a7d9e-8c03-4d2c-9b7e-6f8e2b1a4c77"
+    }'

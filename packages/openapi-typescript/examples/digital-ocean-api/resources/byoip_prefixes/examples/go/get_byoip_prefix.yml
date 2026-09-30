@@ -1,0 +1,19 @@
+lang: Go
+source: |-
+  import (
+      "context"
+      "os"
+      "github.com/digitalocean/godo"
+  )
+
+  func main() {
+      token := os.Getenv("DIGITALOCEAN_TOKEN")
+      client := godo.NewFromToken(token)
+      ctx := context.TODO()
+
+      byoipPrefix, _, err := client.BYOIPPrefixes.Get(ctx, "fa3b-1234-5678-90ab-cdef01234567")
+      if err != nil {
+          panic(err)
+      }
+      // use byoipPrefix
+  }

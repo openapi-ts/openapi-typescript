@@ -2,7 +2,7 @@ operationId: tags_unassign_resources
 
 summary: Untag a Resource
 
-description: >-
+description: |
   Resources can be untagged by sending a DELETE request to
   `/v2/tags/$TAG_NAME/resources` with an array of json objects containing
   `resource_id` and `resource_type` attributes.
@@ -11,6 +11,9 @@ description: >-
   Snapshots is supported. `resource_type` is expected to be the string `droplet`,
   `database`, `image`, `volume` or `volume_snapshot`. `resource_id` is expected
   to be the ID of the resource as a string.
+
+  In order to untag a resource, you must have both `tag:delete` and `<resource type>:update` scopes. For example, 
+  to untag a Droplet, you must have `tag:delete` and `droplet:update`.
 
 tags:
   - Tags

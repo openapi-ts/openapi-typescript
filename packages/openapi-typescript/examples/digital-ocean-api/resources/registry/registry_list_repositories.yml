@@ -2,9 +2,10 @@ operationId: registry_list_repositories
 
 deprecated: true
 
-summary: List All Container Registry Repositories
-
+summary: 'List All Container Registry Repositories'
 description: |
+  **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+
   This endpoint has been deprecated in favor of the _List All Container Registry Repositories [V2]_ endpoint.
 
   To list all repositories in your container registry, send a GET

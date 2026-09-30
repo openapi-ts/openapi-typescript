@@ -5,6 +5,7 @@ nullable: true
 description: >-
   A flat array of tag names as strings to be applied to the resource.
   Tag names must exist in order to be referenced in a request.
+  <br><br>Requires `tag:create` and `tag:read` scopes.
 example:
   - base-image
   - prod

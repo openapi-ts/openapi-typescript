@@ -1,4 +1,4 @@
-description: To attach a knowledge base to an agent, send a POST request to `/v2/gen-ai/agents/{agent_uuid}/knowledge_bases/{knowledge_base_uuid}`.
+description: To list all knowledge bases, send a GET request to `/v2/gen-ai/knowledge_bases`.
 operationId: genai_list_knowledge_bases
 parameters:
 - description: Page number.
@@ -42,6 +42,6 @@ security:
   - genai:read
 summary: List Knowledge Bases
 tags:
-- GenAI Platform (Public Preview)
+- GradientAI Platform
 x-codeSamples:
 - $ref: examples/curl/genai_list_knowledge_bases.yml

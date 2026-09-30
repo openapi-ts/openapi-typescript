@@ -1,0 +1,45 @@
+type: object
+
+properties:
+  app_slug:
+    title: app_slug
+    type: string
+    example: example-app
+    description: The slug identifier for the application associated with the resource.
+
+  plan_slug:
+    title: plan_slug
+    type: string
+    example: basic_plan
+    description: The slug identifier for the plan associated with the resource.
+
+  name:
+    title: name
+    type: string
+    example: my-resource-01
+    description: The name of the addon resource.
+
+  metadata:
+    title: metadata
+    type: array
+    items:
+      $ref: addons_resource_metadata.yml
+    description: Metadata associated with the resource, set by the user. Metadata expected varies per app, and can be verified with a GET request to "/v2/add-ons/apps/{app_slug}/metadata"
+
+  linked_droplet_id:
+    title: linked_droplet_id
+    type: integer
+    example: 12345678
+    description: ID of the droplet to be linked to this resource, if applicable.
+
+  fleet_uuid:
+    title: fleet_uuid
+    type: string
+    example: "f1234567-89ab-cdef-0123-456789abcdef01"
+    description: UUID of the fleet/project to which this resource will belong.
+
+required:
+  - app_slug
+  - plan_slug
+  - name
+  - metadata

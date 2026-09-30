@@ -1,0 +1,70 @@
+operationId: nfs_create_access_point
+
+summary: Create an NFS access point
+
+description: |
+  To create a new access point on an NFS share, send a POST request to
+  `/v2/nfs/shares/{share_id}/access_points`.
+
+  A successful request will return the newly created access point and an action object.
+
+  The parent share must be in `ACTIVE` or `INACTIVE` status. Validation failures and
+  precondition errors (such as an ineligible share state) return `400 Bad Request`.
+  Duplicate name or path conflicts return `409 Conflict`.
+
+tags:
+  - NFS
+
+parameters:
+  - $ref: "parameters.yml#/share_id_path"
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: 'models/access_point_request.yml'
+      examples:
+        Basic Access Point:
+          value:
+            name: "other-vpc"
+            path: "/other-vpc"
+            vpc_id: "3f34cdb2-1e4f-4100-b5c7-f55f2762085f"
+            access_policy:
+              anonuid: 65534
+              anongid: 65534
+              protocols: ["NFS4", "NFS"]
+              squash_config: "ROOT_SQUASH"
+              identity_enforcement_enabled: false
+
+responses:
+  '201':
+    $ref: 'responses/access_point_create.yml'
+
+  '400':
+    $ref: 'responses/access_point_bad_request.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '409':
+    $ref: 'responses/access_point_conflict.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/nfs_access_point_create.yml'
+
+security:
+  - bearer_auth:
+      - "nfs:create"

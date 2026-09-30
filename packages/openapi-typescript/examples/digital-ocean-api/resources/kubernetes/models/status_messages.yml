@@ -1,0 +1,16 @@
+type: object
+
+properties:
+  message:
+    type: string
+    readOnly: true
+    example: Resource provisioning may be delayed while our team resolves an incident
+    description: Status information about the cluster which impacts it's lifecycle.
+
+  timestamp:
+    type: string
+    format: date-time
+    readOnly: true
+    example: "2018-11-15T16:00:11Z"
+    description: A timestamp in ISO8601 format that represents when the status 
+      message was emitted.

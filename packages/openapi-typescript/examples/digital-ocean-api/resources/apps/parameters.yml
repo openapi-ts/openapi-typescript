@@ -6,8 +6,8 @@ accept:
   schema:
     type: string
     enum:
-    - application/json
-    - application/yaml
+      - application/json
+      - application/yaml
   example: application/json
 
 content-type:
@@ -18,8 +18,8 @@ content-type:
   schema:
     type: string
     enum:
-    - application/json
-    - application/yaml
+      - application/json
+      - application/yaml
   example: application/json
 
 app_id:
@@ -39,6 +39,15 @@ deployment_id:
   schema:
     type: string
   example: 3aa4d20e-5527-4c00-b496-601fbd22520a
+
+event_id:
+  description: The event ID
+  in: path
+  name: event_id
+  required: true
+  schema:
+    type: string
+  example: 4f6c71e2-1e90-4762-9fee-6cc4a0a9f2cf
 
 app_name:
   description: The name of the app to retrieve.
@@ -67,7 +76,8 @@ slug_size:
   example: apps-s-1vcpu-0.5gb
 
 component:
-  description: An optional component name. If set, logs will be limited to this component
+  description:
+    An optional component name. If set, logs will be limited to this component
     only.
   in: path
   name: component_name
@@ -99,23 +109,26 @@ log_type:
     - DEPLOY: Deploy-time logs
     - RUN: Live run-time logs
     - RUN_RESTARTED: Logs of crashed/restarted instances during runtime
+    - AUTOSCALE_EVENT: Logs of an autoscaling event (requires event_id)
   in: query
   name: type
   required: true
   schema:
     default: UNSPECIFIED
     enum:
-    - UNSPECIFIED
-    - BUILD
-    - DEPLOY
-    - RUN
-    - RUN_RESTARTED
+      - UNSPECIFIED
+      - BUILD
+      - DEPLOY
+      - RUN
+      - RUN_RESTARTED
+      - AUTOSCALE_EVENT
     type: string
   example: BUILD
 
 time_wait:
-  description: 'An optional time duration to wait if the underlying component instance
-    is not immediately available. Default: `3m`.'
+  description:
+    "An optional time duration to wait if the underlying component instance
+    is not immediately available. Default: `3m`."
   in: query
   name: pod_connection_timeout
   schema:
@@ -139,3 +152,53 @@ alert_id:
   schema:
     type: string
   example: 5a624ab5-dd58-4b39-b7dd-8b7c36e8a91d
+
+instance_name:
+  description: The name of the actively running ephemeral compute instance
+  in: query
+  name: instance_name
+  required: false
+  schema:
+    type: string
+  example: go-app-d768568df-zz77d
+
+job_name:
+  description: The job name to list job invocations for.
+  in: query
+  name: job_name
+  required: false
+  schema:
+    type: string
+  example: component
+
+job_names:
+  description:
+    The job names to list job invocations for.
+  in: query
+  name: job_names
+  required: false
+  schema:
+    type: array
+    items:
+      $ref: '#/job_name/schema'
+  example: [component1, component2]
+
+job_invocation_id:
+  description:
+    The ID of the job invocation to retrieve.
+  in: path
+  name: job_invocation_id
+  required: true
+  schema:
+    type: string
+  example: 123e4567-e89b-12d3-a456-426
+
+number_lines:
+  description: The number of lines from the end of the logs to retrieve.
+  in: query
+  name: tail_lines
+  required: false
+  schema:
+    type: string
+    format: int64
+  example: "100"

@@ -1,0 +1,28 @@
+description: >-
+  The response will be a JSON object
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      properties:
+        key:
+          $ref: '../models/key.yml'
+
+    examples:
+      Read Only Key:
+        value:
+          key:
+            name: new-key-name
+            access_key: DOACCESSKEYEXAMPLE
+            grants:
+              - bucket: my-bucket
+                permission: read
+            created_at: '2018-07-19T15:04:16Z'

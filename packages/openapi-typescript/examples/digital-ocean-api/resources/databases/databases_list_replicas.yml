@@ -7,7 +7,7 @@ description: >-
   send a GET request to `/v2/databases/$DATABASE_ID/replicas`.
 
 
-  **Note**: Read-only replicas are not supported for Redis clusters.
+  **Note**: Read-only replicas are not supported for Caching or Valkey clusters.
 
 
   The result will be a JSON object with a `replicas` key. This will be set to

@@ -1,0 +1,47 @@
+operationId: dedicatedInferences_list_sizes
+
+summary: List Dedicated Inference Sizes
+
+description: |
+  Get available Dedicated Inference sizes and pricing for supported GPUs. Send a
+  GET request to `/v2/dedicated-inferences/sizes`.
+
+tags:
+  - Dedicated Inference
+
+responses:
+  '200':
+    description: Enabled regions and sizes with pricing.
+    headers:
+      ratelimit-limit:
+        $ref: '../../shared/headers.yml#/ratelimit-limit'
+      ratelimit-remaining:
+        $ref: '../../shared/headers.yml#/ratelimit-remaining'
+      ratelimit-reset:
+        $ref: '../../shared/headers.yml#/ratelimit-reset'
+    content:
+      application/json:
+        schema:
+          $ref: 'models/sizes.yml#/dedicated_inference_sizes_response'
+        example:
+          enabled_regions: [nyc2, atl1]
+          sizes:
+            - gpu_slug: gpu-mi300x1-192gb
+              price_per_hour: "2"
+              region: nyc2
+              currency: USD
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/dedicated_inferences_sizes_list.yml'
+
+security:
+  - bearer_auth:
+    - 'dedicated_inference:read'

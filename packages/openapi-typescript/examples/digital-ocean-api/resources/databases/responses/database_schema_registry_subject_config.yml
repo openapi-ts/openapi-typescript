@@ -1,0 +1,35 @@
+description: A JSON object with a key of `compatibility_level`.
+
+headers:
+  ratelimit-limit:
+    $ref: "../../../shared/headers.yml#/ratelimit-limit"
+  ratelimit-remaining:
+    $ref: "../../../shared/headers.yml#/ratelimit-remaining"
+  ratelimit-reset:
+    $ref: "../../../shared/headers.yml#/ratelimit-reset"
+
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        subject_name:
+          type: string
+          description: The name of the schema subject.
+        compatibility_level:
+          type: string
+          enum:
+            - NONE
+            - BACKWARD
+            - BACKWARD_TRANSITIVE
+            - FORWARD
+            - FORWARD_TRANSITIVE
+            - FULL
+            - FULL_TRANSITIVE
+          description: The compatibility level of the schema registry.
+      required:
+        - subject_name
+        - compatibility_level
+    example:
+      subject_name: "my-schema-subject"
+      compatibility_level: BACKWARD

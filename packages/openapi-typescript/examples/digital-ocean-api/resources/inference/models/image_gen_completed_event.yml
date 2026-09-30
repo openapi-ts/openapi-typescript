@@ -1,0 +1,62 @@
+type: object
+description: Emitted when image generation has completed and the final image is available.
+required:
+  - type
+  - b64_json
+  - created_at
+  - size
+  - quality
+  - background
+  - output_format
+  - usage
+properties:
+  type:
+    type: string
+    description: The type of the event. Always `image_generation.completed`.
+    enum:
+      - image_generation.completed
+    example: image_generation.completed
+  b64_json:
+    type: string
+    description: Base64-encoded image data, suitable for rendering as an image.
+    example: "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAAA1BMVEX..."
+  created_at:
+    type: integer
+    description: The Unix timestamp when the event was created.
+    example: 1677649456
+  size:
+    type: string
+    description: The size of the generated image.
+    enum:
+      - 1024x1024
+      - 1024x1536
+      - 1536x1024
+      - auto
+    example: "1024x1024"
+  quality:
+    type: string
+    description: The quality setting for the generated image.
+    enum:
+      - low
+      - medium
+      - high
+      - auto
+    example: "high"
+  background:
+    type: string
+    description: The background setting for the generated image.
+    enum:
+      - transparent
+      - opaque
+      - auto
+    example: "opaque"
+  output_format:
+    type: string
+    description: The output format for the generated image.
+    enum:
+      - png
+      - webp
+      - jpeg
+    example: "png"
+  usage:
+    $ref: "images_usage.yml"

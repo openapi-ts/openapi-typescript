@@ -1,0 +1,28 @@
+description: Response containing a single Dedicated Inference instance.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        dedicated_inference:
+          $ref: '../models/dedicated_inference.yml#/dedicated_inference'
+    example:
+      dedicated_inference:
+        id: 6b5c619c-359c-44ca-87e2-47e98170c01d
+        status: active
+        region: atl1
+        vpc_uuid: 997615ce-132d-4bae-9270-9ee21b395e5d
+        endpoints:
+          public_endpoint_fqdn: "https://b4bfug4jc41kts2ro54if91eo-public-dedicated-inference.do-infra.ai"
+          private_endpoint_fqdn: "https://b4bfug4jc41kts2ro54if91eo-private-dedicated-inference.do-infra.ai"
+        created_at: "2024-01-09T20:44:32Z"
+        updated_at: "2024-01-09T20:44:32Z"

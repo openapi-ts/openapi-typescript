@@ -1,0 +1,27 @@
+description: >-
+  A JSON response containing the updated access key details.
+
+headers:
+  ratelimit-limit:
+    $ref: "../../../shared/headers.yml#/ratelimit-limit"
+  ratelimit-remaining:
+    $ref: "../../../shared/headers.yml#/ratelimit-remaining"
+  ratelimit-reset:
+    $ref: "../../../shared/headers.yml#/ratelimit-reset"
+
+content:
+  application/json:
+    schema:
+      properties:
+        access_key:
+          $ref: "../models/access_key.yml"
+
+    examples:
+      Updated Access Key:
+        value:
+          access_key:
+            id: "dof_v1-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+            name: "updated-key-name"
+            expires_at: "2026-12-19T10:30:00Z"
+            created_at: "2025-12-19T10:30:00Z"
+            updated_at: "2025-12-19T16:00:00Z"

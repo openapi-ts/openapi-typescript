@@ -1,0 +1,40 @@
+description: To create scheduled indexing for a knowledge base, send a POST request
+  to `/v2/gen-ai/scheduled-indexing`.
+operationId: genai_create_scheduled_indexing
+requestBody:
+  content:
+    application/json:
+      schema:
+        $ref: ./definitions.yml#/apiCreateScheduledIndexingInputPublic
+responses:
+  "200":
+    content:
+      application/json:
+        schema:
+          $ref: ./definitions.yml#/apiCreateScheduledIndexingOutput
+    description: A successful response.
+    headers:
+      ratelimit-limit:
+        $ref: ../../shared/headers.yml#/ratelimit-limit
+      ratelimit-remaining:
+        $ref: ../../shared/headers.yml#/ratelimit-remaining
+      ratelimit-reset:
+        $ref: ../../shared/headers.yml#/ratelimit-reset
+  "401":
+    $ref: ../../shared/responses/unauthorized.yml
+  "404":
+    $ref: ../../shared/responses/not_found.yml
+  "429":
+    $ref: ../../shared/responses/too_many_requests.yml
+  "500":
+    $ref: ../../shared/responses/server_error.yml
+  default:
+    $ref: ../../shared/responses/unexpected_error.yml
+security:
+- bearer_auth:
+  - genai:create
+summary: Create scheduled indexing for knowledge base
+tags:
+- GradientAI Platform
+x-codeSamples:
+- $ref: examples/curl/genai_create_scheduled_indexing.yml

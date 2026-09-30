@@ -1,0 +1,70 @@
+byoip_prefix_create:
+  byoip_prefix:
+    uuid: f47ac10b-58cc-4372-a567-0e02b2c3d479
+    status: in_progress
+    region: nyc3
+
+byoip_prefix_get:
+  byoip_prefix:
+    uuid: f47ac10b-58cc-4372-a567-0e02b2c3d479
+    status: active
+    region: nyc3
+    prefix: "203.0.113.0/24"
+    validations: []
+    failure_reason: ""
+    advertised: true
+    locked: false
+    project_id: "12345678-1234-1234-1234-123456789012"
+
+byoip_prefix_update:
+  byoip_prefix:
+    uuid: f47ac10b-58cc-4372-a567-0e02b2c3d479
+    status: active
+    region: nyc3
+    prefix: "203.0.113.0/24"
+    validations: []
+    failure_reason: ""
+    advertised: true
+    locked: false
+    project_id: "12345678-1234-1234-1234-123456789012"
+
+byoip_prefix_list:
+  byoip_prefixes:
+    - uuid: f47ac10b-58cc-4372-a567-0e02b2c3d479
+      status: active
+      region: nyc3
+      prefix: "203.0.113.0/24"
+      validations: []
+      failure_reason: ""
+      advertised: true
+      locked: false
+      project_id: "12345678-1234-1234-1234-123456789012"
+
+    - uuid: 123e4567-e89b-12d3-a456-426614174001
+      status: in_progress
+      region: sfo2
+      prefix: "203.1.113.0/24"
+      validations: []
+      failure_reason: ""
+      advertised: false
+      locked: false
+      project_id: "12345678-1234-1234-1234-123456789012"
+  links: {}
+  meta:
+    total: 2
+
+byoip_prefix_resources_list:
+  ips:
+    - id: 11111023
+      byoip: "203.0.113.2"
+      region: nyc3
+      resource: "do:droplet:fa3c10b-58cc-4372-a567-0e02b2c3d479"
+      assigned_at: 2025-06-25T12:00:00Z
+    - id: 11111024
+      byoip: "203.0.113.3"
+      region: nyc3
+      resource: "do:droplet:fa3c10b-58cc-4372-a567-0e02b2c3d480"
+      assigned_at: 2025-06-25T13:00:00Z
+  links: {}
+  meta:
+    total: 2

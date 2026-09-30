@@ -41,3 +41,4 @@ x-codeSamples:
 security:
   - bearer_auth:
     - 'sizes:read'
+    - 'regions:read'

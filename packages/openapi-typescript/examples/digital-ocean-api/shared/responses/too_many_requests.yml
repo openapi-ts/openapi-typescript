@@ -1,4 +1,4 @@
-description: API Rate limit exceeded
+description: The API rate limit has been exceeded.
 
 headers:
   ratelimit-limit:
@@ -14,4 +14,4 @@ content:
       $ref: '../models/error.yml'
     example:
       id: too_many_requests
-      message: API Rate limit exceeded.
+      message: API rate limit exceeded.

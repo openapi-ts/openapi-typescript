@@ -1,0 +1,66 @@
+type: object
+properties:
+  id:
+    type: string
+    title: The ID of the event (UUID)
+    example: "ba32b134-569c-4c0c-ba02-8ffdb0492ece"
+  type:
+    type: string
+    description: The type of event
+    enum:
+      - UNKNOWN
+      - DEPLOYMENT
+      - AUTOSCALING
+    example: DEPLOYMENT
+  created_at:
+    type: string
+    format: date-time
+    title: When the event was created
+    example: "2023-10-01T12:00:00Z"
+  deployment_id:
+    type: string
+    title: The deployment ID associated with this event
+    description: >-
+      For deployment events, this is the same as the deployment's ID.
+      For autoscaling events, this is the deployment that was autoscaled.
+    example: "c020763f-ddb7-4112-a0df-7f01c69fc00b"
+  deployment:
+    $ref: apps_deployment.yml
+  autoscaling:
+    type: object
+    description: Autoscaling event details. Only present for autoscaling events.
+    properties:
+      phase:
+        type: string
+        description: The current phase of the autoscaling event
+        enum:
+          - UNKNOWN
+          - PENDING
+          - IN_PROGRESS
+          - SUCCEEDED
+          - FAILED
+          - CANCELED
+        example: SUCCEEDED
+      components:
+        type: object
+        description: Map of component names to their scale changes
+        additionalProperties:
+          type: object
+          properties:
+            from:
+              type: integer
+              format: int64
+              description: The number of replicas before scaling
+              example: 1
+            to:
+              type: integer
+              format: int64
+              description: The number of replicas after scaling
+              example: 3
+            triggering_metric:
+              type: string
+              description: >-
+                The metric that triggered the scale change. Known values are
+                "cpu", "requests_per_second", "request_duration". For
+                inactivity sleep, "scale_from_zero" and "scale_to_zero" are used.
+              example: cpu

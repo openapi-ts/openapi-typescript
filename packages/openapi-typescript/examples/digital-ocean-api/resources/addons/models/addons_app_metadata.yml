@@ -1,0 +1,54 @@
+type: object
+
+properties:
+  id:
+    title: id
+    type: integer
+    example: 1
+    description: Unique identifier for the addon metadata item.
+
+  name:
+    title: name
+    type: string
+    example: "country_of_origin"
+    description: The name of the metadata item.
+
+  display_name:
+    title: display_name
+    type: string
+    example: "Country of Origin"
+    description: The display name of the metadata item.
+
+  description:
+    title: description
+    type: string
+    example: "Country for localization"
+    description: A brief description of the metadata item.
+
+  type:
+    title: type
+    type: string
+    enum:
+      - string
+      - boolean
+    example: "string"
+    description: The data type of the metadata value.
+
+  options:
+    title: options
+    type: array
+    example:
+      - "US"
+      - "UK"
+      - "CA"
+    items:
+      type: string
+      example: "UK"
+      description: An option available for the addon metadata, if applicable.
+
+required:
+  - id
+  - name
+  - display_name
+  - description
+  - type

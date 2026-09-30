@@ -414,3 +414,16 @@ properties:
     minimum: 10
     maximum: 9223372036854776000
     example: 50
+  max_connections:
+    description: >-
+      Sets the PostgreSQL maximum number of concurrent connections to the database server. This is a limited-release parameter. Contact your account team to confirm your eligibility. You cannot decrease this parameter value when set. For services with a read replica, first increase the read replica's value. After the change is applied to the replica, you can increase the primary service's value. Changing this parameter causes a service restart.
+    type: integer
+    minimum: 25
+    example: 75
+  max_slot_wal_keep_size:
+    description: >-
+      PostgreSQL maximum WAL size (MB) reserved for replication slots. If -1 is specified, replication slots may retain an unlimited amount of WAL files. The default is -1 (upstream default). wal_keep_size minimum WAL size setting takes precedence over this.
+    type: integer
+    minimum: -1
+    maximum: 2147483647
+    example: 100

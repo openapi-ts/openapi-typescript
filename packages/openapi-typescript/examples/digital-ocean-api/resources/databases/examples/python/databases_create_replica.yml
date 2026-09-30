@@ -10,6 +10,12 @@ source: |-
     "region": "nyc3",
     "size": "db-s-2vcpu-4gb",
     "storage_size_mib": 61440,
+    "do_settings": {
+      "service_cnames": [
+        "replica-db.example.com",
+        "read-replica.myapp.io"
+      ]
+    }
   }
 
   create_resp = client.databases.create_replica(database_cluster_uuid="9cc10173", body=create_req)

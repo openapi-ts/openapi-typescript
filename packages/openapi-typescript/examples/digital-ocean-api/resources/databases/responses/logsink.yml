@@ -13,13 +13,7 @@ content:
     schema:
       properties:
         sink:
-          allOf:
-            - $ref: "../models/logsink_verbose.yml"
-          required:
-            - sink_id
-            - sink_name
-            - sink_type
-            - config
+          $ref: "logsink_schema.yml"
     examples:
       Create an opensearch logsink:
         value:
@@ -52,3 +46,12 @@ content:
               port: 514
               tls: false
               format: rfc5424
+      Create a datadog logsink:
+        value:
+          sink:
+            sink_id: "dfcc9f57d86bf58e321c2c6c31c7a971be244ac7"
+            sink_name: logs-sink
+            sink_type: rsyslog
+            config:
+              site: http-intake.logs.datadoghq.com
+              datadog_api_key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

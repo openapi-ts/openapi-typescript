@@ -1,0 +1,227 @@
+partner_attachment:
+  type: object
+  properties:
+    id:
+      type: string
+      format: string
+      readOnly: true
+      example: 5a4981aa-9653-4bd1-bef5-d6bff52042e4
+      description: A unique ID that can be used to identify and reference the partner attachment.
+      x-order: 1
+    name:
+      type: string
+      pattern: ^[a-zA-Z0-9\-\.]+$
+      example: env.prod-partner-network-connect
+      description: >-
+        The name of the partner attachment. Must be unique and may only contain
+        alphanumeric characters, dashes, and periods.
+      x-order: 2
+    state:
+      type: string
+      readOnly: true
+      example: active
+      description: The current operational state of the attachment.
+      x-order: 4
+    connection_bandwidth_in_mbps:
+      type: integer
+      example: 1000
+      description: The bandwidth (in Mbps) of the connection.
+      x-order: 5
+    region:
+      type: string
+      example: nyc
+      description: The region where the partner attachment is located.
+      x-order: 6
+    naas_provider:
+      type: string
+      example: megaport
+      description: The Network as a Service (NaaS) provider for the partner attachment.
+      x-order: 7
+    vpc_ids:
+      type: array
+      items:
+        type: string
+        format: string
+      minItems: 1
+      example:
+        - c140286f-e6ce-4131-8b7b-df4590ce8d6a
+        - 994a2735-dc84-11e8-80bc-3cfdfea9fba1
+      description: An array of VPC network IDs.
+      x-order: 8
+    bgp:
+      type: object
+      properties:
+        local_asn:
+          type: integer
+          example: 64532
+          description: ASN of the local router.
+        peer_asn:
+          type: integer
+          example: 64532
+          description: ASN of the peer router
+        local_router_ip:
+          type: string
+          example: 169.254.0.1/29
+          description: IP of the DigitalOcean router
+        peer_router_ip:
+          type: string
+          example: 169.254.0.1/29
+          description: IP of the peer router
+      description: The BGP configuration for the partner attachment.
+      x-order: 9
+    created_at:
+      type: string
+      format: date-time
+      readOnly: true
+      example: '2020-03-13T19:20:47.442049222Z'
+      description: A time value given in ISO8601 combined date and time format.
+      x-order: 10
+    parent_uuid:
+      type: string
+      readOnly: true
+      example: 34259a41-0ca6-4a6b-97dd-a22bcab900dd
+      description: Associated partner attachment UUID
+      x-order: 11
+    children:
+      type: array
+      readOnly: true
+      items:
+        type: string
+        format: string
+      minItems: 1
+      example:
+        - ee1ad867-7026-44a5-bfcc-2587b52e1291
+      description: An array of associated partner attachment UUIDs.
+      x-order: 12
+
+partner_attachment_writable:
+  type: object
+  required:
+    - name
+    - connection_bandwidth_in_mbps
+    - region
+    - naas_provider
+    - vpc_ids
+  properties:
+    name:
+      type: string
+      pattern: ^[a-zA-Z0-9\-\.]+$
+      example: env.prod-partner-network-connect
+      description: >-
+        The name of the partner attachment. Must be unique and may only contain
+        alphanumeric characters, dashes, and periods.
+    connection_bandwidth_in_mbps:
+      type: integer
+      description: Bandwidth (in Mbps) of the connection.
+      enum: [ 1000, 2000, 5000, 10000 ]
+      example: 1000
+    region:
+      description: The region to create the partner attachment.
+      enum: [nyc, sfo, fra, ams, sgp]
+      type: string
+      example: nyc
+    naas_provider:
+      type: string
+      example: megaport
+    vpc_ids:
+      type: array
+      items:
+        type: string
+        format: string
+      minItems: 1
+      example:
+        - c140286f-e6ce-4131-8b7b-df4590ce8d6a
+        - 994a2735-dc84-11e8-80bc-3cfdfea9fba1
+      description: An array of VPCs IDs.
+    parent_uuid:
+      type: string
+      description: Optional associated partner attachment UUID
+      example: d594cf8d-8c79-4bc5-aec1-6f9b211506b3
+    bgp:
+      type: object
+      description: Optional BGP configurations
+      required:
+        - local_router_ip
+        - peer_router_ip
+        - peer_router_asn
+        - auth_key
+      properties:
+        local_router_ip:
+          type: string
+          example: 169.254.0.1/29
+          description: IP of the DO router
+        peer_router_ip:
+          type: string
+          example: 169.254.0.6/29
+          description: IP of the Naas Provider router
+        peer_router_asn:
+          type: integer
+          example: 64532
+          description: ASN of the peer router
+        auth_key:
+          type: string
+          example: 0xsNnb1pwQlowdoMySEfWwk4I
+          description: BGP Auth Key
+    redundancy_zone:
+      type: string
+      description: Optional redundancy zone for the partner attachment.
+      enum: [ MEGAPORT_BLUE, MEGAPORT_RED ]
+      example: MEGAPORT_BLUE
+
+partner_attachment_updatable:
+  anyOf:
+    - title: Name
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          pattern: ^[a-zA-Z0-9\-\.]+$
+          example: env.prod-partner-network-connect
+          description: >-
+            The name of the partner attachment. Must be unique and may only contain
+            alphanumeric characters, dashes, and periods.
+    - title: VPC IDs
+      type: object
+      required:
+        - vpc_ids
+      properties:
+        vpc_ids:
+            type: array
+            items:
+              type: string
+              format: string
+            minItems: 1
+            example:
+              - c140286f-e6ce-4131-8b7b-df4590ce8d6a
+              - 994a2735-dc84-11e8-80bc-3cfdfea9fba1
+            description: An array of VPCs IDs.
+    - title: BGP
+      type: object
+      properties:
+        bgp:
+          type: object
+          description: BGP configurations
+          required:
+            - local_router_ip
+            - peer_router_ip
+            - peer_router_asn
+            - auth_key
+          properties:
+            local_router_ip:
+              type: string
+              example: 169.254.0.1/29
+              description: IP of the DO router
+            peer_router_ip:
+              type: string
+              example: 169.254.0.6/29
+              description: IP of the NaaS provider router
+            peer_router_asn:
+              type: integer
+              example: 64532
+              description: ASN of the peer router
+            auth_key:
+              type: string
+              example: 0xsNnb1pwQlowdoMySEfWwk4I
+              description: BGP Auth Key

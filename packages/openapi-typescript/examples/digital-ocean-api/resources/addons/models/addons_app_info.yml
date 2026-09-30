@@ -1,0 +1,33 @@
+type: object
+
+properties:
+  app_slug:
+    title: app_slug
+    type: string
+    example: example-app
+    description: The slug identifier for the application associated with the resource.
+
+  tos:
+    title: tos
+    type: string
+    example: "https://example.com/tos"
+    description: The Terms of Service URL for the resource.
+
+  eula:
+    title: eula
+    type: string
+    example: "https://example.com/eula"
+    description: The End User License Agreement URL for the resource.
+  
+  plans:
+    title: plans
+    type: array
+    description: A list of plans available for the resource.
+    items:
+      $ref: addons_plan.yml
+
+required:
+  - app_slug
+  - tos
+  - eula
+  - plans

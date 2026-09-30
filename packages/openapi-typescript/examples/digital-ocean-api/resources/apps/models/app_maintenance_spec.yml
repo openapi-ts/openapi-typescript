@@ -7,7 +7,7 @@ properties:
     example: true
   archive:
     type: boolean
-    description: Indicates whether the app should be archived. Setting this to true implies that enabled is set to true. Note that this feature is currently in closed beta.
+    description: Indicates whether the app should be archived. Setting this to true implies that enabled is set to true.
     example: true
   offline_page_url:
     type: string

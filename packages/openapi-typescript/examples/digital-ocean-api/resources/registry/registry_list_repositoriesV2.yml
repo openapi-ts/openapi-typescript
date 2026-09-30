@@ -1,8 +1,12 @@
 operationId: registry_list_repositoriesV2
 
-summary: List All Container Registry Repositories (V2)
+deprecated: true
 
-description: To list all repositories in your container registry, send a GET
+summary: 'List All Container Registry Repositories (V2)'
+description: |
+  **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+
+  To list all repositories in your container registry, send a GET
   request to `/v2/registry/$REGISTRY_NAME/repositoriesV2`.
 
 tags:

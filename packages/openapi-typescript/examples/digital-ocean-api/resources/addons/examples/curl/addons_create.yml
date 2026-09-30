@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"name":"my-addon-resource", "app_slug": "example-app", "plan_slug": "basic_plan", "metadata": [{"name": "company_name", "value": "Sample Company"}]}' \
+    "https://api.digitalocean.com/v2/add-ons/saas"

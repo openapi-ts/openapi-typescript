@@ -1,6 +1,8 @@
 description: >-
   The response will be a JSON object with a firewall key. This will be set to an
-  object containing the standard firewall attributes.
+  object containing the standard firewall attributes.<br><br>Firewalls responses
+  will include only the resources that you are granted to see. Ensure that your
+  API token includes all necessary `<resource>:read` permissions for requested firewall.
 
 headers:
   ratelimit-limit:

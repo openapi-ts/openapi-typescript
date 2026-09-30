@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"prompt": "A cute baby sea otter floating on its back in calm blue water", "model": "openai-gpt-image-1", "size": "auto", "quality": "auto"}' \
+    "https://inference.do-ai.run/v1/images/generations"

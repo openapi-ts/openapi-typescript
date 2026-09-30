@@ -1,0 +1,43 @@
+description: >-
+  The response will be a JSON object containing the created access point and an action object.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../models/access_point_action_response.yml'
+
+    examples:
+      Creating Access Point:
+        value:
+          access_point:
+            id: "7659ce91-354d-4f61-9cda-ae2c7feb61d9"
+            name: "other-vpc"
+            share_id: "baf4827c-6fa9-456f-9dbd-9ddfcacd0720"
+            path: "/other-vpc"
+            vpc_id: "3f34cdb2-1e4f-4100-b5c7-f55f2762085f"
+            status: "ACCESS_POINT_CREATING"
+            is_default: false
+            created_at: "2026-06-25T08:11:12Z"
+            updated_at: ""
+            access_policy:
+              anonuid: 65534
+              anongid: 65534
+              protocols: ["NFS4", "NFS"]
+              squash_config: "ROOT_SQUASH"
+              identity_enforcement_enabled: false
+          action:
+            id: "084c3b9c-2382-441b-92d4-10b095bb5d7c"
+            region_slug: "s2r1"
+            resource_id: "7659ce91-354d-4f61-9cda-ae2c7feb61d9"
+            resource_type: "SHARE"
+            type: "CREATE_ACCESS_POINT"
+            status: "IN_PROGRESS"
+            started_at: "2026-06-25T08:11:12Z"

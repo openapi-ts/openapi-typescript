@@ -1,0 +1,35 @@
+type: object
+description: Request body for `POST /v1/embeddings` (OpenAI-compatible). Extra fields are rejected.
+required:
+  - model
+  - input
+additionalProperties: false
+properties:
+  model:
+    type: string
+    description: Model id to use for embeddings. Must match a model your account can access.
+    example: qwen3-embedding-0.6b
+  input:
+    description: A single string or 1–2048 strings; each string produces one row in `data`, in order.
+    example: hello world
+    oneOf:
+      - type: string
+        example: hello world
+      - type: array
+        minItems: 1
+        maxItems: 2048
+        items:
+          type: string
+        example: ["hello world", "goodbye world"]
+  user:
+    type: string
+    description: Optional end-user identifier to help with abuse monitoring.
+    example: user-1234
+  encoding_format:
+    type: string
+    description: How embedding values are returned in each `data[].embedding` field.
+    enum:
+      - float
+      - base64
+    default: float
+    example: float

@@ -1,0 +1,14 @@
+lang: JavaScript
+source: |-
+  import { InferenceClient } from "@digitalocean/dots";
+
+  const client = new InferenceClient({
+      apiKey: process.env.DIGITALOCEAN_TOKEN,
+  });
+
+  const intent = await client.files.create({
+      file_name: "batch_requests.jsonl",
+  });
+
+  console.log("file_id:   ", intent.file_id);
+  console.log("upload_url:", intent.upload_url);

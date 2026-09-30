@@ -1,0 +1,37 @@
+---
+type: object
+description: |
+  Provider-agnostic NFS access policy for an access point. Network CIDRs are
+  managed by attach, detach, and managed-access workflows and are not part of
+  this policy.
+properties:
+  anonuid:
+    type: integer
+    description: UID used for squashed users. Currently only 65534 is supported.
+    example: 65534
+  anongid:
+    type: integer
+    description: GID used for squashed users. Currently only 65534 is supported.
+    example: 65534
+  protocols:
+    type: array
+    items:
+      type: string
+      enum: ["NFS4", "NFS"]
+    description: Allowed NFS protocols for this export.
+    example: ["NFS4", "NFS"]
+  squash_config:
+    type: string
+    enum: ["NO_SQUASH", "ROOT_SQUASH", "ALL_SQUASH"]
+    description: The squash mode applied to the access point export.
+    example: "ROOT_SQUASH"
+  identity_enforcement_enabled:
+    type: boolean
+    description: Whether identity enforcement is enabled for this export.
+    example: false
+required:
+  - anonuid
+  - anongid
+  - protocols
+  - squash_config
+  - identity_enforcement_enabled

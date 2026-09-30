@@ -1,0 +1,13 @@
+type: object
+properties:
+  exact:
+    type: string
+    nullable: true
+    maxLength: 256
+    example: "example.com"
+    description: >-
+      Exact string match. An empty string is a valid value and will be
+      serialized explicitly rather than being omitted from the payload.
+description: The authority to match on.
+required:
+  - exact

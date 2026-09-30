@@ -1,0 +1,26 @@
+description: The response will be a JSON object with a key called `action`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../models/nfs_actions_response.yml'
+
+    examples:
+      Resize Share Action:
+        value:
+          action:
+            id: "084c3b9c-2382-441b-92d4-10b095bb5d7c"
+            region_slug: "atl1"
+            resource_id: "baf4827c-6fa9-456f-9dbd-9ddfcacd0720"
+            resource_type: "SHARE"
+            type: "RESIZE_SHARE"
+            status: "IN_PROGRESS"
+            started_at: "2026-06-25T08:11:12Z"

@@ -1,0 +1,6 @@
+lang: cURL
+source: |-
+  curl -X GET \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/reserved_ipv6/2409:40d0:f7:1017:74b4:3a96:105e:4c6e" 

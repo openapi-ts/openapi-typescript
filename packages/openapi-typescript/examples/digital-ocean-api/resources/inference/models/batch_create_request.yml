@@ -1,0 +1,65 @@
+type: object
+description: >
+  Request body for creating a batch inference job.
+
+
+  When `provider` is `openai`, `endpoint` is required and must be one of
+  `/v1/responses` or `/v1/chat/completions`. When `provider` is
+  `anthropic`, `endpoint` must be omitted — the Anthropic Message
+  Batches API does not need a per-job endpoint.
+required:
+  - file_id
+  - provider
+  - completion_window
+  - request_id
+properties:
+  file_id:
+    type: string
+    format: uuid
+    description: The `file_id` returned by `POST /v1/batches/files`.
+    example: "a1b2c3d4-e5f6-4789-90ab-cdef12345678"
+  provider:
+    type: string
+    description: >
+      The inference provider whose JSONL schema the input file conforms
+      to. `openai` follows the OpenAI Batch API input schema
+      (`custom_id`, `method`, `url`, `body`); `anthropic` follows the
+      Anthropic Message Batches JSONL conventions.
+    enum:
+      - openai
+      - anthropic
+    example: "openai"
+  endpoint:
+    type: string
+    description: >
+      Inference endpoint each request is dispatched to. **Required when
+      `provider` is `openai` and must match the `url` on every JSONL
+      line. Must be omitted when `provider` is `anthropic`.**
+    enum:
+      - /v1/responses
+      - /v1/chat/completions
+    example: "/v1/chat/completions"
+  completion_window:
+    type: string
+    description: >
+      Time window in which the job must complete. Jobs that do not
+      finish in time transition to `expired`.
+    enum:
+      - 24h
+    default: "24h"
+    example: "24h"
+  request_id:
+    type: string
+    description: >
+      Client-supplied idempotency key. Retries with the same value
+      return the existing job instead of creating a duplicate.
+    example: "c7e3ad1e-20c3-4e47-9bf2-6f2a4d6a2f11"
+  metadata:
+    type: object
+    nullable: true
+    description: Optional string-valued metadata to attach to the job.
+    additionalProperties:
+      type: string
+    example:
+      team: "ml-eval"
+      dataset: "prompts_v1"

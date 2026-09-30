@@ -1,4 +1,4 @@
-description: Server error.
+description: There was a server error.
 
 headers:
   ratelimit-limit:

@@ -1,0 +1,64 @@
+description: >-
+  The response will be a JSON object that contains a list of billing data points
+  under the `data_points` key, along with pagination metadata including
+  `total_items`, `total_pages`, and `current_page`.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        data_points:
+          type: array
+          description: Array of billing data points, which are day-over-day changes in billing resource usage based on nightly invoice item estimates, for the requested period
+          items:
+            $ref: '../models/billing_data_point.yml'
+
+        total_items:
+          type: integer
+          description: Total number of items available across all pages
+          example: 250
+
+        total_pages:
+          type: integer
+          description: Total number of pages available
+          example: 3
+
+        current_page:
+          type: integer
+          description: Current page number
+          example: 1
+
+      required:
+        - data_points
+        - total_items
+        - total_pages
+        - current_page
+
+    example:
+      data_points:
+        - usage_team_urn: 'do:team:12345678-1234-1234-1234-123456789012'
+          start_date: '2025-01-01'
+          total_amount: '0.86'
+          region: 'nyc3'
+          sku: '1-DO-DROP-0109'
+          description: 'droplet name (c-2-4GiB)'
+          group_description: ''
+        - usage_team_urn: 'do:team:12345678-1234-1234-1234-123456789012'
+          start_date: '2025-01-01'
+          total_amount: '2.57'
+          region: 'nyc3'
+          sku: '1-KS-K8SWN-00109'
+          description: '3 nodes - 4 GB / 2 vCPU / 80 GB SSD'
+          group_description: 'kubernetes cluster name'
+      total_items: 2
+      total_pages: 1
+      current_page: 1

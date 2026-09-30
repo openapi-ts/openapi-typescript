@@ -1,0 +1,38 @@
+type: object
+
+properties:
+  usage_team_urn:
+    type: string
+    description: URN of the team that incurred the usage
+    example: 'do:team:12345678-1234-1234-1234-123456789012'
+
+  start_date:
+    type: string
+    format: date
+    description: Start date of the billing data point in YYYY-MM-DD format
+    example: '2025-01-15'
+
+  total_amount:
+    type: string
+    description: Total amount for this data point in USD
+    example: '12.45'
+
+  region:
+    type: string
+    description: Region where the usage occurred
+    example: 'nyc3'
+
+  sku:
+    type: string
+    description: Unique SKU identifier for the billed resource
+    example: '1-DO-DROP-0109'
+
+  description:
+    type: string
+    description: Description of the billed resource or service as shown on an invoice item
+    example: 'droplet name (c-2-4GiB)'
+
+  group_description:
+    type: string
+    description: Optional invoice item group name of the billed resource or service, blank when not part an invoice item group
+    example: 'kubernetes cluster name'

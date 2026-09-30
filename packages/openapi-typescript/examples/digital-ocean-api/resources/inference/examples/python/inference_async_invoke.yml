@@ -1,0 +1,28 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  # Image Generation
+  resp = client.async_images.generate(
+      model_id="fal-ai/flux/schnell",
+      prompt="A futuristic city at sunset",
+  )
+  print(resp.request_id, resp.status)
+
+  # Audio Generation
+  resp = client.audio.generate(
+      model_id="fal-ai/stable-audio-25/text-to-audio",
+      prompt="Techno song with futuristic sounds",
+      seconds_total=60,
+  )
+  print(resp.request_id, resp.status)
+
+  # Text-to-Speech
+  resp = client.audio.speech.create(
+      input="This text-to-speech example uses DigitalOcean multilingual voice.",
+      model_id="fal-ai/elevenlabs/tts/multilingual-v2",
+  )
+  print(resp.request_id, resp.status)

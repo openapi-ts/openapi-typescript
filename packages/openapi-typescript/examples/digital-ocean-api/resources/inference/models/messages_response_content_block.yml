@@ -1,0 +1,4 @@
+description: Assistant output block (text and tool calls).
+oneOf:
+  - $ref: messages_response_text_block.yml
+  - $ref: messages_response_tool_use_block.yml

@@ -1,0 +1,63 @@
+operationId: databases_create_kafka_schema
+
+summary: >
+  Create Schema Registry for Kafka Cluster
+
+description: |
+  To create a Kafka schema for a database cluster, send a POST request to
+  `/v2/databases/$DATABASE_ID/schema-registry`.
+
+tags:
+  - Databases
+
+parameters:
+  - $ref: "parameters.yml#/database_cluster_uuid"
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        allOf:
+          - $ref: 'models/database_kafka_schema_create.yml'
+        required:
+          - subject_name
+          - schema_type
+          - schema
+      example:
+        subject_name: customer-schema
+        schema_type: AVRO
+        schema: |
+          {
+            "type": "record",
+            "name": "Customer",
+            "fields": [
+              {"name": "id", "type": "string"},
+              {"name": "name", "type": "string"},
+              {"name": "email", "type": "string"},
+              {"name": "created_at", "type": "long"}
+            ]
+          }
+
+responses:
+  '201':
+    $ref: 'responses/kafka_schema.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+  
+  "404":
+    $ref: "../../shared/responses/not_found.yml"
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+security:
+  - bearer_auth:
+    - 'database:create'

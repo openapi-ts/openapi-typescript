@@ -1,0 +1,10 @@
+allOf:
+  - type: object
+    properties:
+      secret:
+        type: string
+        description: The secret key used to authenticate. This is only returned once upon creation. Make sure to copy and securely store it.
+        example: "fn_secret_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        readOnly: true
+
+  - $ref: 'access_key.yml'

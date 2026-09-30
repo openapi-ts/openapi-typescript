@@ -1,0 +1,8 @@
+lang: cURL
+source: |-
+  curl -sS -X POST "https://inference.do-ai.run/v1/batches/files" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "file_name": "batch_requests.jsonl"
+    }' | jq

@@ -1,0 +1,13 @@
+lang: cURL
+source: |-
+  # UPLOAD_URL is the exact upload_url returned by POST /v1/batches/files.
+  # Use it verbatim; do not modify the host, path, or query string.
+  #
+  # Send the raw JSONL bytes with --data-binary so line endings and UTF-8
+  # are preserved. The presigned URL is signature-sensitive: prefer
+  # application/octet-stream (or omit Content-Type entirely) — a custom
+  # value such as application/jsonl can break signature matching unless
+  # the URL was signed for that exact header.
+  curl -X PUT "$UPLOAD_URL" \
+    -H "Content-Type: application/octet-stream" \
+    --data-binary "@batch_requests.jsonl"

@@ -1,9 +1,9 @@
 operationId: databases_update_evictionPolicy
 
-summary: Configure the Eviction Policy for a Redis Cluster
+summary: Configure the Eviction Policy for a Caching or Valkey Cluster
 
 description: >-
-  To configure an eviction policy for an existing Redis cluster, send a PUT
+  To configure an eviction policy for an existing Caching or Valkey cluster, send a PUT
   request to `/v2/databases/$DATABASE_ID/eviction_policy` specifying the
   desired policy.
 

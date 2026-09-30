@@ -1,0 +1,11 @@
+type: object
+
+properties:
+    transfer_id:
+      type: integer
+      description: >-
+        A unique number that used to identify and reference an image account transfer.
+      example: 3164444
+
+required:
+  - transfer_id

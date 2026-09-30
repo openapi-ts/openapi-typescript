@@ -1,0 +1,14 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  req = {
+    "name": "example",
+    "region": "fra1",
+    "subscription_tier_slug": "basic"
+  }
+
+  resp = client.registries.create(body=req)

@@ -1,0 +1,39 @@
+dedicated_inference_id:
+  name: dedicated_inference_id
+  in: path
+  required: true
+  description: A unique identifier for a Dedicated Inference instance.
+  schema:
+    type: string
+    format: uuid
+  example: 6b5c619c-359c-44ca-87e2-47e98170c01d
+
+accelerator_id:
+  name: accelerator_id
+  in: path
+  required: true
+  description: A unique identifier for a Dedicated Inference accelerator.
+  schema:
+    type: string
+    format: uuid
+  example: 5b5c619c-359c-44ca-87e2-47e98170c02f
+
+token_id:
+  name: token_id
+  in: path
+  required: true
+  description: A unique identifier for a Dedicated Inference access token.
+  schema:
+    type: string
+    format: uuid
+  example: f11d4795-c1db-4ac3-9aa6-a0ea3c58877e
+
+region:
+  name: region
+  in: query
+  required: false
+  description: Filter by region. Dedicated Inference is only available in nyc2, tor1, and atl1.
+  schema:
+    type: string
+    enum: [nyc2, tor1, atl1]
+  example: atl1

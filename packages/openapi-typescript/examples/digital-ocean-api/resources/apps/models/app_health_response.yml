@@ -1,0 +1,4 @@
+properties:
+  app_health:
+    "$ref": app_health.yml
+type: object

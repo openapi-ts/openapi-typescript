@@ -1,0 +1,48 @@
+type: object
+description: >
+  Detailed usage statistics for the Responses API request, including
+  input/output token counts and detailed breakdowns.
+required:
+  - input_tokens
+  - output_tokens
+  - total_tokens
+  - input_tokens_details
+  - output_tokens_details
+properties:
+  input_tokens:
+    type: integer
+    description: The number of input tokens.
+    example: 133
+  input_tokens_details:
+    type: object
+    description: A detailed breakdown of the input tokens.
+    required:
+      - cached_tokens
+    properties:
+      cached_tokens:
+        type: integer
+        description: The number of tokens that were retrieved from the cache.
+        example: 128
+  output_tokens:
+    type: integer
+    description: The number of output tokens.
+    example: 41
+  output_tokens_details:
+    type: object
+    description: A detailed breakdown of the output tokens.
+    required:
+      - reasoning_tokens
+      - tool_output_tokens
+    properties:
+      reasoning_tokens:
+        type: integer
+        description: The number of reasoning tokens.
+        example: 24
+      tool_output_tokens:
+        type: integer
+        description: The number of tool output tokens.
+        example: 0
+  total_tokens:
+    type: integer
+    description: The total number of tokens used.
+    example: 174

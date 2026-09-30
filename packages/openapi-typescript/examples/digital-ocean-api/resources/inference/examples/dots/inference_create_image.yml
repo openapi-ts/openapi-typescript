@@ -1,0 +1,17 @@
+lang: JavaScript
+source: |-
+  import { InferenceClient } from "@digitalocean/dots";
+
+  const client = new InferenceClient({
+      apiKey: process.env.DIGITALOCEAN_TOKEN,
+  });
+
+  const resp = await client.images.generate({
+      model: "openai-gpt-image-1",
+      prompt: "A cute baby sea otter floating on its back in calm blue water",
+      size: "auto",
+      quality: "auto",
+      n: 1,
+  });
+
+  console.log(resp.data[0].b64_json);

@@ -1,0 +1,5 @@
+type: object
+
+properties:
+  share:
+    $ref: 'nfs_response.yml'

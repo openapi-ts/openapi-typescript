@@ -1,0 +1,41 @@
+operationId: nfs_delete_snapshot
+
+summary: "Delete an NFS snapshot"
+
+description: |
+  To delete an NFS snapshot, send a DELETE request to `/v2/nfs/snapshots/{nfs_snapshot_id}?region=${region}`.
+
+  A successful request will return a `204 No Content` status code.
+
+tags:
+  - NFS
+
+parameters:
+  - $ref: "parameters.yml#/nfs_snapshot_id"
+  - $ref: "parameters.yml#/region"
+
+responses:
+  "204":
+    $ref: "../../shared/responses/no_content.yml"
+
+  "401":
+    $ref: "../../shared/responses/unauthorized.yml"
+
+  "404":
+    $ref: "../../shared/responses/not_found.yml"
+
+  "429":
+    $ref: "../../shared/responses/too_many_requests.yml"
+
+  "500":
+    $ref: "../../shared/responses/server_error.yml"
+
+  default:
+    $ref: "../../shared/responses/unexpected_error.yml"
+
+x-codeSamples:
+  - $ref: 'examples/curl/nfs_snapshot_delete.yml'
+
+security:
+  - bearer_auth:
+      - "nfs:delete"

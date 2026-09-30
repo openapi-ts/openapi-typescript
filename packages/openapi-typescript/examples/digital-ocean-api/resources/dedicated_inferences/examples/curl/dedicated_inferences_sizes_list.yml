@@ -1,0 +1,5 @@
+lang: cURL
+source: |-
+  curl -i -X GET "https://api.digitalocean.com/v2/dedicated-inferences/sizes" \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DO_TOKEN"

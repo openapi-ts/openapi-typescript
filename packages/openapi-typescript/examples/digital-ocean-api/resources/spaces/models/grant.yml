@@ -1,0 +1,16 @@
+type: object
+
+properties:
+  bucket:
+    type: string
+    description: The name of the bucket.
+    example: my-bucket
+
+  permission:
+    type: string
+    description: The permission to grant to the user. Possible values are `read`, `readwrite`, `fullaccess`, or an empty string.
+    example: read
+
+required:
+- bucket
+- permission

@@ -1,0 +1,15 @@
+---
+type: object
+description: A standard NFS API error response object.
+properties:
+  code:
+    type: string
+    description: A service-defined error code.
+    example: "MISSING_NAME"
+  message:
+    type: string
+    description: A human-readable description of the error.
+    example: "name is required"
+required:
+  - code
+  - message

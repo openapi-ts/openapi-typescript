@@ -1,0 +1,116 @@
+nfs_action:
+  required:
+    - type
+  type: object
+  description: Specifies the action that will be taken on the NFS share.
+  properties:
+    type:
+      type: string
+      enum:
+      - resize
+      - snapshot
+      - attach
+      - detach
+      - reassign
+      - switch_performance_tier
+      example: resize
+      description: The type of action to initiate for the NFS share (such as resize or snapshot).
+    region:
+      type: string
+      description: The DigitalOcean region slug (e.g. atl1, nyc2) where the NFS snapshot resides.
+      example: atl1
+
+nfs_action_resize:
+  allOf:
+  - $ref: '#/nfs_action'
+  - type: object
+    properties:
+      params:
+        type: object
+        properties:
+          size_gib:
+            type: integer
+            example: 2048
+            description: The new size for the NFS share.
+        required:
+          - size_gib
+
+nfs_action_snapshot:
+  allOf:
+  - $ref: '#/nfs_action'
+  - type: object
+    properties:
+      params:
+        type: object
+        properties:
+          name:
+            type: string
+            example: daily-backup
+            description: Snapshot name of the NFS share
+        required:
+          - name
+
+nfs_action_attach:
+  allOf:
+    - $ref: '#/nfs_action'
+    - type: object
+      properties:
+        params:
+          type: object
+          properties:
+            vpc_id:
+              type: string
+              example: vpc-id-123
+              description: The ID of the VPC to which the NFS share will be attached
+          required:
+            - vpc_id
+
+nfs_action_detach:
+  allOf:
+    - $ref: '#/nfs_action'
+    - type: object
+      properties:
+        params:
+          type: object
+          properties:
+            vpc_id:
+              type: string
+              example: vpc-id-123
+              description: The ID of the VPC from which the NFS share will be detached
+          required:
+            - vpc_id
+
+nfs_action_reassign:
+  allOf:
+    - $ref: '#/nfs_action'
+    - type: object
+      properties:
+        params:
+          type: object
+          properties:
+            old_vpc_id:
+              type: string
+              example: vpc-id-123
+              description: The ID of the VPC from which the NFS share will be reassigned
+            new_vpc_id:
+              type: string
+              example: vpc-id-456
+              description: The ID of the VPC to which the NFS share will be reassigned
+          required:
+            - old_vpc_id
+            - new_vpc_id
+
+nfs_action_switch_performance_tier:
+  allOf:
+    - $ref: '#/nfs_action'
+    - type: object
+      properties:
+        params:
+          type: object
+          properties:
+            performance_tier:
+              type: string
+              example: standard
+              description: The performance tier to which the NFS share will be switched (e.g., standard, high).
+          required:
+            - performance_tier

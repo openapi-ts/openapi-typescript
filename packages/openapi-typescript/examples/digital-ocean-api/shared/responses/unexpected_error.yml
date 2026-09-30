@@ -1,4 +1,4 @@
-description: Unexpected error
+description: There was an unexpected error.
 
 headers:
   ratelimit-limit:

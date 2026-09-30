@@ -1,4 +1,4 @@
-description: Check whether an agent is public or private. To get the agent status,
+description: Check whether an agent is public or private. To update the agent status,
   send a PUT request to `/v2/gen-ai/agents/{uuid}/deployment_visibility`.
 operationId: genai_update_agent_deployment_visibility
 parameters:
@@ -41,8 +41,8 @@ responses:
 security:
 - bearer_auth:
   - genai:update
-summary: Check Agent Status
+summary: Update Agent Status
 tags:
-- GenAI Platform (Public Preview)
+- GradientAI Platform
 x-codeSamples:
 - $ref: examples/curl/genai_update_agent_deployment_visibility.yml

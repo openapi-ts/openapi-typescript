@@ -1,6 +1,8 @@
 description: >-
   To list all of the firewalls available on your account, send a GET request to
-  `/v2/firewalls`.
+  `/v2/firewalls`.<br><br>Firewalls responses will include only the resources
+  that you are granted to see. Ensure that your API token includes all necessary
+  `<resource>:read` permissions for requested firewall.
 
 headers:
   ratelimit-limit:

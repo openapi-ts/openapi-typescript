@@ -1,0 +1,12 @@
+type: object
+nullable: true
+description: >
+  Extended thinking configuration. Executors that do not support thinking may ignore this
+  field.
+required:
+  - type
+properties:
+  type:
+    type: string
+    description: Thinking mode discriminator (for example enabled or disabled).
+    example: enabled

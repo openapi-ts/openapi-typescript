@@ -1,0 +1,6 @@
+lang: cURL
+source: |-
+  curl -X DELETE \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/agents/1c8be326-00fe-11f1-b542-ca68c578b04c/guardrails/69bcc61c-2bb2-49fd-b6ed-7c1bd73d6572"

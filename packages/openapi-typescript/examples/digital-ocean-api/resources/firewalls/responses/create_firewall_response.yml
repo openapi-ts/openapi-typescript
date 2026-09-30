@@ -1,6 +1,6 @@
 description: >-
   The response will be a JSON object with a firewall key. This will be set to
-  an object containing the standard firewall attributes
+  an object containing the standard firewall attributes.
 
 headers:
   ratelimit-limit:

@@ -1,0 +1,39 @@
+operationId: databases_get_kafka_schema_subject_config
+
+summary: Retrieve Schema Registry Configuration for a Subject of kafka Cluster
+
+description: |
+  To retrieve the Schema Registry configuration for a Subject of a Kafka cluster, send a GET request to
+  `/v2/databases/$DATABASE_ID/schema-registry/config/$SUBJECT_NAME`.
+  The response is a JSON object with a `compatibility_level` key, which is set to an object
+  containing any database configuration parameters.
+tags:
+  - Databases
+
+parameters:
+  - $ref: 'parameters.yml#/database_cluster_uuid'
+  - $ref: "parameters.yml#/kafka_schema_subject_name"
+
+responses:
+  '200':
+    $ref: 'responses/database_schema_registry_subject_config.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+
+security:
+  - bearer_auth:
+    - 'database:read'

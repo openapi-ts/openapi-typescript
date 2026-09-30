@@ -1,8 +1,11 @@
 operationId: registry_get_options
 
-summary: List Registry Options (Subscription Tiers and Available Regions)
+deprecated: true
 
-description: >-
+summary: 'List Registry Options (Subscription Tiers and Available Regions)'
+description: |
+  **Note: This endpoint is deprecated and may be removed in a future version. There is no alternative.****Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+
   This endpoint serves to provide additional information as to which option values
   are available when creating a container registry.
 

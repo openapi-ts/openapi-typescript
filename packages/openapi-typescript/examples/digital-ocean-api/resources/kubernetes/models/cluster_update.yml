@@ -39,14 +39,40 @@ properties:
 
   ha:
     type: boolean
-    default: false
     example: true
     description: A boolean value indicating whether the control plane
       is run in a highly available configuration in the cluster. Highly available
       control planes incur less downtime. The property cannot be disabled.
+      When omitted on create, the default is version-dependent; for DOKS
+      1.36.0 and later, the default is true; for earlier versions, the
+      default is false.
 
   control_plane_firewall:
     $ref: 'control_plane_firewall.yml'
+
+  cluster_autoscaler_configuration:
+    $ref: 'cluster_autoscaler_configuration.yml'
+
+  sso:
+    $ref: 'sso.yml'
+
+  routing_agent:
+    $ref: 'routing_agent.yml'
+
+  amd_gpu_device_plugin:
+    $ref: "amd_gpu_device_plugin.yml"
+
+  amd_gpu_device_metrics_exporter_plugin:
+    $ref: "amd_gpu_device_metrics_exporter_plugin.yml"
+
+  nvidia_gpu_device_plugin:
+    $ref: "nvidia_gpu_device_plugin.yml"
+
+  rdma_shared_dev_plugin:
+    $ref: "rdma_shared_dev_plugin.yml"
+
+  coredns_autoscaler:
+    $ref: 'coredns_autoscaler.yml'
 
 required:
   - name

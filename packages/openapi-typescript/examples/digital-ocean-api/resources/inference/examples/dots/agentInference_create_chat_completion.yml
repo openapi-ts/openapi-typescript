@@ -1,0 +1,17 @@
+lang: JavaScript
+source: |-
+  import { InferenceClient } from "@digitalocean/dots";
+
+  const client = new InferenceClient({
+      apiKey: process.env.AGENT_ACCESS_KEY,
+      baseURL: `https://${process.env.AGENT_URL}/api`,
+  });
+
+  const completion = await client.chat.completions.create({
+      model: "llama3.3-70b-instruct",
+      messages: [
+          { role: "user", content: "What is the capital of Portugal?" },
+      ],
+  });
+
+  console.log(completion.choices[0].message.content);

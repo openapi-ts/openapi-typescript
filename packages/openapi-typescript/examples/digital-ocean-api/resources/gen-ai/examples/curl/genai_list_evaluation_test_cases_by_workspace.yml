@@ -1,0 +1,6 @@
+lang: cURL
+source: |-
+  curl -X GET \
+    -H "Content-Type: application/json"  \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/workspaces/11efb7d6-cdb5-6388-bf8f-4e013e2ddde4/evaluation_test_cases"

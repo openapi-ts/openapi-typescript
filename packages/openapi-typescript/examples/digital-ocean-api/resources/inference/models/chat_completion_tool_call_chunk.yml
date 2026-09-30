@@ -1,0 +1,25 @@
+type: object
+properties:
+  index:
+    type: integer
+    example: 0
+  id:
+    type: string
+    description: The ID of the tool call.
+    example: call_abc123
+  type:
+    type: string
+    enum:
+      - function
+    example: function
+  function:
+    type: object
+    properties:
+      name:
+        type: string
+        description: The name of the function to call.
+        example: get_weather
+      arguments:
+        type: string
+        description: The arguments to call the function with.
+        example: '{"location":'

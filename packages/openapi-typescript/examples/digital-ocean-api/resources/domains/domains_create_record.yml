@@ -84,3 +84,5 @@ x-codeSamples:
 security:
   - bearer_auth:
     - 'domain:create'
+  - bearer_auth:
+    - 'domain:update'

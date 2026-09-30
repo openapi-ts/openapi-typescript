@@ -1,0 +1,4 @@
+lang: cURL
+source: |-
+  curl --location --request DELETE 'https://api.digitalocean.com/v2/gen-ai/scheduled-indexing/{scheduled_indexing_id}' \
+    --header 'Authorization: Bearer $DIGITALOCEAN_TOKEN'

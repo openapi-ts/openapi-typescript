@@ -51,7 +51,7 @@ properties:
     readOnly: true
     title: The current pricing tier slug of the deployment
     type: string
-    example: basic 
+    example: basic
   updated_at:
     format: date-time
     title: When the deployment was last updated

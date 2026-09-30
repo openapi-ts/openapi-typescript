@@ -1,0 +1,63 @@
+operationId: inference_cancel_batch
+summary: Cancel a Batch Inference Job
+description: >
+  Requests cancellation of a batch job. The job transitions to `cancelling`
+  and, once in-flight requests drain, to `cancelled`. Jobs already in a
+  terminal state (`completed`, `failed`, `expired`, `cancelled`) cannot be
+  cancelled and return `409 Conflict`. Cancellation is also rejected with
+  `409 Conflict` while the job has not yet been submitted to the upstream
+  provider — there is nothing to cancel until the provider batch id is
+  assigned.
+
+
+  Partial results produced before cancellation remain available via
+  `GET /v1/batches/{batch_id}/results`.
+tags:
+  - Batch Inference
+servers:
+  - url: "https://inference.do-ai.run"
+    description: production
+x-inference-base-url: "https://inference.do-ai.run"
+parameters:
+  - in: path
+    name: batch_id
+    description: The batch job identifier.
+    required: true
+    schema:
+      type: string
+      format: uuid
+    example: "0e9d1d35-3d1e-4d66-9a2f-8c7e0f6b3e21"
+responses:
+  "200":
+    description: Cancellation accepted. Returns the updated batch job.
+    headers:
+      ratelimit-limit:
+        $ref: '../../shared/headers.yml#/ratelimit-limit'
+      ratelimit-remaining:
+        $ref: '../../shared/headers.yml#/ratelimit-remaining'
+      ratelimit-reset:
+        $ref: '../../shared/headers.yml#/ratelimit-reset'
+    content:
+      application/json:
+        schema:
+          $ref: "models/batch.yml"
+  "401":
+    $ref: '../../shared/responses/unauthorized.yml'
+  "403":
+    $ref: '../../shared/responses/forbidden.yml'
+  "404":
+    $ref: '../../shared/responses/not_found.yml'
+  "409":
+    $ref: '../../shared/responses/conflict.yml'
+  "429":
+    $ref: '../../shared/responses/too_many_requests.yml'
+  "500":
+    $ref: '../../shared/responses/server_error.yml'
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+x-codeSamples:
+  - $ref: 'examples/curl/inference_cancel_batch.yml'
+  - $ref: 'examples/python/inference_cancel_batch.yml'
+  - $ref: 'examples/dots/inference_cancel_batch.yml'
+security:
+  - inference_bearer_auth: []

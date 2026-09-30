@@ -1,0 +1,95 @@
+type: object
+description: >
+  Request body for `POST /v1/messages`. Required fields are `model`, `messages`, and
+  `max_tokens`.
+required:
+  - model
+  - max_tokens
+  - messages
+properties:
+  model:
+    type: string
+    description: Model ID (for example `claude-opus-4-6` or a serverless model id).
+    example: claude-opus-4-6
+  max_tokens:
+    type: integer
+    minimum: 1
+    description: Maximum tokens to generate before stopping.
+  messages:
+    type: array
+    description: >
+      Conversation turns. Each item has `role` `user` or `assistant` and `content` as a
+      string or an array of content blocks.
+    minItems: 1
+    items:
+      $ref: messages_api_message_param.yml
+  system:
+    description: System prompt as plain text or as an array of text blocks.
+    oneOf:
+      - type: string
+      - type: array
+        items:
+          $ref: messages_request_text_block_param.yml
+  stop_sequences:
+    type: array
+    description: Custom strings that stop generation when produced.
+    items:
+      type: string
+  stream:
+    type: boolean
+    default: false
+    description: When true, the response is streamed using server-sent events (SSE).
+  temperature:
+    type: number
+    minimum: 0
+    maximum: 1
+    nullable: true
+    description: Sampling temperature between 0.0 and 1.0.
+  top_p:
+    type: number
+    nullable: true
+    description: Nucleus sampling; use either `temperature` or `top_p`, not both.
+  top_k:
+    type: integer
+    minimum: 0
+    nullable: true
+    description: Top-K sampling cutoff.
+  tools:
+    type: array
+    description: Tool definitions the model may invoke.
+    items:
+      $ref: messages_tool_definition_param.yml
+  tool_choice:
+    $ref: messages_tool_choice_param.yml
+  metadata:
+    type: object
+    description: Optional request metadata.
+    properties:
+      user_id:
+        type: string
+        description: >
+          Opaque identifier for the end user (for example a UUID or hash). Do not include PII.
+        example: 550e8400-e29b-41d4-a716-446655440000
+  reasoning_effort:
+    type: string
+    nullable: true
+    description: >
+      DigitalOcean extension for reasoning-capable models. Ignored by executors that do not
+      support it.
+    enum:
+      - none
+      - minimal
+      - low
+      - medium
+      - high
+      - xhigh
+  speed:
+    type: string
+    nullable: true
+    description: >
+      DigitalOcean extension for preferred inference speed. Ignored when not supported.
+    enum:
+      - standard
+      - fast
+  thinking:
+    $ref: messages_thinking_config_param.yml

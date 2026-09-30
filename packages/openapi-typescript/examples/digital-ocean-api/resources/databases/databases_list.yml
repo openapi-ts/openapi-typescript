@@ -9,7 +9,7 @@ description: |
   The result will be a JSON object with a `dbs` key. This will be set to an array
   of database objects, each of which will contain the standard database attributes.
 
-  Note: Database management is not supported for Redis clusters.
+  Note: Database management is not supported for Caching or Valkey clusters.
 
 tags:
   - Databases

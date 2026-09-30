@@ -2,8 +2,10 @@ operationId: projects_assign_resources_default
 
 summary: Assign Resources to Default Project
 
-description: To assign resources to your default project, send a POST request to
-  `/v2/projects/default/resources`.
+description: |
+  To assign resources to your default project, send a POST request to `/v2/projects/default/resources`.
+
+  You must have both project:update and <resource>:read scopes to assign new resources. For example, to assign a Droplet to the default project, include both the `project:update` and `droplet:read` scopes.
 
 tags:
   - Project Resources

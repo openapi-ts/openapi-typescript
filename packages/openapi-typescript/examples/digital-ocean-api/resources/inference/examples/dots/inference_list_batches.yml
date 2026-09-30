@@ -1,0 +1,16 @@
+lang: JavaScript
+source: |-
+  import { InferenceClient } from "@digitalocean/dots";
+
+  const client = new InferenceClient({
+      apiKey: process.env.DIGITALOCEAN_TOKEN,
+  });
+
+  const page = await client.batches.list({ limit: 20 });
+
+  for (const b of page.data ?? []) {
+      console.log(`${b.batch_id}\t${b.status}\t${b.created_at}`);
+  }
+
+  console.log("has_more:", page.has_more);
+  console.log("last_id: ", page.last_id);

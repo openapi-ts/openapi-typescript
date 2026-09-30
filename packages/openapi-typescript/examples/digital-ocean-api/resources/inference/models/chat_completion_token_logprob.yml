@@ -1,0 +1,26 @@
+type: object
+required:
+  - token
+  - logprob
+  - bytes
+  - top_logprobs
+properties:
+  token:
+    type: string
+    description: The token.
+    example: Hello
+  logprob:
+    type: number
+    description: The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely.
+    example: -1.2345
+  bytes:
+    type: array
+    nullable: true
+    description: A list of integers representing the UTF-8 bytes representation of the token. Can be null if there is no bytes representation for the token.
+    items:
+      type: integer
+  top_logprobs:
+    type: array
+    description: List of the most likely tokens and their log probability, at this token position.
+    items:
+      $ref: "chat_completion_top_logprob_item.yml"

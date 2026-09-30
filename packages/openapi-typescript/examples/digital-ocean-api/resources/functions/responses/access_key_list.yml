@@ -1,0 +1,44 @@
+description: >-
+  A JSON response containing a list of access keys for the namespace.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        access_keys:
+          type: array
+          items:
+            $ref: '../models/access_key.yml'
+        count:
+          type: integer
+          description: Total number of access keys
+
+    examples:
+      With Keys:
+        value:
+          access_keys:
+            - id: "dof_v1-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+              name: "my-function-access-key"
+              expires_at: "2026-12-19T10:30:00Z"
+              created_at: "2025-12-19T10:30:00Z"
+              updated_at: "2025-12-19T10:30:00Z"
+            - id: "dof_v1-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+              name: "my-function-access-key-2"
+              expires_at: null
+              created_at: "2025-11-15T08:00:00Z"
+              updated_at: "2025-11-15T08:00:00Z"
+          count: 2
+      
+      Empty List:
+        value:
+          access_keys: []
+          count: 0

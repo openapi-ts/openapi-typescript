@@ -1,0 +1,21 @@
+lang: cURL
+source: |-
+  curl -X POST \
+      -H "Content-Type: application/json"  \
+      -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+      "https://api.digitalocean.com/v2/gen-ai/models/routers" \
+      -d '{
+        "name": "My Model Router",
+        "description": "Routes chat traffic across multiple models",
+        "regions": ["tor1"],
+        "fallback_models": ["openai-gpt-5.4", "kimi-k2.5"],
+        "policies": [
+          {
+            "task_slug": "summarization",
+            "models": ["openai-gpt-5.4", "kimi-k2.5"],
+            "selection_policy": {
+              "prefer": "cheapest"
+            }
+          }
+        ]
+      }'

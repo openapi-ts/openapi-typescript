@@ -1,0 +1,4 @@
+properties:
+  instances:
+    "$ref": app_instances.yml
+type: object

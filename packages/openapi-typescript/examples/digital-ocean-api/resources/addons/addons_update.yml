@@ -1,0 +1,61 @@
+operationId: addons_patch
+
+summary: Update the name for an Add-On Resource
+
+description: |
+  To change the name of an Add-On Resource, send a PATCH request to `/v2/add-ons/saas/{resource_uuid}`.
+  Replace `{resource_uuid}` with the UUID of the resource for which you want to change the name.
+
+tags:
+  - Add-Ons
+
+parameters:
+  - name: resource_uuid
+    in: path
+    required: true
+    example: "123e4567-e89b-12d3-a456-426614174000"
+    schema:
+      type: string
+    description: The UUID of the add-on resource to rename.
+
+requestBody:
+  required: true
+
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+            description: The new name for the add-on resource.
+            example: "new-name"
+
+        required:
+        - name
+
+responses:
+  '200':
+    $ref: 'responses/addons_update.yml'
+  
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+x-codeSamples:
+  - $ref: 'examples/curl/addons_update.yml'
+
+security:
+  - bearer_auth:
+    - 'addon:update'

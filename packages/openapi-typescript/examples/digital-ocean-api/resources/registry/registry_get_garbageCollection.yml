@@ -1,8 +1,12 @@
 operationId: registry_get_garbageCollection
 
-summary: Get Active Garbage Collection
+deprecated: true
 
-description: To get information about the currently-active garbage collection
+summary: 'Get Active Garbage Collection'
+description: |
+  **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+
+  To get information about the currently-active garbage collection
   for a registry, send a GET request to `/v2/registry/$REGISTRY_NAME/garbage-collection`.
 
 tags:

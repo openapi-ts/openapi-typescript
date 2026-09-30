@@ -1,0 +1,44 @@
+lang: cURL
+source: |-
+  # Image Generation
+  curl -X POST \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "model_id": "fal-ai/flux/schnell",
+      "input": {
+        "prompt": "A futuristic city at sunset"
+      }
+    }' \
+    "https://inference.do-ai.run/v1/async-invoke"
+
+  # Audio Generation
+  curl -X POST \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "model_id": "fal-ai/stable-audio-25/text-to-audio",
+      "input": {
+        "prompt": "Techno song with futuristic sounds",
+        "seconds_total": 60
+      },
+      "tags": [
+        {"key": "type", "value": "test"}
+      ]
+    }' \
+    "https://inference.do-ai.run/v1/async-invoke"
+
+  # Text-to-Speech
+  curl -X POST \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "model_id": "fal-ai/elevenlabs/tts/multilingual-v2",
+      "input": {
+        "text": "This text-to-speech example uses DigitalOcean multilingual voice."
+      },
+      "tags": [
+        {"key": "type", "value": "test"}
+      ]
+    }' \
+    "https://inference.do-ai.run/v1/async-invoke"

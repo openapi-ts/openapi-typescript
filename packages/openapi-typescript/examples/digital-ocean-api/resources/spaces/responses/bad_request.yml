@@ -1,0 +1,17 @@
+description: Cannot mix fullaccess permission with scoped permissions
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      $ref: '../../../shared/models/error.yml'
+    example:
+      id: bad_request
+      message: cannot mix fullaccess permission with scoped permissions.

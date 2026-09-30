@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"model":"qwen3-embedding-0.6b","input":["hello world","goodbye world"],"encoding_format":"float","user":"user-1234"}' \
+    "https://inference.do-ai.run/v1/embeddings"

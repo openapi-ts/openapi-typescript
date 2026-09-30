@@ -1,0 +1,17 @@
+description: Dedicated Inference update accepted for processing (202). Response contains only the dedicated_inference; no token is returned.
+
+headers:
+  ratelimit-limit:
+    $ref: '../../../shared/headers.yml#/ratelimit-limit'
+  ratelimit-remaining:
+    $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+  ratelimit-reset:
+    $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        dedicated_inference:
+          $ref: '../models/dedicated_inference.yml#/dedicated_inference'

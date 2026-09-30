@@ -1,0 +1,10 @@
+reserved_ipv6:
+  in: path
+  name: reserved_ipv6
+  description: A reserved IPv6 address.
+  required: true
+  schema:
+    type: string
+    format: ipv6
+    minimum: 1
+  example: 2409:40d0:f7:1017:74b4:3a96:105e:4c6e

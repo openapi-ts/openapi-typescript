@@ -1,0 +1,25 @@
+byoip_prefix_list_resources:
+  description: List of IP addresses assigned to resources (such as Droplets) in a BYOIP prefix
+
+  headers:
+    ratelimit-limit:
+      $ref: '../../../shared/headers.yml#/ratelimit-limit'
+    ratelimit-remaining:
+      $ref: '../../../shared/headers.yml#/ratelimit-remaining'
+    ratelimit-reset:
+      $ref: '../../../shared/headers.yml#/ratelimit-reset'
+
+  content:
+    application/json:
+      example:
+        $ref: 'examples.yml#/byoip_prefix_resources_list'
+      schema:
+        allOf:
+        - type: object
+          properties:
+            ips:
+              type: array
+              items:
+                $ref: '../models/byoip_prefix_resource.yml#/byoip_prefix_resource'
+        - $ref: '../../../shared/pages.yml#/pagination'
+        - $ref: '../../../shared/meta.yml'

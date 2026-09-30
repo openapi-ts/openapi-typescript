@@ -17,8 +17,17 @@ properties:
     example: 2020-07-28T18:00:00Z
   health_status:
     type: string
-    example: 'active'
+    enum:
+      - healthy
+      - unhealthy
+    example: 'healthy'
     description: The health status of the Droplet.
+  unhealthy_reason:
+    type: string
+    description: |
+      A human-readable description of why the Droplet is unhealthy. Only
+      present when `health_status` is `unhealthy`.
+    example: 'Droplet failed health check'
   status:
     type: string
     enum:

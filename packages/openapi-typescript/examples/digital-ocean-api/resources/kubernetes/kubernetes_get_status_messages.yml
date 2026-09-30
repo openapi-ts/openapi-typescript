@@ -1,0 +1,43 @@
+operationId: kubernetes_get_status_messages
+
+summary: Fetch Status Messages for a Kubernetes Cluster
+
+description: |
+  To retrieve status messages for a Kubernetes cluster, send a GET request to
+  `/v2/kubernetes/clusters/$K8S_CLUSTER_ID/status_messages`. Status messages inform users of any issues that come up during the cluster lifecycle.
+
+tags:
+  - Kubernetes
+
+parameters:
+  - $ref: 'parameters.yml#/kubernetes_cluster_id'
+  - $ref: 'parameters.yml#/kubernetes_status_messages_since'
+
+responses:
+  '200':
+    $ref: 'responses/status_messages.yml'
+
+  '401':
+    $ref: '../../shared/responses/unauthorized.yml'
+
+  '404':
+    $ref: '../../shared/responses/not_found.yml'
+
+  '429':
+    $ref: '../../shared/responses/too_many_requests.yml'
+
+  '500':
+    $ref: '../../shared/responses/server_error.yml'
+
+  default:
+    $ref: '../../shared/responses/unexpected_error.yml'
+
+
+x-codeSamples:
+  - $ref: 'examples/curl/kubernetes_get_status_messages.yml'
+  - $ref: 'examples/go/kubernetes_get_status_messages.yml'
+
+security:
+  - bearer_auth:
+    - 'kubernetes:read'
+

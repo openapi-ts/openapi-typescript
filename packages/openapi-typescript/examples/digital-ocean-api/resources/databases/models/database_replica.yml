@@ -45,6 +45,7 @@ properties:
     description: >-
       A flat array of tag names as strings to apply to the read-only replica
       after it is created. Tag names can either be existing or new tags.
+      <br><br>Requires `tag:create` scope.
   created_at:
     type: string
     format: date-time
@@ -60,6 +61,7 @@ properties:
       A string specifying the UUID of the VPC to which the read-only replica
       will be assigned. If excluded, the replica will be assigned to your
       account's default VPC for the region.
+      <br><br>Requires `vpc:read` scope.
   connection:
     allOf:
     - readOnly: true
@@ -74,6 +76,11 @@ properties:
     description: >-
       Additional storage added to the cluster, in MiB. If null, no additional storage is added to the cluster, beyond
       what is provided as a base amount from the 'size' and any previously added additional storage.
+  do_settings:
+    allOf:
+    - $ref: './do_settings.yml'
+    - description: >-
+        DigitalOcean-specific settings for the read-only replica, including custom service CNAMEs.
 
 required:
   - name

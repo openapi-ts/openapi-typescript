@@ -20,6 +20,7 @@ properties:
       you query a floating IP, if it is assigned to a Droplet, the entire
       Droplet object will be returned. If it is not assigned, the value will
       be null.
+      <br><br>Requires `droplet:read` scope.
     anyOf:
       - title: 'null'
         type: object
@@ -39,4 +40,4 @@ properties:
     type: string
     format: uuid
     example: 746c6152-2fa2-11ed-92d3-27aaa54e4988
-    description: The UUID of the project to which the reserved IP currently belongs.
+    description: The UUID of the project to which the reserved IP currently belongs.<br><br>Requires `project:read` scope.

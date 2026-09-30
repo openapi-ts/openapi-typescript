@@ -15,8 +15,8 @@ parameters:
   - $ref: "parameters.yml#/logsink_id"
 
 responses:
-  "201":
-    $ref: "responses/logsink.yml"
+  "200":
+    $ref: "responses/logsink_data.yml"
 
   "401":
     $ref: "../../shared/responses/unauthorized.yml"
@@ -38,4 +38,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'database:read'
+      - "database:read"

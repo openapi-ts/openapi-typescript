@@ -50,4 +50,4 @@ x-codeSamples:
 
 security:
   - bearer_auth:
-    - 'kubernetes:delete'
+    - 'kubernetes:update'

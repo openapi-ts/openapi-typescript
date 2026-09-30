@@ -1,0 +1,11 @@
+lang: cURL
+source: |-
+  curl -X PUT \
+    -H "Content-Type: application/json"  \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/agents/1b418231-b7d6-11ef-bf8f-4e013e2ddde4/versions" \
+    -d '{
+      "uuid": "1b418231-b7d6-11ef-bf8f-4e013e2ddde4",
+      "version_hash": "c3658d8b5c05494cd03ce042926ef08157889ed54b1b74b5ee0b3d66dcee4b73"
+    }'
+

@@ -1,0 +1,10 @@
+type: object
+properties:
+  components:
+    type: array
+    items:
+      "$ref": app_component_health.yml
+  functions_components:
+    type: array
+    items:
+      "$ref": app_functions_component_health.yml

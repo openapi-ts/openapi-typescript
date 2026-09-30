@@ -1,0 +1,64 @@
+---
+type: object
+properties:
+  id:
+    type: string
+    description: The unique identifier of the NFS share.
+    readOnly: true
+    example: "0a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d"
+  name:
+    type: string
+    description: The human-readable name of the share.
+    example: "sammy-share-drive"
+  size_gib:
+    type: integer
+    description: The desired/provisioned size of the share in GiB (Gibibytes). Must be >= 50.
+    example: 1024
+  region:
+    type: string
+    description: The DigitalOcean region slug (e.g., nyc2, atl1) where the NFS share resides.
+    example: "atl1"
+  status:
+    type: string
+    enum: [CREATING, ACTIVE, INACTIVE, FAILED, DELETED]
+    description: |
+      The current status of the share. `INACTIVE` means the share exists but is
+      not attached to any VPC.
+    readOnly: true
+    example: "ACTIVE"
+  created_at:
+    type: string
+    format: date-time
+    description: Timestamp for when the NFS share was created.
+    readOnly: true
+    example: "2023-01-01T00:00:00Z"
+  vpc_ids:
+    type: array
+    items:
+      type: string
+    description: List of VPC IDs that should be able to access the share.
+    example: ["796c6fe3-2a1d-4da2-9f3e-38239827dc91"]
+  performance_tier:
+    type: string
+    description: The performance tier of the share.
+    example: "PERFORMANCE_TIER_HIGH"
+  mount_path:
+    type: string
+    description: Path at which the share will be available, to be mounted at a target of the user's choice within the client
+    example: "/123456/your-nfs-share-uuid"
+  host:
+    type: string
+    description: The host IP of the NFS server that will be accessible from the associated VPC
+    example: "10.128.32.2"
+  access_points:
+    type: array
+    items:
+      $ref: 'access_point_response.yml'
+    description: Access points configured on this share. The default access point is returned first.
+required:
+  - id
+  - name
+  - size_gib
+  - region
+  - status
+  - created_at

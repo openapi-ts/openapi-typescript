@@ -1,8 +1,12 @@
 operationId: registry_update_subscription
 
-summary: Update Subscription Tier
+deprecated: true
 
-description: After creating your registry, you can switch to a different
+summary: 'Update Subscription Tier'
+description: |
+  **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+
+  After creating your registry, you can switch to a different
   subscription tier to better suit your needs. To do this, send a POST request
   to `/v2/registry/subscription`.
 
@@ -30,6 +34,9 @@ responses:
 
   '401':
     $ref: '../../shared/responses/unauthorized.yml'
+  
+  '412':
+    $ref: './responses/registries_over_limit.yml'
 
   '429':
     $ref: '../../shared/responses/too_many_requests.yml'

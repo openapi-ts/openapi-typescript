@@ -1,0 +1,28 @@
+# Extends CPU autoscaling with request-based metrics. Only applicable to service components.
+allOf:
+  - $ref: app_autoscaling_spec.yml
+  - type: object
+    properties:
+      metrics:
+        type: object
+        properties:
+          requests_per_second:
+            description: Settings for scaling the component based on requests per second.
+            type: object
+            properties:
+              per_instance:
+                description: The target number of requests per second per instance for the component.
+                type: integer
+                format: uint32
+                minimum: 1
+                example: 100
+          request_duration:
+            description: Settings for scaling the component based on request duration.
+            type: object
+            properties:
+              p95_milliseconds:
+                description: The p95 target request duration in milliseconds for the component.
+                type: integer
+                format: uint32
+                minimum: 1
+                example: 500

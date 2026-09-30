@@ -1,8 +1,11 @@
 operationId: registry_create
 
-summary: Create Container Registry
+deprecated: true
 
+summary: 'Create Container Registry'
 description: |
+  **Note: This endpoint is deprecated. Please use the `/v2/registries` endpoint instead.**
+
   To create your container registry, send a POST request to `/v2/registry`.
 
   The `name` becomes part of the URL for images stored in the registry. For

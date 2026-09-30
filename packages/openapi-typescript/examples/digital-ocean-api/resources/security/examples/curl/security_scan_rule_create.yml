@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"resource": "do:droplet:fe3a2fd7-903d-46e6-ada3-3e4f285fb89d"}' \
+    "https://api.digitalocean.com/v2/security/scans/rules"

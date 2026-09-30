@@ -15,7 +15,7 @@ content:
         databases:
           type: array
           items:
-            $ref: '../models/database_cluster.yml'
+            $ref: '../models/database_cluster_read.yml'
     example:
       databases:
       - id: 9cc10173-e9ea-4176-9dbc-a4cee4c4ff30

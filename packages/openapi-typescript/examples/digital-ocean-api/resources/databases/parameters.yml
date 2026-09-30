@@ -38,7 +38,7 @@ username:
 tag_name:
   in: query
   name: tag_name
-  description: Limits the results to database clusters with a specific tag.
+  description: Limits the results to database clusters with a specific tag.<br><br>Requires `tag:read` scope.
   required: false
   example: production
   schema:
@@ -86,5 +86,23 @@ logsink_id:
   description: A unique identifier for a logsink of a database cluster
   required: true
   example: 50484ec3-19d6-4cd3-b56f-3b0381c289a6
+  schema:
+    type: string
+
+kafka_schema_subject_name:
+  in: path
+  name: subject_name
+  description: The name of the Kafka schema subject.
+  required: true
+  example: customer-schema
+  schema:
+    type: string
+
+kafka_schema_version:
+  in: path
+  name: version
+  description: The version of the Kafka schema subject.
+  required: true
+  example: "1"
   schema:
     type: string

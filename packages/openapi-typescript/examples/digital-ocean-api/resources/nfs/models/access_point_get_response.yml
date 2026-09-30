@@ -1,0 +1,8 @@
+---
+type: object
+description: Response containing a single access point.
+properties:
+  access_point:
+    $ref: "access_point_response.yml"
+required:
+  - access_point

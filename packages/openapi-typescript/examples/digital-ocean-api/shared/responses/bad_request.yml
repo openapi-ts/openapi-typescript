@@ -1,4 +1,4 @@
-description: Bad Request
+description: There was an error parsing the request body.
 
 headers:
   ratelimit-limit:

@@ -1,0 +1,29 @@
+lang: JavaScript
+source: |-
+  import { InferenceClient } from "@digitalocean/dots";
+
+  const client = new InferenceClient({
+      apiKey: process.env.DIGITALOCEAN_TOKEN,
+  });
+
+  // Image Generation
+  const imgResp = await client.async_images.generate({
+      model_id: "fal-ai/flux/schnell",
+      prompt: "A futuristic city at sunset",
+  });
+  console.log(imgResp.request_id, imgResp.status);
+
+  // Audio Generation
+  const audioResp = await client.audio.generate({
+      model_id: "fal-ai/stable-audio-25/text-to-audio",
+      prompt: "Techno song with futuristic sounds",
+      seconds_total: 60,
+  });
+  console.log(audioResp.request_id, audioResp.status);
+
+  // Text-to-Speech
+  const ttsResp = await client.audio.speech.create({
+      model_id: "fal-ai/elevenlabs/tts/multilingual-v2",
+      input: "This text-to-speech example uses DigitalOcean multilingual voice.",
+  });
+  console.log(ttsResp.request_id, ttsResp.status);

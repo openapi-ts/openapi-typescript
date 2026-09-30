@@ -1,0 +1,14 @@
+lang: Python
+source: |-
+  import os
+  from pydo import Client
+
+  client = Client(token=os.environ.get("DIGITALOCEAN_TOKEN"))
+
+  insights = client.billing.list_insights(
+      account_urn="do:team:12345678-1234-1234-1234-123456789012",
+      start_date="2025-01-01",
+      end_date="2025-01-31",
+      per_page=100,
+      page=1
+  )

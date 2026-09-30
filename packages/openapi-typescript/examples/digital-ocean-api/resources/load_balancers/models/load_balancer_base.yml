@@ -29,6 +29,13 @@ properties:
     example: '104.131.186.241'
     description: An attribute containing the public-facing IP address of the
       load balancer.
+  
+  ipv6:
+    type: string
+    readOnly: true
+    example: '2604:a880:800:14::85f5:c000'
+    description: An attribute containing the public-facing IPv6 address of the
+      load balancer.
 
   size_unit:
     type: integer
@@ -169,6 +176,17 @@ properties:
       to resources on the same VPC network. This property cannot be updated after
       creating the load balancer.
 
+  network_stack:
+    type: string
+    example: IPV4
+    enum:
+      - IPV4
+      - DUALSTACK
+    default: IPV4
+    description: A string indicating whether the load balancer will support IPv4 
+      or both IPv4 and IPv6 networking. This property cannot be updated after
+      creating the load balancer.
+
   type:
     type: string
     example: REGIONAL
@@ -200,6 +218,16 @@ properties:
       - 996fa239-fac3-42a2-b9a1-9fa822268b7a
     description: An array containing the UUIDs of the Regional load balancers to be used as target
       backends for a Global load balancer.
+
+  tls_cipher_policy:
+    type: string
+    example: STRONG
+    enum:
+      - DEFAULT
+      - STRONG
+    default: DEFAULT
+    description: A string indicating the policy for the TLS cipher suites used by the load balancer.
+      The possible values are `DEFAULT` or `STRONG`. The default value is `DEFAULT`.
 
 required:
   - forwarding_rules

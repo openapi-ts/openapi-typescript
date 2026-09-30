@@ -1,0 +1,8 @@
+type: object
+nullable: true
+description: An object specifying whether the Cluster Proportional Autoscaler (CPA) add-on for CoreDNS should be enabled for the Kubernetes cluster.
+properties:
+  enabled:
+    type: boolean
+    description: Indicates whether the CoreDNS Cluster Proportional Autoscaler add-on is enabled.
+    example: true

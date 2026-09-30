@@ -15,7 +15,13 @@ source: |-
     "storage_size_mib": 61440,
     "tags": [
       "production"
-    ]
+    ],
+    "do_settings": {
+      "service_cnames": [
+        "db.example.com",
+        "database.myapp.io"
+      ]
+    }
   }
 
   create_resp = client.databases.create_cluster(body=create_req)

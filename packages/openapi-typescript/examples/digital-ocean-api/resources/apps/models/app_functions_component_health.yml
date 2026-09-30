@@ -1,0 +1,20 @@
+type: object
+properties:
+  name:
+    type: string
+    example: sample_function
+  functions_component_health_metrics:
+    type: array
+    items:
+      type: object
+      properties:
+        metric_label:
+          type: string
+          example: activations_count
+        metric_value:
+          type: number
+          format: double
+          example: 100
+        time_window:
+          type: string
+          example: 1h

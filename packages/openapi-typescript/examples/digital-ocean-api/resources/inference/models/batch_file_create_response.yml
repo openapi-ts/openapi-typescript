@@ -1,0 +1,24 @@
+type: object
+description: Presigned upload URL and `file_id` for a new batch input file.
+required:
+  - file_id
+  - upload_url
+properties:
+  file_id:
+    type: string
+    format: uuid
+    description: Pass this value as `file_id` when creating a batch job.
+    example: "a1b2c3d4-e5f6-4789-90ab-cdef12345678"
+  upload_url:
+    type: string
+    format: uri
+    description: >
+      Short-lived presigned `PUT` URL (typically valid for ~15 minutes).
+      If it expires before upload, create a new file intent.
+    example: "https://batch-inference.nyc3.digitaloceanspaces.com/uploads/a1b2c3d4-e5f6-4789-90ab-cdef12345678.jsonl?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Expires=900&X-Amz-Signature=..."
+  expires_at:
+    type: string
+    format: date-time
+    nullable: true
+    description: When `upload_url` expires.
+    example: "2026-04-24T19:34:19Z"

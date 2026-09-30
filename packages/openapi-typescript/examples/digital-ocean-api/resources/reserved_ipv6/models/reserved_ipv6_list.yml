@@ -1,0 +1,30 @@
+type: object
+properties:
+  reserved_ipv6s:
+    type: array
+    items:
+      properties:
+        ip:
+          type: string
+          format: ipv6
+          example: 2409:40d0:f7:1017:74b4:3a96:105e:4c6e
+          description: The public IP address of the reserved IPv6. It also serves as its
+            identifier.
+        region_slug:
+          type: string
+          description: The region that the reserved IPv6 is reserved to. When you
+                query a reserved IPv6,the region_slug will be returned.
+          example: nyc3
+        reserved_at:
+          type: string
+          format: date-time
+          example: '2020-01-01T00:00:00Z'  
+        droplet:
+          description: Requires `droplet:read` scope.
+          anyOf:
+            - title: 'null'
+              type: object
+              nullable: true
+              description: If the reserved IP is not assigned to a Droplet, the value will be null.<br><br>Requires `droplet:read` scope.
+            - $ref: '../../droplets/models/droplet.yml'
+          example: null

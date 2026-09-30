@@ -1,0 +1,25 @@
+lang: cURL
+source: |-
+  curl -i -X POST "https://api.digitalocean.com/v2/dedicated-inferences" \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DO_TOKEN" \
+    -d '{
+      "spec": {
+        "version": 1,
+        "name": "new-dedicated-inference",
+        "region": "atl1",
+        "vpc": { "uuid": "7e5c619c-359c-44ca-87e2-47e98170c012" },
+        "enable_public_endpoint": true,
+        "model_deployments": [{
+          "model_slug": "mistral/mistral-7b-instruct-v3",
+          "model_provider": "hugging_face",
+          "workload_config": {},
+          "accelerators": [{
+            "scale": 2,
+            "type": "prefill_decode",
+            "accelerator_slug": "gpu-mi300x1-192gb"
+          }]
+        }]
+      },
+      "access_tokens": { "hugging_face_token": "$HF_TOKEN" }
+    }'

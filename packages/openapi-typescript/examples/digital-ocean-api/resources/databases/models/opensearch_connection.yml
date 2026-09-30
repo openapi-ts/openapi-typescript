@@ -19,12 +19,12 @@ properties:
     readOnly: true
   user:
     type: string
-    description: The default user for the opensearch dashboard.
+    description: The default user for the opensearch dashboard.<br><br>Requires `database:view_credentials` scope.
     example: doadmin
     readOnly: true
   password:
     type: string
-    description: The randomly generated password for the default user.
+    description: The randomly generated password for the default user.<br><br>Requires `database:view_credentials` scope.
     example: wv78n3zpz42xezdk
     readOnly: true
   ssl:

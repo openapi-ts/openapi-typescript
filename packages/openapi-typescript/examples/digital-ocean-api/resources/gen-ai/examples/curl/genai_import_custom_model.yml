@@ -1,0 +1,20 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json"  \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    "https://api.digitalocean.com/v2/gen-ai/custom_models/import" \
+    -d '{
+      "name": "mymodelssss",
+      "source_type": "SOURCE_TYPE_HUGGINGFACE",
+      "source_ref": {
+        "repo_id": "Qwen/Qwen3-1.7B",
+        "access_type": "ACCESS_TYPE_PUBLIC"
+      },
+      "description": "qwen base model",
+      "preferred_gpu_region": null,
+      "accept_terms_and_conditions": true,
+      "tags": {
+        "tags": ["base-model"]
+      }
+    }'

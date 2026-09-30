@@ -1,0 +1,7 @@
+lang: cURL
+source: |-
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $DIGITALOCEAN_TOKEN" \
+    -d '{"prefix": "203.0.113.0/24", "region": "nyc3", "signature": "$SIGNATURE"}' \
+    "https://api.digitalocean.com/v2/byoip_prefixes"
