@@ -1268,5 +1268,57 @@ describe("client", () => {
 
       expect(result.current.data).toEqual([1, 2, 3, 4, 5, 6]);
     });
+    it("should not clash with useQuery when using the same method, path, and params", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl });
+      const client = createClient(fetchClient);
+
+      useMockRequestHandler({
+        baseUrl,
+        method: "get",
+        path: "/paginated-data",
+        status: 200,
+        body: { items: [1, 2, 3], nextPage: 1 },
+      });
+
+      const { result } = renderHook(
+        () => ({
+          query: client.useQuery("get", "/paginated-data", {
+            params: {
+              query: {
+                limit: 3,
+              },
+            },
+          }),
+          infiniteQuery: client.useInfiniteQuery(
+            "get",
+            "/paginated-data",
+            {
+              params: {
+                query: {
+                  limit: 3,
+                },
+              },
+            },
+            {
+              getNextPageParam: (lastPage) => lastPage.nextPage,
+              initialPageParam: 0,
+            },
+          ),
+        }),
+        { wrapper },
+      );
+
+      await waitFor(() => {
+        expect(result.current.query.isSuccess).toBe(true);
+        expect(result.current.infiniteQuery.isSuccess).toBe(true);
+      });
+
+      // useQuery should return flat data
+      expect(result.current.query.data).toEqual({ items: [1, 2, 3], nextPage: 1 });
+
+      // useInfiniteQuery should return paginated data with pages array
+      expect(result.current.infiniteQuery.data?.pages).toHaveLength(1);
+      expect(result.current.infiniteQuery.data?.pages[0]).toEqual({ items: [1, 2, 3], nextPage: 1 });
+    });
   });
 });
