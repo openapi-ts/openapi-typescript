@@ -1,5 +1,15 @@
 # openapi-typescript
 
+## 7.14.0
+
+### Minor Changes
+
+- [#2646](https://github.com/openapi-ts/openapi-typescript/pull/2646) [`323e9a5`](https://github.com/openapi-ts/openapi-typescript/commit/323e9a567c7ff3ddad7bc7a1bfa39b859e94b296) Thanks [@drwpow](https://github.com/drwpow)! - Add ability to set flags in redocly.yaml
+
+### Patch Changes
+
+- [#2415](https://github.com/openapi-ts/openapi-typescript/pull/2415) [`f55fb72`](https://github.com/openapi-ts/openapi-typescript/commit/f55fb72f93ef4fe009278bcc1f62e5d16e4012e5) Thanks [@remy90](https://github.com/remy90)! - Support `additionalProperties: true` on string enums by generating a loose autocomplete union (`(enum literals) | (string & {})`), preserving editor suggestions while still accepting arbitrary string values.
+
 ## 7.13.0
 
 ### Minor Changes
