@@ -9,9 +9,35 @@ The Node API may be useful if dealing with dynamically-created schemas, or youâ€
 
 ## Setup
 
+For TypeScript 7 applications, run this install command in the separate tooling package described below, not in the application package.
+
 ```bash
-npm i --save-dev openapi-typescript typescript
+npm i --save-dev openapi-typescript typescript@5
 ```
+
+For applications using TypeScript 7, run the generator script in a separate tooling package with
+these dependencies; leave the application's compiler unchanged. Import `typescript` from that
+tooling package in custom transforms too: callbacks and returned AST nodes must use the same
+JavaScript compiler API as the generator. Pass the generated source file, not compiler AST objects,
+to the TypeScript 7 application. This is side-by-side tooling, not native TypeScript 7 API support.
+See [TypeScript's side-by-side guidance](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-6.0).
+
+For example, from your application directory, create a sibling tooling package outside its package-manager workspace:
+
+```bash
+mkdir ../openapi-codegen
+cd ../openapi-codegen
+npm init -y
+npm i --save-dev openapi-typescript typescript@5
+```
+
+Run your generator script from this tooling package and write the generated `.ts` file into your application. For CLI generation, if your application directory is named `my-app`, contains `openapi.yaml`, and has a `src` directory:
+
+```bash
+npx openapi-typescript ../my-app/openapi.yaml -o ../my-app/src/schema.d.ts
+```
+
+Adjust the schema and output paths for your project. Keep this tooling package independent of the application's dependency installation; it must resolve TypeScript 5 while the application continues to resolve TypeScript 7.
 
 ::: tip Recommended
 
