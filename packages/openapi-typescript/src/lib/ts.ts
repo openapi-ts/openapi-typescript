@@ -1,7 +1,37 @@
 import type { OasRef, Referenced } from "@redocly/openapi-core";
-import { parseRef } from "@redocly/openapi-core/lib/ref-utils.js";
+import { parseRef as redoclyParseRef } from "@redocly/openapi-core/lib/ref-utils.js";
 import ts, { type LiteralTypeNode, type TypeLiteralNode } from "typescript";
 import type { ParameterObject } from "../types.js";
+
+/**
+ * Parse a $ref / JSON Pointer into its URI and pointer segments.
+ *
+ * This is a resilient wrapper around Redocly’s `parseRef`. Redocly unescapes each
+ * pointer segment with `decodeURIComponent`, which throws a `URIError` on a literal,
+ * un-encoded `%` (e.g. a schema property named `"25%"`). Property names are valid
+ * pointer segments and shouldn’t crash codegen, so when decoding fails we fall back
+ * to the raw, un-decoded segment (matching the asymmetry of `escapePointer`, which
+ * does not percent-encode).
+ */
+export function parseRef(ref: string): ReturnType<typeof redoclyParseRef> {
+  try {
+    return redoclyParseRef(ref);
+  } catch {
+    const [uri, rawPointer = ""] = ref.split("#/");
+    const pointer = rawPointer
+      .split("/")
+      .map((fragment) => {
+        const unescaped = fragment.replace(/~1/g, "/").replace(/~0/g, "~");
+        try {
+          return decodeURIComponent(unescaped);
+        } catch {
+          return unescaped;
+        }
+      })
+      .filter(Boolean);
+    return { uri: (uri.endsWith("#") ? uri.slice(0, -1) : uri) || null, pointer };
+  }
+}
 
 export const JS_PROPERTY_INDEX_RE = /^[A-Za-z_$][A-Za-z_$0-9]*$/;
 export const JS_ENUM_INVALID_CHARS_RE = /[^A-Za-z_$0-9]+(.)?/g;

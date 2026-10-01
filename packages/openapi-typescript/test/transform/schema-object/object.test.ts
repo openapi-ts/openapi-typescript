@@ -624,6 +624,33 @@ describe("transformSchemaObject > object", () => {
         },
       },
     ],
+    [
+      "property name with percent sign (nested object)",
+      {
+        // a property key containing a literal "%" must not crash codegen when it
+        // holds a nested object — the path is fed back through parseRef, which
+        // would otherwise throw a URIError via decodeURIComponent. See #2251.
+        given: {
+          type: "object",
+          properties: {
+            id: { type: "string" },
+            "25%": {
+              type: "object",
+              properties: {
+                color: { type: "string" },
+              },
+            },
+          },
+        },
+        want: `{
+    id?: string;
+    "25%"?: {
+        color?: string;
+    };
+}`,
+        // options: DEFAULT_OPTIONS,
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options = DEFAULT_OPTIONS, ci }] of tests) {
