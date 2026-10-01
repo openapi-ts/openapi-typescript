@@ -684,8 +684,29 @@ export interface OpenAPITSOptions {
   makePathsEnum?: boolean;
   /** Generate path params based on path even if they are not defined in the open api schema */
   generatePathParams?: boolean;
+
   /** Generate $Read/$Write markers for readOnly/writeOnly properties (default: false) */
   readWriteMarkers?: boolean;
+
+  /**
+   * Filter which paths and HTTP methods are included in the generated types.
+   * Return `true` to include a path+method combination, `false` to exclude it.
+   * Unreferenced components are automatically removed when this option is set.
+   * `method` is always lowercase (e.g. `"get"`, `"post"`). `pathname` is passed as-is
+   * from the schema — OpenAPI paths are case-sensitive and are not normalized.
+   *
+   * **Note:** Path items defined as a `$ref` (e.g. `"/users": { $ref: "..." }`) are
+   * always included regardless of the filter, because individual methods cannot be
+   * inspected without resolving the reference. Filter by pathname in a post-processing
+   * step if you need to exclude these paths.
+   * @example
+   * // Only include GET operations
+   * pathsFilter: (pathname, method) => method === "get"
+   * @example
+   * // Only include specific paths
+   * pathsFilter: (pathname) => pathname.startsWith("/users")
+   */
+  pathsFilter?: (pathname: string, method: string) => boolean;
 }
 
 /** Context passed to all submodules */
