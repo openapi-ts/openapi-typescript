@@ -1111,6 +1111,284 @@ export type $defs = Record<string, never>;
 export type operations = Record<string, never>;`,
       },
     ],
+    [
+      "$dynamicRef > paginated response resolves concrete item type",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
+          paths: {
+            "/users": {
+              get: {
+                operationId: "listUsers",
+                responses: {
+                  200: {
+                    description: "ok",
+                    content: {
+                      "application/json": {
+                        schema: { $ref: "#/components/schemas/PaginatedUserResponse" },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          components: {
+            schemas: {
+              User: {
+                type: "object",
+                properties: {
+                  id: { type: "integer" },
+                  name: { type: "string" },
+                },
+              },
+              PaginatedTemplate: {
+                type: "object",
+                properties: {
+                  items: {
+                    type: "array",
+                    items: { $dynamicRef: "#itemType" },
+                  },
+                  total: { type: "integer" },
+                },
+                $defs: {
+                  itemType: {
+                    $dynamicAnchor: "itemType",
+                    not: {},
+                  },
+                },
+              },
+              PaginatedUserResponse: {
+                $ref: "#/components/schemas/PaginatedTemplate",
+                $defs: {
+                  itemType: {
+                    $dynamicAnchor: "itemType",
+                    $ref: "#/components/schemas/User",
+                  },
+                },
+              },
+            },
+          },
+        },
+        want: `export interface paths {
+    "/users": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listUsers"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        User: {
+            id?: number;
+            name?: string;
+        };
+        PaginatedTemplate: {
+            items?: unknown[];
+            total?: number;
+            $defs: {
+                itemType: unknown;
+            };
+        };
+        PaginatedUserResponse: {
+            items?: components["schemas"]["User"][];
+            total?: number;
+            $defs: {
+                itemType: unknown;
+            };
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export interface operations {
+    listUsers: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description ok */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedUserResponse"];
+                };
+            };
+        };
+    };
+}`,
+      },
+    ],
+    [
+      "$dynamicRef > recursive allOf with $dynamicAnchor (LocalizedSpeciesCategory pattern)",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
+          paths: {},
+          components: {
+            schemas: {
+              BaseCategory: {
+                $dynamicAnchor: "nodeType",
+                type: "object",
+                properties: {
+                  name: { type: "string" },
+                  children: {
+                    type: "array",
+                    items: { $dynamicRef: "#nodeType" },
+                  },
+                },
+              },
+              LocalizedCategory: {
+                $dynamicAnchor: "nodeType",
+                allOf: [
+                  { $ref: "#/components/schemas/BaseCategory" },
+                  {
+                    type: "object",
+                    properties: {
+                      locale: { type: "string" },
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        BaseCategory: {
+            name?: string;
+            children?: components["schemas"]["BaseCategory"][];
+        };
+        LocalizedCategory: {
+            name?: string;
+            children?: components["schemas"]["LocalizedCategory"][];
+        } & {
+            locale?: string;
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+      },
+    ],
+    [
+      "$dynamicRef > multiple dynamic anchors with oneOf (shelter-folder pattern)",
+      {
+        given: {
+          openapi: "3.1",
+          info: { title: "Test", version: "1.0" },
+          paths: {},
+          components: {
+            schemas: {
+              Document: {
+                type: "object",
+                properties: {
+                  kind: { type: "string", const: "document" },
+                  title: { type: "string" },
+                },
+              },
+              FolderTemplate: {
+                type: "object",
+                properties: {
+                  children: {
+                    type: "array",
+                    items: {
+                      oneOf: [{ $ref: "#/components/schemas/Document" }, { $dynamicRef: "#folderType" }],
+                    },
+                  },
+                  tags: {
+                    type: "array",
+                    items: { $dynamicRef: "#tagType" },
+                  },
+                },
+                $defs: {
+                  folderType: { $dynamicAnchor: "folderType", not: {} },
+                  tagType: { $dynamicAnchor: "tagType", not: {} },
+                },
+              },
+              CustomFolder: {
+                $ref: "#/components/schemas/FolderTemplate",
+                $defs: {
+                  folderType: {
+                    $dynamicAnchor: "folderType",
+                    $ref: "#/components/schemas/CustomFolder",
+                  },
+                  tagType: {
+                    $dynamicAnchor: "tagType",
+                    type: "string",
+                  },
+                },
+              },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        Document: {
+            /** @constant */
+            kind?: "document";
+            title?: string;
+        };
+        FolderTemplate: {
+            children?: (components["schemas"]["Document"] | unknown)[];
+            tags?: unknown[];
+            $defs: {
+                folderType: unknown;
+                tagType: unknown;
+            };
+        };
+        CustomFolder: {
+            children?: (components["schemas"]["Document"] | components["schemas"]["CustomFolder"])[];
+            tags?: string[];
+            $defs: {
+                folderType: unknown;
+                tagType: unknown;
+            };
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+export type operations = Record<string, never>;`,
+      },
+    ],
   ];
 
   for (const [testName, { given, want, options, ci }] of tests) {

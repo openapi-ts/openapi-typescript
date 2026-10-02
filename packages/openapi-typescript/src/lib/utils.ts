@@ -157,6 +157,67 @@ export function resolveRef<T>(
   return node;
 }
 
+export function collectDynamicAnchors(
+  schemaObject: Record<string, any>,
+): Record<string, SchemaObject | ReferenceObject> | undefined {
+  if (!schemaObject.$defs || typeof schemaObject.$defs !== "object") {
+    return undefined;
+  }
+  const anchors: Record<string, SchemaObject | ReferenceObject> = {};
+  let found = false;
+  for (const def of Object.values(schemaObject.$defs) as (SchemaObject | ReferenceObject)[]) {
+    if (def && typeof def === "object" && "$dynamicAnchor" in def && typeof def.$dynamicAnchor === "string") {
+      const { $dynamicAnchor, ...rest } = def as SchemaObject & { $dynamicAnchor: string };
+      const schemaValue = Object.keys(rest).length > 0 ? (rest as SchemaObject | ReferenceObject) : def;
+      anchors[$dynamicAnchor] = schemaValue;
+      found = true;
+    }
+  }
+  return found ? anchors : undefined;
+}
+
+export function resolveDynamicAnchor(
+  anchorName: string,
+  options: { dynamicAnchors?: Record<string, SchemaObject | ReferenceObject>; path?: string },
+  schemaObject: SchemaObject,
+): SchemaObject | ReferenceObject | undefined {
+  if (options.dynamicAnchors && anchorName in options.dynamicAnchors) {
+    return options.dynamicAnchors[anchorName];
+  }
+  const defs = (schemaObject as Record<string, unknown>).$defs as
+    | Record<string, SchemaObject | ReferenceObject>
+    | undefined;
+  if (defs && typeof defs === "object") {
+    for (const def of Object.values(defs)) {
+      if (def && typeof def === "object" && "$dynamicAnchor" in def && (def as any).$dynamicAnchor === anchorName) {
+        const { $dynamicAnchor, ...rest } = def as SchemaObject & { $dynamicAnchor: string };
+        if (Object.keys(rest).length > 0) {
+          return rest as SchemaObject | ReferenceObject;
+        }
+      }
+    }
+  }
+  return undefined;
+}
+
+export function schemaContainsDynamicRef(schema: unknown): boolean {
+  if (!schema || typeof schema !== "object") {
+    return false;
+  }
+  const obj = schema as Record<string, unknown>;
+  if ("$dynamicRef" in obj && typeof obj.$dynamicRef === "string") {
+    return true;
+  }
+  for (const val of Object.values(obj)) {
+    if (val && typeof val === "object") {
+      if (schemaContainsDynamicRef(val)) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 function createDiscriminatorEnum(values: string[], prevSchema?: SchemaObject): SchemaObject {
   return {
     type: "string",

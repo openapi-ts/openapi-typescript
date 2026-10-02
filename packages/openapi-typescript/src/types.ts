@@ -443,6 +443,8 @@ export type SchemaObject = {
   allOf?: (SchemaObject | ReferenceObject)[];
   anyOf?: (SchemaObject | ReferenceObject)[];
   required?: string[];
+  $dynamicRef?: string;
+  $dynamicAnchor?: string;
   [key: `x-${string}`]: any;
 } & (
   | StringSubtype
@@ -733,4 +735,5 @@ export interface TransformNodeOptions {
   path?: string;
   schema?: SchemaObject | ReferenceObject;
   ctx: GlobalContext;
+  dynamicAnchors?: Record<string, SchemaObject | ReferenceObject>;
 }
