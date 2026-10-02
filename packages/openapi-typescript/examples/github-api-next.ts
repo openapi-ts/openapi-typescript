@@ -25412,7 +25412,7 @@ export interface components {
              * @example 1
              */
             id: number;
-            account: (null | (components["schemas"]["simple-user"] | components["schemas"]["enterprise"])) | components["schemas"]["simple-user"] | components["schemas"]["enterprise"];
+            account: (null | (components["schemas"]["simple-user"] | components["schemas"]["enterprise"])) & (components["schemas"]["simple-user"] | components["schemas"]["enterprise"]);
             /**
              * @description Describe whether all repositories have been selected or there's a selection involved
              * @enum {string}
@@ -31366,7 +31366,7 @@ export interface components {
                     href?: string;
                 } | null;
             };
-            conditions?: (null | (components["schemas"]["repository-ruleset-conditions"] | components["schemas"]["org-ruleset-conditions"])) | components["schemas"]["repository-ruleset-conditions"] | components["schemas"]["org-ruleset-conditions"];
+            conditions?: (null | (components["schemas"]["repository-ruleset-conditions"] | components["schemas"]["org-ruleset-conditions"])) & (components["schemas"]["repository-ruleset-conditions"] | components["schemas"]["org-ruleset-conditions"]);
             rules?: components["schemas"]["repository-rule"][];
             /** Format: date-time */
             created_at?: string;
@@ -35615,7 +35615,7 @@ export interface components {
          * @description User-defined metadata to store domain-specific information limited to 8 keys with scalar values.
          */
         metadata: {
-            [key: string]: (null | (string | number | boolean) | (number | string | boolean) | (boolean | string | number)) | string | number | boolean;
+            [key: string]: (null | (string & (string | number | boolean)) | (number & (string | number | boolean)) | (boolean & (string | number | boolean))) & (string | number | boolean);
         };
         dependency: {
             /**
@@ -109814,7 +109814,7 @@ export interface operations {
                         /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
                         identifier: string;
                     }[];
-                } | ({
+                } & (({
                     /** @enum {unknown} */
                     status?: "completed";
                 } & {
@@ -109824,7 +109824,7 @@ export interface operations {
                     status?: "queued" | "in_progress";
                 } & {
                     [key: string]: unknown;
-                });
+                }));
             };
         };
         responses: {
@@ -117592,7 +117592,7 @@ export interface operations {
                          */
                         path: "/" | "/docs";
                     };
-                } | unknown | unknown | unknown | unknown | unknown;
+                } & (unknown | unknown | unknown | unknown | unknown);
             };
         };
         responses: {
@@ -117639,7 +117639,7 @@ export interface operations {
                          */
                         path?: "/" | "/docs";
                     };
-                } | unknown | unknown) | null) | unknown | unknown;
+                } & (unknown | unknown)) | null) & (unknown | unknown);
             };
         };
         responses: {
@@ -118988,7 +118988,7 @@ export interface operations {
                     reviewers?: string[];
                     /** @description An array of team `slug`s that will be requested. */
                     team_reviewers?: string[];
-                } | unknown | unknown;
+                } & (unknown | unknown);
             };
         };
         responses: {

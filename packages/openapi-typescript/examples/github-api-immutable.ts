@@ -105595,7 +105595,7 @@ export interface operations {
                         /** @description A reference for the action on the integrator's system. The maximum size is 20 characters. */
                         readonly identifier: string;
                     }[];
-                } | ({
+                } & (({
                     /** @enum {unknown} */
                     readonly status?: "completed";
                 } & {
@@ -105605,7 +105605,7 @@ export interface operations {
                     readonly status?: "queued" | "in_progress";
                 } & {
                     readonly [key: string]: unknown;
-                });
+                }));
             };
         };
         readonly responses: {
@@ -113373,7 +113373,7 @@ export interface operations {
                          */
                         readonly path: "/" | "/docs";
                     };
-                } | unknown | unknown | unknown | unknown | unknown;
+                } & (unknown | unknown | unknown | unknown | unknown);
             };
         };
         readonly responses: {
@@ -113420,7 +113420,7 @@ export interface operations {
                          */
                         readonly path?: "/" | "/docs";
                     };
-                } | unknown | unknown) | null;
+                } & (unknown | unknown)) | null;
             };
         };
         readonly responses: {
@@ -114769,7 +114769,7 @@ export interface operations {
                     readonly reviewers?: readonly string[];
                     /** @description An array of team `slug`s that will be requested. */
                     readonly team_reviewers?: readonly string[];
-                } | unknown | unknown;
+                } & (unknown | unknown);
             };
         };
         readonly responses: {
