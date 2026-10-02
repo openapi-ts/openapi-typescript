@@ -397,10 +397,49 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
     if (schemaObject.type === "array") {
       // default to `unknown[]`
       let itemType: ts.TypeNode = UNKNOWN;
-      // tuple type
-      if (schemaObject.prefixItems || Array.isArray(schemaObject.items)) {
-        const prefixItems = schemaObject.prefixItems ?? (schemaObject.items as (SchemaObject | ReferenceObject)[]);
+      // tuple type using deprecated syntax
+      if (Array.isArray(schemaObject.items)) {
+        const prefixItems = schemaObject.items;
         itemType = ts.factory.createTupleTypeNode(prefixItems.map((item) => transformSchemaObject(item, options)));
+      }
+      // standard tuple type
+      else if (schemaObject.prefixItems) {
+        const prefixItems = schemaObject.prefixItems;
+        itemType = ts.factory.createTupleTypeNode(prefixItems.map((item) => transformSchemaObject(item, options)));
+        if (schemaObject.items !== undefined) {
+          if (schemaObject.items !== false) {
+            let additionalItemType: ts.TypeNode = UNKNOWN;
+            if ("type" in schemaObject.items) {
+              additionalItemType = ts.factory.createArrayTypeNode(transformSchemaObject(schemaObject.items, options));
+            } else {
+              additionalItemType = transformSchemaObject(schemaObject.items, options);
+            }
+            itemType = ts.factory.createTupleTypeNode([
+              ...(itemType as ts.TupleTypeNode).elements,
+              ts.factory.createRestTypeNode(additionalItemType),
+            ]);
+          }
+        } else if (schemaObject.unevaluatedItems !== undefined) {
+          if (schemaObject.unevaluatedItems !== false) {
+            let additionalItemType: ts.TypeNode = UNKNOWN;
+            if ("type" in schemaObject.unevaluatedItems) {
+              additionalItemType = ts.factory.createArrayTypeNode(
+                transformSchemaObject(schemaObject.unevaluatedItems, options),
+              );
+            } else {
+              additionalItemType = transformSchemaObject(schemaObject.unevaluatedItems, options);
+            }
+            itemType = ts.factory.createTupleTypeNode([
+              ...(itemType as ts.TupleTypeNode).elements,
+              ts.factory.createRestTypeNode(additionalItemType),
+            ]);
+          }
+        } else {
+          itemType = ts.factory.createTupleTypeNode([
+            ...(itemType as ts.TupleTypeNode).elements,
+            ts.factory.createRestTypeNode(ts.factory.createArrayTypeNode(UNKNOWN)),
+          ]);
+        }
       }
       // standard array type
       else if (schemaObject.items) {

@@ -250,8 +250,7 @@ minItems: 2
 
 ```yaml
 type: array
-items:
-  type: number
+items: false
 prefixItems:
   - number
   - number
