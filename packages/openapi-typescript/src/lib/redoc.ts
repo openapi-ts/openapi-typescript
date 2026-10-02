@@ -64,7 +64,7 @@ export async function parseSchema(schema: unknown, { absoluteRef, resolver }: Pa
       });
     }
     // JSON
-    if (schema[0] === "{") {
+    if (/^\{\s*"/.test(schema.trimStart())) {
       return {
         source: new Source(absoluteRef, schema, "application/json"),
         parsed: parseJson(schema),
