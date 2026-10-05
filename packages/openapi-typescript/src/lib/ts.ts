@@ -147,6 +147,11 @@ function addIndexedAccess(node: ts.TypeNode, ...segments: readonly string[]) {
   }, node);
 }
 
+/** Wrap a type with NonNullable<T> so a following indexed access does not see `undefined`. */
+function wrapWithNonNullable(type: ts.TypeNode): ts.TypeNode {
+  return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("NonNullable"), [type]);
+}
+
 /**
  * Wrap a type with Extract<T, { propertyName: unknown }> to narrow a union type
  * before accessing a property that only exists on some variants.
@@ -221,6 +226,13 @@ export function oapiRef(path: string, resolved?: OapiRefResolved, options: OapiR
     // See: https://github.com/openapi-ts/openapi-typescript/issues/1742
     if (segment === "properties") {
       return acc;
+    }
+
+    // `$defs` is emitted as an optional property, so indexing into it yields
+    // `T | undefined` under strictNullChecks. Strip the `undefined` before the
+    // next segment indexes into it, otherwise the generated type fails to compile.
+    if (segment === "$defs" && index < original.length - 1) {
+      return wrapWithNonNullable(addIndexedAccess(acc, segment));
     }
 
     if (parametersObject && index === original.length - 1) {
