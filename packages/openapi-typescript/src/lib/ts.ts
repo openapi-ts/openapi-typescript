@@ -11,6 +11,7 @@ export const SPECIAL_CHARACTER_MAP: Record<string, string> = {
   // Add more mappings as needed
 };
 
+export const BLOB = ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Blob"));
 export const BOOLEAN = ts.factory.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword);
 export const FALSE = ts.factory.createLiteralTypeNode(ts.factory.createFalse());
 export const NEVER = ts.factory.createKeywordTypeNode(ts.SyntaxKind.NeverKeyword);

@@ -2,6 +2,7 @@ import { parseRef } from "@redocly/openapi-core/lib/ref-utils.js";
 import ts from "typescript";
 import {
   addJSDocComment,
+  BLOB,
   BOOLEAN,
   NEVER,
   NULL,
@@ -382,7 +383,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
     }
     // type: string
     if (schemaObject.type === "string") {
-      return STRING;
+      return options.ctx.binaryAsBlob && isRawBinary(schemaObject) ? BLOB : STRING;
     }
     // type: number / type: integer
     if (schemaObject.type === "number" || schemaObject.type === "integer") {
@@ -495,6 +496,11 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
       }
       return tsUnion(uniqueTypes);
     }
+  }
+
+  // 3.1 raw binary may omit `type`
+  if (options.ctx.binaryAsBlob && schemaObject.type === undefined && isRawBinary(schemaObject)) {
+    return BLOB;
   }
 
   // type: object
@@ -758,4 +764,20 @@ function wrapWithReadWriteMarker(
     return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("$Write"), [type]);
   }
   return type;
+}
+
+const TEXT_MEDIA_TYPE_RE = /^text\/|[/+](json|xml)(;|$)/i;
+
+/**
+ * Raw (unencoded) binary: 3.0 `format: binary`, or 3.1 `contentMediaType` without `contentEncoding`.
+ * Textual media types (`text/*`, JSON, XML) describe string contents, so they stay `string`.
+ * @see https://spec.openapis.org/oas/v3.1.1.html#working-with-binary-data
+ */
+function isRawBinary({ format, contentMediaType, contentEncoding }: SchemaObject): boolean {
+  return (
+    format === "binary" ||
+    (typeof contentMediaType === "string" &&
+      contentEncoding === undefined &&
+      !TEXT_MEDIA_TYPE_RE.test(contentMediaType))
+  );
 }

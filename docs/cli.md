@@ -127,6 +127,7 @@ The following flags are supported in the CLI:
 | `--make-paths-enum`                |       | `false`  | Generate ApiPaths enum for all paths                                                                                |
 | `--generate-path-params`           |       | `false`  | Generate path parameters for all paths where they are undefined by schema                                           |
 | `--read-write-markers`             |       | `false`  | Generate `$Read<T>`/`$Write<T>` markers for readOnly/writeOnly properties                                           |
+| `--binary-as-blob`                 |       | `false`  | Type binary strings (`format: binary`, or `contentMediaType` without `contentEncoding`) as `Blob`                   |
 
 ### pathParamsAsTypes
 
@@ -313,3 +314,15 @@ console.log(data?.password); // Error!
 ```
 
 :::
+
+### binaryAsBlob
+
+By default, binary data is typed as `string`, because a schema describes it as `type: "string"`. Enabling `--binary-as-blob` types raw binary as `Blob` instead, which is what a browser sends in a `multipart/form-data` upload and what `parseAs: "blob"` returns:
+
+- OpenAPI 3.0: `type: string` with `format: binary`
+- OpenAPI 3.1: `contentMediaType` without `contentEncoding` (with or without `type: string`)
+
+Encoded binary (`contentEncoding: base64`) and textual media types (`text/*`, JSON, XML) stay `string`. Use the [transform API](/node#transform--posttransform) for anything more specific, such as `File` for uploads only.
+
+`openapi-fetch` still serializes request bodies as JSON by default, so uploads need a `bodySerializer` that returns `FormData`. Responses are only a `Blob` at runtime when the request sets `parseAs: "blob"`.
+
