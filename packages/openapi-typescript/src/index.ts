@@ -95,6 +95,7 @@ export default async function openapiTS(
     makePathsEnum: options.makePathsEnum ?? false,
     generatePathParams: options.generatePathParams ?? false,
     readWriteMarkers: options.readWriteMarkers ?? false,
+    binaryAsBlob: options.binaryAsBlob ?? false,
     resolve($ref) {
       return resolveRef(schema, $ref, { silent: options.silent ?? false });
     },

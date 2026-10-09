@@ -436,6 +436,10 @@ export type SchemaObject = {
   const?: unknown;
   default?: unknown;
   format?: string;
+  /** Media type of string contents (3.1); without `contentEncoding` the string is raw binary */
+  contentMediaType?: string;
+  /** Encoding of string contents (3.1), e.g. `base64` */
+  contentEncoding?: string;
   additionalProperties?: boolean | Record<string, never> | SchemaObject | ReferenceObject;
   /** @deprecated in 3.1 (still valid for 3.0) */
   nullable?: boolean;
@@ -686,6 +690,8 @@ export interface OpenAPITSOptions {
   generatePathParams?: boolean;
   /** Generate $Read/$Write markers for readOnly/writeOnly properties (default: false) */
   readWriteMarkers?: boolean;
+  /** Type raw binary strings (`format: binary`, or `contentMediaType` without `contentEncoding`) as `Blob` (default: false) */
+  binaryAsBlob?: boolean;
 }
 
 /** Context passed to all submodules */
@@ -724,6 +730,7 @@ export interface GlobalContext {
   makePathsEnum: boolean;
   generatePathParams: boolean;
   readWriteMarkers: boolean;
+  binaryAsBlob: boolean;
 }
 
 export type $defs = Record<string, SchemaObject>;

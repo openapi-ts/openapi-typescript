@@ -37,6 +37,7 @@ export const DEFAULT_CTX: GlobalContext = {
   makePathsEnum: false,
   generatePathParams: false,
   readWriteMarkers: false,
+  binaryAsBlob: false,
 };
 
 /** Generic test case */

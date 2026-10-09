@@ -147,7 +147,7 @@ updated_at: Date | null; // [!code ++]
 
 #### Example: `Blob` types
 
-Another common transformation is for file uploads, where the `body` of a request is a `multipart/form-data` with some `Blob` fields. Here's an example schema:
+Another common transformation is for file uploads, where the `body` of a request is a `multipart/form-data` with some `Blob` fields. For the common case, the [`--binary-as-blob`](/cli#binaryasblob) flag (`binaryAsBlob: true`) does this without a transform. Here's an example schema:
 
 ::: code-group
 

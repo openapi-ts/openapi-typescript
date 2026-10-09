@@ -8,6 +8,11 @@ const DEFAULT_OPTIONS = {
   ctx: { ...DEFAULT_CTX },
 };
 
+const BINARY_AS_BLOB_OPTIONS = {
+  ...DEFAULT_OPTIONS,
+  ctx: { ...DEFAULT_CTX, binaryAsBlob: true },
+};
+
 describe("transformSchemaObject > string", () => {
   const tests: TestCase[] = [
     [
@@ -128,6 +133,61 @@ describe("transformSchemaObject > string", () => {
           additionalProperties: true,
         },
         want: `("A" | "B" | "C") | (string & {})`,
+      },
+    ],
+    [
+      "format: binary",
+      {
+        given: { type: "string", format: "binary" },
+        want: "string",
+      },
+    ],
+    [
+      "options > binaryAsBlob > format: binary",
+      {
+        given: { type: "string", format: "binary" },
+        want: "Blob",
+        options: BINARY_AS_BLOB_OPTIONS,
+      },
+    ],
+    [
+      "options > binaryAsBlob > contentMediaType",
+      {
+        given: { type: "string", contentMediaType: "application/octet-stream" },
+        want: "Blob",
+        options: BINARY_AS_BLOB_OPTIONS,
+      },
+    ],
+    [
+      "options > binaryAsBlob > contentMediaType without type",
+      {
+        given: { contentMediaType: "image/png" },
+        want: "Blob",
+        options: BINARY_AS_BLOB_OPTIONS,
+      },
+    ],
+    [
+      "options > binaryAsBlob > nullable",
+      {
+        given: { type: ["string", "null"], contentMediaType: "application/octet-stream" },
+        want: "Blob | null",
+        options: BINARY_AS_BLOB_OPTIONS,
+      },
+    ],
+    [
+      "options > binaryAsBlob > text contents stay string",
+      {
+        given: { type: "string", contentMediaType: "application/json" },
+        want: "string",
+        options: BINARY_AS_BLOB_OPTIONS,
+      },
+    ],
+    [
+      "options > binaryAsBlob > base64 stays string",
+      {
+        given: { type: "string", contentMediaType: "image/png", contentEncoding: "base64" },
+        want: "string",
+        options: BINARY_AS_BLOB_OPTIONS,
       },
     ],
   ];
