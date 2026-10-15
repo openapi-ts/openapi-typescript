@@ -100,6 +100,157 @@ describe("transformSchemaObject > object", () => {
       },
     ],
     [
+      "unevaluatedProperties > basic",
+      {
+        given: { type: "object", unevaluatedProperties: { type: "string" } },
+        want: `{
+    [key: string]: string;
+}`,
+      },
+    ],
+    [
+      "unevaluatedProperties > true",
+      {
+        given: { type: "object", unevaluatedProperties: true },
+        want: `{
+    [key: string]: unknown;
+}`,
+      },
+    ],
+    [
+      "unevaluatedProperties > with properties",
+      {
+        given: {
+          type: "object",
+          properties: { property: { type: "string" } },
+          unevaluatedProperties: { type: "string" },
+        },
+        want: `{
+    property?: string;
+} & {
+    [key: string]: string;
+}`,
+      },
+    ],
+    [
+      "unevaluatedProperties > preserves declared property types",
+      {
+        given: {
+          type: "object",
+          properties: { count: { type: "number" } },
+          unevaluatedProperties: { type: "string" },
+        },
+        want: `{
+    count?: number;
+} & {
+    [key: string]: string | number;
+}`,
+      },
+    ],
+    [
+      "unevaluatedProperties > preserves property types from allOf",
+      {
+        given: {
+          type: "object",
+          allOf: [{ type: "object", properties: { count: { type: "number" } } }],
+          unevaluatedProperties: { type: "string" },
+        },
+        want: `{
+    [key: string]: string | number;
+} & {
+    count?: number;
+}`,
+      },
+    ],
+    [
+      "unevaluatedProperties > preserves property types from referenced allOf",
+      {
+        given: {
+          type: "object",
+          allOf: [{ $ref: "#/components/schemas/Count" }],
+          unevaluatedProperties: { type: "string" },
+        },
+        want: `{
+    [key: string]: string | number;
+} & components["schemas"]["Count"]`,
+        options: {
+          ...DEFAULT_OPTIONS,
+          ctx: {
+            ...DEFAULT_CTX,
+            resolve<T>($ref: string) {
+              return (
+                $ref === "#/components/schemas/Count"
+                  ? { type: "object", properties: { count: { type: "number" } } }
+                  : undefined
+              ) as T | undefined;
+            },
+          },
+        },
+      },
+    ],
+    [
+      "unevaluatedProperties > excludes the generated $defs helper",
+      {
+        given: {
+          type: "object",
+          allOf: [{ type: "object", $defs: { Internal: { type: "string" } } }],
+          unevaluatedProperties: { type: "string" },
+        },
+        want: `{
+    [key: string]: string;
+} & {
+    $defs: {
+        Internal: string;
+    };
+}`,
+      },
+    ],
+    [
+      "unevaluatedProperties > preserves a declared $defs property",
+      {
+        given: {
+          type: "object",
+          allOf: [
+            {
+              type: "object",
+              properties: { $defs: { type: "number" } },
+            },
+          ],
+          unevaluatedProperties: { type: "string" },
+        },
+        want: `{
+    [key: string]: string | number;
+} & {
+    $defs?: number;
+}`,
+      },
+    ],
+    [
+      "unevaluatedProperties > preserves declared property types from discriminated allOf",
+      {
+        given: {
+          type: "object",
+          allOf: [
+            {
+              type: "object",
+              discriminator: { propertyName: "kind" },
+              properties: {
+                kind: { type: "string" },
+                count: { type: "number" },
+              },
+            },
+          ],
+          unevaluatedProperties: { type: "boolean" },
+        },
+        want: `{
+    [key: string]: boolean | number;
+} & Omit<{
+    kind?: string;
+    count?: number;
+}, "kind">`,
+      },
+    ],
+    [
       "patternProperties > empty object",
       {
         given: { type: "object", patternProperties: {} },

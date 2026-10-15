@@ -27,6 +27,8 @@ import {
 import { createDiscriminatorProperty, createRef, getEntries } from "../lib/utils.js";
 import type { ReferenceObject, SchemaObject, TransformNodeOptions } from "../types.js";
 
+const GENERATED_DEFS_HELPER = Symbol("generatedDefsHelper");
+
 /**
  * Transform SchemaObject nodes (4.8.24)
  * @see https://spec.openapis.org/oas/v3.1.0#schema-object
@@ -214,12 +216,17 @@ export function transformSchemaObjectWithComposition(
    */
 
   /** Collect oneOf/anyOf */
+  const unevaluatedPropertiesRefs = options.unevaluatedPropertiesRefs ?? new Set<string>();
+  const compositionOptions = {
+    ...options,
+    unevaluatedPropertiesRefs,
+  };
   function collectUnionCompositions(items: (SchemaObject | ReferenceObject)[], unionKey: "anyOf" | "oneOf") {
     const output: ts.TypeNode[] = [];
     for (const [index, item] of items.entries()) {
       output.push(
         transformSchemaObject(item, {
-          ...options,
+          ...compositionOptions,
           // include index in path so generated names from nested enums/enumValues are unique
           path: createRef([options.path, unionKey, String(index)]),
         }),
@@ -237,9 +244,9 @@ export function transformSchemaObjectWithComposition(
       // if this is a $ref, use WithRequired<X, Y> if parent specifies required properties
       // (but only for valid keys)
       if ("$ref" in item) {
-        itemType = transformSchemaObject(item, options);
+        itemType = transformSchemaObject(item, compositionOptions);
 
-        const resolved = options.ctx.resolve<SchemaObject>(item.$ref);
+        const resolved = compositionOptions.ctx.resolve<SchemaObject>(item.$ref);
 
         // make keys required, if necessary
         if (
@@ -247,12 +254,12 @@ export function transformSchemaObjectWithComposition(
           typeof resolved === "object" &&
           "properties" in resolved &&
           // we have already handled this item (discriminator property was already added as required)
-          !options.ctx.discriminators.refsHandled.includes(item.$ref)
+          !compositionOptions.ctx.discriminators.refsHandled.includes(item.$ref)
         ) {
           // add WithRequired<X, Y> if necessary
           const validRequired = (required ?? []).filter((key) => !!resolved.properties?.[key]);
           if (validRequired.length) {
-            itemType = tsWithRequired(itemType, validRequired, options.ctx.injectFooter);
+            itemType = tsWithRequired(itemType, validRequired, compositionOptions.ctx.injectFooter);
           }
         }
       }
@@ -262,7 +269,7 @@ export function transformSchemaObjectWithComposition(
         if (typeof item === "object" && Array.isArray(item.required)) {
           itemRequired.push(...item.required);
         }
-        itemType = transformSchemaObject({ ...item, required: itemRequired }, options);
+        itemType = transformSchemaObject({ ...item, required: itemRequired }, compositionOptions);
       }
 
       const discriminator =
@@ -276,23 +283,109 @@ export function transformSchemaObjectWithComposition(
     return output;
   }
 
+  /** Collect declared properties from a transformed object or composition type. */
+  function collectDeclaredPropertyTypes(type: ts.TypeNode, omittedProperties = new Set<string>()): ts.TypeNode[] {
+    if (ts.isIntersectionTypeNode(type) || ts.isUnionTypeNode(type)) {
+      return type.types.flatMap((child) => collectDeclaredPropertyTypes(child, omittedProperties));
+    }
+    if (ts.isParenthesizedTypeNode(type)) {
+      return collectDeclaredPropertyTypes(type.type, omittedProperties);
+    }
+    if (ts.isTypeReferenceNode(type) && ts.isIdentifier(type.typeName) && type.typeName.text === "Omit") {
+      const [omittedType, keysType] = type.typeArguments ?? [];
+      if (!omittedType || !keysType) {
+        return [];
+      }
+      const keys = new Set(omittedProperties);
+      const collectKeys = (keyType: ts.TypeNode) => {
+        if (ts.isUnionTypeNode(keyType)) {
+          keyType.types.forEach(collectKeys);
+        } else if (ts.isIdentifier(keyType) && keyType.text.startsWith('"')) {
+          try {
+            const key = JSON.parse(keyType.text);
+            if (typeof key === "string") {
+              keys.add(key);
+            }
+          } catch {
+            // Ignore non-literal identifiers in the Omit key type.
+          }
+        } else if (ts.isLiteralTypeNode(keyType) && ts.isStringLiteral(keyType.literal)) {
+          keys.add(keyType.literal.text);
+        }
+      };
+      collectKeys(keysType);
+      return collectDeclaredPropertyTypes(omittedType, keys);
+    }
+    if (ts.isTypeLiteralNode(type)) {
+      return type.members.flatMap((member) => {
+        const propertyName =
+          member.name &&
+          (ts.isIdentifier(member.name) || ts.isStringLiteral(member.name) || ts.isNumericLiteral(member.name))
+            ? member.name.text
+            : undefined;
+        if (
+          !ts.isPropertySignature(member) ||
+          !member.type ||
+          GENERATED_DEFS_HELPER in member ||
+          (propertyName !== undefined && omittedProperties.has(propertyName))
+        ) {
+          return [];
+        }
+        return [member.type];
+      });
+    }
+    return [];
+  }
+
+  /**
+   * Referenced composition schemas stay as TypeReferenceNodes in the output,
+   * so resolve them while collecting properties accepted by an
+   * unevaluatedProperties index signature.
+   */
+  function collectReferencedCompositionPropertyTypes(
+    schema: SchemaObject | ReferenceObject,
+    seenRefs = unevaluatedPropertiesRefs,
+  ): ts.TypeNode[] {
+    if ("$ref" in schema) {
+      if (seenRefs.has(schema.$ref)) {
+        return [];
+      }
+      seenRefs.add(schema.$ref);
+      try {
+        const resolved = compositionOptions.ctx.resolve<SchemaObject>(schema.$ref);
+        if (!resolved || typeof resolved !== "object") {
+          return [];
+        }
+
+        return [
+          ...collectDeclaredPropertyTypes(
+            transformSchemaObject(resolved, { ...compositionOptions, path: schema.$ref }),
+          ),
+          ...collectReferencedCompositionPropertyTypes(resolved, seenRefs),
+        ];
+      } finally {
+        seenRefs.delete(schema.$ref);
+      }
+    }
+
+    // Inline branches are already represented by the transformed composition
+    // AST. Only descend to find references that cannot be inspected there.
+    const output: ts.TypeNode[] = [];
+    for (const compositionKey of ["allOf", "anyOf", "oneOf"] as const) {
+      for (const item of schema[compositionKey] ?? []) {
+        output.push(...collectReferencedCompositionPropertyTypes(item, seenRefs));
+      }
+    }
+    return output;
+  }
+
   // compile final type
   let finalType: ts.TypeNode | undefined;
 
-  // core + allOf: intersect
-  const coreObjectType = transformSchemaObjectCore(schemaObject, options);
+  // collect compositions before transforming the core so their declared
+  // properties can be included in unevaluatedProperties' string index type.
   const allOfType = collectAllOfCompositions(schemaObject.allOf ?? [], schemaObject.required);
-  if (coreObjectType || allOfType.length) {
-    const allOf: ts.TypeNode | undefined = allOfType.length ? tsIntersection(allOfType) : undefined;
-    finalType = tsIntersection([...(coreObjectType ? [coreObjectType] : []), ...(allOf ? [allOf] : [])]);
-  }
-  // anyOf: union
-  // (note: this may seem counterintuitive, but as TypeScript’s unions are not true XORs, they mimic behavior closer to anyOf than oneOf)
   const anyOfType = collectUnionCompositions(schemaObject.anyOf ?? [], "anyOf");
-  if (anyOfType.length) {
-    finalType = tsUnion([...(finalType ? [finalType] : []), ...anyOfType]);
-  }
-  // oneOf: union (within intersection with other types, if any)
   const oneOfType = collectUnionCompositions(
     schemaObject.oneOf ||
       ("type" in schemaObject &&
@@ -301,6 +394,33 @@ export function transformSchemaObjectWithComposition(
       [],
     "oneOf",
   );
+  const compositionTypes = [...allOfType, ...anyOfType, ...oneOfType];
+  const seenCompositionRefs = unevaluatedPropertiesRefs;
+  const hasExplicitUnevaluatedProperties =
+    typeof schemaObject.unevaluatedProperties === "object" &&
+    schemaObject.unevaluatedProperties !== null &&
+    Object.keys(schemaObject.unevaluatedProperties).length > 0;
+  const composedPropertyTypes = hasExplicitUnevaluatedProperties
+    ? [
+        ...compositionTypes.flatMap((compositionType) => collectDeclaredPropertyTypes(compositionType)),
+        ...[...(schemaObject.allOf ?? []), ...(schemaObject.anyOf ?? []), ...(schemaObject.oneOf ?? [])].flatMap(
+          (item) => collectReferencedCompositionPropertyTypes(item, seenCompositionRefs),
+        ),
+      ]
+    : [];
+
+  // core + allOf: intersect
+  const coreObjectType = transformSchemaObjectCore(schemaObject, compositionOptions, composedPropertyTypes);
+  if (coreObjectType || allOfType.length) {
+    const allOf: ts.TypeNode | undefined = allOfType.length ? tsIntersection(allOfType) : undefined;
+    finalType = tsIntersection([...(coreObjectType ? [coreObjectType] : []), ...(allOf ? [allOf] : [])]);
+  }
+  // anyOf: union
+  // (note: this may seem counterintuitive, but as TypeScript’s unions are not true XORs, they mimic behavior closer to anyOf than oneOf)
+  if (anyOfType.length) {
+    finalType = tsUnion([...(finalType ? [finalType] : []), ...anyOfType]);
+  }
+  // oneOf: union (within intersection with other types, if any)
   if (oneOfType.length) {
     // note: oneOf is the only type that may include primitives
     if (oneOfType.every(tsIsPrimitive)) {
@@ -358,7 +478,11 @@ function shouldTransformToTsEnum(options: TransformNodeOptions, schemaObject: Sc
 /**
  * Handle SchemaObject minus composition (anyOf/allOf/oneOf)
  */
-function transformSchemaObjectCore(schemaObject: SchemaObject, options: TransformNodeOptions): ts.TypeNode | undefined {
+function transformSchemaObjectCore(
+  schemaObject: SchemaObject,
+  options: TransformNodeOptions,
+  composedPropertyTypes: ts.TypeNode[] = [],
+): ts.TypeNode | undefined {
   if ("type" in schemaObject && schemaObject.type) {
     if (typeof options.ctx.transform === "function") {
       const result = options.ctx.transform(schemaObject, options);
@@ -499,6 +623,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
 
   // type: object
   const coreObjectType: ts.TypeElement[] = [];
+  const unevaluatedPropertyTypes: ts.TypeNode[] = [...composedPropertyTypes];
 
   // discriminators: explicit mapping on schema object
   for (const k of ["allOf", "anyOf"] as const) {
@@ -528,6 +653,7 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
   if (
     ("properties" in schemaObject && schemaObject.properties && Object.keys(schemaObject.properties).length) ||
     ("additionalProperties" in schemaObject && schemaObject.additionalProperties) ||
+    ("unevaluatedProperties" in schemaObject && schemaObject.unevaluatedProperties) ||
     ("patternProperties" in schemaObject && schemaObject.patternProperties) ||
     ("$defs" in schemaObject && schemaObject.$defs)
   ) {
@@ -612,6 +738,9 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
 
         addJSDocComment(v, property);
         coreObjectType.push(property);
+        if (ts.isPropertySignature(property) && property.type) {
+          unevaluatedPropertyTypes.push(property.type);
+        }
       }
     }
 
@@ -651,14 +780,14 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
         addJSDocComment(v, property);
         defKeys.push(property);
       }
-      coreObjectType.push(
-        ts.factory.createPropertySignature(
-          /* modifiers     */ undefined,
-          /* name          */ tsPropertyIndex("$defs"),
-          /* questionToken */ undefined,
-          /* type          */ ts.factory.createTypeLiteralNode(defKeys),
-        ),
+      const defsHelper = ts.factory.createPropertySignature(
+        /* modifiers     */ undefined,
+        /* name          */ tsPropertyIndex("$defs"),
+        /* questionToken */ undefined,
+        /* type          */ ts.factory.createTypeLiteralNode(defKeys),
       );
+      Object.defineProperty(defsHelper, GENERATED_DEFS_HELPER, { value: true });
+      coreObjectType.push(defsHelper);
     }
 
     // additionalProperties / patternProperties
@@ -668,6 +797,15 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
       schemaObject.additionalProperties === true ||
       (typeof schemaObject.additionalProperties === "object" &&
         Object.keys(schemaObject.additionalProperties).length === 0);
+    const hasExplicitUnevaluatedProperties =
+      typeof schemaObject.unevaluatedProperties === "object" &&
+      schemaObject.unevaluatedProperties !== null &&
+      Object.keys(schemaObject.unevaluatedProperties).length > 0;
+    const hasImplicitUnevaluatedProperties =
+      schemaObject.unevaluatedProperties === true ||
+      (typeof schemaObject.unevaluatedProperties === "object" &&
+        schemaObject.unevaluatedProperties !== null &&
+        Object.keys(schemaObject.unevaluatedProperties).length === 0);
     const patternProperties = hasKey(schemaObject, "patternProperties") ? schemaObject.patternProperties : undefined;
     const hasExplicitPatternProperties =
       typeof patternProperties === "object" && patternProperties !== null && Object.keys(patternProperties).length > 0;
@@ -677,6 +815,16 @@ function transformSchemaObjectCore(schemaObject: SchemaObject, options: Transfor
     }
     if (hasImplicitAdditionalProperties || (!schemaObject.additionalProperties && options.ctx.additionalProperties)) {
       stringIndexTypes.push(UNKNOWN);
+    }
+    if (hasExplicitUnevaluatedProperties) {
+      stringIndexTypes.push(transformSchemaObject(schemaObject.unevaluatedProperties as SchemaObject, options, true));
+    }
+    if (hasImplicitUnevaluatedProperties) {
+      stringIndexTypes.push(UNKNOWN);
+    }
+    if (hasExplicitUnevaluatedProperties) {
+      // A TypeScript string index signature also constrains declared properties.
+      stringIndexTypes.push(...unevaluatedPropertyTypes);
     }
     if (hasExplicitPatternProperties && patternProperties && typeof patternProperties === "object") {
       for (const [_, v] of getEntries(

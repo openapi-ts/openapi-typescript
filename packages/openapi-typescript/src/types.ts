@@ -437,6 +437,7 @@ export type SchemaObject = {
   default?: unknown;
   format?: string;
   additionalProperties?: boolean | Record<string, never> | SchemaObject | ReferenceObject;
+  unevaluatedProperties?: boolean | SchemaObject | ReferenceObject;
   /** @deprecated in 3.1 (still valid for 3.0) */
   nullable?: boolean;
   oneOf?: (SchemaObject | ReferenceObject)[];
@@ -503,6 +504,7 @@ export interface ObjectSubtype {
   type: "object" | ["object", "null"];
   properties?: { [name: string]: SchemaObject | ReferenceObject };
   additionalProperties?: boolean | Record<string, never> | SchemaObject | ReferenceObject;
+  unevaluatedProperties?: boolean | SchemaObject | ReferenceObject;
   patternProperties?: Record<string, SchemaObject | ReferenceObject>;
   required?: string[];
   allOf?: (SchemaObject | ReferenceObject)[];
@@ -732,5 +734,7 @@ export type $defs = Record<string, SchemaObject>;
 export interface TransformNodeOptions {
   path?: string;
   schema?: SchemaObject | ReferenceObject;
+  /** Internal guard shared while resolving composition refs for unevaluatedProperties. */
+  unevaluatedPropertiesRefs?: Set<string>;
   ctx: GlobalContext;
 }
