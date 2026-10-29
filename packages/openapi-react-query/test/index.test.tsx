@@ -1,4 +1,6 @@
 import {
+  type InfiniteData,
+  keepPreviousData,
   QueryClient,
   QueryClientProvider,
   skipToken,
@@ -275,6 +277,27 @@ describe("client", () => {
       expectTypeOf(result.current.error).toEqualTypeOf<false | null>();
     });
 
+    it("returns query options with select option", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl, fetch: fetchInfinite });
+      const client = createClient(fetchClient);
+
+      function mapStringArray(response: string[]): number {
+        return response.length;
+      }
+
+      const options = client.queryOptions(
+        "get",
+        "/string-array",
+        {},
+        {
+          select: mapStringArray,
+        },
+      );
+
+      const { result } = renderHook(() => useQuery(options), { wrapper });
+      expectTypeOf(result.current.data).toEqualTypeOf<number | undefined>();
+    });
+
     it("returns query options without an init", async () => {
       const fetchClient = createFetchClient<minimalGetPaths>({
         baseUrl,
@@ -449,6 +472,10 @@ describe("client", () => {
       const fetchClient = createFetchClient<paths>({ baseUrl, fetch: fetchInfinite });
       const client = createClient(fetchClient);
 
+      function mapStringArray(response: string[]): number {
+        return response.length;
+      }
+
       const { result } = renderHook(
         () =>
           client.useQuery(
@@ -456,10 +483,13 @@ describe("client", () => {
             "/string-array",
             {},
             {
-              select: (data) => ({
-                originalData: data,
-                customData: 1,
-              }),
+              select: (data) => {
+                expectTypeOf(data).toEqualTypeOf<string[]>();
+                return {
+                  originalData: data,
+                  customData: 1,
+                };
+              },
             },
           ),
         {
@@ -468,7 +498,6 @@ describe("client", () => {
       );
 
       const { data } = result.current;
-
       expectTypeOf(data).toEqualTypeOf<
         | {
             originalData: string[];
@@ -476,6 +505,112 @@ describe("client", () => {
           }
         | undefined
       >();
+
+      const { result: namedResult } = renderHook(
+        () =>
+          client.useQuery(
+            "get",
+            "/string-array",
+            {},
+            {
+              select: mapStringArray,
+            },
+          ),
+        {
+          wrapper,
+        },
+      );
+      expectTypeOf(namedResult.current.data).toEqualTypeOf<number | undefined>();
+
+      // Issue #2852 repro: select with named mapper and placeholderData
+      type userReproPaths = {
+        "/admin/roles": {
+          get: {
+            parameters: {
+              header: {
+                Accept: string;
+              };
+            };
+            responses: {
+              200: {
+                content: {
+                  "application/json": {
+                    data: {
+                      data: unknown[];
+                    };
+                  };
+                };
+              };
+            };
+          };
+        };
+      };
+
+      const reproClient = createFetchClient<userReproPaths>({ baseUrl: "" });
+      const $api = createClient(reproClient);
+
+      type RolesResponse = userReproPaths["/admin/roles"]["get"]["responses"][200]["content"]["application/json"];
+
+      type DashboardRolesListResponse = {
+        items: unknown[];
+      };
+
+      function mapAdminRolesListResponse(response: RolesResponse): DashboardRolesListResponse {
+        return {
+          items: response.data.data,
+        };
+      }
+
+      function useRolesQuery() {
+        return $api.useQuery(
+          "get",
+          "/admin/roles",
+          {
+            params: {
+              header: {
+                Accept: "application/json",
+              },
+            },
+          },
+          {
+            placeholderData: keepPreviousData,
+            select: mapAdminRolesListResponse,
+          },
+        );
+      }
+
+      expectTypeOf<ReturnType<typeof useRolesQuery>["data"]>().toEqualTypeOf<DashboardRolesListResponse | undefined>();
+
+      function useRolesInlineQuery() {
+        return $api.useQuery(
+          "get",
+          "/admin/roles",
+          {
+            params: {
+              header: {
+                Accept: "application/json",
+              },
+            },
+          },
+          {
+            select: (data) => {
+              expectTypeOf(data).toEqualTypeOf<RolesResponse>();
+              return data.data.data.length;
+            },
+          },
+        );
+      }
+
+      expectTypeOf<ReturnType<typeof useRolesInlineQuery>["data"]>().toEqualTypeOf<number | undefined>();
+
+      function incompatibleMapper(response: { wrongField: number }): number {
+        return response.wrongField;
+      }
+
+      function _useTypeCheck() {
+        // @ts-expect-error incompatible mapper parameter type should fail type-checking
+        client.useQuery("get", "/string-array", {}, { select: incompatibleMapper });
+      }
     });
 
     it("passes abort signal to fetch", async () => {
@@ -596,6 +731,55 @@ describe("client", () => {
       expect(error).toBeNull();
     });
 
+    it("should infer correct data when used with select property", async () => {
+      const fetchClient = createFetchClient<paths>({
+        baseUrl,
+        fetch: () => Promise.resolve(Response.json(["one", "two"])),
+      });
+      const client = createClient(fetchClient);
+
+      function mapStringArray(response: string[]): number {
+        return response.length;
+      }
+
+      const { result } = renderHook(
+        () =>
+          client.useSuspenseQuery(
+            "get",
+            "/string-array",
+            {},
+            {
+              select: (data) => {
+                expectTypeOf(data).toEqualTypeOf<string[]>();
+                return data.length;
+              },
+            },
+          ),
+        { wrapper },
+      );
+
+      await waitFor(() => expect(result.current).not.toBeNull());
+      expectTypeOf(result.current.data).toEqualTypeOf<number>();
+      expect(result.current.data).toBe(2);
+
+      const { result: namedResult } = renderHook(
+        () =>
+          client.useSuspenseQuery(
+            "get",
+            "/string-array",
+            {},
+            {
+              select: mapStringArray,
+            },
+          ),
+        { wrapper },
+      );
+
+      await waitFor(() => expect(namedResult.current).not.toBeNull());
+      expectTypeOf(namedResult.current.data).toEqualTypeOf<number>();
+      expect(namedResult.current.data).toBe(2);
+    });
+
     it("should properly propagate error to suspense with a failed http request", async () => {
       const fetchClient = createFetchClient<paths>({ baseUrl });
       const client = createClient(fetchClient);
@@ -616,7 +800,7 @@ describe("client", () => {
 
       render(
         <QueryClientProvider client={queryClient}>
-          <ErrorBoundary fallbackRender={({ error }) => <p>{error.message}</p>}>
+          <ErrorBoundary fallbackRender={({ error }: { error: any }) => <p>{error.message}</p>}>
             <Suspense fallback={<p>loading</p>}>
               <TestComponent />
             </Suspense>
@@ -1064,10 +1248,13 @@ describe("client", () => {
             {
               getNextPageParam: (lastPage) => lastPage.nextPage,
               initialPageParam: 0,
-              select: (data) => ({
-                pages: [...data.pages].reverse(),
-                pageParams: [...data.pageParams].reverse(),
-              }),
+              select: (data) => {
+                expectTypeOf(data.pages[0]).toEqualTypeOf<{ items?: number[]; nextPage?: number }>();
+                return {
+                  pages: [...data.pages].reverse(),
+                  pageParams: [...data.pageParams].reverse(),
+                };
+              },
             },
           ),
         { wrapper },
@@ -1118,6 +1305,42 @@ describe("client", () => {
       const allItems = result.current.data?.pages.flatMap((page) => page.items);
       expect(allItems).toEqual([4, 5, 6, 1, 2, 3]);
     });
+
+    it("should support named mapper with select property", async () => {
+      const fetchClient = createFetchClient<paths>({ baseUrl, fetch: fetchInfinite });
+      const client = createClient(fetchClient);
+
+      type PaginatedResponse = paths["/paginated-data"]["get"]["responses"][200]["content"]["application/json"];
+      type PaginatedInfiniteData = InfiniteData<PaginatedResponse, unknown>;
+
+      function mapPageCount(data: PaginatedInfiniteData): number {
+        return data.pages.length;
+      }
+
+      const { result } = renderHook(
+        () =>
+          client.useInfiniteQuery(
+            "get",
+            "/paginated-data",
+            {
+              params: {
+                query: {
+                  limit: 3,
+                },
+              },
+            },
+            {
+              getNextPageParam: (lastPage) => lastPage.nextPage,
+              initialPageParam: 0,
+              select: mapPageCount,
+            },
+          ),
+        { wrapper },
+      );
+
+      expectTypeOf(result.current.data).toEqualTypeOf<number | undefined>();
+    });
+
     it("should use custom cursor params", async () => {
       const fetchClient = createFetchClient<paths>({ baseUrl });
       const client = createClient(fetchClient);
