@@ -234,6 +234,69 @@ export type operations = Record<string, never>;`,
       },
     ],
     [
+      "oneOf > mapping preserves sibling allOf required properties",
+      {
+        given: {
+          openapi: "3.1.0",
+          info: { title: "test", version: "1.0" },
+          components: {
+            schemas: {
+              CatProps: {
+                type: "object",
+                required: ["sound"],
+                properties: {
+                  kittens: { type: "number" },
+                  sound: { type: "string" },
+                },
+              },
+              Cat: {
+                type: "object",
+                required: ["kittens"],
+                allOf: [{ $ref: "#/components/schemas/CatProps" }],
+              },
+              OptionalCat: {
+                allOf: [{ $ref: "#/components/schemas/CatProps" }],
+              },
+              UpdatePet: {
+                oneOf: [{ $ref: "#/components/schemas/CatProps" }],
+                discriminator: {
+                  propertyName: "sound",
+                  mapping: { meow: "#/components/schemas/CatProps" },
+                },
+              },
+            },
+          },
+        },
+        want: `export type paths = Record<string, never>;
+export type webhooks = Record<string, never>;
+export interface components {
+    schemas: {
+        CatProps: {
+            kittens?: number;
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            sound: "meow";
+        };
+        Cat: WithRequired<components["schemas"]["CatProps"], "kittens">;
+        OptionalCat: components["schemas"]["CatProps"];
+        UpdatePet: components["schemas"]["CatProps"];
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
+}
+export type $defs = Record<string, never>;
+type WithRequired<T, K extends keyof T> = T & {
+    [P in K]-?: T[P];
+};
+export type operations = Record<string, never>;`,
+      },
+    ],
+    [
       "oneOf > implicit mapping",
       {
         given: {
