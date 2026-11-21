@@ -242,15 +242,15 @@ export function transformSchemaObjectWithComposition(
         const resolved = options.ctx.resolve<SchemaObject>(item.$ref);
 
         // make keys required, if necessary
-        if (
-          resolved &&
-          typeof resolved === "object" &&
-          "properties" in resolved &&
-          // we have already handled this item (discriminator property was already added as required)
-          !options.ctx.discriminators.refsHandled.includes(item.$ref)
-        ) {
+        if (resolved && typeof resolved === "object" && "properties" in resolved) {
+          // Only skip keys already required by a schema whose discriminator was patched.
+          const handledRequired = options.ctx.discriminators.refsHandled.includes(item.$ref)
+            ? (resolved.required ?? [])
+            : [];
           // add WithRequired<X, Y> if necessary
-          const validRequired = (required ?? []).filter((key) => !!resolved.properties?.[key]);
+          const validRequired = (required ?? []).filter(
+            (key) => !!resolved.properties?.[key] && !handledRequired.includes(key),
+          );
           if (validRequired.length) {
             itemType = tsWithRequired(itemType, validRequired, options.ctx.injectFooter);
           }

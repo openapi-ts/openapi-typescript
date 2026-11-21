@@ -628,4 +628,32 @@ describe("composition", () => {
       ci?.timeout,
     );
   }
+
+  test.each([
+    { required: [], want: 'components["schemas"]["CatProps"]' },
+    { required: ["sound"], want: 'components["schemas"]["CatProps"]' },
+    { required: ["kittens"], want: 'WithRequired<components["schemas"]["CatProps"], "kittens">' },
+    { required: ["sound", "kittens", "missing"], want: 'WithRequired<components["schemas"]["CatProps"], "kittens">' },
+  ])("allOf > patched discriminator > required $required", ({ required, want }) => {
+    const ref = "#/components/schemas/CatProps";
+    const result = transformSchemaObject(
+      { type: "object", allOf: [{ $ref: ref }], required },
+      {
+        ...DEFAULT_OPTIONS,
+        ctx: {
+          ...DEFAULT_CTX,
+          discriminators: { objects: {}, refsHandled: [ref] },
+          injectFooter: [],
+          resolve<T>() {
+            return {
+              type: "object",
+              properties: { kittens: { type: "number" }, sound: { type: "string" } },
+              required: ["sound"],
+            } as T;
+          },
+        },
+      },
+    );
+    expect(astToString(result)).toBe(`${want}\n`);
+  });
 });
